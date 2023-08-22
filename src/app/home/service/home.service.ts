@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
+export class HomeService {
 
   gatewayUrl = "http://localhost:8012"
   authenticationMicroservicePathUrl = '/users';
@@ -12,9 +12,10 @@ export class LoginService {
 
     constructor(private http: HttpClient){}
 
-    logUserIfValid(user: Object){
-        console.log('user-login-service')
-        return this.http.post<HttpHeaders>(`${this.finalHttpUrl}/login`,user,{observe: 'response'});
+    getDemoText(){
+        return this.http.get<String>(`${this.finalHttpUrl}/demo`,{headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        })});
       }
 
 }

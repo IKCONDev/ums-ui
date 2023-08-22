@@ -1,31 +1,86 @@
-<div class="back">
+<html>
 
+<head>
+</head>
 
-    <div class="div-center">
-
-
-        <div class="content">
-
-
-            <h3>Login</h3>
-            <hr />
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="login">
-                    <button type="button" (click)="navigate()" class="btn btn-primary">Login</button>
-                </div>
-                <hr />
-                <button type="button" class="btn btn-link" >Signup</button>
-                <button type="button" class="btn btn-link">Reset Password</button>
-
-            </form>
-
+<body>
+    <div id="container" class="container-fluid py-0 px-0 my-0 mx-0">
+        <div>
+            <!-- reusable component -- login-navbar -->
+            <app-login-navbar></app-login-navbar>
         </div>
+        <div>
+            <!-- <div class="row justify-content-center">
+                        <div class="col-sm-6">
+                            <label class="" id="loginHeading">Login</label>
+                        </div>
+                    </div> -->
+            <!-- row -->
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-sm-6" id="loginScreen">
+                    <div class="col-sm-12" id="content-pad-1" style="text-align: center;">
+                        <label id="loginHeading">Login</label>
+                        <!-- <div *ngIf="errorInfo != null || errorInfo != ''">
+                            <span style="color: red;text-align: center;">{{errorInfo}}</span>
+                        </div> -->
+                    </div>
+                    <!-- col -->
+                    <br />
+                    <div class="row justify-content-center my-2">
+                        <div id="emailDiv" class="col-sm-10">
+                            <label id="emailLabel">Email Id</label>
+                            <input type="email"  id="email" name="email" [(ngModel)]="user.email" placeholder="Email Id"
+                                class="form-control" (click)="setupEmailInputPlaceholder()"
+                                 (change)="setUsername($event)"/>
+                        </div>
+                    </div>
+                    
+                    <!-- row -->
+                    <br />
+                    <div class="row row justify-content-center my-2">
+                        <div id="passwordDiv" class="col-sm-10">
+                            <label id="passwordLabel">Password</label>
+                            <input type="password"  id="password" name="password" [(ngModel)]="user.password"
+                                placeholder="Password" class="form-control" (click)="setupPasswordInputPlaceholder()"
+                                (change)="setPassword($event)" />
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <br />
+                    <div class="row justify-content-sm-center">
+                        <div class="col-sm-10" style="text-align: center;">
+                            <input type="checkbox" id="rememberme" value="Rememberme" name="rememberme" /> Rememberme
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a style="padding-left: 120px;" routerLink="/verify-email">Forgot Password?</a>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-sm-12" style="text-align: center;">
+                        <button class="btn btn-primary" style="width: 240px;" (click)="login()">Login</button>
+                    </div>
+                    <br/>
+                    <p style="text-align: center;">or</p>
+                    <br/>
+                    <div class="col-sm-12" style="text-align: center;">
+                        <button (click)="signIn()" id="continueWithMicrosoft">
+                            <img src="https://th.bing.com/th/id/R.3d6a2ad56bc3403c5cfcc3efe09b741b?rik=gnNKMMZSvZ3uMA&riu=http%3a%2f%2fpurepng.com%2fpublic%2fuploads%2flarge%2fpurepng.com-microsoft-logo-iconlogobrand-logoiconslogos-251519939091wmudn.png&ehk=1%2fl4i5MeDLTCpvZhUZlCefvhSzsGR16HIPqagpDxYDg%3d&risl=&pid=ImgRaw&r=0" 
+                                width="20px" height="20px"/>&nbsp;Continue With Microsoft Account
+                        </button>
+                    </div>
+                </div>
+                <!-- first column div end --- section  where login info is present -->
+                <div class="col-sm-6" style="text-align: center;" id="content-pad-2">
+                    <!-- ums-logo reusable component -->
+                    <app-ums-logo id="logoScreen"></app-ums-logo>
+                </div>
+                <!-- 2nd column div end -- section page where large Logo is visible -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- content pad div -->
     </div>
+    <!-- container div -->
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+.sidenav {
+    height: 150%; /* Full-height: remove this if you want "auto" height */
+    width: 271px;/* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    text-align: center;
+    background-color:#E5EEF1; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+  
+  .nav-pills li a:hover .d-none{
+     color: black;
+
+   
+  }
+  .nav-pills li a:hover{
+   background-color: #5590AA;
+   border-radius: 0;
+   border-left: 2px solid black;
+ 
+  }
+  .nav-pills li a:hover i{
+     color: black;
+  }
+  .nav-pills li a:hover svg{
+     color: black;
+
+  }
+  .nav-pills li a:hover path{
+     fill: black;
+  }
+  .nav-pills li,.d-none{
+     
+     font-family: General Sans;
+     font-size: 18px;
+     font-style: normal;
+     font-weight: 600;
+     line-height: 150%;
+     color: #5590AA;
+     text-align: left;
+   
+  }
+  i{
+     color: #5590AA;
+  }
+  svg{
+      color: #5590AA;
+  }
