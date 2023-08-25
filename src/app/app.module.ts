@@ -21,6 +21,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { SideMenubarComponent } from './side-menubar/side-menubar.component';
 import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 //import  '../../fonts/general-sans/css/general-sans.css';
 
 
@@ -48,7 +49,7 @@ import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twof
     ToastrModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
