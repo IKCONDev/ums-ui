@@ -166,6 +166,7 @@ getTokenPopup(request) {
     });
 }
 
+//custom login
 
   user = {
     email: '',
@@ -179,6 +180,7 @@ getTokenPopup(request) {
     firstName: '',
     lastName: '',
     email: '',
+    twoFactorAuth: ''
   }
 
   errorInfo: String = ''
@@ -204,19 +206,21 @@ getTokenPopup(request) {
         this.loginInfo.firstName = response.headers.get('firstName')
         this.loginInfo.lastName = response.headers.get('lastName')
         this.loginInfo.email = response.headers.get('email')
+        this.loginInfo.twoFactorAuth = response.headers.get('twoFactorAuth')
 
 
-        if (response.status == HttpStatusCode.Ok) {
+        if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
           //login success popup
           this.toastr.success('Login success')
           this.errorInfo = ''
-          localStorage.setItem('jwtToken', this.loginInfo.token)
-          console.log(response.headers.get('token'))
-          localStorage.setItem('userRole', this.loginInfo.userRole)
+          localStorage.setItem('jwtToken', this.loginInfo.token);
+          console.log(response.headers.get('token'));
+          localStorage.setItem('userRole', this.loginInfo.userRole);
           localStorage.setItem('email', this.loginInfo.email);
-          localStorage.setItem('firstName', this.loginInfo.firstName)
-          localStorage.setItem('lastName', this.loginInfo.lastName)
+          localStorage.setItem('firstName', this.loginInfo.firstName);
+          localStorage.setItem('lastName', this.loginInfo.lastName);
           localStorage.setItem('userId', this.loginInfo.userId);
+          localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
           let navigationExtras: NavigationExtras = {
             state: {
               loginInfo: this.loginInfo
@@ -227,6 +231,23 @@ getTokenPopup(request) {
               'user_token': localStorage.getItem('jwtToken')
             }
           })
+          console.log(navigationExtras + ' extras')
+        }else if(response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true'){
+          this.errorInfo = ''
+          localStorage.setItem('jwtToken', this.loginInfo.token);
+          console.log(response.headers.get('token'));
+          localStorage.setItem('userRole', this.loginInfo.userRole);
+          localStorage.setItem('email', this.loginInfo.email);
+          localStorage.setItem('firstName', this.loginInfo.firstName);
+          localStorage.setItem('lastName', this.loginInfo.lastName);
+          localStorage.setItem('userId', this.loginInfo.userId);
+          localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
+          let navigationExtras: NavigationExtras = {
+            state: {
+              loginInfo: this.loginInfo
+            }
+          }
+          this.router.navigate(['two-step'], navigationExtras)
           console.log(navigationExtras + ' extras')
         }
       },

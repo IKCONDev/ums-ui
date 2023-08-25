@@ -1,27 +1,14 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-
 import { NavigationExtras, Router } from '@angular/router';
-
 import { Subject } from 'rxjs';
-
 import { ForgotPasswordEmailVerificationService } from './service/forgot-password-email-verification.service';
-
 import { error } from 'jquery';
-
 import { ToastrService } from 'ngx-toastr';
 
-
-
-
-
 @Component({
-
   selector: 'app-forgot-password-email-verification',
-
   templateUrl: './forgot-password-email-verification.component.html',
-
   styleUrls: ['./forgot-password-email-verification.component.css']
-
 })
 
 export class ForgotPasswordEmailVerificationComponent {

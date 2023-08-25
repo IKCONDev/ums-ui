@@ -1,0 +1,17 @@
+@media (min-width: 768px) {
+    .container {
+      flex-direction: row;
+    }
+}
+
+.container-fluid{
+    display: flex;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+  

@@ -1,0 +1,81 @@
+<html>
+
+<head>
+
+</head>
+<!-- head -->
+
+<body>
+    <div class="container-fluid py-0 px-0 my-0 mx-0">
+        <!-- reusabale component -- login-navbar -->
+        <div>
+            <app-login-navbar></app-login-navbar>
+        </div>
+
+        <div>
+            <!-- <div class="row justify-content-center">
+                    <div class="col-sm-6">
+                        <label class="" id="loginHeading">Login</label>
+                    </div>
+                </div> -->
+            <!-- row -->
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-sm-6" id="verifyOtpScreen">
+                    <div class="col-sm-12" id="content-pad-col-1" style="text-align: center;">
+                        <label id="loginHeading">Check your email</label>
+                    </div>
+                         <!-- col -->
+                    <br />
+                    <div class="col-sm-12" style="text-align: center;">
+                        <label style="font-size: 12px;font-weight: 490;">We sent an OTP for two step verification</label>
+                    </div>
+                    <!-- col -->
+                    <br />
+                    <div class="row justify-content-center my-2">
+                        <div id="emailDiv" class="col-sm-9">
+                            <label id="emailLabel">Enter OTP</label>
+                            <input type="number" id="otp" name="otp" placeholder="Enter Otp" class="form-control"
+                                (click)="setupOtpInputPlaceholder()" (keyup)="setOtp($event)"/>
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="row">
+                        <!--<div  id="verifyOtp"class="col-sm-10" style="font-size: 12px;" [ngStyle]="{'color': isValidOtp? 'green':'red'}">{{OtpResponseMessage}}</div>-->
+                        <div class="col-sm-11" style="text-align: end;padding-right:40px;">
+                            <span  style="font-size: 12px; padding-right: 80px;" [ngStyle]="{'color': isValidOtp? 'green':'red'}">{{OtpResponseMessage}}</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a style="padding-left: 120px;" (click)="resendOtp()" id="resendOtpLink">Resend OTP</a>
+                       </div>
+                    </div>
+                    <br />
+
+                    <!-- Verify OTP button section -->
+                    <div class="col-sm-12" style="text-align: center;">
+                        <button class="btn btn-primary" style="width: 280px;"
+                            (click)="verifyAndValidateOtp()">Verify</button>
+                    </div>
+                    <!-- col -->
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <a class="loginLink" routerLink="/login">Back to Login</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- first column div end --- section  where login info is present -->
+
+                <div class="col-sm-6" style="text-align: center;" id="content-pad-col-2">
+                    <!-- ums-logo reusable component -->
+                    <app-ums-logo id="logoScreen"></app-ums-logo>
+                </div>
+                <!-- 2nd column div end -- section page where large Logo is visible -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- content pad div -->
+    </div>
+    <!-- container div -->
+</body>
+
+</html>

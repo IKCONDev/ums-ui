@@ -19,6 +19,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SideMenubarComponent } from './side-menubar/side-menubar.component';
+import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
+import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
+//import  '../../fonts/general-sans/css/general-sans.css';
 
 
 @NgModule({
@@ -33,7 +36,9 @@ import { SideMenubarComponent } from './side-menubar/side-menubar.component';
     LoginNavbarComponent,
     PageNotFoundComponent,
     HeaderComponent,
-    SideMenubarComponent
+    SideMenubarComponent,
+    TwofactorAuthenticationComponent,
+    TwofactorOtpValidationComponent
   ],
   imports: [
     BrowserModule,

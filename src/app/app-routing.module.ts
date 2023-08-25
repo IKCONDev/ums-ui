@@ -6,6 +6,8 @@ import { ForgotPasswordEmailVerificationComponent } from './forgot-password-emai
 import { ForgotPasswordOtpValidationComponent } from './forgot-password-otp-validation/forgot-password-otp-validation.component';
 import { ForgotPasswordResetComponent } from './forgot-password-reset/forgot-password-reset.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
+import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
@@ -15,7 +17,10 @@ const routes: Routes = [
   {path:"verify-otp", component: ForgotPasswordOtpValidationComponent},
   {path:"reset-password", component: ForgotPasswordResetComponent},
   {path:"not-found", component:PageNotFoundComponent},
-  {path: '', redirectTo:'/login', pathMatch: 'full'}
+  {path:"two-step", component:TwofactorAuthenticationComponent},
+  {path:"verify-twostep", component: TwofactorOtpValidationComponent},
+  {path: '', redirectTo:'/login', pathMatch: 'full'},
+  { path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
 ];
 
 @NgModule({
