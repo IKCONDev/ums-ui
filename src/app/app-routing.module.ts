@@ -10,7 +10,7 @@ import { TwofactorAuthenticationComponent } from './twofactor-authentication/two
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'/login', pathMatch: 'full'},
+  
   {path:"",component:LoginComponent},
   {path:"home",component:HomeComponent},
   {path:"login", component: LoginComponent},
@@ -21,7 +21,7 @@ const routes: Routes = [
   {path:"two-step", component:TwofactorAuthenticationComponent},
   {path:"verify-twostep", component: TwofactorOtpValidationComponent},
   { path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
-  
+  {path: '', redirectTo:'/login', pathMatch: 'full'},
 ];
 
 @NgModule({
