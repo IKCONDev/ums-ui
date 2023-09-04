@@ -1,5 +1,5 @@
 <div class="navbar">
-        <h3 class="overview">Overview</h3>
+        <h3 class="title">{{title}}</h3>
         <div class="icon">
             <!-- notification icon -->
             <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
@@ -33,18 +33,18 @@
                                 </div>
                             </div>
                             <!-- profile details -->
-                            <div *ngIf="userDetails != null">
+                            <div *ngIf="employeeDetails != null">
                                 <div style="padding-top: 6px;">
-                                    <p id="userid"><b>#</b>{{userDetails.id}}</p>
+                                    <p id="userid"><b>#</b>{{employeeDetails.id}}</p>
                                 </div>
                                 <div>
-                                    <p id="fullname">{{userDetails.firstName}}  {{userDetails.lastName}}</p>
+                                    <p id="fullname">{{employeeDetails.firstName}}  {{employeeDetails.lastName}}</p>
                                 </div>
                                 <div>
-                                    <p id="username">{{userDetails.email}}</p>
+                                    <p id="username">{{employeeDetails.email}}</p>
                                 </div>
                                 <div>
-                                    <p id="designation">{{userDetails.designation}}</p>
+                                    <p id="designation">{{employeeDetails.designation}}</p>
                                 </div>
                                 <!-- my profile and logout -->
                                 <div class="row">
@@ -59,11 +59,11 @@
                                 <div id="profileContent" style="padding-top: 6px;">
                                     <div id="divContent">
                                         <p id="heading">Role</p>
-                                        <p id="headingData">{{userDetails.userRole}}</p>
+                                        <p id="headingData">{{employeeDetails.userRole}}</p>
                                     </div>
                                     <div id="divContent">
                                         <p id="heading">Department</p>
-                                        <p id="headingData">{{userDetails.department}}</p>
+                                        <p id="headingData">{{employeeDetails.department.departmentName}}</p>
                                     </div>
                                     <div id="divContent">
                                         <p id="heading">Reporting Manager</p>
@@ -71,9 +71,9 @@
                                     </div>
                                     <div id="divContent">
                                         <p id="heading">Two factor authentication</p>
-                                        <p id="headingData">{{userDetails.twoFactorAuthentication}}</p>
+                                        <p id="headingData">{{employeeDetails.twoFactorAuthentication}}</p>
                                         <div class="slide-container">
-                                            <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication" (click)="toggleSlider()">
+                                            <div class="slide-button" [class.active]="employeeDetails.twoFactorAuthentication" (click)="toggleSlider()">
                                               <div class="slider-handle"></div>
                                             </div>
                                         </div>  

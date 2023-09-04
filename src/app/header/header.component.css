@@ -6,12 +6,12 @@
   padding: 10px 20px;
 }
 
-.overview {
+.title {
   color: var(--gray-800, #242D35);
   font-size: 28px;
   font-style: normal;
   font-weight: 500;
-  padding-left: 300px;
+  padding-left: 260px;
 }
 
 #profile-icon{
@@ -173,13 +173,14 @@ flex-shrink: 0;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  padding-top: 0px;
   
 }
 
 #divContent {
   padding-left: 20px;
   text-align: left;
-  padding-top: 10px;
+  padding-top: 9px;
 }
 
 /* logout */

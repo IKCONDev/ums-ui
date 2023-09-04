@@ -227,9 +227,9 @@ getTokenPopup(request) {
             }
           }
           this.router.navigate(['home'], {
-            queryParams: {
-              'user_token': localStorage.getItem('jwtToken')
-            }
+            //queryParams: {
+              //'user_token': localStorage.getItem('jwtToken')
+            //}
           })
           console.log(navigationExtras + ' extras')
         }else if(response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true'){

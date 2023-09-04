@@ -1,0 +1,110 @@
+/*
+*/
+
+@media screen and (min-width: 480px) {
+    
+}
+
+.container-fluid{
+    padding-top: 20px;
+    padding-left: 274px;
+    padding-right: 24px;
+}
+
+.card-header{
+    background-color: #134E69D9;
+    padding-left: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#heading{
+    color: #F6FBFD;
+    padding-top: 8px;
+}
+
+#organizedMeeting{
+    padding-top: 10px;
+    color: #F6FBFD;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#attendedMeeting{
+    padding-top: 10px;
+    color: #F6FBFD;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#filter{
+    padding-top: 10px;
+    color: #F6FBFD;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.card-body{
+    padding-top: 10px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+#thead{
+    background: var(--side-text, #ECF7FC);
+}
+
+#meeting-subject{
+  white-space: nowrap; 
+  /* width: 50px;  */
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+#meeting-headings{
+    font-weight: bold;
+    padding-left: 20px;
+    padding-bottom: 12px;
+    background: var(--side-text, #ECF7FC);
+    padding-top: 12px;
+}
+
+#meeting-data{
+    padding-left: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+#title{
+  white-space: nowrap; 
+  width: 300px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+#divrow{
+    padding-left: 52px;
+}
+
+#divrow-attendee{
+    padding-left: 100px;
+    width: 30px;
+}
+
+ #no-meetings{
+    font-weight: bold;
+    text-align: center;
+    padding-top: 200px;
+    padding-left: 30px;
+    font-size: 20px;
+} 
+
+#transcriptBtn{
+    border: 0px;
+    background-color: white;
+    /* color: blue; */
+}
+
+#transcriptBtn:hover{
+    cursor: pointer;
+}

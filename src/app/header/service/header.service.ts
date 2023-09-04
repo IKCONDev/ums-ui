@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Employee } from 'src/app/model/Employee.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class HeaderService {
     //username and email both are same, any wording can be used
     //fetches user profile details
     fetchUserProfile(username: string):any{
-        return this.http.get(`${this.finalHttpUrl}${this.userProfileUrl}/`+username,{observe:'response'})
+        return this.http.get<Employee>(`${this.finalHttpUrl}${this.userProfileUrl}/`+username,{observe:'response'})
     }
 
     //update two factor authentication status of user

@@ -8,6 +8,8 @@ import { ForgotPasswordResetComponent } from './forgot-password-reset/forgot-pas
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
+import { MeetingsComponent } from './meetings/meetings.component';
+import { OverviewComponent } from './overview/overview.component';
 
 const routes: Routes = [
   
@@ -20,7 +22,9 @@ const routes: Routes = [
   {path:"not-found", component:PageNotFoundComponent},
   {path:"two-step", component:TwofactorAuthenticationComponent},
   {path:"verify-twostep", component: TwofactorOtpValidationComponent},
-  { path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
+  {path:"meetings", component: MeetingsComponent},
+  //{path:"overview", component: OverviewComponent},
+  {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '', redirectTo:'/login', pathMatch: 'full'},
 ];
 

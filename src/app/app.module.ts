@@ -22,6 +22,13 @@ import { SideMenubarComponent } from './side-menubar/side-menubar.component';
 import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { MeetingsComponent } from './meetings/meetings.component';
+import { OverviewComponent } from './overview/overview.component';
+import { ActionItemComponent } from './action-item/action-item.component';
+import { TaskComponent } from './task/task.component';
+import { ReportComponent } from './report/report.component';
+import * as fs from 'fs';
 //import  '../../fonts/general-sans/css/general-sans.css';
 
 
@@ -39,7 +46,13 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     HeaderComponent,
     SideMenubarComponent,
     TwofactorAuthenticationComponent,
-    TwofactorOtpValidationComponent
+    TwofactorOtpValidationComponent,
+    MyProfileComponent,
+    MeetingsComponent,
+    OverviewComponent,
+    ActionItemComponent,
+    TaskComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +60,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     FormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

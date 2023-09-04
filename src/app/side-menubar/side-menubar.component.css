@@ -14,13 +14,12 @@
   .nav-pills li a:hover .d-none{
      color: black;
 
-   
   }
   .nav-pills li a:hover{
    background-color: #5590AA;
    border-radius: 0;
    border-left: 2px solid black;
- 
+   cursor: pointer;
   }
   .nav-pills li a:hover i{
      color: black;

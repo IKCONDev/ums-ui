@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Output, Input } from '@angular/core';
 import { HeaderService } from './service/header.service';
 import { error } from 'jquery';
+import { Employee } from '../model/Employee.model';
 
 @Component({
   selector: 'app-header',
@@ -10,17 +11,10 @@ import { error } from 'jquery';
 
 export class HeaderComponent {
 
-  userDetails :{
-    id:number,
-    firstName:string,
-    lastName:string,
-    designation:string,
-    department:string,
-    email:string,
-    userRole:string,
-    twoFactorAuthentication: boolean
-  }
-
+  @Input() title: string;
+  authStatusUpdated: number;
+  //user/employee profile property
+  employeeDetails: Employee;
   constructor(private headerService: HeaderService){
 
   }
@@ -33,22 +27,20 @@ export class HeaderComponent {
     // Check if there's a saved state and apply it
     const savedState = localStorage.getItem('sliderState');
     if (savedState) {
-      this.userDetails.twoFactorAuthentication = savedState === 'active';
+      this.employeeDetails.twoFactorAuthentication = savedState === 'active';
     }
     },1000)
     
   }
 
-  authStatusUpdated: number;
-
   toggleSlider() {
-      this.userDetails.twoFactorAuthentication = !this.userDetails.twoFactorAuthentication;
+      this.employeeDetails.twoFactorAuthentication = !this.employeeDetails.twoFactorAuthentication;
        // Save the state to local storage
-      const currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
+      const currentState = this.employeeDetails.twoFactorAuthentication ? 'active' : 'inactive';
       localStorage.setItem('sliderState', currentState);
 
       //save the updatedauthStatus to db
-    this.headerService.updateTwofactorAuthenticationStatus(this.userDetails.twoFactorAuthentication,this.userDetails.email).subscribe(
+    this.headerService.updateTwofactorAuthenticationStatus(this.employeeDetails.twoFactorAuthentication,this.employeeDetails.email).subscribe(
       (response) =>{
         this.authStatusUpdated = response
         console.log(response)
@@ -63,8 +55,8 @@ export class HeaderComponent {
    // console.log(localStorage.getItem('email'));
     this.headerService.fetchUserProfile(localStorage.getItem('email')).subscribe(
       response=>{
-        this.userDetails= response.body
-        console.log(this.userDetails)
+        this.employeeDetails= response.body
+        console.log(this.employeeDetails)
       }
     )
   }

@@ -1,0 +1,167 @@
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title" id="header"></app-header>
+</div>
+<div class="container-fluid">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-2">
+                <h2 id="heading">Meeting List</h2>
+            </div>
+            <div class="col-sm-2" id="organizedMeeting">
+                <p id="organizedMeeting" (click)="getMeetings('OrganizedMeeting')">Organized Meeting</p>
+            </div>
+            <div class="col-sm-2" id="attendedMeeting">
+                <p id="attendedMeeting" (click)="getMeetings('AttendedMeeting')">Attended Meeting</p>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3" style="padding-top: 8px;">
+                <input type="search" class="form-control" placeholder="Search meeting title" />
+            </div>
+            <div class="col-sm-1" id="filter">filter</div>
+        </div>
+        <!-- row -->
+    </div>
+    <div class="card-body" *ngIf="tabOpened === 'OrganizedMeeting'">
+
+        <div class="row" *ngIf="meetingCount>0; else noMeetings">
+            <table class="table table-hover">
+                <thead id="thead">
+                    <th>Sno</th>
+                    <!-- <th>Id</th> -->
+                    <th>Title</th>
+                    <th>Organizer</th>
+                    <th>StartDate/Time</th>
+                    <th>EndDate/Time</th>
+                    <th>Attendees</th>
+                    <th>Transcript</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let meeting of meetings;let i = index">
+                        <td style="padding-left: 22px;">{{i+1}}</td>
+                        <!-- <td>{{meeting.id}}</td> -->
+                        <td id="meeting-subject">{{meeting.subject}}</td>
+                        <td>{{meeting.user.mail}}</td>
+                        <td>{{meeting.startDateTime}}</td>
+                        <td>{{meeting.endDateTime}}</td>
+                        <td style="padding-left: 45px;">{{meeting.attendees.length}}</td>
+                        <td style="padding-left: 45px;">
+
+                            <!-- transcript data Modal start -->
+                            <button id="transcriptBtn" [disabled]="meeting.isTranscriptDisabled">
+                                <i class="fa fa-file-audio fa-1x" data-toggle="modal" data-target="#exampleModalLong"></i>
+                            </button>
+                            <div>
+                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Meeting Id - {{meeting.id}}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <!-- transcript modal body -- shows transcript data -->
+                                            <div class="modal-body" *ngIf="transcriptsCount > 0">
+                                                <div *ngFor="let eachLine of meeting.transcriptData;let i = index">
+                                                    <div>{{eachLine}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- close modal button -->
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                    <!-- transcript download button -->
+                                                <a [href]="generateDownloadLink(meeting.transcriptData)"
+                                                    download="transcript.txt" class="btn btn-primary">Download</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- transcript data Modal end -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <!-- <div id="meeting-headings"></div> -->
+            <!-- <div class="col-sm-1">Id</div>
+            <div class="col-sm-3">Title</div>
+            <div class="col-sm-2">Organizer</div>
+            <div class="col-sm-2">StartDate/Time</div>
+            <div class="col-sm-2">EndDate/Time</div>
+            <div class="col-sm-1">Attendees</div>
+        </div>
+        <div id="meeting-data" class="row" *ngFor="let meeting of meetings">
+            <div class="col-sm-1">{{meeting.id}}</div>
+            <div id="title" class="col-sm-2">{{meeting.subject}}</div>
+            <div class="col-sm-2" id="divrow">{{meeting.organizerName}}</div>
+            <div class="col-sm-2" id="divrow">{{meeting.startDateTime}}</div>
+            <div class="col-sm-2" id="divrow">{{meeting.endDateTime}}</div>
+            <div class="col-sm-2" id="divrow-attendee">{{meeting.attendees.length}}</div>
+            <div style="padding-top: 6px;"></div>
+            <hr style="width: 1340px;"/>
+        </div> -->
+        </div>
+        <div>
+            <ng-template #noMeetings>
+                <table class="table table-hover">
+                    <thead id="thead">
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Organizer</th>
+                        <th>StartDate/Time</th>
+                        <th>EndDate/Time</th>
+                        <th>Attendees</th>
+                    </thead>
+                </table>
+                <p id="no-meetings">No Meetings Organized Yet ! </p>
+            </ng-template>
+        </div>
+        <!-- ngif -->
+
+    </div>
+    <!-- ngif -->
+    <div class="card-body" *ngIf="tabOpened === 'AttendedMeeting'">
+        <div class="row" *ngIf="attendedMeetingCount>0; else noMeetings">
+            <table class="table table-hover">
+                <thead id="thead">
+                    <th>Sno</th>
+                    <th>Title</th>
+                    <th>Organizer</th>
+                    <th>StartDate/Time</th>
+                    <th>EndDate/Time</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let meeting of attendedMeetings; let i = index">
+                        <td>{{i+1}}</td>
+                        <td id="meeting-subject">{{meeting.subject}}</td>
+                        <td>{{meeting.organizerName}}</td>
+                        <td>{{meeting.startDateTime}}</td>
+                        <td>{{meeting.endDateTime}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <ng-template #noMeetings>
+                <table class="table table-hover">
+                    <thead id="thead">
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Organizer</th>
+                        <th>StartDate/Time</th>
+                        <th>EndDate/Time</th>
+                    </thead>
+                </table>
+                <p id="no-meetings">No Meetings Attended Yet ! </p>
+            </ng-template>
+        </div>
+    </div>

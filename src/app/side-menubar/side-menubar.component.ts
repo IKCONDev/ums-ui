@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-menubar',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-menubar.component.css']
 })
 export class SideMenubarComponent {
+
+  //selectedComponent:string;
+  //@Output() componentToOpen: EventEmitter<string> = new EventEmitter<string>();
+
+  constructor(private router: Router){
+
+  }
+
+  /*
+  openComponent(selectedOption: string){
+    this.selectedComponent = selectedOption;
+    this.componentToOpen.emit(this.selectedComponent);
+  }
+  */
 
 }
