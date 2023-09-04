@@ -10,6 +10,7 @@ import { TwofactorAuthenticationComponent } from './twofactor-authentication/two
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
 import { MeetingsComponent } from './meetings/meetings.component';
 import { OverviewComponent } from './overview/overview.component';
+import { ActionItemComponent } from './action-item/action-item.component';
 
 const routes: Routes = [
   
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path:"two-step", component:TwofactorAuthenticationComponent},
   {path:"verify-twostep", component: TwofactorOtpValidationComponent},
   {path:"meetings", component: MeetingsComponent},
+  {path:"actions",component:ActionItemComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '', redirectTo:'/login', pathMatch: 'full'},

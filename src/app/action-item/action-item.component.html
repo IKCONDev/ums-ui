@@ -1,1 +1,192 @@
-<p>action-item works!</p>
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title" id="header"></app-header>
+</div>
+
+<div class="container-fluid">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-4">
+                <h2 id="heading">ActionItem List</h2>
+            </div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3" style="padding-top: 3px; ">
+                <input type="search" class="form-control" placeholder="Search action Item title" />
+            </div>
+            <div class="col-sm-1" style="padding-top: 11px;"><button id="add_button"type="btn btn-primary" (click)="addActionItems()"
+                    data-toggle="modal" data-target="#myModal_add">Add</button></div>
+           <!--- <div class="col-sm-1" style="padding-top: 10px;"><button  id="delete_button" type="btn btn-primary"
+                    (click)="deleteActionItems()">Delete</button></div>-->
+
+        </div>
+    </div>
+    <div style="padding-top: 15px;">
+        <table class="table table-hover" style="margin: 0px;">
+            <thead  class="header" style="background-color: #ecf7fc;">
+             
+                <th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;" ></th>
+                <th>UID </th>
+                <th>ActionItemTitle</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Tasks</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+              
+            </thead>
+            <tbody>
+                <tr *ngFor="let actionItem of actionItems">
+                    <td><input type="checkbox" class="checkbox" id="modal_checkbox" [ngModel]="enablecheckbox" style="padding-top:10px;"></td>
+                    <td>{{actionItem.id}}</td>
+                    <td>{{actionItem.actionTitle}}</td>
+                    <td>{{actionItem.startDate}}</td>
+                    <td>{{actionItem.endDate}}</td>
+                    <td>{{0}}</td>
+                    <td>{{actionItem.actionStatus}}</td>
+                    <td><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
+                        <span class="edit-icon" (click)="editData(actionItem.id)" data-toggle="modal"
+                            data-target="#myModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <g id="edit">
+                                    <path id="Vector"
+                                        d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                        fill="#5590AA" />
+                                </g>
+                            </svg>
+                        </span>
+                    </td>
+                    <td>
+                    <span class="delete-icon" style="padding-top:px;" (click)="deleteData(actionItem.id)" data-toggle="modal" data-target="#myModal_del">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"
+                        version="1.1" id="Capa_1" width="15px" height="15px" viewBox="0 0 482.428 482.429"
+                        xml:space="preserve">
+                        <g>
+                            <g>
+                                <path
+                                    d="M381.163,57.799h-75.094C302.323,25.316,274.686,0,241.214,0c-33.471,0-61.104,25.315-64.85,57.799h-75.098    c-30.39,0-55.111,24.728-55.111,55.117v2.828c0,23.223,14.46,43.1,34.83,51.199v260.369c0,30.39,24.724,55.117,55.112,55.117    h210.236c30.389,0,55.111-24.729,55.111-55.117V166.944c20.369-8.1,34.83-27.977,34.83-51.199v-2.828    C436.274,82.527,411.551,57.799,381.163,57.799z M241.214,26.139c19.037,0,34.927,13.645,38.443,31.66h-76.879    C206.293,39.783,222.184,26.139,241.214,26.139z M375.305,427.312c0,15.978-13,28.979-28.973,28.979H136.096    c-15.973,0-28.973-13.002-28.973-28.979V170.861h268.182V427.312z M410.135,115.744c0,15.978-13,28.979-28.973,28.979H101.266    c-15.973,0-28.973-13.001-28.973-28.979v-2.828c0-15.978,13-28.979,28.973-28.979h279.897c15.973,0,28.973,13.001,28.973,28.979    V115.744z" />
+                                <path
+                                    d="M171.144,422.863c7.218,0,13.069-5.853,13.069-13.068V262.641c0-7.216-5.852-13.07-13.069-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C158.074,417.012,163.926,422.863,171.144,422.863z" />
+                                <path
+                                    d="M241.214,422.863c7.218,0,13.07-5.853,13.07-13.068V262.641c0-7.216-5.854-13.07-13.07-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C228.145,417.012,233.996,422.863,241.214,422.863z" />
+                                <path
+                                    d="M311.284,422.863c7.217,0,13.068-5.853,13.068-13.068V262.641c0-7.216-5.852-13.07-13.068-13.07    c-7.219,0-13.07,5.854-13.07,13.07v147.154C298.213,417.012,304.067,422.863,311.284,422.863z" />
+                            </g>
+                        </g>
+                        </svg>
+                    </span>
+                    </td>
+                </tr>
+                
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<!--Modal for update-->
+<div class="modal" id="myModal" style=" font-family: 'General Sans';">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin: 10px;">
+            <!--Modal Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center;">ActionItem</h4>
+            </div>
+            <br>
+            <!--- <label>ActionItem Title</label>
+            <input type="text" style="width: 400px;" value="{{this.updatedetails.actionTitle}}">
+            <label>ActionItem Description</label>
+            <input type="text" style="width:400px; " value="{{this.updatedetails.description}}">-->
+            <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
+            <!-- <label>Priority</label>
+            <input type="text" style="width:400px;" value="{{this.updatedetails.actionPriority}}">
+            <label>StartDate</label>
+            <input type="datetime-local" style="width:400px;" value="{{this.updatedetails.startDate}}">
+            <label>EndDate</label>
+            <input type="datetime-local" style="width:400px;" value="{{this.updatedetails.endDate}}">-->
+
+
+            <label>ActionItem Title</label>
+            <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionTitle">
+            <label>ActionItem Description</label>
+            <input type="text" style="width:400px;" [(ngModel)]="updatedetails.description">
+            <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
+            <label>Priority</label>
+            <select id="priority" style="width: 400px;"[(ngModel)]="updatedetails.actionPriority">
+                <option>High</option>
+                <option>Low</option>
+                <option>Medium</option>
+
+            </select>
+           <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
+            <label>StartDate</label>
+            <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.startDate">
+            <label>EndDate</label>
+            <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.endDate">
+
+            <!--footer-->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" (click)="updateDetails($event)"
+                    [(ngModel)]="updatedetails" data-dismiss="modal">Update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal for Add-->
+
+<div class="modal" id="myModal_add">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin: 10px; font-family: General Sans;">
+            <!--Modal Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center;">Add Action Item</h4>
+            </div>
+            <br>
+            <label>ActionItem Title</label>
+            <input type="text" style="width: 400px;" [(ngModel)]="addDetails.actionTitle">
+            <label>ActionItem Description</label>
+            <input type="text" style="width:400px;" [(ngModel)]="addDetails.description">
+            <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
+            <label for="priority">Priority</label>
+            <select id="priority" style="width: 400px;"[(ngModel)]="addDetails.actionPriority">
+                <option>High</option>
+                <option>Low</option>
+                <option>Medium</option>
+
+            </select>
+            <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
+            <label>StartDate</label>
+            <input type="datetime-local" style="width:400px;" [(ngModel)]="addDetails.startDate">
+            <label>EndDate</label>
+            <input type="datetime-local" style="width:400px;" [(ngModel)]="addDetails.endDate">
+
+            <!--footer-->
+            <div class="modal-footer" role="alert">
+                <button type="submit" class="btn btn-success" (click)="saveDetails($event)"
+                    [(ngModel)]="updatedetails" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> 
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal to delete single Item-->
+<div class="modal" id="myModal_del" style="font-family:General-sans;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--Modal Header-->
+            <div class="modal-header">
+                <h4>Confirmation!</h4>
+            </div>
+            <div class="modal-body">
+                <p>Dlete data Successfully</p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success"  data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

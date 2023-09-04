@@ -1,0 +1,100 @@
+#title{
+    white-space: nowrap; 
+    width: 300px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  .container-fluid{
+    padding-top: 20px;
+    padding-left: 274px;
+    padding-right: 24px;
+}
+
+.card-header{
+    background-color: #134E69D9;
+    padding-left: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#heading{
+    color: #F6FBFD;
+    padding-top: 8px;
+}
+
+
+th{
+
+  width: 20px;
+  text-align: left;
+}
+th,td{
+  
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis for long content */
+}
+   
+td{
+
+  padding-top:5px ;
+  padding-bottom: 2px;
+}
+
+
+#add_button{
+  position: relative;
+  line-height: 150%;
+  border-radius: 4px;
+  background-color: #ecf7fc;
+  box-sizing: border-box;
+  padding: 8px 32px;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: 14px;
+  color: #000;
+  font-family: 'General Sans';
+}
+#delete_button{
+
+  border-radius: 4px;
+  background-color: #ecf7fc;
+  box-sizing: border-box;
+  padding: 8px 32px;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: 14px;
+  color: #000;
+  font-family: 'General Sans';
+}
+.box{
+  width: 20px;
+  height: 20px;
+
+}
+.checkbox{
+  width: 20px;
+  height: 20px;
+}
+
+label,input,select{
+  margin: 10px;
+}
+
+#modal_checkbox{
+  
+
+ margin-left: 14px;
+ margin-top: 3px;
+ /*padding-top: 2px;
+ padding-left: 100px;*/
+}
+.edit-icon,.delete-icon:hover{
+   color: aqua;
+   cursor: pointer;
+}
+#modal-button{
+  margin: 10px;
+  padding-left: 100px;
+}
