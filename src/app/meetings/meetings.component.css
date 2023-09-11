@@ -1,67 +1,72 @@
 /*
 */
 
-@media screen and (min-width: 480px) {
-    
-}
+@media screen and (min-width: 480px) {}
 
-.container-fluid{
+.container-fluid {
     padding-top: 20px;
     padding-left: 274px;
     padding-right: 24px;
 }
 
-.card-header{
+.card-header {
     background-color: #134E69D9;
     padding-left: 25px;
     padding-bottom: 10px;
     padding-top: 10px;
 }
 
-#heading{
+#heading {
     color: #F6FBFD;
     padding-top: 8px;
 }
 
-#organizedMeeting{
+#organizedMeeting {
     padding-top: 10px;
     color: #F6FBFD;
     cursor: pointer;
     font-weight: bold;
 }
 
-#attendedMeeting{
+#attendedMeeting {
     padding-top: 10px;
     color: #F6FBFD;
     cursor: pointer;
     font-weight: bold;
 }
 
-#filter{
+#filter {
     padding-top: 10px;
     color: #F6FBFD;
     cursor: pointer;
     font-weight: bold;
 }
 
-.card-body{
+.card-body {
     padding-top: 10px;
     padding-left: 24px;
     padding-right: 24px;
 }
 
-#thead{
+#thead {
     background: var(--side-text, #ECF7FC);
 }
 
-#meeting-subject{
-  white-space: nowrap; 
-  /* width: 50px;  */
-  overflow: hidden;
-  text-overflow: ellipsis; 
+#tablehead{
+    background: var(--side-text, #ECF7FC);
 }
 
-#meeting-headings{
+
+
+
+#meeting-subject {
+    white-space: nowrap;
+    /* width: 50px;  */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#meeting-headings {
     font-weight: bold;
     padding-left: 20px;
     padding-bottom: 12px;
@@ -69,42 +74,112 @@
     padding-top: 12px;
 }
 
-#meeting-data{
+#meeting-data {
     padding-left: 20px;
     padding-top: 12px;
     padding-bottom: 12px;
 }
 
-#title{
-  white-space: nowrap; 
-  width: 300px; 
-  overflow: hidden;
-  text-overflow: ellipsis; 
+#title {
+    white-space: nowrap;
+    width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-#divrow{
+#divrow {
     padding-left: 52px;
 }
 
-#divrow-attendee{
+#divrow-attendee {
     padding-left: 100px;
     width: 30px;
 }
 
- #no-meetings{
-    font-weight: bold;
-    text-align: center;
-    padding-top: 200px;
-    padding-left: 30px;
-    font-size: 20px;
-} 
+#no-meetings {
 
-#transcriptBtn{
+    text-align: center;
+    padding-top: 180px;
+    color: #000;
+    font-family: General Sans;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    /* 40px */
+}
+
+#transcriptBtn {
     border: 0px;
     background-color: white;
     /* color: blue; */
 }
 
-#transcriptBtn:hover{
+#transcriptBtn:hover {
     cursor: pointer;
 }
+
+/* 
+ */
+
+ tr.detail {
+    display: none;
+    width: 100%;
+  }
+  tr.detail div {
+    display: none;
+  }
+  .showmore:hover {
+    cursor: pointer;
+  }
+
+  /* modal add */
+  #add_button{
+    position: relative;
+    line-height: 150%;
+    border-radius: 4px;
+    background-color: #ecf7fc;
+    box-sizing: border-box;
+    padding: 8px 32px;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 14px;
+    color: #000;
+    font-family: 'General Sans';
+  }
+
+  .box{
+    width: 20px;
+    height: 20px;
+  
+  }
+  .checkbox{
+    width: 20px;
+    height: 20px;
+  }
+  
+  label,input,select{
+    margin: 10px;
+  }
+  
+  #modal_checkbox{
+    
+  
+   margin-left: 14px;
+   margin-top: 3px;
+   /*padding-top: 2px;
+   padding-left: 100px;*/
+  }
+  .edit-icon,.delete-icon:hover{
+     color: aqua;
+     cursor: pointer;
+  }
+  #modal-button{
+    margin: 10px;
+    padding-left: 100px;
+  }
+
+  #edit-Btn{
+    cursor: pointer;
+  }

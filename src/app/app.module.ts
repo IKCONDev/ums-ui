@@ -29,6 +29,7 @@ import { ActionItemComponent } from './action-item/action-item.component';
 import { TaskComponent } from './task/task.component';
 import { ReportComponent } from './report/report.component';
 import * as fs from 'fs';
+import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actionitems.component';
 //import  '../../fonts/general-sans/css/general-sans.css';
 
 
@@ -52,7 +53,8 @@ import * as fs from 'fs';
     OverviewComponent,
     ActionItemComponent,
     TaskComponent,
-    ReportComponent
+    ReportComponent,
+    MeetingActionitemsComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@ export class ActionItems{
     startDate:string;
     endDate:string;
     actionStatus:string;
-    eventid:string;
+    eventid:number;
     
  
  }

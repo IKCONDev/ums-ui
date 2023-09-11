@@ -23,6 +23,7 @@ export class HomeComponent {
 
  title: string = 'Overview';
  organizedMeetingsCount:string = localStorage.getItem('totalMeetingsOrganized');
+ attendedMeetingsCount: string = localStorage.getItem('attenedMeetingsCount');
   
   //get the latest selected component on page load /refresh
   //selectedOption:string = localStorage.getItem('selectedComponent');
@@ -50,6 +51,14 @@ export class HomeComponent {
         this.organizedMeetingsCount = response.toString();
         console.log(this.organizedMeetingsCount)
         localStorage.setItem('totalMeetingsOrganized',response.toString())
+      })
+    )
+
+    homeService.getUserAttendedMeetingCount().subscribe(
+      (response=>{
+        this.attendedMeetingsCount = response.toString();
+        console.log(this.attendedMeetingsCount);
+        localStorage.setItem('attenedMeetingsCount',response.toString());
       })
     )
 

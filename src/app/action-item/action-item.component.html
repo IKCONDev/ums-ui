@@ -46,6 +46,7 @@
                     <td>{{actionItem.endDate}}</td>
                     <td>{{0}}</td>
                     <td>{{actionItem.actionStatus}}</td>
+                    <!-- edit btn -->
                     <td><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
                         <span class="edit-icon" (click)="editData(actionItem.id)" data-toggle="modal"
                             data-target="#myModal">
@@ -59,6 +60,7 @@
                             </svg>
                         </span>
                     </td>
+                    <!-- delete btn -->
                     <td>
                     <span class="delete-icon" style="padding-top:px;" (click)="deleteData(actionItem.id)" data-toggle="modal" data-target="#myModal_del">
 
@@ -163,7 +165,6 @@
             <input type="datetime-local" style="width:400px;" [(ngModel)]="addDetails.startDate">
             <label>EndDate</label>
             <input type="datetime-local" style="width:400px;" [(ngModel)]="addDetails.endDate">
-
             <!--footer-->
             <div class="modal-footer" role="alert">
                 <button type="submit" class="btn btn-success" (click)="saveDetails($event)"

@@ -7,11 +7,12 @@ export interface Meeting{
     id: number
     subject: string
     organizerName: string
+    organizerEmailId: string
     startDateTime: string
     endDateTime: string
     attendees: Attendee[]
     actionItems: number
-    user: User
+    userId: number
     attendeeCount: number
     meetingTranscripts: Transcript[];
     transcriptData: string[];

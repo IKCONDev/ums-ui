@@ -24,7 +24,7 @@ export class ActionItemComponent  implements OnInit{
     endDate: '',
     actionStatus: '',
     actionPriority: '',
-    eventid:''
+    eventid:0
 
   }
   constructor(private service: ActionService) { }
@@ -56,7 +56,6 @@ export class ActionItemComponent  implements OnInit{
   data:object={};
   //Update the Details
   updateDetails(event:any) {
-
       this.id=this.updatedetails.id;
       console.log(this.updatedetails.actionPriority);
       console.log(this.id);
@@ -75,7 +74,7 @@ export class ActionItemComponent  implements OnInit{
       endDate: '',
       actionStatus: '',
       actionPriority: '',
-      eventid:''
+      eventid:0
   
     }
     //Add Action Item method
@@ -88,6 +87,7 @@ export class ActionItemComponent  implements OnInit{
     actions_details :Object
     //save Action Item method
     saveDetails(event:any){
+
       console.log(this.addDetails);
   
       this.service.saveActionItem(this.addDetails).subscribe(response=>{

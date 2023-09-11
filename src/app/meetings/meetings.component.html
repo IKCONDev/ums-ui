@@ -26,10 +26,10 @@
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedMeeting'">
 
-        <div class="row" *ngIf="meetingCount>0; else noMeetings">
+        <div class="row">
             <table class="table table-hover">
                 <thead id="thead">
-                    <th>Sno</th>
+                    <th>MeetingId</th>
                     <!-- <th>Id</th> -->
                     <th>Title</th>
                     <th>Organizer</th>
@@ -37,13 +37,14 @@
                     <th>EndDate/Time</th>
                     <th>Attendees</th>
                     <th>Transcript</th>
+                    <th>Show Action Items</th>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let meeting of meetings;let i = index">
-                        <td style="padding-left: 22px;">{{i+1}}</td>
+                <tbody *ngFor="let meeting of meetings;let i = index">
+                    <tr>
+                        <td style="padding-left: 22px;">{{meeting.id}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
-                        <td>{{meeting.user.mail}}</td>
+                        <td>{{meeting.organizerEmailId}}</td>
                         <td>{{meeting.startDateTime}}</td>
                         <td>{{meeting.endDateTime}}</td>
                         <td style="padding-left: 45px;">{{meeting.attendees.length}}</td>
@@ -51,7 +52,8 @@
 
                             <!-- transcript data Modal start -->
                             <button id="transcriptBtn" [disabled]="meeting.isTranscriptDisabled">
-                                <i class="fa fa-file-audio fa-1x" data-toggle="modal" data-target="#exampleModalLong"></i>
+                                <i class="fa fa-file-audio fa-1x" data-toggle="modal"
+                                    data-target="#exampleModalLong"></i>
                             </button>
                             <div>
                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
@@ -59,7 +61,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Meeting Id - {{meeting.id}}</h5>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Meeting Id -
+                                                    {{meeting.id}}</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -75,9 +78,10 @@
                                                 <!-- close modal button -->
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
-                                                    <!-- transcript download button -->
+                                                <!-- transcript download button -->
                                                 <a [href]="generateDownloadLink(meeting.transcriptData)"
-                                                    download="transcript.txt" class="btn btn-primary">Download</a>
+                                                    download="transcript_{{meeting.id}}.txt"
+                                                    class="btn btn-primary">Download</a>
                                             </div>
                                         </div>
                                     </div>
@@ -85,11 +89,70 @@
                             </div>
                             <!-- transcript data Modal end -->
                         </td>
+
+                        <td style="padding-left: 12px;"><a class="showmore"
+                                (click)="fetchActionItemsOfEvent(meeting.id)">Show Action Items</a></td>
+                    </tr>
+                    <tr class="detail">
+                        <td colspan="12">
+                            <div>
+                                <table id="myTable{{meeting.id}}" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <!-- <th id="tablehead"><input type="checkbox"  disabled/></th> -->
+                                            <th id="tablehead"></th>
+                                            <th id="tablehead">ActionItemId</th>
+                                            <th id="tablehead">Action Item</th>
+                                            <th id="tablehead">Owner(suggested)</th>
+                                            <th id="tablehead">Start Date</th>
+                                            <th id="tablehead">Description</th>
+                                            <th id="tablehead">Status</th>
+                                            <th id="tablehead">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let actionItem of actionItemsOfEvent; let i= index">
+                                        <tr *ngIf="actionItem.eventid === meeting.id">
+                                            <td><input type="checkbox" id="ac-check{{i}}" class="ac-check" value="{{actionItem.id}}" (change)="toggleSubmitAndDeleteButtons(meeting.id,i)"/>
+                                            </td>
+                                            <td>{{actionItem.id}}</td>
+                                            <td>{{actionItem.actionTitle}}</td>
+                                            <td>{{"Owner"}}</td>
+                                            <td>{{actionItem.startDate}}</td>
+                                            <td>{{actionItem.description}}</td>
+                                            <td>{{actionItem.actionStatus}}</td>
+                                            <td><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
+                                                <span class="edit-icon" (click)="editData(actionItem.id)"
+                                                    data-toggle="modal" data-target="#myModal">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 20 20" fill="none">
+                                                        <g id="edit">
+                                                            <path id="Vector"
+                                                                d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                                                fill="#5590AA" />
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr style="background-color: white;">
+                                            <td style="text-align: center;" colspan="7">
+                                                <a data-toggle="modal" data-target="#myModal_add"
+                                                    style="cursor: pointer;padding-left: 50px;">Add Action Item</a>
+                                            </td>
+                                            <td id="submitAndDelete{{meeting.id}}" colspan="2">
+                                                <a >Submit</a><a style="padding-left: 10px;cursor: pointer;"
+                                                    (click)="checkCheckboxes(meeting.id)">Delete</a></td>
+                                            <td id="emptycell{{meeting.id}}" style="display: table-cell;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-
-
 
             <!-- <div id="meeting-headings"></div> -->
             <!-- <div class="col-sm-1">Id</div>
@@ -110,28 +173,16 @@
             <hr style="width: 1340px;"/>
         </div> -->
         </div>
+
         <div>
-            <ng-template #noMeetings>
-                <table class="table table-hover">
-                    <thead id="thead">
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Organizer</th>
-                        <th>StartDate/Time</th>
-                        <th>EndDate/Time</th>
-                        <th>Attendees</th>
-                    </thead>
-                </table>
-                <p id="no-meetings">No Meetings Organized Yet ! </p>
-            </ng-template>
+            <p id="no-meetings" *ngIf="meetingCount < 0">No Meetings Organized Yet ! </p>
         </div>
         <!-- ngif -->
-
     </div>
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AttendedMeeting'">
         <div class="row" *ngIf="attendedMeetingCount>0; else noMeetings">
-            <table class="table table-hover">
+            <table class="table table-hover" height="40">
                 <thead id="thead">
                     <th>Sno</th>
                     <th>Title</th>
@@ -142,10 +193,10 @@
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
                         <td>{{i+1}}</td>
-                        <td id="meeting-subject">{{meeting.subject}}</td>
-                        <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td id="meeting-subject">{{meeting.event.subject}}</td>
+                        <td>{{meeting.event.organizerName}}</td>
+                        <td>{{meeting.event.startDateTime}}</td>
+                        <td>{{meeting.event.endDateTime}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -163,5 +214,93 @@
                 </table>
                 <p id="no-meetings">No Meetings Attended Yet ! </p>
             </ng-template>
+        </div>
+    </div>
+
+    <!-- action item add modal -->
+    <div>
+        <!-- add modal -->
+        <div class="modal" id="myModal_add">
+            <div class="modal-dialog">
+                <div class="modal-content" style="margin: 10px; font-family: General Sans;">
+                    <!--Modal Header-->
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="text-align: center;">Add Action Item</h4>
+                    </div>
+                    <br>
+                    <label>ActionItem Title</label>
+                    <input type="text" style="width: 400px;" [(ngModel)]="addDetails.actionTitle">
+                    <label>ActionItem Description</label>
+                    <input type="text" style="width:400px;" [(ngModel)]="addDetails.description">
+                    <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
+                    <label for="priority">Priority</label>
+                    <select id="priority" style="width: 400px;" [(ngModel)]="addDetails.actionPriority">
+                        <option>High</option>
+                        <option>Low</option>
+                        <option>Medium</option>
+                    </select>
+                    <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
+                    <label>StartDate</label>
+                    <input type="datetime-local" style="width:400px;" [(ngModel)]="addDetails.startDate">
+                    <label>EndDate</label>
+                    <input type="datetime-local" style="width:400px;" [(ngModel)]="addDetails.endDate">
+                    <!--footer-->
+                    <div class="modal-footer" role="alert">
+                        <button type="submit" class="btn btn-success" (click)="saveDetails()"
+                            data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal for update-->
+    <div class="modal" id="myModal" style=" font-family: 'General Sans';">
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin: 10px;">
+                <!--Modal Header-->
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align: center;">ActionItem</h4>
+                </div>
+                <br>
+                <!--- <label>ActionItem Title</label>
+            <input type="text" style="width: 400px;" value="{{this.updatedetails.actionTitle}}">
+            <label>ActionItem Description</label>
+            <input type="text" style="width:400px; " value="{{this.updatedetails.description}}">-->
+                <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
+                <!-- <label>Priority</label>
+            <input type="text" style="width:400px;" value="{{this.updatedetails.actionPriority}}">
+            <label>StartDate</label>
+            <input type="datetime-local" style="width:400px;" value="{{this.updatedetails.startDate}}">
+            <label>EndDate</label>
+            <input type="datetime-local" style="width:400px;" value="{{this.updatedetails.endDate}}">-->
+
+
+                <label>ActionItem Title</label>
+                <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionTitle">
+                <label>ActionItem Description</label>
+                <input type="text" style="width:400px;" [(ngModel)]="updatedetails.description">
+                <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
+                <label>Priority</label>
+                <select id="priority" style="width: 400px;" [(ngModel)]="updatedetails.actionPriority">
+                    <option>High</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+
+                </select>
+                <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
+                <label>StartDate</label>
+                <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.startDate">
+                <label>EndDate</label>
+                <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.endDate">
+
+                <!--footer-->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" (click)="updateDetails($event)"
+                        [(ngModel)]="updatedetails" data-dismiss="modal">Update</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>

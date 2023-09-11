@@ -11,7 +11,7 @@ export class ActionService {
 
     //private gatewayUrl1 = 'http://localhost:8080/api'
     private gatewayUrl1 ='http://localhost:8012'
-    private actionItemsMicroservicePathUrl = '/actions';
+    private actionItemsMicroservicePathUrl = '/api/actions';
     private finalHttpUrl = this.gatewayUrl1+this.actionItemsMicroservicePathUrl;  
     private actionItemsUrl = 'get-actions';
     private updateActionItemUrl='update-action';

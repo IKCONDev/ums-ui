@@ -1,3 +1,4 @@
+import { Meeting } from "./Meeting.model"
 import { User } from "./User.model"
 
 export interface Attendee{
@@ -6,4 +7,5 @@ export interface Attendee{
     status: string
     email: string
     user: User
+    event: Meeting
 }
