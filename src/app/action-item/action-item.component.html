@@ -23,7 +23,7 @@
 
         </div>
     </div>
-    <div class="row" style="margin: 20px;">
+    <div class="row" style="margin: 20px;font-family: Genaeral sans-serif;">
         <table class="table table-hover" id="myTable" style="margin: 0px;">
             <thead class="header" style="background-color: #ecf7fc;">
                 <th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
@@ -103,7 +103,7 @@
                             <th id="tablehead">Status</th>
                            </thead>
                            <tbody *ngFor="let element of task_array">
-                            <tr *ngIf ="actionItem.actionTitle == element.actionTitle">
+                            <tr *ngIf ="actionItem.id == element.actionItemId">
                                 <td>{{element.id}}</td>
                                 <td>{{element.taskTitle}}</td>
                                 <td>{{element.taskDescription}}</td>

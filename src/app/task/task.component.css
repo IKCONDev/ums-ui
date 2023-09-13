@@ -41,7 +41,7 @@ th{
     width: 20px;
     text-align: left;
   }
-  th,td{
+th,td{
     
     overflow: hidden; /* Hide overflowing content */
     text-overflow: ellipsis; /* Show ellipsis for long content */
@@ -53,8 +53,8 @@ th{
      
   td{
   
-    padding-top:5px ;
-    padding-bottom: 2px;
+    padding-top:15px ;
+   
   }
   #add_button{
     position: relative;
@@ -74,9 +74,9 @@ th{
     color: aqua;
     cursor: pointer;
  }
- input{
+ /* input{
     margin: 10px;
- }
+ }*/
 
  .box{
   width: 20px;
@@ -87,7 +87,14 @@ th{
   width: 20px;
   height: 20px;
 }
+#modal_checkbox{
+  
 
+  margin-left: 14px;
+  margin-top: 3px;
+  /*padding-top: 2px;
+  padding-left: 100px;*/
+ }
 
  #no-meetings{
      
