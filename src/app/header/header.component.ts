@@ -2,6 +2,7 @@ import { Component, Output, Input } from '@angular/core';
 import { HeaderService } from './service/header.service';
 import { error } from 'jquery';
 import { Employee } from '../model/Employee.model';
+import { Users } from '../model/Users.model';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent {
   @Input() title: string;
   authStatusUpdated: number;
   //user/employee profile property
-  employeeDetails: Employee;
+  userDetails: Users;
   constructor(private headerService: HeaderService){
 
   }
@@ -27,20 +28,20 @@ export class HeaderComponent {
     // Check if there's a saved state and apply it
     const savedState = localStorage.getItem('sliderState');
     if (savedState) {
-      this.employeeDetails.twoFactorAuthentication = savedState === 'active';
+      this.userDetails.twoFactorAuthentication = savedState === 'active';
     }
     },1000)
     
   }
 
   toggleSlider() {
-      this.employeeDetails.twoFactorAuthentication = !this.employeeDetails.twoFactorAuthentication;
+      this.userDetails.twoFactorAuthentication = !this.userDetails.twoFactorAuthentication;
        // Save the state to local storage
-      const currentState = this.employeeDetails.twoFactorAuthentication ? 'active' : 'inactive';
+      const currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
       localStorage.setItem('sliderState', currentState);
 
       //save the updatedauthStatus to db
-    this.headerService.updateTwofactorAuthenticationStatus(this.employeeDetails.twoFactorAuthentication,this.employeeDetails.email).subscribe(
+    this.headerService.updateTwofactorAuthenticationStatus(this.userDetails.twoFactorAuthentication,this.userDetails.email).subscribe(
       (response) =>{
         this.authStatusUpdated = response
         console.log(response)
@@ -55,8 +56,8 @@ export class HeaderComponent {
    // console.log(localStorage.getItem('email'));
     this.headerService.fetchUserProfile(localStorage.getItem('email')).subscribe(
       response=>{
-        this.employeeDetails= response.body
-        console.log(this.employeeDetails)
+        this.userDetails= response.body
+        console.log(this.userDetails)
       }
     )
   }

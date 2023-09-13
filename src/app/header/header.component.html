@@ -33,18 +33,18 @@
                                 </div>
                             </div>
                             <!-- profile details -->
-                            <div *ngIf="employeeDetails != null">
+                            <div *ngIf="userDetails != null">
                                 <div style="padding-top: 6px;">
-                                    <p id="userid"><b>#</b>{{employeeDetails.id}}</p>
+                                    <p id="userid"><b>#</b>{{userDetails.employee.id}}</p>
                                 </div>
                                 <div>
-                                    <p id="fullname">{{employeeDetails.firstName}}  {{employeeDetails.lastName}}</p>
+                                    <p id="fullname">{{userDetails.employee.firstName}}  {{userDetails.employee.lastName}}</p>
                                 </div>
                                 <div>
-                                    <p id="username">{{employeeDetails.email}}</p>
+                                    <p id="username">{{userDetails.employee.email}}</p>
                                 </div>
                                 <div>
-                                    <p id="designation">{{employeeDetails.designation}}</p>
+                                    <p id="designation">{{userDetails.employee.designation}}</p>
                                 </div>
                                 <!-- my profile and logout -->
                                 <div class="row">
@@ -59,11 +59,11 @@
                                 <div id="profileContent" style="padding-top: 6px;">
                                     <div id="divContent">
                                         <p id="heading">Role</p>
-                                        <p id="headingData">{{employeeDetails.userRole}}</p>
+                                        <p id="headingData">{{userDetails.userRole}}</p>
                                     </div>
                                     <div id="divContent">
                                         <p id="heading">Department</p>
-                                        <p id="headingData">{{employeeDetails.department.departmentName}}</p>
+                                        <p id="headingData">{{userDetails.employee.department.departmentName}}</p>
                                     </div>
                                     <div id="divContent">
                                         <p id="heading">Reporting Manager</p>
@@ -71,9 +71,9 @@
                                     </div>
                                     <div id="divContent">
                                         <p id="heading">Two factor authentication</p>
-                                        <p id="headingData">{{employeeDetails.twoFactorAuthentication}}</p>
+                                        <p id="headingData">{{userDetails.twoFactorAuthentication}}</p>
                                         <div class="slide-container">
-                                            <div class="slide-button" [class.active]="employeeDetails.twoFactorAuthentication" (click)="toggleSlider()">
+                                            <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication" (click)="toggleSlider()">
                                               <div class="slider-handle"></div>
                                             </div>
                                         </div>  

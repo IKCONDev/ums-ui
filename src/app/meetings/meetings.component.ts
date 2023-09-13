@@ -247,54 +247,101 @@ export class MeetingsComponent implements OnInit {
         console.log(checkbox)
         console.log(value)
         if (value) {
-        var buttons = document.getElementById('submitAndDelete' + eventId);
-        buttons.style.display = 'table-cell'
-        var emptyCell = document.getElementById('emptycell' + eventId);
-        emptyCell.style.display = 'none'
-      } else {
-        var buttons = document.getElementById('submitAndDelete'+ eventId);
-        buttons.style.display = 'none'
-        var emptyCell = document.getElementById('emptycell' + eventId);
-        emptyCell.style.display = 'table-cell'
+          var buttons = document.getElementById('submitAndDelete' + eventId);
+          buttons.style.display = 'table-cell'
+          var emptyCell = document.getElementById('emptycell' + eventId);
+          emptyCell.style.display = 'none'
+        } else {
+          var buttons = document.getElementById('submitAndDelete' + eventId);
+          buttons.style.display = 'none'
+          var emptyCell = document.getElementById('emptycell' + eventId);
+          emptyCell.style.display = 'table-cell'
+        }
       }
     }
   }
-}
 
-//edit action items data
-actionItems_new: ActionItems;
-editData(id: number) {
-  this.actionItemService.getActionItemById(id).subscribe(response => {
-    this.actionItems_new = response.body;
-    console.log(this.actionItems_new);
-    this.updatedetails.id = this.actionItems_new.id;
-    this.updatedetails.description = this.actionItems_new.description;
-    this.updatedetails.eventid = this.actionItems_new.eventid;
-    this.updatedetails.actionStatus = this.actionItems_new.actionStatus;
-    console.log(this.actionItems_new.description);
-    this.updatedetails.actionTitle = this.actionItems_new.actionTitle;
-    this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
-    this.updatedetails.startDate = this.actionItems_new.startDate;
-    this.updatedetails.endDate = this.actionItems_new.endDate;
+  //edit action items data
+  actionItems_new: ActionItems;
+  editData(id: number) {
+    this.actionItemService.getActionItemById(id).subscribe(response => {
+      this.actionItems_new = response.body;
+      console.log(this.actionItems_new);
+      this.updatedetails.id = this.actionItems_new.id;
+      this.updatedetails.description = this.actionItems_new.description;
+      this.updatedetails.eventid = this.actionItems_new.eventid;
+      this.updatedetails.actionStatus = this.actionItems_new.actionStatus;
+      console.log(this.actionItems_new.description);
+      this.updatedetails.actionTitle = this.actionItems_new.actionTitle;
+      this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
+      this.updatedetails.startDate = this.actionItems_new.startDate;
+      this.updatedetails.endDate = this.actionItems_new.endDate;
 
-  });
-  console.log("data fetching");
+    });
+    console.log("data fetching");
 
-}
+  }
 
-//Update the  action item Details
-id: number;
-data: object = {};
-updateDetails(event: any) {
-  this.id = this.updatedetails.id;
-  console.log(this.updatedetails.actionPriority);
-  console.log(this.id);
-  console.log(this.updatedetails);
-  this.actionItemService.updateActionItem(this.updatedetails).subscribe(response => {
-    this.data = response.body;
+  //Update the  action item Details
+  id: number;
+  data: object = {};
+  updateDetails(event: any) {
+    this.id = this.updatedetails.id;
+    console.log(this.updatedetails.actionPriority);
+    console.log(this.id);
+    console.log(this.updatedetails);
+    this.actionItemService.updateActionItem(this.updatedetails).subscribe(response => {
+      this.data = response.body;
 
-    console.log(this.data);
-  });
-}
+      console.log(this.data);
+    });
+  }
+
+  /**
+   * convert ac to task
+   */
+  actionItemsToBeSubmittedIds = [];
+  isEventActionItemsSubmitted;
+  actionItemsToBeSubmitted = [];
+ 
+  convertAcToTask(eventId: number) {
+    console.log(eventId)
+    var table = document.getElementById("myTable" + eventId)
+    console.log(table)
+    //for(var i=0; i<tables.length; i++){
+    var rows = table.getElementsByTagName("tr");
+    var value: number[];
+    // Loop through each row
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+
+      var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+      console.log(checkbox)
+      // Check if the checkbox exists in the row
+      if (checkbox) {
+        console.log("value of checkbox is " + checkbox.value);
+        // Check the 'checked' property to get the state (true or false)
+        if (checkbox.checked) {
+          this.actionItemsToBeSubmittedIds.push(checkbox.value)
+        }
+      }
+    }
+    console.log(" action item's to be submitted are " + this.actionItemsToBeSubmittedIds)
+    this.actionItemsOfEvent.filter((action)=>{
+     var acitems = this.actionItemsToBeSubmittedIds.forEach((acId)=>{
+      console.log(acId+" to be subitted")
+        if(acId == action.id){
+          console.log('matched')
+          this.actionItemsToBeSubmitted.push(action);
+        }
+      })
+    });
+    console.log(this.actionItemsToBeSubmitted);
+  this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted).subscribe(
+    (response =>{
+      console.log(response.body)
+    })
+  )
+  }
 
 }

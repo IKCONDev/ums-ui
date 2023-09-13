@@ -22,6 +22,10 @@ export class MeetingService {
   private finalHttpEventsPathUrl = this.gatewayUrl+this.eventsMicroservicePathUrl;
   private deleteActionItemsOfEventPathUrl = 'delete/ac-items';
 
+  private actionItemsMicroservicePathUrl = '/api/actions'
+  private finalActionHttpUrl = this.gatewayUrl+this.actionItemsMicroservicePathUrl;
+  private convertActionToTaskPathUrl = '/convert-task';
+
   constructor(private http: HttpClient){}
 
     getUserEvents(email: string){
@@ -46,6 +50,10 @@ export class MeetingService {
       //   eventId: eventId
       // }
       return this.http.get(`${this.finalHttpEventsPathUrl}/${this.deleteActionItemsOfEventPathUrl}/`+eventId+'/'+actionItemIds,{observe: 'response'})
+    }
+
+    convertActionitemsToTasks(actionItems: ActionItems[]){
+      return this.http.post(`${this.finalActionHttpUrl}${this.convertActionToTaskPathUrl}`,actionItems,{observe:'response'});
     }
 
 }

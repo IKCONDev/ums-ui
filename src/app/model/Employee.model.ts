@@ -7,7 +7,5 @@ export interface Employee{
     lastName: string;
     email: string;
     designation : string;
-    userRole: string;
-    twoFactorAuthentication: boolean;
     department: Department
 }

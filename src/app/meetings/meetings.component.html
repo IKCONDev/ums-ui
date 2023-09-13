@@ -141,8 +141,10 @@
                                                 <a data-toggle="modal" data-target="#myModal_add"
                                                     style="cursor: pointer;padding-left: 50px;">Add Action Item</a>
                                             </td>
+                                            <!-- submit and delete btn -->
                                             <td id="submitAndDelete{{meeting.id}}" colspan="2">
-                                                <a >Submit</a><a style="padding-left: 10px;cursor: pointer;"
+                                                <a (click)="convertAcToTask(meeting.id)" style="cursor: pointer;">Submit</a>
+                                                <a style="padding-left: 10px;cursor: pointer;"
                                                     (click)="checkCheckboxes(meeting.id)">Delete</a></td>
                                             <td id="emptycell{{meeting.id}}" style="display: table-cell;"></td>
                                         </tr>
@@ -175,7 +177,7 @@
         </div>
 
         <div>
-            <p id="no-meetings" *ngIf="meetingCount < 0">No Meetings Organized Yet ! </p>
+            <p id="no-meetings" *ngIf="meetingCount === 0">No Meetings Organized Yet ! </p>
         </div>
         <!-- ngif -->
     </div>

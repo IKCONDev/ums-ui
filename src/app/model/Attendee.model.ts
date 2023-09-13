@@ -1,11 +1,11 @@
+import { Employee } from "./Employee.model"
 import { Meeting } from "./Meeting.model"
-import { User } from "./User.model"
 
 export interface Attendee{
     id:number
     type: string
     status: string
     email: string
-    user: User
+    user: Employee
     event: Meeting
 }
