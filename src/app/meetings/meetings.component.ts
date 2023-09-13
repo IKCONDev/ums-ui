@@ -1,7 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
-import * as fs from 'fs';
 import { Attendee } from '../model/Attendee.model';
 import { ActionItems } from '../model/actionitem.model';
 import { ActionItemComponent } from '../action-item/action-item.component';

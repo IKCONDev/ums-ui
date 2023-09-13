@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { ActionItems } from 'src/app/model/actionitem.model';
 import { Observable } from 'rxjs';
+import { Task } from 'src/app/model/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +13,15 @@ export class ActionService {
     //private gatewayUrl1 = 'http://localhost:8080/api'
     private gatewayUrl1 ='http://localhost:8012'
     private actionItemsMicroservicePathUrl = '/api/actions';
+    private tasksURL ='task';
     private finalHttpUrl = this.gatewayUrl1+this.actionItemsMicroservicePathUrl;  
     private actionItemsUrl = 'get-actions';
     private updateActionItemUrl='update-action';
     private getActionItem = 'get-action-item';
     private saveActionItemUrl = 'create';
     private deleteActionItemUrl = 'delete-action';
+    private deleteSelectedAction='ac-items/delete';
+    private getTaskDetails ='get-tasks';
 
     constructor(private http:HttpClient){}
 
@@ -37,10 +41,21 @@ export class ActionService {
       return this.http.post<ActionItems>(`${this.finalHttpUrl}/${this.saveActionItemUrl}`,actionItem,{observe:'response'});
        
     }
+    getAlltaskDetails(){
+        
+      return this.http.get<Task[]>(`${this.gatewayUrl1}/${this.tasksURL}/${this.getTaskDetails}`,{observe:'response'});
+   }
     deleteActionItem(id:number){
 
 
       //console.log(action.id);
       return this.http.delete<number>(`${this.finalHttpUrl}/${this.deleteActionItemUrl}/${id}`,{observe:'response'});
     }
-}
+    
+    deleteSelectedActionItems(actionItems:any[]){
+      
+      return this.http.delete<boolean>(`${this.finalHttpUrl}/${this.deleteSelectedAction}/${actionItems}`,{observe:'response'});
+
+    }
+  }
+    

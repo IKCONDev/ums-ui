@@ -1,0 +1,104 @@
+.container-fluid{
+    padding-top: 20px;
+    padding-left: 274px;
+    padding-right: 24px;
+}
+
+.card-header{
+    background-color: #134E69D9;
+    padding-left: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#heading{
+    color: #F6FBFD;
+    padding-top: 8px;
+}
+.card-body{
+    padding-top: 18px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+#OrganizedTask{
+  padding-top: 10px;
+  color: #F6FBFD;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#AssignedTask{
+  padding-top: 10px;
+  color: #F6FBFD;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+th{
+
+    width: 20px;
+    text-align: left;
+  }
+  th,td{
+    
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Show ellipsis for long content */
+  }
+ 
+  /*.input{
+     margin: 10px;
+  }*/
+     
+  td{
+  
+    padding-top:5px ;
+    padding-bottom: 2px;
+  }
+  #add_button{
+    position: relative;
+    line-height: 150%;
+    border-radius: 4px;
+    background-color: #ecf7fc;
+    box-sizing: border-box;
+    padding: 8px 32px;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 14px;
+    color: #000;
+    font-family: 'General Sans';
+  }
+  .edit-icon:hover{
+    color: aqua;
+    cursor: pointer;
+ }
+ input{
+    margin: 10px;
+ }
+
+ .box{
+  width: 20px;
+  height: 20px;
+
+}
+.checkbox{
+  width: 20px;
+  height: 20px;
+}
+
+
+ #no-meetings{
+     
+  text-align: center;
+  padding-top: 180px;
+  color: #000;
+  font-family: General Sans;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+
+
+ }
