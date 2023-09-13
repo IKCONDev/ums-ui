@@ -36,9 +36,17 @@ th,td{
    
 td{
 
-  padding-top:5px ;
-  padding-bottom: 2px;
+  padding-top:10px ;
+ 
 }
+#thead {
+  background: var(--side-text, #ECF7FC);
+}
+
+#tablehead{
+  background: var(--side-text, #ECF7FC);
+}
+
 
 
 #add_button{
@@ -97,4 +105,27 @@ label,input,select{
 #modal-button{
   margin: 10px;
   padding-left: 100px;
+}
+.showmore:hover{
+  cursor: pointer;
+}
+tr.detail{
+  display: none;
+  width: 100%;
+}
+tr.detail div {
+  display: none;
+}
+
+#no-meetings {
+
+  text-align: center;
+  padding-top: 180px;
+  color: #000;
+  font-family: General Sans;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 100%;
+  /* 40px */
 }
