@@ -26,6 +26,10 @@ export class MeetingService {
   private finalActionHttpUrl = this.gatewayUrl+this.actionItemsMicroservicePathUrl;
   private convertActionToTaskPathUrl = '/convert-task';
 
+  private nlpMicroservicepathUrl = '/nlp'
+  private finalNlpHttpPathUrl = this.gatewayUrl+this.nlpMicroservicepathUrl
+  private nlpActionItemsgeneratePathUrl = '/generate'
+
   constructor(private http: HttpClient){}
 
     getUserEvents(email: string){
@@ -54,6 +58,10 @@ export class MeetingService {
 
     convertActionitemsToTasks(actionItems: ActionItems[]){
       return this.http.post(`${this.finalActionHttpUrl}${this.convertActionToTaskPathUrl}`,actionItems,{observe:'response'});
+    }
+
+    generateActionItemsByNlp(){
+      return this.http.get(`${this.finalNlpHttpPathUrl}${this.nlpActionItemsgeneratePathUrl}`,{observe:'response'})
     }
 
 }

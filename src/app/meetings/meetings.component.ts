@@ -72,6 +72,11 @@ export class MeetingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.meetingsService.generateActionItemsByNlp().subscribe(
+      (response =>{
+        console.log(response.body)
+      })
+    )
    // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
       //this.getOrganizedMeetings();
     //this.getMeetings('OrganizedMeeting');
