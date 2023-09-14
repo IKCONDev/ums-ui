@@ -20,7 +20,7 @@ export class MeetingsComponent implements OnInit {
   //global varibales
   meetings: Meeting[];
   meetingCount: number = 0;
-  attendedMeetings: Attendee[];
+  attendedMeetings: Meeting[];
   attendedMeetingCount: number = 0;
   transcriptsCount: number = 0;
   @Output() title: string = 'Meetings'
@@ -37,7 +37,7 @@ export class MeetingsComponent implements OnInit {
     description: '',
     startDate: '',
     endDate: '',
-    actionStatus: '',
+    actionStatus: 'NotConverted',
     actionPriority: '',
     eventid: 0
 
@@ -71,14 +71,13 @@ export class MeetingsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-    //this.getOrganizedMeetings();
+  ngOnInit(): void {
+   // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
+      //this.getOrganizedMeetings();
     //this.getMeetings('OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
     this.getMeetings(this.tabOpened);
-
   }
 
   fetchActionItemsOfEvent(eventId: number) {
@@ -137,7 +136,7 @@ export class MeetingsComponent implements OnInit {
       document.getElementById("organizedMeeting").style.textDecorationLine = 'none';
       document.getElementById("attendedMeeting").style.textDecorationLine = 'underline';
       //get user attended meetings
-      this.meetingsService.getUserAttendedEvents(parseInt(localStorage.getItem('userId'))).subscribe(
+      this.meetingsService.getUserAttendedEvents((localStorage.getItem('email'))).subscribe(
         (response) => {
           //extract the meetings from response object
           this.attendedMeetings = response.body;
@@ -158,7 +157,7 @@ export class MeetingsComponent implements OnInit {
       const data = transcriptData.join('\n');
 
       // Add the transcript data into a blob storage with the specified fileName
-      const blob = new Blob([data], { type: 'text/plain' });
+      const blob = new Blob([data], { type: 'text/plain'});
 
       // Create and return the URL to the browser with the blob containing transcript data
       url = window.URL.createObjectURL(blob);
@@ -327,20 +326,32 @@ export class MeetingsComponent implements OnInit {
     }
     console.log(" action item's to be submitted are " + this.actionItemsToBeSubmittedIds)
     this.actionItemsOfEvent.filter((action)=>{
-     var acitems = this.actionItemsToBeSubmittedIds.forEach((acId)=>{
-      console.log(acId+" to be subitted")
-        if(acId == action.id){
-          console.log('matched')
-          this.actionItemsToBeSubmitted.push(action);
-        }
-      })
+     //if(action.status === 'NotConverted'){
+      var acitems = this.actionItemsToBeSubmittedIds.forEach((acId)=>{
+        console.log(acId+" to be submitted")
+          if(acId == action.id){
+            this.actionItemsToBeSubmitted.push(action);
+          }
+        })
+     //}
     });
     console.log(this.actionItemsToBeSubmitted);
   this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted).subscribe(
     (response =>{
       console.log(response.body)
+      this.toastr.success('Action items converted to task succesfully')
     })
   )
+  }
+
+  transcriptEventId: number;
+  meetingTrasncriptData: string[];
+  meetingSubject: string;
+  displayTranscriptData(eventId: number, subject: string, transriptData: string[]){
+    this.transcriptEventId = eventId;
+    this.meetingSubject = subject;
+    this.meetingTrasncriptData = transriptData;
+    console.log(this.meetingSubject);
   }
 
 }

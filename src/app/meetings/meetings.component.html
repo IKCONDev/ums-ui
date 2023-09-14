@@ -53,7 +53,7 @@
                             <!-- transcript data Modal start -->
                             <button id="transcriptBtn" [disabled]="meeting.isTranscriptDisabled">
                                 <i class="fa fa-file-audio fa-1x" data-toggle="modal"
-                                    data-target="#exampleModalLong"></i>
+                                    data-target="#exampleModalLong" (click)="displayTranscriptData(meeting.id,meeting.subject, meeting.transcriptData)"></i>
                             </button>
                             <div>
                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
@@ -61,8 +61,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Meeting Id -
-                                                    {{meeting.id}}</h5>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Meeting Id :
+                                                    {{transcriptEventId}} - {{meetingSubject}}</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -70,7 +70,7 @@
                                             </div>
                                             <!-- transcript modal body -- shows transcript data -->
                                             <div class="modal-body" *ngIf="transcriptsCount > 0">
-                                                <div *ngFor="let eachLine of meeting.transcriptData;let i = index">
+                                                <div *ngFor="let eachLine of meetingTrasncriptData;let i = index">
                                                     <div>{{eachLine}}</div>
                                                 </div>
                                             </div>
@@ -79,8 +79,8 @@
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
                                                 <!-- transcript download button -->
-                                                <a [href]="generateDownloadLink(meeting.transcriptData)"
-                                                    download="transcript_{{meeting.id}}.txt"
+                                                <a [href]="generateDownloadLink(meetingTrasncriptData)"
+                                                    download="transcript.txt"
                                                     class="btn btn-primary">Download</a>
                                             </div>
                                         </div>
@@ -195,10 +195,10 @@
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
                         <td>{{i+1}}</td>
-                        <td id="meeting-subject">{{meeting.event.subject}}</td>
-                        <td>{{meeting.event.organizerName}}</td>
-                        <td>{{meeting.event.startDateTime}}</td>
-                        <td>{{meeting.event.endDateTime}}</td>
+                        <td id="meeting-subject">{{meeting.subject}}</td>
+                        <td>{{meeting.organizerName}}</td>
+                        <td>{{meeting.startDateTime}}</td>
+                        <td>{{meeting.endDateTime}}</td>
                     </tr>
                 </tbody>
             </table>

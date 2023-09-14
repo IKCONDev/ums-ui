@@ -32,8 +32,8 @@ export class MeetingService {
         return this.http.get<Meeting[]>(`${this.finalHttpUrl}/${this.userEventsPathUrl}/`+email, {observe: 'response'});
     }
 
-    getUserAttendedEvents(userId: number){
-      return this.http.get<Attendee[]>(`${this.finalHttpUrl}/${this.userAttendedEventsPathUrl}/`+userId, {observe: 'response'});
+    getUserAttendedEvents(email: string){
+      return this.http.get<Meeting[]>(`${this.finalHttpUrl}/${this.userAttendedEventsPathUrl}/`+email, {observe: 'response'});
     }
 
     getActionItemsOfEvent(eventId: number){

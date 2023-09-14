@@ -23,7 +23,7 @@ export class HomeService {
       }
 
     getUserAttendedMeetingCount(){
-      return this.http.get<number>(`${this.finalBatchHttpUrl}${this.attendedMeetingCountPathUrl}/`+localStorage.getItem('userId'));
+      return this.http.get<number>(`${this.finalBatchHttpUrl}${this.attendedMeetingCountPathUrl}/`+localStorage.getItem('email'));
     }
 
 
