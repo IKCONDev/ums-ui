@@ -8,6 +8,7 @@ export class ActionItems{
     endDate:string;
     actionStatus:string;
     eventid:number;
+    userId:string;
     
  
  }

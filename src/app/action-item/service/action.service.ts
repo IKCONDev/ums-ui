@@ -22,6 +22,7 @@ export class ActionService {
     private deleteActionItemUrl = 'delete-action';
     private deleteSelectedAction='ac-items/delete';
     private getTaskDetails ='get-tasks';
+    private getUserSpecificActionItems='fetch-actions';
 
     constructor(private http:HttpClient){}
 
@@ -40,6 +41,9 @@ export class ActionService {
       
       return this.http.post<ActionItems>(`${this.finalHttpUrl}/${this.saveActionItemUrl}`,actionItem,{observe:'response'});
        
+    }
+    getUserActionItems(email:string){
+       return this.http.get<ActionItems[]>(`${this.finalHttpUrl}/${this.getUserSpecificActionItems}/${email}`,{observe:'response'});
     }
     getAlltaskDetails(){
         

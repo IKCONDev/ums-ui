@@ -13,6 +13,7 @@ export class TaskComponent {
   task :Task[]
   task_Details: Task;
   taskCount : number =0;
+  tabOpened : string;
 
   update_Task={
      id:0,
@@ -25,17 +26,25 @@ export class TaskComponent {
      organizer:'',
      status:'',
      actionItemId:0,
-     actionTitle:''
+     actionTitle:'',
+     userId:''
      
   }
   constructor(private service :TaskService, private toastr: ToastrService){}
   ngOnInit(): void {
 
-    this.service.getAlltaskDetails().subscribe(res=>{
+   /* this.service.getAlltaskDetails().subscribe(res=>{
        this.task =res.body;
        this.taskCount = res.body.length;
        console.log(this.task);
-    });
+    });*/
+
+    this.service.getUserTaskDetails(localStorage.getItem('email')).subscribe(res=>{
+      this.task =res.body;
+      this.taskCount = res.body.length;
+      console.log(this.task);
+   });
+   
     
   }
   addTask(){

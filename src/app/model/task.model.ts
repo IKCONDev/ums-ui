@@ -11,6 +11,7 @@ export interface Task{
     status:string;
     actionItemId:number;
     actionTitle:string;
+    userId:string;
     
  
  }

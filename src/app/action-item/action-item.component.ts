@@ -21,6 +21,7 @@ export class ActionItemComponent  implements OnInit{
   isfill: boolean = false;
   actionItems: ActionItems[];
   actionItems_new: ActionItems;
+  email: string;
   updatedetails= {
     id:0 ,
     actionTitle: '',
@@ -29,7 +30,8 @@ export class ActionItemComponent  implements OnInit{
     endDate: '',
     actionStatus: '',
     actionPriority: '',
-    eventid:0
+    eventid:0,
+    userId:''
 
   }
   constructor(private service: ActionService, private taskService:TaskService,private toastr: ToastrService) { 
@@ -49,11 +51,17 @@ export class ActionItemComponent  implements OnInit{
 
   }
   ngOnInit(): void {
-    this.service.getAllActionItems().subscribe(response => {
+    console.log("logged in userId is: "+localStorage.getItem('email'));
+   /* this.service.getAllActionItems().subscribe(response => {
       console.log(this.actionItems);
       this.actionItems = response.body;
       this.actionItemCount = response.body.length;
       
+    });*/
+    this.service.getUserActionItems(localStorage.getItem('email')).subscribe(res=>{
+      this.actionItems = res.body;
+      console.log(res.body);
+      this.actionItemCount = res.body.length;
     });
   };
 
@@ -96,7 +104,8 @@ export class ActionItemComponent  implements OnInit{
       endDate: '',
       actionStatus: '',
       actionPriority: '',
-      eventid:0
+      eventid:0,
+      userId:''
   
     }
     ViewTaskDetails(){

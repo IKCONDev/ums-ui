@@ -39,7 +39,8 @@ export class MeetingsComponent implements OnInit {
     endDate: '',
     actionStatus: 'NotConverted',
     actionPriority: '',
-    eventid: 0
+    eventid: 0,
+    userId:''
 
   }
   updatedetails = {
@@ -50,7 +51,8 @@ export class MeetingsComponent implements OnInit {
     endDate: '',
     actionStatus: '',
     actionPriority: '',
-    eventid: 0
+    eventid: 0,
+    userId:''
 
   }
 
@@ -179,6 +181,7 @@ export class MeetingsComponent implements OnInit {
     console.log(this.addDetails);
     console.log(this.currentEventId)
     this.addDetails.eventid = this.currentEventId;
+    this.addDetails.userId = localStorage.getItem('email');
     this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
       this.response = response.body;
       this.actions_details = response.body;

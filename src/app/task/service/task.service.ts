@@ -16,6 +16,7 @@ export class TaskService{
     private getSingleTask="get-task";
     private deleteallTasks="task/delete";
     private updateDetails="update-task";
+    private getUserSpecificTasks="getuser-task";
 
     getAlltaskDetails(){
         
@@ -23,6 +24,10 @@ export class TaskService{
     }
     getSingleTaskDetails(id:number){
         return this.http.get<Task>(`${this.finalHttpUrl}/${this.getSingleTask}/${id}`,{observe:'response'});
+    }
+    getUserTaskDetails(email:string){
+        return this.http.get<Task[]>(`${this.finalHttpUrl}/${this.getUserSpecificTasks}/${email}`,{observe:'response'});
+
     }
     updateTaskDetails(task:Task){
          return this.http.put(`${this.finalHttpUrl}/${this.updateDetails}/${task.id}`,task,{observe:'response'});
