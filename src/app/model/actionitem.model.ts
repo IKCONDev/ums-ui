@@ -9,6 +9,5 @@ export class ActionItems{
     actionStatus:string;
     eventid:number;
     userId:string;
-    
- 
+
  }

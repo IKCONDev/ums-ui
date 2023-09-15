@@ -130,7 +130,7 @@ export class ActionItemComponent  implements OnInit{
     saveDetails(event:any){
 
       console.log(this.addDetails);
-  
+      this.addDetails.userId = localStorage.getItem('email');
       this.service.saveActionItem(this.addDetails).subscribe(response=>{
            this.response=response.body;
            this.actions_details= response.body;
