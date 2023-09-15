@@ -74,7 +74,9 @@ export class MeetingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.meetingsService.generateActionItemsByNlp().subscribe(
+
+    //generate action items for user meetings automatically upon component initialization
+    this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
       (response =>{
         console.log(response.body)
       })

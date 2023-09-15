@@ -52,8 +52,8 @@
 
                             <!-- transcript data Modal start -->
                             <button id="transcriptBtn" [disabled]="meeting.isTranscriptDisabled">
-                                <i class="fa fa-file-audio fa-1x" data-toggle="modal"
-                                    data-target="#exampleModalLong" (click)="displayTranscriptData(meeting.id,meeting.subject, meeting.transcriptData)"></i>
+                                <i class="fa fa-file-audio fa-1x" data-toggle="modal" data-target="#exampleModalLong"
+                                    (click)="displayTranscriptData(meeting.id,meeting.subject, meeting.transcriptData)"></i>
                             </button>
                             <div>
                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
@@ -80,8 +80,7 @@
                                                     data-dismiss="modal">Close</button>
                                                 <!-- transcript download button -->
                                                 <a [href]="generateDownloadLink(meetingTrasncriptData)"
-                                                    download="transcript.txt"
-                                                    class="btn btn-primary">Download</a>
+                                                    download="transcript.txt" class="btn btn-primary">Download</a>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +111,9 @@
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfEvent; let i= index">
                                         <tr *ngIf="actionItem.eventid === meeting.id">
-                                            <td><input type="checkbox" id="ac-check{{i}}" class="ac-check" value="{{actionItem.id}}" (change)="toggleSubmitAndDeleteButtons(meeting.id,i)"/>
+                                            <td><input type="checkbox" id="ac-check{{i}}" class="ac-check"
+                                                    value="{{actionItem.id}}"
+                                                    (change)="toggleSubmitAndDeleteButtons(meeting.id,i)" />
                                             </td>
                                             <td>{{actionItem.id}}</td>
                                             <td>{{actionItem.actionTitle}}</td>
@@ -120,8 +121,8 @@
                                             <td>{{actionItem.startDate}}</td>
                                             <td>{{actionItem.description}}</td>
                                             <td>{{actionItem.actionStatus}}</td>
-                                            <td><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                <span class="edit-icon" (click)="editData(actionItem.id)"
+                                            <td *ngIf="actionItem.actionStatus==='NotConverted'"><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
+                                                    <span class="edit-icon" (click)="editData(actionItem.id)"
                                                     data-toggle="modal" data-target="#myModal">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                         viewBox="0 0 20 20" fill="none">
@@ -133,6 +134,18 @@
                                                     </svg>
                                                 </span>
                                             </td>
+                                            <td *ngIf="actionItem.actionStatus==='Converted'"><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
+                                                <span class="edit-icon">
+                                                <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 20 20" fill="none">
+                                                    <g id="edit">
+                                                        <path id="Vector"
+                                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                                            fill="#D3D3D3" />
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                        </td>
                                         </tr>
                                     </tbody>
                                     <tbody>
@@ -143,9 +156,11 @@
                                             </td>
                                             <!-- submit and delete btn -->
                                             <td id="submitAndDelete{{meeting.id}}" colspan="2">
-                                                <a (click)="convertAcToTask(meeting.id)" style="cursor: pointer;">Submit</a>
+                                                <a (click)="convertAcToTask(meeting.id)"
+                                                    style="cursor: pointer;">Submit</a>
                                                 <a style="padding-left: 10px;cursor: pointer;"
-                                                    (click)="checkCheckboxes(meeting.id)">Delete</a></td>
+                                                    (click)="checkCheckboxes(meeting.id)">Delete</a>
+                                            </td>
                                             <td id="emptycell{{meeting.id}}" style="display: table-cell;"></td>
                                         </tr>
                                     </tbody>

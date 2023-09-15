@@ -60,8 +60,8 @@ export class MeetingService {
       return this.http.post(`${this.finalActionHttpUrl}${this.convertActionToTaskPathUrl}`,actionItems,{observe:'response'});
     }
 
-    generateActionItemsByNlp(){
-      return this.http.get(`${this.finalNlpHttpPathUrl}${this.nlpActionItemsgeneratePathUrl}`,{observe:'response'})
+    generateActionItemsByNlp(userEmail: string){
+      return this.http.get(`${this.finalNlpHttpPathUrl}${this.nlpActionItemsgeneratePathUrl}/`+userEmail,{observe:'response'})
     }
 
 }
