@@ -23,7 +23,7 @@ export class HeaderComponent {
   ngOnInit() {
     this.userProfileDetails();
 
-    //due ti this , the userDetails also gets initialized and you can
+    //due to this , the userDetails also gets initialized and you can
     setTimeout(()=>{
     // Check if there's a saved state and apply it
     const savedState = localStorage.getItem('sliderState');

@@ -1,10 +1,11 @@
 import { Employee } from "./Employee.model";
+import { Role } from "./Role.model";
 
 export interface Users{
      email: string;
 	 encryptedPassword: string;
-	 userRole: string;
+	 userRoles: Role[];
 	 otpCode: number;
-	twoFactorAuthentication: boolean
-	employee: Employee
+	 twoFactorAuthentication: boolean
+	 employee: Employee
 }
