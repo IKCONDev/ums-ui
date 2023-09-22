@@ -26,7 +26,7 @@
         </div>
     </div>
 
-        <div calss="row" *ngIf="taskCount > 0 ; else noMeetings" style="padding-top: 20px;padding-right: 20px;padding-left: 20px; font-family: General san-serif;" >
+        <div calss="row" *ngIf="taskCount > 0 ; else noMeetings" style="padding-top: 20px;padding-right: 20px;padding-left: 20px;" >
             <table class="table table-hover" id="myTable">
                 <thead style="background-color: #ecf7fc; padding-top: 0px;">
                     <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
@@ -148,7 +148,7 @@
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body" style="font-family: General sans-serif;">
+            <div class="modal-body">
                 <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
                 <input type="text" style="margin-left: 30px;" [(ngModel)]="update_Task.taskTitle">
                 <label style="padding-left: 410px; font-size: 20px;"> Status</label>
