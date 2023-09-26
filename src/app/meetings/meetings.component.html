@@ -157,8 +157,8 @@
                                             <!-- submit and delete btn -->
                                             <td id="submitAndDelete{{meeting.id}}" colspan="2">
                                                 <a (click)="convertAcToTask(meeting.id)"
-                                                    style="cursor: pointer;">Submit</a>
-                                                <a style="padding-left: 10px;cursor: pointer;"
+                                                    style="cursor: pointer;color:blue">Submit</a>
+                                                <a style="padding-left: 10px;cursor: pointer;color:red"
                                                     (click)="checkCheckboxes(meeting.id)">Delete</a>
                                             </td>
                                             <td id="emptycell{{meeting.id}}" style="display: table-cell;"></td>
