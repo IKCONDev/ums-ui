@@ -24,5 +24,7 @@ export class HeaderService {
     updateTwofactorAuthenticationStatus(status: boolean, username:string){
       return this.http.patch<number>(`${this.finalHttpUrl}${this.twofactorAuthUpdateUrl}/`+username+"/"+status, {observe:'response'});
     }
+    
+    
 
 }

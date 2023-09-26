@@ -193,14 +193,19 @@ flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  height: 150px;
+  width: 150px;
+  background-size: cover;
 }
 
 .profile-pic {
-  width: 120px;
-  height: 120px;
+  object-fit: contain;
+  background-size: contain;
   border-radius: 50%;
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
+
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
 

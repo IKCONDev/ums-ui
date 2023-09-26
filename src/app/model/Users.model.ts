@@ -8,4 +8,6 @@ export interface Users{
 	 otpCode: number;
 	 twoFactorAuthentication: boolean
 	 employee: Employee
+	 profilePic: Blob
+
 }

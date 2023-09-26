@@ -28,8 +28,8 @@
         
                         <div class="modal-body">
                             <div class="container">
-                                <div class="profile-pic">
-                                    <img src="" alt="profile pic"/>
+                                <div class="profile-pic" >
+                                    <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px" height="110px" alt="profile pic"/>
                                 </div>
                             </div>
                             <!-- profile details -->
@@ -49,7 +49,7 @@
                                 <!-- my profile and logout -->
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <button class="btn btn-outline-secondary">My Profile</button>
+                                        <button class="btn btn-outline-secondary"  data-dismiss="modal" (click)="openProfilePanel()">My Profile</button>
                                     </div>
                                     <div class="col-sm-6">
                                         <a id="logoutRef" href="#"><p id="logout">Logout</p></a>
@@ -81,8 +81,9 @@
                                 </div>
                             </div>
                         </div>
-        
+                        
                     </div><!-- modal-content -->
+                    
                 </div><!-- modal-dialog -->
             </div><!-- modal -->
             

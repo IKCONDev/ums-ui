@@ -1,4 +1,5 @@
-import { Component, Output, Input } from '@angular/core';
+import { Component ,Output, Input } from '@angular/core';
+import {Router} from '@angular/router';
 import { HeaderService } from './service/header.service';
 import { error } from 'jquery';
 import { Employee } from '../model/Employee.model';
@@ -16,7 +17,7 @@ export class HeaderComponent {
   authStatusUpdated: number;
   //user/employee profile property
   userDetails: Users;
-  constructor(private headerService: HeaderService){
+  constructor(private headerService: HeaderService, private router: Router){
 
   }
 
@@ -60,5 +61,8 @@ export class HeaderComponent {
         console.log(this.userDetails)
       }
     )
+  }
+  openProfilePanel(){
+    this.router.navigateByUrl('/my-profile');
   }
 }

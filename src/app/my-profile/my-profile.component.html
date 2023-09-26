@@ -1,1 +1,96 @@
-<p>my-profile works!</p>
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title" id="header"></app-header>
+</div>
+<div class="container-fluid">
+    <hr>
+    <div class="profimgParent" *ngIf="user != null">
+        <div><img class="pexels-photo-by-pixabay" [src]="'data:image/png/jpg/jpeg;base64,'+user.profilePic" />
+        </div>
+        <div id="move" style="padding-left:30px;">
+            <input type="file"accept="image/png, image/jpg, image/jpeg" id="move" class="btn btn success" (change)="onFileChanged($event)" />
+        </div>
+        
+        <div class="prfname-parent">
+            <div class="prof-name">{{user.employee.firstName}}</div>
+            <div class="prof-mail">{{user.employee.email}}</div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4" style="padding-left: 92px;">
+            <b *ngIf="isDisable ==true">
+                <button type="button" class="fa fa-pencil" (click)="editUserInfo()"> </button> </b>
+        </div>
+    </div>
+
+    <div *ngIf="user != null" class="frame-parent">
+        <div class="frame-group">
+
+            <div class="full-name-parent">
+                <div class="full-name">Full Name</div>
+                <div class="disp-name">
+                    <input type="text" [(ngModel)]="user.employee.firstName" [disabled]="isDisable"
+                        class="form-control">
+                </div>
+            </div>
+            <div class="full-name-parent">
+                <div class="full-name">Gender</div>
+                <div class="disp-name">
+                    <input type="text" value="Male" class="form-control" [disabled]="isDisable">
+                </div>
+            </div>
+            <div class="full-name-parent">
+                <div class="full-name">Role</div>
+                <div class="disp-name">
+                    <input type="text" [ngModel]="user.userRoles[0].roleName" [disabled]="isDisable"
+                        class="form-control">
+                </div>
+            </div>
+            <div class="full-name-parent">
+                <div class="full-name">Department</div>
+                <div class="disp-name">
+                    <input type="text" [ngModel]="user.employee.department.departmentName" [disabled]="isDisable"
+                        class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="frame-group">
+            <div class="full-name-parent">
+                <div class="full-name">Display Name</div>
+                <div class="disp-name">
+                    <input type="text" [ngModel]="user.employee.firstName" [disabled]="isDisable" class="form-control">
+                </div>
+            </div>
+            <div>
+                <div class="full-name">Date of Joining</div>
+                <div class="disp-name">
+                    <input type="text" value="NA" class="form-control" [disabled]="isDisable">
+                </div>
+            </div>
+            <div>
+                <div class="full-name">Designation</div>
+                <div class="disp-name">
+                    <input type="text" [ngModel]="user.employee.designation" [disabled]="isDisable"
+                        class="form-control">
+                </div>
+            </div>
+            <div>
+                <div class="full-name">Reporting Manager</div>
+                <div class="disp-name">
+                    <input type="text" value="Anil" [disabled]="isDisable" class="form-control">
+                </div>
+            </div>
+            <div class="disp-name">
+                <b *ngIf="isDisable !=true">
+                    <button type="submit" class="btn btn-primary" (click)="updateUserInfo()">Save</button>
+                    &nbsp;<button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+                </b>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
