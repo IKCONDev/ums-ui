@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Task } from '../model/task.model';
 import { TaskService } from './service/task.service';
 import { Toast, ToastrService } from 'ngx-toastr';
@@ -10,6 +10,7 @@ import { Toast, ToastrService } from 'ngx-toastr';
 })
 export class TaskComponent {
 
+  @Output() title: string = 'Tasks'
   task :Task[]
   task_Details: Task;
   taskCount : number =0;
@@ -63,6 +64,7 @@ export class TaskComponent {
     this.service.updateTaskDetails(this.update_Task).subscribe(response =>{
 
       this.data = response.body;
+      
 
     });
  
