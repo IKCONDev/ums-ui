@@ -41,6 +41,7 @@ export class MeetingService {
     }
 
     getUserAttendedEvents(email: string){
+      console.log(`${this.finalHttpMeetingsPathUrl}${this.userAttendedEventsPathUrl}/`+email);
       return this.http.get<Meeting[]>(`${this.finalHttpMeetingsPathUrl}${this.userAttendedEventsPathUrl}/`+email, {observe: 'response'});
     }
 
