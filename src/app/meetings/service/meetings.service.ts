@@ -13,8 +13,12 @@ export class MeetingService {
   private gatewayUrl = 'http://localhost:8012'
   private batchProcessingMicroservicePathUrl = '/teams';
   private finalHttpUrl = this.gatewayUrl+this.batchProcessingMicroservicePathUrl;
-  private userEventsPathUrl = 'events/organized';
-  private userAttendedEventsPathUrl = 'events/attended';
+
+  private meetingsMicroservicePathUrl = '/meetings';
+  private finalHttpMeetingsPathUrl = this.gatewayUrl+this.meetingsMicroservicePathUrl;
+  private userEventsPathUrl = '/organized';
+  private userAttendedEventsPathUrl = '/attended';
+
   private actionItemsOfEventPathUrl = 'events/actionitems/';
   private actionItemsPathUrl = 'events/actionitems';
 
@@ -33,11 +37,12 @@ export class MeetingService {
   constructor(private http: HttpClient){}
 
     getUserEvents(email: string){
-        return this.http.get<Meeting[]>(`${this.finalHttpUrl}/${this.userEventsPathUrl}/`+email, {observe: 'response'});
+        return this.http.get<Meeting[]>(`${this.finalHttpMeetingsPathUrl}${this.userEventsPathUrl}/`+email, {observe: 'response'});
     }
 
     getUserAttendedEvents(email: string){
-      return this.http.get<Meeting[]>(`${this.finalHttpUrl}/${this.userAttendedEventsPathUrl}/`+email, {observe: 'response'});
+      console.log(`${this.finalHttpMeetingsPathUrl}${this.userAttendedEventsPathUrl}/`+email);
+      return this.http.get<Meeting[]>(`${this.finalHttpMeetingsPathUrl}${this.userAttendedEventsPathUrl}/`+email, {observe: 'response'});
     }
 
     getActionItemsOfEvent(eventId: number){

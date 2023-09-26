@@ -13,7 +13,11 @@ import { OverviewComponent } from './overview/overview.component';
 import { ActionItemComponent } from './action-item/action-item.component';
 import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actionitems.component';
 import { TaskComponent } from './task/task.component';
+<<<<<<< HEAD
 import { MyProfileComponent } from './my-profile/my-profile.component';
+=======
+import { ReportComponent } from './report/report.component';
+>>>>>>> d7bf65dab47de5e24ec21ca1f7e5df70f2e21741
 
 const routes: Routes = [
   
@@ -30,7 +34,11 @@ const routes: Routes = [
   {path:"actions",component:ActionItemComponent},
   {path:"meeting-actionitems/:eventId", component: MeetingActionitemsComponent},
   {path:"task",component:TaskComponent},
+<<<<<<< HEAD
   {path:"my-profile",component:MyProfileComponent},
+=======
+  {path:"reports",component:ReportComponent},
+>>>>>>> d7bf65dab47de5e24ec21ca1f7e5df70f2e21741
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '', redirectTo:'/login', pathMatch: 'full'},

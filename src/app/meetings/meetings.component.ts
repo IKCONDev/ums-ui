@@ -95,7 +95,8 @@ export class MeetingsComponent implements OnInit {
     //this.router.navigateByUrl('/meeting-actionitems/'+eventid);
     this.meetingsService.getActionItems().subscribe(
       (response => {
-        this.actionItemsOfEvent = response.body;
+       // this.actionItemsOfEvent = response.body;
+       this.actionItemsOfEvent = response.body;
         console.log(response.body)
       })
     )

@@ -1,5 +1,5 @@
 <app-side-menubar></app-side-menubar>
-<app-header></app-header>
+<app-header [title]="title" id="header"></app-header>
 <div class="container-fluid">
     <div class="card-header">
         <div class="row">
@@ -25,8 +25,26 @@
 
         </div>
     </div>
+    <div calss="row"  style="padding-top: 20px;padding-right: 20px;padding-left: 20px; font-family: General san-serif;">
 
-        <div calss="row" *ngIf="taskCount > 0 ; else noMeetings" style="padding-top: 20px;padding-right: 20px;padding-left: 20px; font-family: General san-serif;" >
+<<<<<<< HEAD
+        <table class="table table-hover" id="myTable" *ngIf="taskCount>0; else noMeetings">
+            <thead style="background-color: #ecf7fc; padding-top: 0px;">
+                <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
+                <th>UID</th>
+                <th>Task Title</th>
+                <th>ActionItem</th>
+                <th>Assignees</th>
+                <th>StartDate</th>
+                <th>DueDate</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th></th>
+            </thead>
+            <tbody  *ngFor="let item of task">
+                <tr> 
+=======
+        <div calss="row" *ngIf="taskCount > 0 ; else noMeetings" style="padding-top: 20px;padding-right: 20px;padding-left: 20px;" >
             <table class="table table-hover" id="myTable">
                 <thead style="background-color: #ecf7fc; padding-top: 0px;">
                     <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
@@ -42,67 +60,56 @@
                 </thead>
                 <tbody  *ngFor="let item of task">
                     <tr> 
+>>>>>>> 8811a394c53eed9bfdd540500aa3a92e4129e488
 
-                        <td style="padding-left: 21px;"><input type="checkbox"  value="{{item.id}}"class="checkbox">
-                         </td>
-                        <td>{{item.id}}</td>
-                        <td>{{item.taskTitle}}</td>
-                        <td>{{item.actionTitle}}</td>
-                        <td>{{item.assignee}}</td>
-                        <td>{{item.startDate}}</td>
-                        <td>{{item.dueDate}}</td>
-                        <td>{{item.taskPriority}}</td>
-                        <td>{{item.status}}</td>
-                        <td>
-                            <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
-                                (click)="editTask(item.id)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                    fill="none">
-                                    <g id="edit">
-                                        <path id="Vector"
-                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                            fill="#5590AA" />
-                                    </g>
-                                </svg>
-                            </span>
+                    <td style="padding-left: 21px;"><input type="checkbox"  value="{{item.id}}"class="checkbox">
+                     </td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.taskTitle}}</td>
+                    <td>{{item.actionTitle}}</td>
+                    <td>{{item.assignee}}</td>
+                    <td>{{item.startDate}}</td>
+                    <td>{{item.dueDate}}</td>
+                    <td>{{item.taskPriority}}</td>
+                    <td>{{item.status}}</td>
+                    <td>
+                        <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
+                            (click)="editTask(item.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <g id="edit">
+                                    <path id="Vector"
+                                        d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                        fill="#5590AA" />
+                                </g>
+                            </svg>
+                        </span>
 
-                        </td>
-                </tbody>
+                    </td>
+            </tbody>
+        
             </table>
         </div>
-        <div>
-            <ng-template #noMeetings>
-                <table class="table table-hover">
-                    <thead id="thead">
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Organizer</th>
-                        <th>StartDate/Time</th>
-                        <th>EndDate/Time</th>
-                    </thead>
-                </table>
-                <p id="no-meetings">No Tasks Yet ! </p>
-            </ng-template>
-        </div>
-    
-</div>
-<!-- modal for edit tasks-
-<div class="modal" id="edit_modal">
-    <div class="modal-dialog modal-xl">
-        <div clas="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" style="text-align: center;">ActionItem</h4>
-            </div>
             <div>
-                
+                <ng-template #noMeetings>
+                    <table class="table table-hover">
+                        <thead style="background-color: #ecf7fc; padding-top:0px;">
+                            <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
+                            <th>UID</th>
+                            <th>Task Title</th>
+                            <th>ActionItem</th>
+                            <th>Assignees</th>
+                            <th>StartDate</th>
+                            <th>DueDate</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th></th>
+                        </thead>
+                    </table>
+                    <p id="no-meetings">No Tasks Yet ! </p>
+                </ng-template>
             </div>
-        </div>   
-    </div>
-</div>-->
-
-
-
-
+</div>
 
 <!-- Button to trigger the modal -->
 
@@ -148,7 +155,7 @@
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body" style="font-family: General sans-serif;">
+            <div class="modal-body">
                 <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
                 <input type="text" style="margin-left: 30px;" [(ngModel)]="update_Task.taskTitle">
                 <label style="padding-left: 410px; font-size: 20px;"> Status</label>
@@ -212,7 +219,3 @@
         </div>
     </div>
 </div>
-
-
-
-
