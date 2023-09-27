@@ -41,7 +41,7 @@
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr>
-                        <td style="padding-left: 22px;">{{meeting.id}}</td>
+                        <td style="padding-left: 22px;">{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerEmailId}}</td>
@@ -53,7 +53,7 @@
                             <!-- transcript data Modal start -->
                             <button id="transcriptBtn" [disabled]="meeting.isTranscriptDisabled">
                                 <i class="fa fa-file-audio fa-1x" data-toggle="modal" data-target="#exampleModalLong"
-                                    (click)="displayTranscriptData(meeting.id,meeting.subject, meeting.transcriptData)"></i>
+                                    (click)="displayTranscriptData(meeting.meetingId,meeting.subject, meeting.transcriptData)"></i>
                             </button>
                             <div>
                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
@@ -90,12 +90,12 @@
                         </td>
 
                         <td style="padding-left: 12px;"><a class="showmore"
-                                (click)="fetchActionItemsOfEvent(meeting.id)">Show Action Items</a></td>
+                                (click)="fetchActionItemsOfEvent(meeting.meetingId)">Show Action Items</a></td>
                     </tr>
                     <tr class="detail">
                         <td colspan="12">
                             <div>
-                                <table id="myTable{{meeting.id}}" class="table table-hover">
+                                <table id="myTable{{meeting.meetingId}}" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <!-- <th id="tablehead"><input type="checkbox"  disabled/></th> -->
@@ -110,19 +110,19 @@
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfEvent; let i= index">
-                                        <tr *ngIf="actionItem.eventid === meeting.id">
+                                        <tr *ngIf="actionItem.meetingId === meeting.meetingId">
                                             <td><input type="checkbox" id="ac-check{{i}}" class="ac-check"
                                                     value="{{actionItem.id}}"
-                                                    (change)="toggleSubmitAndDeleteButtons(meeting.id,i)" />
+                                                    (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)" />
                                             </td>
-                                            <td>{{actionItem.id}}</td>
-                                            <td>{{actionItem.actionTitle}}</td>
-                                            <td>{{"Owner"}}</td>
+                                            <td>{{actionItem.actionItemId}}</td>
+                                            <td>{{actionItem.actionItemTitle}}</td>
+                                            <td>{{actionItem.actionItemOwner}}</td>
                                             <td>{{actionItem.startDate}}</td>
-                                            <td>{{actionItem.description}}</td>
+                                            <td>{{actionItem.actionItemDescription}}</td>
                                             <td>{{actionItem.actionStatus}}</td>
                                             <td *ngIf="actionItem.actionStatus==='NotConverted'"><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                    <span class="edit-icon" (click)="editData(actionItem.id)"
+                                                    <span class="edit-icon" (click)="editData(actionItem.actionItemId)"
                                                     data-toggle="modal" data-target="#myModal">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                         viewBox="0 0 20 20" fill="none">
@@ -155,13 +155,13 @@
                                                     style="cursor: pointer;padding-left: 50px;">Add Action Item</a>
                                             </td>
                                             <!-- submit and delete btn -->
-                                            <td id="submitAndDelete{{meeting.id}}" colspan="2">
-                                                <a (click)="convertAcToTask(meeting.id)"
+                                            <td id="submitAndDelete{{meeting.meetingId}}" colspan="2">
+                                                <a (click)="convertAcToTask(meeting.meetingId)"
                                                     style="cursor: pointer;color:blue">Submit</a>
                                                 <a style="padding-left: 10px;cursor: pointer;color:red"
-                                                    (click)="checkCheckboxes(meeting.id)">Delete</a>
+                                                    (click)="checkCheckboxes(meeting.meetingId)">Delete</a>
                                             </td>
-                                            <td id="emptycell{{meeting.id}}" style="display: table-cell;"></td>
+                                            <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -246,9 +246,9 @@
                     </div>
                     <br>
                     <label>ActionItem Title</label>
-                    <input type="text" style="width: 400px;" [(ngModel)]="addDetails.actionTitle">
+                    <input type="text" style="width: 400px;" [(ngModel)]="addDetails.actionItemTitle">
                     <label>ActionItem Description</label>
-                    <input type="text" style="width:400px;" [(ngModel)]="addDetails.description">
+                    <input type="text" style="width:400px;" [(ngModel)]="addDetails.actionItemDescription">
                     <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
                     <label for="priority">Priority</label>
                     <select id="priority" style="width: 400px;" [(ngModel)]="addDetails.actionPriority">
@@ -295,9 +295,9 @@
 
 
                 <label>ActionItem Title</label>
-                <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionTitle">
+                <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle">
                 <label>ActionItem Description</label>
-                <input type="text" style="width:400px;" [(ngModel)]="updatedetails.description">
+                <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionItemDescription">
                 <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
                 <label>Priority</label>
                 <select id="priority" style="width: 400px;" [(ngModel)]="updatedetails.actionPriority">

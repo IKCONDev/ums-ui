@@ -32,27 +32,29 @@ export class MeetingsComponent implements OnInit {
   currentEventId: number;
 
   addDetails = {
-    id: 0,
-    actionTitle: '',
-    description: '',
-    startDate: '',
-    endDate: '',
-    actionStatus: 'NotConverted',
+    actionItemId: 0,
+    meetingId: 0,
+    emailId:'',
+    actionItemOwner:'',
+    actionItemTitle: '',
+    actionItemDescription: '',
     actionPriority: '',
-    eventid: 0,
-    userId:''
+    actionStatus: 'NotConverted',
+    startDate: '',
+    endDate: ''
 
   }
   updatedetails = {
-    id: 0,
-    actionTitle: '',
-    description: '',
-    startDate: '',
-    endDate: '',
-    actionStatus: '',
+    actionItemId: 0,
+    meetingId: 0,
+    emailId:'',
+    actionItemOwner:'',
+    actionItemTitle: '',
+    actionItemDescription: '',
     actionPriority: '',
-    eventid: 0,
-    userId:''
+    actionStatus: '',
+    startDate: '',
+    endDate: ''
 
   }
 
@@ -113,7 +115,7 @@ export class MeetingsComponent implements OnInit {
       document.getElementById("organizedMeeting").style.textDecorationLine = 'underline';
       document.getElementById("attendedMeeting").style.textDecorationLine = 'none';
       //get user organized meetings
-      this.meetingsService.getUserEvents(localStorage.getItem('email')).subscribe(
+      this.meetingsService.fetchAllMeetingsByUserId(localStorage.getItem('email')).subscribe(
         (response) => {
           this.meetings = response.body;
           this.meetingCount = response.body.length
@@ -183,8 +185,8 @@ export class MeetingsComponent implements OnInit {
   saveDetails() {
     console.log(this.addDetails);
     console.log(this.currentEventId)
-    this.addDetails.eventid = this.currentEventId;
-    this.addDetails.userId = localStorage.getItem('email');
+    this.addDetails.meetingId = this.currentEventId;
+    this.addDetails.emailId = localStorage.getItem('email');
     this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
       this.response = response.body;
       this.actions_details = response.body;
@@ -276,12 +278,12 @@ export class MeetingsComponent implements OnInit {
     this.actionItemService.getActionItemById(id).subscribe(response => {
       this.actionItems_new = response.body;
       console.log(this.actionItems_new);
-      this.updatedetails.id = this.actionItems_new.id;
-      this.updatedetails.description = this.actionItems_new.description;
-      this.updatedetails.eventid = this.actionItems_new.eventid;
+      this.updatedetails.actionItemId = this.actionItems_new.actionItemId;
+      this.updatedetails.actionItemDescription = this.actionItems_new.actionItemDescription;
+      this.updatedetails.meetingId = this.actionItems_new.meetingId;
       this.updatedetails.actionStatus = this.actionItems_new.actionStatus;
-      console.log(this.actionItems_new.description);
-      this.updatedetails.actionTitle = this.actionItems_new.actionTitle;
+      console.log(this.actionItems_new.actionItemDescription);
+      this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
       this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
       this.updatedetails.startDate = this.actionItems_new.startDate;
       this.updatedetails.endDate = this.actionItems_new.endDate;
@@ -294,8 +296,8 @@ export class MeetingsComponent implements OnInit {
   //Update the  action item Details
   id: number;
   data: object = {};
-  updateDetails(event: any) {
-    this.id = this.updatedetails.id;
+  updateDetails(meeting: any) {
+    this.id = this.updatedetails.actionItemId;
     console.log(this.updatedetails.actionPriority);
     console.log(this.id);
     console.log(this.updatedetails);
@@ -313,9 +315,9 @@ export class MeetingsComponent implements OnInit {
   isEventActionItemsSubmitted;
   actionItemsToBeSubmitted = [];
  
-  convertAcToTask(eventId: number) {
-    console.log(eventId)
-    var table = document.getElementById("myTable" + eventId)
+  convertAcToTask(meetingId: number) {
+    console.log(meetingId)
+    var table = document.getElementById("myTable" + meetingId)
     console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");

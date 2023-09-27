@@ -41,16 +41,16 @@
             <tbody *ngFor="let actionItem of actionItems, let i = index">
                 <tr>
                     <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
-                            value="{{actionItem.id}}"></td>
-                    <td>{{actionItem.id}}</td>
-                    <td>{{actionItem.actionTitle}}</td>
+                            value="{{actionItem.actionItemId}}"></td>
+                    <td>{{actionItem.actionItemId}}</td>
+                    <td>{{actionItem.actionItemTitle}}</td>
                     <td>{{actionItem.startDate}}</td>
                     <td>{{actionItem.endDate}}</td>
                     <td>{{0}}</td>
                     <td>{{actionItem.actionStatus}}</td>
                     <!-- edit btn -->
                     <td><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                        <span class="edit-icon" (click)="editData(actionItem.id)" data-toggle="modal"
+                        <span class="edit-icon" (click)="editData(actionItem.actionItemId)" data-toggle="modal"
                             data-target="#myModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                 fill="none">
@@ -64,7 +64,7 @@
                     </td>
                     <!-- delete btn -->
                     <td>
-                        <span class="delete-icon" style="padding-top:px;" (click)="deleteData(actionItem.id)"
+                        <span class="delete-icon" style="padding-top:px;" (click)="deleteData(actionItem.actionItemId)"
                             data-toggle="modal" data-target="#myModal_del">
 
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -103,7 +103,7 @@
                             <th id="tablehead">Status</th>
                            </thead>
                            <tbody *ngFor="let element of task_array">
-                            <tr *ngIf ="actionItem.id == element.actionItemId">
+                            <tr *ngIf ="actionItem.actionItemId == element.actionItemId">
                                 <td>{{element.id}}</td>
                                 <td>{{element.taskTitle}}</td>
                                 <td>{{element.taskDescription}}</td>
@@ -162,9 +162,9 @@
 
 
             <label>ActionItem Title</label>
-            <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionTitle">
+            <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle">
             <label>ActionItem Description</label>
-            <input type="text" style="width:400px;" [(ngModel)]="updatedetails.description">
+            <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionItemDescription">
             <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
             <label>Priority</label>
             <select id="priority" style="width: 400px;" [(ngModel)]="updatedetails.actionPriority">
@@ -199,9 +199,9 @@
             </div>
             <br>
             <label>ActionItem Title</label>
-            <input type="text" style="width: 400px;" [(ngModel)]="addDetails.actionTitle">
+            <input type="text" style="width: 400px;" [(ngModel)]="addDetails.actionItemTitle">
             <label>ActionItem Description</label>
-            <input type="text" style="width:400px;" [(ngModel)]="addDetails.description">
+            <input type="text" style="width:400px;" [(ngModel)]="addDetails.actionItemDescription">
             <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
             <label for="priority">Priority</label>
             <select id="priority" style="width: 400px;" [(ngModel)]="addDetails.actionPriority">

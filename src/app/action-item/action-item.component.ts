@@ -22,16 +22,17 @@ export class ActionItemComponent  implements OnInit{
   actionItems: ActionItems[];
   actionItems_new: ActionItems;
   email: string;
-  updatedetails= {
-    id:0 ,
-    actionTitle: '',
-    description: '',
-    startDate: '',
-    endDate: '',
-    actionStatus: '',
+  updatedetails = {
+    actionItemId: 0,
+    meetingId: 0,
+    emailId:'',
+    actionItemOwner:'',
+    actionItemTitle: '',
+    actionItemDescription: '',
     actionPriority: '',
-    eventid:0,
-    userId:''
+    actionStatus: '',
+    startDate: '',
+    endDate: ''
 
   }
   constructor(private service: ActionService, private taskService:TaskService,private toastr: ToastrService) { 
@@ -69,12 +70,12 @@ export class ActionItemComponent  implements OnInit{
     this.service.getActionItemById(id).subscribe(response => {
       this.actionItems_new = response.body;
       console.log(this.actionItems_new);
-      this.updatedetails.id = this.actionItems_new.id;
-      this.updatedetails.description = this.actionItems_new.description;
-      this.updatedetails.eventid=this.actionItems_new.eventid;
+      this.updatedetails.actionItemId = this.actionItems_new.actionItemId;
+      this.updatedetails.actionItemDescription = this.actionItems_new.actionItemDescription;
+      this.updatedetails.meetingId=this.actionItems_new.meetingId;
       this.updatedetails.actionStatus=this.actionItems_new.actionStatus;
-      console.log(this.actionItems_new.description);
-      this.updatedetails.actionTitle = this.actionItems_new.actionTitle;
+      console.log(this.actionItems_new.actionItemDescription);
+      this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
       this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
       this.updatedetails.startDate = this.actionItems_new.startDate;
       this.updatedetails.endDate = this.actionItems_new.endDate;
@@ -86,7 +87,7 @@ export class ActionItemComponent  implements OnInit{
   data:object={};
   //Update the Details
   updateDetails(event:any) {
-      this.id=this.updatedetails.id;
+      this.id=this.updatedetails.actionItemId;
       console.log(this.updatedetails.actionPriority);
       console.log(this.id);
       console.log(this.updatedetails);
@@ -96,17 +97,17 @@ export class ActionItemComponent  implements OnInit{
             console.log(this.data);
       });
     }
-    addDetails= {
-      id:0,
-      actionTitle: '',
-      description: '',
-      startDate: '',
-      endDate: '',
-      actionStatus: '',
+    addDetails = {
+      actionItemId: 0,
+      meetingId: 0,
+      emailId:'',
+      actionItemOwner:'',
+      actionItemTitle: '',
+      actionItemDescription: '',
       actionPriority: '',
-      eventid:0,
-      userId:''
-  
+      actionStatus: 'NotConverted',
+      startDate: '',
+      endDate: ''
     }
     ViewTaskDetails(){
       console.log("fetching task details");
@@ -130,7 +131,7 @@ export class ActionItemComponent  implements OnInit{
     saveDetails(event:any){
 
       console.log(this.addDetails);
-      this.addDetails.userId = localStorage.getItem('email');
+      this.addDetails.emailId = localStorage.getItem('email');
       this.service.saveActionItem(this.addDetails).subscribe(response=>{
            this.response=response.body;
            this.actions_details= response.body;

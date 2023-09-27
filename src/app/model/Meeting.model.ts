@@ -3,7 +3,7 @@ import { Transcript } from "./Transcript.model"
 
 export interface Meeting{
 
-    id: number
+    meetingId: number
     subject: string
     organizerName: string
     organizerEmailId: string

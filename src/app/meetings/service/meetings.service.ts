@@ -18,6 +18,11 @@ export class MeetingService {
   private finalHttpMeetingsPathUrl = this.gatewayUrl+this.meetingsMicroservicePathUrl;
   private userEventsPathUrl = '/organized';
   private userAttendedEventsPathUrl = '/attended';
+  private userOrganizedMeetingspathUrl = '/all'
+
+  private actionsMicroservicePathUrl = '/actions';
+  private userMeetingsActionItemsPathUrl = '/all'
+
 
   private actionItemsOfEventPathUrl = 'events/actionitems/';
   private actionItemsPathUrl = 'events/actionitems';
@@ -36,8 +41,14 @@ export class MeetingService {
 
   constructor(private http: HttpClient){}
 
+  /*
     getUserEvents(email: string){
         return this.http.get<Meeting[]>(`${this.finalHttpMeetingsPathUrl}${this.userEventsPathUrl}/`+email, {observe: 'response'});
+    }
+    */
+
+    fetchAllMeetingsByUserId(email: string){
+      return this.http.get<Meeting[]>(`${this.finalHttpMeetingsPathUrl}${this.userOrganizedMeetingspathUrl}/`+email, {observe: 'response'});
     }
 
     getUserAttendedEvents(email: string){
@@ -50,7 +61,7 @@ export class MeetingService {
     }
 
     getActionItems(){
-      return this.http.get<ActionItems[]>(`${this.finalHttpUrl}/${this.actionItemsPathUrl}`, {observe: 'response'});
+      return this.http.get<ActionItems[]>(`${this.gatewayUrl}${this.actionsMicroservicePathUrl}/all`, {observe: 'response'});
     }
 
     deleteActionItemsOfEvent(actionItemIds: any[], eventId: number){

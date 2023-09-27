@@ -11,10 +11,10 @@ import { Task } from 'src/app/model/task.model';
 export class ActionService {
 
     //private gatewayUrl1 = 'http://localhost:8080/api'
-    private gatewayUrl1 ='http://localhost:8012'
-    private actionItemsMicroservicePathUrl = '/api/actions';
+    private gatewayUrl ='http://localhost:8012'
+    private actionItemsMicroservicePathUrl = '/actions';
     private tasksURL ='task';
-    private finalHttpUrl = this.gatewayUrl1+this.actionItemsMicroservicePathUrl;  
+    private finalHttpUrl = this.gatewayUrl+this.actionItemsMicroservicePathUrl;  
     private actionItemsUrl = 'get-actions';
     private updateActionItemUrl='update-action';
     private getActionItem = 'get-action-item';
@@ -35,7 +35,7 @@ export class ActionService {
     }
     updateActionItem(actionItem:ActionItems){
       
-       return this.http.put(`${this.finalHttpUrl}/${this.updateActionItemUrl}/${actionItem.id}`,actionItem,{observe:'response'});
+       return this.http.put(`${this.finalHttpUrl}/${this.updateActionItemUrl}/${actionItem.actionItemId}`,actionItem,{observe:'response'});
     }
     saveActionItem(actionItem:ActionItems){
       
@@ -47,7 +47,7 @@ export class ActionService {
     }
     getAlltaskDetails(){
         
-      return this.http.get<Task[]>(`${this.gatewayUrl1}/${this.tasksURL}/${this.getTaskDetails}`,{observe:'response'});
+      return this.http.get<Task[]>(`${this.gatewayUrl}/${this.tasksURL}/${this.getTaskDetails}`,{observe:'response'});
    }
     deleteActionItem(id:number){
 

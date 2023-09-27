@@ -1,13 +1,16 @@
 export class ActionItems{
 
-    id:number;
-    actionTitle:string;
-    actionPriority:string;
-    description:string;
-    startDate:string;
-    endDate:string;
-    actionStatus:string;
-    eventid:number;
-    userId:string;
+    actionItemId:number;
+    meetingId: number
+    emailId:string;
+    actionItemOwner: string;
+    actionItemTitle:string;
+    actionItemDescription:string;
+    actionPriority: string
+    actionStatus: string
+    startDate: string
+    endDate: string
+
+    
 
  }
