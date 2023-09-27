@@ -19,7 +19,7 @@ export class TaskService{
         return this.http.get<Task>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/${id}`,{observe:'response'});
     }
     getTaskByUserId(email:string){
-        return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/get/${email}`,{observe:'response'});
+        return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/getall/${email}`,{observe:'response'});
 
     }
     updateTask(task:Task){

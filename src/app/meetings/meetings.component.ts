@@ -342,7 +342,8 @@ export class MeetingsComponent implements OnInit {
      //if(action.status === 'NotConverted'){
       var acitems = this.actionItemsToBeSubmittedIds.forEach((acId)=>{
         console.log(acId+" to be submitted")
-          if(acId == action.meetingId){
+          if(acId == action.actionItemId){
+            console.log(acId+" to be submitted")
             this.actionItemsToBeSubmitted.push(action);
           }
         })
