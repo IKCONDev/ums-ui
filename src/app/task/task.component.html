@@ -21,100 +21,81 @@
 
             <div class="col-sm-1" style="padding-top: 8px;"><button id="add_button" type="btn btn-primary"
                     (click)="checkCheckBoxes()">delete</button></div>
-
-
         </div>
     </div>
-    <div calss="row"  style="padding-top: 20px;padding-right: 20px;padding-left: 20px; font-family: General san-serif;">
+   
+                    <div calss="row" *ngIf="taskCount > 0 ; else noMeetings"
+                        style="padding-top: 20px;padding-right: 20px;padding-left: 20px;">
+                        <table class="table table-hover" id="myTable">
+                            <thead style="background-color: #ecf7fc; padding-top: 0px;">
+                                <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;">
+                                </th>
+                                <th>UID</th>
+                                <th>Task Title</th>
+                                <th>ActionItem</th>
+                                <th>Assignees</th>
+                                <th>StartDate</th>
+                                <th>DueDate</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th></th>
+                            </thead>
+                            <tbody *ngFor="let item of task">
+                                <tr>
+                                    <td style="padding-left: 21px;"><input type="checkbox" value="{{item.id}}"
+                                            class="checkbox">
+                                    </td>
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.taskTitle}}</td>
+                                    <td>{{item.actionTitle}}</td>
+                                    <td>{{item.assignee}}</td>
+                                    <td>{{item.startDate}}</td>
+                                    <td>{{item.dueDate}}</td>
+                                    <td>{{item.taskPriority}}</td>
+                                    <td>{{item.status}}</td>
+                                    <td>
+                                        <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
+                                            (click)="editTask(item.id)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none">
+                                                <g id="edit">
+                                                    <path id="Vector"
+                                                        d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                                        fill="#5590AA" />
+                                                </g>
+                                            </svg>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <ng-template #noMeetings>
+                            <table class="table table-hover">
+                                <thead style="background-color: #ecf7fc; padding-top:0px;">
+                                    <th style="padding-left: 22px;"><input type="checkbox" class="box"
+                                            style="margin: 0px;"></th>
+                                    <th>UID</th>
+                                    <th>Task Title</th>
+                                    <th>ActionItem</th>
+                                    <th>Assignees</th>
+                                    <th>StartDate</th>
+                                    <th>DueDate</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </thead>
+                            </table>
+                            <p id="no-meetings">No Tasks Yet ! </p>
+                        </ng-template>
+                    </div>
+    </div>
 
-<<<<<<< HEAD
-        <table class="table table-hover" id="myTable" *ngIf="taskCount>0; else noMeetings">
-            <thead style="background-color: #ecf7fc; padding-top: 0px;">
-                <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
-                <th>UID</th>
-                <th>Task Title</th>
-                <th>ActionItem</th>
-                <th>Assignees</th>
-                <th>StartDate</th>
-                <th>DueDate</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th></th>
-            </thead>
-            <tbody  *ngFor="let item of task">
-                <tr> 
-=======
-        <div calss="row" *ngIf="taskCount > 0 ; else noMeetings" style="padding-top: 20px;padding-right: 20px;padding-left: 20px;" >
-            <table class="table table-hover" id="myTable">
-                <thead style="background-color: #ecf7fc; padding-top: 0px;">
-                    <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
-                    <th>UID</th>
-                    <th>Task Title</th>
-                    <th>ActionItem</th>
-                    <th>Assignees</th>
-                    <th>StartDate</th>
-                    <th>DueDate</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th></th>
-                </thead>
-                <tbody  *ngFor="let item of task">
-                    <tr> 
->>>>>>> 8811a394c53eed9bfdd540500aa3a92e4129e488
-
-                    <td style="padding-left: 21px;"><input type="checkbox"  value="{{item.id}}"class="checkbox">
-                     </td>
-                    <td>{{item.id}}</td>
-                    <td>{{item.taskTitle}}</td>
-                    <td>{{item.actionTitle}}</td>
-                    <td>{{item.assignee}}</td>
-                    <td>{{item.startDate}}</td>
-                    <td>{{item.dueDate}}</td>
-                    <td>{{item.taskPriority}}</td>
-                    <td>{{item.status}}</td>
-                    <td>
-                        <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
-                            (click)="editTask(item.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none">
-                                <g id="edit">
-                                    <path id="Vector"
-                                        d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                        fill="#5590AA" />
-                                </g>
-                            </svg>
-                        </span>
-
-                    </td>
-            </tbody>
-        
-            </table>
-        </div>
-            <div>
-                <ng-template #noMeetings>
-                    <table class="table table-hover">
-                        <thead style="background-color: #ecf7fc; padding-top:0px;">
-                            <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
-                            <th>UID</th>
-                            <th>Task Title</th>
-                            <th>ActionItem</th>
-                            <th>Assignees</th>
-                            <th>StartDate</th>
-                            <th>DueDate</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                            <th></th>
-                        </thead>
-                    </table>
-                    <p id="no-meetings">No Tasks Yet ! </p>
-                </ng-template>
-            </div>
-</div>
-
-<!-- Button to trigger the modal -->
+    <!-- Button to trigger the modal -->
 
 
-<!-- The Modal
+    <!-- The Modal
 <div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -141,81 +122,75 @@
 </div> -->
 
 
-<!---Long modal-->
-<div class="modal fade" id="xlModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
+    <!---Long modal-->
+    <div class="modal fade" id="xlModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
-                <h5 class="modal-title" id="xlModalLabel">Task</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
-                </button>
-            </div>
+                <!-- Modal Header -->
+                <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
+                    <h5 class="modal-title" id="xlModalLabel">Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                    </button>
+                </div>
 
-            <!-- Modal body -->
-            <div class="modal-body">
-                <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
-                <input type="text" style="margin-left: 30px;" [(ngModel)]="update_Task.taskTitle">
-                <label style="padding-left: 410px; font-size: 20px;"> Status</label>
-                <span style="padding-left: 80px;"><select value="Yet to Start" [(ngModel)]="update_Task.status">
-                        <option>Yet to Start</option>
-                        <option>Inprogress</option>
-                        <option>completed</option>
-                    </select>
-                </span>
-                <div class="row" style="margin: 20px;">
-                    <div class="col-md-6">
-                        <label style="padding-top: 3px; font-size: 20px;">Description</label>
-                        <textarea style="width: 500px; height: 200px;"
-                            [(ngModel)]="update_Task.taskDescription"></textarea>
-                    </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-4" style="padding-left: 10px;">
-                        <div class="row">
-                            <div class="col-md-4">
-
-                                <label style="font-size: 20px;">Details</label>
-                                <p style="padding-top: 5px;">Assignee</p>
-                                <span style="padding-top: 30px;">Priority</span>
-                                <p style="padding-top:16px;">Start Date</p>
-                                <p style="padding-top:3px; ">Due Date</p>
-                            </div>
-                            <div class="col-md-4">
-
-                                <label></label>
-                                <input type="text" style="margin-bottom: 8px; margin-top: 16px;"
-                                    [(ngModel)]="update_Task.assignee">
-                                <select style="margin-top: 10px;margin-left:0px;"
-                                    [(ngModel)]="update_Task.taskPriority">
-                                    <option>High</option>
-                                    <option>Medium</option>
-                                    <option>Low</option>
-                                </select>
-                                <input type="datetime-local" style="margin-top: 10px;"
-                                    [(ngModel)]="update_Task.startDate">
-                                <input type="datetime-local" style="margin-top: 10px;"
-                                    [(ngModel)]="update_Task.dueDate">
-
-
-                            </div>
-
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
+                    <input type="text" style="margin-left: 30px;" [(ngModel)]="update_Task.taskTitle">
+                    <label style="padding-left: 410px; font-size: 20px;"> Status</label>
+                    <span style="padding-left: 80px;"><select value="Yet to Start" [(ngModel)]="update_Task.status">
+                            <option>Yet to Start</option>
+                            <option>Inprogress</option>
+                            <option>completed</option>
+                        </select>
+                    </span>
+                    <div class="row" style="margin: 20px;">
+                        <div class="col-md-6">
+                            <label style="padding-top: 3px; font-size: 20px;">Description</label>
+                            <textarea style="width: 500px; height: 200px;"
+                                [(ngModel)]="update_Task.taskDescription"></textarea>
                         </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4" style="padding-left: 10px;">
+                            <div class="row">
+                                <div class="col-md-4">
 
+                                    <label style="font-size: 20px;">Details</label>
+                                    <p style="padding-top: 5px;">Assignee</p>
+                                    <span style="padding-top: 30px;">Priority</span>
+                                    <p style="padding-top:16px;">Start Date</p>
+                                    <p style="padding-top:3px; ">Due Date</p>
+                                </div>
+                                <div class="col-md-4">
+
+                                    <label></label>
+                                    <input type="text" style="margin-bottom: 8px; margin-top: 16px;"
+                                        [(ngModel)]="update_Task.assignee">
+                                    <select style="margin-top: 10px;margin-left:0px;"
+                                        [(ngModel)]="update_Task.taskPriority">
+                                        <option>High</option>
+                                        <option>Medium</option>
+                                        <option>Low</option>
+                                    </select>
+                                    <input type="datetime-local" style="margin-top: 10px;"
+                                        [(ngModel)]="update_Task.startDate">
+                                    <input type="datetime-local" style="margin-top: 10px;"
+                                        [(ngModel)]="update_Task.dueDate">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateTaskDetails($event)"
+                        data-dismiss="modal" [(ngModel)]="update_Task">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
-
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="updateTaskDetails($event)" data-dismiss="modal"
-                    [(ngModel)]="update_Task">Save</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-            </div>
-
         </div>
     </div>
-</div>
