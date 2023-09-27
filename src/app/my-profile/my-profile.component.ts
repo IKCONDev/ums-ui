@@ -12,7 +12,7 @@ import { elementAt } from 'rxjs';
 })
 export class MyProfileComponent {
 
-  fileSize: number = 12000;
+  fileSize: number = 100000; //1MB
   retriveResponse: any;
   isDisable:boolean=true;
   constructor(private profileService: MyProfileService, private toastr: ToastrService) {
@@ -41,7 +41,6 @@ export class MyProfileComponent {
   onFileChanged(event: any) {
     this.selectedUserProfilePic = event.target.files[0];
     if (this.selectedUserProfilePic.size < this.fileSize) {
-      console.log("file size grater than 10kb")
       //execute
       console.log(localStorage.getItem('email'));
       this.profileService.updateUserProfilePic(localStorage.getItem('email'), this.selectedUserProfilePic).subscribe(
@@ -54,7 +53,7 @@ export class MyProfileComponent {
         }
       )
     } else {
-      this.toastr.error('File size ig greater than 10KB')
+      this.toastr.error('File size ig greater than 1MB')
     }
 
   }
