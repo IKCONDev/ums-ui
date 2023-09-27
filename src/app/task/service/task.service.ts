@@ -12,21 +12,20 @@ export class TaskService{
     private gatewayMicroservicePathUrl ="http://localhost:8012";
     private taskMicroservicePathUrl ="task";
 
-    getAlltaskDetails(){
-        
+    getAlltasks(){  
         return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/all`,{observe:'response'});
     }
-    getSingleTaskDetails(id:number){
+    getTask(id:number){
         return this.http.get<Task>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/${id}`,{observe:'response'});
     }
-    getUserTaskDetails(email:string){
+    getTaskByUserId(email:string){
         return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/get/${email}`,{observe:'response'});
 
     }
-    updateTaskDetails(task:Task){
+    updateTask(task:Task){
          return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/update/${task.id}`,task,{observe:'response'});
     }
-    deleteSelectedTasks(taskIds:any[]){
+    deleteAllTasksByTaskIds(taskIds:any[]){
         return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/deleteAll/${taskIds}`,{observe:'response'});
     }
 

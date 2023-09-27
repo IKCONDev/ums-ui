@@ -40,7 +40,7 @@ export class TaskComponent {
        console.log(this.task);
     });*/
 
-    this.service.getUserTaskDetails(localStorage.getItem('email')).subscribe(res=>{
+    this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
       this.task =res.body;
       this.taskCount = res.body.length;
       console.log(this.task);
@@ -52,7 +52,7 @@ export class TaskComponent {
     
   }
   editTask(id:number){
-    this.service.getSingleTaskDetails( id).subscribe(res=>{
+    this.service.getTask( id).subscribe(res=>{
       this.update_Task = res.body;
     });
 
@@ -61,7 +61,7 @@ export class TaskComponent {
   updateTaskDetails(event:any){
      
     console.log()
-    this.service.updateTaskDetails(this.update_Task).subscribe(response =>{
+    this.service.updateTask(this.update_Task).subscribe(response =>{
 
       this.data = response.body;
       
@@ -105,9 +105,9 @@ export class TaskComponent {
       
     }
     istaskDeleted : boolean= false;
-    deleteActionItems(task: any[]){
+    deleteActionItems(taskIds: any[]){
 
-      this.service.deleteSelectedTasks(task).subscribe(res=>{
+      this.service.deleteAllTasksByTaskIds(taskIds).subscribe(res=>{
             this.istaskDeleted = res.body;
             console.log(this.istaskDeleted);
             if(this.istaskDeleted){

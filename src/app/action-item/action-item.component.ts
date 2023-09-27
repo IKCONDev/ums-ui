@@ -59,7 +59,7 @@ export class ActionItemComponent  implements OnInit{
       this.actionItemCount = response.body.length;
       
     });*/
-    this.service.getUserActionItems(localStorage.getItem('email')).subscribe(res=>{
+    this.service.getUserActionItemsByUserId(localStorage.getItem('email')).subscribe(res=>{
       this.actionItems = res.body;
       console.log(res.body);
       this.actionItemCount = res.body.length;
@@ -111,7 +111,7 @@ export class ActionItemComponent  implements OnInit{
     }
     ViewTaskDetails(){
       console.log("fetching task details");
-      this.service.getAlltaskDetails().subscribe(response=>{
+      this.service.getAlltasks().subscribe(response=>{
         this.task_array =response.body;
         console.log(this.task_array);
       });
@@ -177,7 +177,7 @@ export class ActionItemComponent  implements OnInit{
     isActionsDeleted : boolean= false;
     deleteActionItems(actionItemList: any[]){
 
-      this.service.deleteSelectedActionItems(actionItemList).subscribe(res=>{
+      this.service.deleteSelectedActionItemsByIds(actionItemList).subscribe(res=>{
             this.isActionsDeleted = res.body;
             console.log(this.isActionsDeleted);
             if(this.isActionsDeleted){

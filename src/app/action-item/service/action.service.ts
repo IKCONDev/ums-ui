@@ -10,17 +10,16 @@ import { Task } from 'src/app/model/task.model';
 })
 export class ActionService {
 
-    //private gatewayUrl1 = 'http://localhost:8080/api'
     private gatewayUrl ='http://localhost:8012'
     private actionItemsMicroservicePathUrl = 'actions';
     private taskMicroServicePathUrl ='task'
-    private getTaskDetails ='get-tasks';
    
     constructor(private http:HttpClient){}
 
     getAllActionItems(){
         return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all`,{observe:'response'});
     }
+
     getActionItemById(id : number){
       return this.http.get<ActionItems>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/${id}`,{observe:'response'});
 
@@ -34,22 +33,20 @@ export class ActionService {
       return this.http.post<ActionItems>(`${this.gatewayUrl}${this.actionItemsMicroservicePathUrl}/save`,actionItem,{observe:'response'});
        
     }
-    getUserActionItems(email:string){
+    getUserActionItemsByUserId(email:string){
        return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`,{observe:'response'});
     }
-    getAlltaskDetails(){
-        
+
+    getAlltasks(){
       return this.http.get<Task[]>(`${this.gatewayUrl}/${this.taskMicroServicePathUrl}/all`,{observe:'response'});
-   }
+    }
+
     deleteActionItem(id:number){
-
-
       //console.log(action.id);
       return this.http.delete<number>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/${id}`,{observe:'response'});
     }
     
-    deleteSelectedActionItems(actionItemsIds:any[]){
-      
+    deleteSelectedActionItemsByIds(actionItemsIds:any[]){
       return this.http.delete<boolean>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/${actionItemsIds}`,{observe:'response'});
 
     }
