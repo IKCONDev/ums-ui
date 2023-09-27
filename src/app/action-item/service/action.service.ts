@@ -30,7 +30,7 @@ export class ActionService {
     }
     saveActionItem(actionItem:ActionItems){
       
-      return this.http.post<ActionItems>(`${this.gatewayUrl}${this.actionItemsMicroservicePathUrl}/save`,actionItem,{observe:'response'});
+      return this.http.post<ActionItems>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/save`,actionItem,{observe:'response'});
        
     }
     getUserActionItemsByUserId(email:string){

@@ -11,6 +11,7 @@ import { ActionItems } from 'src/app/model/actionitem.model';
 export class MeetingService {
 
   private gatewayUrl = 'http://localhost:8012'
+  private actionsMicroservicePathUrl = 'actions';
   private batchProcessingMicroservicePathUrl = '/teams';
   private finalHttpUrl = this.gatewayUrl+this.batchProcessingMicroservicePathUrl;
 
@@ -19,9 +20,6 @@ export class MeetingService {
   private userEventsPathUrl = '/organized';
   private userAttendedEventsPathUrl = '/attended';
   private userOrganizedMeetingspathUrl = '/all'
-
-  private actionsMicroservicePathUrl = '/actions';
-  private userMeetingsActionItemsPathUrl = '/all'
 
 
   private actionItemsOfEventPathUrl = 'events/actionitems/';
@@ -61,7 +59,7 @@ export class MeetingService {
     }
 
     getActionItems(){
-      return this.http.get<ActionItems[]>(`${this.gatewayUrl}${this.actionsMicroservicePathUrl}/all`, {observe: 'response'});
+      return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/all`, {observe: 'response'});
     }
 
     deleteActionItemsOfEvent(actionItemIds: any[], eventId: number){
@@ -73,7 +71,8 @@ export class MeetingService {
     }
 
     convertActionitemsToTasks(actionItems: ActionItems[]){
-      return this.http.post(`${this.finalActionHttpUrl}${this.convertActionToTaskPathUrl}`,actionItems,{observe:'response'});
+      console.log("---"+ actionItems.length)
+      return this.http.post(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/convert-task`,actionItems,{observe:'response'});
     }
 
     generateActionItemsByNlp(userEmail: string){
