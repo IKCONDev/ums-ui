@@ -12,7 +12,7 @@ import { Users } from 'src/app/model/Users.model';
 export class MyProfileService{
 
     constructor(private http: HttpClient, private headerService: HeaderService){
-
+      
     }
 
      gatewayMicroservicepathUrl = 'http://localhost:8012';
@@ -45,12 +45,10 @@ export class MyProfileService{
     updateUserInformation(employee:Employee){
       if (employee!=null){
         console.log(employee.firstName);
-      return this.http.put<Employee>(this.finalUrlForUpdating,employee);
+      return this.http.put<Employee>(this.finalUrlForUpdating,employee, {observe:'response'});
       }
       else {
-        
         return null;
-
     }
   }
 
