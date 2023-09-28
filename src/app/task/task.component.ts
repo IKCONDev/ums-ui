@@ -59,13 +59,9 @@ export class TaskComponent {
   }
   data:Object;
   updateTaskDetails(event:any){
-     
     console.log()
     this.service.updateTask(this.update_Task).subscribe(response =>{
-
       this.data = response.body;
-      
-
     });
  
   }

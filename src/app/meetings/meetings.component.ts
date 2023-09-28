@@ -315,7 +315,7 @@ export class MeetingsComponent implements OnInit {
   isEventActionItemsSubmitted;
   actionItemsToBeSubmitted = [];
  
-  convertAcToTask(meetingId: number) {
+  convertActionItemToTask(meetingId: number) {
     console.log(meetingId)
     var table = document.getElementById("myTable" + meetingId)
     console.log(table)
@@ -342,7 +342,8 @@ export class MeetingsComponent implements OnInit {
      //if(action.status === 'NotConverted'){
       var acitems = this.actionItemsToBeSubmittedIds.forEach((acId)=>{
         console.log(acId+" to be submitted")
-          if(acId == action.id){
+          if(acId == action.actionItemId){
+            console.log(acId+" to be submitted")
             this.actionItemsToBeSubmitted.push(action);
           }
         })

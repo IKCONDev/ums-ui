@@ -112,7 +112,7 @@
                                     <tbody *ngFor="let actionItem of actionItemsOfEvent; let i= index">
                                         <tr *ngIf="actionItem.meetingId === meeting.meetingId">
                                             <td><input type="checkbox" id="ac-check{{i}}" class="ac-check"
-                                                    value="{{actionItem.id}}"
+                                                    value="{{actionItem.actionItemId}}"
                                                     (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)" />
                                             </td>
                                             <td>{{actionItem.actionItemId}}</td>
@@ -156,7 +156,7 @@
                                             </td>
                                             <!-- submit and delete btn -->
                                             <td id="submitAndDelete{{meeting.meetingId}}" colspan="2">
-                                                <a (click)="convertAcToTask(meeting.meetingId)"
+                                                <a (click)="convertActionItemToTask(meeting.meetingId)"
                                                     style="cursor: pointer;color:blue">Submit</a>
                                                 <a style="padding-left: 10px;cursor: pointer;color:red"
                                                     (click)="checkCheckboxes(meeting.meetingId)">Delete</a>
