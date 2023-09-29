@@ -105,6 +105,44 @@ a:hover{
 
 }
 
+.input-group {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group:last-child {
+  margin-bottom: 0;
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+
+.input-group input {
+  outline: none;
+  background: none;
+  border: 1px solid #374669;
+  font-size: 1em;
+  padding: .5em;
+  color: inherit;
+  border-radius: 5px;
+}
+
+input::-ms-reveal {
+  display: none;
+}
+
+#eyeIcon{
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    padding-right: 30px;
+}
+
 /* #parent {
   position: relative;
   top: 0;

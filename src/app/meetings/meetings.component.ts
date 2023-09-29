@@ -27,10 +27,8 @@ export class MeetingsComponent implements OnInit {
   tabOpened: string;
   transcriptData: string[];
   //isTransriptIconDisabled:boolean = true;
-  actionItemsOfEvent = [];
-
-  currentEventId: number;
-
+  actionItemsOfMeeting = [];
+  currentMeetingId: number;
   addDetails = {
     actionItemId: 0,
     meetingId: 0,
@@ -91,14 +89,14 @@ export class MeetingsComponent implements OnInit {
     this.getMeetings(this.tabOpened);
   }
 
-  fetchActionItemsOfEvent(eventId: number) {
-    this.currentEventId = eventId;
-    console.log(eventId)
+  fetchActionItemsOfEvent(meetingId: number) {
+    this.currentMeetingId = meetingId;
+    console.log(meetingId)
     //this.router.navigateByUrl('/meeting-actionitems/'+eventid);
     this.meetingsService.getActionItems().subscribe(
       (response => {
        // this.actionItemsOfEvent = response.body;
-       this.actionItemsOfEvent = response.body;
+       this.actionItemsOfMeeting = response.body;
         console.log(response.body)
       })
     )
@@ -115,7 +113,7 @@ export class MeetingsComponent implements OnInit {
       document.getElementById("organizedMeeting").style.textDecorationLine = 'underline';
       document.getElementById("attendedMeeting").style.textDecorationLine = 'none';
       //get user organized meetings
-      this.meetingsService.fetchAllMeetingsByUserId(localStorage.getItem('email')).subscribe(
+      this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe(
         (response) => {
           this.meetings = response.body;
           this.meetingCount = response.body.length
@@ -148,7 +146,7 @@ export class MeetingsComponent implements OnInit {
       document.getElementById("organizedMeeting").style.textDecorationLine = 'none';
       document.getElementById("attendedMeeting").style.textDecorationLine = 'underline';
       //get user attended meetings
-      this.meetingsService.getUserAttendedEvents((localStorage.getItem('email'))).subscribe(
+      this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe(
         (response) => {
           //extract the meetings from response object
           this.attendedMeetings = response.body;
@@ -184,25 +182,25 @@ export class MeetingsComponent implements OnInit {
   //save Action Item method
   saveDetails() {
     console.log(this.addDetails);
-    console.log(this.currentEventId)
-    this.addDetails.meetingId = this.currentEventId;
+    console.log(this.currentMeetingId)
+    this.addDetails.meetingId = this.currentMeetingId;
     this.addDetails.emailId = localStorage.getItem('email');
     this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
       this.response = response.body;
       this.actions_details = response.body;
       console.log(this.response);
     });
-    this.fetchActionItemsOfEvent(this.currentEventId);
+    this.fetchActionItemsOfEvent(this.currentMeetingId);
   }
 
 
 
   //check the action item checkboxes are checked or not and delete them if checked, delete only of the particular event
   actionItemsToBeDeleted = [];
-  isEventActionItemsDeleted;
-  checkCheckboxes(eventId: number) {
-    console.log(eventId)
-    var table = document.getElementById("myTable" + eventId)
+  isMetingActionItemsDeleted;
+  checkCheckboxes(meetingId: number) {
+    console.log(meetingId)
+    var table = document.getElementById("myTable" + meetingId)
     console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
@@ -223,18 +221,18 @@ export class MeetingsComponent implements OnInit {
       }
     }
     console.log(" action item's to be deleted are " + this.actionItemsToBeDeleted)
-    this.deleteActionItems(this.actionItemsToBeDeleted, eventId);
+    this.deleteActionItems(this.actionItemsToBeDeleted, meetingId);
   }
 
   //deletes the list of action items that are checked on the UI, of the particular meeting
-  deleteActionItems(actionItemIds: any[], eventId: number) {
+  deleteActionItems(actionItemIds: any[], meetingId: number) {
     console.log('deleteActionItems()')
     //subscribe to the response
-    this.meetingsService.deleteActionItemsOfEvent(actionItemIds, eventId).subscribe(
+    this.meetingsService.deleteActionItemsOfMeeting(actionItemIds, meetingId).subscribe(
       (response) => {
-        this.isEventActionItemsDeleted = response.body;
-        console.log(this.isEventActionItemsDeleted);
-        if (this.isEventActionItemsDeleted) {
+        this.isMetingActionItemsDeleted = response.body;
+        console.log(this.isMetingActionItemsDeleted);
+        if (this.isMetingActionItemsDeleted) {
           this.toastr.success('Action Items are deleted')
         } else {
           this.toastr.error('Action items were not deleted, try again')
@@ -338,7 +336,7 @@ export class MeetingsComponent implements OnInit {
       }
     }
     console.log(" action item's to be submitted are " + this.actionItemsToBeSubmittedIds)
-    this.actionItemsOfEvent.filter((action)=>{
+    this.actionItemsOfMeeting.filter((action)=>{
      //if(action.status === 'NotConverted'){
       var acitems = this.actionItemsToBeSubmittedIds.forEach((acId)=>{
         console.log(acId+" to be submitted")
@@ -361,8 +359,8 @@ export class MeetingsComponent implements OnInit {
   transcriptEventId: number;
   meetingTrasncriptData: string[];
   meetingSubject: string;
-  displayTranscriptData(eventId: number, subject: string, transriptData: string[]){
-    this.transcriptEventId = eventId;
+  displayTranscriptData(meetingId: number, subject: string, transriptData: string[]){
+    this.transcriptEventId = meetingId;
     this.meetingSubject = subject;
     this.meetingTrasncriptData = transriptData;
     console.log(this.meetingSubject);
