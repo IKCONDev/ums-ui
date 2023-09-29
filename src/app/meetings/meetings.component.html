@@ -109,11 +109,17 @@
                                             <th id="tablehead">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody *ngFor="let actionItem of actionItemsOfEvent; let i= index">
+                                    <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
                                         <tr *ngIf="actionItem.meetingId === meeting.meetingId">
-                                            <td><input type="checkbox" id="ac-check{{i}}" class="ac-check"
-                                                    value="{{actionItem.actionItemId}}"
-                                                    (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)" />
+                                            <td>
+                                                <b *ngIf="actionItem.actionStatus == 'Converted' else enableCheck">
+                                                    <input type="checkbox" disabled="true"/>
+                                                </b>
+                                                <ng-template #enableCheck>
+                                                        <input type="checkbox" id="ac-check{{i}}" class="ac-check"
+                                                        value="{{actionItem.actionItemId}}"
+                                                        (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)"/>
+                                                </ng-template>
                                             </td>
                                             <td>{{actionItem.actionItemId}}</td>
                                             <td>{{actionItem.actionItemTitle}}</td>

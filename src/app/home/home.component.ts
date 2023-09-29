@@ -79,6 +79,8 @@ export class HomeComponent {
   */
 
   text:String = "";
+
+  /*
   checkDemo(){
     this.homeService.getDemoText().subscribe(
       (response) => {
@@ -86,5 +88,6 @@ export class HomeComponent {
       }
     )
   }
+  */
 
 }
