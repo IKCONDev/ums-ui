@@ -23,10 +23,10 @@ export class TaskService{
 
     }
     updateTask(task:Task){
-         return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/update/${task.id}`,task,{observe:'response'});
+         return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/update/${task.taskId}`,task,{observe:'response'});
     }
-    deleteAllTasksByTaskIds(taskIds:any[]){
-        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/deleteAll/${taskIds}`,{observe:'response'});
+    deleteAllTasksByTaskIds(task:any[]){
+        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/deleteAll/${task}`,{observe:'response'});
     }
 
 

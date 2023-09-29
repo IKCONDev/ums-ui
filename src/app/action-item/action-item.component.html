@@ -104,10 +104,10 @@
                            </thead>
                            <tbody *ngFor="let element of task_array">
                             <tr *ngIf ="actionItem.actionItemId == element.actionItemId">
-                                <td>{{element.id}}</td>
+                                <td>{{element.taskId}}</td>
                                 <td>{{element.taskTitle}}</td>
                                 <td>{{element.taskDescription}}</td>
-                                <td>{{element.assignee}}</td>
+                                <td>{{element.taskOwner}}</td>
                                 <td>{{element.startDate}}</td>
                                 <td>{{element.dueDate}}</td>
                                 <td>{{element.taskPriority}}</td>

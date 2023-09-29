@@ -43,11 +43,11 @@ export class ActionService {
 
     deleteActionItem(id:number){
       //console.log(action.id);
-      return this.http.delete<number>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/${id}`,{observe:'response'});
+      return this.http.delete<number>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/delete/${id}`,{observe:'response'});
     }
     
     deleteSelectedActionItemsByIds(actionItemsIds:any[]){
-      return this.http.delete<boolean>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/${actionItemsIds}`,{observe:'response'});
+      return this.http.delete<boolean>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/deleteAll/${actionItemsIds}`,{observe:'response'});
 
     }
   }

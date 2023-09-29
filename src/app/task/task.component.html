@@ -20,14 +20,13 @@
                     data-toggle="modal" data-target="#myModal_add">delete</button></div>-->
 
             <div class="col-sm-1" style="padding-top: 8px;"><button id="add_button" type="btn btn-primary"
-                    (click)="checkCheckBoxes()">delete</button></div>
+                    (click)="checkCheckBoxes()">Delete</button></div>
         </div>
     </div>
    
-                    <div calss="row" *ngIf="taskCount > 0 ; else noMeetings"
-                        style="padding-top: 20px;padding-right: 20px;padding-left: 20px;">
-                        <table class="table table-hover" id="myTable">
-                            <thead style="background-color: #ecf7fc; padding-top: 0px;">
+     <div calss="row"  style="padding-top: 20px;"     *ngIf="taskCount > 0 ; else noMeetings">
+                    <table class="table table-hover" id="myTable1">
+                        <thead style="background-color: #ecf7fc; padding-top: 0px;">
                                 <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;">
                                 </th>
                                 <th>UID</th>
@@ -42,20 +41,20 @@
                             </thead>
                             <tbody *ngFor="let item of task">
                                 <tr>
-                                    <td style="padding-left: 21px;"><input type="checkbox" value="{{item.id}}"
+                                    <td style="padding-left: 21px;"><input type="checkbox" value="{{item.taskId}}"
                                             class="checkbox">
                                     </td>
-                                    <td>{{item.id}}</td>
+                                    <td>{{item.taskId}}</td>
                                     <td>{{item.taskTitle}}</td>
                                     <td>{{item.actionTitle}}</td>
-                                    <td>{{item.assignee}}</td>
+                                    <td>{{item.taskOwner}}</td>
                                     <td>{{item.startDate}}</td>
                                     <td>{{item.dueDate}}</td>
                                     <td>{{item.taskPriority}}</td>
                                     <td>{{item.status}}</td>
                                     <td>
                                         <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
-                                            (click)="editTask(item.id)">
+                                            (click)="editTask(item.taskId)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                 viewBox="0 0 20 20" fill="none">
                                                 <g id="edit">
@@ -167,7 +166,7 @@
 
                                     <label></label>
                                     <input type="text" style="margin-bottom: 8px; margin-top: 16px;"
-                                        [(ngModel)]="update_Task.assignee">
+                                        [(ngModel)]="update_Task.taskOwner">
                                     <select style="margin-top: 10px;margin-left:0px;"
                                         [(ngModel)]="update_Task.taskPriority">
                                         <option>High</option>

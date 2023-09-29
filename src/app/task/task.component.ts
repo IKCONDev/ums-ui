@@ -17,13 +17,13 @@ export class TaskComponent {
   tabOpened : string;
 
   update_Task={
-     id:0,
+     taskId:0,
      taskTitle:'',
      taskDescription:'',
      taskPriority:'',
      startDate:'',
      dueDate:'',
-     assignee:'',
+     taskOwner:'',
      organizer:'',
      status:'',
      actionItemId:0,
@@ -67,8 +67,8 @@ export class TaskComponent {
   }
 
   checkCheckBoxes(){
-     var actionItemsToBeDeleted=[];
-      var table = document.getElementById("myTable")
+     var tasksToBeDeleted=[];
+      var table = document.getElementById("myTable1")
       console.log(table)
       //for(var i=0; i<tables.length; i++){
       var rows = table.getElementsByTagName("tr");
@@ -85,34 +85,31 @@ export class TaskComponent {
           if (checkbox) {
             
              console.log("value of checkbox is " + checkbox.value);
-            
-            
           // Check the 'checked' property to get the state (true or false)
               if (checkbox.checked) {
                 console.log("the checkbox is selected");
-                 actionItemsToBeDeleted.push(checkbox.value);
+                 tasksToBeDeleted.push(checkbox.value);
               }
           }
           
       }
-      console.log(actionItemsToBeDeleted);
-    
-      this.deleteActionItems(actionItemsToBeDeleted);
+      console.log(tasksToBeDeleted);
+      this.deleteTasks(tasksToBeDeleted);
       
     }
     istaskDeleted : boolean= false;
-    deleteActionItems(taskIds: any[]){
+    deleteTasks(taskIds: any[]){
 
       this.service.deleteAllTasksByTaskIds(taskIds).subscribe(res=>{
             this.istaskDeleted = res.body;
             console.log(this.istaskDeleted);
             if(this.istaskDeleted){
-              console.log("actions deleted");
-              this.toastr.success("action Items Deleted");
+              console.log("tasks deleted");
+              this.toastr.success("tasks Deleted");
               
            }
            else{
-               console.log("actions not deleted");
+               console.log("tasks not deleted");
                this.toastr.error("action Items are not deleted try again");
            }
       })

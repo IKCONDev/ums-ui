@@ -1,12 +1,12 @@
 export interface Task{
 
-    id:number;
+    taskId:number;
     taskTitle:string;
     taskDescription:string;
     taskPriority:string;
     startDate:string;
     dueDate:string;
-    assignee:string;
+    taskOwner:string;
     organizer:string;
     status:string;
     actionItemId:number;
