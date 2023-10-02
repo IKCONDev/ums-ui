@@ -56,9 +56,6 @@
     background: var(--side-text, #ECF7FC);
 }
 
-
-
-
 #meeting-subject {
     white-space: nowrap;
     /* width: 50px;  */
