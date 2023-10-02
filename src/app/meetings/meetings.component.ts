@@ -7,6 +7,7 @@ import { ActionItemComponent } from '../action-item/action-item.component';
 import { ActionService } from '../action-item/service/action.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-meetings',
@@ -97,7 +98,6 @@ export class MeetingsComponent implements OnInit {
       (response => {
        // this.actionItemsOfEvent = response.body;
        this.actionItemsOfMeeting = response.body;
-        console.log(response.body)
       })
     )
   }
@@ -189,8 +189,13 @@ export class MeetingsComponent implements OnInit {
       this.response = response.body;
       this.actions_details = response.body;
       console.log(this.response);
+      if(response.status === HttpStatusCode.Ok){
+        this.toastr.success('Action item added sucessfully !');
+      }
     });
     this.fetchActionItemsOfEvent(this.currentMeetingId);
+    // //need to change this later
+    // window.location.reload();
   }
 
 
@@ -239,6 +244,8 @@ export class MeetingsComponent implements OnInit {
         }
       }
     )
+    //need to change this later
+    window.location.reload();
   }
 
   //count: number= 0;
@@ -283,12 +290,12 @@ export class MeetingsComponent implements OnInit {
       console.log(this.actionItems_new.actionItemDescription);
       this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
       this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
+      this.updatedetails.actionItemOwner = this.actionItems_new.actionItemOwner;
       this.updatedetails.startDate = this.actionItems_new.startDate;
       this.updatedetails.endDate = this.actionItems_new.endDate;
 
     });
     console.log("data fetching");
-
   }
 
   //Update the  action item Details
@@ -304,6 +311,8 @@ export class MeetingsComponent implements OnInit {
 
       console.log(this.data);
     });
+    //need to change this later
+    window.location.reload();
   }
 
   /**
