@@ -44,7 +44,7 @@
     text-align: left;
     font-size: 24px;
     color: #202224;
-    font-family: 'General Sans';
+    /* font-family: 'General Sans'; */
 }
 /*.pexels-photo-by-pixabay{
     object-fit: contain;
@@ -59,7 +59,7 @@
     position: relative;
     font-size: 16px;
     line-height: 150%;
-    font-family: 'General Sans';
+    /* font-family: 'General Sans'; */
     color: #606060;
     text-align: left;
     padding-right: 10.8px;
@@ -104,7 +104,7 @@
     text-align: left;
     font-size: 14px;
     color: #606060;
-    font-family: 'General Sans';
+    /* font-family: 'General Sans'; */
 }
 
 .frame-group {
@@ -140,6 +140,7 @@
     font-size: 16px;
     line-height: 150%;
     color: #606060;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 .prfname-parent {
