@@ -262,6 +262,8 @@
                         <option>Low</option>
                         <option>Medium</option>
                     </select>
+                    <label>Action Owner</label>
+                    <input type="text" style="width:400px;" [(ngModel)]="addDetails.actionItemOwner">
                     <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                     <label>StartDate</label>
                     <input type="datetime-local" style="width:400px;" [(ngModel)]="addDetails.startDate">
@@ -312,6 +314,8 @@
                     <option>Medium</option>
 
                 </select>
+                <label>Action Owner</label>
+                <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionItemOwner">
                 <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
                 <label>StartDate</label>
                 <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.startDate">
