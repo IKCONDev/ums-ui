@@ -167,15 +167,26 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-4" style=" width:400px; height: 330px; background-color: #ecf7fc;">
                             <div class="row" style="background-color: #134E69D9;height: 40px;"> 
-                                <label>Details</label>
+                                <label style="padding-top: 5px;">Details</label>
                             </div>
                             <div class="row" id="details-section">
                                 <table>
                                     <tbody>
                                         <tr>
                                          <td>Assignee </td>
-                                        <td><span><input type="text"
+                                        <!--<td><span><input type="text"
                                             [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
+                                        </td>-->
+                                        <td>
+                                            <ng-select class="form-control" [searchable]="true" [clearable]="true" id="taskOwner"
+                                             name="taskOwner"  (change)="validateTaskOwner($event)" [(ngModel)]="update_Task.taskOwner">
+                                             <ng-option [value]="''">choose</ng-option>
+                                             <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList"> {{emailId}} 
+                                           </ng-option>
+                                           </ng-select>
+                                           <div *ngIf="taskOwnerErrorInfo != ''">
+                                             <span style="padding-top: 200px;">{{taskOwnerErrorInfo}}</span>
+                                           </div>
                                         </td>
                                        </tr>
                                        <tr>

@@ -4,6 +4,7 @@ import { Task } from '../model/task.model';
 import { TaskService } from './service/task.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { event } from 'jquery';
+import { MeetingService } from '../meetings/service/meetings.service';
 
 @Component({
   selector: 'app-task',
@@ -40,7 +41,7 @@ export class TaskComponent {
      userId:''
      
   }
-  constructor(private service :TaskService, private toastr: ToastrService){}
+  constructor(private service :TaskService, private meetingService: MeetingService ,private toastr: ToastrService){}
   ngOnInit(): void {
 
    /* this.service.getAlltaskDetails().subscribe(res=>{
@@ -115,6 +116,17 @@ export class TaskComponent {
            this.taskStatusErrorInfo = '';
         }
   }
+  taskOwnerErrorInfo = "";
+  validateTaskOwner(event : any){
+      var taskOwner = event.target.value;
+      if(taskOwner == ''){
+        this.taskOwnerErrorInfo = 'task Owner is required';
+      }
+      else{
+        this.taskOwnerErrorInfo = '';
+      }
+
+  }
 
   taskStartDateErrorInfo="";
   validateTaskStartDate(event:any){
@@ -143,6 +155,7 @@ export class TaskComponent {
         this.taskDueDateErrorInfo = '';
      }
   }
+
   
   addTask(){
     
@@ -213,6 +226,16 @@ export class TaskComponent {
       });
      
 
+    }
+    //Get EmailIds of Active Users
+    userEmailIdList : string[];
+    getActiveUsersEmailIdList(){
+      this.meetingService.getActiveUserEmailIdList().subscribe(response =>{
+         this.userEmailIdList = response.body;
+         console.log(this.userEmailIdList);
+
+
+      });
     }
 
   

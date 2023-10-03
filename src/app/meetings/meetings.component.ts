@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -9,6 +9,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Users } from '../model/Users.model';
 
 @Component({
   selector: 'app-meetings',
@@ -127,37 +128,52 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param event 
    */
-  validateActionTitle(event: any){
-    var actionItemTitle = event.target.value;
-    if(actionItemTitle === ''){
+
+  isActionItemTitleValid = false;
+  isActionItemDescriptionValid = false;
+  isActionItemPriorityValid = false;
+  isActionItemOwnerValid = false;
+  isActionItemStartDateValid = false;
+  isActionItemEndDateValid = false;
+
+  validateActionTitle(){
+   // var actionItemTitle = event.target.value;
+    if(this.addDetails.actionItemTitle === ''){
       this.actionItemTitleErrorInfo = "Action Item title is required";
-      this.isActionItemSaveButtonDisabled = true;
-    }else if(actionItemTitle.length < 5){
+      this.isActionItemTitleValid = false;
+    }else if(this.addDetails.actionItemTitle.length < 5){
       this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 chars';
-      this.isActionItemSaveButtonDisabled = true;
-    }else if(actionItemTitle.length > 500){
+      this.isActionItemTitleValid = false;
+    }else if(this.addDetails.actionItemTitle.length > 500){
       this.actionItemTitleErrorInfo = 'Title must not exceed 500 chars';
-      this.isActionItemSaveButtonDisabled = true;
+      this.isActionItemTitleValid = false;
     }else{
       this.actionItemTitleErrorInfo = '';
-      this.isActionItemSaveButtonDisabled = false;
+      this.isActionItemTitleValid = true;
     }
+    return this.isActionItemTitleValid;
   }
-  validateActionDescription(event: any){
-    var actionItemDescription = event.target.value;
-    if(actionItemDescription === ''){
+
+  /**
+   * 
+   * @param event 
+   */
+  validateActionDescription(){
+    //var actionItemDescription = event.target.value;
+    if(this.addDetails.actionItemDescription === ''){
       this.actionItemDescriptionErrorInfo = "Description is required";
-      this.isActionItemSaveButtonDisabled = true;
-    }else if(actionItemDescription.length < 10){
+      this.isActionItemDescriptionValid = false;
+    }else if(this.addDetails.actionItemDescription.length < 10){
       this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 chars';
-      this.isActionItemSaveButtonDisabled = true;
-    }else if(actionItemDescription.length > 1000){
+      this.isActionItemDescriptionValid = false;
+    }else if(this.addDetails.actionItemDescription.length > 1000){
       this.actionItemDescriptionErrorInfo = 'Description must not exceed 1000 chars';
-      this.isActionItemSaveButtonDisabled = true;
+      this.isActionItemDescriptionValid = false;
     }else{
       this.actionItemDescriptionErrorInfo = '';
-      this.isActionItemSaveButtonDisabled = false;
+      this.isActionItemDescriptionValid = true;
     }
+    return this.isActionItemDescriptionValid;
   }
 
 
@@ -165,18 +181,19 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param event 
    */
-  validateActionPriority(event: any){
-    var actionItemPriority = event.target.value;
-    if(actionItemPriority === ''){
+  validateActionPriority(){
+    //var actionItemPriority = event.target.value;
+    if(this.addDetails.actionPriority === ''){
       this.actionItemPriorityErrorInfo = "Priority is required";
-      this.isActionItemSaveButtonDisabled = true;
-    }else if(actionItemPriority === 'select'){
+      this.isActionItemPriorityValid = false;
+    }else if(this.addDetails.actionPriority === 'select'){
       this.actionItemPriorityErrorInfo = "Priority is required";
-      this.isActionItemSaveButtonDisabled = true;
+      this.isActionItemPriorityValid = false;
     }else{
       this.actionItemPriorityErrorInfo = '';
-      this.isActionItemSaveButtonDisabled =false;
+      this.isActionItemPriorityValid =true;
     }
+    return this.isActionItemPriorityValid;
   }
 
   /**
@@ -196,20 +213,34 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param event 
    */
-  validateActionStartDate(event:any){
-    var actionItemStartDate = event.target.value;
-    this.actionItemStartDate = event.target.value;
+  validateActionStartDate(){
+    //var actionItemStartDate = event.target.value;
     console.log(this.actionItemStartDate);
-    if(this.actionItemStartDate === ''){
-      this.actionItemStartDateErrorInfo = 'Start Date cannot be empty'
-      this.isActionItemSaveButtonDisabled = true;
-    }else if(new Date(this.actionItemStartDate.toString()) < new Date(Date.now())){
+    if(this.addDetails.startDate === ''){
+      this.actionItemStartDateErrorInfo = 'Start Date cannot be blank'
+      this.isActionItemStartDateValid = false;
+    }else if(new Date(this.addDetails.startDate.toString()) < new Date(Date.now())){
       this.actionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
-      this.isActionItemSaveButtonDisabled = true;
+      this.isActionItemStartDateValid = false;
     }else{
       this.actionItemStartDateErrorInfo = '';
-      this.isActionItemSaveButtonDisabled = false;
+      this.isActionItemStartDateValid = true;
     }
+    return this.isActionItemStartDateValid;
+  }
+
+  actionItemOwnerErrorInfo: string = '';
+  validateActionItemOwner(){
+    console.log(this.addDetails.actionItemOwner)
+    //var actionItemOwner = event.target.value;
+    if(this.addDetails.actionItemOwner === '' || this.addDetails.actionItemOwner === null){
+      this.actionItemOwnerErrorInfo = 'Owner is required';
+      this.isActionItemOwnerValid = false;
+    }else{
+      this.actionItemOwnerErrorInfo = '';
+      this.isActionItemOwnerValid = true;
+    }
+    return this.isActionItemOwnerValid;
   }
 
   
@@ -217,18 +248,75 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param event 
    */
-  validateActionEndDate(event: any){
-    var actionItemEndDate = event.target.value;
-    console.log(actionItemEndDate);
-    if(actionItemEndDate === ''){
+  validateActionEndDate(){
+   // var actionItemEndDate = event.target.value;
+    //console.log(actionItemEndDate);
+    if(this.addDetails.endDate === ''){
       this.actionItemEndDateErrorInfo = 'End Date cannot be blank'
-      this.isActionItemSaveButtonDisabled = true;
-    }else if(new Date(actionItemEndDate) < new Date(this.actionItemStartDate.toString())){
+      this.isActionItemEndDateValid = false;
+    }else if(new Date(this.addDetails.endDate) < new Date(this.addDetails.startDate.toString())){
       this.actionItemEndDateErrorInfo = 'End date cannot be less than start date.'
-      this.isActionItemSaveButtonDisabled = true;
+      this.isActionItemEndDateValid = false;
     }else{
       this.actionItemEndDateErrorInfo = '';
-      this.isActionItemSaveButtonDisabled = false;
+      this.isActionItemEndDateValid = true;
+    }
+    return this.isActionItemEndDateValid;
+  }
+
+  commonErrorMessageInfo: string = '';
+
+
+  saveActionItem(form: NgForm) {
+   let isTitlevalid = false;
+   let isDescriptionValid = false;
+   let isPriorityValid = false;
+  let isOwnervalid = false;
+  let isEndDateValid = false;
+  let isStartDateValid = false;
+    if(!this.isActionItemTitleValid){
+        var valid = this.validateActionTitle();
+        isTitlevalid = valid;
+    }
+    if(!this.isActionItemDescriptionValid){
+      var valid = this.validateActionDescription();
+      isDescriptionValid = valid;
+    }
+    if(!this.isActionItemPriorityValid){
+      var valid = this.validateActionPriority();
+      isPriorityValid = valid;
+    }
+    if(!this.isActionItemOwnerValid){
+      var valid = this.validateActionItemOwner();
+      isOwnervalid = valid;
+    }
+    if(!this.isActionItemStartDateValid){
+      var valid = this.validateActionStartDate();
+      isStartDateValid = valid;
+    }
+    if(!this.isActionItemEndDateValid){
+      var valid = this.validateActionEndDate();
+      isEndDateValid = valid;
+    }
+    if(isTitlevalid === true && isDescriptionValid === true
+      && isPriorityValid === true && isOwnervalid && isStartDateValid
+      && isEndDateValid) {
+      console.log(this.addDetails);
+    this.addDetails.meetingId = this.currentMeetingId;
+    this.addDetails.emailId = localStorage.getItem('email');
+    this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
+      this.response = response.body;
+      this.actions_details = response.body;
+      console.log(this.response);
+      if(response.status === HttpStatusCode.Ok){
+        this.toastr.success('Action item added sucessfully !');
+      }
+    });
+    this.fetchActionItemsOfEvent(this.currentMeetingId);
+    //reset the form after submitting
+    form.form.reset();
+    // //need to change this later
+    // window.location.reload();
     }
   }
 
@@ -328,29 +416,6 @@ export class MeetingsComponent implements OnInit {
     return url;
   }
 
-  /**
-   * 
-   * @param form 
-   */
-  saveDetails(form: NgForm) {
-    console.log('saveActionItem entered')
-    this.addDetails.meetingId = this.currentMeetingId;
-    this.addDetails.emailId = localStorage.getItem('email');
-    this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
-      this.response = response.body;
-      this.actions_details = response.body;
-      console.log(this.response);
-      if(response.status === HttpStatusCode.Ok){
-        this.toastr.success('Action item added sucessfully !');
-      }
-    });
-    this.fetchActionItemsOfEvent(this.currentMeetingId);
-    //reset the form after submitting
-    form.form.reset();
-    // //need to change this later
-    // window.location.reload();
-  }
-
   //check the action item checkboxes are checked or not and delete them if checked, delete only of the particular event
   /**
    * 
@@ -405,6 +470,7 @@ export class MeetingsComponent implements OnInit {
     //need to change this later
     window.location.reload();
   }
+
 
   //count: number= 0;
   /**
@@ -548,4 +614,26 @@ export class MeetingsComponent implements OnInit {
     this.meetingTrasncriptData = meetingTransriptData;
     console.log(this.meetingSubject);
   }
+
+  /**
+   * get the list of active users
+   */
+  userEmailIdList: string[];
+  getActiveUMSUsersEmailIdList(){
+    //perform an AJAX call to get list of users
+    var isActive:boolean = true;
+  // $.ajax({url:"http://localhost:8012/users/getEmail-list/", success: function(result){
+  //   this.userEmailIdList = result;
+  //   console.log(result);
+  //   console.log(this.userEmailIdList[0]);
+  // }});
+    this.meetingsService.getActiveUserEmailIdList().subscribe(
+      (response) => {
+        this.userEmailIdList = response.body;
+        console.log(response.body);
+        console.log(this.userEmailIdList);
+      }
+    )
+  }
+
 }
