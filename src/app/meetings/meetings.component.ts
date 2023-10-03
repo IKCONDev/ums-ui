@@ -136,7 +136,7 @@ export class MeetingsComponent implements OnInit {
   isActionItemStartDateValid = false;
   isActionItemEndDateValid = false;
 
-  validateActionTitle(){
+  validateActionTitle():boolean{
    // var actionItemTitle = event.target.value;
     if(this.addDetails.actionItemTitle === ''){
       this.actionItemTitleErrorInfo = "Action Item title is required";
@@ -158,7 +158,7 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param event 
    */
-  validateActionDescription(){
+  validateActionDescription(): boolean{
     //var actionItemDescription = event.target.value;
     if(this.addDetails.actionItemDescription === ''){
       this.actionItemDescriptionErrorInfo = "Description is required";
@@ -264,22 +264,21 @@ export class MeetingsComponent implements OnInit {
     return this.isActionItemEndDateValid;
   }
 
-  commonErrorMessageInfo: string = '';
-
-
   saveActionItem(form: NgForm) {
-   let isTitlevalid = false;
-   let isDescriptionValid = false;
-   let isPriorityValid = false;
-  let isOwnervalid = false;
-  let isEndDateValid = false;
-  let isStartDateValid = false;
-    if(!this.isActionItemTitleValid){
+   let isTitlevalid = true;
+   let isDescriptionValid = true;
+   let isPriorityValid = true;
+   let isOwnervalid = true;
+   let isEndDateValid = true;
+   let isStartDateValid = true;
+    if(this.isActionItemTitleValid===false){
         var valid = this.validateActionTitle();
+        console.log(valid)
         isTitlevalid = valid;
     }
-    if(!this.isActionItemDescriptionValid){
+    if(this.isActionItemDescriptionValid===false){
       var valid = this.validateActionDescription();
+      console.log(valid)
       isDescriptionValid = valid;
     }
     if(!this.isActionItemPriorityValid){
@@ -298,9 +297,10 @@ export class MeetingsComponent implements OnInit {
       var valid = this.validateActionEndDate();
       isEndDateValid = valid;
     }
+    console.log(isTitlevalid+''+isDescriptionValid+''+isEndDateValid+''+isStartDateValid+''+isPriorityValid+''+isOwnervalid)
     if(isTitlevalid === true && isDescriptionValid === true
-      && isPriorityValid === true && isOwnervalid && isStartDateValid
-      && isEndDateValid) {
+      && isPriorityValid === true && isOwnervalid==true && isStartDateValid===true
+      && isEndDateValid === true) {
       console.log(this.addDetails);
     this.addDetails.meetingId = this.currentMeetingId;
     this.addDetails.emailId = localStorage.getItem('email');
@@ -537,18 +537,16 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param meeting 
    */
-  updateActionItem(meeting: any) {
+  updateActionItem(form: NgForm) {
     this.id = this.updatedetails.actionItemId;
-    console.log(this.updatedetails.actionPriority);
-    console.log(this.id);
     console.log(this.updatedetails);
     this.actionItemService.updateActionItem(this.updatedetails).subscribe(response => {
       this.data = response.body;
-
       console.log(this.data);
+      this.toastr.success('Action item updated successfully');
     });
     //need to change this later
-    window.location.reload();
+    //window.location.reload();
   }
 
   /**
