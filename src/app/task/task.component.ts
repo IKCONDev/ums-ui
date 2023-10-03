@@ -18,7 +18,12 @@ export class TaskComponent {
   taskCount : number =0;
   tabOpened : string;
  
-  modalForm1: FormGroup;
+  isTaskTitleValid : false;
+  isTaskDescriptionValid : false;
+  isTaskPriorityValid :false;
+  isTaskStartDateValid : false;
+  isTaskDueDateValid : false;
+  isStatusValidValid : false;
 
   update_Task={
      taskId:0,
@@ -59,14 +64,14 @@ export class TaskComponent {
   validateTaskTitle(event:any){
      var taskTitle = event.target.value;
      if(taskTitle == ""){
-          this.taskTitleErrrorInfo ="Enter the Task Title"
+          this.taskTitleErrrorInfo ='Enter the Task Title';
 
      }
      else if(taskTitle.length<5){
-         this.taskTitleErrrorInfo ="task title should be more than 5 characters";
+         this.taskTitleErrrorInfo ='task title should be more than 5 characters';
      }
      else{
-         this.taskTitleErrrorInfo="";
+         this.taskTitleErrrorInfo= '';
      }
 
   }
@@ -74,14 +79,15 @@ export class TaskComponent {
   taskDescriptionErrorInfo="";
   validateTaskDescription(event:any){
     var taskDescription=event.target.value;
-    if(taskDescription==""){
-      this.taskDescriptionErrorInfo="Enter task description";
+    if(taskDescription === ''){
+      this.taskDescriptionErrorInfo='Enter task description';
     }
-    else if(taskDescription.length<=20){
-      this.taskDescriptionErrorInfo ="task description should be more than 20 characters";
+    else if(taskDescription.length <=20 ){
+      this.taskDescriptionErrorInfo = 'task description should be more than 20 characters';
     }
     else{
-       this.taskDescriptionErrorInfo ="";
+       this.taskDescriptionErrorInfo = '';
+       
     }
 
   }
@@ -89,42 +95,52 @@ export class TaskComponent {
   taskPriorityErrorInfo="";
   validateTaskPriority(event:any){
     var taskPriority = event.target.value;
-    if(taskPriority.value=""){
-      this.taskPriorityErrorInfo ="task priority should not be empty";
+    if(taskPriority === ''){
+      this.taskPriorityErrorInfo = 'task priority should not be empty';
+    }
+    else if(taskPriority == 'select'){
+      this.taskPriorityErrorInfo = 'task priority is required';
     }
     else{
-      this.taskPriorityErrorInfo="";
+      this.taskPriorityErrorInfo = '';
     }
   }
-  taskStatusErrorInfo = "";
+  taskStatusErrorInfo = '';
   validateTaskStatus(event:any){
         var taskStatus = event.target.value;
-        if(taskStatus ==""){
-           this.taskStatusErrorInfo = "Status is required";
+        if(taskStatus == ''){
+           this.taskStatusErrorInfo = 'Status is required';
         }
         else{
-           this.taskStatusErrorInfo = "";
+           this.taskStatusErrorInfo = '';
         }
   }
 
   taskStartDateErrorInfo="";
   validateTaskStartDate(event:any){
     var taskStartDate=event.target.value;
-    if(taskStartDate = ""){
-      this.taskStartDateErrorInfo="select the start date";
+   
+    if(new Date(taskStartDate.toString()) < new Date(Date.now())){
+       this.taskStartDateErrorInfo = 'Start date cannot be a previous date.'
+    }
+    else if(taskStartDate === ''){
+      this.taskStartDateErrorInfo = 'select the start date';
     }
     else{
-      this.taskStartDateErrorInfo="";
+      this.taskStartDateErrorInfo = '';
     }
   }
   taskDueDateErrorInfo = "";
   validateTaskDueDate(event : any){
      var taskDueDate=event.target.value;
-     if(taskDueDate == ""){
-        this.taskDueDateErrorInfo= "select the due date";
+     if(taskDueDate === ''){
+        this.taskDueDateErrorInfo= 'select the due date';
+     }
+     else if(new Date(taskDueDate.toString())< new Date(Date.now())){
+        this.taskDueDateErrorInfo ='Date should`nt lessthan startdate';
      }
      else{
-        this.taskDueDateErrorInfo = "";
+        this.taskDueDateErrorInfo = '';
      }
   }
   
@@ -194,9 +210,11 @@ export class TaskComponent {
                console.log("tasks not deleted");
                this.toastr.error("action Items are not deleted try again");
            }
-      })
+      });
      
 
     }
+
+  
 
 }
