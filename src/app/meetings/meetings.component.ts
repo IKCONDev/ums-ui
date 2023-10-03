@@ -283,6 +283,7 @@ export class MeetingsComponent implements OnInit {
       console.log(this.actionItems_new.actionItemDescription);
       this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
       this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
+      this.updatedetails.actionItemOwner = this.actionItems_new.actionItemOwner;
       this.updatedetails.startDate = this.actionItems_new.startDate;
       this.updatedetails.endDate = this.actionItems_new.endDate;
 
