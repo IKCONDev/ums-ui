@@ -257,7 +257,7 @@ getTokenPopup(request) {
         } else if (error.status === HttpStatusCode.Unauthorized) {
           this.errorInfo = 'Invalid Credentials'
           //login failure popup
-          this.toastr.error('Bad Credentials', 'Login Failure')
+          this.toastr.error('Incorrect Username or Password', 'Login Failure')
         }
       }
     )

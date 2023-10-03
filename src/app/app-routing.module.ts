@@ -36,7 +36,7 @@ const routes: Routes = [
   {path:"reports",component:ReportComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
-  {path: '', redirectTo:'/login', pathMatch: 'full'},
+  {path: '',redirectTo:'/login', pathMatch: 'full'},
 ];
 
 @NgModule({

@@ -65,4 +65,14 @@ export class HeaderComponent {
   openProfilePanel(){
     this.router.navigateByUrl('/my-profile');
   }
+  logout(){
+    sessionStorage.clear();
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
+    if (localStorage.getItem("jwtToken")==""){
+    
+      
+    }
+    
+  }
 }

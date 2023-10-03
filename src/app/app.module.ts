@@ -22,13 +22,14 @@ import { SideMenubarComponent } from './side-menubar/side-menubar.component';
 import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import {MyProfileComponent  } from './my-profile/my-profile.component';
+import { MyProfileComponent  } from './my-profile/my-profile.component';
 import { MeetingsComponent } from './meetings/meetings.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ActionItemComponent } from './action-item/action-item.component';
 import { TaskComponent } from './task/task.component';
 import { ReportComponent } from './report/report.component';
 import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actionitems.component';
+//import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
