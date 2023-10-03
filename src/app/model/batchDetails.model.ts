@@ -1,8 +1,10 @@
 export interface BatchDetails{
 
-     id:number;
+     batchId:number;
      startDateTime:Date;
      endDateTime:Date;
      lastSuccessfullExecutionDateTime:Date;
      status:string;
+     startDate: string;
+     endDate: string;
 }

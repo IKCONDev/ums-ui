@@ -29,13 +29,13 @@
                 <th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
                 <th>UID </th>
                 <th>ActionItemTitle</th>
+                <th>Owner</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Tasks</th>
                 <th>Status</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>Actions</th>
+                <th>Tasks</th>
+                <!-- <th></th> -->
 
             </thead>
             <tbody *ngFor="let actionItem of actionItems, let i = index">
@@ -44,13 +44,13 @@
                             value="{{actionItem.actionItemId}}"></td>
                     <td>{{actionItem.actionItemId}}</td>
                     <td>{{actionItem.actionItemTitle}}</td>
+                    <td>{{actionItem.actionItemOwner}}</td>
                     <td>{{actionItem.startDate}}</td>
                     <td>{{actionItem.endDate}}</td>
-                    <td>{{0}}</td>
                     <td>{{actionItem.actionStatus}}</td>
                     <!-- edit btn -->
                     <td><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                        <span class="edit-icon" (click)="editData(actionItem.actionItemId)" data-toggle="modal"
+                        <span *ngIf="actionItem.actionStatus==='NotConverted'" class="edit-icon" (click)="editData(actionItem.actionItemId)" data-toggle="modal"
                             data-target="#myModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                 fill="none">
@@ -61,10 +61,19 @@
                                 </g>
                             </svg>
                         </span>
-                    </td>
+                        <span *ngIf="actionItem.actionStatus==='Converted'" aria-disabled="true" class="edit-icon" data-toggle="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <g id="edit">
+                                    <path id="Vector"
+                                        d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                        fill="#D3D3D3" />
+                                </g>
+                            </svg>
+                        </span>
+                    
                     <!-- delete btn -->
-                    <td>
-                        <span class="delete-icon" style="padding-top:px;" (click)="deleteData(actionItem.actionItemId)"
+                        <span class="delete-icon" style="padding-top:px;padding-left: 20px;" (click)="deleteData(actionItem.actionItemId)"
                             data-toggle="modal" data-target="#myModal_del">
 
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -104,10 +113,10 @@
                            </thead>
                            <tbody *ngFor="let element of task_array">
                             <tr *ngIf ="actionItem.actionItemId == element.actionItemId">
-                                <td>{{element.id}}</td>
+                                <td>{{element.taskId}}</td>
                                 <td>{{element.taskTitle}}</td>
                                 <td>{{element.taskDescription}}</td>
-                                <td>{{element.assignee}}</td>
+                                <td>{{element.taskOwner}}</td>
                                 <td>{{element.startDate}}</td>
                                 <td>{{element.dueDate}}</td>
                                 <td>{{element.taskPriority}}</td>

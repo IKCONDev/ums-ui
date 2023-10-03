@@ -4,6 +4,7 @@ import { Users } from '../model/Users.model';
 import { data, error, event } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { elementAt } from 'rxjs';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile-panle',
@@ -14,7 +15,7 @@ export class MyProfileComponent {
 
   fileSize: number = 100000; //1MB
   retriveResponse: any;
-  isDisable:boolean=true;
+  isDisable: boolean = true;
   constructor(private profileService: MyProfileService, private toastr: ToastrService) {
 
   }
@@ -37,7 +38,6 @@ export class MyProfileComponent {
     )
   }
 
-
   onFileChanged(event: any) {
     this.selectedUserProfilePic = event.target.files[0];
     if (this.selectedUserProfilePic.size < this.fileSize) {
@@ -57,28 +57,33 @@ export class MyProfileComponent {
     }
 
   }
-  editUserInfo(){
-    this.isDisable=false;
+  editUserInfo() {
+    this.isDisable = false;
   }
 
-  updateUserInfo(){
-    if(this.user.employee!=null){
-    this.profileService.updateUserInformation(this.user.employee).subscribe(
-      (response) =>{
-        if (response!=null){
-        this.user.employee.firstName =response.firstName;
+  updateUserInfo() {
+    if (this.user.employee != null) {
+      console.log(this.user.employee)
+      this.profileService.updateUserInformation(this.user.employee).subscribe({
+        next: (response) => {
+          if (response.status === HttpStatusCode.Created) {
+            this.user.employee.firstName = response.body.firstName;
+            this.toastr.success('User details saved sucessfully');
+          }
+        },error: (error) =>{
+          this.toastr.error('Error while updating user details');
+        }
       }
-      else
-      console.log("some error")
-    }
-    )
-    this.isDisable=true; 
+        
+      ),
+      this.isDisable = true;
 
+    }
   }
-}
-cancel(){
-  this.isDisable=true;
-}
+
+  cancel() {
+    this.isDisable = true;
+  }
 
 }
 

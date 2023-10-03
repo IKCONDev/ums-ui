@@ -20,11 +20,9 @@ export class ReportComponent implements OnInit {
          res=>{
           this.batchDetails = res.body;
           console.log(this.batchDetails);
-
+           this.batchDetails.filter(batchDetail => {
+             
+           })
      });
-      
-
    }
-
-
 }

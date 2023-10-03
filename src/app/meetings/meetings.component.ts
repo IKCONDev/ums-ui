@@ -7,6 +7,8 @@ import { ActionItemComponent } from '../action-item/action-item.component';
 import { ActionService } from '../action-item/service/action.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HttpStatusCode } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-meetings',
@@ -27,9 +29,37 @@ export class MeetingsComponent implements OnInit {
   tabOpened: string;
   transcriptData: string[];
   //isTransriptIconDisabled:boolean = true;
-  actionItemsOfEvent = [];
+  actionItemsOfMeeting = [];
+  currentMeetingId: number;
 
-  currentEventId: number;
+  response: Object;
+  actions_details: Object
+
+  id: number;
+  data: object = {};
+
+  transcriptMeetingId: number;
+  meetingTrasncriptData: string[];
+  meetingSubject: string;
+
+  actionItemsToBeSubmittedIds = [];
+  isEventActionItemsSubmitted;
+  actionItemsToBeSubmitted = [];
+  
+  //errorinformation properties
+  actionItemTitleErrorInfo: string = '';
+  actionItemEndDateErrorInfo:string = '';
+  actionItemDescriptionErrorInfo: string =''
+  actionItemPriorityErrorInfo: string = ''
+  actionItemStartDateErrorInfo: string =''
+
+  actionItemStartDate: String = ''
+
+  //action item save Button property
+  isActionItemSaveButtonDisabled = false;
+
+  actionItemsToBeDeleted = [];
+  isMetingActionItemsDeleted;
 
   addDetails = {
     actionItemId: 0,
@@ -76,7 +106,6 @@ export class MeetingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     //generate action items for user meetings automatically upon component initialization
     this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
       (response =>{
@@ -89,22 +118,140 @@ export class MeetingsComponent implements OnInit {
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
     this.getMeetings(this.tabOpened);
+
+    //disable actionItem btn default
+    this.isActionItemSaveButtonDisabled = true;
   }
 
-  fetchActionItemsOfEvent(eventId: number) {
-    this.currentEventId = eventId;
-    console.log(eventId)
+  /**
+   * 
+   * @param event 
+   */
+  validateActionTitle(event: any){
+    var actionItemTitle = event.target.value;
+    if(actionItemTitle === ''){
+      this.actionItemTitleErrorInfo = "Action Item title is required";
+      this.isActionItemSaveButtonDisabled = true;
+    }else if(actionItemTitle.length < 5){
+      this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 chars';
+      this.isActionItemSaveButtonDisabled = true;
+    }else if(actionItemTitle.length > 500){
+      this.actionItemTitleErrorInfo = 'Title must not exceed 500 chars';
+      this.isActionItemSaveButtonDisabled = true;
+    }else{
+      this.actionItemTitleErrorInfo = '';
+      this.isActionItemSaveButtonDisabled = false;
+    }
+  }
+  validateActionDescription(event: any){
+    var actionItemDescription = event.target.value;
+    if(actionItemDescription === ''){
+      this.actionItemDescriptionErrorInfo = "Description is required";
+      this.isActionItemSaveButtonDisabled = true;
+    }else if(actionItemDescription.length < 10){
+      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 chars';
+      this.isActionItemSaveButtonDisabled = true;
+    }else if(actionItemDescription.length > 1000){
+      this.actionItemDescriptionErrorInfo = 'Description must not exceed 1000 chars';
+      this.isActionItemSaveButtonDisabled = true;
+    }else{
+      this.actionItemDescriptionErrorInfo = '';
+      this.isActionItemSaveButtonDisabled = false;
+    }
+  }
+
+
+  /**
+   * 
+   * @param event 
+   */
+  validateActionPriority(event: any){
+    var actionItemPriority = event.target.value;
+    if(actionItemPriority === ''){
+      this.actionItemPriorityErrorInfo = "Priority is required";
+      this.isActionItemSaveButtonDisabled = true;
+    }else if(actionItemPriority === 'select'){
+      this.actionItemPriorityErrorInfo = "Priority is required";
+      this.isActionItemSaveButtonDisabled = true;
+    }else{
+      this.actionItemPriorityErrorInfo = '';
+      this.isActionItemSaveButtonDisabled =false;
+    }
+  }
+
+  /**
+   * 
+   * @param form 
+   */
+  clearErrorMessages(form: NgForm){
+    // this.actionItemTitleErrorInfo = '';
+    // this.actionItemDescriptionErrorInfo = '';
+    // this.actionItemPriorityErrorInfo = '';
+    // this.actionItemStartDateErrorInfo = '';
+    // this.actionItemEndDateErrorInfo = '';
+    form.form.reset();
+  }
+
+  /**
+   * 
+   * @param event 
+   */
+  validateActionStartDate(event:any){
+    var actionItemStartDate = event.target.value;
+    this.actionItemStartDate = event.target.value;
+    console.log(this.actionItemStartDate);
+    if(this.actionItemStartDate === ''){
+      this.actionItemStartDateErrorInfo = 'Start Date cannot be empty'
+      this.isActionItemSaveButtonDisabled = true;
+    }else if(new Date(this.actionItemStartDate.toString()) < new Date(Date.now())){
+      this.actionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
+      this.isActionItemSaveButtonDisabled = true;
+    }else{
+      this.actionItemStartDateErrorInfo = '';
+      this.isActionItemSaveButtonDisabled = false;
+    }
+  }
+
+  
+  /**
+   * 
+   * @param event 
+   */
+  validateActionEndDate(event: any){
+    var actionItemEndDate = event.target.value;
+    console.log(actionItemEndDate);
+    if(actionItemEndDate === ''){
+      this.actionItemEndDateErrorInfo = 'End Date cannot be blank'
+      this.isActionItemSaveButtonDisabled = true;
+    }else if(new Date(actionItemEndDate) < new Date(this.actionItemStartDate.toString())){
+      this.actionItemEndDateErrorInfo = 'End date cannot be less than start date.'
+      this.isActionItemSaveButtonDisabled = true;
+    }else{
+      this.actionItemEndDateErrorInfo = '';
+      this.isActionItemSaveButtonDisabled = false;
+    }
+  }
+
+  /**
+   * 
+   * @param meetingId 
+   */
+  fetchActionItemsOfEvent(meetingId: number) {
+    this.currentMeetingId = meetingId;
+    console.log(meetingId)
     //this.router.navigateByUrl('/meeting-actionitems/'+eventid);
     this.meetingsService.getActionItems().subscribe(
       (response => {
        // this.actionItemsOfEvent = response.body;
-       this.actionItemsOfEvent = response.body;
-        console.log(response.body)
+       this.actionItemsOfMeeting = response.body;
       })
     )
   }
 
-  //get organized meetings of the logged in user
+  /**
+   * 
+   * @param tabOpened 
+   */
   getMeetings(tabOpened: string) {
     console.log(tabOpened)
     localStorage.setItem('tabOpened', tabOpened);
@@ -115,7 +262,7 @@ export class MeetingsComponent implements OnInit {
       document.getElementById("organizedMeeting").style.textDecorationLine = 'underline';
       document.getElementById("attendedMeeting").style.textDecorationLine = 'none';
       //get user organized meetings
-      this.meetingsService.fetchAllMeetingsByUserId(localStorage.getItem('email')).subscribe(
+      this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe(
         (response) => {
           this.meetings = response.body;
           this.meetingCount = response.body.length
@@ -148,7 +295,7 @@ export class MeetingsComponent implements OnInit {
       document.getElementById("organizedMeeting").style.textDecorationLine = 'none';
       document.getElementById("attendedMeeting").style.textDecorationLine = 'underline';
       //get user attended meetings
-      this.meetingsService.getUserAttendedEvents((localStorage.getItem('email'))).subscribe(
+      this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe(
         (response) => {
           //extract the meetings from response object
           this.attendedMeetings = response.body;
@@ -160,7 +307,11 @@ export class MeetingsComponent implements OnInit {
     }
   }
 
-  //download the transcript data option, if required
+  /**
+   * 
+   * @param transcriptData 
+   * @returns 
+   */
   generateDownloadLink(transcriptData: string[]): string {
     let url = '';
 
@@ -177,32 +328,37 @@ export class MeetingsComponent implements OnInit {
     return url;
   }
 
-  // create actio item
-
-  response: Object;
-  actions_details: Object
-  //save Action Item method
-  saveDetails() {
-    console.log(this.addDetails);
-    console.log(this.currentEventId)
-    this.addDetails.meetingId = this.currentEventId;
+  /**
+   * 
+   * @param form 
+   */
+  saveDetails(form: NgForm) {
+    console.log('saveActionItem entered')
+    this.addDetails.meetingId = this.currentMeetingId;
     this.addDetails.emailId = localStorage.getItem('email');
     this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
       this.response = response.body;
       this.actions_details = response.body;
       console.log(this.response);
+      if(response.status === HttpStatusCode.Ok){
+        this.toastr.success('Action item added sucessfully !');
+      }
     });
-    this.fetchActionItemsOfEvent(this.currentEventId);
+    this.fetchActionItemsOfEvent(this.currentMeetingId);
+    //reset the form after submitting
+    form.form.reset();
+    // //need to change this later
+    // window.location.reload();
   }
 
-
-
   //check the action item checkboxes are checked or not and delete them if checked, delete only of the particular event
-  actionItemsToBeDeleted = [];
-  isEventActionItemsDeleted;
-  checkCheckboxes(eventId: number) {
-    console.log(eventId)
-    var table = document.getElementById("myTable" + eventId)
+  /**
+   * 
+   * @param meetingId 
+   */
+  checkCheckboxes(meetingId: number) {
+    console.log(meetingId)
+    var table = document.getElementById("myTable" + meetingId)
     console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
@@ -223,27 +379,39 @@ export class MeetingsComponent implements OnInit {
       }
     }
     console.log(" action item's to be deleted are " + this.actionItemsToBeDeleted)
-    this.deleteActionItems(this.actionItemsToBeDeleted, eventId);
+    this.deleteActionItems(this.actionItemsToBeDeleted, meetingId);
   }
 
   //deletes the list of action items that are checked on the UI, of the particular meeting
-  deleteActionItems(actionItemIds: any[], eventId: number) {
+  /**
+   * 
+   * @param actionItemIds 
+   * @param meetingId 
+   */
+  deleteActionItems(actionItemIds: any[], meetingId: number) {
     console.log('deleteActionItems()')
     //subscribe to the response
-    this.meetingsService.deleteActionItemsOfEvent(actionItemIds, eventId).subscribe(
+    this.meetingsService.deleteActionItemsOfMeeting(actionItemIds, meetingId).subscribe(
       (response) => {
-        this.isEventActionItemsDeleted = response.body;
-        console.log(this.isEventActionItemsDeleted);
-        if (this.isEventActionItemsDeleted) {
+        this.isMetingActionItemsDeleted = response.body;
+        console.log(this.isMetingActionItemsDeleted);
+        if (this.isMetingActionItemsDeleted) {
           this.toastr.success('Action Items are deleted')
         } else {
           this.toastr.error('Action items were not deleted, try again')
         }
       }
     )
+    //need to change this later
+    window.location.reload();
   }
 
   //count: number= 0;
+  /**
+   * 
+   * @param eventId 
+   * @param index 
+   */
   toggleSubmitAndDeleteButtons(eventId: number, index: number) {
     var table = document.getElementById("myTable" + eventId)
     //for(var i=0; i<tables.length; i++){
@@ -274,7 +442,11 @@ export class MeetingsComponent implements OnInit {
 
   //edit action items data
   actionItems_new: ActionItems;
-  editData(id: number) {
+  /**
+   * 
+   * @param id 
+   */
+  editActionItem(id: number) {
     this.actionItemService.getActionItemById(id).subscribe(response => {
       this.actionItems_new = response.body;
       console.log(this.actionItems_new);
@@ -285,18 +457,21 @@ export class MeetingsComponent implements OnInit {
       console.log(this.actionItems_new.actionItemDescription);
       this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
       this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
+      this.updatedetails.actionItemOwner = this.actionItems_new.actionItemOwner;
       this.updatedetails.startDate = this.actionItems_new.startDate;
       this.updatedetails.endDate = this.actionItems_new.endDate;
 
     });
     console.log("data fetching");
-
   }
 
   //Update the  action item Details
-  id: number;
-  data: object = {};
-  updateDetails(meeting: any) {
+
+  /**
+   * 
+   * @param meeting 
+   */
+  updateActionItem(meeting: any) {
     this.id = this.updatedetails.actionItemId;
     console.log(this.updatedetails.actionPriority);
     console.log(this.id);
@@ -306,15 +481,18 @@ export class MeetingsComponent implements OnInit {
 
       console.log(this.data);
     });
+    //need to change this later
+    window.location.reload();
   }
 
   /**
    * convert ac to task
    */
-  actionItemsToBeSubmittedIds = [];
-  isEventActionItemsSubmitted;
-  actionItemsToBeSubmitted = [];
  
+  /**
+   * 
+   * @param meetingId 
+   */
   convertActionItemToTask(meetingId: number) {
     console.log(meetingId)
     var table = document.getElementById("myTable" + meetingId)
@@ -338,11 +516,12 @@ export class MeetingsComponent implements OnInit {
       }
     }
     console.log(" action item's to be submitted are " + this.actionItemsToBeSubmittedIds)
-    this.actionItemsOfEvent.filter((action)=>{
+    this.actionItemsOfMeeting.filter((action)=>{
      //if(action.status === 'NotConverted'){
       var acitems = this.actionItemsToBeSubmittedIds.forEach((acId)=>{
         console.log(acId+" to be submitted")
-          if(acId == action.meetingId){
+          if(acId == action.actionItemId){
+            console.log(acId+" to be submitted")
             this.actionItemsToBeSubmitted.push(action);
           }
         })
@@ -357,14 +536,16 @@ export class MeetingsComponent implements OnInit {
   )
   }
 
-  transcriptEventId: number;
-  meetingTrasncriptData: string[];
-  meetingSubject: string;
-  displayTranscriptData(eventId: number, subject: string, transriptData: string[]){
-    this.transcriptEventId = eventId;
-    this.meetingSubject = subject;
-    this.meetingTrasncriptData = transriptData;
+  /**
+   * 
+   * @param meetingId 
+   * @param subject 
+   * @param transriptData 
+   */
+  displayTranscriptData(meetingId: number, meetingSubject: string, meetingTransriptData: string[]){
+    this.transcriptMeetingId = meetingId;
+    this.meetingSubject = meetingSubject;
+    this.meetingTrasncriptData = meetingTransriptData;
     console.log(this.meetingSubject);
   }
-
 }

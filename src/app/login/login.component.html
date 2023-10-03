@@ -42,8 +42,11 @@
                         <div id="passwordDiv" class="col-sm-10">
                             <label id="passwordLabel">Password</label>
                             <input type="password"  id="password" name="password" [(ngModel)]="user.password"
-                                placeholder="Password" class="form-control" (click)="setupPasswordInputPlaceholder()"
-                                (change)="setPassword($event)" />
+                                placeholder="Password" class="form-control" (click)="setupPasswordInputPlaceholder($event)"
+                                (change)="setPassword($event)"/>
+                                <span id="eyeIcon">
+                                    <i class="fa fa-eye" id="passwordEye" (click)="showHidePassword()" style="cursor: pointer;"></i>
+                                </span>    
                         </div>
                     </div>
                     <!-- row -->

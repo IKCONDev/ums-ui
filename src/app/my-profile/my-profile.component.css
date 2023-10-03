@@ -44,7 +44,7 @@
     text-align: left;
     font-size: 24px;
     color: #202224;
-    font-family: 'General Sans';
+    /* font-family: 'General Sans'; */
 }
 /*.pexels-photo-by-pixabay{
     object-fit: contain;
@@ -57,39 +57,40 @@
 
 .full-name {
     position: relative;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 150%;
-    font-family: 'General Sans';
+    /* font-family: 'General Sans'; */
     color: #606060;
     text-align: left;
-    padding-left: 10.8px;
+    padding-right: 10.8px;
 }
 .fa-pencil{
     color: #4880FF;
     border: none;
     background-color: #fff;
+    padding-left: 30px;
     
 }
 
-
+.padding{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+}
   
 .disp-name {
     position: relative;
     font-size: 16px;
-    line-height: 150%;
-    border: none;
-    background-color: white;
-    font-family: 'General Sans';
-    color: #202224;
-    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+   
 }
-
+.space{
+    min-height: 20px;
+}
 .full-name-parent {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 8px;
+    position: static;
+    font-size: 16px;
 }
 
 .frame-parent {
@@ -103,7 +104,7 @@
     text-align: left;
     font-size: 14px;
     color: #606060;
-    font-family: 'General Sans';
+    /* font-family: 'General Sans'; */
 }
 
 .frame-group {
@@ -139,6 +140,7 @@
     font-size: 16px;
     line-height: 150%;
     color: #606060;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 .prfname-parent {
@@ -160,7 +162,10 @@ input.form-control:read-only {
     background-color: #fff;
     border: none;
 }
-
+input[type='file'] {
+    color: transparent;
+   
+    }
 
 
 

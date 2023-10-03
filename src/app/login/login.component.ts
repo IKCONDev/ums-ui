@@ -65,12 +65,12 @@ tokenRequest = {
 
 username = "";
 accessToken = "";
-
 myMSALObj;
 
 constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
-  @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService) {
+  @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService) { 
    this.myMSALObj = new PublicClientApplication(this.msalConfig);
+   
 }
 
 async initializeMSAL() {
@@ -80,6 +80,7 @@ async ngOnInit() {
   console.log(this.router.url);
   this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
   this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
+  this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordEye'), 'display','none');
 
   await this.initializeMSAL(); // Initialize MSAL first
 
@@ -184,6 +185,8 @@ getTokenPopup(request) {
   }
 
   errorInfo: String = ''
+  inputField: HTMLInputElement;
+  eyeIcon: HTMLElement;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -284,7 +287,7 @@ getTokenPopup(request) {
     });
   }
 
-  setupPasswordInputPlaceholder() {
+  setupPasswordInputPlaceholder(event: any) {
     const passwordInput = this.elementRef.nativeElement.querySelector('#password');
 
     // On click, set the placeholder to an empty string
@@ -297,11 +300,37 @@ getTokenPopup(request) {
       if (!passwordInput.contains(event.target)) {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(passwordInput, 'placeholder', 'Password');
-        console.log('Focus is outside the textbox');
         this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#passwordDiv'), 'group');
         this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
       }
     });
+    this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordEye'), 'display','block');
+    /*
+    this.renderer.listen('body', 'click', (event: MouseEvent) => {
+      if (!passwordInput.contains(event.target)) {
+        this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordEye'), 'display','none');
+      }
+    });
+    */
+   /*
+   if(event.target.value === ''){
+    this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordEye'), 'display','none');
+   }
+   */
+  }
+
+  showHidePassword(){
+    this.inputField = document.getElementById("password") as HTMLInputElement;
+    this.eyeIcon = document.getElementById('passwordEye') as HTMLElement;
+    if(this.inputField.type === "password"){
+      this.inputField.type = "text";
+      this.eyeIcon.classList.add('fa-eye-slash');
+      this.eyeIcon.classList.remove('fa-eye')
+    }else{
+      this.inputField.type = "password";
+      this.eyeIcon.classList.remove('fa-eye-slash');
+      this.eyeIcon.classList.add('fa-eye')
+    }
   }
 
   ngOnDestroy() {
