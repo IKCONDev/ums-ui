@@ -181,3 +181,13 @@
     cursor: pointer;
   }
 
+  .modal-content{
+    width: 600px;
+    padding-left: 50px;
+  }
+
+  #errorSpan{
+    padding-left: 10px;
+    color: red;
+  }
+
