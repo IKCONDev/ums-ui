@@ -28,7 +28,7 @@ export class MeetingService {
   constructor(private http: HttpClient){}
 
     getUserOraganizedMeetingsByUserId(emailId: string){
-      return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/all/`+emailId, {observe: 'response'});
+      return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/`+emailId, {observe: 'response'});
     }
 
     getUserAttendedMeetingsByUserId(emailId: string){

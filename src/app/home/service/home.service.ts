@@ -20,12 +20,12 @@ export class HomeService {
       */
 
     getUserAttendedMeetingCount(){
-      return this.http.get<number>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/count/`+localStorage.getItem('email'));
+      return this.http.get<number>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/attended/count/`+localStorage.getItem('email'));
     }
 
 
     getUserorganizedMeetingCount(){
-      return this.http.get<number>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/attended/count/`+localStorage.getItem('email'));
+      return this.http.get<number>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/count/`+localStorage.getItem('email'));
     }
 
 }
