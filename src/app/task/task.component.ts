@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { FormGroup,FormControl,Validators } from '@angular/forms';
 import { Task } from '../model/task.model';
 import { TaskService } from './service/task.service';
@@ -249,6 +249,7 @@ export class TaskComponent {
     } 
   }
 
+
   //Check selected Checkboxes to delete
   checkCheckBoxes(){
      var tasksToBeDeleted=[];
@@ -298,10 +299,39 @@ export class TaskComponent {
                this.toastr.error("action Items are not deleted try again");
            }
       });
-     
-
+    
     }
-    //Get EmailIds of Active Users
+    checkAllCheckBoxes(event: any){
+        var checkbox = event.target.value;
+        console.log("the value is:"+checkbox);
+        if(checkbox === 'on'){
+          console.log("checked");
+          var table = document.getElementById('myTable1');
+          var rows =  table.getElementsByTagName('tr')
+          for(var i=0; i< rows.length; i++){
+            var row = rows[i];
+            var ischeckbox= row.querySelector("input[type='checkbox']") as HTMLInputElement;
+            ischeckbox.click();
+            
+          }
+      
+        }
+       else {
+
+        /*var table = document.getElementById('myTable1');
+        var rows =  table.getElementsByTagName('tr')
+        for(var i=0; i< rows.length; i++){
+          var row = rows[i];
+          var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+          ischeckbox.checked = false;
+
+          
+        }*/
+       }
+        
+    }
+
+      //Get EmailIds of Active Users
     userEmailIdList : string[];
     getActiveUsersEmailIdList(){
       this.meetingService.getActiveUserEmailIdList().subscribe(response =>{

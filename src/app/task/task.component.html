@@ -27,7 +27,8 @@
      <div calss="row"  *ngIf="taskCount > 0 ; else noMeetings">
                     <table class="table table-hover" id="myTable1">
                         <thead style="background-color: #ecf7fc; padding-top: 0px;">
-                                <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;">
+                                <th style="padding-left: 22px;"><input type="checkbox" class="maincheckbox" class="box" 
+                                    style="margin: 0px;" (change)="checkAllCheckBoxes($event)">
                                 </th>
                                 <th>UID</th>
                                 <th>Task Title</th>
@@ -42,7 +43,7 @@
                             <tbody *ngFor="let item of task">
                                 <tr>
                                     <td style="padding-left: 21px;"><input type="checkbox" value="{{item.taskId}}"
-                                            class="checkbox">
+                                            class="checkbox" id="checkbox">
                                     </td>
                                     <td>{{item.taskId}}</td>
                                     <td>{{item.taskTitle}}</td>
