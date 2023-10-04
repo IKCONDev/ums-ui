@@ -109,3 +109,14 @@ th,td{
 
 
  }
+ 
+ #details-section{
+  display: flex;
+  padding-top: 3px;
+  padding-left: 20px;
+  padding-right: 10px;
+
+ }
+#error_msg{
+  color: red;
+}

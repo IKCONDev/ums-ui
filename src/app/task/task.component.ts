@@ -1,7 +1,10 @@
 import { Component, Output } from '@angular/core';
+import { FormGroup,FormControl,Validators } from '@angular/forms';
 import { Task } from '../model/task.model';
 import { TaskService } from './service/task.service';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { event } from 'jquery';
+import { MeetingService } from '../meetings/service/meetings.service';
 
 @Component({
   selector: 'app-task',
@@ -15,6 +18,13 @@ export class TaskComponent {
   task_Details: Task;
   taskCount : number =0;
   tabOpened : string;
+ 
+  isTaskTitleValid : false;
+  isTaskDescriptionValid : false;
+  isTaskPriorityValid :false;
+  isTaskStartDateValid : false;
+  isTaskDueDateValid : false;
+  isStatusValidValid : false;
 
   update_Task={
      taskId:0,
@@ -31,7 +41,7 @@ export class TaskComponent {
      userId:''
      
   }
-  constructor(private service :TaskService, private toastr: ToastrService){}
+  constructor(private service :TaskService, private meetingService: MeetingService ,private toastr: ToastrService){}
   ngOnInit(): void {
 
    /* this.service.getAlltaskDetails().subscribe(res=>{
@@ -45,9 +55,108 @@ export class TaskComponent {
       this.taskCount = res.body.length;
       console.log(this.task);
    });
+
+  
    
     
   }
+  //validate Task Title
+  taskTitleErrrorInfo ="";
+  validateTaskTitle(event:any){
+     var taskTitle = event.target.value;
+     if(taskTitle == ""){
+          this.taskTitleErrrorInfo ='Enter the Task Title';
+
+     }
+     else if(taskTitle.length<5){
+         this.taskTitleErrrorInfo ='task title should be more than 5 characters';
+     }
+     else{
+         this.taskTitleErrrorInfo= '';
+     }
+
+  }
+  //Validating Task Description
+  taskDescriptionErrorInfo="";
+  validateTaskDescription(event:any){
+    var taskDescription=event.target.value;
+    if(taskDescription === ''){
+      this.taskDescriptionErrorInfo='Enter task description';
+    }
+    else if(taskDescription.length <=20 ){
+      this.taskDescriptionErrorInfo = 'task description should be more than 20 characters';
+    }
+    else{
+       this.taskDescriptionErrorInfo = '';
+       
+    }
+
+  }
+  //validating Task Priority
+  taskPriorityErrorInfo="";
+  validateTaskPriority(event:any){
+    var taskPriority = event.target.value;
+    if(taskPriority === ''){
+      this.taskPriorityErrorInfo = 'task priority should not be empty';
+    }
+    else if(taskPriority == 'select'){
+      this.taskPriorityErrorInfo = 'task priority is required';
+    }
+    else{
+      this.taskPriorityErrorInfo = '';
+    }
+  }
+  taskStatusErrorInfo = '';
+  validateTaskStatus(event:any){
+        var taskStatus = event.target.value;
+        if(taskStatus == ''){
+           this.taskStatusErrorInfo = 'Status is required';
+        }
+        else{
+           this.taskStatusErrorInfo = '';
+        }
+  }
+  taskOwnerErrorInfo = "";
+  validateTaskOwner(event : any){
+      var taskOwner = event.target.value;
+      if(taskOwner == ''){
+        this.taskOwnerErrorInfo = 'task Owner is required';
+      }
+      else{
+        this.taskOwnerErrorInfo = '';
+      }
+
+  }
+
+  taskStartDateErrorInfo="";
+  validateTaskStartDate(event:any){
+    var taskStartDate=event.target.value;
+   
+    if(new Date(taskStartDate.toString()) < new Date(Date.now())){
+       this.taskStartDateErrorInfo = 'Start date cannot be a previous date.'
+    }
+    else if(taskStartDate === ''){
+      this.taskStartDateErrorInfo = 'select the start date';
+    }
+    else{
+      this.taskStartDateErrorInfo = '';
+    }
+  }
+  taskDueDateErrorInfo = "";
+  validateTaskDueDate(event : any){
+     var taskDueDate=event.target.value;
+     if(taskDueDate === ''){
+        this.taskDueDateErrorInfo= 'select the due date';
+     }
+     else if(new Date(taskDueDate.toString())< new Date(Date.now())){
+        this.taskDueDateErrorInfo ='Date should`nt lessthan startdate';
+     }
+     else{
+        this.taskDueDateErrorInfo = '';
+     }
+  }
+
+  
   addTask(){
     
   }
@@ -66,6 +175,7 @@ export class TaskComponent {
  
   }
 
+  //Check selected Checkboxes to delete
   checkCheckBoxes(){
      var tasksToBeDeleted=[];
       var table = document.getElementById("myTable1")
@@ -97,6 +207,7 @@ export class TaskComponent {
       this.deleteTasks(tasksToBeDeleted);
       
     }
+    //Delete the tasks
     istaskDeleted : boolean= false;
     deleteTasks(taskIds: any[]){
 
@@ -112,9 +223,21 @@ export class TaskComponent {
                console.log("tasks not deleted");
                this.toastr.error("action Items are not deleted try again");
            }
-      })
+      });
      
 
     }
+    //Get EmailIds of Active Users
+    userEmailIdList : string[];
+    getActiveUsersEmailIdList(){
+      this.meetingService.getActiveUserEmailIdList().subscribe(response =>{
+         this.userEmailIdList = response.body;
+         console.log(this.userEmailIdList);
+
+
+      });
+    }
+
+  
 
 }

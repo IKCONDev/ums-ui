@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Meeting } from 'src/app/model/Meeting.model';
 import { Attendee } from 'src/app/model/Attendee.model';
 import { ActionItems } from 'src/app/model/actionitem.model';
+import { Users } from 'src/app/model/Users.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,6 @@ export class MeetingService {
   //to be removed
   private actionItemsOfEventPathUrl = 'events/actionitems/';
  
-
-
   constructor(private http: HttpClient){}
 
     getUserOraganizedMeetingsByUserId(emailId: string){
@@ -55,6 +54,10 @@ export class MeetingService {
 
     generateActionItemsByNlp(userEmail: string){
       return this.http.get(`${this.gatewayUrl}/${this.nlpMicroservicepathUrl}/generate/`+userEmail,{observe:'response'})
+    }
+
+    getActiveUserEmailIdList(){
+      return this.http.get<string[]>('http://localhost:8012/users/getEmail-list',{observe:'response'});
     }
 
 }
