@@ -60,20 +60,17 @@ export class TaskComponent {
        console.log(this.task);
     });*/
 
-    this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
-      this.task =res.body;
-      this.taskCount = res.body.length;
-      console.log(this.task);
-   });
+    this.tabOpened = localStorage.getItem('taskTabOpened')
+    console.log(this.tabOpened)
+    this.getTasks(this.tabOpened);
 
   }
 
   getTasks(tabOpened : string){
-   
-    console.log(this.tabOpened)
-    localStorage.setItem('tabOpened', this.tabOpened);
-    this.tabOpened = localStorage.getItem('tabOpened')
-    console.log(localStorage.getItem('tabOpened'))
+   console.log(tabOpened)
+    localStorage.setItem('taskTabOpened', tabOpened);
+    this.tabOpened = localStorage.getItem('taskTabOpened')
+    console.log(localStorage.getItem('taskTabOpened'))
 
     if (this.tabOpened === 'AssignedTask') {
       document.getElementById("AssignedTask").style.textDecorationLine = 'underline';
@@ -81,7 +78,7 @@ export class TaskComponent {
       this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
 
         (response => {
-
+          console.log(response.body)
           //extract the meetings from response object
           this.assignedTasks = response.body;
           this.assignedTasksCount = response.body.length
