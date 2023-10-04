@@ -30,23 +30,24 @@
                     <div class="row justify-content-center my-2">
                         <div id="emailDiv" class="col-sm-10">
                             <label id="emailLabel">Email Id</label>
-                            <input type="email"  id="email" name="email" [(ngModel)]="user.email" placeholder="Email Id"
+                            <input type="email" id="email" name="email" [(ngModel)]="user.email" placeholder="Email Id"
                                 class="form-control" (click)="setupEmailInputPlaceholder()"
-                                 (change)="setUsername($event)"/>
+                                (change)="setUsername($event)" />
                         </div>
                     </div>
-                    
+
                     <!-- row -->
                     <br />
                     <div class="row row justify-content-center my-2">
                         <div id="passwordDiv" class="col-sm-10">
                             <label id="passwordLabel">Password</label>
-                            <input type="password"  id="password" name="password" [(ngModel)]="user.password"
-                                placeholder="Password" class="form-control" (click)="setupPasswordInputPlaceholder($event)"
-                                (change)="setPassword($event)"/>
-                                <span id="eyeIcon">
-                                    <i class="fa fa-eye" id="passwordEye" (click)="showHidePassword()" style="cursor: pointer;"></i>
-                                </span>    
+                            <input type="password" id="password" name="password" [(ngModel)]="user.password"
+                                placeholder="Password" class="form-control"
+                                (click)="setupPasswordInputPlaceholder($event)" (change)="setPassword($event)" />
+                            <span id="eyeIcon">
+                                <i class="fa fa-eye" id="passwordEye" (click)="showHidePassword()"
+                                    style="cursor: pointer;"></i>
+                            </span>
                         </div>
                     </div>
                     <!-- row -->
@@ -59,16 +60,16 @@
                         </div>
                     </div>
                     <br />
-                    <div class="col-sm-12" style="text-align: center;">
+                    <div class="col-sm-12" style="text-align: center;padding-top: 20px;">
+
                         <button class="btn btn-primary" style="width: 240px;" (click)="login()">Login</button>
                     </div>
-                    <br/>
+                    <br />
                     <p style="text-align: center;">or</p>
-                    <br/>
                     <div class="col-sm-12" style="text-align: center;">
                         <button (click)="signIn()" id="continueWithMicrosoft">
-                            <img src="https://th.bing.com/th/id/R.3d6a2ad56bc3403c5cfcc3efe09b741b?rik=gnNKMMZSvZ3uMA&riu=http%3a%2f%2fpurepng.com%2fpublic%2fuploads%2flarge%2fpurepng.com-microsoft-logo-iconlogobrand-logoiconslogos-251519939091wmudn.png&ehk=1%2fl4i5MeDLTCpvZhUZlCefvhSzsGR16HIPqagpDxYDg%3d&risl=&pid=ImgRaw&r=0" 
-                                width="20px" height="20px"/>&nbsp;Continue With Microsoft Account
+                            <img src="https://th.bing.com/th/id/R.3d6a2ad56bc3403c5cfcc3efe09b741b?rik=gnNKMMZSvZ3uMA&riu=http%3a%2f%2fpurepng.com%2fpublic%2fuploads%2flarge%2fpurepng.com-microsoft-logo-iconlogobrand-logoiconslogos-251519939091wmudn.png&ehk=1%2fl4i5MeDLTCpvZhUZlCefvhSzsGR16HIPqagpDxYDg%3d&risl=&pid=ImgRaw&r=0"
+                                width="20px" height="20px" />&nbsp;Continue With Microsoft Account
                         </button>
                     </div>
                 </div>

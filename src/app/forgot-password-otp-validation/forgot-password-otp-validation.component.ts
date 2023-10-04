@@ -72,7 +72,7 @@ export class ForgotPasswordOtpValidationComponent {
   }
 
   resendOtp(){
-    this.emailVerificationService.generateOtpForUser(this.email).subscribe(
+    this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
         this.result = response;
         console.log(this.result)
