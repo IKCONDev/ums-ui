@@ -5,6 +5,8 @@ import { TaskService } from './service/task.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { event } from 'jquery';
 import { MeetingService } from '../meetings/service/meetings.service';
+import { NgForm } from '@angular/forms';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-task',
@@ -19,12 +21,15 @@ export class TaskComponent {
   taskCount : number =0;
   tabOpened : string;
  
-  isTaskTitleValid : false;
-  isTaskDescriptionValid : false;
-  isTaskPriorityValid :false;
-  isTaskStartDateValid : false;
-  isTaskDueDateValid : false;
-  isStatusValidValid : false;
+  isTaskTitleValid = false;
+  isTaskDescriptionValid = false;
+  isTaskPriorityValid = false;
+  isTaskOwnerValid = false;
+  isTaskStartDateValid = false;
+  isTaskDueDateValid = false;
+  isTaskStatusValid = false;
+
+  isSaveButtonDisabled = true;
 
   update_Task={
      taskId:0,
@@ -62,98 +67,125 @@ export class TaskComponent {
   }
   //validate Task Title
   taskTitleErrrorInfo ="";
-  validateTaskTitle(event:any){
-     var taskTitle = event.target.value;
-     if(taskTitle == ""){
+  validateTaskTitle(){
+     //var taskTitle = event.target.value;
+     if(this.update_Task.taskTitle == ""){
           this.taskTitleErrrorInfo ='Enter the Task Title';
+          this.isTaskTitleValid = false;
 
      }
-     else if(taskTitle.length<5){
+     else if(this.update_Task.taskTitle.length<5){
          this.taskTitleErrrorInfo ='task title should be more than 5 characters';
+         this.isTaskTitleValid = false;
      }
      else{
          this.taskTitleErrrorInfo= '';
+         this.isTaskTitleValid = true;
      }
+     return this.isTaskTitleValid;
 
   }
   //Validating Task Description
   taskDescriptionErrorInfo="";
-  validateTaskDescription(event:any){
-    var taskDescription=event.target.value;
-    if(taskDescription === ''){
+  validateTaskDescription(){
+   // var taskDescription=event.target.value;
+    if(this.update_Task.taskDescription === ''){
       this.taskDescriptionErrorInfo='Enter task description';
+      this.isTaskDescriptionValid = false;
     }
-    else if(taskDescription.length <=20 ){
+    else if(this.update_Task.taskDescription.length <=20 ){
       this.taskDescriptionErrorInfo = 'task description should be more than 20 characters';
+      this.isTaskDescriptionValid = false;
     }
     else{
        this.taskDescriptionErrorInfo = '';
+       this.isTaskDescriptionValid = true;
        
     }
+    return this.isTaskDescriptionValid;
 
   }
   //validating Task Priority
   taskPriorityErrorInfo="";
-  validateTaskPriority(event:any){
-    var taskPriority = event.target.value;
-    if(taskPriority === ''){
+  validateTaskPriority(){
+    //var taskPriority = event.target.value;
+    if(this.update_Task.taskPriority === ''){
       this.taskPriorityErrorInfo = 'task priority should not be empty';
+      this.isTaskPriorityValid = false;
     }
-    else if(taskPriority == 'select'){
+    else if(this.update_Task.taskPriority == 'select'){
       this.taskPriorityErrorInfo = 'task priority is required';
+      this.isTaskPriorityValid = false;
     }
     else{
       this.taskPriorityErrorInfo = '';
+      this.isTaskPriorityValid = true;
     }
+    return this.isTaskPriorityValid;
   }
   taskStatusErrorInfo = '';
-  validateTaskStatus(event:any){
-        var taskStatus = event.target.value;
-        if(taskStatus == ''){
+  validateTaskStatus(){
+       // var taskStatus = event.target.value;
+        if(this.update_Task.status == ''){
            this.taskStatusErrorInfo = 'Status is required';
+           this.isTaskStatusValid = false;
+           
         }
         else{
            this.taskStatusErrorInfo = '';
+           this.isTaskStatusValid = true;
         }
+        return this.isTaskStatusValid;
   }
   taskOwnerErrorInfo = "";
-  validateTaskOwner(event : any){
-      var taskOwner = event.target.value;
-      if(taskOwner == ''){
+  validateTaskOwner(){
+     // var taskOwner = event.target.value;
+      if(this.update_Task.taskOwner == ''){
         this.taskOwnerErrorInfo = 'task Owner is required';
+        this.isTaskOwnerValid = false;
       }
       else{
         this.taskOwnerErrorInfo = '';
+        this.isTaskOwnerValid = true;
       }
+      return this.isTaskOwnerValid;
 
   }
 
   taskStartDateErrorInfo="";
-  validateTaskStartDate(event:any){
-    var taskStartDate=event.target.value;
+  validateTaskStartDate(){
+    //var taskStartDate=event.target.value;
    
-    if(new Date(taskStartDate.toString()) < new Date(Date.now())){
-       this.taskStartDateErrorInfo = 'Start date cannot be a previous date.'
-    }
-    else if(taskStartDate === ''){
+    
+    if(this.update_Task.startDate === ''){
       this.taskStartDateErrorInfo = 'select the start date';
+      this.isTaskStartDateValid = false;
     }
-    else{
+    else if(new Date(this.update_Task.startDate.toString()) < new Date(Date.now())){
+       this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
+       this.isTaskStartDateValid = false;
+  
       this.taskStartDateErrorInfo = '';
+      this.isTaskStartDateValid = true;
     }
+    return this.isTaskStartDateValid;
   }
   taskDueDateErrorInfo = "";
-  validateTaskDueDate(event : any){
-     var taskDueDate=event.target.value;
-     if(taskDueDate === ''){
+  validateTaskDueDate(){
+    // var taskDueDate=event.target.value;
+     if(this.update_Task.dueDate === ''){
         this.taskDueDateErrorInfo= 'select the due date';
+        this.isTaskDueDateValid = false;
      }
-     else if(new Date(taskDueDate.toString())< new Date(Date.now())){
+    /* else if(new Date(this.update_Task.dueDate.toString())< new Date(Date.now())){
         this.taskDueDateErrorInfo ='Date should`nt lessthan startdate';
-     }
+        this.isTaskDueDateValid = false;
+     }*/
      else{
         this.taskDueDateErrorInfo = '';
+        this.isTaskDueDateValid = true;
      }
+     return this.isTaskDueDateValid;
   }
 
   
@@ -161,18 +193,60 @@ export class TaskComponent {
     
   }
   editTask(id:number){
+    this.isSaveButtonDisabled = false;
     this.service.getTask( id).subscribe(res=>{
       this.update_Task = res.body;
     });
+    this.isSaveButtonDisabled = true;
 
   }
   data:Object;
-  updateTaskDetails(event:any){
-    console.log()
-    this.service.updateTask(this.update_Task).subscribe(response =>{
-      this.data = response.body;
-    });
- 
+  response : Object;
+  updateTaskDetails(form: NgForm){
+    let isTitleValid = true;
+    let isDescriptionValid = true;
+    let isPriorityValid = true;
+    let isStartDateValid = true;
+    let isDueDateValid = true;
+    let isStatusValid = true;
+    if(this.isTaskTitleValid === false){
+        var valid = this.validateTaskTitle();
+        isTitleValid = valid;
+
+    }
+    if(this.isTaskDescriptionValid === false){
+        var valid = this.validateTaskDescription();
+        isDescriptionValid = valid;
+    }
+    if(this.isTaskPriorityValid === false){
+        var valid = this.validateTaskPriority();
+        isPriorityValid = valid;
+    }
+    if(this.isTaskStartDateValid === false){
+        var valid = this.validateTaskStartDate();
+        isStartDateValid = valid;
+    }
+    if(this.isTaskDueDateValid === false){
+        var valid = this.validateTaskDueDate();
+        isDueDateValid = valid;
+    }
+    if(this.isTaskStatusValid === false){
+        var valid = this.validateTaskStatus();
+        isStatusValid = valid;
+    }
+    if(isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStatusValid === true &&
+      isDueDateValid === true && isStatusValid === true){
+        this.service.updateTask(this.update_Task).subscribe(response =>{
+          this.response = response.body;
+          //this.data = response.body;
+          if(response.status === HttpStatusCode.Ok){
+            this.toastr.success('task updated Successfully');
+          }
+          
+        });
+     
+
+    } 
   }
 
   //Check selected Checkboxes to delete

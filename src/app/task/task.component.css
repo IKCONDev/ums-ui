@@ -120,3 +120,14 @@ th,td{
 #error_msg{
   color: red;
 }
+
+#details-label
+{
+  position: relative;
+  font-size: 18px;
+  line-height: 150%;
+  font-weight: 600;
+  font-family: 'General Sans';
+  color: #f9fcff;
+  text-align: left;
+}
