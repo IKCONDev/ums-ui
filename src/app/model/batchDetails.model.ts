@@ -5,4 +5,6 @@ export interface BatchDetails{
      endDateTime:Date;
      lastSuccessfullExecutionDateTime:Date;
      status:string;
+     startDate: string;
+     endDate: string;
 }

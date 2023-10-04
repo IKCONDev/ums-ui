@@ -12,7 +12,7 @@ export class ReportComponent implements OnInit {
 
   batchDetails:BatchDetails[];
 
-   @Output() title: string='Reports'
+   @Output() title:string='Reports'
 
    constructor (private reportservice:ReportService){}
    ngOnInit(): void {
@@ -20,9 +20,11 @@ export class ReportComponent implements OnInit {
          res=>{
           this.batchDetails = res.body;
           console.log(this.batchDetails);
-          
+             this.batchDetails.filter(batchDetail => {
+             
+           })
      });
- 
+      
 
    }
 

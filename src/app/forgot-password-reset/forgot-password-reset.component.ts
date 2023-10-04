@@ -121,10 +121,12 @@ export class ForgotPasswordResetComponent {
     const hasUppercase = /[A-Z]/.test(newPassword);
     const hasLowercase = /[a-z]/.test(newPassword);
     const hasNumber = /\d/.test(newPassword);
+    const space=/ /.test(newPassword);
     const hasSpecialChar = /[!@#$^&*()_+{}\[\]:;<>,.?~\\/-]/.test(newPassword);
-    return (newPassword.length>=minLength && hasUppercase&&hasLowercase&&hasNumber&&hasSpecialChar);
+    return (newPassword.length>=minLength && hasUppercase&&hasLowercase&&hasNumber&&hasSpecialChar&&!space);
   }
   updatePassword(){ 
+    if(this.passwordCriteria==="Strong Password"){
       this.resetPasswordService.updateUserPassword(this.email, this.newPassword, this.confirmPassword)
       .subscribe(
       (response) => {
@@ -135,7 +137,10 @@ export class ForgotPasswordResetComponent {
          }
       }
       )
-    
+    }
+    else{
+      this.toastr.error("Password Criteria Not Met","ResetPassword");
+    }
   }
 
   /*

@@ -1,8 +1,10 @@
-
+import { Injectable } from "@angular/core";
 import { HttpClient , HttpHeaders,HttpResponse} from "@angular/common/http";
 import { BatchDetails } from "src/app/model/batchDetails.model";
 
-
+@Injectable({
+    providedIn : 'root'
+})
 
 export class ReportService{
 

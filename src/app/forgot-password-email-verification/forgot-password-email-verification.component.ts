@@ -69,7 +69,7 @@ export class ForgotPasswordEmailVerificationComponent {
         else {
           console.log("Entered email address is not a valid email address");
           this.isError = true;
-          this.verificationResponse = "Incorrect EmailId";
+          this.verificationResponse = "Incorrect Email Id";
         }
       },
       (error: any) => {
@@ -80,7 +80,7 @@ export class ForgotPasswordEmailVerificationComponent {
   }
 
   constructOtp() {
-    this.emailVerificationService.generateOtpForUser(this.email).subscribe(
+    this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
         this.result = response;
         console.log(this.result)
