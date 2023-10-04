@@ -20,6 +20,10 @@ export class TaskComponent {
   task_Details: Task;
   taskCount : number =0;
   tabOpened : string;
+  organizedTasks: Task[];
+  assignedTasks: Task[];
+  assignedTasksCount =  0;
+
  
   isTaskTitleValid = false;
   isTaskDescriptionValid = false;
@@ -30,6 +34,7 @@ export class TaskComponent {
   isTaskStatusValid = false;
 
   isSaveButtonDisabled = true;
+  
 
   update_Task={
      taskId:0,
@@ -63,41 +68,38 @@ export class TaskComponent {
 
   }
 
-   //tabOpened: string = '';
-   //taskCount: number = 0;
-   organizedTasks: Task[];
-   assignedTasks: Task[];
-   assignedTasksCount =  0;
+  getTasks(tabOpened : string){
    
-   getTasks(tabOpened: string) {
-    localStorage.setItem('tabOpened', tabOpened);
+    console.log(this.tabOpened)
+    localStorage.setItem('tabOpened', this.tabOpened);
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(localStorage.getItem('tabOpened'))
 
-    if (tabOpened === 'OrganizedTask') {
-      document.getElementById("organizedMeeting").style.textDecorationLine = 'underline';
-      document.getElementById("attendedMeeting").style.textDecorationLine = 'none';
-      //get user organized tasks
-      this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(
-        (response)=>{
-          this.organizedTasks = response.body;
-        }
-      ) 
-      }else {
-        document.getElementById("organizedMeeting").style.textDecorationLine = 'none';
-        document.getElementById("attendedMeeting").style.textDecorationLine = 'underline';
-        //get user assigned tasks
-        this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe(
-          (response) => {
-            //extract the meetings from response object
-            this.assignedTasks = response.body;
-            this.assignedTasksCount = response.body.length
-            localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
-          }
-        )
-      }
+    if (this.tabOpened === 'AssignedTask') {
+      document.getElementById("AssignedTask").style.textDecorationLine = 'underline';
+      document.getElementById("OrganizedTask").style.textDecorationLine = 'none';
+      this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
+
+        (response => {
+
+          //extract the meetings from response object
+          this.assignedTasks = response.body;
+          this.assignedTasksCount = response.body.length
+          localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+        });
+    }
+    else{
+       document.getElementById("OrganizedTask").style.textDecorationLine = 'underline';
+       document.getElementById("AssignedTask").style.textDecorationLine ='none';
+       
+       this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
+        this.task =res.body;
+        this.taskCount = res.body.length;
+        console.log(this.task);
+     }); 
     }
 
+  }
 
   //validate Task Title
   taskTitleErrrorInfo ="";
@@ -198,7 +200,8 @@ export class TaskComponent {
     else if(new Date(this.update_Task.startDate.toString()) < new Date(Date.now())){
        this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
        this.isTaskStartDateValid = false;
-  
+    }
+  else{
       this.taskStartDateErrorInfo = '';
       this.isTaskStartDateValid = true;
     }
@@ -349,18 +352,6 @@ export class TaskComponent {
           }
       
         }
-       else {
-
-        /*var table = document.getElementById('myTable1');
-        var rows =  table.getElementsByTagName('tr')
-        for(var i=0; i< rows.length; i++){
-          var row = rows[i];
-          var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-          ischeckbox.checked = false;
-
-          
-        }*/
-       }
         
     }
 

@@ -236,9 +236,9 @@
                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority" #taskPriority="ngModel"
                                         [class.invalid]="taskPriority.invalid && taskPriority.touched" (click)="validateTaskPriority()">
                                         <option value="select">select</option>
-                                        <option>Low</option>
-                                        <option>Medium</option>
                                         <option>High</option>
+                                        <option>Medium</option>
+                                        <option>Low</option>
                                          </select></span>
                                          <div *ngIf="taskPriorityErrorInfo!=''">
                                                <span id="error_msg">{{taskPriorityErrorInfo}}</span>
@@ -272,8 +272,8 @@
                                         <td> <span><select value="Yet to Start"  class="form-control"     name="taskStatus"  [(ngModel)]="update_Task.status"
                                             required="true" #taskStatus="ngModel"  [class.invalid]="taskStatus.invalid && taskStatus.touched" (click)="validateTaskStatus()" >
                                              <option></option>
-                                              <option>Yet To Start</option>
-                                              <option>In Progress</option>
+                                              <option>Yettostart</option>
+                                              <option>Inprogress</option>
                                               <option>Completed</option>
                                             </select>
                                            <div *ngIf="taskStatusErrorInfo != ''">
@@ -295,7 +295,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer" role="alert">
                     <button type="submit" class="btn btn-primary" (click)="updateTaskDetails(form)"
-                         [(ngModel)]="update_Task"  [disabled]="isSaveButtonDisabled" >Save</button>
+                         [(ngModel)]="update_Task"  [disabled]="isSaveButtonDisabled" data-dismiss="modal">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
