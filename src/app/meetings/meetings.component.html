@@ -16,11 +16,20 @@
             <div class="col-sm-2" id="attendedMeeting">
                 <p id="attendedMeeting" (click)="getMeetings('AttendedMeeting')">Attended Meeting</p>
             </div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-3" style="padding-top: 8px;">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
                 <input type="search" class="form-control" placeholder="Search meeting title" />
             </div>
-            <div class="col-sm-1" id="filter">filter</div>
+            <div class="col-sm-1" id="searchMeetings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="#ffffff"/>
+                  </svg>
+            </div>
+            <div class="col-sm-1" id="filter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z" fill="#E5EEF1"/>
+                  </svg>
+            </div>
         </div>
         <!-- row -->
     </div>
@@ -98,8 +107,9 @@
                                 <table id="myTable{{meeting.meetingId}}" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <!-- <th id="tablehead"><input type="checkbox"  disabled/></th> -->
-                                            <th id="tablehead"></th>
+                                            <th id="tablehead"><input type="checkbox" id="actionItemMainCheck{{meeting.meetingId}}"
+                                                (change)="checkAllcheckBoxesOfCurrentMeeting(meeting.meetingId, $event)" /></th>
+                                            <!-- <th id="tablehead"></th> -->
                                             <th id="tablehead">ActionItemId</th>
                                             <th id="tablehead">Action Item</th>
                                             <th id="tablehead">Owner(suggested)</th>
@@ -166,7 +176,7 @@
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                             </td>
                                             <!-- submit and delete btn -->
-                                            <td id="submitAndDelete{{meeting.meetingId}}" colspan="2">
+                                            <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
                                                 <a (click)="convertActionItemToTask(meeting.meetingId)"
                                                     style="cursor: pointer;color:blue">Submit</a>
                                                 <a style="padding-left: 10px;cursor: pointer;color:red"
