@@ -46,6 +46,7 @@
     color: #202224;
     /* font-family: 'General Sans'; */
 }
+
 /*.pexels-photo-by-pixabay{
     object-fit: contain;
     background-size: contain;
@@ -64,30 +65,33 @@
     text-align: left;
     padding-right: 10.8px;
 }
-.fa-pencil{
+
+.fa-pencil {
     color: #4880FF;
     border: none;
     background-color: #fff;
     padding-left: 30px;
-    
+
 }
 
-.padding{
+.padding {
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 15px;
 }
-  
+
 .disp-name {
     position: relative;
     font-size: 16px;
     padding-top: 10px;
     padding-bottom: 10px;
-   
+
 }
-.space{
+
+.space {
     min-height: 20px;
 }
+
 .full-name-parent {
     position: static;
     font-size: 16px;
@@ -158,14 +162,13 @@
     margin-left: 200px;
     margin-top: 65px;
 }
+
 input.form-control:read-only {
-    background-color: #fff;
-    border: none;
+    background-color: #f4f2f2;
+
 }
+
 input[type='file'] {
     color: transparent;
-   
-    }
 
-
-
+}

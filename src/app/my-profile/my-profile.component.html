@@ -48,7 +48,7 @@
                     <div class="col-6">
                         <label for="firstName"  *ngIf="isDisable==true">Male</label>
                         <input type="text" value="Male" [hidden]="isDisable"
-                            [disabled]="isDisable"class="form-control" >
+                            readonly="true" class="form-control" >
                     </div>
                 </div>
             </div>
@@ -58,8 +58,8 @@
                     <div class="col-6">
                         <label for="role" *ngIf="isDisable==true">{{user.userRoles[0].roleName}}</label>
                         <input type="text" id="role" [ngModel]="user.userRoles[0].roleName" [hidden]="isDisable"
-                            [disabled]="isDisable" class="form-control">
-                    </div>
+                            readonly="true"  class="form-control">
+                        </div>
                 </div>
             </div>
             <div class="full-name-parent">
@@ -68,7 +68,7 @@
                     <div class="col-6">
                         <label for="department" *ngIf="isDisable==true">{{user.employee.department.departmentName}}</label>
                         <input type="text" [ngModel]="user.employee.department.departmentName" [hidden]="isDisable"
-                            [disabled]="isDisable" class="disp-name" class="form-control">
+                        readonly="true" class="disp-name" class="form-control">
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                     <div class="col-6">
                         <label for="DisplayName" *ngIf="isDisable==true">{{user.employee.firstName}}</label>
                         <input type="text" [ngModel]="user.employee.firstName" [hidden]="isDisable"
-                            [disabled]="isDisable" class="form-control">
+                        readonly="true" class="form-control">
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                     <div class="col-6">
                         <label for="dateOfJoin" *ngIf="isDisable==true">Na</label>
                         <input type="text" id="dateOfJoin" value="NA" class="form-control" [hidden]="isDisable"
-                            [disabled]="isDisable">
+                        readonly="true">
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     <div class="col-6">
                         <label for="Designation" *ngIf="isDisable==true">{{user.employee.designation}}</label>
                         <input type="text" id="Designation" [ngModel]="user.employee.designation" [hidden]="isDisable"
-                            [disabled]="isDisable" class="form-control">
+                        readonly="true" class="form-control">
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 <div class="disp-name">
                     <div class="col-6">
                         <label for="Reporting Manager" *ngIf="isDisable==true">Anil</label>
-                        <input type="text" id="Reporting Manager" value="Anil" [disabled]="isDisable"
+                        <input type="text" id="Reporting Manager" value="Anil" readonly="true"
                             [hidden]="isDisable" class="form-control">
                     </div>
                 </div>
