@@ -235,8 +235,8 @@
                                         <td> <span><select value="Yet to Start"  class="form-control"     name="taskStatus"  [(ngModel)]="update_Task.status"
                                             required="true" #taskStatus="ngModel"  [class.invalid]="taskStatus.invalid && taskStatus.touched" (click)="validateTaskStatus()" >
                                              <option></option>
-                                              <option>Yet To Start</option>
-                                              <option>In Progress</option>
+                                              <option>Yettostart</option>
+                                              <option>Inprogress</option>
                                               <option>Completed</option>
                                             </select>
                                            <div *ngIf="taskStatusErrorInfo != ''">

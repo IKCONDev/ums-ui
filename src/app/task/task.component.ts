@@ -164,7 +164,8 @@ export class TaskComponent {
     else if(new Date(this.update_Task.startDate.toString()) < new Date(Date.now())){
        this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
        this.isTaskStartDateValid = false;
-  
+    }
+  else{
       this.taskStartDateErrorInfo = '';
       this.isTaskStartDateValid = true;
     }
@@ -316,18 +317,6 @@ export class TaskComponent {
           }
       
         }
-       else {
-
-        /*var table = document.getElementById('myTable1');
-        var rows =  table.getElementsByTagName('tr')
-        for(var i=0; i< rows.length; i++){
-          var row = rows[i];
-          var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-          ischeckbox.checked = false;
-
-          
-        }*/
-       }
         
     }
 
