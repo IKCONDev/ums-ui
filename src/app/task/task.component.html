@@ -199,9 +199,9 @@
                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority" #taskPriority="ngModel"
                                         [class.invalid]="taskPriority.invalid && taskPriority.touched" (click)="validateTaskPriority()">
                                         <option value="select">select</option>
-                                        <option>Low</option>
-                                        <option>Medium</option>
                                         <option>High</option>
+                                        <option>Medium</option>
+                                        <option>Low</option>
                                          </select></span>
                                          <div *ngIf="taskPriorityErrorInfo!=''">
                                                <span id="error_msg">{{taskPriorityErrorInfo}}</span>
