@@ -237,15 +237,13 @@ export class ActionItemComponent implements OnInit {
       if (this.isActionsDeleted) {
         console.log("actions deleted");
         this.toastr.success("action Items Deleted");
-
+        window.location.reload();
       }
       else {
         console.log("actions not deleted");
         this.toastr.error("action Items are not deleted try again");
       }
-    })
-
-
+    });
   }
 
   temp_data: number
@@ -259,6 +257,7 @@ export class ActionItemComponent implements OnInit {
       console.log("the returned value is:", this.temp_data);
       if (this.temp_data === 1) {
         console.log("record deleted deleted");
+        window.location.reload();
       }
       else {
         console.log("record not deleted");
@@ -266,7 +265,6 @@ export class ActionItemComponent implements OnInit {
 
     });
     return this.actionItem_id;
-
 
   }
 

@@ -61,10 +61,44 @@ export class TaskComponent {
       console.log(this.task);
    });
 
-  
-   
-    
   }
+
+   //tabOpened: string = '';
+   //taskCount: number = 0;
+   organizedTasks: Task[];
+   assignedTasks: Task[];
+   assignedTasksCount =  0;
+   
+   getTasks(tabOpened: string) {
+    localStorage.setItem('tabOpened', tabOpened);
+    this.tabOpened = localStorage.getItem('tabOpened')
+    console.log(localStorage.getItem('tabOpened'))
+
+    if (tabOpened === 'OrganizedTask') {
+      document.getElementById("organizedMeeting").style.textDecorationLine = 'underline';
+      document.getElementById("attendedMeeting").style.textDecorationLine = 'none';
+      //get user organized tasks
+      this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(
+        (response)=>{
+          this.organizedTasks = response.body;
+        }
+      ) 
+      }else {
+        document.getElementById("organizedMeeting").style.textDecorationLine = 'none';
+        document.getElementById("attendedMeeting").style.textDecorationLine = 'underline';
+        //get user assigned tasks
+        this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe(
+          (response) => {
+            //extract the meetings from response object
+            this.assignedTasks = response.body;
+            this.assignedTasksCount = response.body.length
+            localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+          }
+        )
+      }
+    }
+
+
   //validate Task Title
   taskTitleErrrorInfo ="";
   validateTaskTitle(){
@@ -292,14 +326,13 @@ export class TaskComponent {
             if(this.istaskDeleted){
               console.log("tasks deleted");
               this.toastr.success("tasks Deleted");
-              
            }
            else{
                console.log("tasks not deleted");
                this.toastr.error("action Items are not deleted try again");
            }
       });
-    
+    window.location.reload();
     }
     checkAllCheckBoxes(event: any){
         var checkbox = event.target.value;

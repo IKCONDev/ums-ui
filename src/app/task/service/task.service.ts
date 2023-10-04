@@ -29,6 +29,10 @@ export class TaskService{
         return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/deleteAll/${task}`,{observe:'response'});
     }
 
+    getAssignedTasksOfUser(email:string){
+        return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/assigned/${email}`,{observe:'response'});
+    }
+
 
    
 

@@ -90,6 +90,43 @@
                             <p id="no-meetings">No Tasks Yet ! </p>
                         </ng-template>
                     </div>
+                <!-- ngif -->
+    <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
+        <div class="row" *ngIf="assignedTasksCount>0; else noAssignedTasks">
+            <table class="table table-hover" height="40">
+                <thead id="thead">
+                    <th>Sno</th>
+                    <th>Title</th>
+                    <th>Owner</th>
+                    <th>StartDate/Time</th>
+                    <th>DueDate/Time</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of assignedTasks; let i = index">
+                        <td>{{i+1}}</td>
+                        <td id="meeting-subject">{{task.taskTitle}}</td>
+                        <td>{{task.taskOwner}}</td>
+                        <td>{{task.startDate}}</td>
+                        <td>{{task.dueDate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <ng-template #noAssignedTasks>
+                <table class="table table-hover">
+                    <thead id="thead">
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Organizer</th>
+                        <th>StartDate/Time</th>
+                        <th>EndDate/Time</th>
+                    </thead>
+                </table>
+                <p id="no-meetings">No tasks asisgned for you yet ! </p>
+            </ng-template>
+        </div>
+    </div>
     </div>
 </div>
     <!-- Button to trigger the modal -->
