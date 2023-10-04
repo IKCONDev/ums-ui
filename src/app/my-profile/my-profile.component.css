@@ -164,8 +164,8 @@
 }
 
 input.form-control:read-only {
-    background-color: #fff;
-    border: none;
+    background-color: #f4f2f2;
+
 }
 
 input[type='file'] {
