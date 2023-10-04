@@ -20,6 +20,10 @@ export class TaskComponent {
   task_Details: Task;
   taskCount : number =0;
   tabOpened : string;
+  organizedTasks: Task[];
+  assignedTasks: Task[];
+  assignedTasksCount =  0;
+
  
   isTaskTitleValid = false;
   isTaskDescriptionValid = false;
@@ -30,6 +34,7 @@ export class TaskComponent {
   isTaskStatusValid = false;
 
   isSaveButtonDisabled = true;
+  
 
   update_Task={
      taskId:0,
@@ -54,17 +59,48 @@ export class TaskComponent {
        this.taskCount = res.body.length;
        console.log(this.task);
     });*/
-
-    this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
-      this.task =res.body;
-      this.taskCount = res.body.length;
-      console.log(this.task);
-   });
-
-  
-   
+    this.tabOpened = localStorage.getItem('tabOpened')
+    console.log(this.tabOpened)
+    this.getTasks(this.tabOpened); 
     
   }
+  getTasks(tabOpened : string){
+   
+    console.log(this.tabOpened)
+    localStorage.setItem('tabOpened', this.tabOpened);
+    this.tabOpened = localStorage.getItem('tabOpened')
+    console.log(localStorage.getItem('tabOpened'))
+
+    if (this.tabOpened === 'AssignedTask') {
+      document.getElementById("AssignedTask").style.textDecorationLine = 'underline';
+      document.getElementById("OrganizedTask").style.textDecorationLine = 'none';
+      this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
+
+        (response => {
+
+          //extract the meetings from response object
+          this.assignedTasks = response.body;
+          this.assignedTasksCount = response.body.length
+          localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+        });
+    }
+    else{
+       document.getElementById("OrganizedTask").style.textDecorationLine = 'underline';
+       document.getElementById("AssignedTask").style.textDecorationLine ='none';
+       
+       this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
+        this.task =res.body;
+        this.taskCount = res.body.length;
+        console.log(this.task);
+     }); 
+    }
+
+  }
+
+
+
+
+
   //validate Task Title
   taskTitleErrrorInfo ="";
   validateTaskTitle(){
