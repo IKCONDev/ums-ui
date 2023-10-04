@@ -33,7 +33,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Status</th>
-                <!--<th>Actions</th>-->
+                <th>Actions</th>
                 <th>Tasks</th>
                 <!-- <th></th> -->
 
@@ -50,7 +50,7 @@
                     <td>{{actionItem.actionStatus}}</td>
                     <!-- edit btn -->
                     <td><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                        <span *ngIf="actionItem.actionStatus==='NotConverted'" class="edit-icon" 
+                        <!-- <span *ngIf="actionItem.actionStatus==='NotConverted'" class="edit-icon" 
                         (click)="editData(actionItem.actionItemId)"
                         (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
                             data-target="#myModal">
@@ -62,8 +62,8 @@
                                         fill="#5590AA" />
                                 </g>
                             </svg>
-                        </span>
-                        <span *ngIf="actionItem.actionStatus==='Converted'" aria-disabled="true" class="edit-icon"
+                        </span> -->
+                        <!-- <span *ngIf="actionItem.actionStatus==='Converted'" aria-disabled="true" class="edit-icon"
                             data-toggle="modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                 fill="none">
@@ -73,7 +73,7 @@
                                         fill="#D3D3D3" />
                                 </g>
                             </svg>
-                        </span>
+                        </span> -->
                     
                     <!-- delete btn -->
                         <span class="delete-icon" style="padding-top:px;padding-left: 20px;" (click)="deleteData(actionItem.actionItemId)"
@@ -96,8 +96,7 @@
                                 </g>
                             </svg>
                         </span>
-                    </td>-->
-                    <!--  -->
+                    </td>
                     <td><a class="showmore" (click)="ViewTaskDetails()">Show</a></td>
                 </tr>
                 <tr class="detail">
