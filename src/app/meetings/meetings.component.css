@@ -5,8 +5,8 @@
 
 .container-fluid {
     padding-top: 20px;
-    padding-left: 274px;
-    padding-right: 24px;
+    padding-left: 140px;
+    padding-right: 32px;
 }
 
 .card-header {
@@ -198,4 +198,17 @@
 
   #asterisk{
     color: red;
+  }
+
+  .deleteButton:hover{
+    color: red;
+    background-color: white;
+    border-color: red;
+  }
+  
+  .submitButton:hover{
+    color: white;
+    background-color: #4880FF;
+    border-color: #4880FF;
+  
   }

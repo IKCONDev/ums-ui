@@ -1,6 +1,6 @@
 .sidenav {
-    height: 150%; /* Full-height: remove this if you want "auto" height */
-    width: 250px;
+    height:120%;/* Full-height: remove this if you want "auto" height */
+    width: 115px;
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
@@ -9,6 +9,8 @@
     background-color:#E5EEF1; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
+    padding-bottom: 10px;
+    
   }
   
   .nav-pills li a:hover .d-none{
@@ -34,12 +36,12 @@
   .nav-pills li,.d-none{
      
      font-family: General Sans;
-     font-size: 18px;
+     font-size: 10px;
      font-style: normal;
      font-weight: 600;
      line-height: 150%;
      color: #5590AA;
-     text-align: left;
+     text-align: center;
    
   }
   i{
@@ -48,3 +50,4 @@
   svg{
       color: #5590AA;
   }
+  

@@ -178,9 +178,9 @@
                                             <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
                                                 <a (click)="convertActionItemToTask(meeting)"
-                                                    style="cursor: pointer;color:blue">Submit</a>
-                                                <a style="padding-left: 10px;cursor: pointer;color:red"
-                                                    (click)="checkCheckboxes(meeting.meetingId)">Delete</a>
+                                                    style="cursor: pointer; margin-left:-120px;"><button class="btn btn-outline-secondary submitButton">Submit</button></a>
+                                                <a style="padding-left:24px ;cursor: pointer;"
+                                                    (click)="checkCheckboxes(meeting.meetingId)"><button class="btn btn-outline-secondary deleteButton">Delete</button></a>
                                             </td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                         </tr>
