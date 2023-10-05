@@ -177,7 +177,7 @@
                                             </td>
                                             <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
-                                                <a (click)="convertActionItemToTask(meeting.meetingId)"
+                                                <a (click)="convertActionItemToTask(meeting)"
                                                     style="cursor: pointer;color:blue">Submit</a>
                                                 <a style="padding-left: 10px;cursor: pointer;color:red"
                                                     (click)="checkCheckboxes(meeting.meetingId)">Delete</a>

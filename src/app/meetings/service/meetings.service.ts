@@ -40,8 +40,8 @@ export class MeetingService {
     }
     */
 
-    convertActionitemsToTasks(actionItems: ActionItems[]){
-      return this.http.post(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/convert-task`,actionItems,{observe:'response'});
+    convertActionitemsToTasks(actionItems: ActionItems[], meeting: Meeting){
+      return this.http.post(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/convert-task`,{actionItems,meeting},{observe:'response'});
     }
 
     getActionItems(){

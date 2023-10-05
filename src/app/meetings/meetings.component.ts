@@ -557,9 +557,9 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param meetingId 
    */
-  convertActionItemToTask(meetingId: number) {
-    console.log(meetingId)
-    var table = document.getElementById("myTable" + meetingId)
+  convertActionItemToTask(meeting: Meeting) {
+    console.log(meeting.meetingId)
+    var table = document.getElementById("myTable" + meeting.meetingId)
     console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
@@ -592,7 +592,7 @@ export class MeetingsComponent implements OnInit {
      //}
     });
     console.log(this.actionItemsToBeSubmitted);
-  this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted).subscribe(
+  this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted,meeting).subscribe(
     (response =>{
       console.log(response.body)
       this.toastr.success('Action items converted to task succesfully')
