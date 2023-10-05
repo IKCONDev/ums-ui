@@ -1,7 +1,7 @@
 .container-fluid{
     padding-top: 20px;
-    padding-left: 274px;
-    padding-right: 24px;
+    padding-left: 140px;
+    padding-right: 32px;
 }
 
 .card-header{
@@ -16,7 +16,7 @@
     padding-top: 8px;
 }
 .card-body{
-    padding-top: 18px;
+    padding-top: 10px;
     padding-left: 24px;
     padding-right: 24px;
 }

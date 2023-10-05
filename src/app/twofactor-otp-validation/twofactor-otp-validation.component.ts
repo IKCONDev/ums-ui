@@ -19,6 +19,7 @@ export class TwofactorOtpValidationComponent {
   email: string = '';
   isValidOtp: boolean = false;
   OtpResponseMessage:string='';
+  verifyButtonDisabled:boolean=false;
 
   constructor(private router: Router, private elementRef: ElementRef, 
     private renderer: Renderer2,
@@ -68,6 +69,9 @@ export class TwofactorOtpValidationComponent {
     if(this.otpCode.toString() === "" ){
         this.OtpResponseMessage="";
     }
+    else if(this.otpCode.toString()<"6"){
+        this.verifyButtonDisabled=false;
+    }
   }
 
   resendOtp(){
@@ -97,8 +101,7 @@ export class TwofactorOtpValidationComponent {
       if(this.result === 1){
         console.log('valid otp - navigate to reset password page')
         this.isValidOtp = true;
-        this.OtpResponseMessage ="valid Otp";
-
+        this.OtpResponseMessage ="valid OTP";
         let navigationExtras: NavigationExtras = {
           state: {
             email: this.email
@@ -108,7 +111,8 @@ export class TwofactorOtpValidationComponent {
         this.router.navigateByUrl("/home", navigationExtras)
       }else{
         console.log(' invalid otp please enter a valid one or request for resend otp')
-        this.OtpResponseMessage ="Invalid otp";
+        this.OtpResponseMessage ="Invalid OTP";
+        this.verifyButtonDisabled=true;
         let navigationExtras: NavigationExtras = {
           state: {
             email: this.email
@@ -118,5 +122,12 @@ export class TwofactorOtpValidationComponent {
       }
     }))
   }
-
+  onKeyDown(event:KeyboardEvent){
+    const invalidChars =['+','-','.','e'];
+    const inputElement= event.target as HTMLInputElement;
+    if(invalidChars.includes(event.key)|| (inputElement.value.length==6 && event.key!='Backspace')){
+        event.preventDefault();
+        this.verifyButtonDisabled=false;
+    }
+  }
 }
