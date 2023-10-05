@@ -267,7 +267,7 @@
                     </div>
                     <br>
                     <form #form="ngForm" method="POST">
-                        <label><b>ActionItem Title</b></label>
+                        <label><b>ActionItem Title</b><b id="asterisk">*</b></label>
                         <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
                             [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
                             id="actionItemTitle"
@@ -278,7 +278,7 @@
                             <span id="errorSpan">{{actionItemTitleErrorInfo}}</span>
                         </div>
                         <!-- title end -->
-                        <label><b>ActionItem Description</b></label>
+                        <label><b>ActionItem Description</b><b id="asterisk">*</b></label>
                         <input type="text" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
                             #actionItemDescription="ngModel" minlength="10" maxlength="1000"
@@ -290,7 +290,7 @@
                         </div>
                         <!-- description end -->
                         <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
-                        <label for="priority"><b>Priority</b></label>
+                        <label for="priority"><b>Priority</b><b id="asterisk">*</b></label>
                         <select id="priority" class="form-control" style="width: 400px;"
                             [(ngModel)]="addDetails.actionPriority" required="true" name="actionPriority"
                             #actionPriority="ngModel" [class.invalid]="actionPriority.invalid && actionPriority.touched"
@@ -305,7 +305,7 @@
                             <span id="errorSpan">{{actionItemPriorityErrorInfo}}</span>
                         </div>
                         <!-- priority end -->
-                        <label style="padding-bottom: 10px;"><b>Action Owner</b></label>
+                        <label style="padding-bottom: 10px;"><b>Action Owner</b><b id="asterisk">*</b></label>
                         <!-- <select class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.actionItemOwner" required="true" name="actionItemOwner"
                         #actionItemOwner="ngModel" [class.invalid]="actionItemOwner.invalid && actionItemOwner.touched">
@@ -326,7 +326,7 @@
                             <span id="errorSpan">{{actionItemOwnerErrorInfo}}</span>
                         </div>
                         <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
-                        <label><b>StartDate</b></label>
+                        <label><b>StartDate</b><b id="asterisk">*</b></label>
                         <input type="datetime-local" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" 
                             name="startDate" #startDate="ngModel"
@@ -335,7 +335,7 @@
                         <div *ngIf="actionItemStartDateErrorInfo != ''">
                             <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                         </div>
-                        <label><b>EndDate</b></label>
+                        <label><b>EndDate</b><b id="asterisk">*</b></label>
                         <input type="datetime-local" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" 
                             name="endDate" #endDate="ngModel"
@@ -347,9 +347,9 @@
                         <!--footer-->
                         <div class="modal-footer" role="alert">
                             <button type="submit"  class="btn btn-success"
-                                (click)="saveActionItem(form)" data-dismiss="modal">Save</button>
+                                (click)="saveActionItem(form)">Save</button>
                             <button type="button" class="btn btn-danger"
-                                (click)="clearErrorMessages(form)">Cancel</button>
+                                (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
                 </div>

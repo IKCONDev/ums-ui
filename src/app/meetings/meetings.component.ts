@@ -201,12 +201,31 @@ export class MeetingsComponent implements OnInit {
    * @param form 
    */
   clearErrorMessages(form: NgForm){
-    // this.actionItemTitleErrorInfo = '';
-    // this.actionItemDescriptionErrorInfo = '';
-    // this.actionItemPriorityErrorInfo = '';
-    // this.actionItemStartDateErrorInfo = '';
-    // this.actionItemEndDateErrorInfo = '';
-    form.form.reset();
+
+    //reset the form
+    this.addDetails.actionItemTitle = '';
+    this.addDetails.actionItemDescription = '';
+    this.addDetails.actionItemOwner = '';
+    this.addDetails.actionPriority = '';
+    this.addDetails.actionStatus = '';
+    this.addDetails.endDate = '';
+    this.addDetails.startDate = '';
+
+    //clear Error messages
+     this.actionItemTitleErrorInfo = '';
+     this.actionItemDescriptionErrorInfo = '';
+     this.actionItemOwnerErrorInfo = '';
+     this.actionItemPriorityErrorInfo = '';
+     this.actionItemStartDateErrorInfo = '';
+     this.actionItemEndDateErrorInfo = '';
+
+     //
+     this.isActionItemTitleValid = false;
+     this.isActionItemDescriptionValid = false;
+     this.isActionItemPriorityValid = false;
+     this.isActionItemOwnerValid = false;
+     this.isActionItemStartDateValid = false;
+     this.isActionItemEndDateValid = false;
   }
 
   /**

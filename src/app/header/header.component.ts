@@ -65,4 +65,10 @@ export class HeaderComponent {
   openProfilePanel(){
     this.router.navigateByUrl('/my-profile');
   }
+  logout(){
+    sessionStorage.clear();
+    localStorage.clear();
+    window.localStorage.clear ();
+    this.router.navigateByUrl('/login');
+  }
 }
