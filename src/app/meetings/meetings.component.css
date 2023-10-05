@@ -199,3 +199,16 @@
   #asterisk{
     color: red;
   }
+
+  .deleteButton:hover{
+    color: red;
+    background-color: white;
+    border-color: red;
+  }
+  
+  .submitButton:hover{
+    color: white;
+    background-color: #4880FF;
+    border-color: #4880FF;
+  
+  }
