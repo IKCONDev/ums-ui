@@ -596,6 +596,7 @@ export class ActionItemComponent implements OnInit {
         console.log(this.userEmailIdList);
       }
     )
-  }
-
+  }  
 }
+
+
