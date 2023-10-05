@@ -34,7 +34,7 @@ export class TwofactorAuthenticationComponent {
 
   constructOtp() {
     console.log(this.email)
-    this.emailVerificationService.generateOtpForUser(this.email).subscribe(
+    this.emailVerificationService.generateTfOtpForUser(this.email,'TwoFactorAuth').subscribe(
       (response) => {
         this.result = response;
         console.log(this.result)

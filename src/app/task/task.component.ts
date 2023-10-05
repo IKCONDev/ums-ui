@@ -1,7 +1,12 @@
-import { Component, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { FormGroup,FormControl,Validators } from '@angular/forms';
 import { Task } from '../model/task.model';
 import { TaskService } from './service/task.service';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { event } from 'jquery';
+import { MeetingService } from '../meetings/service/meetings.service';
+import { NgForm } from '@angular/forms';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-task',
@@ -15,6 +20,21 @@ export class TaskComponent {
   task_Details: Task;
   taskCount : number =0;
   tabOpened : string;
+  organizedTasks: Task[];
+  assignedTasks: Task[];
+  assignedTasksCount =  0;
+
+ 
+  isTaskTitleValid = false;
+  isTaskDescriptionValid = false;
+  isTaskPriorityValid = false;
+  isTaskOwnerValid = false;
+  isTaskStartDateValid = false;
+  isTaskDueDateValid = false;
+  isTaskStatusValid = false;
+
+  isSaveButtonDisabled = true;
+  
 
   update_Task={
      taskId:0,
@@ -31,7 +51,7 @@ export class TaskComponent {
      userId:''
      
   }
-  constructor(private service :TaskService, private toastr: ToastrService){}
+  constructor(private service :TaskService, private meetingService: MeetingService ,private toastr: ToastrService){}
   ngOnInit(): void {
 
    /* this.service.getAlltaskDetails().subscribe(res=>{
@@ -40,32 +60,232 @@ export class TaskComponent {
        console.log(this.task);
     });*/
 
-    this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
-      this.task =res.body;
-      this.taskCount = res.body.length;
-      console.log(this.task);
-   });
+    this.tabOpened = localStorage.getItem('taskTabOpened')
+    console.log(this.tabOpened)
+    this.getTasks(this.tabOpened);
+
+  }
+
+  getTasks(tabOpened : string){
+   console.log(tabOpened)
+    localStorage.setItem('taskTabOpened', tabOpened);
+    this.tabOpened = localStorage.getItem('taskTabOpened')
+    console.log(localStorage.getItem('taskTabOpened'))
+
+    if (this.tabOpened === 'AssignedTask') {
+      document.getElementById("AssignedTask").style.textDecorationLine = 'underline';
+      document.getElementById("OrganizedTask").style.textDecorationLine = 'none';
+      this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
+
+        (response => {
+          console.log(response.body)
+          //extract the meetings from response object
+          this.assignedTasks = response.body;
+          this.assignedTasksCount = response.body.length
+          localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+        });
+    }
+    else{
+       document.getElementById("OrganizedTask").style.textDecorationLine = 'underline';
+       document.getElementById("AssignedTask").style.textDecorationLine ='none';
+       
+       this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
+        this.task =res.body;
+        this.taskCount = res.body.length;
+        console.log(this.task);
+     }); 
+    }
+
+  }
+
+  //validate Task Title
+  taskTitleErrrorInfo ="";
+  validateTaskTitle(){
+     //var taskTitle = event.target.value;
+     if(this.update_Task.taskTitle == ""){
+          this.taskTitleErrrorInfo ='Enter the Task Title';
+          this.isTaskTitleValid = false;
+
+     }
+     else if(this.update_Task.taskTitle.length<5){
+         this.taskTitleErrrorInfo ='task title should be more than 5 characters';
+         this.isTaskTitleValid = false;
+     }
+     else{
+         this.taskTitleErrrorInfo= '';
+         this.isTaskTitleValid = true;
+     }
+     return this.isTaskTitleValid;
+
+  }
+  //Validating Task Description
+  taskDescriptionErrorInfo="";
+  validateTaskDescription(){
+   // var taskDescription=event.target.value;
+    if(this.update_Task.taskDescription === ''){
+      this.taskDescriptionErrorInfo='Enter task description';
+      this.isTaskDescriptionValid = false;
+    }
+    else if(this.update_Task.taskDescription.length <=20 ){
+      this.taskDescriptionErrorInfo = 'task description should be more than 20 characters';
+      this.isTaskDescriptionValid = false;
+    }
+    else{
+       this.taskDescriptionErrorInfo = '';
+       this.isTaskDescriptionValid = true;
+       
+    }
+    return this.isTaskDescriptionValid;
+
+  }
+  //validating Task Priority
+  taskPriorityErrorInfo="";
+  validateTaskPriority(){
+    //var taskPriority = event.target.value;
+    if(this.update_Task.taskPriority === ''){
+      this.taskPriorityErrorInfo = 'task priority should not be empty';
+      this.isTaskPriorityValid = false;
+    }
+    else if(this.update_Task.taskPriority == 'select'){
+      this.taskPriorityErrorInfo = 'task priority is required';
+      this.isTaskPriorityValid = false;
+    }
+    else{
+      this.taskPriorityErrorInfo = '';
+      this.isTaskPriorityValid = true;
+    }
+    return this.isTaskPriorityValid;
+  }
+  taskStatusErrorInfo = '';
+  validateTaskStatus(){
+       // var taskStatus = event.target.value;
+        if(this.update_Task.status == ''){
+           this.taskStatusErrorInfo = 'Status is required';
+           this.isTaskStatusValid = false;
+           
+        }
+        else{
+           this.taskStatusErrorInfo = '';
+           this.isTaskStatusValid = true;
+        }
+        return this.isTaskStatusValid;
+  }
+  taskOwnerErrorInfo = "";
+  validateTaskOwner(){
+     // var taskOwner = event.target.value;
+      if(this.update_Task.taskOwner == ''){
+        this.taskOwnerErrorInfo = 'task Owner is required';
+        this.isTaskOwnerValid = false;
+      }
+      else{
+        this.taskOwnerErrorInfo = '';
+        this.isTaskOwnerValid = true;
+      }
+      return this.isTaskOwnerValid;
+
+  }
+
+  taskStartDateErrorInfo="";
+  validateTaskStartDate(){
+    //var taskStartDate=event.target.value;
    
     
+    if(this.update_Task.startDate === ''){
+      this.taskStartDateErrorInfo = 'select the start date';
+      this.isTaskStartDateValid = false;
+    }
+    else if(new Date(this.update_Task.startDate.toString()) < new Date(Date.now())){
+       this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
+       this.isTaskStartDateValid = false;
+    }
+  else{
+      this.taskStartDateErrorInfo = '';
+      this.isTaskStartDateValid = true;
+    }
+    return this.isTaskStartDateValid;
   }
+  taskDueDateErrorInfo = "";
+  validateTaskDueDate(){
+    // var taskDueDate=event.target.value;
+     if(this.update_Task.dueDate === ''){
+        this.taskDueDateErrorInfo= 'select the due date';
+        this.isTaskDueDateValid = false;
+     }
+    /* else if(new Date(this.update_Task.dueDate.toString())< new Date(Date.now())){
+        this.taskDueDateErrorInfo ='Date should`nt lessthan startdate';
+        this.isTaskDueDateValid = false;
+     }*/
+     else{
+        this.taskDueDateErrorInfo = '';
+        this.isTaskDueDateValid = true;
+     }
+     return this.isTaskDueDateValid;
+  }
+
+  
   addTask(){
     
   }
   editTask(id:number){
+    this.isSaveButtonDisabled = false;
     this.service.getTask( id).subscribe(res=>{
       this.update_Task = res.body;
     });
+    this.isSaveButtonDisabled = true;
 
   }
+  
   data:Object;
-  updateTaskDetails(event:any){
-    console.log()
-    this.service.updateTask(this.update_Task).subscribe(response =>{
-      this.data = response.body;
-    });
- 
+  response : Object;
+  updateTaskDetails(form: NgForm){
+    let isTitleValid = true;
+    let isDescriptionValid = true;
+    let isPriorityValid = true;
+    let isStartDateValid = true;
+    let isDueDateValid = true;
+    let isStatusValid = true;
+    if(this.isTaskTitleValid === false){
+        var valid = this.validateTaskTitle();
+        isTitleValid = valid;
+
+    }
+    if(this.isTaskDescriptionValid === false){
+        var valid = this.validateTaskDescription();
+        isDescriptionValid = valid;
+    }
+    if(this.isTaskPriorityValid === false){
+        var valid = this.validateTaskPriority();
+        isPriorityValid = valid;
+    }
+    if(this.isTaskStartDateValid === false){
+        var valid = this.validateTaskStartDate();
+        isStartDateValid = valid;
+    }
+    if(this.isTaskDueDateValid === false){
+        var valid = this.validateTaskDueDate();
+        isDueDateValid = valid;
+    }
+    if(this.isTaskStatusValid === false){
+        var valid = this.validateTaskStatus();
+        isStatusValid = valid;
+    }
+    if(isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStatusValid === true &&
+      isDueDateValid === true && isStatusValid === true){
+        this.service.updateTask(this.update_Task).subscribe(response =>{
+          this.response = response.body;
+          //this.data = response.body;
+          if(response.status === HttpStatusCode.Ok){
+            this.toastr.success('task updated Successfully');
+          }
+          
+        });
+     
+
+    } 
   }
 
+
+  //Check selected Checkboxes to delete
   checkCheckBoxes(){
      var tasksToBeDeleted=[];
       var table = document.getElementById("myTable1")
@@ -97,24 +317,56 @@ export class TaskComponent {
       this.deleteTasks(tasksToBeDeleted);
       
     }
+    //Delete the tasks
     istaskDeleted : boolean= false;
     deleteTasks(taskIds: any[]){
-
+      if(taskIds.length < 1){
+        this.toastr.error('No tasks selected to delete')
+        return;
+      }
       this.service.deleteAllTasksByTaskIds(taskIds).subscribe(res=>{
             this.istaskDeleted = res.body;
             console.log(this.istaskDeleted);
             if(this.istaskDeleted){
               console.log("tasks deleted");
               this.toastr.success("tasks Deleted");
-              
            }
            else{
                console.log("tasks not deleted");
                this.toastr.error("action Items are not deleted try again");
            }
-      })
-     
-
+      });
+    window.location.reload();
     }
+    checkAllCheckBoxes(event: any){
+        var checkbox = event.target.value;
+        console.log("the value is:"+checkbox);
+        if(checkbox === 'on'){
+          console.log("checked");
+          var table = document.getElementById('myTable1');
+          var rows =  table.getElementsByTagName('tr')
+          for(var i=0; i< rows.length; i++){
+            var row = rows[i];
+            var ischeckbox= row.querySelector("input[type='checkbox']") as HTMLInputElement;
+            ischeckbox.click();
+            
+          }
+      
+        }
+        
+    }
+
+      //Get EmailIds of Active Users
+    userEmailIdList : string[];
+    getActiveUsersEmailIdList(){
+      this.meetingService.getActiveUserEmailIdList().subscribe(response =>{
+         this.userEmailIdList = response.body;
+         console.log(this.userEmailIdList);
+
+
+      });
+    }
+
+  
 
 }

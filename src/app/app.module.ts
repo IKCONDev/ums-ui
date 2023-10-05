@@ -30,6 +30,7 @@ import { TaskComponent } from './task/task.component';
 import { ReportComponent } from './report/report.component';
 import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actionitems.component';
 //import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -64,6 +65,7 @@ import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actio
     HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    NgSelectModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

@@ -15,8 +15,11 @@ export class ForgotPasswordEmailVerificationService {
 
   constructor(private http: HttpClient){}
 
-    generateOtpForUser(email: String){
-        return this.http.post<number>(`${this.finalHttpUrl}/${this.generateOtpPathUrl}/`+email,{observe: 'response'});
+    generateOtpForUser(email: String,pageType:string){
+        return this.http.post<number>(`${this.finalHttpUrl}/${this.generateOtpPathUrl}/`+email+'/'+pageType,{observe: 'response'});
+    }
+    generateTfOtpForUser(email:string,pageType:string){
+        return this.http.post<number>(`${this.finalHttpUrl}/${this.generateOtpPathUrl}/`+email+'/'+pageType,{observe: 'response'});
     }
 
     VerifyEmailAddress(email: string): Observable<any>{ 

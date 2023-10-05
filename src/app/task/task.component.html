@@ -6,95 +6,148 @@
             <div class="col-sm-2">
                 <h2 id="heading">Task List</h2>
             </div>
-            <div class="col-sm-1" id="AssignedTask">
-                <p id="AssignedTask">Assigned</p>
+            <div class="col-sm-2" id="AssignedTask">
+                <p (click)="getTasks('AssignedTask')" id="AssignedTask">Assigned Tasks</p>
             </div>
             <div class="col-sm-2" id="OrganizedTask">
-                <p id="OrganizedTask" style="padding-right: 10px;">Organized</p>
+                <p (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks</p>
             </div>
-            <div class="col-sm-2"></div>
+            <div class="col-sm-1"></div>
             <div class="col-sm-3" style="padding-top: 9px; ">
                 <input type="search" class="form-control" placeholder="Search task " />
             </div>
             <!--<div class="col-sm-1" style="padding-top: 17px;"><button id="add_button"type="btn btn-primary" (click)="addTask()"
                     data-toggle="modal" data-target="#myModal_add">delete</button></div>-->
 
-            <div class="col-sm-1" style="padding-top: 8px;"><button id="add_button" type="btn btn-primary"
+            <div class="col-sm-1" style="padding-top: 8px;"><button id="delete_button" type="btn btn-primary"
                     (click)="checkCheckBoxes()">Delete</button></div>
         </div>
     </div>
-   <div class="card-body">
-     <div calss="row"  style="padding-top: 20px;"     *ngIf="taskCount > 0 ; else noMeetings">
-                    <table class="table table-hover" id="myTable1">
-                        <thead style="background-color: #ecf7fc; padding-top: 0px;">
-                                <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;">
-                                </th>
-                                <th>UID</th>
-                                <th>Task Title</th>
-                                <th>ActionItem</th>
-                                <th>Assignees</th>
-                                <th>StartDate</th>
-                                <th>DueDate</th>
-                                <th>Priority</th>
-                                <th>Status</th>
-                                <th></th>
-                            </thead>
-                            <tbody *ngFor="let item of task">
-                                <tr>
-                                    <td style="padding-left: 21px;"><input type="checkbox" value="{{item.taskId}}"
-                                            class="checkbox">
-                                    </td>
-                                    <td>{{item.taskId}}</td>
-                                    <td>{{item.taskTitle}}</td>
-                                    <td>{{item.actionTitle}}</td>
-                                    <td>{{item.taskOwner}}</td>
-                                    <td>{{item.startDate}}</td>
-                                    <td>{{item.dueDate}}</td>
-                                    <td>{{item.taskPriority}}</td>
-                                    <td>{{item.status}}</td>
-                                    <td>
-                                        <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
-                                            (click)="editTask(item.taskId)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                viewBox="0 0 20 20" fill="none">
-                                                <g id="edit">
-                                                    <path id="Vector"
-                                                        d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                                        fill="#5590AA" />
-                                                </g>
-                                            </svg>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                        <ng-template #noMeetings>
-                            <table class="table table-hover">
-                                <thead style="background-color: #ecf7fc; padding-top:0px;">
-                                    <th style="padding-left: 22px;"><input type="checkbox" class="box"
-                                            style="margin: 0px;"></th>
-                                    <th>UID</th>
-                                    <th>Task Title</th>
-                                    <th>ActionItem</th>
-                                    <th>Assignees</th>
-                                    <th>StartDate</th>
-                                    <th>DueDate</th>
-                                    <th>Priority</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </thead>
-                            </table>
-                            <p id="no-meetings">No Tasks Yet ! </p>
-                        </ng-template>
-                    </div>
+    <div class="card-body" *ngIf="tabOpened === 'OrganizedTask'">
+        <div calss="row" *ngIf="taskCount > 0 ; else noMeetings">
+            <table class="table table-hover" id="myTable1">
+                <thead style="background-color: #ecf7fc; padding-top: 0px;">
+                    <th style="padding-left: 22px;"><input type="checkbox" class="maincheckbox" class="box"
+                            style="margin: 0px;" (change)="checkAllCheckBoxes($event)">
+                    </th>
+                    <th>UID</th>
+                    <th>Task Title</th>
+                    <th>ActionItem</th>
+                    <th>Assignees</th>
+                    <th>StartDate</th>
+                    <th>DueDate</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th></th>
+                </thead>
+                <tbody *ngFor="let item of task">
+                    <tr>
+                        <td style="padding-left: 21px;"><input type="checkbox" value="{{item.taskId}}" class="checkbox"
+                                id="checkbox">
+                        </td>
+                        <td>{{item.taskId}}</td>
+                        <td>{{item.taskTitle}}</td>
+                        <td>{{item.actionTitle}}</td>
+                        <td>{{item.taskOwner}}</td>
+                        <td>{{item.startDate}}</td>
+                        <td>{{item.dueDate}}</td>
+                        <td>{{item.taskPriority}}</td>
+                        <td>{{item.status}}</td>
+                        <td>
+                            <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
+                                (click)="editTask(item.taskId)" (click)="getActiveUsersEmailIdList()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <g id="edit">
+                                        <path id="Vector"
+                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                            fill="#5590AA" />
+                                    </g>
+                                </svg>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <ng-template #noMeetings>
+                <table class="table table-hover">
+                    <thead style="background-color: #ecf7fc; padding-top:0px;">
+                        <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
+                        <th>UID</th>
+                        <th>Task Title</th>
+                        <th>ActionItem</th>
+                        <th>Assignees</th>
+                        <th>StartDate</th>
+                        <th>DueDate</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th></th>
+                    </thead>
+                </table>
+                <p id="no-meetings">No Tasks Yet ! </p>
+            </ng-template>
+        </div>
+        <!--  -->
+    </div>
+     <!-- ngif -->
+     <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
+        <div class="row" *ngIf="assignedTasksCount>0; else noAssignedTasks">
+            <table class="table table-hover" height="40">
+                <thead id="thead">
+                    <th>Sno</th>
+                    <th>Title</th>
+                    <th>Owner</th>
+                    <th>StartDate/Time</th>
+                    <th>DueDate/Time</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of assignedTasks; let i = index">
+                        <td>{{i+1}}</td>
+                        <td id="meeting-subject">{{task.taskTitle}}</td>
+                        <td>{{task.taskOwner}}</td>
+                        <td>{{task.startDate}}</td>
+                        <td>{{task.dueDate}}</td>
+                        <td>
+                            <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
+                                (click)="editTask(task.taskId)" (click)="getActiveUsersEmailIdList()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <g id="edit">
+                                        <path id="Vector"
+                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                            fill="#5590AA" />
+                                    </g>
+                                </svg>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <ng-template #noAssignedTasks>
+                <table class="table table-hover">
+                    <thead id="thead">
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Organizer</th>
+                        <th>StartDate/Time</th>
+                        <th>EndDate/Time</th>
+                    </thead>
+                </table>
+                <p id="no-meetings">No tasks asisgned for you yet ! </p>
+            </ng-template>
+        </div>
     </div>
 </div>
-    <!-- Button to trigger the modal -->
+
+<!-- Button to trigger the modal -->
 
 
-    <!-- The Modal
+<!-- The Modal
 <div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -121,63 +174,150 @@
 </div> -->
 
 
-    <!---Long modal-->
-    <div class="modal fade" id="xlModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+<!---Long modal-->
+<div class="modal fade" id="xlModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
 
-                <!-- Modal Header -->
-                <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
-                    <h5 class="modal-title" id="xlModalLabel">Task</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
-                    </button>
-                </div>
-
+            <!-- Modal Header -->
+            <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
+                <h5 class="modal-title" id="xlModalLabel">Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                </button>
+            </div>
+            <form #form="ngForm" method="POST">
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
-                    <input type="text" style="margin-left: 30px;" [(ngModel)]="update_Task.taskTitle">
-                    <label style="padding-left: 410px; font-size: 20px;"> Status</label>
-                    <span style="padding-left: 80px;"><select value="Yet to Start" [(ngModel)]="update_Task.status">
-                            <option>Yet to Start</option>
-                            <option>Inprogress</option>
-                            <option>completed</option>
-                        </select>
-                    </span>
-                    <div class="row" style="margin: 20px;">
+                    <div class="row">
                         <div class="col-md-6">
-                            <label style="padding-top: 3px; font-size: 20px;">Description</label>
-                            <textarea style="width: 500px; height: 200px;"
-                                [(ngModel)]="update_Task.taskDescription"></textarea>
+                            <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
+                            <textarea type="text" style="margin-left: 30px;width: 500px;" class="form-control"
+                                name="taskTitle" required="true" [(ngModel)]="update_Task.taskTitle"
+                                #taskTitle="ngModel" [class.invalid]="taskTitle.invalid && taskTitle.touched"
+                                (keyup)="validateTaskTitle()"></textarea>
+                            <div *ngIf="taskTitleErrrorInfo !=''">
+                                <span style="margin-left: 25px; color: red;">{{taskTitleErrrorInfo}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="margin: 20px;">
+                        <label style="font-size: 20px;">Description</label>
+                        <div class="col-md-6">
+
+                            <div style=" width:530px; height: 250px; background-color: #ecf7fc;">
+                                <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
+                                    <label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
+                                        Text</label>
+                                </div>
+                                <textarea style="width: 530px; height:220px;background-color: #ecf7fc;"
+                                    class="form-control" name="taskDescription" #taskDescription="ngModel"
+                                    [(ngModel)]="update_Task.taskDescription"
+                                    [class.invalid]="taskDescription.invalid && taskDescription.touched"
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..."></textarea>
+                                <div *ngIf="taskDescriptionErrorInfo!=''">
+                                    <span style="color: red;">{{taskDescriptionErrorInfo}}</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-4" style="padding-left: 10px;">
-                            <div class="row">
-                                <div class="col-md-4">
+                        <div class="col-md-4" style=" width:400px; height: 380px; background-color: #ecf7fc;">
+                            <div class="row" style="background-color: #134E69D9;height: 40px;">
+                                <label id="details-label" style="padding-top: 5px;">Details</label>
+                            </div>
+                            <div class="row" id="details-section">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Assignee </td>
+                                            <!--<td><span><input type="text"
+                                            [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
+                                        </td>-->
+                                            <td>
+                                                <div>
+                                                    <ng-select class="form-control" [searchable]="true"
+                                                        [clearable]="true" id="taskOwner" name="taskOwner"
+                                                        (change)="validateTaskOwner()"
+                                                        [(ngModel)]="update_Task.taskOwner">
+                                                        <ng-option [value]="''">choose</ng-option>
+                                                        <ng-option [value]="emailId"
+                                                            *ngFor="let emailId of userEmailIdList"> {{emailId}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                </div>
+                                                <br>
+                                                <div *ngIf="taskOwnerErrorInfo != ''">
+                                                    <span style="padding-top: 200px;">{{taskOwnerErrorInfo}}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label for="prority">Priority</label></td>
+                                            <td><span><select id="priority" class="form-control"
+                                                        [(ngModel)]="update_Task.taskPriority" name="taskPriority"
+                                                        #taskPriority="ngModel"
+                                                        [class.invalid]="taskPriority.invalid && taskPriority.touched"
+                                                        (click)="validateTaskPriority()">
+                                                        <option value="select">select</option>
+                                                        <option>High</option>
+                                                        <option>Medium</option>
+                                                        <option>Low</option>
+                                                    </select></span>
+                                                <div *ngIf="taskPriorityErrorInfo!=''">
+                                                    <span id="error_msg">{{taskPriorityErrorInfo}}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Start Date</td>
+                                            <td><span><input type="datetime-local" class="form-control"
+                                                        name="taskStartDate" [(ngModel)]="update_Task.startDate"
+                                                        #taskStartDate="ngModel" required="true"
+                                                        [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
+                                                        (click)="validateTaskStartDate()"></span>
+                                                <div *ngIf="taskStartDateErrorInfo!=''">
+                                                    <span id="error_msg">{{taskStartDateErrorInfo}}</span>
+                                                </div>
 
-                                    <label style="font-size: 20px;">Details</label>
-                                    <p style="padding-top: 5px;">Assignee</p>
-                                    <span style="padding-top: 30px;">Priority</span>
-                                    <p style="padding-top:16px;">Start Date</p>
-                                    <p style="padding-top:3px; ">Due Date</p>
-                                </div>
-                                <div class="col-md-4">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Due Date </td>
+                                            <td><span> <input type="datetime-local" class="form-control"
+                                                        name="taskDueDate" [(ngModel)]="update_Task.dueDate"
+                                                        #taskDueDate="ngModel" required="true"
+                                                        [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
+                                                        (click)="validateTaskDueDate()"></span>
+                                                <div *ngIf="taskDueDateErrorInfo !=''">
+                                                    <span id="error_msg">{{taskDueDateErrorInfo}}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                                    <label></label>
-                                    <input type="text" style="margin-bottom: 8px; margin-top: 16px;"
-                                        [(ngModel)]="update_Task.taskOwner">
-                                    <select style="margin-top: 10px;margin-left:0px;"
-                                        [(ngModel)]="update_Task.taskPriority">
-                                        <option>High</option>
-                                        <option>Medium</option>
-                                        <option>Low</option>
-                                    </select>
-                                    <input type="datetime-local" style="margin-top: 10px;"
-                                        [(ngModel)]="update_Task.startDate">
-                                    <input type="datetime-local" style="margin-top: 10px;"
-                                        [(ngModel)]="update_Task.dueDate">
-                                </div>
+                                        <tr>
+                                            <td>Status</td>
+                                            <td> <span><select value="Yet to Start" class="form-control"
+                                                        name="taskStatus" [(ngModel)]="update_Task.status"
+                                                        required="true" #taskStatus="ngModel"
+                                                        [class.invalid]="taskStatus.invalid && taskStatus.touched"
+                                                        (click)="validateTaskStatus()">
+                                                        <option></option>
+                                                        <option>Yettostart</option>
+                                                        <option>Inprogress</option>
+                                                        <option>Completed</option>
+                                                    </select>
+                                                    <div *ngIf="taskStatusErrorInfo != ''">
+                                                        <span id="error_msg">{{taskStatusErrorInfo}}</span>
+                                                    </div>
+
+                                                </span></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
                             </div>
                         </div>
                     </div>
@@ -185,11 +325,12 @@
 
 
                 <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="updateTaskDetails($event)"
-                        data-dismiss="modal" [(ngModel)]="update_Task">Save</button>
+                <div class="modal-footer" role="alert">
+                    <button type="submit" class="btn btn-primary" (click)="updateTaskDetails(form)"
+                        [(ngModel)]="update_Task" [disabled]="isSaveButtonDisabled">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+</div>

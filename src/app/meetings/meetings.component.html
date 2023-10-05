@@ -16,11 +16,20 @@
             <div class="col-sm-2" id="attendedMeeting">
                 <p id="attendedMeeting" (click)="getMeetings('AttendedMeeting')">Attended Meeting</p>
             </div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-3" style="padding-top: 8px;">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
                 <input type="search" class="form-control" placeholder="Search meeting title" />
             </div>
-            <div class="col-sm-1" id="filter">filter</div>
+            <div class="col-sm-1" id="searchMeetings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="#ffffff"/>
+                  </svg>
+            </div>
+            <div class="col-sm-1" id="filter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z" fill="#E5EEF1"/>
+                  </svg>
+            </div>
         </div>
         <!-- row -->
     </div>
@@ -98,8 +107,9 @@
                                 <table id="myTable{{meeting.meetingId}}" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <!-- <th id="tablehead"><input type="checkbox"  disabled/></th> -->
-                                            <th id="tablehead"></th>
+                                            <th id="tablehead"><input type="checkbox" id="actionItemMainCheck{{meeting.meetingId}}"
+                                                (change)="checkAllcheckBoxesOfCurrentMeeting(meeting.meetingId, $event)" /></th>
+                                            <!-- <th id="tablehead"></th> -->
                                             <th id="tablehead">ActionItemId</th>
                                             <th id="tablehead">Action Item</th>
                                             <th id="tablehead">Owner(suggested)</th>
@@ -129,7 +139,9 @@
                                             <td>{{actionItem.actionStatus}}</td>
                                             <td *ngIf="actionItem.actionStatus==='NotConverted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                <span class="edit-icon" (click)="editActionItem(actionItem.actionItemId)"
+                                                <span class="edit-icon"
+                                                    (click)="editActionItem(actionItem.actionItemId)"
+                                                    (click)="getActiveUMSUsersEmailIdList()"
                                                     data-toggle="modal" data-target="#myModal">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                         viewBox="0 0 20 20" fill="none">
@@ -160,11 +172,12 @@
                                         <tr style="background-color: white;">
                                             <td style="text-align: center;" colspan="7">
                                                 <a data-toggle="modal" data-target="#myModal_add"
-                                                    style="cursor: pointer;padding-left: 50px;">Add Action Item</a>
+                                                    style="cursor: pointer;padding-left: 50px;"
+                                                    (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                             </td>
                                             <!-- submit and delete btn -->
-                                            <td id="submitAndDelete{{meeting.meetingId}}" colspan="2">
-                                                <a (click)="convertActionItemToTask(meeting.meetingId)"
+                                            <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
+                                                <a (click)="convertActionItemToTask(meeting)"
                                                     style="cursor: pointer;color:blue">Submit</a>
                                                 <a style="padding-left: 10px;cursor: pointer;color:red"
                                                     (click)="checkCheckboxes(meeting.meetingId)">Delete</a>
@@ -254,80 +267,103 @@
                     </div>
                     <br>
                     <form #form="ngForm" method="POST">
-                        <label><b>ActionItem Title</b></label>
-                    <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
-                        [(ngModel)]="addDetails.actionItemTitle" required="true" 
-                        name="actionItemTitle" minlength="5" maxlength="500" #actionItemTitle="ngModel"
-                        [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched" (keyup)="validateActionTitle($event)">
-                    <div *ngIf="actionItemTitleErrorInfo != ''">
-                        <span id="errorSpan" >{{actionItemTitleErrorInfo}}</span>
-                    </div>
-                    <!-- title end -->
-                    <label>ActionItem Description</label>
-                    <input type="text" class="form-control" style="width:400px;"
-                        [(ngModel)]="addDetails.actionItemDescription" required="true"
-                         name="actionItemDescription" #actionItemDescription="ngModel" minlength="10" maxlength="1000"
-                         [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
-                          (keyup)="validateActionDescription($event)">
+                        <label><b>ActionItem Title</b><b id="asterisk">*</b></label>
+                        <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
+                            [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
+                            id="actionItemTitle"
+                            minlength="5" maxlength="500" #actionItemTitle="ngModel"
+                            [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
+                            (keyup)="validateActionTitle()">
+                        <div *ngIf="actionItemTitleErrorInfo != ''">
+                            <span id="errorSpan">{{actionItemTitleErrorInfo}}</span>
+                        </div>
+                        <!-- title end -->
+                        <label><b>ActionItem Description</b><b id="asterisk">*</b></label>
+                        <input type="text" class="form-control" style="width:400px;"
+                            [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
+                            #actionItemDescription="ngModel" minlength="10" maxlength="1000"
+                            id="actionItemDescription"
+                            [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
+                            (keyup)="validateActionDescription()">
                         <div *ngIf="actionItemDescriptionErrorInfo != ''">
                             <span id="errorSpan">{{actionItemDescriptionErrorInfo}}</span>
                         </div>
-                     <!-- description end -->
-                    <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
-                    <label for="priority">Priority</label>
-                    <select id="priority" class="form-control" style="width: 400px;"
-                        [(ngModel)]="addDetails.actionPriority" required="true" 
-                        name="actionPriority" #actionPriority="ngModel"
-                        [class.invalid]="actionPriority.invalid && actionPriority.touched" (click)="validateActionPriority($event)">
-                        <option>select</option>
-                        <option>Low</option>
-                        <option>Medium</option>
-                        <option>High</option>
-                    </select>
-                    <div *ngIf="actionItemPriorityErrorInfo != ''">
-                        <span id="errorSpan">{{actionItemPriorityErrorInfo}}</span>
-                    </div>
-                    <!-- priority end -->
-                    <label>Action Owner</label>
-                    <input type="text " class="form-control" style="width:400px;"
-                        [(ngModel)]="addDetails.actionItemOwner">
-                    <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
-                    <label>StartDate</label>
-                    <input type="datetime-local" class="form-control" style="width:400px;"
-                        [(ngModel)]="addDetails.startDate" required="true" 
-                        name="startDate" #startDate="ngModel"
-                        [class.invalid]="startDate.invalid && startDate.touched" (change)="validateActionStartDate($event)">
-                    <div *ngIf="actionItemStartDateErrorInfo != ''">
-                        <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
-                    </div>
-                    <label>EndDate</label>
-                    <input type="datetime-local" class="form-control" style="width:400px;"
-                        [(ngModel)]="addDetails.endDate" required="true"
-                        name="endDate" #endDate="ngModel"
-                        [class.invalid]="endDate.invalid && endDate.touched" (change)="validateActionEndDate($event)">
+                        <!-- description end -->
+                        <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
+                        <label for="priority"><b>Priority</b><b id="asterisk">*</b></label>
+                        <select id="priority" class="form-control" style="width: 400px;"
+                            [(ngModel)]="addDetails.actionPriority" required="true" name="actionPriority"
+                            #actionPriority="ngModel" [class.invalid]="actionPriority.invalid && actionPriority.touched"
+                            id="actionItemPriority"
+                            (click)="validateActionPriority()">
+                            <option>select</option>
+                            <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+                        </select>
+                        <div *ngIf="actionItemPriorityErrorInfo != ''">
+                            <span id="errorSpan">{{actionItemPriorityErrorInfo}}</span>
+                        </div>
+                        <!-- priority end -->
+                        <label style="padding-bottom: 10px;"><b>Action Owner</b><b id="asterisk">*</b></label>
+                        <!-- <select class="form-control" style="width:400px;"
+                        [(ngModel)]="addDetails.actionItemOwner" required="true" name="actionItemOwner"
+                        #actionItemOwner="ngModel" [class.invalid]="actionItemOwner.invalid && actionItemOwner.touched">
+                            <option>select</option>
+                            <option *ngFor="let emailId of userEmailIdList">{{emailId}}</option>
+                    </select> -->
+                        <div style="padding-left: 10px;">
+                            <ng-select class="form-control" [searchable]="true" [clearable]="true" id="actionItemOwner"
+                                name="actionItemOwner" style="width: 400px;" 
+                                (change)="validateActionItemOwner()" [(ngModel)]="addDetails.actionItemOwner">
+                                <ng-option [value]="">choose</ng-option>
+                                <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                                    {{emailId}}
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                        <div *ngIf="actionItemOwnerErrorInfo != '' || actionItemOwnerErrorInfo==null">
+                            <span id="errorSpan">{{actionItemOwnerErrorInfo}}</span>
+                        </div>
+                        <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
+                        <label><b>StartDate</b><b id="asterisk">*</b></label>
+                        <input type="datetime-local" class="form-control" style="width:400px;"
+                            [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" 
+                            name="startDate" #startDate="ngModel"
+                            [class.invalid]="startDate.invalid && startDate.touched"
+                            (change)="validateActionStartDate()">
+                        <div *ngIf="actionItemStartDateErrorInfo != ''">
+                            <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
+                        </div>
+                        <label><b>EndDate</b><b id="asterisk">*</b></label>
+                        <input type="datetime-local" class="form-control" style="width:400px;"
+                            [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" 
+                            name="endDate" #endDate="ngModel"
+                            [class.invalid]="endDate.invalid && endDate.touched"
+                            (change)="validateActionEndDate()">
                         <div *ngIf="actionItemEndDateErrorInfo != ''">
                             <span id="errorSpan">{{actionItemEndDateErrorInfo}}</span>
                         </div>
-                    
-                    <!--footer-->
-                    <div class="modal-footer" role="alert">
-                        <button [disabled]="isActionItemSaveButtonDisabled" type="submit" class="btn btn-success"
-                            data-dismiss="modal" (click)="saveDetails(form)">Save</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clearErrorMessages(form)">Cancel</button>
-                    </div>
-                </form>
+                        <!--footer-->
+                        <div class="modal-footer" role="alert">
+                            <button type="submit"  class="btn btn-success"
+                                (click)="saveActionItem(form)">Save</button>
+                            <button type="button" class="btn btn-danger"
+                                (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     <!--Modal for update-->
-    <div class="modal" id="myModal" style=" font-family: 'General Sans';">
+    <div class="modal" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content" style="margin: 10px;">
                 <!--Modal Header-->
                 <div class="modal-header">
-                    <h4 class="modal-title" style="text-align: center;">ActionItem</h4>
+                    <h4 class="modal-title" style="text-align: center;">UpdateActionItem</h4>
                 </div>
                 <br>
                 <!--- <label>ActionItem Title</label>
@@ -343,31 +379,84 @@
             <input type="datetime-local" style="width:400px;" value="{{this.updatedetails.endDate}}">-->
 
 
-                <label>ActionItem Title</label>
-                <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle" required="true">
-                <label>ActionItem Description</label>
-                <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionItemDescription"
-                    required="true">
+                <label><b>ActionItem Title</b></label>
+                <input type="text" style="width: 400px;" class="form-control" 
+                [(ngModel)]="updatedetails.actionItemTitle" required="true"
+                name="uAcItemTitle"
+                id="uAcItemTitle"
+                minlength="5" maxlength="500" #uAcItemTitle="ngModel"
+                [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched"
+                (keyup)="validateUpdateActionTitle()">
+              <div *ngIf="updateActionItemTitleErrorInfo != ''">
+                <span id="errorSpan">{{updateActionItemTitleErrorInfo}}</span>
+              </div>
+                <label><b>ActionItem Description</b></label>
+                <input type="text" style="width:400px;" class="form-control"
+                 [(ngModel)]="updatedetails.actionItemDescription"
+                    required="true" name="uAcItemDesc"
+                    id="uAcItemDesc"
+                    minlength="5" maxlength="500" #uAcItemDesc="ngModel"
+                    [class.invalid]="uAcItemDesc.invalid && uAcItemDesc.touched"
+                    (keyup)="validateUpdateActionDescription()">
+                  <div *ngIf="updateActionItemDescErrorInfo != ''">
+                    <span id="errorSpan">{{updateActionItemDescErrorInfo}}</span>
+                  </div>
                 <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
-                <label>Priority</label>
-                <select id="priority" style="width: 400px;" [(ngModel)]="updatedetails.actionPriority" required="true">
-                    <option>High</option>
-                    <option>Low</option>
-                    <option>Medium</option>
-
-                </select>
-                <label>Action Owner</label>
-                <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionItemOwner" required="true">
+                <label><b>Priority</b></label>
+                <select id="priority" class="form-control" style="width: 400px;"
+                 [(ngModel)]="updatedetails.actionPriority" required="true"
+                name="uAcPriority"
+                            #uAcPriority="ngModel" [class.invalid]="uAcPriority.invalid && uAcPriority.touched"
+                            id="actionItemPriority"
+                            (click)="validateUpdateActionPriority()">
+                            <option>select</option>
+                            <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
+                        </select>
+                        <div *ngIf="updateActionItemPriorityErrorInfo != ''">
+                            <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
+                        </div>
+                <label><b>Action Owner</b></label>
+                <div style="padding-left: 10px;">
+                    <ng-select class="form-control" [searchable]="true" [clearable]="true" id="uAcItemOwner"
+                        name="uAcItemOwner" style="width: 400px;" 
+                        (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner">
+                        <ng-option [value]="">choose</ng-option>
+                        <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                            {{emailId}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+                <div *ngIf="updateActionItemOwnerErrorInfo != '' || updateActionItemOwnerErrorInfo==null">
+                    <span id="errorSpan">{{updateActionItemOwnerErrorInfo}}</span>
+                </div>
                 <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
-                <label>StartDate</label>
-                <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.startDate" required="true">
-                <label>EndDate</label>
-                <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.endDate" required="true">
+                <label><b>StartDate</b></label>
+                <input type="datetime-local" style="width:400px;"class="form-control"
+                 [(ngModel)]="updatedetails.startDate" required="true"
+                id="uAcItemStartDate" 
+                            name="uAcItemStartDate" #uAcItemStartDate="ngModel"
+                            [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
+                            (change)="validateUpdateActionStartDate()">
+                        <div *ngIf="updateActionItemStartDateErrorInfo != ''">
+                            <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
+                        </div>
+                <label><b>EndDate</b></label>
+                <input type="datetime-local" style="width:400px;" class="form-control"
+                 [(ngModel)]="updatedetails.endDate" required="true"
+                id="uAcItemEndDate" 
+                            name="uAcItemEndDate" #uAcItemEndDate="ngModel"
+                            [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"
+                            (change)="validateUpdateActionEndDate()">
+                        <div *ngIf="updateActionItemEndDateErrorInfo != ''">
+                            <span id="errorSpan">{{updateActionItemEndDateErrorInfo}}</span>
+                        </div>
 
                 <!--footer-->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" (click)="updateActionItem($event)"
-                        [(ngModel)]="updatedetails" data-dismiss="modal">Update</button>
+                    <button type="submit" id="saveActionItem" class="btn btn-success" (click)="updateActionItem(form)"
+                        [(ngModel)]="updatedetails">Update</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
             </div>

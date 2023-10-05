@@ -128,10 +128,12 @@ export class ForgotPasswordResetComponent {
     const hasUppercase = /[A-Z]/.test(newPassword);
     const hasLowercase = /[a-z]/.test(newPassword);
     const hasNumber = /\d/.test(newPassword);
+    const space=/ /.test(newPassword);
     const hasSpecialChar = /[!@#$^&*()_+{}\[\]:;<>,.?~\\/-]/.test(newPassword);
-    return (newPassword.length>=minLength && hasUppercase&&hasLowercase&&hasNumber&&hasSpecialChar);
+    return (newPassword.length>=minLength && hasUppercase&&hasLowercase&&hasNumber&&hasSpecialChar&&!space);
   }
   updatePassword(){ 
+    if(this.passwordCriteria==="Strong Password"){
       this.resetPasswordService.updateUserPassword(this.email, this.newPassword, this.confirmPassword)
       .subscribe(
       (response) => {
@@ -139,9 +141,12 @@ export class ForgotPasswordResetComponent {
         if(this.passwordUpdateStatus === 1){
           this.toastr.success("Success","ResetPassword");
           this.router.navigateByUrl("/");
-         }
+         }else{
+          this.toastr.error("Password Criteria Not Met","ResetPassword");
+        }
       }
       )
+    }
   }
 
   showNewPasswordEyeIcon(){
@@ -169,6 +174,7 @@ export class ForgotPasswordResetComponent {
       this.eyeIcon.classList.remove('fa-eye-slash');
       this.eyeIcon.classList.add('fa-eye')
     }
+    
   }
 
   /*

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Meeting } from 'src/app/model/Meeting.model';
 import { Attendee } from 'src/app/model/Attendee.model';
 import { ActionItems } from 'src/app/model/actionitem.model';
+import { Users } from 'src/app/model/Users.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +18,13 @@ export class MeetingService {
   private finalHttpUrl = this.gatewayUrl+this.batchProcessingMicroservicePathUrl;
 
   private actionsMicroservicePathUrl = 'actions';
+  private tasksMicroservicePathUrl = 'task'
   private meetingsMicroservicePathUrl = 'meetings';
   private nlpMicroservicepathUrl = 'nlp'
 
   //to be removed
   private actionItemsOfEventPathUrl = 'events/actionitems/';
  
-
-
   constructor(private http: HttpClient){}
 
     getUserOraganizedMeetingsByUserId(emailId: string){
@@ -41,8 +41,13 @@ export class MeetingService {
     }
     */
 
-    convertActionitemsToTasks(actionItems: ActionItems[]){
-      return this.http.post(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/convert-task`,actionItems,{observe:'response'});
+    convertActionitemsToTasks(actionItems: ActionItems[], meeting: Meeting){
+      var meetingActionItems = {
+        meeting: meeting,
+        actionItems: actionItems
+      }
+      console.log(this.gatewayUrl+"/"+this.tasksMicroservicePathUrl+"/convert-task"+"/"+meeting.meetingId);
+      return this.http.post(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/convert-task/${meeting.meetingId}`,actionItems,{observe:'response'});
     }
 
     getActionItems(){
@@ -55,6 +60,10 @@ export class MeetingService {
 
     generateActionItemsByNlp(userEmail: string){
       return this.http.get(`${this.gatewayUrl}/${this.nlpMicroservicepathUrl}/generate/`+userEmail,{observe:'response'})
+    }
+
+    getActiveUserEmailIdList(){
+      return this.http.get<string[]>('http://localhost:8012/users/getEmail-list',{observe:'response'});
     }
 
 }

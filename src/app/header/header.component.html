@@ -1,19 +1,23 @@
 <div class="navbar">
-        <h3 class="title">{{title}}</h3>
-        <div class="icon">
-            <!-- notification icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
-                <path id="notification-icon" d="M22.2498 30.6953V29.9453H28.3698C30.3695 29.9453 31.3851 27.5199 29.9652 26.1L28.2498 24.3847V17.1953C28.2498 12.5307 25.8414 8.45687 21.4998 7.14127V6.69531C21.4998 5.0361 20.159 3.69531 18.4998 3.69531C16.8406 3.69531 15.4998 5.0361 15.4998 6.69531V7.14067C11.1446 8.45473 8.74983 12.5165 8.74983 17.1953V24.3847L7.0345 26.1C5.62591 27.5086 6.59913 29.9453 8.61483 29.9453H14.7498V30.6953C14.7498 32.7571 16.4182 34.4453 18.4998 34.4453C20.564 34.4453 22.2498 32.7595 22.2498 30.6953Z" fill="#F6FBFD" stroke="#4880FF" stroke-width="1.5"/>
-              </svg>
-            <!-- profile icon -->
-            <div class="text-center" style="padding-left: 12px;">
-                <svg data-toggle="modal" data-target="#profileModal" width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g >
-                    <path id="profile-icon" d="M23.75 12.3965C23.75 15.2973 21.4008 17.6465 18.5 17.6465C15.5992 17.6465 13.25 15.2973 13.25 12.3965C13.25 9.4957 15.5992 7.14648 18.5 7.14648C21.4008 7.14648 23.75 9.4957 23.75 12.3965ZM7.25 27.3965C7.25 26.6744 7.60574 25.9865 8.32047 25.3268C9.04029 24.6625 10.0731 24.0787 11.277 23.5964C13.6861 22.6314 16.5913 22.1465 18.5 22.1465C20.4087 22.1465 23.3139 22.6314 25.723 23.5964C26.9269 24.0787 27.9597 24.6625 28.6795 25.3268C29.3943 25.9865 29.75 26.6744 29.75 27.3965V28.8965C29.75 29.3073 29.4108 29.6465 29 29.6465H8C7.58921 29.6465 7.25 29.3073 7.25 28.8965V27.3965Z" fill="#F6FBFD" stroke="#4880FF" stroke-width="1.5"/>
-                    </g>
-                    </svg>
-                <!-- <i class="far fa-user" data-toggle="modal" data-target="#profileModal"></i> -->
-            </div>
+    <h3 class="title">{{title}}</h3>
+    <div class="icon">
+        <!-- notification icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
+            <path id="notification-icon"
+                d="M22.2498 30.6953V29.9453H28.3698C30.3695 29.9453 31.3851 27.5199 29.9652 26.1L28.2498 24.3847V17.1953C28.2498 12.5307 25.8414 8.45687 21.4998 7.14127V6.69531C21.4998 5.0361 20.159 3.69531 18.4998 3.69531C16.8406 3.69531 15.4998 5.0361 15.4998 6.69531V7.14067C11.1446 8.45473 8.74983 12.5165 8.74983 17.1953V24.3847L7.0345 26.1C5.62591 27.5086 6.59913 29.9453 8.61483 29.9453H14.7498V30.6953C14.7498 32.7571 16.4182 34.4453 18.4998 34.4453C20.564 34.4453 22.2498 32.7595 22.2498 30.6953Z"
+                fill="#F6FBFD" stroke="#4880FF" stroke-width="1.5" />
+        </svg>
+        <!-- profile icon -->
+        <div class="text-center" style="padding-left: 12px;">
+            <svg data-toggle="modal" data-target="#profileModal" width="37" height="37" viewBox="0 0 37 37" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <path id="profile-icon"
+                        d="M23.75 12.3965C23.75 15.2973 21.4008 17.6465 18.5 17.6465C15.5992 17.6465 13.25 15.2973 13.25 12.3965C13.25 9.4957 15.5992 7.14648 18.5 7.14648C21.4008 7.14648 23.75 9.4957 23.75 12.3965ZM7.25 27.3965C7.25 26.6744 7.60574 25.9865 8.32047 25.3268C9.04029 24.6625 10.0731 24.0787 11.277 23.5964C13.6861 22.6314 16.5913 22.1465 18.5 22.1465C20.4087 22.1465 23.3139 22.6314 25.723 23.5964C26.9269 24.0787 27.9597 24.6625 28.6795 25.3268C29.3943 25.9865 29.75 26.6744 29.75 27.3965V28.8965C29.75 29.3073 29.4108 29.6465 29 29.6465H8C7.58921 29.6465 7.25 29.3073 7.25 28.8965V27.3965Z"
+                        fill="#F6FBFD" stroke="#4880FF" stroke-width="1.5" />
+                </g>
+            </svg>
+            <!-- <i class="far fa-user" data-toggle="modal" data-target="#profileModal"></i> -->
         </div>
             <!--profile Panel modal -->
             <div class="modal right fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">
@@ -83,8 +87,88 @@
                         </div>
                         
                     </div><!-- modal-content -->
+=======
+    </div>
+    <!--profile Panel modal -->
+    <div class="modal right fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="font-weight-bold">Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myProfileLabel"></h4>
+                </div>
+                <div style="background-color: #f6fbfd;" >
+                <div class="modal-body">
                     
-                </div><!-- modal-dialog -->
-            </div><!-- modal -->
-            
-            
+                    <div class="container">
+                        <div class="profile-pic">
+                            <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px"
+                                height="110px" alt="profile pic" />
+                        </div>
+                    </div>
+                    <!-- profile details -->
+
+                    <div *ngIf="userDetails != null">
+                        
+                        <div style="padding-top: 6px;">
+                            <p id="userid"><b>Ikcon Id: </b>{{userDetails.employee.id}}</p>
+                        </div>
+                        <div>
+                            <p id="fullname">{{userDetails.employee.firstName}} {{userDetails.employee.lastName}}
+                            </p>
+                        </div>
+                        <div>
+                            <p id="username">{{userDetails.employee.email}}</p>
+                        </div>
+                        <div>
+                            <p id="designation">{{userDetails.employee.designation}}</p>
+                        </div>
+                        <!-- my profile and logout -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <button class="btn btn-outline-secondary" data-dismiss="modal"
+                                    (click)="openProfilePanel()">My Profile</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <a id="logoutRef" href="#">
+                                    <p id="logout">Logout</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                  </div>  
+                </div>
+                <!-- role -->
+                <div class="modal-body" style="padding-top: 30px;">
+                <div id="profileContent" style="padding-bottom: 6px;">
+                    <div id="divContent">
+                        <p id="heading">Role</p>
+                        <p id="headingData">{{userDetails.userRoles[0].roleName}}</p>
+                    </div>
+                    <div id="divContent">
+                        <p id="heading">Department</p>
+                        <p id="headingData">{{userDetails.employee.department.departmentName}}</p>
+                    </div>
+                    <div id="divContent">
+                        <p id="heading">Reporting Manager</p>
+                        <p id="headingData">Anil Pamarthi</p>
+                    </div>
+                    <div id="divContent">
+                        <p id="heading">Two factor authentication</p>
+                        <div class="slide-container">
+                            <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication"
+                                (click)="toggleSlider()">
+                                <div class="slider-handle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+</div>
