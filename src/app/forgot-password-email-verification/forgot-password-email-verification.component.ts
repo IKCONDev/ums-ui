@@ -17,7 +17,7 @@ export class ForgotPasswordEmailVerificationComponent {
   private destroy$: Subject<void> = new Subject<void>();
   value: number;
   verificationResponse: string;
-  isError: boolean = false;
+  isError: boolean = true;
   result: number;
 
   constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
@@ -63,7 +63,7 @@ export class ForgotPasswordEmailVerificationComponent {
         this.value = response;
         console.log("the result is:" + this.value);
         if (this.value == 1) {
-          console.log("Entered Email id is a valid one");
+          console.log("Entered email id is a valid one");
           this.verificationResponse = "";
         }
         else {

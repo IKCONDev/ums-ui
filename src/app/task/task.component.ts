@@ -20,6 +20,10 @@ export class TaskComponent {
   task_Details: Task;
   taskCount : number =0;
   tabOpened : string;
+  organizedTasks: Task[];
+  assignedTasks: Task[];
+  assignedTasksCount =  0;
+
  
   isTaskTitleValid = false;
   isTaskDescriptionValid = false;
@@ -30,6 +34,7 @@ export class TaskComponent {
   isTaskStatusValid = false;
 
   isSaveButtonDisabled = true;
+  
 
   update_Task={
      taskId:0,
@@ -55,16 +60,44 @@ export class TaskComponent {
        console.log(this.task);
     });*/
 
-    this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
-      this.task =res.body;
-      this.taskCount = res.body.length;
-      console.log(this.task);
-   });
+    this.tabOpened = localStorage.getItem('taskTabOpened')
+    console.log(this.tabOpened)
+    this.getTasks(this.tabOpened);
 
-  
-   
-    
   }
+
+  getTasks(tabOpened : string){
+   console.log(tabOpened)
+    localStorage.setItem('taskTabOpened', tabOpened);
+    this.tabOpened = localStorage.getItem('taskTabOpened')
+    console.log(localStorage.getItem('taskTabOpened'))
+
+    if (this.tabOpened === 'AssignedTask') {
+      document.getElementById("AssignedTask").style.textDecorationLine = 'underline';
+      document.getElementById("OrganizedTask").style.textDecorationLine = 'none';
+      this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
+
+        (response => {
+          console.log(response.body)
+          //extract the meetings from response object
+          this.assignedTasks = response.body;
+          this.assignedTasksCount = response.body.length
+          localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+        });
+    }
+    else{
+       document.getElementById("OrganizedTask").style.textDecorationLine = 'underline';
+       document.getElementById("AssignedTask").style.textDecorationLine ='none';
+       
+       this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res=>{
+        this.task =res.body;
+        this.taskCount = res.body.length;
+        console.log(this.task);
+     }); 
+    }
+
+  }
+
   //validate Task Title
   taskTitleErrrorInfo ="";
   validateTaskTitle(){
@@ -201,6 +234,7 @@ export class TaskComponent {
     this.isSaveButtonDisabled = true;
 
   }
+  
   data:Object;
   response : Object;
   updateTaskDetails(form: NgForm){
@@ -286,21 +320,23 @@ export class TaskComponent {
     //Delete the tasks
     istaskDeleted : boolean= false;
     deleteTasks(taskIds: any[]){
-
+      if(taskIds.length < 1){
+        this.toastr.error('No tasks selected to delete')
+        return;
+      }
       this.service.deleteAllTasksByTaskIds(taskIds).subscribe(res=>{
             this.istaskDeleted = res.body;
             console.log(this.istaskDeleted);
             if(this.istaskDeleted){
               console.log("tasks deleted");
               this.toastr.success("tasks Deleted");
-              
            }
            else{
                console.log("tasks not deleted");
                this.toastr.error("action Items are not deleted try again");
            }
       });
-    
+    window.location.reload();
     }
     checkAllCheckBoxes(event: any){
         var checkbox = event.target.value;

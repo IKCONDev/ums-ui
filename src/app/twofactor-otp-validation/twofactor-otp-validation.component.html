@@ -37,7 +37,7 @@
                             <label id="emailLabel">Enter OTP</label>
                             <input type="number" id="otp" name="otp"  placeholder="Enter Otp" class="form-control"
                                 (click)="setupOtpInputPlaceholder()" (keyup)="setOtp($event)"
-                                (keydown)="onKeyDown($event)"/>
+                                (keydown)="otpValidation($event)"/>
                         </div>
                     </div>
                     <!-- row -->

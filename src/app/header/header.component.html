@@ -19,6 +19,75 @@
             </svg>
             <!-- <i class="far fa-user" data-toggle="modal" data-target="#profileModal"></i> -->
         </div>
+            <!--profile Panel modal -->
+            <div class="modal right fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+        
+                        <div class="modal-header">
+                             <h5 class="font-weight-bold">Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myProfileLabel"></h4>
+                        </div>
+        
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="profile-pic" >
+                                    <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px" height="110px" alt="profile pic"/>
+                                </div>
+                            </div>
+                            <!-- profile details -->
+                            <div *ngIf="userDetails != null">
+                                <div style="padding-top: 6px;">
+                                    <p id="userid"><b>#</b>{{userDetails.employee.id}}</p>
+                                </div>
+                                <div>
+                                    <p id="fullname">{{userDetails.employee.firstName}}  {{userDetails.employee.lastName}}</p>
+                                </div>
+                                <div>
+                                    <p id="username">{{userDetails.employee.email}}</p>
+                                </div>
+                                <div>
+                                    <p id="designation">{{userDetails.employee.designation}}</p>
+                                </div>
+                                <!-- my profile and logout -->
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button id="profileButton" class="btn btn-outline-secondary" data-dismiss="modal" (click)="openProfilePanel()">My Profile</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button data-dismiss="modal" id="logoutRef" (click)="logout()"  class="btn btn-outline-secondary">Logout</button>
+                                    </div>
+                                </div>
+                                <!-- role -->
+                                <div id="profileContent" style="padding-top: 6px;">
+                                    <div id="divContent">
+                                        <p id="heading">Role</p>
+                                        <p id="headingData">{{userDetails.userRoles[0].roleName}}</p>
+                                    </div>
+                                    <div id="divContent">
+                                        <p id="heading">Department</p>
+                                        <p id="headingData">{{userDetails.employee.department.departmentName}}</p>
+                                    </div>
+                                    <div id="divContent">
+                                        <p id="heading">Reporting Manager</p>
+                                        <p id="headingData">Anil Pamarthi</p>
+                                    </div>
+                                    <div id="divContent">
+                                        <p id="heading">Two factor authentication</p>
+                                        <p id="headingData">{{userDetails.twoFactorAuthentication}}</p>
+                                        <div class="slide-container">
+                                            <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication" (click)="toggleSlider()">
+                                              <div class="slider-handle"></div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div><!-- modal-content -->
+=======
     </div>
     <!--profile Panel modal -->
     <div class="modal right fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">

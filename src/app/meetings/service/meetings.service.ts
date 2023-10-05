@@ -18,6 +18,7 @@ export class MeetingService {
   private finalHttpUrl = this.gatewayUrl+this.batchProcessingMicroservicePathUrl;
 
   private actionsMicroservicePathUrl = 'actions';
+  private tasksMicroservicePathUrl = 'task'
   private meetingsMicroservicePathUrl = 'meetings';
   private nlpMicroservicepathUrl = 'nlp'
 
@@ -40,8 +41,13 @@ export class MeetingService {
     }
     */
 
-    convertActionitemsToTasks(actionItems: ActionItems[]){
-      return this.http.post(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/convert-task`,actionItems,{observe:'response'});
+    convertActionitemsToTasks(actionItems: ActionItems[], meeting: Meeting){
+      var meetingActionItems = {
+        meeting: meeting,
+        actionItems: actionItems
+      }
+      console.log(this.gatewayUrl+"/"+this.tasksMicroservicePathUrl+"/convert-task"+"/"+meeting.meetingId);
+      return this.http.post(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/convert-task/${meeting.meetingId}`,actionItems,{observe:'response'});
     }
 
     getActionItems(){
