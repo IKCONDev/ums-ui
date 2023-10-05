@@ -13,6 +13,10 @@
     
   }
 
+  #sideMenuText{
+   font-size: 13px;
+  }
+
   @media (min-width: 450px) {
    .container-fluid-sm {
        flex-direction: row;
