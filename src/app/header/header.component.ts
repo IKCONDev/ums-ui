@@ -68,11 +68,7 @@ export class HeaderComponent {
   logout(){
     sessionStorage.clear();
     localStorage.clear();
+    window.localStorage.clear ();
     this.router.navigateByUrl('/login');
-    if (localStorage.getItem("jwtToken")==""){
-    
-      
-    }
-    
   }
 }

@@ -49,10 +49,10 @@
                                 <!-- my profile and logout -->
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <button class="btn btn-outline-secondary"  data-dismiss="modal" (click)="openProfilePanel()">My Profile</button>
+                                        <button id="profileButton" class="btn btn-outline-secondary" data-dismiss="modal" (click)="openProfilePanel()">My Profile</button>
                                     </div>
                                     <div class="col-sm-6">
-                                        <a id="logoutRef" href="http://localhost:4200/#/" onclick="logout()"><p id="logout">Logout</p></a>
+                                        <button data-dismiss="modal" id="logoutRef" (click)="logout()"  class="btn btn-outline-secondary">Logout</button>
                                     </div>
                                 </div>
                                 <!-- role -->

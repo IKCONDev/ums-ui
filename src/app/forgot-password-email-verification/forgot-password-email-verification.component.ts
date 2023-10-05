@@ -17,7 +17,7 @@ export class ForgotPasswordEmailVerificationComponent {
   private destroy$: Subject<void> = new Subject<void>();
   value: number;
   verificationResponse: string;
-  isError: boolean = false;
+  isError: boolean = true;
   result: number;
 
   constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,

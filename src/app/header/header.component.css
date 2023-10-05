@@ -186,6 +186,19 @@ flex-shrink: 0;
 /* logout */
 #logoutRef{
   text-decoration: none;
+  
+}
+#logoutRef:hover{
+  color: red;
+  background-color: white;
+  border-color: red;
+}
+
+#profileButton:hover{
+  color: white;
+  background-color: #4880FF;
+  border-color: #4880FF;
+
 }
 
 /* profile pic */

@@ -11,6 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ForgotPasswordResetComponent {
 
+  inputField: HTMLInputElement;
+  eyeIcon: HTMLElement;
+
   private destroy$: Subject<void> = new Subject<void>();
   newPassword: string ='';
   confirmPassword: string;
@@ -25,6 +28,8 @@ export class ForgotPasswordResetComponent {
   ngOnInit() {
     console.log(this.router.url);
     console.log('init-Login')
+    this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#newPasswordEye'), 'display','none')
+    this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#confirmPasswordEye'), 'display','none')
     $(document).ready(function () {
       $('#nPasswordLabel').hide();
       $('#passwordLabel').hide();
@@ -58,6 +63,7 @@ export class ForgotPasswordResetComponent {
         this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#nPasswordLabel'), 'display', 'none');
       }
     });
+    this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#newPasswordEye'), 'display','block');
   }
 
   setupConfirmPasswordInputPlaceholder(): void {
@@ -78,6 +84,7 @@ export class ForgotPasswordResetComponent {
         this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
       }
     });
+    this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#confirmPasswordEye'), 'display','block');
   }
   isUpdate: boolean = true;
   verificationResponse: string ='';
@@ -135,7 +142,33 @@ export class ForgotPasswordResetComponent {
          }
       }
       )
-    
+  }
+
+  showNewPasswordEyeIcon(){
+    this.inputField = document.getElementById("newPassword") as HTMLInputElement;
+    this.eyeIcon = document.getElementById('newPasswordEye') as HTMLElement;
+    if(this.inputField.type === "password"){
+      this.inputField.type = "text";
+      this.eyeIcon.classList.add('fa-eye-slash');
+      this.eyeIcon.classList.remove('fa-eye')
+    }else{
+      this.inputField.type = "password";
+      this.eyeIcon.classList.remove('fa-eye-slash');
+      this.eyeIcon.classList.add('fa-eye')
+    }
+  }
+  showConfirmPasswordEyeIcon(){
+    this.inputField = document.getElementById("confirmPassword") as HTMLInputElement;
+    this.eyeIcon = document.getElementById('confirmPasswordEye') as HTMLElement;
+    if(this.inputField.type === "password"){
+      this.inputField.type = "text";
+      this.eyeIcon.classList.add('fa-eye-slash');
+      this.eyeIcon.classList.remove('fa-eye')
+    }else{
+      this.inputField.type = "password";
+      this.eyeIcon.classList.remove('fa-eye-slash');
+      this.eyeIcon.classList.add('fa-eye')
+    }
   }
 
   /*
