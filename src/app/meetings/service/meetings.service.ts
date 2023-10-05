@@ -47,7 +47,7 @@ export class MeetingService {
         actionItems: actionItems
       }
       console.log(this.gatewayUrl+"/"+this.tasksMicroservicePathUrl+"/convert-task"+"/"+meeting.meetingId);
-      return this.http.post(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/convert-task/${meeting.meetingId}`,actionItems,{observe:'response'});
+      return this.http.post(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/convert-task/${meeting.meetingId}`,actionItems,{observe:'response'});
     }
 
     getActionItems(){
