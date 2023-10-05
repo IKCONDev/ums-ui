@@ -12,7 +12,7 @@
             <div class="col-sm-2" id="OrganizedTask">
                 <p (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks</p>
             </div>
-            <div class="col-sm-2"></div>
+            <div class="col-sm-1"></div>
             <div class="col-sm-3" style="padding-top: 9px; ">
                 <input type="search" class="form-control" placeholder="Search task " />
             </div>
@@ -101,6 +101,7 @@
                     <th>Owner</th>
                     <th>StartDate/Time</th>
                     <th>DueDate/Time</th>
+                    <th></th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let task of assignedTasks; let i = index">
@@ -109,6 +110,19 @@
                         <td>{{task.taskOwner}}</td>
                         <td>{{task.startDate}}</td>
                         <td>{{task.dueDate}}</td>
+                        <td>
+                            <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
+                                (click)="editTask(task.taskId)" (click)="getActiveUsersEmailIdList()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <g id="edit">
+                                        <path id="Vector"
+                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                            fill="#5590AA" />
+                                    </g>
+                                </svg>
+                            </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -313,7 +327,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer" role="alert">
                     <button type="submit" class="btn btn-primary" (click)="updateTaskDetails(form)"
-                        [(ngModel)]="update_Task" [disabled]="isSaveButtonDisabled" data-dismiss="modal">Save</button>
+                        [(ngModel)]="update_Task" [disabled]="isSaveButtonDisabled">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
