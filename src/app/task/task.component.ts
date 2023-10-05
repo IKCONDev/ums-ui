@@ -319,7 +319,10 @@ export class TaskComponent {
     //Delete the tasks
     istaskDeleted : boolean= false;
     deleteTasks(taskIds: any[]){
-
+      if(taskIds.length < 1){
+        this.toastr.error('No tasks selected to delete')
+        return;
+      }
       this.service.deleteAllTasksByTaskIds(taskIds).subscribe(res=>{
             this.istaskDeleted = res.body;
             console.log(this.istaskDeleted);

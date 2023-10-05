@@ -63,7 +63,7 @@ export class ForgotPasswordEmailVerificationComponent {
         this.value = response;
         console.log("the result is:" + this.value);
         if (this.value == 1) {
-          console.log("Entered Email id is a valid one");
+          console.log("Entered email id is a valid one");
           this.verificationResponse = "";
         }
         else {
