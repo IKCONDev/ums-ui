@@ -6,8 +6,9 @@ export interface Users{
 	 encryptedPassword: string;
 	 userRoles: Role[];
 	 otpCode: number;
-	 twoFactorAuthentication: boolean
-	 employee: Employee
-	 profilePic: Blob
+	 twoFactorAuthentication: boolean;
+	 employee: Employee;
+	 profilePic: Blob;
+	 isActive: boolean;
 
 }

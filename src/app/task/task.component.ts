@@ -234,7 +234,7 @@ export class TaskComponent {
     this.isSaveButtonDisabled = true;
 
   }
-  
+
   data:Object;
   response : Object;
   updateTaskDetails(form: NgForm){
@@ -329,6 +329,7 @@ export class TaskComponent {
             console.log(this.istaskDeleted);
             if(this.istaskDeleted){
               console.log("tasks deleted");
+              window.location.reload();
               this.toastr.success("tasks Deleted");
            }
            else{
@@ -336,7 +337,6 @@ export class TaskComponent {
                this.toastr.error("action Items are not deleted try again");
            }
       });
-    window.location.reload();
     }
     checkAllCheckBoxes(event: any){
         var checkbox = event.target.value;
