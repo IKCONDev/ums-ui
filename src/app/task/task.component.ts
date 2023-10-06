@@ -107,7 +107,7 @@ export class TaskComponent {
           this.isTaskTitleValid = false;
 
      }
-     else if(this.update_Task.taskTitle.length<5){
+     else if(this.update_Task.taskTitle.length < 5){
          this.taskTitleErrrorInfo ='task title should be more than 5 characters';
          this.isTaskTitleValid = false;
      }
@@ -127,7 +127,7 @@ export class TaskComponent {
       this.isTaskDescriptionValid = false;
     }
     else if(this.update_Task.taskDescription.length <=10 ){
-      this.taskDescriptionErrorInfo = 'task description should be more than 20 characters';
+      this.taskDescriptionErrorInfo = 'task description should be more than 10 characters';
       this.isTaskDescriptionValid = false;
     }
     else{
