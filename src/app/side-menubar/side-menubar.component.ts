@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,6 +21,7 @@ export class SideMenubarComponent {
     this.componentToOpen.emit(this.selectedComponent);
   }
   */
+
 
   setActive(type: string){
     if(type === 'meetings'){
