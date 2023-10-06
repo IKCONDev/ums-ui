@@ -279,12 +279,14 @@
                         </div>
                         <!-- title end -->
                         <label><b>ActionItem Description</b><b id="asterisk">*</b></label>
-                        <input type="text" class="form-control" style="width:400px;"
+                        <div style="padding-left: 10px;">
+                            <textarea rows="3" cols="3" type="text" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
                             #actionItemDescription="ngModel" minlength="10" maxlength="1000"
                             id="actionItemDescription"
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
-                            (keyup)="validateActionDescription()">
+                            (keyup)="validateActionDescription()"></textarea>
+                        </div>
                         <div *ngIf="actionItemDescriptionErrorInfo != ''">
                             <span id="errorSpan">{{actionItemDescriptionErrorInfo}}</span>
                         </div>
@@ -391,13 +393,15 @@
                 <span id="errorSpan">{{updateActionItemTitleErrorInfo}}</span>
               </div>
                 <label><b>ActionItem Description</b></label>
-                <input type="text" style="width:400px;" class="form-control"
+                <div style="padding-left: 10px;">
+                    <textarea rows="3" cols="3" type="text" style="width:400px;" class="form-control"
                  [(ngModel)]="updatedetails.actionItemDescription"
                     required="true" name="uAcItemDesc"
                     id="uAcItemDesc"
                     minlength="5" maxlength="500" #uAcItemDesc="ngModel"
                     [class.invalid]="uAcItemDesc.invalid && uAcItemDesc.touched"
-                    (keyup)="validateUpdateActionDescription()">
+                    (keyup)="validateUpdateActionDescription()"></textarea>
+                </div>
                   <div *ngIf="updateActionItemDescErrorInfo != ''">
                     <span id="errorSpan">{{updateActionItemDescErrorInfo}}</span>
                   </div>
