@@ -20,7 +20,7 @@ export class MeetingService {
   private actionsMicroservicePathUrl = 'actions';
   private tasksMicroservicePathUrl = 'task'
   private meetingsMicroservicePathUrl = 'meetings';
-  private nlpMicroservicepathUrl = 'nlp'
+  private nlpMicroservicepathUrl = 'nlp';
 
   //to be removed
   private actionItemsOfEventPathUrl = 'events/actionitems/';
