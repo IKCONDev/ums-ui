@@ -189,15 +189,13 @@ flex-shrink: 0;
   
 }
 #logoutRef:hover{
-  color: red;
-  background-color: white;
-  border-color: red;
+  color:white;
+  background-color: #FD5454;
+  border-color: #fd5454;
 }
-
 #profileButton:hover{
-  color: white;
-  background-color: #4880FF;
-  border-color: #4880FF;
+  background-color:#2b63b1 ;
+  border-color: #2b63b1;
 
 }
 
