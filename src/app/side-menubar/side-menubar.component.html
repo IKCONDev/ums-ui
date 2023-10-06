@@ -39,14 +39,14 @@
           <div class="overview">Overview</div>
         </a>
       </li>
-      <li class="nav-item" routerLink="/meetings">
+      <li class="nav-item" id="meetingsActive" routerLink="/meetings" (click)="setActive('meetings')">
         <a class="nav-link">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M8.33333 22.7H15.6667V20.7H8.33333V22.7ZM12.3333 17H19.6667V15H12.3333V17ZM16.3333 11.3H23.6667V9.3H16.3333V11.3ZM6 28C5.46667 28 5 27.8 4.6 27.4C4.2 27 4 26.5333 4 26V6C4 5.46667 4.2 5 4.6 4.6C5 4.2 5.46667 4 6 4H26C26.5333 4 27 4.2 27.4 4.6C27.8 5 28 5.46667 28 6V26C28 26.5333 27.8 27 27.4 27.4C27 27.8 26.5333 28 26 28H6ZM6 26H26V6H6V26Z"
               fill="#2AA3D9" />
           </svg>
-          <div class="overview">Meeting</div>
+          <div class="overview">Meetings</div>
         </a>
       </li>
       <li class="nav-item" routerLink="/actions">

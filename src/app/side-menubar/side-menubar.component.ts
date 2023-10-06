@@ -22,4 +22,10 @@ export class SideMenubarComponent {
   }
   */
 
+  setActive(type: string){
+    if(type === 'meetings'){
+      document.getElementById('meetingsActive').style.backgroundColor = 'black';
+    }
+  }
+
 }
