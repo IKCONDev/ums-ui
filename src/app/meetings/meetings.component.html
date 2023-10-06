@@ -327,7 +327,7 @@
                         </div>
                         <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                         <label><b>StartDate</b><b id="asterisk">*</b></label>
-                        <input type="datetime-local" class="form-control" style="width:400px;"
+                        <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" 
                             name="startDate" #startDate="ngModel"
                             [class.invalid]="startDate.invalid && startDate.touched"
@@ -336,7 +336,7 @@
                             <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                         </div>
                         <label><b>EndDate</b><b id="asterisk">*</b></label>
-                        <input type="datetime-local" class="form-control" style="width:400px;"
+                        <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" 
                             name="endDate" #endDate="ngModel"
                             [class.invalid]="endDate.invalid && endDate.touched"
@@ -433,7 +433,7 @@
                 </div>
                 <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
                 <label><b>StartDate</b></label>
-                <input type="datetime-local" style="width:400px;"class="form-control"
+                <input type="datetime-local" min="{{min}}" style="width:400px;"class="form-control"
                  [(ngModel)]="updatedetails.startDate" required="true"
                 id="uAcItemStartDate" 
                             name="uAcItemStartDate" #uAcItemStartDate="ngModel"
@@ -443,7 +443,7 @@
                             <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
                         </div>
                 <label><b>EndDate</b></label>
-                <input type="datetime-local" style="width:400px;" class="form-control"
+                <input type="datetime-local" min="{{min}}" style="width:400px;" class="form-control"
                  [(ngModel)]="updatedetails.endDate" required="true"
                 id="uAcItemEndDate" 
                             name="uAcItemEndDate" #uAcItemEndDate="ngModel"

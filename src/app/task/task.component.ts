@@ -63,7 +63,7 @@ export class TaskComponent {
     this.tabOpened = localStorage.getItem('taskTabOpened')
     console.log(this.tabOpened)
     this.getTasks(this.tabOpened);
-
+  this.pastDateTime(); 
   }
 
   getTasks(tabOpened : string){
@@ -377,6 +377,24 @@ export class TaskComponent {
       });
     }
 
+    min:any = "";
+
+pastDateTime(){
+  var tdate:any = new Date();
+  var date:any = tdate.getDate();
+  if(date<10){
+    date = "0" + date;
+  }
+  var month:any = tdate.getMonth()+1;
+  if(month<10){
+    month = "0" + month;
+  }  
+  var year:any = tdate.getFullYear();
+  var hours:any = tdate.getHours();
+  var minutes:any = tdate.getMinutes();
+  this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
+  console.log(this.min);
+}
   
 
 }

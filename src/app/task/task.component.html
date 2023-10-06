@@ -271,7 +271,7 @@
                                         </tr>
                                         <tr>
                                             <td>Start Date</td>
-                                            <td><span><input type="datetime-local" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
                                                         [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
@@ -284,7 +284,7 @@
                                         </tr>
                                         <tr>
                                             <td>Due Date </td>
-                                            <td><span> <input type="datetime-local" class="form-control"
+                                            <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
