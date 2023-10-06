@@ -115,8 +115,8 @@
                                     <th id="tablehead">Status</th>
                                 </thead>
                                 <tbody *ngFor="let element of task_array">
-                                    <tr *ngIf="actionItem.actionItemId == element.actionItemId">
-                                        <td>{{element.taskId}}</td>
+                                    <tr *ngIf="actionItem.actionItemId == element.actionItemId let i = index">
+                                        <td>T000{{i+1}}</td>
                                         <td>{{element.taskTitle}}</td>
                                         <td>{{element.taskDescription}}</td>
                                         <td>{{element.taskOwner}}</td>
