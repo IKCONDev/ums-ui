@@ -126,7 +126,7 @@ export class TaskComponent {
       this.taskDescriptionErrorInfo='Enter task description';
       this.isTaskDescriptionValid = false;
     }
-    else if(this.update_Task.taskDescription.length <=20 ){
+    else if(this.update_Task.taskDescription.length <=10 ){
       this.taskDescriptionErrorInfo = 'task description should be more than 20 characters';
       this.isTaskDescriptionValid = false;
     }
