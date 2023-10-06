@@ -16,32 +16,32 @@
                 <input type="search" class="form-control" placeholder="Search action Item title" />
             </div>
             <!---- <div class="col-sm-1" style="padding-top: 11px;"><button id="add_button"type="btn btn-primary" (click)="addActionItems()"
-                    data-toggle="modal" data-target="#myModal_add">Add</button></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                    data-toggle="modal" data-target="#myModal_add">Add</button></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="col-sm-1" style="padding-top: 10px;"><button id="delete_button" type="btn btn-primary"
                     (click)="checkCheckBoxes()">Delete</button>
-            </div>
+            </div>-->
 
         </div>
     </div>
     <div class="row" style="margin: 10px;">
         <table class="table table-hover" id="myTable" style="margin: 0px;">
             <thead class="header" style="background-color: #ecf7fc;">
-                <th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
+               <!---<th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>-->
                 <th>UID </th>
                 <th>Title</th>
                 <th>Owner</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <!--<th>Actions</th>-->
                 <th>Tasks</th>
                 <!-- <th></th> -->
 
             </thead>
             <tbody *ngFor="let actionItem of actionItems, let i = index">
                 <tr>
-                    <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
-                            value="{{actionItem.actionItemId}}"></td>
+                   <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
+                            value="{{actionItem.actionItemId}}"></td>-->
                     <td>{{actionItem.actionItemId}}</td>
                     <td>{{actionItem.actionItemTitle}}</td>
                     <td>{{actionItem.actionItemOwner}}</td>
@@ -49,7 +49,7 @@
                     <td>{{actionItem.endDate}}</td>
                     <td>{{actionItem.actionStatus}}</td>
                     <!-- edit btn -->
-                    <td><!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
+                    <!--<td><button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
                         <!-- <span *ngIf="actionItem.actionStatus==='NotConverted'" class="edit-icon" 
                         (click)="editData(actionItem.actionItemId)"
                         (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
@@ -75,7 +75,7 @@
                             </svg>
                         </span> -->
                     
-                    <!-- delete btn -->
+                    <!-- delete btn -
                         <span class="delete-icon" style="padding-top:px;padding-left: 20px;" (click)="deleteData(actionItem.actionItemId)"
                             data-toggle="modal" data-target="#myModal_del">
 
@@ -96,7 +96,7 @@
                                 </g>
                             </svg>
                         </span>
-                    </td>
+                    </td>-->
                     <td><a class="showmore" (click)="ViewTaskDetails()">Show</a></td>
                 </tr>
                 <tr class="detail">
