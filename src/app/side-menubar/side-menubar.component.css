@@ -62,3 +62,13 @@
       color: #5590AA;
   }
   
+  .overview {
+   position: relative;
+   font-size: 14px;
+   line-height: 150%;
+   font-weight: 600;
+   font-family: 'General Sans';
+   color: #2aa3d9;
+   text-align: center;
+}
+
