@@ -19,7 +19,7 @@
             <!--<div class="col-sm-1" style="padding-top: 17px;"><button id="add_button"type="btn btn-primary" (click)="addTask()"
                     data-toggle="modal" data-target="#myModal_add">delete</button></div>-->
 
-            <div class="col-sm-1" style="padding-top: 8px;"><button id="delete_button" type="btn btn-primary"
+           <div class="col-sm-1" style="padding-top: 8px;"><button id="delete_button" type="btn btn-primary"
                     (click)="checkCheckBoxes()">Delete</button></div>
         </div>
     </div>
@@ -301,8 +301,8 @@
                                                         required="true" #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
-                                                        <option></option>
-                                                        <option>Yettostart</option>
+                                                        <option>Select</option>
+                                                        <option>Yet to start</option>
                                                         <option>Inprogress</option>
                                                         <option>Completed</option>
                                                     </select>
@@ -326,7 +326,7 @@
                 <div class="modal-footer" role="alert">
                     <button type="submit" class="btn btn-primary" (click)="updateTaskDetails(form)"
                         [(ngModel)]="update_Task" [disabled]="isSaveButtonDisabled">Save</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)=" clearErrorMessages(form)">Close</button>
                 </div>
             </form>
         </div>

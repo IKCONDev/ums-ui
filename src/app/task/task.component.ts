@@ -211,10 +211,10 @@ export class TaskComponent {
         this.taskDueDateErrorInfo= 'select the due date';
         this.isTaskDueDateValid = false;
      }
-    /* else if(new Date(this.update_Task.dueDate.toString())< new Date(Date.now())){
+    else if(new Date(this.update_Task.dueDate.toString()) <  new Date(this.update_Task.startDate.toString())){
         this.taskDueDateErrorInfo ='Date should`nt lessthan startdate';
         this.isTaskDueDateValid = false;
-     }*/
+     }
      else{
         this.taskDueDateErrorInfo = '';
         this.isTaskDueDateValid = true;
@@ -283,7 +283,18 @@ export class TaskComponent {
 
     } 
   }
+  
+  clearErrorMessages(form: NgForm){
 
+      this.taskTitleErrrorInfo = "";
+      this.taskDescriptionErrorInfo="";
+      this.taskPriorityErrorInfo ="";
+      this.taskStatusErrorInfo ="";
+      this.taskStartDateErrorInfo="";
+      this.taskOwnerErrorInfo ="";
+      this.taskDueDateErrorInfo ="";
+    
+  }
 
   //Check selected Checkboxes to delete
   checkCheckBoxes(){
@@ -352,8 +363,7 @@ export class TaskComponent {
             
           }
       
-        }
-        
+        }   
     }
 
       //Get EmailIds of Active Users
