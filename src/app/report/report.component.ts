@@ -14,7 +14,15 @@ export class ReportComponent implements OnInit {
 
    @Output() title:string='Reports'
 
+   /**
+    * 
+    * @param reportservice 
+    */
    constructor (private reportservice:ReportService){}
+
+   /**
+    * 
+    */
    ngOnInit(): void {
       this.reportservice.getAllBatchProcessDetails().subscribe(
          res=>{

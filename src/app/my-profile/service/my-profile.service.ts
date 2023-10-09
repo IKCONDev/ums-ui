@@ -22,11 +22,23 @@ export class MyProfileService{
     updateProfilepathUrl='/update';
     finalUrl=this.gatewayMicroservicepathUrl+this.usersMicroservicePathUrl+this.userProfilepathUrl;
     finalUrlForUpdating=this.gatewayMicroservicepathUrl+this.employeesMicroservicePathUrl
-                        +this.updateProfilepathUrl;
+    +this.updateProfilepathUrl;
+    
+    /**
+     * 
+     * @param email 
+     * @returns 
+     */                    
     getUserprofile(email: string){
         return this.headerService.fetchUserProfile(email);
     }
     
+    /**
+     * 
+     * @param email 
+     * @param profilePic 
+     * @returns 
+     */
     updateUserProfilePic(email: string,profilePic:any){
       console.log(email);
       console.log(profilePic);
@@ -45,6 +57,12 @@ export class MyProfileService{
       }
       )})
     }
+
+    /**
+     * 
+     * @param employee 
+     * @returns 
+     */
     updateUserInformation(employee:Employee){
       if (employee!=null){
         console.log(employee.firstName);

@@ -89,6 +89,13 @@ export class MeetingsComponent implements OnInit {
 
   }
 
+  /**
+   * 
+   * @param meetingsService 
+   * @param actionItemService 
+   * @param router 
+   * @param toastr 
+   */
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService) {
     //this is jquery code that will slide the action items rows when show more action items link is clicked
@@ -106,6 +113,9 @@ export class MeetingsComponent implements OnInit {
     });
   }
 
+  /**
+   * 
+   */
   ngOnInit(): void {
     //generate action items for user meetings automatically upon component initialization
     this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
@@ -137,6 +147,10 @@ export class MeetingsComponent implements OnInit {
   isActionItemStartDateValid = false;
   isActionItemEndDateValid = false;
 
+  /**
+   * 
+   * @returns 
+   */
   validateActionTitle():boolean{
    // var actionItemTitle = event.target.value;
     if(this.addDetails.actionItemTitle === ''){
@@ -250,6 +264,11 @@ export class MeetingsComponent implements OnInit {
   }
 
   actionItemOwnerErrorInfo: string = '';
+
+  /**
+   * 
+   * @returns 
+   */
   validateActionItemOwner(){
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
@@ -284,6 +303,10 @@ export class MeetingsComponent implements OnInit {
     return this.isActionItemEndDateValid;
   }
 
+  /**
+   * 
+   * @param form 
+   */
   saveActionItem(form: NgForm) {
    let isTitlevalid = true;
    let isDescriptionValid = true;
@@ -439,6 +462,7 @@ export class MeetingsComponent implements OnInit {
     return url;
   }
 
+
   //check the action item checkboxes are checked or not and delete them if checked, delete only of the particular event
   /**
    * 
@@ -545,6 +569,7 @@ export class MeetingsComponent implements OnInit {
 
   //edit action items data
   actionItems_new: ActionItems;
+
   /**
    * 
    * @param id 
@@ -568,14 +593,7 @@ export class MeetingsComponent implements OnInit {
     console.log("data fetching");
   }
 
-  //Update the  action item Details
 
-
-
-  /**
-   * convert ac to task
-   */
- 
   /**
    * 
    * @param meetingId 
@@ -636,10 +654,10 @@ export class MeetingsComponent implements OnInit {
     console.log(this.meetingSubject);
   }
 
+  userEmailIdList: string[];
   /**
    * get the list of active users
    */
-  userEmailIdList: string[];
   getActiveUMSUsersEmailIdList(){
     //perform an AJAX call to get list of users
     var isActive:boolean = true;
@@ -852,6 +870,11 @@ export class MeetingsComponent implements OnInit {
   }
 }
 
+/**
+ * 
+ * @param meetingId 
+ * @param event 
+ */
 checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event:any){
   var mainCheckBox = document.getElementById('actionItemMainCheck'+meetingId) as HTMLInputElement;
   if(mainCheckBox.checked){
@@ -879,6 +902,9 @@ checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event:any){
 
 min:any = "";
 
+/**
+ * 
+ */
 pastDateTime(){
   var tdate:any = new Date();
   var date:any = tdate.getDate();

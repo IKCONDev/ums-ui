@@ -88,16 +88,4 @@ export class HomeComponent {
   }
   */
 
-  text:String = "";
-
-  /*
-  checkDemo(){
-    this.homeService.getDemoText().subscribe(
-      (response) => {
-        this.text = response
-      }
-    )
-  }
-  */
-
 }

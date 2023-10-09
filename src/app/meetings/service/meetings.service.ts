@@ -47,6 +47,12 @@ export class MeetingService {
     }
     */
 
+    /**
+     * 
+     * @param actionItems 
+     * @param meeting 
+     * @returns 
+     */
     convertActionitemsToTasks(actionItems: ActionItems[], meeting: Meeting){
       var meetingActionItems = {
         meeting: meeting,
@@ -59,6 +65,10 @@ export class MeetingService {
       )})
     }
 
+    /**
+     * 
+     * @returns 
+     */
     getActionItems(){
       return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/all`, {observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
@@ -66,6 +76,12 @@ export class MeetingService {
       )})
     }
 
+    /**
+     * 
+     * @param actionItemIds 
+     * @param meetingId 
+     * @returns 
+     */
     deleteActionItemsOfMeeting(actionItemIds: any[], meetingId: number){
       return this.http.get(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/delete/ac-items/`+meetingId+'/'+actionItemIds,{observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
@@ -73,6 +89,11 @@ export class MeetingService {
       )})
     }
 
+    /**
+     * 
+     * @param userEmail 
+     * @returns 
+     */
     generateActionItemsByNlp(userEmail: string){
       return this.http.get(`${this.gatewayUrl}/${this.nlpMicroservicepathUrl}/generate/`+userEmail,{observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
@@ -80,6 +101,10 @@ export class MeetingService {
       )})
     }
 
+    /**
+     * 
+     * @returns 
+     */
     getActiveUserEmailIdList(){
       return this.http.get<string[]>('http://localhost:8012/users/getEmail-list',{observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')

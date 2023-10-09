@@ -35,8 +35,24 @@ export class ActionItemComponent implements OnInit {
     actionStatus: '',
     startDate: '',
     endDate: ''
-
   }
+
+  addDetails = {
+    actionItemId: 0,
+    meetingId: 0,
+    emailId: '',
+    actionItemOwner: '',
+    actionItemTitle: '',
+    actionItemDescription: '',
+    actionPriority: '',
+    actionStatus: 'NotConverted',
+    startDate: '',
+    endDate: ''
+  }
+
+  data: object = {};
+  response: Object;
+  actions_details: Object
 
   isActionItemTitleValid = false;
   isActionItemDescriptionValid = false;
@@ -52,6 +68,13 @@ export class ActionItemComponent implements OnInit {
   actionItemPriorityErrorInfo: string = ''
   actionItemStartDateErrorInfo: string = ''
 
+  /**
+   * 
+   * @param service 
+   * @param taskService 
+   * @param toastr 
+   * @param meetingsService 
+   */
   constructor(private service: ActionService, private taskService: TaskService, private toastr: ToastrService,
     private meetingsService: MeetingService) {
 
@@ -69,6 +92,10 @@ export class ActionItemComponent implements OnInit {
     });
 
   }
+
+  /**
+   * 
+   */
   ngOnInit(): void {
     console.log("logged in userId is: " + localStorage.getItem('email'));
     /* this.service.getAllActionItems().subscribe(response => {
@@ -84,6 +111,10 @@ export class ActionItemComponent implements OnInit {
     });
   };
 
+  /**
+   * 
+   * @param id 
+   */
   editData(id: number) {
     this.service.getActionItemById(id).subscribe(response => {
       this.actionItems_new = response.body;
@@ -102,8 +133,12 @@ export class ActionItemComponent implements OnInit {
     console.log("data fetching");
 
   }
-  data: object = {};
-  //Update the Details
+ 
+  
+  /**
+   * 
+   * @param event 
+   */
   updateDetails(event: any) {
     this.id = this.updatedetails.actionItemId;
     console.log(this.updatedetails.actionPriority);
@@ -115,18 +150,10 @@ export class ActionItemComponent implements OnInit {
       console.log(this.data);
     });
   }
-  addDetails = {
-    actionItemId: 0,
-    meetingId: 0,
-    emailId: '',
-    actionItemOwner: '',
-    actionItemTitle: '',
-    actionItemDescription: '',
-    actionPriority: '',
-    actionStatus: 'NotConverted',
-    startDate: '',
-    endDate: ''
-  }
+ 
+  /**
+   * 
+   */
   ViewTaskDetails() {
     console.log("fetching task details");
     this.service.getAlltasks().subscribe(response => {
@@ -137,15 +164,20 @@ export class ActionItemComponent implements OnInit {
 
   }
 
-  //Add Action Item method
+  /**
+   * 
+   */
   addActionItems() {
-
+    //TODO:
     this.addDetails;
 
   }
-  response: Object;
-  actions_details: Object
-  //save Action Item method
+
+
+  /**
+   * 
+   * @param form 
+   */
   saveActionItem(form: NgForm) {
     let isTitlevalid = true;
     let isDescriptionValid = true;
@@ -194,6 +226,9 @@ export class ActionItemComponent implements OnInit {
   }
   actionItem_id: number;
 
+  /**
+   * 
+   */
   checkCheckBoxes() {
     var actionItemsToBeDeleted = [];
     var table = document.getElementById("myTable")
@@ -228,7 +263,12 @@ export class ActionItemComponent implements OnInit {
     this.deleteActionItems(actionItemsToBeDeleted);
 
   }
+  
   isActionsDeleted: boolean = false;
+  /**
+   * 
+   * @param actionItemList 
+   */
   deleteActionItems(actionItemList: any[]) {
 
     this.service.deleteSelectedActionItemsByIds(actionItemList).subscribe(res => {
@@ -248,7 +288,12 @@ export class ActionItemComponent implements OnInit {
 
   temp_data: number
   str: string;
-  //delete single action Item data
+  
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
   deleteData(id: number): any {
     this.actionItem_id = id;
     console.log("the id is:" + id);
@@ -268,6 +313,11 @@ export class ActionItemComponent implements OnInit {
 
   }
 
+  /**
+   * 
+   * @param actionItemid 
+   * @param id 
+   */
   toggleSubmitAndDelete(actionItemid: number, id: number) {
 
     var table = document.getElementById("myTable" + actionItemid);
@@ -281,6 +331,10 @@ export class ActionItemComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   * @returns 
+   */
   validateActionTitle(): boolean {
     // var actionItemTitle = event.target.value;
     if (this.addDetails.actionItemTitle === '') {
@@ -374,6 +428,10 @@ export class ActionItemComponent implements OnInit {
   }
 
   actionItemOwnerErrorInfo: string = '';
+  /**
+   * 
+   * @returns 
+   */
   validateActionItemOwner() {
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
@@ -422,6 +480,10 @@ export class ActionItemComponent implements OnInit {
   isUpdateActionItemStartDateValid = false;
   isUpdateActionItemEndDateValid = false;
 
+  /**
+   * 
+   * @returns 
+   */
   validateUpdateActionTitle(){
     if(this.updatedetails.actionItemTitle === ''){
       this.updateActionItemTitleErrorInfo = 'Title is required';
@@ -439,6 +501,10 @@ export class ActionItemComponent implements OnInit {
     return this.isUpdateActionItemTitleValid;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   validateUpdateActionDescription(){
     if(this.updatedetails.actionItemDescription === ''){
       this.updateActionItemDescErrorInfo = 'Description is required';
@@ -456,7 +522,10 @@ export class ActionItemComponent implements OnInit {
     return this.isUpdateActionItemDescValid;
   }
 
-  /** */
+  /**
+   * 
+   * @returns 
+   */
   validateUpdateActionPriority(){
     //var actionItemPriority = event.target.value;
     if(this.updatedetails.actionPriority === ''){
@@ -581,6 +650,9 @@ export class ActionItemComponent implements OnInit {
 }
 
   userEmailIdList: string[];
+  /**
+   * 
+   */
   getActiveUMSUsersEmailIdList() {
     //perform an AJAX call to get list of users
     var isActive: boolean = true;

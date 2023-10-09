@@ -21,6 +21,15 @@ export class TwofactorOtpValidationComponent {
   OtpResponseMessage:string='';
   verifyButtonDisabled:boolean=false;
 
+  /**
+   * 
+   * @param router 
+   * @param elementRef 
+   * @param renderer 
+   * @param otpValidationService 
+   * @param emailVerificationService 
+   * @param toastr 
+   */
   constructor(private router: Router, private elementRef: ElementRef, 
     private renderer: Renderer2,
     private otpValidationService: ForgotPasswordOtpValidationService,
@@ -31,6 +40,9 @@ export class TwofactorOtpValidationComponent {
   }
 
 
+  /**
+   * 
+   */
   ngOnInit() {
     console.log('init-Login')
     $(document).ready(function () {
@@ -39,11 +51,17 @@ export class TwofactorOtpValidationComponent {
     });
   }
 
+  /**
+   * 
+   */
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  //perform placeholder changing on to the border of textbox
+  
+  /**
+   * 
+   */
   setupOtpInputPlaceholder(): void {
     const emailInput = this.elementRef.nativeElement.querySelector('#otp');
 
@@ -64,6 +82,10 @@ export class TwofactorOtpValidationComponent {
     });
   }
 
+  /**
+   * 
+   * @param event 
+   */
   setOtp(event:any){
     this.otpCode = event.target.value;
     if(this.otpCode.toString() === "" ){
@@ -74,6 +96,9 @@ export class TwofactorOtpValidationComponent {
     }
   }
 
+  /**
+   * 
+   */
   resendOtp(){
     this.emailVerificationService.generateOtpForUser(this.email,'TwoFactorAuth').subscribe(
       (response) => {
@@ -93,6 +118,9 @@ export class TwofactorOtpValidationComponent {
      )
   }
   
+  /**
+   * 
+   */
   verifyAndValidateOtp() {
     this.isValidOtp = false;
     this.otpValidationService.verifyUserOtp(this.email, this.otpCode)
@@ -122,6 +150,11 @@ export class TwofactorOtpValidationComponent {
       }
     }))
   }
+
+  /**
+   * 
+   * @param event 
+   */
   otpValidation(event:KeyboardEvent){
     const invalidChars =['+','-','.','e'];
     const inputElement= event.target as HTMLInputElement;

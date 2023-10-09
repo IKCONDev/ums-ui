@@ -11,8 +11,18 @@ export class ForgotPasswordOtpValidationService {
   private finalHttpUrl = this.gatewayUrl+this.authenticationMicroservicePathUrl;
   private validateOtpPathUrl = 'validate-otp';
 
+  /**
+   * 
+   * @param http 
+   */
   constructor(private http: HttpClient){}
 
+  /**
+   * 
+   * @param emailId 
+   * @param otp 
+   * @returns 
+   */
     verifyUserOtp(emailId: String, otp:number){
       var verifyOtpDetails = {
         email: emailId,

@@ -14,7 +14,15 @@ export class BatchDetailsComponent implements OnInit{
 
    @Output() title:string='Batch Details'
 
+   /**
+    * 
+    * @param reportservice 
+    */
    constructor (private reportservice:ReportService){}
+
+   /**
+    * 
+    */
    ngOnInit(): void {
       this.reportservice.getAllBatchProcessDetails().subscribe(
          res=>{
@@ -24,10 +32,6 @@ export class BatchDetailsComponent implements OnInit{
              
            })
      });
-      
-
    }
-
-
 }
 

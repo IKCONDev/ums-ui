@@ -11,7 +11,6 @@ import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twof
 import { MeetingsComponent } from './meetings/meetings.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ActionItemComponent } from './action-item/action-item.component';
-import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actionitems.component';
 import { TaskComponent } from './task/task.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ReportComponent } from './report/report.component';
@@ -19,8 +18,10 @@ import { SettingsComponent } from './settings/settings.component';
 import { BatchDetailsComponent } from './batch-details/batch-details.component';
 
 
+/**
+ * 
+ */
 const routes: Routes = [
-  
   {path:"",component:LoginComponent},
   {path:"home",component:HomeComponent},
   {path:"login", component: LoginComponent},
@@ -32,7 +33,6 @@ const routes: Routes = [
   {path:"verify-twostep", component: TwofactorOtpValidationComponent},
   {path:"meetings", component: MeetingsComponent},
   {path:"actions",component:ActionItemComponent},
-  {path:"meeting-actionitems/:eventId", component: MeetingActionitemsComponent},
   {path:"task",component:TaskComponent},
   {path:"my-profile",component:MyProfileComponent},
   {path:"reports",component:ReportComponent},

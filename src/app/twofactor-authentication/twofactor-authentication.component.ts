@@ -17,12 +17,22 @@ export class TwofactorAuthenticationComponent {
   email:string = ''
   typeError: boolean =true;
 
+  /**
+   * 
+   * @param emailVerificationService 
+   * @param router 
+   * @param toastr 
+   */
   constructor(private emailVerificationService: ForgotPasswordEmailVerificationService,
     private router: Router, private toastr: ToastrService){
       //get email from current navigation (this is provided while navigating from pervious page)
       this.email = this.router.getCurrentNavigation().extras.state['loginInfo'].email;
   }
 
+  /**
+   * 
+   * @param event 
+   */
   setAuthType(event: any){
     this.type = event.target.value;
     if(this.type == ''){
@@ -32,6 +42,10 @@ export class TwofactorAuthenticationComponent {
     }
   }
 
+
+  /**
+   * 
+   */
   constructOtp() {
     console.log(this.email)
     this.emailVerificationService.generateTfOtpForUser(this.email,'TwoFactorAuth').subscribe(

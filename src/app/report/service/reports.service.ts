@@ -13,6 +13,10 @@ export class ReportService{
      private teamsbatchProcessMicroserviceURL="teams";
      private getAllBatchDetailsURL="batch-details";
 
+     /**
+      * 
+      * @returns 
+      */
      getAllBatchProcessDetails(){
          return this.http.get<BatchDetails[]>(`${this.gateWayURL}/${this.teamsbatchProcessMicroserviceURL}/${this.getAllBatchDetailsURL}`,{observe:'response'})   
      }
