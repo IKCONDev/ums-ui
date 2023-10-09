@@ -325,9 +325,9 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer" role="alert">
-                    <button type="submit" class="btn btn-primary" (click)="updateTaskDetails(form)"
+                    <button type="submit" class="btn btn-primary saveButton" (click)="updateTaskDetails(form)"
                         [(ngModel)]="update_Task" [disabled]="isSaveButtonDisabled">Save</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)=" clearErrorMessages(form)">Close</button>
+                    <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" (click)="clearErrorMessages(form)">Close</button>
                 </div>
             </form>
         </div>

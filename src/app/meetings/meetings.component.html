@@ -178,9 +178,9 @@
                                             <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
                                                 <a (click)="convertActionItemToTask(meeting)"
-                                                    style="cursor: pointer; margin-left:-120px;"><button class="btn btn-outline-secondary submitButton">Submit</button></a>
+                                                    style="cursor: pointer; margin-left:-120px;"><button class="btn btn-primary submitButton">Submit</button></a>
                                                 <a style="padding-left:24px ;cursor: pointer;"
-                                                    (click)="checkCheckboxes(meeting.meetingId)"><button class="btn btn-outline-secondary deleteButton">Delete</button></a>
+                                                    (click)="checkCheckboxes(meeting.meetingId)"><button class="btn btn-outline-danger deleteButton">Delete</button></a>
                                             </td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                         </tr>
@@ -348,9 +348,9 @@
                         </div>
                         <!--footer-->
                         <div class="modal-footer" role="alert">
-                            <button type="submit"  class="btn btn-success"
+                            <button type="submit"  class="btn btn-primary saveButton"
                                 (click)="saveActionItem(form)">Save</button>
-                            <button type="button" class="btn btn-danger"
+                            <button type="button" class="btn btn-outline-danger cancelButton"
                                 (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
@@ -459,9 +459,9 @@
 
                 <!--footer-->
                 <div class="modal-footer">
-                    <button type="submit" id="saveActionItem" class="btn btn-success" (click)="updateActionItem(form)"
+                    <button type="submit" id="saveActionItem" class="btn btn-primary updateButton" (click)="updateActionItem(form)"
                         [(ngModel)]="updatedetails">Update</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger cancelButton" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
