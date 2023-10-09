@@ -17,10 +17,19 @@ export class HeaderComponent {
   authStatusUpdated: number;
   //user/employee profile property
   userDetails: Users;
+
+  /**
+   * 
+   * @param headerService 
+   * @param router 
+   */
   constructor(private headerService: HeaderService, private router: Router){
 
   }
 
+  /**
+   * 
+   */
   ngOnInit() {
     this.userProfileDetails();
 
@@ -35,11 +44,16 @@ export class HeaderComponent {
     
   }
 
+  currentState: string = localStorage.getItem('sliderState');
+
+  /**
+   * 
+   */
   toggleSlider() {
       this.userDetails.twoFactorAuthentication = !this.userDetails.twoFactorAuthentication;
        // Save the state to local storage
-      const currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
-      localStorage.setItem('sliderState', currentState);
+      this.currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
+      localStorage.setItem('sliderState', this.currentState);
 
       //save the updatedauthStatus to db
     this.headerService.updateTwofactorAuthenticationStatus(this.userDetails.twoFactorAuthentication,this.userDetails.email).subscribe(
@@ -53,6 +67,9 @@ export class HeaderComponent {
 
   //already we have user profile details after login in localstorage or cookie session object, 
   //still if we want to get the data freshly, get it from DB again
+  /**
+   * 
+   */
   userProfileDetails(): any{
    // console.log(localStorage.getItem('email'));
     this.headerService.fetchUserProfile(localStorage.getItem('email')).subscribe(
@@ -62,13 +79,21 @@ export class HeaderComponent {
       }
     )
   }
+
+  /**
+   * 
+   */
   openProfilePanel(){
     this.router.navigateByUrl('/my-profile');
   }
+
+  /**
+   * 
+   */
   logout(){
-    sessionStorage.clear();
-    localStorage.clear();
-    window.localStorage.clear ();
+    //sessionStorage.clear();
+    //localStorage.clear();
+   // window.localStorage.clear ();
     this.router.navigateByUrl('/login');
   }
 }

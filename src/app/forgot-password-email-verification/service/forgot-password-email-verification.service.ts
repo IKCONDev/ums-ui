@@ -13,15 +13,27 @@ export class ForgotPasswordEmailVerificationService {
   private generateOtpPathUrl = 'generate-otp';
   private verifyEmailPathUrl = 'validate-email'; 
 
+  /**
+   * 
+   * @param http 
+   */
   constructor(private http: HttpClient){}
 
+  /**
+   * 
+   * @param email 
+   * @param pageType 
+   * @returns 
+   */
     generateOtpForUser(email: String,pageType:string){
         return this.http.post<number>(`${this.finalHttpUrl}/${this.generateOtpPathUrl}/`+email+'/'+pageType,{observe: 'response'});
     }
-    generateTfOtpForUser(email:string,pageType:string){
-        return this.http.post<number>(`${this.finalHttpUrl}/${this.generateOtpPathUrl}/`+email+'/'+pageType,{observe: 'response'});
-    }
 
+    /**
+     * 
+     * @param email 
+     * @returns 
+     */
     VerifyEmailAddress(email: string): Observable<any>{ 
       return this.http.get<number>(`${this.finalHttpUrl}/${this.verifyEmailPathUrl}/`+email); 
 

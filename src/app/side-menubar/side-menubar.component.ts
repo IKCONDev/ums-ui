@@ -11,32 +11,26 @@ import { Router } from '@angular/router';
 })
 export class SideMenubarComponent {
 
-  //selectedComponent:string;
-  //@Output() componentToOpen: EventEmitter<string> = new EventEmitter<string>();
+  activate='';
+  isMenuActive:boolean = false;
+  overviewActive:string;
 
   constructor(private router: Router){
 
   }
 
-  /*
-  openComponent(selectedOption: string){
-    this.selectedComponent = selectedOption;
-    this.componentToOpen.emit(this.selectedComponent);
-  }
-  */
 
-  overviewActive:string;
+  /**
+   * 
+   */
   ngOninit(){
   }
 
-
-  setActive(type: string){
-    if(type === 'meetings'){
-      document.getElementById('meetingsActive').style.backgroundColor = 'white';
-    }
-  }
-  activate='';
-  isMenuActive:boolean = false;
+  /**
+   * 
+   * @param route 
+   * @returns 
+   */
   isActive(route:string):boolean{
     this.isMenuActive = this.router.isActive(route,true);
     if(this.isMenuActive){
@@ -44,10 +38,6 @@ export class SideMenubarComponent {
     }
     return this.isMenuActive
   }
-    
-   
-
-
 }
 
 

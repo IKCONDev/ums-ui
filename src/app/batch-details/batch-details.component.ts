@@ -1,18 +1,18 @@
+
 import { Component, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ReportService } from './service/reports.service';
 import { BatchDetails } from '../model/batchDetails.model';
-
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css']
+  selector: 'app-batch-details',
+  templateUrl: './batch-details.component.html',
+  styleUrls: ['./batch-details.component.css']
 })
-export class ReportComponent implements OnInit {
+export class BatchDetailsComponent implements OnInit{
 
   batchDetails:BatchDetails[];
 
-   @Output() title:string='Reports'
+   @Output() title:string='Batch Details'
 
    /**
     * 
@@ -32,9 +32,6 @@ export class ReportComponent implements OnInit {
              
            })
      });
-      
-
    }
-
-
 }
+

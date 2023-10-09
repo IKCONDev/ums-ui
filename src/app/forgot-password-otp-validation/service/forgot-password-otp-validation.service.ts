@@ -11,14 +11,27 @@ export class ForgotPasswordOtpValidationService {
   private finalHttpUrl = this.gatewayUrl+this.authenticationMicroservicePathUrl;
   private validateOtpPathUrl = 'validate-otp';
 
+  /**
+   * 
+   * @param http 
+   */
   constructor(private http: HttpClient){}
 
+  /**
+   * 
+   * @param emailId 
+   * @param otp 
+   * @returns 
+   */
     verifyUserOtp(emailId: String, otp:number){
       var verifyOtpDetails = {
         email: emailId,
         otpCode: otp
       }
-        return this.http.post<number>(`${this.finalHttpUrl}/${this.validateOtpPathUrl}/`,verifyOtpDetails,{observe: 'response'});
+        return this.http.post<number>(`${this.finalHttpUrl}/${this.validateOtpPathUrl}/`,verifyOtpDetails,{observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        )});
       }
 
 }

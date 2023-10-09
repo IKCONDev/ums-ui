@@ -20,6 +20,15 @@ export class ForgotPasswordOtpValidationComponent {
   isValidOtp: boolean = false;
   OtpResponseMessage:string='';
 
+  /**
+   * 
+   * @param router 
+   * @param elementRef 
+   * @param renderer 
+   * @param otpValidationService 
+   * @param emailVerificationService 
+   * @param toastr 
+   */
   constructor(private router: Router, private elementRef: ElementRef, 
     private renderer: Renderer2,
     private otpValidationService: ForgotPasswordOtpValidationService,
@@ -30,6 +39,9 @@ export class ForgotPasswordOtpValidationComponent {
   }
 
 
+  /**
+   * 
+   */
   ngOnInit() {
     console.log('init-Login')
     $(document).ready(function () {
@@ -38,11 +50,17 @@ export class ForgotPasswordOtpValidationComponent {
     });
   }
 
+  /**
+   * 
+   */
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-  //perform placeholder changing on to the border of textbox
+  
+  /**
+   * 
+   */
   setupOtpInputPlaceholder(): void {
     const emailInput = this.elementRef.nativeElement.querySelector('#otp');
 
@@ -63,6 +81,10 @@ export class ForgotPasswordOtpValidationComponent {
     });
   }
 
+  /**
+   * 
+   * @param event 
+   */
   setOtp(event:any){
     this.otpCode = event.target.value;
     if(this.otpCode.toString() === "" ){
@@ -71,6 +93,9 @@ export class ForgotPasswordOtpValidationComponent {
     }
   }
 
+  /**
+   * 
+   */
   resendOtp(){
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
@@ -93,6 +118,9 @@ export class ForgotPasswordOtpValidationComponent {
      )
   }
   
+  /**
+   * 
+   */
   verifyAndValidateOtp() {
     this.isValidOtp = false;
     this.otpValidationService.verifyUserOtp(this.email, this.otpCode)

@@ -11,8 +11,19 @@ export class ForgotPasswordResetService {
   private finalHttpUrl = this.gatewayUrl+this.authenticationMicroservicePathUrl;
   private resetPasswordPathUrl = 'reset-password';
 
+  /**
+   * 
+   * @param http 
+   */
   constructor(private http: HttpClient){}
 
+  /**
+   * 
+   * @param emailId 
+   * @param newPassword 
+   * @param confirmPassword 
+   * @returns 
+   */
     updateUserPassword(emailId: String, newPassword: string, confirmPassword: string){
       var updatedUserDetails = {
         email: emailId,

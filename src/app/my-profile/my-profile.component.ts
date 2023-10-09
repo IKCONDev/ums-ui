@@ -13,22 +13,32 @@ import { HttpStatusCode } from '@angular/common/http';
 })
 export class MyProfileComponent {
 
-  fileSize: number = 100000; //1MB
+  fileSize: number = 1000000; //1MB
   retriveResponse: any;
   isDisable: boolean = true;
+  title = 'My Profile'
+  user: Users
+  selectedUserProfilePic: Blob;
+
+  /**
+   * 
+   * @param profileService 
+   * @param toastr 
+   */
   constructor(private profileService: MyProfileService, private toastr: ToastrService) {
 
   }
 
+  /**
+   * 
+   */
   ngOnInit() {
     this.fetchUserProfile();
   }
 
-  title = 'My Profile'
-  user: Users
-
-  selectedUserProfilePic: Blob;
-
+  /**
+   * 
+   */
   fetchUserProfile() {
     this.profileService.getUserprofile(localStorage.getItem('email')).subscribe(
       (response) => {
@@ -38,6 +48,10 @@ export class MyProfileComponent {
     )
   }
 
+  /**
+   * 
+   * @param event 
+   */
   onFileChanged(event: any) {
     this.selectedUserProfilePic = event.target.files[0];
     if (this.selectedUserProfilePic.size < this.fileSize) {
@@ -45,11 +59,16 @@ export class MyProfileComponent {
       console.log(localStorage.getItem('email'));
       this.profileService.updateUserProfilePic(localStorage.getItem('email'), this.selectedUserProfilePic).subscribe(
         (response) => {
-          this.selectedUserProfilePic = response.profilePic;
-          this.toastr.success('Profile pic uploaded succesfully');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          if (response.status === HttpStatusCode.Ok) {
+            this.selectedUserProfilePic = response.body.profilePic;
+            this.toastr.success('Profile pic uploaded succesfully');
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else if (response.status === HttpStatusCode.Unauthorized) {
+            //TODO: SHOW UNAUTHORIZED PAGE
+          }
         }
       )
     } else {
@@ -57,10 +76,17 @@ export class MyProfileComponent {
     }
 
   }
+
+  /**
+   * 
+   */
   editUserInfo() {
     this.isDisable = false;
   }
 
+  /**
+   * 
+   */
   updateUserInfo() {
     if (this.user.employee != null) {
       console.log(this.user.employee)
@@ -70,17 +96,20 @@ export class MyProfileComponent {
             this.user.employee.firstName = response.body.firstName;
             this.toastr.success('User details saved sucessfully');
           }
-        },error: (error) =>{
+        }, error: (error) => {
           this.toastr.error('Error while updating user details');
         }
       }
-        
+
       ),
-      this.isDisable = true;
+        this.isDisable = true;
 
     }
   }
 
+  /**
+   * 
+   */
   cancel() {
     this.isDisable = true;
   }

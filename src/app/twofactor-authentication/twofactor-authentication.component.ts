@@ -3,6 +3,7 @@ import { ForgotPasswordEmailVerificationService } from '../forgot-password-email
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NavigationExtras } from '@angular/router';
+import { TwofactorAuthenticationService } from './service/twofactor-authentication.service';
 
 @Component({
   selector: 'app-twofactor-authentication',
@@ -17,12 +18,22 @@ export class TwofactorAuthenticationComponent {
   email:string = ''
   typeError: boolean =true;
 
-  constructor(private emailVerificationService: ForgotPasswordEmailVerificationService,
+  /**
+   * 
+   * @param emailVerificationService 
+   * @param router 
+   * @param toastr 
+   */
+  constructor(private twofactorAuthService: TwofactorAuthenticationService,
     private router: Router, private toastr: ToastrService){
       //get email from current navigation (this is provided while navigating from pervious page)
       this.email = this.router.getCurrentNavigation().extras.state['loginInfo'].email;
   }
 
+  /**
+   * 
+   * @param event 
+   */
   setAuthType(event: any){
     this.type = event.target.value;
     if(this.type == ''){
@@ -32,9 +43,13 @@ export class TwofactorAuthenticationComponent {
     }
   }
 
+
+  /**
+   * 
+   */
   constructOtp() {
     console.log(this.email)
-    this.emailVerificationService.generateTfOtpForUser(this.email,'TwoFactorAuth').subscribe(
+    this.twofactorAuthService.generateTfOtpForUser(this.email,'TwoFactorAuth').subscribe(
       (response) => {
         this.result = response;
         console.log(this.result)

@@ -22,10 +22,21 @@ export class ForgotPasswordEmailVerificationComponent {
   isError: boolean = true;
   result: number;
 
+  /**
+   * 
+   * @param router 
+   * @param elementRef 
+   * @param renderer 
+   * @param emailVerificationService 
+   * @param toastr 
+   */
   constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
     private emailVerificationService: ForgotPasswordEmailVerificationService, private toastr: ToastrService) {
   }
 
+  /**
+   * 
+   */
   ngOnInit() {
     console.log('init-Login')
     $(document).ready(function () {
@@ -34,6 +45,9 @@ export class ForgotPasswordEmailVerificationComponent {
     });
   }
 
+  /**
+   * 
+   */
   setupEmailInputPlaceholder(): void {
     const emailInput = this.elementRef.nativeElement.querySelector('#email');
 
@@ -56,6 +70,10 @@ export class ForgotPasswordEmailVerificationComponent {
   }
 
   
+  /**
+   * 
+   * @param event 
+   */
   setUserEmail(event: any) {
     this.isError = true;
     this.email = event.target.value;
@@ -91,6 +109,9 @@ export class ForgotPasswordEmailVerificationComponent {
     }
   }
 
+  /**
+   * 
+   */
   constructOtp() {
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
@@ -113,6 +134,9 @@ export class ForgotPasswordEmailVerificationComponent {
     )
   }
 
+  /**
+   * 
+   */
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

@@ -29,9 +29,13 @@ export class HomeComponent {
   //selectedOption:string = localStorage.getItem('selectedComponent');
   //title:string = localStorage.getItem('title');
 
+  /**
+   * 
+   * @param router 
+   * @param homeService 
+   */
   constructor(private router: Router, private homeService:HomeService,
     ){
-
     let loginInfo = {
       firstName: '',
       token: '',
@@ -39,26 +43,32 @@ export class HomeComponent {
       userRole: '',
       userData: ''
     }
-
+    //get Navigation extras , collect from router object
     if(this.router.getCurrentNavigation().extras.state){
       loginInfo = this.router.getCurrentNavigation().extras.state['loginInfo'];
       console.log(this.router.getCurrentNavigation().extras.state['loginInfo'])
       this.loginDetails = loginInfo
     }
 
+    /**
+     * get user organized meetings
+     */
     homeService.getUserorganizedMeetingCount().subscribe(
       (response=>{
-        this.organizedMeetingsCount = response.toString();
+        this.organizedMeetingsCount = response.body.toString();
         console.log(this.organizedMeetingsCount)
-        localStorage.setItem('totalMeetingsOrganized',response.toString())
+        localStorage.setItem('totalMeetingsOrganized',response.body.toString())
       })
     )
 
+    /**
+     * get User attended meetings
+     */
     homeService.getUserAttendedMeetingCount().subscribe(
       (response=>{
-        this.attendedMeetingsCount = response.toString();
+        this.attendedMeetingsCount = response.body.toString();
         console.log(this.attendedMeetingsCount);
-        localStorage.setItem('attenedMeetingsCount',response.toString());
+        localStorage.setItem('attenedMeetingsCount',response.body.toString());
       })
     )
 
@@ -75,18 +85,6 @@ export class HomeComponent {
     this.title = localStorage.getItem('title');
     //TODO---------------------
     //set overview as default component after logout in home page
-  }
-  */
-
-  text:String = "";
-
-  /*
-  checkDemo(){
-    this.homeService.getDemoText().subscribe(
-      (response) => {
-        this.text = response
-      }
-    )
   }
   */
 
