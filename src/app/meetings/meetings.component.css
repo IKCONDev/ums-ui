@@ -201,14 +201,35 @@
   }
 
   .deleteButton:hover{
-    color: red;
-    background-color: white;
-    border-color: red;
+    color:white;
+    background-color: #FD5454;
+    border-color: #fd5454;
   }
   
   .submitButton:hover{
-    color: white;
-    background-color: #4880FF;
-    border-color: #4880FF;
+    background-color:#2b63b1 ;
+    border-color: #2b63b1;
+
   
+  }
+
+  .cancelButton:hover{
+    color:white;
+    background-color: #FD5454;
+    border-color: #fd5454;
+  }
+  
+  .saveButton:hover{
+    background-color:#2b63b1 ;
+    border-color: #2b63b1;  
+  }
+
+  .updateButton:hover{
+    background-color:#2b63b1 ;
+    border-color: #2b63b1;  
+  }
+  .modal-xl{
+
+    width: 2000px;
+    margin-left: 500px; 
   }

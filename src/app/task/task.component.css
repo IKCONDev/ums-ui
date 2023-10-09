@@ -130,3 +130,13 @@ th,td{
   color: #f9fcff;
   text-align: left;
 }
+.saveButton:hover{
+  background-color:#2b63b1 ;
+  border-color: #2b63b1;  
+}
+
+.closeButton:hover{
+  color:white;
+  background-color: #FD5454;
+  border-color: #fd5454;
+}

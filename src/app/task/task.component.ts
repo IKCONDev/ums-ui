@@ -159,10 +159,10 @@ export class TaskComponent {
   taskStatusErrorInfo = '';
   validateTaskStatus(){
        // var taskStatus = event.target.value;
-        if(this.update_Task.status == ''){
+        if(this.update_Task.status === 'Select'){
            this.taskStatusErrorInfo = 'Status is required';
            this.isTaskStatusValid = false;
-           
+          
         }
         else{
            this.taskStatusErrorInfo = '';
@@ -170,9 +170,11 @@ export class TaskComponent {
         }
         return this.isTaskStatusValid;
   }
+
   taskOwnerErrorInfo = "";
   validateTaskOwner(){
      // var taskOwner = event.target.value;
+
      if(this.update_Task.taskOwner == '' || this.update_Task.taskOwner  === null){
 
       this.taskOwnerErrorInfo = 'task Owner is required';
@@ -181,6 +183,7 @@ export class TaskComponent {
      else if(this.update_Task.taskOwner == ''){
         this.taskOwnerErrorInfo = 'task Owner is required';
         this.isTaskOwnerValid = false;
+
       }
       else{
         this.taskOwnerErrorInfo = '';
