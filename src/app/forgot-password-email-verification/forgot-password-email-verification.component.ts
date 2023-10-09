@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { ForgotPasswordEmailVerificationService } from './service/forgot-password-email-verification.service';
 import { error } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
+import { KeyCode } from '@ng-select/ng-select/lib/ng-select.types';
+import { PasswordGrantConstants } from '@azure/msal-common';
 
 @Component({
   selector: 'app-forgot-password-email-verification',
@@ -73,28 +75,38 @@ export class ForgotPasswordEmailVerificationComponent {
    * @param event 
    */
   setUserEmail(event: any) {
-    this.isError = false;
+    this.isError = true;
     this.email = event.target.value;
     console.log(this.email);
-    this.emailVerificationService.VerifyEmailAddress(this.email).subscribe(
-      (response) => {
-        this.value = response;
-        console.log("the result is:" + this.value);
-        if (this.value == 1) {
-          console.log("Entered email id is a valid one");
+    var emailRegExp =  /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
+    if(emailRegExp.test(this.email)){
+      this.emailVerificationService.VerifyEmailAddress(this.email).subscribe(
+        (response) => {
+          this.value = response;
+          console.log("the result is:" + this.value);
+          if (this.value == 1) {
+            console.log("Entered email id is a valid one");
+            this.verificationResponse = "";
+            this.isError=false;
+            this.verificationResponse = "Email Id exists";
+          }else {
+            console.log("Entered email address is not a registred email address");
+            this.isError = true;
+            this.verificationResponse = "Incorrect Email Id";
+          }
+        },
+        (error: any) => {
           this.verificationResponse = "";
+          this.isError = false;
         }
-        else {
-          console.log("Entered email address is not a valid email address");
-          this.isError = true;
-          this.verificationResponse = "Incorrect Email Id";
-        }
-      },
-      (error: any) => {
-        this.verificationResponse = "";
-        this.isError = true;
+      )
+    }else{
+      if(this.verificationResponse==="Email Id exists"){
+        this.verificationResponse="Incorrect Email Id"
+      }else{
+        this.verificationResponse="";
       }
-    )
+    }
   }
 
   /**

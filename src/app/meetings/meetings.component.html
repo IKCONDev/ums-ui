@@ -330,7 +330,7 @@
                         </div>
                         <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                         <label><b>StartDate</b></label>
-                        <input type="datetime-local" class="form-control" style="width:400px;"
+                        <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" 
                             name="startDate" #startDate="ngModel"
                             [class.invalid]="startDate.invalid && startDate.touched"
@@ -339,7 +339,7 @@
                             <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                         </div>
                         <label><b>EndDate</b></label>
-                        <input type="datetime-local" class="form-control" style="width:400px;"
+                        <input type="datetime-local" min="{{min}}"class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" 
                             name="endDate" #endDate="ngModel"
                             [class.invalid]="endDate.invalid && endDate.touched"
