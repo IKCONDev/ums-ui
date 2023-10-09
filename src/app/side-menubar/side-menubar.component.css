@@ -76,11 +76,22 @@
 }
 
 .nav-link{
-   color: #2AA3D9
+   color: #2AA3D9;
 }
 
 .nav-link:hover{
    color: black;
+   background-color: #5590AA;
+}
+
+.active-link{
+   background-color: #5590AA;
+   color: black;
+   border-radius: 0px;
+   border-left: 2px solid black;
+}
+ .active-link path {
+   fill: black;
 }
 
 
