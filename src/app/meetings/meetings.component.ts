@@ -122,6 +122,7 @@ export class MeetingsComponent implements OnInit {
 
     //disable actionItem btn default
     this.isActionItemSaveButtonDisabled = true;
+    this.pastDateTime();
   }
 
   /**
@@ -144,8 +145,8 @@ export class MeetingsComponent implements OnInit {
     }else if(this.addDetails.actionItemTitle.length < 5){
       this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 chars';
       this.isActionItemTitleValid = false;
-    }else if(this.addDetails.actionItemTitle.length > 500){
-      this.actionItemTitleErrorInfo = 'Title must not exceed 500 chars';
+    }else if(this.addDetails.actionItemTitle.length > 50){
+      this.actionItemTitleErrorInfo = 'Title should not exceed 50 chars';
       this.isActionItemTitleValid = false;
     }else{
       this.actionItemTitleErrorInfo = '';
@@ -166,8 +167,8 @@ export class MeetingsComponent implements OnInit {
     }else if(this.addDetails.actionItemDescription.length < 10){
       this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 chars';
       this.isActionItemDescriptionValid = false;
-    }else if(this.addDetails.actionItemDescription.length > 1000){
-      this.actionItemDescriptionErrorInfo = 'Description must not exceed 1000 chars';
+    }else if(this.addDetails.actionItemDescription.length > 200){
+      this.actionItemDescriptionErrorInfo = 'Description must not exceed 200 chars';
       this.isActionItemDescriptionValid = false;
     }else{
       this.actionItemDescriptionErrorInfo = '';
@@ -679,10 +680,10 @@ export class MeetingsComponent implements OnInit {
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
     }else if(this.updatedetails.actionItemTitle.length < 5){
-      this.updateActionItemTitleErrorInfo = 'Title should be manimum of 5 chars';
+      this.updateActionItemTitleErrorInfo = 'Title should be minimum of 5 chars';
       this.isUpdateActionItemTitleValid = false;
-    }else if(this.updatedetails.actionItemTitle.length>500){
-      this.updateActionItemTitleErrorInfo = 'Title should not exceed 500 chars';
+    }else if(this.updatedetails.actionItemTitle.length > 50){
+      this.updateActionItemTitleErrorInfo = 'Title should not exceed 50 chars';
       this.isUpdateActionItemTitleValid = false;
     }else{
       this.updateActionItemTitleErrorInfo = '';
@@ -699,11 +700,11 @@ export class MeetingsComponent implements OnInit {
     if(this.updatedetails.actionItemDescription === ''){
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
-    }else if(this.updatedetails.actionItemDescription.length < 5){
+    }else if(this.updatedetails.actionItemDescription.length < 10){
       this.updateActionItemDescErrorInfo = 'Description should be manimum of 10 chars';
       this.isUpdateActionItemDescValid = false;
-    }else if(this.updatedetails.actionItemDescription.length>500){
-      this.updateActionItemDescErrorInfo = 'Description should not exceed 1000 chars';
+    }else if(this.updatedetails.actionItemDescription.length>200){
+      this.updateActionItemDescErrorInfo = 'Description should not exceed 200 chars';
       this.isUpdateActionItemDescValid = false;
     }else{
       this.updateActionItemDescErrorInfo = '';
@@ -865,4 +866,22 @@ checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event:any){
   }
 }
 
+min:any = "";
+
+pastDateTime(){
+  var tdate:any = new Date();
+  var date:any = tdate.getDate();
+  if(date<10){
+    date = "0" + date;
+  }
+  var month:any = tdate.getMonth()+1;
+  if(month<10){
+    month = "0" + month;
+  }  
+  var year:any = tdate.getFullYear();
+  var hours:any = tdate.getHours();
+  var minutes:any = tdate.getMinutes();
+  this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
+  console.log(this.min);
+}
 }

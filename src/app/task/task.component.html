@@ -39,12 +39,13 @@
                     <th>Status</th>
                     <th></th>
                 </thead>
-                <tbody *ngFor="let item of task">
+                <tbody *ngFor="let item of task let i = index">
                     <tr>
                         <td style="padding-left: 21px;"><input type="checkbox" value="{{item.taskId}}" class="checkbox"
                                 id="checkbox">
                         </td>
-                        <td>{{item.taskId}}</td>
+                       <!--- <td>{{item.taskId}}</td>-->
+                       <td>T000{{i+1}}</td>
                         <td>{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
                         <td>{{item.startDate}}</td>
@@ -103,7 +104,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let task of assignedTasks; let i = index">
-                        <td>{{i+1}}</td>
+                        <td>T000{{i+1}}</td>
                         <td id="meeting-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
                         <td>{{task.startDate}}</td>
@@ -270,7 +271,7 @@
                                         </tr>
                                         <tr>
                                             <td>Start Date</td>
-                                            <td><span><input type="datetime-local" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
                                                         [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
@@ -283,7 +284,7 @@
                                         </tr>
                                         <tr>
                                             <td>Due Date </td>
-                                            <td><span> <input type="datetime-local" class="form-control"
+                                            <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
