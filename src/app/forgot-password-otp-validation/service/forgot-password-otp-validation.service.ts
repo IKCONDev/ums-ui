@@ -28,7 +28,10 @@ export class ForgotPasswordOtpValidationService {
         email: emailId,
         otpCode: otp
       }
-        return this.http.post<number>(`${this.finalHttpUrl}/${this.validateOtpPathUrl}/`,verifyOtpDetails,{observe: 'response'});
+        return this.http.post<number>(`${this.finalHttpUrl}/${this.validateOtpPathUrl}/`,verifyOtpDetails,{observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        )});
       }
 
 }
