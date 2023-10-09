@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { style } from '@angular/animations';
+import { Component,ElementRef, Output,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,11 +22,23 @@ export class SideMenubarComponent {
     this.componentToOpen.emit(this.selectedComponent);
   }
   */
-
-  setActive(type: string){
-    if(type === 'meetings'){
-      document.getElementById('meetingsActive').style.backgroundColor = 'black';
-    }
+  overviewActive:string;
+  ngOninit(){
+    
   }
+  activate='';
+  isMenuActive:boolean = false;
+  isActive(route:string):boolean{
+    this.isMenuActive = this.router.isActive(route,true);
+    if(this.isMenuActive){
+      this.activate='active';
+    }
+    return this.isMenuActive
+  }
+    
+   
+
 
 }
+
+
