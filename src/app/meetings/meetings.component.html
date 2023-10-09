@@ -330,7 +330,7 @@
                         </div>
                         <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                         <label><b>StartDate</b></label>
-                        <input type="datetime-local" class="form-control" style="width:400px;"
+                        <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" 
                             name="startDate" #startDate="ngModel"
                             [class.invalid]="startDate.invalid && startDate.touched"
@@ -339,7 +339,7 @@
                             <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                         </div>
                         <label><b>EndDate</b></label>
-                        <input type="datetime-local" class="form-control" style="width:400px;"
+                        <input type="datetime-local" min="{{min}}"class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" 
                             name="endDate" #endDate="ngModel"
                             [class.invalid]="endDate.invalid && endDate.touched"
@@ -453,10 +453,6 @@
 
                 <!--footer-->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" (click)="updateActionItem(form)"
-                        [(ngModel)]="updatedetails" >Update</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-
                     <button type="submit" id="saveActionItem" class="btn btn-primary updateButton" (click)="updateActionItem(form)"
                         [(ngModel)]="updatedetails">Update</button>
                     <button type="button" class="btn btn-outline-danger cancelButton" data-dismiss="modal">Cancel</button>
@@ -528,13 +524,8 @@
                    <label for="Actions" ><b>Action Item</b></label>
                    <div *ngFor="let action of actionItemsOfMeeting; let i=index">
                      <label>{{i+1}}. {{action.actionItemTitle}}</label>
-
                    </div>
-
-                          
                  </div>
-                 
-
                  <div class="modal-footer">
                     <button type="submit" class="btn btn-primary saveButton" 
                        >Save</button>
