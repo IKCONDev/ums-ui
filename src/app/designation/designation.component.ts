@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 @Component({
   selector: 'app-designation',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./designation.component.css']
 })
 export class DesignationComponent {
+
+  @Output() title:string='Designations';
 
 }

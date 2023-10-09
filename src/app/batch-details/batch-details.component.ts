@@ -12,7 +12,7 @@ export class BatchDetailsComponent implements OnInit{
 
   batchDetails:BatchDetails[];
 
-   @Output() title:string='Batch Details'
+   @Output() title:string='Batch Details';
 
    /**
     * 

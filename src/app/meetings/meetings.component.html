@@ -282,12 +282,14 @@
                         </div>
                         <!-- title end -->
                         <label><b>ActionItem Description</b></label>
-                        <input type="text" class="form-control" style="width:400px;"
+                        <div style="padding-left: 10px;">
+                            <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
                             #actionItemDescription="ngModel" minlength="10" maxlength="1000"
                             id="actionItemDescription"
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
-                            (keyup)="validateActionDescription()">
+                            (keyup)="validateActionDescription()"></textarea>
+                        </div>
                         <div *ngIf="actionItemDescriptionErrorInfo != ''">
                             <span id="errorSpan">{{actionItemDescriptionErrorInfo}}</span>
                         </div>
@@ -361,7 +363,7 @@
     </div>
 
     <!--Modal for update-->
-    <div class="modal" id="myModal" style=" font-family: 'General Sans';">
+    <div class="modal" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content" style="margin: 10px;">
                 <!--Modal Header-->
@@ -382,8 +384,8 @@
             <input type="datetime-local" style="width:400px;" value="{{this.updatedetails.endDate}}">-->
 
 
-                <label>ActionItem Title</label>
-                <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle" required="true"
+                <label><b>ActionItem Title</b></label>
+                <input type="text" class="form-control" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle" required="true"
                 name="uAcItemTitle"
                 id="uAcItemTitle"
                 minlength="5" maxlength="500" #uAcItemTitle="ngModel"
@@ -392,19 +394,21 @@
               <div *ngIf="updateActionItemTitleErrorInfo != ''">
                 <span id="errorSpan">{{updateActionItemTitleErrorInfo}}</span>
               </div>
-                <label>ActionItem Description</label>
-                <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionItemDescription"
+                <label><b>ActionItem Description</b></label>
+                <div style="padding-left: 10px;">
+                    <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;" [(ngModel)]="updatedetails.actionItemDescription"
                     required="true" name="uAcItemDesc"
                     id="uAcItemDesc"
                     minlength="5" maxlength="500" #uAcItemDesc="ngModel"
                     [class.invalid]="uAcItemDesc.invalid && uAcItemDesc.touched"
-                    (keyup)="validateUpdateActionDescription()">
+                    (keyup)="validateUpdateActionDescription()"></textarea>
+                </div>
                   <div *ngIf="updateActionItemDescErrorInfo != ''">
                     <span id="errorSpan">{{updateActionItemDescErrorInfo}}</span>
                   </div>
                 <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
-                <label>Priority</label>
-                <select id="priority" style="width: 400px;" [(ngModel)]="updatedetails.actionPriority" required="true"
+                <label><b>Priority</b></label>
+                <select id="priority" class="form-control" style="width: 400px;" [(ngModel)]="updatedetails.actionPriority" required="true"
                 name="uAcPriority"
                             #uAcPriority="ngModel" [class.invalid]="uAcPriority.invalid && uAcPriority.touched"
                             id="actionItemPriority"
@@ -417,7 +421,7 @@
                         <div *ngIf="updateActionItemPriorityErrorInfo != ''">
                             <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
                         </div>
-                <label>Action Owner</label>
+                <label><b>Action Owner</b></label>
                 <div style="padding-left: 10px;">
                     <ng-select class="form-control" [searchable]="true" [clearable]="true" id="uAcItemOwner"
                         name="uAcItemOwner" style="width: 400px;" 
@@ -432,8 +436,8 @@
                     <span id="errorSpan">{{updateActionItemOwnerErrorInfo}}</span>
                 </div>
                 <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
-                <label>StartDate</label>
-                <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.startDate" required="true"
+                <label><b>StartDate</b></label>
+                <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;" [(ngModel)]="updatedetails.startDate" required="true"
                 id="uAcItemStartDate" 
                             name="uAcItemStartDate" #uAcItemStartDate="ngModel"
                             [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
@@ -441,8 +445,8 @@
                         <div *ngIf="updateActionItemStartDateErrorInfo != ''">
                             <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
                         </div>
-                <label>EndDate</label>
-                <input type="datetime-local" style="width:400px;" [(ngModel)]="updatedetails.endDate" required="true"
+                <label><b>EndDate</b></label>
+                <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;" [(ngModel)]="updatedetails.endDate" required="true"
                 id="uAcItemEndDate" 
                             name="uAcItemEndDate" #uAcItemEndDate="ngModel"
                             [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"

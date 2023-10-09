@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , Output} from '@angular/core';
 
 @Component({
   selector: 'app-users',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent {
+
+  @Output() title:string='Users';
 
 }
