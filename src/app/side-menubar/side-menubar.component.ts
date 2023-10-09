@@ -30,11 +30,11 @@ export class SideMenubarComponent {
   }
 
 
-  setActive(type: string){
-    if(type === 'meetings'){
-      document.getElementById('meetingsActive').style.backgroundColor = 'white';
-    }
-  }
+  //setActive(type: string){
+  //if(type === 'meetings'){
+  //document.getElementById('meetingsActive').style.backgroundColor = 'white';
+  //}
+  //}
   activate='';
   isMenuActive:boolean = false;
   isActive(route:string):boolean{

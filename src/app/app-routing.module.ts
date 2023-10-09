@@ -15,6 +15,8 @@ import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actio
 import { TaskComponent } from './task/task.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ReportComponent } from './report/report.component';
+import { SettingsComponent } from './settings/settings.component';
+import { BatchDetailsComponent } from './batch-details/batch-details.component';
 
 
 const routes: Routes = [
@@ -34,6 +36,8 @@ const routes: Routes = [
   {path:"task",component:TaskComponent},
   {path:"my-profile",component:MyProfileComponent},
   {path:"reports",component:ReportComponent},
+  {path:"batch-details",component:BatchDetailsComponent},
+  {path:"settings",component:SettingsComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '',redirectTo:'/login', pathMatch: 'full'},

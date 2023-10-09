@@ -330,6 +330,9 @@ export class MeetingsComponent implements OnInit {
       console.log(this.response);
       if(response.status === HttpStatusCode.Ok){
         this.toastr.success('Action item added sucessfully !');
+        setTimeout(()=>{
+          window.location.reload();  
+         },1500)
       }
     });
     this.fetchActionItemsOfEvent(this.currentMeetingId);
@@ -792,6 +795,7 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param meeting 
    */
+  updateModelClose:string;
   updateActionItem(form: NgForm) {
     let isTitlevalid = true;
    let isDescriptionValid = true;
@@ -834,8 +838,15 @@ export class MeetingsComponent implements OnInit {
     this.actionItemService.updateActionItem(this.updatedetails).subscribe(response => {
       this.data = response.body;
       console.log(this.data);
+     //var modal = document.getElementById('myModal');
+     //modal.setAttribute('data-dismiss','modal');
+     this.toastr.success('Action item updated successfully');
+     setTimeout(()=>{
+      window.location.reload();  
+     },1500)
+    
     });
-    this.toastr.success('Action item updated successfully');
+   
     //need to change this later
     //window.location.reload();
   }
