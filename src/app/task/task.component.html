@@ -10,7 +10,8 @@
                 <p (click)="getTasks('AssignedTask')" id="AssignedTask">Assigned Tasks</p>
             </div>
             <div class="col-sm-2" id="OrganizedTask">
-                <p (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks</p>
+                <p (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks
+                </p>
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-3" style="padding-top: 9px; ">
@@ -19,7 +20,7 @@
             <!--<div class="col-sm-1" style="padding-top: 17px;"><button id="add_button"type="btn btn-primary" (click)="addTask()"
                     data-toggle="modal" data-target="#myModal_add">delete</button></div>-->
 
-           <div class="col-sm-1" style="padding-top: 8px;"><button id="delete_button" type="btn btn-primary"
+            <div class="col-sm-1" style="padding-top: 8px;"><button id="delete_button" type="btn btn-primary"
                     (click)="checkCheckBoxes()">Delete</button></div>
         </div>
     </div>
@@ -44,8 +45,8 @@
                         <td style="padding-left: 21px;"><input type="checkbox" value="{{item.taskId}}" class="checkbox"
                                 id="checkbox">
                         </td>
-                       <!--- <td>{{item.taskId}}</td>-->
-                       <td>T000{{i+1}}</td>
+                        <!--- <td>{{item.taskId}}</td>-->
+                        <td>T000{{i+1}}</td>
                         <td>{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
                         <td>{{item.startDate}}</td>
@@ -90,8 +91,8 @@
         </div>
         <!--  -->
     </div>
-     <!-- ngif -->
-     <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
+    <!-- ngif -->
+    <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
         <div class="row" *ngIf="assignedTasksCount>0; else noAssignedTasks">
             <table class="table table-hover" height="40">
                 <thead id="thead">
@@ -217,7 +218,7 @@
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
                                     (keyup)="validateTaskDescription()" placeholder="Enter description !..."></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
-                                    <span style="color: red;">{{taskDescriptionErrorInfo}}</span>
+                                    <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
                             </div>
                         </div>
@@ -248,7 +249,8 @@
                                                 </div>
                                                 <br>
                                                 <div *ngIf="taskOwnerErrorInfo != ''">
-                                                    <span style="padding-top: 200px;">{{taskOwnerErrorInfo}}</span>
+                                                    <span style="padding-top: 200px;"
+                                                        id="error_msg">{{taskOwnerErrorInfo}}</span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -310,10 +312,8 @@
                                                     <div *ngIf="taskStatusErrorInfo != ''">
                                                         <span id="error_msg">{{taskStatusErrorInfo}}</span>
                                                     </div>
-
                                                 </span></td>
                                         </tr>
-
                                     </tbody>
                                 </table>
 
@@ -321,13 +321,12 @@
                         </div>
                     </div>
                 </div>
-
-
                 <!-- Modal footer -->
                 <div class="modal-footer" role="alert">
                     <button type="submit" class="btn btn-primary" (click)="updateTaskDetails(form)"
                         [(ngModel)]="update_Task" [disabled]="isSaveButtonDisabled">Save</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)=" clearErrorMessages(form)">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        (click)=" clearErrorMessages(form)">Close</button>
                 </div>
             </form>
         </div>
