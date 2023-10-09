@@ -36,7 +36,10 @@ export class ForgotPasswordEmailVerificationService {
      * @returns 
      */
     generateTfOtpForUser(email:string,pageType:string){
-        return this.http.post<number>(`${this.finalHttpUrl}/${this.generateOtpPathUrl}/`+email+'/'+pageType,{observe: 'response'});
+        return this.http.post<number>(`${this.finalHttpUrl}/${this.generateOtpPathUrl}/`+email+'/'+pageType,{observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        )});
     }
 
     /**
