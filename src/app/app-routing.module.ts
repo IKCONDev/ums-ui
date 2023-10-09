@@ -16,6 +16,9 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ReportComponent } from './report/report.component';
 import { SettingsComponent } from './settings/settings.component';
 import { BatchDetailsComponent } from './batch-details/batch-details.component';
+import { DepartmentComponent } from './department/department.component';
+import { DesignationComponent } from './designation/designation.component';
+import { UsersComponent } from './users/users.component';
 
 
 /**
@@ -38,6 +41,9 @@ const routes: Routes = [
   {path:"reports",component:ReportComponent},
   {path:"batch-details",component:BatchDetailsComponent},
   {path:"settings",component:SettingsComponent},
+  {path:"departments",component: DepartmentComponent},
+  {path:"designations", component: DesignationComponent},
+  {path:"users", component: UsersComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '',redirectTo:'/login', pathMatch: 'full'},

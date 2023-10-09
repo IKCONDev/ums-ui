@@ -35,6 +35,7 @@ import { BatchDetailsComponent } from './batch-details/batch-details.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { DepartmentComponent } from './department/department.component';
 import { UsersComponent } from './users/users.component';
+import { DesignationComponent } from './designation/designation.component';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -64,7 +65,7 @@ import { UsersComponent } from './users/users.component';
     BatchDetailsComponent,   
     OrganizationComponent,
     DepartmentComponent ,  
-    UsersComponent ,  
+    UsersComponent, DesignationComponent ,  
   ],
   imports: [
     BrowserModule,
