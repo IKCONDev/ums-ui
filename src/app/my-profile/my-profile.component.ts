@@ -45,13 +45,14 @@ export class MyProfileComponent {
       console.log(localStorage.getItem('email'));
       this.profileService.updateUserProfilePic(localStorage.getItem('email'), this.selectedUserProfilePic).subscribe(
         (response) => {
-          if(response.status === HttpStatusCode.Ok){
+          if (response.status === HttpStatusCode.Ok) {
             this.selectedUserProfilePic = response.body.profilePic;
-          this.toastr.success('Profile pic uploaded succesfully');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-          }else if(response.status === HttpStatusCode.Unauthorized){
+            this.toastr.success('Profile pic uploaded succesfully');
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else if (response.status === HttpStatusCode.Unauthorized) {
             //TODO: SHOW UNAUTHORIZED PAGE
           }
         }
@@ -74,13 +75,13 @@ export class MyProfileComponent {
             this.user.employee.firstName = response.body.firstName;
             this.toastr.success('User details saved sucessfully');
           }
-        },error: (error) =>{
+        }, error: (error) => {
           this.toastr.error('Error while updating user details');
         }
       }
-        
+
       ),
-      this.isDisable = true;
+        this.isDisable = true;
 
     }
   }
