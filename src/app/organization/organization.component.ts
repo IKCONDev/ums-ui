@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 @Component({
   selector: 'app-organization',
@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class OrganizationComponent {
 
-  title = 'Organization'
+  @Output() title:string='Organization';
 
 }
