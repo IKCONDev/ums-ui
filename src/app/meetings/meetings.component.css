@@ -228,3 +228,8 @@
     background-color:#2b63b1 ;
     border-color: #2b63b1;  
   }
+  .modal-xl{
+
+    width: 2000px;
+    margin-left: 500px; 
+  }

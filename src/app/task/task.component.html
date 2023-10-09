@@ -241,7 +241,7 @@
                                                         [clearable]="true" id="taskOwner" name="taskOwner"
                                                         (change)="validateTaskOwner()"
                                                         [(ngModel)]="update_Task.taskOwner">
-                                                        <ng-option [value]="''">choose</ng-option>
+                                                        <ng-option [value]="">choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
                                                         </ng-option>
@@ -249,6 +249,9 @@
                                                 </div>
                                                 <br>
                                                 <div *ngIf="taskOwnerErrorInfo != ''">
+
+                                                    <span style="padding-top: 20px;" id="error_msg">{{taskOwnerErrorInfo}}</span>
+
                                                     <span style="padding-top: 200px;"
                                                         id="error_msg">{{taskOwnerErrorInfo}}</span>
                                                 </div>
