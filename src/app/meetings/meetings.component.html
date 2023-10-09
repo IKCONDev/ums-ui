@@ -120,7 +120,7 @@
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
-                                        <tr *ngIf="actionItem.meetingId === meeting.meetingId let i = index">
+                                        <tr *ngIf="actionItem.meetingId === meeting.meetingId">
                                             <td>
                                                 <b *ngIf="actionItem.actionStatus == 'Converted' else enableCheck">
                                                     <input type="checkbox" disabled="true" />
@@ -177,10 +177,10 @@
                                             </td>
                                             <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
-                                                <a (click)="convertActionItemToTask(meeting.meetingId)"
-                                                    style="cursor: pointer;color:blue">Submit</a>
-                                                <a style="padding-left: 10px;cursor: pointer;color:red"
-                                                    (click)="checkCheckboxes(meeting.meetingId)">Delete</a>
+                                                <a (click)="convertActionItemToTask(meeting)"
+                                                    style="cursor: pointer; margin-left:-120px;"><button class="btn btn-outline-secondary submitButton">Submit</button></a>
+                                                <a style="padding-left:24px ;cursor: pointer;"
+                                                    (click)="checkCheckboxes(meeting.meetingId)"><button class="btn btn-outline-secondary deleteButton">Delete</button></a>
                                             </td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                         </tr>

@@ -173,7 +173,12 @@ export class TaskComponent {
   taskOwnerErrorInfo = "";
   validateTaskOwner(){
      // var taskOwner = event.target.value;
-      if(this.update_Task.taskOwner == ''){
+     if(this.update_Task.taskOwner == '' || this.update_Task.taskOwner  === null){
+
+      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.isTaskOwnerValid = false;
+     }
+     else if(this.update_Task.taskOwner == ''){
         this.taskOwnerErrorInfo = 'task Owner is required';
         this.isTaskOwnerValid = false;
       }
