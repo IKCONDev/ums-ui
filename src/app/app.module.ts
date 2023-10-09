@@ -31,8 +31,17 @@ import { ReportComponent } from './report/report.component';
 import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actionitems.component';
 //import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { NgSelectModule } from '@ng-select/ng-select';
+<<<<<<< HEAD
 import { SettingsComponent } from './settings/settings.component';
 import { BatchDetailsComponent } from './batch-details/batch-details.component';
+=======
+<<<<<<< HEAD
+import { OrganizationComponent } from './organization/organization.component';
+import { DepartmentComponent } from './department/department.component';
+=======
+import { UsersComponent } from './users/users.component';
+>>>>>>> 7bff87756c8f48fff5d0d2600e79faa684b38c93
+>>>>>>> 24fecfd8bf4fc66edbedd3181a5cf90c2c05b15d
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -59,8 +68,17 @@ import { BatchDetailsComponent } from './batch-details/batch-details.component';
     TaskComponent,
     ReportComponent,
     MeetingActionitemsComponent,
+<<<<<<< HEAD
     SettingsComponent,
     BatchDetailsComponent   
+=======
+<<<<<<< HEAD
+    OrganizationComponent,
+    DepartmentComponent   
+=======
+    UsersComponent   
+>>>>>>> 7bff87756c8f48fff5d0d2600e79faa684b38c93
+>>>>>>> 24fecfd8bf4fc66edbedd3181a5cf90c2c05b15d
   ],
   imports: [
     BrowserModule,

@@ -35,11 +35,12 @@ export class HeaderComponent {
     
   }
 
+  currentState: string = localStorage.getItem('sliderState');
   toggleSlider() {
       this.userDetails.twoFactorAuthentication = !this.userDetails.twoFactorAuthentication;
        // Save the state to local storage
-      const currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
-      localStorage.setItem('sliderState', currentState);
+      this.currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
+      localStorage.setItem('sliderState', this.currentState);
 
       //save the updatedauthStatus to db
     this.headerService.updateTwofactorAuthenticationStatus(this.userDetails.twoFactorAuthentication,this.userDetails.email).subscribe(
@@ -66,9 +67,9 @@ export class HeaderComponent {
     this.router.navigateByUrl('/my-profile');
   }
   logout(){
-    sessionStorage.clear();
-    localStorage.clear();
-    window.localStorage.clear ();
+    //sessionStorage.clear();
+    //localStorage.clear();
+   // window.localStorage.clear ();
     this.router.navigateByUrl('/login');
   }
 }
