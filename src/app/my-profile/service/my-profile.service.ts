@@ -40,12 +40,18 @@ export class MyProfileService{
      const userdata = new FormData();
      userdata.append('email',email);
      userdata.append('profilePic',profilePic)
-      return this.http.post<Users>(this.finalUrl,userdata);
+      return this.http.post<Users>(this.finalUrl,userdata,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
     }
     updateUserInformation(employee:Employee){
       if (employee!=null){
         console.log(employee.firstName);
-      return this.http.put<Employee>(this.finalUrlForUpdating,employee, {observe:'response'});
+      return this.http.put<Employee>(this.finalUrlForUpdating,employee, {observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
       }
       else {
         return null;

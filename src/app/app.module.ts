@@ -31,6 +31,8 @@ import { ReportComponent } from './report/report.component';
 import { MeetingActionitemsComponent } from './meeting-actionitems/meeting-actionitems.component';
 //import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { OrganizationComponent } from './organization/organization.component';
+import { DepartmentComponent } from './department/department.component';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -56,7 +58,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ActionItemComponent,
     TaskComponent,
     ReportComponent,
-    MeetingActionitemsComponent   
+    MeetingActionitemsComponent,
+    OrganizationComponent,
+    DepartmentComponent   
   ],
   imports: [
     BrowserModule,

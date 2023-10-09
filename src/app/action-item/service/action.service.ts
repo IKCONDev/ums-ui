@@ -17,37 +17,61 @@ export class ActionService {
     constructor(private http:HttpClient){}
 
     getAllActionItems(){
-        return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all`,{observe:'response'});
+        return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all`,{observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        )})
     }
 
     getActionItemById(id : number){
-      return this.http.get<ActionItems>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/${id}`,{observe:'response'});
+      return this.http.get<ActionItems>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/${id}`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
 
     }
     updateActionItem(actionItem:ActionItems){
       
-       return this.http.put(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/update/${actionItem.actionItemId}`,actionItem,{observe:'response'});
+       return this.http.put(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/update/${actionItem.actionItemId}`,actionItem,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
     }
     saveActionItem(actionItem:ActionItems){
       
-      return this.http.post<ActionItems>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/save`,actionItem,{observe:'response'});
+      return this.http.post<ActionItems>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/save`,actionItem,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
        
     }
     getUserActionItemsByUserId(email:string){
-       return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`,{observe:'response'});
+       return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
     }
 
     getAlltasks(){
-      return this.http.get<Task[]>(`${this.gatewayUrl}/${this.taskMicroServicePathUrl}/all`,{observe:'response'});
+      return this.http.get<Task[]>(`${this.gatewayUrl}/${this.taskMicroServicePathUrl}/all`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
     }
 
     deleteActionItem(id:number){
       //console.log(action.id);
-      return this.http.delete<number>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/delete/${id}`,{observe:'response'});
+      return this.http.delete<number>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/delete/${id}`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
     }
     
     deleteSelectedActionItemsByIds(actionItemsIds:any[]){
-      return this.http.delete<boolean>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/deleteAll/${actionItemsIds}`,{observe:'response'});
+      return this.http.delete<boolean>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/deleteAll/${actionItemsIds}`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      }
+      )})
 
     }
   }
