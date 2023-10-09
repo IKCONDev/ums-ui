@@ -1,8 +1,8 @@
 
 import { Component, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ReportService } from './service/reports.service';
 import { BatchDetails } from '../model/batchDetails.model';
+import { BatchDetailsService } from './service/batch-details.service';
 @Component({
   selector: 'app-batch-details',
   templateUrl: './batch-details.component.html',
@@ -18,13 +18,13 @@ export class BatchDetailsComponent implements OnInit{
     * 
     * @param reportservice 
     */
-   constructor (private reportservice:ReportService){}
+   constructor (private batchService:BatchDetailsService){}
 
    /**
     * 
     */
    ngOnInit(): void {
-      this.reportservice.getAllBatchProcessDetails().subscribe(
+      this.batchService.getAllBatchProcessDetails().subscribe(
          res=>{
           this.batchDetails = res.body;
           console.log(this.batchDetails);

@@ -6,7 +6,7 @@ import { BatchDetails } from "src/app/model/batchDetails.model";
     providedIn : 'root'
 })
 
-export class ReportService{
+export class BatchDetailsService{
 
      constructor (private http:HttpClient){}
      private gateWayURL="http://localhost:8012";

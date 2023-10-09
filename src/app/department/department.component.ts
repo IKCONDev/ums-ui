@@ -18,6 +18,9 @@ export class DepartmentComponent implements OnInit {
     this.departmentList = this.getAllDepartments();
   }
 
+  /**
+   * ngOnInit() executes on component initialization everytime
+   */
   ngOnInit(): void {
       //get all departments List on component initialization
       this.departmentList = this.getAllDepartments();
@@ -25,7 +28,7 @@ export class DepartmentComponent implements OnInit {
 
 
   /**
-   * 
+   * get list of all departments from Database and display to admin in UI
    */
   getAllDepartments(): Department[]{
     this.departmentService.getDepartmentList().subscribe(
