@@ -2,8 +2,8 @@
 /*common properties*/
 
 .container-fluid{
-    padding-top: 20px;
-    padding-left:140px;
+    padding-top: 10px;
+    padding-left:120px;
     padding-right: 32px;
 }
 
@@ -35,3 +35,45 @@
 }
 
 /*common properties end*/
+
+.input-border{
+    border-radius: 8px;
+    border: 1px solid var(--brand-color-1, #2AA3D9);
+}
+
+.modal{
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.05);
+}
+
+#addBtn{
+    border-radius: 4px;
+    background: var(--side-text, #ECF7FC);
+}
+
+#addBtnDiv{
+    padding-top: 8px;
+    padding-left: 15px;
+    width: 200px;
+}
+
+#deleteBtn{
+    border-radius: 4px;
+    background: var(--side-text, #ECF7FC);
+}
+
+#deleteBtnDiv{
+    padding-top: 8px;
+    width: 100px;
+}
+
+#searchDiv{
+    padding-top: 8px;
+}
+
+#filter {
+    padding-top: 10px;
+    color: #F6FBFD;
+    cursor: pointer;
+    font-weight: bold;
+}
