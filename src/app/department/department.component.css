@@ -54,7 +54,7 @@
 #addBtnDiv{
     padding-top: 8px;
     padding-left: 15px;
-    width: 200px;
+
 }
 
 #deleteBtn{
@@ -64,7 +64,7 @@
 
 #deleteBtnDiv{
     padding-top: 8px;
-    width: 100px;
+    
 }
 
 #searchDiv{
@@ -76,4 +76,31 @@
     color: #F6FBFD;
     cursor: pointer;
     font-weight: bold;
+}
+
+.deptInput{
+    border: 1px solid #2AA3D9;
+    height: 50px;
+    width: 400px;
+}
+
+.modal-content{
+   padding-left: 35px;
+   padding-bottom: 40px;
+}
+
+#trashIcon{
+    cursor: pointer;
+}
+
+#editIcon{
+    cursor: pointer;
+}
+
+th{
+    font-size: 11px;
+}
+
+td{
+    font-size: 11px;
 }
