@@ -176,7 +176,7 @@
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                             </td>
                                             <td>
-                                                <button clas="btn-primary"  data-target="#xlModal" data-toggle="modal">Submit</button>
+                                                <button clas="btn-primary"  data-target="#xlModal" data-toggle="modal" (click)="convertActionItemToTask(meeting)">Submit</button>
                                             </td>
                                             <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
@@ -480,7 +480,20 @@
             <div class="modal-content" style="padding: 0px;">
                 <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
                 <h5 class="modal-title" id="xlModalLabel">Meeting Minutes - [OrganizerName]</h5>
-                 <a href="" type="submit" style="color: aqua; padding-left: 80px;">Send</a>
+                <div style="padding-left: 50px;"> <span type="submit" style="color: aqua;">Send</span>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
+                        <g id="send">
+                        <mask id="mask0_3149_68857" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="12" height="13">
+                        <rect id="Bounding box" y="0.5" width="12" height="12" fill="#D9D9D9"/>
+                        </mask>
+                        <g mask="url(#mask0_3149_68857)">
+                        <path id="send_2" d="M1.5 10.5V7.5L5.5 6.5L1.5 5.5V2.5L11 6.5L1.5 10.5Z" fill="#4880FF"/>
+                        </g>
+                        </g>
+                        </svg>
+                
+                </div> 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="color:white; padding-top: 0px;">&times;</span>
                 </button>
@@ -489,7 +502,7 @@
                     <label for="email" style="padding-left: 0px;"><b>Superiors</b></label>
                     <input type="text" id="email"/>
                     <hr>
-                    <div class="row" *ngIf="meetingData!=null">
+                    <div class="row"   *ngIf="meetingData!=null">
                         <div class="col-md-6" >
                         <table>
                             <thead>
@@ -528,8 +541,9 @@
                       </div>
                    </div>
                    <hr>
-                   <div  *ngIf="meetingData!= null">
                    <label for="attendees"><b>Attendees</b></label>
+                   <div  *ngIf="meetingData!= null">
+                   
                        <div *ngFor="let attendees of meetingData.attendees">
                            <label>{{attendees.email}}</label>
                        </div>
@@ -537,7 +551,7 @@
                    <hr>
                    <label for="Actions" ><b>Action Item</b></label>
                    <div *ngFor="let action of actionItemsOfMeeting; let i=index">
-                     <label>{{i+1}}. {{action.actionItemTitle}}</label>
+                     <label *ngIf="meetingData.meetingId== action.meetingId">{{i+1}}. {{action.actionItemTitle}}</label>
                    </div>
                  </div>
                  <div class="modal-footer">
