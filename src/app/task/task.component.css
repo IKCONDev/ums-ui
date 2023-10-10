@@ -140,3 +140,16 @@ th,td{
   background-color: #FD5454;
   border-color: #fd5454;
 }
+
+#meeting-subject{
+  white-space: nowrap;
+  text-overflow:ellipsis; 
+  overflow: hidden;
+  max-width:90px;
+  cursor: pointer;
+}
+
+#meeting-subject:hover{
+  overflow: visible;
+  white-space: normal;
+}
