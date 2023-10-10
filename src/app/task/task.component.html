@@ -32,7 +32,7 @@
                             style="margin: 0px;" (change)="checkAllCheckBoxes($event)">
                     </th>
                     <th>UID</th>
-                    <th>Title</th>
+                    <th style="width: 140px;">Title</th>
                     <th>Assignees</th>
                     <th>StartDate</th>
                     <th>DueDate</th>
@@ -47,7 +47,7 @@
                         </td>
                         <!--- <td>{{item.taskId}}</td>-->
                         <td>T000{{i+1}}</td>
-                        <td>{{item.taskTitle}}</td>
+                        <td id="meeting-subject">{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
                         <td>{{item.startDate}}</td>
                         <td>{{item.dueDate}}</td>
@@ -97,7 +97,7 @@
             <table class="table table-hover" height="40">
                 <thead id="thead">
                     <th>Sno</th>
-                    <th>Title</th>
+                    <th style="width: 140px;">Title</th>
                     <th>Owner</th>
                     <th>StartDate/Time</th>
                     <th>DueDate/Time</th>

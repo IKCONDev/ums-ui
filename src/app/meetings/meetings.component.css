@@ -56,13 +56,6 @@
     background: var(--side-text, #ECF7FC);
 }
 
-#meeting-subject {
-    white-space: nowrap;
-    /* width: 50px;  */
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 #meeting-headings {
     font-weight: bold;
     padding-left: 20px;
@@ -229,3 +222,16 @@
     width: 2000px;
     margin-left: 500px; 
   }
+
+#meeting-subject{
+  white-space: nowrap;
+  text-overflow:ellipsis; 
+  overflow: hidden;
+  max-width:90px;
+  cursor: pointer;
+}
+
+#meeting-subject:hover{
+  overflow: visible;
+  white-space: normal;
+}
