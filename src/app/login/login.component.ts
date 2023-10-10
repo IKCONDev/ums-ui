@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subject, filter, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { LoginService } from './service/login.service';
 import { NavigationExtras } from '@angular/router';
 import { HttpStatusCode } from '@angular/common/http';

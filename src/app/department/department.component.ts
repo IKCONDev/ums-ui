@@ -15,29 +15,28 @@ export class DepartmentComponent implements OnInit {
 
   constructor(private departmentService: DepartmentService){
     //get all departments List on component initialization
-    this.departmentList = this.getAllDepartments();
+    this.getAllDepartments();
+    
   }
 
   /**
    * ngOnInit() executes on component initialization everytime
    */
   ngOnInit(): void {
-      //get all departments List on component initialization
-      this.departmentList = this.getAllDepartments();
+      
   }
 
 
   /**
    * get list of all departments from Database and display to admin in UI
    */
-  getAllDepartments(): Department[]{
+  getAllDepartments(){
     this.departmentService.getDepartmentList().subscribe(
       (response)=>{
-        console.log(response.body)
-        //this.departmentList = response.body;
+        this.departmentList = response.body;
+        console.log(this.departmentList)
       }
     )
-    return this.departmentList;
   }
 
 

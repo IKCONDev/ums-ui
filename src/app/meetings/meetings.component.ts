@@ -921,4 +921,8 @@ pastDateTime(){
   this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
   console.log(this.min);
 }
+
+onMaterialGroupChange(event) {
+  console.log(event);
+}
 }

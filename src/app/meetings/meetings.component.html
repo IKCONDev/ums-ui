@@ -422,16 +422,26 @@
                             <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
                         </div>
                 <label><b>Action Owner</b></label>
-                <div style="padding-left: 10px;">
-                    <ng-select class="form-control" [searchable]="true" [clearable]="true" id="uAcItemOwner"
+                    <!-- <ng-select class="form-control" [searchable]="true" [multiple]="true"
+                     [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
                         name="uAcItemOwner" style="width: 400px;" 
                         (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner">
                         <ng-option [value]="">choose</ng-option>
                         <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                             {{emailId}}
                         </ng-option>
-                    </ng-select>
-                </div>
+                    </ng-select> -->
+                   <div style="width: 410px;padding-left: 10px;">
+                    <ng-select class="form-control" [items]="userEmailIdList" bindLabel="name" bindValue="id" [multiple]="true" groupBy="selectedAllGroup"
+                    [selectableGroup]="true" placeholder="" (change)="onMaterialGroupChange($event)" 
+                    style="background-color: white;">
+                
+                    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> Select All
+                    </ng-template>
+                </ng-select>
+                   </div>
+                
                 <div *ngIf="updateActionItemOwnerErrorInfo != '' || updateActionItemOwnerErrorInfo==null">
                     <span id="errorSpan">{{updateActionItemOwnerErrorInfo}}</span>
                 </div>

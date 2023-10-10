@@ -3,7 +3,6 @@ import { MyProfileService } from './service/my-profile.service';
 import { Users } from '../model/Users.model';
 import { data, error, event } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
-import { elementAt } from 'rxjs';
 import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
