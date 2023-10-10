@@ -9,6 +9,6 @@ export interface Users{
 	 twoFactorAuthentication: boolean;
 	 employee: Employee;
 	 profilePic: Blob;
-	 isActive: boolean;
+	 active: boolean;
 
 }
