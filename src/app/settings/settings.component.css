@@ -50,13 +50,14 @@
   .rectangle-div {
     position: fixed;
     background-color: #5590aa;
-    width: 17%;
+    width: 13%;
     height: 100%;
 }
 .rectangle-div a{
      color: white;
 }
 a p{
+    font-size: 13px;
     padding-left: 54%;
     padding-top: 10%;
 }
