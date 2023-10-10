@@ -12,6 +12,8 @@ export class DepartmentComponent implements OnInit {
 
   @Output() title:string='Departments';
   departmentList: Department[];
+  addDepartment: Department;
+  updateDepartment: Department;
 
   constructor(private departmentService: DepartmentService){
     //get all departments List on component initialization
