@@ -593,6 +593,7 @@ export class MeetingsComponent implements OnInit {
     console.log("data fetching");
   }
 
+  meetingData: Meeting
 
   /**
    * 
@@ -600,6 +601,7 @@ export class MeetingsComponent implements OnInit {
    */
   convertActionItemToTask(meeting: Meeting) {
     console.log(meeting.meetingId)
+    this.meetingData = meeting;
     var table = document.getElementById("myTable" + meeting.meetingId)
     console.log(table)
     //for(var i=0; i<tables.length; i++){
