@@ -422,7 +422,7 @@
                             <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
                         </div>
                 <label><b>Action Owner</b></label>
-                    <!-- <ng-select class="form-control" [searchable]="true" [multiple]="true"
+                    <ng-select class="form-control" [searchable]="true" [multiple]="true"
                      [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
                         name="uAcItemOwner" style="width: 400px;" 
                         (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner">
@@ -430,16 +430,16 @@
                         <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                             {{emailId}}
                         </ng-option>
-                    </ng-select> -->
+                    </ng-select>
                    <div style="width: 410px;padding-left: 10px;">
-                    <ng-select class="form-control" [items]="userEmailIdList" bindLabel="name" bindValue="id" [multiple]="true" groupBy="selectedAllGroup"
+                <!-- <ng-select class="form-control" [items]="userEmailIdList" bindLabel="name" bindValue="id" [multiple]="true" groupBy="selectedAllGroup"
                     [selectableGroup]="true" placeholder="" (change)="onMaterialGroupChange($event)" 
                     style="background-color: white;">
                 
                     <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                         <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> Select All
                     </ng-template>
-                </ng-select>
+                </ng-select> -->
                    </div>
                 
                 <div *ngIf="updateActionItemOwnerErrorInfo != '' || updateActionItemOwnerErrorInfo==null">
@@ -474,41 +474,38 @@
             </div>
         </div>
     </div>
-  
-    <!-- Modal for Send MOM Email-->
+    <!-- MOM modal -->
     <div class="modal fade" id="xlModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true" >
         <div class="modal-dialog modal-xl" style="width: 700px;">
             <div class="modal-content" style="padding: 0px;">
                 <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
                 <h5 class="modal-title" id="xlModalLabel">Meeting Minutes - [OrganizerName]</h5>
-                
-                <a href="" type="submit" style="color: aqua; padding-left: 80px;">Send</a>
+                 <a href="" type="submit" style="color: aqua; padding-left: 80px;">Send</a>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="color:white; padding-top: 0px;">&times;</span>
                 </button>
                 </div>
-                 <div class="modal-body" *ngFor="let meeting of meetings">
+                 <div class="modal-body">
                     <label for="email" style="padding-left: 0px;"><b>Superiors</b></label>
                     <input type="text" id="email"/>
                     <hr>
-                    <div class="row" >
-                        <div class="col-md-6">
+                    <div class="row" *ngIf="meetingData!=null">
+                        <div class="col-md-6" >
                         <table>
                             <thead>
-   
                             </thead>
                             <tbody>
                                <tr>
                                    <td><b>Meeting Title :</b></td>
-                                   <td>{{meeting.subject}}</td>
+                                   <td>{{meetingData.subject}}</td>
                                </tr>
                                <tr>
                                  <td><b>Start Date :</b></td>
-                                 <td>{{meeting.startDateTime}}</td>
+                                 <td>{{meetingData.startDateTime}}</td>
                               </tr>
                               <tr>
                                 <td><b>Duration : </b></td>
-                                <td>value</td>
+                                <td>{{null}}</td>
                             </tr>
                             </tbody>
                        </table>
@@ -516,12 +513,11 @@
                       <div class="col-md-6">
                         <table>
                             <thead>
-
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><b>Organizer :</b></td>
-                                    <td>{{meeting.organizerName}}</td>
+                                    <td>{{meetingData.organizerName}}</td>
                                 </tr>
                                 <tr>
                                     <td><b>Description :</b></td>
@@ -532,8 +528,12 @@
                       </div>
                    </div>
                    <hr>
-                   <label for="attendeed"><b>Attendees</b></label> 
-                   <label>{{meeting.attendees}}</label>
+                   <div  *ngIf="meetingData!= null">
+                   <label for="attendees"><b>Attendees</b></label>
+                       <div *ngFor="let attendees of meetingData.attendees">
+                           <label>{{attendees.email}}</label>
+                       </div>
+                  </div>
                    <hr>
                    <label for="Actions" ><b>Action Item</b></label>
                    <div *ngFor="let action of actionItemsOfMeeting; let i=index">
@@ -541,13 +541,11 @@
                    </div>
                  </div>
                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary saveButton" 
-                       >Save</button>
+                    <button type="submit" class="btn btn-primary saveButton">Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        (click)=" clearErrorMessages(form)">Close</button> -->
+                      (click)=" clearErrorMessages(form)">Close</button> -->
                     <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" (click)="clearErrorMessages(form)">Close</button>
                 </div>
-                  
             </div>
         </div>
     </div>
