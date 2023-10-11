@@ -109,14 +109,15 @@
                 <div class="modal-header" id="modalHeader">
                     <h5 class="modal-title" id="xlModalLabel">Add Department</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+                        (click)="clearErrorMessages()">&times;</span>
                     </button>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label><b>Department Name</b></label>
                     <input type="text" class="deptInput form-control" placeholder="department name"
-                    [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName($event)"
+                    [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName()"
                     minlength="3" maxlength="20"/><br/>
                     <span *ngIf="departmentNameErrorInfo != ''">
                         <p id="errorMessage">{{departmentNameErrorInfo}}</p>
@@ -124,14 +125,14 @@
                     <!--   -->
                     <label><b>Department Head</b></label>
                     <input type="search" class="deptInput form-control" placeholder="department head"
-                    [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead($event)"/><br/>
+                    [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()"/><br/>
                     <span *ngIf="departmentHeadErrorInfo != ''">
                         <p id="errorMessage">{{departmentHeadErrorInfo}}</p>
                     </span>
                     <!--  -->
                     <label><b>Department Code</b></label>
                     <input type="text" class="deptInput form-control" placeholder="department code"
-                    [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode($event)"
+                    [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode()"
                     minlength="2" maxlength="4"/><br/>
                     <span *ngIf="departmentCodeErrorInfo != ''">
                         <p id="errorMessage">{{departmentCodeErrorInfo}}</p>
@@ -139,7 +140,7 @@
                     <!--  -->
                     <label><b>Department Location</b></label>
                     <input type="text" class="deptInput form-control" placeholder="department location"
-                    [(ngModel)]="addDepartment.departmentAddress" (keyup)="validateDepartmentLocation($event)"
+                    [(ngModel)]="addDepartment.departmentAddress" (keyup)="validateDepartmentLocation()"
                    minlength="3" maxlength="20"/>
                     <span *ngIf="departmentLocationErrorInfo != ''">
                         <p id="errorMessage">{{departmentLocationErrorInfo}}</p>
@@ -153,11 +154,12 @@
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
                     <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
-                    >Close</button>
+                    (click)="clearErrorMessages()">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    
     
     <!-- Update Department Modal -->
     <div class="modal fade" id="updateDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
@@ -167,40 +169,41 @@
                 <div class="modal-header" id="modalHeader">
                     <h5 class="modal-title" id="xlModalLabel">Update Department</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+                        (click)="clearErrorMessages()">&times;</span>
                     </button>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label><b>Department Name</b></label>
                     <input type="text" class="deptInput form-control" placeholder="department name"
-                    [(ngModel)]="existingDepartment.departmentName" (keyup)="validateDepartmentName($event)"
+                    [(ngModel)]="existingDepartment.departmentName" (keyup)="validateUpdatedDepartmentName()"
                     minlength="3" maxlength="20"/><br/>
-                    <span *ngIf="departmentNameErrorInfo != ''">
-                        <p id="errorMessage">{{departmentNameErrorInfo}}</p>
+                    <span *ngIf="updatedDepartmentNameErrorInfo != ''">
+                        <p id="errorMessage">{{updatedDepartmentNameErrorInfo}}</p>
                     </span>
                     <!--   -->
                     <label><b>Department Head</b></label>
                     <input type="search" class="deptInput form-control" placeholder="department head"
-                    [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateDepartmentHead($event)"/><br/>
-                    <span *ngIf="departmentHeadErrorInfo != ''">
-                        <p id="errorMessage">{{departmentHeadErrorInfo}}</p>
+                    [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateUpdatedDepartmentHead()"/><br/>
+                    <span *ngIf="updatedDepartmentHeadErrorInfo != ''">
+                        <p id="errorMessage">{{updatedDepartmentHeadErrorInfo}}</p>
                     </span>
                     <!--  -->
                     <label><b>Department Code</b></label>
                     <input type="text" class="deptInput form-control" placeholder="department code"
-                    [(ngModel)]="existingDepartment.departmentCode" (keyup)="validateDepartmentCode($event)"
+                    [(ngModel)]="existingDepartment.departmentCode" (keyup)="validateUpdatedDepartmentCode()"
                     minlength="2" maxlength="4"/><br/>
-                    <span *ngIf="departmentCodeErrorInfo != ''">
-                        <p id="errorMessage">{{departmentCodeErrorInfo}}</p>
+                    <span *ngIf="updatedDepartmentCodeErrorInfo != ''">
+                        <p id="errorMessage">{{updatedDepartmentCodeErrorInfo}}</p>
                     </span>
                     <!--  -->
                     <label><b>Department Location</b></label>
                     <input type="text" class="deptInput form-control" placeholder="department location"
-                    [(ngModel)]="existingDepartment.departmentAddress" (keyup)="validateDepartmentLocation($event)"
+                    [(ngModel)]="existingDepartment.departmentAddress" (keyup)="validateUpdatedDepartmentLocation()"
                    minlength="3" maxlength="20"/>
-                    <span *ngIf="departmentLocationErrorInfo != ''">
-                        <p id="errorMessage">{{departmentLocationErrorInfo}}</p>
+                    <span *ngIf="updatedDepartmentLocationErrorInfo != ''">
+                        <p id="errorMessage">{{updatedDepartmentLocationErrorInfo}}</p>
                     </span>
                     <!--  -->
                 </div>
@@ -210,7 +213,8 @@
                        >Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
+                    (click)="clearErrorMessages()">Close</button>
                 </div>
             </div>
         </div>
