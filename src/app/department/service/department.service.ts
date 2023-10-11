@@ -48,7 +48,7 @@ export class DepartmentService{
      * @returns 
      */
     updateDepartment(updatedDepartment: any){
-        return this.http.put<Department>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/updated`,updatedDepartment,{observe:'response'});
+        return this.http.put<Department>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/update`,updatedDepartment,{observe:'response'});
     }
 
     /**
@@ -57,7 +57,8 @@ export class DepartmentService{
      * @returns 
      */
     getDepartment(departmentId: number){
-        return this.http.get<Department>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/${departmentId}`,{observe:'response'});
+        console.log(departmentId)
+        return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/${departmentId}`,{observe:'response'});
     }
 
 }
