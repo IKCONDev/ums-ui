@@ -549,8 +549,8 @@
                        </div>
                   </div>
                    <hr>
+                   <label for="Actions" ><b>Action Item</b></label>
                    <div  *ngFor="let action of actionItemsOfMeeting; let i=index">
-                    <label for="Actions" ><b>Action Item</b></label>
                     <div *ngIf="meetingData!= null && meetingData.meetingId == action.meetingId">
                       <label >{{i+1}}. {{action.actionItemTitle}}</label>
                     </div>
