@@ -57,6 +57,36 @@ export class DepartmentComponent implements OnInit {
    */
   savedDepartment: Department;
   createDepartment(){
+    var flag = 0;
+    if(this.addDepartment.departmentName === ''){
+      flag = 1;
+      this.departmentNameErrorInfo = 'Department name is required'
+    }else{
+      this.departmentNameErrorInfo = ''
+    }
+    if(this.addDepartment.departmentCode === ''){
+      flag = 1;
+      this.departmentCodeErrorInfo = 'Department code is required'
+    }else{
+      this.departmentCodeErrorInfo = ''
+    }
+    if(this.addDepartment.departmentHead === ''){
+      flag = 1;
+      this.departmentHeadErrorInfo = 'Department head is required'
+    }else{
+      this.departmentHeadErrorInfo = ''
+    }
+    if(this.addDepartment.departmentAddress === ''){
+      flag = 1;
+      this.departmentLocationErrorInfo = 'Department location is required'
+    }else{
+      this.departmentLocationErrorInfo = ''
+    }
+    if(flag==1){
+      this.toastr.error('Please fill required fields')
+    }
+    if(this.departmentNameErrorInfo === '' && this.departmentCodeErrorInfo === ''
+     &&this.departmentHeadErrorInfo === '' && this.departmentLocationErrorInfo=== ''){
     //set createdBy
     this.addDepartment.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     this.addDepartment.createdByEmailId = localStorage.getItem('email');
@@ -71,6 +101,7 @@ export class DepartmentComponent implements OnInit {
         }
       }
     )
+     }
   }
 
   /**
@@ -97,10 +128,14 @@ export class DepartmentComponent implements OnInit {
    * @param departmentId 
    */
   existingDepartment = {
+    departmentId:0,
     departmentName: '',
     departmentCode: '',
     departmentAddress: '',
     departmentHead: '',
+    createdBy:'',
+    createdByEmailId:'',
+    createdDateTime:'',
     modifiedBy:'',
     modifiedDateTime:''
   };
@@ -110,14 +145,12 @@ export class DepartmentComponent implements OnInit {
    * @param departmentId 
    */
   fetchOneDepartment(departmentId: number){
+    console.log(departmentId)
     this.departmentService.getDepartment(departmentId).subscribe(
       (response=>{
         if(response.status === HttpStatusCode.Ok){
-         this.existingDepartment.departmentName = response.body.departmentName;
-         this.existingDepartment.departmentCode = response.body.departmentCode;
-         this.existingDepartment.departmentHead = response.body.departmentHead;
-         this.existingDepartment.departmentAddress = response.body.departmentAddress;
-          console.log(this.existingDepartment.departmentName);
+         this.existingDepartment = response.body;
+         console.log(this.existingDepartment)
         }
       })
     )
@@ -128,12 +161,50 @@ export class DepartmentComponent implements OnInit {
    * update an existing department
    */
   modifyDepartment(){
-    this.existingDepartment.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+    var flag = 0;
+    if(this.existingDepartment.departmentName === ''){
+      flag = 1;
+      this.departmentNameErrorInfo = 'Department name is required'
+    }else{
+      this.departmentNameErrorInfo = ''
+    }
+    if(this.existingDepartment.departmentCode === ''){
+      flag = 1;
+      this.departmentCodeErrorInfo = 'Department code is required'
+    }else{
+      this.departmentCodeErrorInfo = ''
+    }
+    if(this.existingDepartment.departmentHead === ''){
+      flag = 1;
+      this.departmentHeadErrorInfo = 'Department head is required'
+    }else{
+      this.departmentHeadErrorInfo = ''
+    }
+    if(this.existingDepartment.departmentAddress === ''){
+      flag = 1;
+      this.departmentLocationErrorInfo = 'Department location is required'
+    }else{
+      this.departmentLocationErrorInfo = ''
+    }
+    if(flag==1){
+      this.toastr.error('Please fill required fields')
+    }
+    if(this.departmentNameErrorInfo === '' && this.departmentCodeErrorInfo === ''
+     &&this.departmentHeadErrorInfo === '' && this.departmentLocationErrorInfo=== ''){
+      this.existingDepartment.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+    console.log(this.existingDepartment)
     this.departmentService.updateDepartment(this.existingDepartment).subscribe(
       (response) => {
-        console.log(response.body);
+        console.log('exec')
+        if(response.status === HttpStatusCode.Created){
+          this.toastr.success('Department details updated')
+          setTimeout(()=>{
+            window.location.reload();
+          },2000)
+        }
       }
     )
+     }
   }
 
   /*
@@ -146,43 +217,77 @@ export class DepartmentComponent implements OnInit {
   */
 
   //validations for updateDepartment
-  existingDepartmentNameErrorInfo: string = ''
-  validateExistingDepartmentName(){
-    if(this.existingDepartment.departmentName === ''){
-      this.existingDepartmentNameErrorInfo = 'Department name is required';
-    }else if(this.existingDepartment.departmentName.length < 3){
-      this.existingDepartmentNameErrorInfo = 'department name should have minimum of 3 chars.';
+  departmentNameErrorInfo: string = ''
+  validateDepartmentName(event: any){
+    var deptName=  event.target.value;
+    if(deptName === ''){
+      this.departmentNameErrorInfo = 'Department name is required';
+    }else if(deptName.length < 3){
+      this.departmentNameErrorInfo = 'department name should have minimum of 3 chars.';
+    }else if(deptName.length>20){
+      this.departmentNameErrorInfo = 'department name should not exceed more than 20 chars';
     }else{
-      this.existingDepartmentNameErrorInfo = '';
+      this.departmentNameErrorInfo = '';
     }
   }
 
-  existingDepartmentHeadErrorInfo: string = ''
-  validateExistingDepartmentHead(){
-    if(this.existingDepartment.departmentHead === ''){
-      this.existingDepartmentHeadErrorInfo = 'Department head is required';
+  departmentHeadErrorInfo: string = ''
+  validateDepartmentHead(event: any){
+    var deptHead = event.target.value;
+    if(deptHead === ''){
+      this.departmentHeadErrorInfo = 'Department head is required';
     }else{
-      this.existingDepartmentHeadErrorInfo = '';
+      this.departmentHeadErrorInfo = '';
     }
   }
 
-  existingDepartmentCodeErrorInfo:string = '';
-  validateExistingDepartmentCode(){
-    if(this.existingDepartment.departmentCode === ''){
-      this.existingDepartmentCodeErrorInfo = 'Department code is required';
-    }else if(this.existingDepartment.departmentCode.length < 2){
-      this.existingDepartmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
-    }else if(this.existingDepartment.departmentCode.length > 4){
-      this.existingDepartmentCodeErrorInfo = 'Department code should not exceed 4 chars.';
+  departmentCodeErrorInfo:string = '';
+  validateDepartmentCode(event: any){
+    var deptCode = event.target.value;
+    if(deptCode === ''){
+      this.departmentCodeErrorInfo = 'Department code is required';
+    }else if(deptCode.length < 2){
+      this.departmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
+    }else if(deptCode.length > 4){
+      this.departmentCodeErrorInfo = 'Department code should not exceed 4 chars.';
     }
     else{
-      this.existingDepartmentCodeErrorInfo = '';
+      this.departmentCodeErrorInfo = '';
     }
   }
 
-  existingDepartmentLocationErrorInfo: string= '';
-  validateExistingDepartmentLocation(){
-
+  departmentLocationErrorInfo: string= '';
+  validateDepartmentLocation(event: any){
+    var deptLocation = event.target.value;
+    if(deptLocation === ''){
+      this.departmentLocationErrorInfo = 'Department location is required';
+    }else if(deptLocation.length < 3){
+      this.departmentLocationErrorInfo = 'Department location should be minimum of 3 chars.';
+    }else if(deptLocation.length > 20){
+      this.departmentLocationErrorInfo = 'Department location should not exceed 20 chars.';
+    }
+    else{
+      this.departmentLocationErrorInfo = '';
+    }
   }
+
+  // //validations for add department
+  // validateDepartmentName(event: any){
+  //   if(event.target.value === ''){
+  //     //this.existingDepartmentNameErrorInfo = ''
+  //   }
+  // }
+
+  // validateDepartmentHead(){
+
+  // }
+
+  // validateDepartmentCode(){
+
+  // }
+
+  // validateDepartmentLocation(){
+
+  // }
 
 }
