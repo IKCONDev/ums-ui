@@ -263,7 +263,7 @@
         <!-- add modal -->
         <div class="modal" id="myModal_add">
             <div class="modal-dialog">
-                <div class="modal-content" style="margin: 10px;margin: 70px;">
+                <div class="modal-content" id="modal-content"style="margin: 10px;margin: 70px;">
                     <!--Modal Header-->
                     <div class="modal-header">
                         <h4 class="modal-title" style="text-align: center;">Add Action Item</h4>
@@ -474,10 +474,12 @@
             </div>
         </div>
     </div>
+
+
     <!-- MOM modal -->
-    <div class="modal fade" id="xlModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true" >
-        <div class="modal-dialog modal-xl" style="width: 700px;">
-            <div class="modal-content" style="padding: 0px;">
+    <div class="modal" tabindex="-1"  id="xlModal"  >
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
                 <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
                 <h5 class="modal-title" id="xlModalLabel">Meeting Minutes - [OrganizerName]</h5>
                 <div style="padding-left: 50px;"> <span type="submit" style="color: aqua;">Send</span>
@@ -557,9 +559,6 @@
                 </div>
                  </div>
                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary saveButton">Save</button>
-                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                      (click)=" clearErrorMessages(form)">Close</button> -->
                     <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" (click)="clearErrorMessages(form)">Close</button>
                 </div>
             </div>
