@@ -26,6 +26,7 @@ export class UsersComponent  implements OnInit{
         });
 
   }
+  userDetails: any;
   checkToggleButton(user : Users, i :number){
     
     var table = document.getElementById("myTable")
@@ -39,11 +40,15 @@ export class UsersComponent  implements OnInit{
       if(checkbox.checked == true){
         console.log("selected");
         user.active = true;
-        this.userService.update(user.email,user);
+        this.userService.update(user.email,user).subscribe(res =>{
+            this.userDetails =res.body;
+        });
       }
       else{
         user.active = false;
-        this.userService.update(user.email,user);
+        this.userService.update(user.email,user).subscribe(res =>{
+          this.userDetails =res.body;
+      });
       }
       
     }
