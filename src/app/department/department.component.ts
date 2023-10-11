@@ -145,4 +145,44 @@ export class DepartmentComponent implements OnInit {
   }
   */
 
+  //validations for updateDepartment
+  existingDepartmentNameErrorInfo: string = ''
+  validateExistingDepartmentName(){
+    if(this.existingDepartment.departmentName === ''){
+      this.existingDepartmentNameErrorInfo = 'Department name is required';
+    }else if(this.existingDepartment.departmentName.length < 3){
+      this.existingDepartmentNameErrorInfo = 'department name should have minimum of 3 chars.';
+    }else{
+      this.existingDepartmentNameErrorInfo = '';
+    }
+  }
+
+  existingDepartmentHeadErrorInfo: string = ''
+  validateExistingDepartmentHead(){
+    if(this.existingDepartment.departmentHead === ''){
+      this.existingDepartmentHeadErrorInfo = 'Department head is required';
+    }else{
+      this.existingDepartmentHeadErrorInfo = '';
+    }
+  }
+
+  existingDepartmentCodeErrorInfo:string = '';
+  validateExistingDepartmentCode(){
+    if(this.existingDepartment.departmentCode === ''){
+      this.existingDepartmentCodeErrorInfo = 'Department code is required';
+    }else if(this.existingDepartment.departmentCode.length < 2){
+      this.existingDepartmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
+    }else if(this.existingDepartment.departmentCode.length > 4){
+      this.existingDepartmentCodeErrorInfo = 'Department code should not exceed 4 chars.';
+    }
+    else{
+      this.existingDepartmentCodeErrorInfo = '';
+    }
+  }
+
+  existingDepartmentLocationErrorInfo: string= '';
+  validateExistingDepartmentLocation(){
+
+  }
+
 }
