@@ -38,12 +38,12 @@
         <div class="row" >
             <table class="table table-hover">
                 <thead id="thead">
-                    <th>MeetingId</th>
+                    <th>Meeting Id</th>
                     <!-- <th>Id</th> -->
                     <th>Title</th>
                     <th>Organizer</th>
-                    <th>StartDate/Time</th>
-                    <th>EndDate/Time</th>
+                    <th>Start Date/Time</th>
+                    <th>End Date/Time</th>
                     <th>Attendees</th>
                     <th>Transcript</th>
                     <th>Action Items</th>
@@ -98,8 +98,8 @@
                             <!-- transcript data Modal end -->
                         </td>
 
-                        <td style="padding-left: 12px;"><a class="showmore"
-                                (click)="fetchActionItemsOfEvent(meeting.meetingId)">Show Action Items</a></td>
+                        <td style="padding-left: 12px;"><a class="showmore" id="showActionItems{{meeting.meetingId}}"
+                                (click)="fetchActionItemsOfEvent(meeting.meetingId)" >Show Action Items</a></td>
                     </tr>
                     <tr class="detail">
                         <td colspan="12">
@@ -116,7 +116,7 @@
                                             <th id="tablehead">Start Date</th>
                                             <th id="tablehead">Description</th>
                                             <th id="tablehead">Status</th>
-                                            <th id="tablehead">Actions</th>
+                                            <th id="tablehead">Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
@@ -228,8 +228,8 @@
                     <th>Sno</th>
                     <th>Title</th>
                     <th>Organizer</th>
-                    <th>StartDate/Time</th>
-                    <th>EndDate/Time</th>
+                    <th>Start Date/Time</th>
+                    <th>End Date/Time</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
@@ -249,8 +249,8 @@
                         <th>Id</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>StartDate/Time</th>
-                        <th>EndDate/Time</th>
+                        <th>Start Date/Time</th>
+                        <th>End Date/Time</th>
                     </thead>
                 </table>
                 <p id="no-meetings">No Meetings Attended Yet ! </p>
@@ -302,9 +302,9 @@
                             id="actionItemPriority"
                             (click)="validateActionPriority()">
                             <option>select</option>
-                            <option>Low</option>
-                            <option>Medium</option>
                             <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
                         </select>
                         <div *ngIf="actionItemPriorityErrorInfo != ''">
                             <span id="errorSpan">{{actionItemPriorityErrorInfo}}</span>
@@ -414,9 +414,9 @@
                             id="actionItemPriority"
                             (click)="validateUpdateActionPriority()">
                             <option>select</option>
-                            <option>Low</option>
-                            <option>Medium</option>
                             <option>High</option>
+                            <option>Medium</option>
+                            <option>Low</option>
                         </select>
                         <div *ngIf="updateActionItemPriorityErrorInfo != ''">
                             <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
