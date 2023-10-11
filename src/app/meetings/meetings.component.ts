@@ -933,4 +933,20 @@ pastDateTime(){
 onMaterialGroupChange(event) {
   console.log(event);
 }
+
+/** send Mom Email */
+
+actionItemsforSendMOM :[];
+sendMOMEmail(meetingData : Meeting){
+  
+  for(let action of this.actionItemsOfMeeting){
+    if(meetingData.meetingId === action.meetingId){
+          this.actionItemsforSendMOM =action;
+          console.log(this.actionItemsforSendMOM);
+    }
+
+  }
+
+}
+
 }

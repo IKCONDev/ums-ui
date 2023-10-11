@@ -21,6 +21,9 @@ export class UserService{
         console.log("came to update"+ user);
         return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/update/{email}`,user,{observe:'response'});
     }
+    createUser(user : any){
+        return this.http.post<Users>(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/save`,user,{observe:'response'});
+    }
 
 
 }

@@ -75,19 +75,19 @@
                 ><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
-            <div class="modal-body">
-                <label><b>First Name</b></label>
+            <div class="modal-body" >
+                <!--<label><b>First Name</b></label>
                 <input type="text" class="adduserInput form-control" placeholder="First Name"/><br/>
                 <label><b>Last Name</b></label>
-                <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>
+                <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b></label>
-                <input type="text" class="adduserInput form-control" placeholder="Email"/><br/>
+                <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"/><br/>
                 <label><b>Role</b></label>
-                <input type="text" class="adduserInput form-control" placeholder="Role"/>
+                <input type="text" class="adduserInput form-control" placeholder="Role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"/>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" >Save</button>
+                <button type="button" class="btn btn-primary" (click)="createUser()">Save</button>
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
