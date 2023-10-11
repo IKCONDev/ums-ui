@@ -63,8 +63,8 @@ export class ForgotPasswordEmailVerificationComponent {
         // Execute when the focus is outside the textbox 
         this.renderer.setAttribute(emailInput, 'placeholder', 'Email Id');
         console.log('Focus is outside the textbox');
-        this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#emailDiv'), 'group');
-        this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
+        //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#emailDiv'), 'group');
+        //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
       }
     });
   }

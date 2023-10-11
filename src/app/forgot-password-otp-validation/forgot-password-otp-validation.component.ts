@@ -19,6 +19,7 @@ export class ForgotPasswordOtpValidationComponent {
   email: string = '';
   isValidOtp: boolean = false;
   OtpResponseMessage:string='';
+  verifyButtonDisabled:boolean=false;
 
   /**
    * 
@@ -90,7 +91,9 @@ export class ForgotPasswordOtpValidationComponent {
     if(this.otpCode.toString() === "" ){
        
         this.OtpResponseMessage="";
-    }
+    }else if(this.otpCode.toString()<"6"){
+      this.verifyButtonDisabled=false;
+  }
   }
 
   /**
@@ -140,6 +143,7 @@ export class ForgotPasswordOtpValidationComponent {
       }else{
         console.log(' invalid otp please enter a valid one or request for resend otp')
         this.OtpResponseMessage ="Invalid otp";
+        this.verifyButtonDisabled=true;
         let navigationExtras: NavigationExtras = {
           state: {
             email: this.email
@@ -148,5 +152,14 @@ export class ForgotPasswordOtpValidationComponent {
         this.router.navigateByUrl("/verify-otp", navigationExtras)
       }
     }))
+  }
+  otpValidation(event:KeyboardEvent){
+    const invalidChars =['+','-','.','e'];
+    const inputElement= event.target as HTMLInputElement;
+    if(invalidChars.includes(event.key)|| (inputElement.value.length==6 && event.key!='Backspace'
+    )){
+        event.preventDefault();
+        this.verifyButtonDisabled=false;
+    }
   }
 }

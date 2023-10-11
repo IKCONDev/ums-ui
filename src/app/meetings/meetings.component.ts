@@ -355,9 +355,6 @@ export class MeetingsComponent implements OnInit {
       console.log(this.response);
       if(response.status === HttpStatusCode.Ok){
         this.toastr.success('Action item added sucessfully !');
-        setTimeout(()=>{
-          window.location.reload();  
-         },1500)
       }
     });
     this.fetchActionItemsOfEvent(this.currentMeetingId);

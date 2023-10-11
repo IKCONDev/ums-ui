@@ -281,8 +281,8 @@ getTokenPopup(request) {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(emailInput, 'placeholder', 'Email Id');
         console.log('Focus is outside the textbox');
-        this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#emailDiv'), 'group');
-        this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
+        //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#emailDiv'), 'group');
+        //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
       }
     });
   }
@@ -300,8 +300,8 @@ getTokenPopup(request) {
       if (!passwordInput.contains(event.target)) {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(passwordInput, 'placeholder', 'Password');
-        this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#passwordDiv'), 'group');
-        this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
+        //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#passwordDiv'), 'group');
+        //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
       }
     });
     this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordEye'), 'display','block');
