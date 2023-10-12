@@ -4,11 +4,11 @@
     overflow: hidden;
     text-overflow: ellipsis; 
   }
-  .container-fluid{
-    padding-top: 10px;
+  .container-fluid {
+    padding-top: 72px;
     padding-left:120px;
     padding-right: 32px;
-}
+  }
 
 .card-header{
   background-color: #134E69D9;

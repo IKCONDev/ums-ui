@@ -18,7 +18,7 @@ import { JsonPipe } from '@angular/common';
   templateUrl: './meetings.component.html',
   styleUrls: ['./meetings.component.css']
 })
-export class MeetingsComponent implements OnInit, DoCheck {
+export class MeetingsComponent implements OnInit{
 
   eventId: number;
 
@@ -133,10 +133,12 @@ export class MeetingsComponent implements OnInit, DoCheck {
  /**
   * when ever the dom is updated
   */
-  ngDoCheck(): void {
+  
+ /*ngDoCheck(): void {
     console.log('executed')
     this.initializeActionItemsSlider();
   }
+  */
 
 
   /**
