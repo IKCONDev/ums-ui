@@ -62,7 +62,6 @@ flex-shrink: 0;
   position: fixed;
   margin: auto;
   width: 320px;
-  padding-top: 72px;
   height: 100%;
   -webkit-transform: translate3d(0%, 0, 0);
   -ms-transform: translate3d(0%, 0, 0);
