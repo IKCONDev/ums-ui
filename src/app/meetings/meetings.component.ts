@@ -133,10 +133,16 @@ export class MeetingsComponent implements OnInit{
  /**
   * when ever the dom is updated
   */
+<<<<<<< HEAD
   
  /*ngDoCheck(): void {
     console.log('executed')
     this.initializeActionItemsSlider();
+=======
+  ngDoCheck(): void {
+    // console.log('executed')
+    // this.initializeActionItemsSlider();
+>>>>>>> 8404c18a277dac676ec5bc99759e31fbf0dadcbe
   }
   */
 
@@ -419,6 +425,8 @@ export class MeetingsComponent implements OnInit{
    * @param tabOpened 
    */
   getMeetings(tabOpened: string) {
+    //re-initailze slider
+    this.initializeActionItemsSlider();
     console.log(tabOpened)
     localStorage.setItem('tabOpened', tabOpened);
     this.tabOpened = localStorage.getItem('tabOpened')
