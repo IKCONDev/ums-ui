@@ -54,6 +54,7 @@ export class MyProfileComponent {
   onFileChanged(event: any) {
     this.selectedUserProfilePic = event.target.files[0];
     if (this.selectedUserProfilePic.size < this.fileSize) {
+      
       //execute
       console.log(localStorage.getItem('email'));
       this.profileService.updateUserProfilePic(localStorage.getItem('email'), this.selectedUserProfilePic).subscribe(
@@ -61,12 +62,15 @@ export class MyProfileComponent {
           if (response.status === HttpStatusCode.Ok) {
             this.selectedUserProfilePic = response.body.profilePic;
             this.toastr.success('Profile pic uploaded succesfully');
-
+            
             setTimeout(() => {
               window.location.reload();
             }, 1000);
           } else if (response.status === HttpStatusCode.Unauthorized) {
             //TODO: SHOW UNAUTHORIZED PAGE
+          }
+          else{
+            this.toastr.error('Invalid Profile Format');
           }
         }
       )

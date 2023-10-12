@@ -10,10 +10,10 @@
             <div class="col-sm-2">
                 <h2 id="heading">Meeting List</h2>
             </div>
-            <div class="col-sm-2" id="organizedMeeting">
+            <div class="col-sm-2" >
                 <p id="organizedMeeting" (click)="getMeetings('OrganizedMeeting')">Organized Meeting</p>
             </div>
-            <div class="col-sm-2" id="attendedMeeting">
+            <div class="col-sm-2">
                 <p id="attendedMeeting" (click)="getMeetings('AttendedMeeting')">Attended Meeting</p>
             </div>
             <div class="col-sm-1"></div>
@@ -549,12 +549,10 @@
                        </div>
                   </div>
                    <hr>
-                   <div  *ngFor="let action of actionItemsOfMeeting; let i=index">
-                    <label for="Actions" ><b>Action Item</b></label>
-                    <div *ngIf="meetingData!= null && meetingData.meetingId == action.meetingId">
-                      <label >{{i+1}}. {{action.actionItemTitle}}</label>
-                    </div>
-                </div>
+                   <label for="Actions" ><b>Action Item</b></label>
+                   <div *ngFor="let action of actionItemsOfMeeting; let i=index">
+                     <label *ngIf="meetingData.meetingId == action.meetingId">{{i+1}}. {{action.actionItemTitle}}</label>
+                   </div>
                  </div>
                  <div class="modal-footer">
                     <button type="submit" class="btn btn-primary saveButton">Save</button>

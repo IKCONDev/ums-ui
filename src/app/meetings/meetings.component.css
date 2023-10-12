@@ -22,21 +22,21 @@
 }
 
 #organizedMeeting {
-    padding-top: 10px;
+    padding-top: 14px;
     color: #F6FBFD;
     cursor: pointer;
     font-weight: bold;
 }
 
 #attendedMeeting {
-    padding-top: 10px;
+    padding-top: 14px;
     color: #F6FBFD;
     cursor: pointer;
     font-weight: bold;
 }
 
 #filter {
-    padding-top: 10px;
+    padding-top: 11px;
     color: #F6FBFD;
     cursor: pointer;
     font-weight: bold;
@@ -111,6 +111,13 @@
 
 /* 
  */
+ th{
+  font-size: 11px;
+}
+
+td{
+  font-size: 11px;
+}
 
  tr.detail {
     display: none;
@@ -235,3 +242,10 @@
   overflow: visible;
   white-space: normal;
 }
+span{
+  display:inline-block;
+  border-bottom:1px solid white;
+  padding-bottom:2px;
+}
+
+

@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
 import { count } from 'rxjs';
 import { JsonPipe } from '@angular/common';
+//import "@ng-select/ng-select/themes/default.theme.css";
 
 @Component({
   selector: 'app-meetings',
@@ -399,8 +400,10 @@ export class MeetingsComponent implements OnInit {
     console.log(localStorage.getItem('tabOpened'))
 
     if (tabOpened === 'OrganizedMeeting') {
-      document.getElementById("organizedMeeting").style.textDecorationLine = 'underline';
-      document.getElementById("attendedMeeting").style.textDecorationLine = 'none';
+      document.getElementById("organizedMeeting").style.borderBottom = '2px solid white';
+      document.getElementById("organizedMeeting").style.width = 'fit-content';
+      document.getElementById("organizedMeeting").style.paddingBottom = '2px';
+      document.getElementById("attendedMeeting").style.borderBottom = 'none';
       //get user organized meetings
       this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe(
         (response) => {
@@ -432,8 +435,10 @@ export class MeetingsComponent implements OnInit {
         }
       )
     } else {
-      document.getElementById("organizedMeeting").style.textDecorationLine = 'none';
-      document.getElementById("attendedMeeting").style.textDecorationLine = 'underline';
+      document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
+      document.getElementById("attendedMeeting").style.paddingBottom = '2px';
+      document.getElementById("attendedMeeting").style.width = 'fit-content';
+      document.getElementById("organizedMeeting").style.borderBottom = 'none';
       //get user attended meetings
       this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe(
         (response) => {
