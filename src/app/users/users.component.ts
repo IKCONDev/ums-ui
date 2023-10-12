@@ -2,6 +2,8 @@ import { Component , OnInit, Output} from '@angular/core';
 import { UserService } from './service/users.service';
 import { Users } from '../model/Users.model';
 import { MsalInterceptorAuthRequest } from '@azure/msal-angular';
+import { HttpStatusCode } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
@@ -14,7 +16,7 @@ export class UsersComponent  implements OnInit{
 
   userList :Users[];
 
-  constructor(private userService:UserService){}
+  constructor(private userService:UserService, private toastr : ToastrService){}
 
   ngOnInit(): void {
      this.userService.getAll().subscribe(
@@ -73,9 +75,15 @@ export class UsersComponent  implements OnInit{
     //this.addUserObj.userRoles.at(0).roleName; 
     this.userService.createUser(this.addUserObj).subscribe(
        response =>{
-
-        
-         this.addUserObj = response.body;
+        this.addUserObj = response.body;
+        if(response.status == HttpStatusCode.Created){
+           this.toastr.success("user added successfully");
+           document.getElementById('closeAddModal').click();
+           setTimeout(()=>{
+              window.location.reload();
+          },1000)
+        }
+         
        }
     )
 
