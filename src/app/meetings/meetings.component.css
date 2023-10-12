@@ -242,10 +242,12 @@ td{
   overflow: visible;
   white-space: normal;
 }
-span{
+/*span{
   display:inline-block;
   border-bottom:1px solid white;
   padding-bottom:2px;
-}
+}*/
+
+
 
 

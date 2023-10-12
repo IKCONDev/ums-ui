@@ -22,14 +22,14 @@
 }
 
 #OrganizedTask{
-  padding-top: 10px;
+  padding-top: 15px;
   color: #F6FBFD;
   cursor: pointer;
   font-weight: bold;
 }
 
 #AssignedTask{
-  padding-top: 10px;
+  padding-top: 15px;
   color: #F6FBFD;
   cursor: pointer;
   font-weight: bold;
