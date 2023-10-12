@@ -12,7 +12,6 @@ import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
 import { count } from 'rxjs';
 import { JsonPipe } from '@angular/common';
-//import "@ng-select/ng-select/themes/default.theme.css";
 
 @Component({
   selector: 'app-meetings',
@@ -373,7 +372,6 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param meetingId 
    */
-  
   fetchActionItemsOfEvent(meetingId: number) {
     this.currentMeetingId = meetingId;
     console.log(meetingId)
@@ -384,10 +382,7 @@ export class MeetingsComponent implements OnInit {
        this.actionItemsOfMeeting = response.body;
       })
     )
-    
-    //this.closeShowActionItems();
   }
-  
 
   /**
    * 
@@ -938,4 +933,20 @@ pastDateTime(){
 onMaterialGroupChange(event) {
   console.log(event);
 }
+
+/** send Mom Email */
+
+actionItemsforSendMOM :[];
+sendMOMEmail(meetingData : Meeting){
+  
+  for(let action of this.actionItemsOfMeeting){
+    if(meetingData.meetingId === action.meetingId){
+          this.actionItemsforSendMOM =action;
+          console.log(this.actionItemsforSendMOM);
+    }
+
+  }
+
+}
+
 }

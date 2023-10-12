@@ -1,4 +1,6 @@
-
+html{
+    -webkit-text-size-adjust: 100%;
+}
 /*common properties*/
 
 .container-fluid{
@@ -84,10 +86,6 @@
     width: 400px;
 }
 
-.modal-content{
-   padding-left: 35px;
-   padding-bottom: 40px;
-}
 
 #trashIcon{
     cursor: pointer;
@@ -103,4 +101,22 @@ th{
 
 td{
     font-size: 11px;
+}
+
+#updateHeading{
+    color: #2AA3D9;
+}
+
+.modal-body{
+    margin-left: 35px;
+}
+
+#modalHeader{
+    background-color: #134E69D9; 
+    color: #ecf7fc;
+}
+
+#errorMessage{
+    color: red;
+    font-size: 12px;
 }

@@ -45,17 +45,40 @@ export class UsersComponent  implements OnInit{
         });
       }
       else{
-        user.active = false;
-        this.userService.update(user.email,user).subscribe(res =>{
-          this.userDetails =res.body;
-      });
+         user.active = false;
+         this.userService.update(user.email,user).subscribe(res =>{
+        this.userDetails =res.body;
+       });
+     }
+ 
+  }
+  }
+  addUserObj ={
+     
+    email : '',
+    userRoles: [
+      {
+        roleId:1,
+        roleName:''
       }
-      
-    }
-
+    ],
+    active : false,
+    otpCode: 0,
+    twoFactorAuthentication: false,
+    profilePic: null
 
   }
+  createUser(){
+     
+    //this.addUserObj.userRoles.at(0).roleName; 
+    this.userService.createUser(this.addUserObj).subscribe(
+       response =>{
+         this.addUserObj = response.body;
+       }
+    )
+
+  }
+}
   
  
 
-}
