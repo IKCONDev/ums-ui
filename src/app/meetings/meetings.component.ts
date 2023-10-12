@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 import { Component, ElementRef, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-=======
-import { Component, DoCheck, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
->>>>>>> 79c71a264c7b558ee2438c0bbd383a9b8dcfa82e
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -133,22 +130,6 @@ export class MeetingsComponent implements OnInit{
     });
   }); 
   }
-
- /**
-  * when ever the dom is updated
-  */
-<<<<<<< HEAD
-  
- /*ngDoCheck(): void {
-    console.log('executed')
-    this.initializeActionItemsSlider();
-=======
-  ngDoCheck(): void {
-    // console.log('executed')
-    // this.initializeActionItemsSlider();
->>>>>>> 8404c18a277dac676ec5bc99759e31fbf0dadcbe
-  }
-  */
 
 
   /**
@@ -396,14 +377,10 @@ export class MeetingsComponent implements OnInit{
       console.log(this.response);
       if(response.status === HttpStatusCode.Ok){
         this.toastr.success('Action item added sucessfully !');
-<<<<<<< HEAD
         document.getElementById('closeAddModal').click();
-
-=======
         setTimeout(()=>{
           window.location.reload();  
          },1000)
->>>>>>> 79c71a264c7b558ee2438c0bbd383a9b8dcfa82e
       }
     });
     this.fetchActionItemsOfEvent(this.currentMeetingId);
