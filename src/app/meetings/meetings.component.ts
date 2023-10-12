@@ -72,7 +72,7 @@ export class MeetingsComponent implements OnInit {
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
-    actionStatus: 'NotConverted',
+    actionStatus: 'Not Converted',
     startDate: '',
     endDate: ''
 
