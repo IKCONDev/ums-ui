@@ -40,11 +40,13 @@ th{
 
     width: 20px;
     text-align: left;
+    font-size: 11px;
   }
 th,td{
     
     overflow: hidden; /* Hide overflowing content */
     text-overflow: ellipsis; /* Show ellipsis for long content */
+    font-size: 11px;
   }
  
   /*.input{

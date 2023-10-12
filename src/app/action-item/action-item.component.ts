@@ -45,7 +45,7 @@ export class ActionItemComponent implements OnInit {
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
-    actionStatus: 'NotConverted',
+    actionStatus: 'Not Converted',
     startDate: '',
     endDate: ''
   }
