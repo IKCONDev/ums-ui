@@ -353,8 +353,10 @@ export class TaskComponent {
         //this.data = response.body;
         if (response.status === HttpStatusCode.Ok) {
           this.toastr.success('task updated Successfully');
+          setTimeout(()=>{
+            window.location.reload();
+          },1000)
         }
-
       });
     }
   }

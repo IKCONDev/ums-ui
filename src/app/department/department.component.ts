@@ -98,7 +98,7 @@ export class DepartmentComponent implements OnInit {
         this.toastr.success('Department added successfully.')
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
@@ -117,7 +117,7 @@ export class DepartmentComponent implements OnInit {
       this.departmentNameErrorInfo = 'Department name is required';
     }else if(this.addDepartment.departmentName.length < 3){
       this.departmentNameErrorInfo = 'department name should have minimum of 3 chars.';
-    }else if(this.addDepartment.departmentName.length>20){
+    }else if(this.addDepartment.departmentName.length>40){
       this.departmentNameErrorInfo = 'department name should not exceed more than 40 chars';
     }else{
       this.isDepartmentNameValid = true;
@@ -197,7 +197,7 @@ export class DepartmentComponent implements OnInit {
           this.toastr.success('Department '+departmentId+' deleted successfully.')
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
@@ -281,7 +281,7 @@ export class DepartmentComponent implements OnInit {
           this.toastr.success('Department details updated')
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
@@ -300,8 +300,8 @@ export class DepartmentComponent implements OnInit {
        this.updatedDepartmentNameErrorInfo = 'Department name is required';
      }else if(this.existingDepartment.departmentName.length < 3){
        this.updatedDepartmentNameErrorInfo = 'department name should have minimum of 3 chars.';
-     }else if(this.existingDepartment.departmentName.length>20){
-       this.updatedDepartmentNameErrorInfo = 'department name should not exceed more than 20 chars';
+     }else if(this.existingDepartment.departmentName.length>40){
+       this.updatedDepartmentNameErrorInfo = 'department name should not exceed more than 40 chars';
      }else{
        this.isDepartmentNameValid = true;
        this.updatedDepartmentNameErrorInfo = '';

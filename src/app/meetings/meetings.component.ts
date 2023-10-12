@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -18,7 +18,7 @@ import { JsonPipe } from '@angular/common';
   templateUrl: './meetings.component.html',
   styleUrls: ['./meetings.component.css']
 })
-export class MeetingsComponent implements OnInit {
+export class MeetingsComponent implements OnInit, DoCheck {
 
   eventId: number;
 
@@ -101,6 +101,13 @@ export class MeetingsComponent implements OnInit {
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService) {
     //this is jquery code that will slide the action items rows when show more action items link is clicked
+    this.initializeActionItemsSlider();
+}
+
+/**
+ * 
+ */
+  initializeActionItemsSlider(){
     $(function () {
       var previousRow=null;
       $('table').on('click', 'a.showmore', function (e) {
@@ -121,7 +128,15 @@ export class MeetingsComponent implements OnInit {
         });
     });
   }); 
-}
+  }
+
+ /**
+  * when ever the dom is updated
+  */
+  ngDoCheck(): void {
+    console.log('executed')
+    this.initializeActionItemsSlider();
+  }
 
 
   /**
@@ -370,7 +385,7 @@ export class MeetingsComponent implements OnInit {
         this.toastr.success('Action item added sucessfully !');
         setTimeout(()=>{
           window.location.reload();  
-         },1500)
+         },1000)
       }
     });
     this.fetchActionItemsOfEvent(this.currentMeetingId);
@@ -882,7 +897,7 @@ export class MeetingsComponent implements OnInit {
      this.toastr.success('Action item updated successfully');
      setTimeout(()=>{
       window.location.reload();  
-     },1500)
+     },1000)
     
     });
    
