@@ -47,6 +47,7 @@
                     <th>Attendees</th>
                     <th>Transcript</th>
                     <th>Action Items</th>
+                    <th></th>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr>
@@ -100,6 +101,7 @@
 
                         <td style="padding-left: 12px;"><a class="showmore" id="showActionItems{{meeting.meetingId}}"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)" >Show Action Items</a></td>
+                        <td><a  data-target="#xlModal" data-toggle="modal">sendMoM</a></td>
                     </tr>
                     <tr class="detail">
                         <td colspan="12">

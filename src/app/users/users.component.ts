@@ -73,12 +73,41 @@ export class UsersComponent  implements OnInit{
     //this.addUserObj.userRoles.at(0).roleName; 
     this.userService.createUser(this.addUserObj).subscribe(
        response =>{
+
+        
          this.addUserObj = response.body;
        }
     )
 
   }
+  
+  /**
+   * display existing user
+   */
+  existingUserObj={
+
+    email : '',
+    userRoles: null,
+    active : false,
+    otpCode: 0,
+    twoFactorAuthentication: false,
+    profilePic: null
+
+  }
+  fetchOneUser(email : string){
+    console.log(email);
+    this.userService.getSingleUser(email).subscribe(
+      response =>{
+        this.existingUserObj = response.body;
+        console.log(this.existingUserObj.email);
+      }
+    )
+
+
+  }
+
 }
+
   
  
 

@@ -24,6 +24,11 @@ export class UserService{
     createUser(user : any){
         return this.http.post<Users>(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/save`,user,{observe:'response'});
     }
+    
+    getSingleUser(email : String){
+        return this.http.get<Users>(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/getUser/${email}`,{observe:'response'});
+    }
+
 
 
 }

@@ -38,13 +38,24 @@
                         <th>
                             <input type="checkbox"/>
                         </th>
-                        <th>Role ID</th>
+                        <th>Role Id</th>
                         <th>Role Name</th>
-                        
+                        <th>Created By</th>
+                        <th>Created Date</th>
+                        <th>Modified By</th>
+                        <th>Modified Date</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            
+                        <tr *ngFor="let role of roleList">
+                            <td>
+                                <input type="checkbox"/>
+                            </td>
+                            <td>{{role.roleId}}</td>
+                            <td>{{role.roleName}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>

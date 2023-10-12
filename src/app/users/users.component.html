@@ -20,7 +20,7 @@
                     Add User</button>
                 </div>
                 <div id="deleteBtnDiv" class="col-sm-2">
-                    <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn"
+                    <button type="submit" class="form-control" id="deleteBtn" name="deleteUserModal"
                      value="Delete">Delete</button>
                 </div>
                 <div class="col-sm-1" id="filter">
@@ -41,6 +41,7 @@
                         <th>User Status</th>
                         <th>Account Status</th>
                         <th>Actions</th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of userList; let i = index">    
@@ -56,6 +57,18 @@
                                     <span class="slider round"></span>
                                   </label>
                             </td>
+                            <td>
+                                <span class="edit-icon" data-target="#updateUserModal" data-toggle="modal" (click)="fetchOneUser(user.email)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <g id="edit">
+                                        <path id="Vector"
+                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                            fill="#5590AA" />
+                                    </g>
+                                </svg>
+                            </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -69,7 +82,7 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <!-- Modal header -->
-            <div class="modal-header" id="adduser-modal">
+            <div class="modal-header" id="modalHeader">
                 <h5 class="modal-title">Add User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                 ><span aria-hidden="true">×</span></button>
@@ -93,3 +106,34 @@
         </div>
     </div>
 </div>
+
+<!-- update User Modal -->
+<div class="modal" tabindex="-1" id="updateUserModal">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                ><span aria-hidden="true">×</span></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" >
+                <!--<label><b>First Name</b></label>
+                <input type="text" class="adduserInput form-control" placeholder="First Name"/><br/>
+                <label><b>Last Name</b></label>
+                <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
+                <label><b>Email</b></label>
+                <input type="text" class="updateUserInput form-control" placeholder="Email" [(ngModel)]="existingUserObj.email"/><br/>
+                <label><b>Role</b></label>
+                <input type="text" class="updateUserInput form-control" placeholder="Role" />
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
