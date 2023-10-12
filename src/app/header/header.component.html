@@ -39,7 +39,7 @@
                             <!-- profile details -->
                             <div *ngIf="userDetails != null">
                                 <div style="padding-top: 6px;">
-                                    <p id="userid"><b>#</b>{{userDetails.employee.id}}</p>
+                                    <p id="userid"><b>Employee Id: </b>{{userDetails.employee.id}}</p>
                                 </div>
                                 <div>
                                     <p id="fullname">{{userDetails.employee.firstName}}  {{userDetails.employee.lastName}}</p>
@@ -60,8 +60,10 @@
                                     </div>
                                 </div>
                                 <!-- role -->
+                                
                                 <div id="profileContent" style="padding-top: 6px;">
                                     <div id="divContent">
+                                        &nbsp;&nbsp;
                                         <p id="heading">Role</p>
                                         <p id="headingData">{{userDetails.userRoles[0].roleName}}</p>
                                     </div>
@@ -75,7 +77,7 @@
                                     </div>
                                     <div id="divContent">
                                         <p id="heading">Two factor authentication</p>
-                                        <p id="headingData">{{userDetails.twoFactorAuthentication}}</p>
+                                        <!--<p id="headingData">{{userDetails.twoFactorAuthentication}}</p>-->
                                         <div class="slide-container">
                                             <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication" (click)="toggleSlider()">
                                               <div class="slider-handle"></div>
@@ -87,7 +89,7 @@
                         </div>
                         
                     </div><!-- modal-content -->
-=======
+
     </div>
     <!--profile Panel modal -->
     <div class="modal right fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">

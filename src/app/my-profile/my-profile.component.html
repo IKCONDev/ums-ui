@@ -10,7 +10,7 @@
         <div><img class="pexels-photo-by-pixabay" [src]="'data:image/png/jpg/jpeg;base64,'+user.profilePic" />
         </div>
         <div id="move" style="padding-left:30px;">
-            <input type="file" accept="image/png, image/jpg, image/jpeg" id="move" class="btn btn success"
+            <input type="file" accept="image/*" id="move" class="btn btn success"
                 (change)="onFileChanged($event)" />
         </div>
 
