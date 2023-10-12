@@ -270,10 +270,6 @@ td{
      padding-left: 7px;
   }
  
-  ::ng-deep .ng-select .ng-select-container , ::ng-deep .ng-select.ng-select-single .ng-select-container{
-    min-height: auto;
-    font-size: 0.8em;
-  }
 
 
 
