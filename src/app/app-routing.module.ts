@@ -21,6 +21,7 @@ import { DesignationComponent } from './designation/designation.component';
 import { UsersComponent } from './users/users.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { RoleComponent } from './role/role.component';
+import { EmployeeComponent } from './employee/employee.component';
 
 
 /**
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path:"users", component: UsersComponent},
   {path:'organization', component: OrganizationComponent},
   {path:'role', component: RoleComponent},
+  {path: 'employee',component:EmployeeComponent},
  
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
