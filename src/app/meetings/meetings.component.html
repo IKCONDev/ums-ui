@@ -479,11 +479,11 @@
     <!-- MOM modal -->
     <div class="modal" tabindex="-1"  id="xlModal"  >
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content" *ngIf="meetingData != null">
                 <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
-                <h5 class="modal-title" id="xlModalLabel">Meeting Minutes - [OrganizerName]</h5>
-                <div style="padding-left: 50px;"> <span type="submit" style="color: aqua;">Send</span>
-                
+                <h5 class="modal-title" id="xlModalLabel">Meeting Minutes - {{meetingData.subject}}</h5>
+                <div style="padding-left: 50px;"> 
+                    <span type="submit" style="color: aqua;" (click)="sendMOMEmail(meetingData)">Send
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
                         <g id="send">
                         <mask id="mask0_3149_68857" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="12" height="13">
@@ -493,7 +493,8 @@
                         <path id="send_2" d="M1.5 10.5V7.5L5.5 6.5L1.5 5.5V2.5L11 6.5L1.5 10.5Z" fill="#4880FF"/>
                         </g>
                         </g>
-                        </svg>
+                     </svg>
+                    </span>
                 
                 </div> 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
