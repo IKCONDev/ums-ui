@@ -51,7 +51,7 @@
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr>
-                        <td style="padding-left: 22px;">{{meeting.meetingId}}</td>
+                        <td style="padding-left: 22px;">M000{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerEmailId}}</td>
@@ -236,7 +236,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
-                        <td>{{i+1}}</td>
+                        <td>M000{{i+1}}</td>
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime}}</td>
@@ -277,7 +277,7 @@
                         <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
                             [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
                             id="actionItemTitle"
-                            minlength="5" maxlength="500" #actionItemTitle="ngModel"
+                            minlength="5" maxlength="50" #actionItemTitle="ngModel"
                             [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
                             (keyup)="validateActionTitle()">
                         <div *ngIf="actionItemTitleErrorInfo != ''">
@@ -288,7 +288,7 @@
                         <div style="padding-left: 10px;">
                             <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
-                            #actionItemDescription="ngModel" minlength="10" maxlength="1000"
+                            #actionItemDescription="ngModel" minlength="10" maxlength="200"
                             id="actionItemDescription"
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
                             (keyup)="validateActionDescription()"></textarea>
@@ -321,7 +321,7 @@
                             <option *ngFor="let emailId of userEmailIdList">{{emailId}}</option>
                     </select> -->
                         <div style="padding-left: 10px;">
-                            <ng-select class="form-control" [searchable]="true" [clearable]="true" id="actionItemOwner"
+                            <ng-select  [searchable]="true" [clearable]="true" id="actionItemOwner"
                                 name="actionItemOwner" style="width: 400px;" 
                                 (change)="validateActionItemOwner()" [(ngModel)]="addDetails.actionItemOwner">
                                 <ng-option [value]="">choose</ng-option>
@@ -334,7 +334,7 @@
                             <span id="errorSpan">{{actionItemOwnerErrorInfo}}</span>
                         </div>
                         <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
-                        <label><b>StartDate</b></label>
+                        <label><b>Start Date</b></label>
                         <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" 
                             name="startDate" #startDate="ngModel"
@@ -343,7 +343,7 @@
                         <div *ngIf="actionItemStartDateErrorInfo != ''">
                             <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                         </div>
-                        <label><b>EndDate</b></label>
+                        <label><b>End Date</b></label>
                         <input type="datetime-local" min="{{min}}"class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" 
                             name="endDate" #endDate="ngModel"
@@ -425,9 +425,9 @@
                             <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
                         </div>
                 <label><b>Action Owner</b></label>
-                    <ng-select class="form-control" [searchable]="true" [multiple]="true"
+                    <ng-select  [searchable]="true" [multiple]="true"
                      [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
-                        name="uAcItemOwner" style="width: 400px;" 
+                        name="uAcItemOwner" style="width: 411px;padding-left: 10px;" 
                         (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner">
                         <ng-option [value]="">choose</ng-option>
                         <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">

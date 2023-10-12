@@ -229,6 +229,24 @@ td{
     width: 2000px;
     margin-left: 500px; 
   }
+
+#meeting-subject{
+  white-space: nowrap;
+  text-overflow:ellipsis; 
+  overflow: hidden;
+  max-width:90px;
+  cursor: pointer;
+}
+
+#meeting-subject:hover{
+  overflow: visible;
+  white-space: normal;
+}
+/*span{
+  display:inline-block;
+  border-bottom:1px solid white;
+  padding-bottom:2px;
+}*/
   
   #meeting-subject{
     white-space: nowrap;
@@ -256,11 +274,6 @@ td{
     min-height: auto;
     font-size: 0.8em;
   }
-  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option .highlighted { 
-    background-color: orange !important;
-    font-weight: bold !important;
-    font-weight: 500 !important;
-    text-decoration: none !important;
-  }
+
 
 

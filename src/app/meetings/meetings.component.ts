@@ -102,18 +102,27 @@ export class MeetingsComponent implements OnInit {
     private router: Router, private toastr: ToastrService) {
     //this is jquery code that will slide the action items rows when show more action items link is clicked
     $(function () {
+      var previousRow=null;
       $('table').on('click', 'a.showmore', function (e) {
         e.preventDefault();
         //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
-        var targetrow = $(this).closest('tr').next('.detail');
-        targetrow.show().find('div').slideToggle('slow', function () {
-          if (!$(this).is(':visible')) {
-            targetrow.hide();
-          }
+        var targetrow = $(this).closest('tr').next('.detail');   
+        if(previousRow){
+          previousRow.hide(1000).find('div').slideUp('slow',function(){
+            if(!$(this).is(':visible')){
+              previousRow.hide();
+              previousRow=null
+            }
+          });
+        }
+        targetrow.show().find('div').slideDown('slow',function(){ 
+          previousRow=targetrow;
+        
         });
-      });
     });
-  }
+  }); 
+}
+
 
   /**
    * 
