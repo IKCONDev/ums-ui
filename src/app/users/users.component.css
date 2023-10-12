@@ -33,6 +33,17 @@
 #tablehead{
     background: var(--side-text, #ECF7FC);
 }
+th{
+
+  font-size: 11px;
+
+}
+
+td{
+
+  font-size: 11px;
+
+}
 
 /*common properties end*/
 

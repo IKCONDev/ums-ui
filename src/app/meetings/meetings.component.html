@@ -102,7 +102,7 @@
                         <td style="padding-left: 12px;"><a class="showmore" id="showActionItems{{meeting.meetingId}}"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)" >Show Action Items</a></td>
                         <td><button data-target="#xlModal" data-toggle="modal" (click)="fetchUserOrganizedMeetings(meeting)"
-                            (click)="fetchActionItemsOfEvent(meeting.meetingId)">sendMoM</button></td>
+                            (click)="fetchActionItemsOfEvent(meeting.meetingId)" (click)="getActiveUMSUsersEmailIdList()">sendMoM</button></td>
                     </tr>
                     <tr class="detail">
                         <td colspan="12">
@@ -506,7 +506,15 @@
                 </div>
                  <div class="modal-body">
                     <label for="email" style="padding-left: 0px;"><b>Superiors</b></label>
-                    <input type="text" id="email"/>
+                    <div style="padding-left: 10px;">
+                        <ng-select class="form-control" [searchable]="true" [clearable]="true" id="sendEmailTo"  [multiple]="true" [selectableGroup]="true"
+                            name="sendEmailTo" style="width: 400px;">
+                            <ng-option [value]="">choose</ng-option>
+                            <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                                {{emailId}}
+                            </ng-option>
+                        </ng-select>
+                    </div>
                     <hr>
                     <div class="row"   *ngIf="meetingData!=null">
                         <div class="col-md-6" >

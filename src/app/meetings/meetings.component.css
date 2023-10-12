@@ -252,6 +252,15 @@ td{
      padding-left: 7px;
   }
  
- 
+  ::ng-deep .ng-select .ng-select-container , ::ng-deep .ng-select.ng-select-single .ng-select-container{
+    min-height: auto;
+    font-size: 0.8em;
+  }
+  .ng-dropdown-panel .ng-dropdown-panel-items .ng-option .highlighted { 
+    background-color: orange !important;
+    font-weight: bold !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+  }
 
 

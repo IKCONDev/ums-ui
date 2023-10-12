@@ -124,7 +124,11 @@ export class MeetingsComponent implements OnInit {
       (response =>{
         console.log(response.body)
       })
+    
+
+      
     )
+
    // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
       //this.getOrganizedMeetings();
     //this.getMeetings('OrganizedMeeting');
@@ -959,3 +963,4 @@ sendMOMEmail(meetingData : Meeting){
 }
 
 }
+
