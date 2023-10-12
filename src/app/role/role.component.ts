@@ -2,7 +2,6 @@ import { Component, OnInit, Output } from '@angular/core';
 import { RoleService } from './service/role.service';
 import { Role } from '../model/Role.model';
 import { ToastrService } from 'ngx-toastr';
-import { HttpStatus } from '@azure/msal-common';
 import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
