@@ -263,7 +263,7 @@
     <!-- action item add modal -->
     <div>
         <!-- add modal -->
-        <div class="modal" id="myModal_add">
+        <div class="modal" id="myModal_add" #addModal  data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content" id="modal-content"style="margin: 10px;margin: 70px;">
                     <!--Modal Header-->
@@ -354,8 +354,8 @@
                         <!--footer-->
                         <div class="modal-footer" role="alert">
                             <button type="submit"  class="btn btn-primary saveButton"
-                                (click)="saveActionItem(form)">Save</button>
-                            <button type="button" class="btn btn-outline-danger cancelButton"
+                                (click)="saveActionItem(form)" id="dismiss">Save</button>
+                            <button type="button" id="closeAddModal" class="btn btn-outline-danger cancelButton"
                                 (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
@@ -365,7 +365,7 @@
     </div>
 
     <!--Modal for update-->
-    <div class="modal" id="myModal">
+    <div class="modal" id="myModal"  data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content" style="margin: 10px;">
                 <!--Modal Header-->
@@ -471,7 +471,7 @@
                 <div class="modal-footer">
                     <button type="submit" id="saveActionItem" class="btn btn-primary updateButton" (click)="updateActionItem(form)"
                         [(ngModel)]="updatedetails">Update</button>
-                    <button type="button" class="btn btn-outline-danger cancelButton" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>

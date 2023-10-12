@@ -175,7 +175,7 @@
 
 
 <!---Long modal-->
-<div class="modal fade" id="xlModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
+<div class="modal fade" id="xlModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
@@ -326,7 +326,7 @@
                         [(ngModel)]="update_Task" [disabled]="isSaveButtonDisabled">Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" (click)="clearErrorMessages(form)">Close</button>
+                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger closeButton" data-dismiss="modal" (click)="clearErrorMessages(form)">Close</button>
                 </div>
             </form>
         </div>

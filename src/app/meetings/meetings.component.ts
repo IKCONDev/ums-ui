@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -309,6 +309,7 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param form 
    */
+
   saveActionItem(form: NgForm) {
    let isTitlevalid = true;
    let isDescriptionValid = true;
@@ -355,6 +356,8 @@ export class MeetingsComponent implements OnInit {
       console.log(this.response);
       if(response.status === HttpStatusCode.Ok){
         this.toastr.success('Action item added sucessfully !');
+        document.getElementById('closeAddModal').click();
+
       }
     });
     this.fetchActionItemsOfEvent(this.currentMeetingId);
@@ -863,6 +866,7 @@ export class MeetingsComponent implements OnInit {
       console.log(this.data);
      //var modal = document.getElementById('myModal');
      //modal.setAttribute('data-dismiss','modal');
+     document.getElementById('closeUpdateModal').click();
      this.toastr.success('Action item updated successfully');
      setTimeout(()=>{
       window.location.reload();  

@@ -349,6 +349,7 @@ export class TaskComponent {
         //this.data = response.body;
         if (response.status === HttpStatusCode.Ok) {
           this.toastr.success('task updated Successfully');
+          document.getElementById('closeUpdateModal').click();
         }
 
       });
