@@ -47,6 +47,7 @@
                     <th>Attendees</th>
                     <th>Transcript</th>
                     <th>Action Items</th>
+                    <th></th>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr>
@@ -100,6 +101,8 @@
 
                         <td style="padding-left: 12px;"><a class="showmore" id="showActionItems{{meeting.meetingId}}"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)" >Show Action Items</a></td>
+                        <td><button data-target="#xlModal" data-toggle="modal" (click)="fetchUserOrganizedMeetings(meeting)"
+                            (click)="fetchActionItemsOfEvent(meeting.meetingId)">sendMoM</button></td>
                     </tr>
                     <tr class="detail">
                         <td colspan="12">
@@ -175,13 +178,13 @@
                                                     style="cursor: pointer;padding-left: 50px;"
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                             </td>
-                                            <td>
+                                           <!----<td>
                                                 <button clas="btn-primary"  data-target="#xlModal" data-toggle="modal" (click)="convertActionItemToTask(meeting)">Submit</button>
-                                            </td>
+                                            </td>-->
                                             <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
                                                 <a (click)="convertActionItemToTask(meeting)"
-                                                    style="cursor: pointer; margin-left:-120px;"><button class="btn btn-primary submitButton" data-target="#xlModal" data-toggle="modal">Submit</button></a>
+                                                    style="cursor: pointer; margin-left:-120px;"><button class="btn btn-primary submitButton">Submit</button></a>
                                                 <a style="padding-left:24px ;cursor: pointer;"
                                                     (click)="checkCheckboxes(meeting.meetingId)"><button class="btn btn-outline-danger deleteButton">Delete</button></a>
                                             </td>
@@ -482,8 +485,8 @@
             <div class="modal-content" *ngIf="meetingData != null">
                 <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
                 <h5 class="modal-title" id="xlModalLabel">Meeting Minutes - {{meetingData.subject}}</h5>
-                <div style="padding-left: 50px;"> 
-                    <span type="submit" style="color: aqua;" (click)="sendMOMEmail(meetingData)">Send
+                <div style="padding-left: 300px;"> 
+                    <button type="submit" style="color:black;" (click)="sendMOMEmail(meetingData)">Send
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
                         <g id="send">
                         <mask id="mask0_3149_68857" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="12" height="13">
@@ -494,11 +497,11 @@
                         </g>
                         </g>
                      </svg>
-                    </span>
+                    </button>
                 
                 </div> 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" style="color:white; padding-top: 0px;">&times;</span>
+                    <p aria-hidden="true" style="color:white; padding-top: 0px;">&times;</p>
                 </button>
                 </div>
                  <div class="modal-body">
@@ -507,7 +510,7 @@
                     <hr>
                     <div class="row"   *ngIf="meetingData!=null">
                         <div class="col-md-6" >
-                        <table>
+                        <table class="sendMOMEmail">
                             <thead>
                             </thead>
                             <tbody>
@@ -527,7 +530,7 @@
                        </table>
                     </div>
                       <div class="col-md-6">
-                        <table>
+                        <table class="sendMOMEmail2">
                             <thead>
                             </thead>
                             <tbody>

@@ -607,7 +607,7 @@ export class MeetingsComponent implements OnInit {
    */
   convertActionItemToTask(meeting: Meeting) {
     console.log(meeting.meetingId)
-    this.meetingData = meeting;
+    //this.meetingData = meeting;
     var table = document.getElementById("myTable" + meeting.meetingId)
     console.log(table)
     //for(var i=0; i<tables.length; i++){
@@ -932,6 +932,15 @@ pastDateTime(){
 
 onMaterialGroupChange(event) {
   console.log(event);
+}
+
+/**
+ *  fetch the meeting
+ * 
+ */
+fetchUserOrganizedMeetings(meeting : Meeting){
+  this.meetingData = meeting;
+
 }
 
 /** send Mom Email */
