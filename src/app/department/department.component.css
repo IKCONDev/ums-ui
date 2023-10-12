@@ -36,8 +36,6 @@ html{
     background: var(--side-text, #ECF7FC);
 }
 
-/*common properties end*/
-
 .input-border{
     border-radius: 8px;
     border: 1px solid var(--brand-color-1, #2AA3D9);
@@ -120,3 +118,6 @@ td{
     color: red;
     font-size: 12px;
 }
+
+/*common properties end*/
+
