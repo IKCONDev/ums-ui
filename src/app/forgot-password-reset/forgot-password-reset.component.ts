@@ -59,8 +59,8 @@ export class ForgotPasswordResetComponent {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(emailInput, 'placeholder', 'New Password');
         console.log('Focus is outside the textbox');
-        this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#nPasswordDiv'), 'group');
-        this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#nPasswordLabel'), 'display', 'none');
+        //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#nPasswordDiv'), 'group');
+        //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#nPasswordLabel'), 'display', 'none');
       }
     });
     this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#newPasswordEye'), 'display','block');
@@ -80,8 +80,8 @@ export class ForgotPasswordResetComponent {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(emailInput, 'placeholder', 'Confirm Password');
         console.log('Focus is outside the textbox');
-        this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#passwordDiv'), 'group');
-        this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
+        //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#passwordDiv'), 'group');
+        //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
       }
     });
     this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#confirmPasswordEye'), 'display','block');

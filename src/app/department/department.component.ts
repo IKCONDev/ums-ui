@@ -96,9 +96,10 @@ export class DepartmentComponent implements OnInit {
         if(response.status === HttpStatusCode.Created){
           this.createdDepartment = response.body;
         this.toastr.success('Department added successfully.')
+        document.getElementById('closeAddModal').click();
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
@@ -117,7 +118,7 @@ export class DepartmentComponent implements OnInit {
       this.departmentNameErrorInfo = 'Department name is required';
     }else if(this.addDepartment.departmentName.length < 3){
       this.departmentNameErrorInfo = 'department name should have minimum of 3 chars.';
-    }else if(this.addDepartment.departmentName.length>20){
+    }else if(this.addDepartment.departmentName.length>40){
       this.departmentNameErrorInfo = 'department name should not exceed more than 40 chars';
     }else{
       this.isDepartmentNameValid = true;
@@ -197,7 +198,7 @@ export class DepartmentComponent implements OnInit {
           this.toastr.success('Department '+departmentId+' deleted successfully.')
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
@@ -279,9 +280,10 @@ export class DepartmentComponent implements OnInit {
         console.log('exec')
         if(response.status === HttpStatusCode.Created){
           this.toastr.success('Department details updated')
+          document.getElementById('closeUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
@@ -300,8 +302,8 @@ export class DepartmentComponent implements OnInit {
        this.updatedDepartmentNameErrorInfo = 'Department name is required';
      }else if(this.existingDepartment.departmentName.length < 3){
        this.updatedDepartmentNameErrorInfo = 'department name should have minimum of 3 chars.';
-     }else if(this.existingDepartment.departmentName.length>20){
-       this.updatedDepartmentNameErrorInfo = 'department name should not exceed more than 20 chars';
+     }else if(this.existingDepartment.departmentName.length>40){
+       this.updatedDepartmentNameErrorInfo = 'department name should not exceed more than 40 chars';
      }else{
        this.isDepartmentNameValid = true;
        this.updatedDepartmentNameErrorInfo = '';

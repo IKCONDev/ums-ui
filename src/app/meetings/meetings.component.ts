@@ -1,4 +1,5 @@
-import { Component, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+
+import { Component, ElementRef, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -18,7 +19,7 @@ import { JsonPipe } from '@angular/common';
   templateUrl: './meetings.component.html',
   styleUrls: ['./meetings.component.css']
 })
-export class MeetingsComponent implements OnInit {
+export class MeetingsComponent implements OnInit{
 
   eventId: number;
 
@@ -101,6 +102,13 @@ export class MeetingsComponent implements OnInit {
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService) {
     //this is jquery code that will slide the action items rows when show more action items link is clicked
+    this.initializeActionItemsSlider();
+}
+
+/**
+ * 
+ */
+  initializeActionItemsSlider(){
     $(function () {
       var previousRow=null;
       $('table').on('click', 'a.showmore', function (e) {
@@ -121,7 +129,7 @@ export class MeetingsComponent implements OnInit {
         });
     });
   }); 
-}
+  }
 
 
   /**
@@ -322,6 +330,7 @@ export class MeetingsComponent implements OnInit {
    * 
    * @param form 
    */
+
   saveActionItem(form: NgForm) {
    let isTitlevalid = true;
    let isDescriptionValid = true;
@@ -368,9 +377,10 @@ export class MeetingsComponent implements OnInit {
       console.log(this.response);
       if(response.status === HttpStatusCode.Ok){
         this.toastr.success('Action item added sucessfully !');
+        document.getElementById('closeAddModal').click();
         setTimeout(()=>{
           window.location.reload();  
-         },1500)
+         },1000)
       }
     });
     this.fetchActionItemsOfEvent(this.currentMeetingId);
@@ -402,6 +412,8 @@ export class MeetingsComponent implements OnInit {
    * @param tabOpened 
    */
   getMeetings(tabOpened: string) {
+    //re-initailze slider
+    this.initializeActionItemsSlider();
     console.log(tabOpened)
     localStorage.setItem('tabOpened', tabOpened);
     this.tabOpened = localStorage.getItem('tabOpened')
@@ -879,10 +891,11 @@ export class MeetingsComponent implements OnInit {
       console.log(this.data);
      //var modal = document.getElementById('myModal');
      //modal.setAttribute('data-dismiss','modal');
+     document.getElementById('closeUpdateModal').click();
      this.toastr.success('Action item updated successfully');
      setTimeout(()=>{
       window.location.reload();  
-     },1500)
+     },1000)
     
     });
    

@@ -48,17 +48,10 @@
     background-color: #FAFAFA;
   }
   .rectangle-div {
-    position: fixed;
-    background-color: #5590aa;
-    width: 13%;
-    height: 100%;
-}
-.rectangle-div a{
-     color: white;
+    padding-top: 50px;
 }
 a p{
     font-size: 13px;
     padding-left: 54%;
-    padding-top: 10%;
 }
 

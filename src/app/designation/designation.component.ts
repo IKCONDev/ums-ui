@@ -76,9 +76,10 @@ export class DesignationComponent {
         if(response.status === HttpStatusCode.Created){
           this.createdDesignation = response.body;
         this.toastr.success('Department added successfully.')
+        document.getElementById('closeAddModal').click();
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
@@ -121,7 +122,7 @@ export class DesignationComponent {
           this.toastr.success('Department '+designationId+' deleted successfully.')
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
@@ -181,9 +182,10 @@ export class DesignationComponent {
         console.log('exec')
         if(response.status === HttpStatusCode.PartialContent){
           this.toastr.success('Department details updated')
+          document.getElementById('closeUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();
-          },2000)
+          },1000)
         }
       }
     )
