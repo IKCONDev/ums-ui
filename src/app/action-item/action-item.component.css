@@ -5,8 +5,8 @@
     text-overflow: ellipsis; 
   }
   .container-fluid{
-    padding-top: 10px;
-    padding-left:120px;
+    padding-top: 20px;
+    padding-left: 140px;
     padding-right: 32px;
 }
 
@@ -22,23 +22,23 @@
     padding-top: 8px;
 }
 
-
-th{
-
-  width: 20px;
-  text-align: left;
-}
 th,td{
   
   overflow: hidden; /* Hide overflowing content */
   text-overflow: ellipsis; /* Show ellipsis for long content */
 }
-   
+th{
+
+  font-size: 11px;
+
+}
+
 td{
 
-  padding-top:10px ;
- 
+  font-size: 11px;
+
 }
+   
 #thead {
   background: var(--side-text, #ECF7FC);
 }
