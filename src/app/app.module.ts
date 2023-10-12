@@ -37,6 +37,7 @@ import { DepartmentComponent } from './department/department.component';
 import { UsersComponent } from './users/users.component';
 import { DesignationComponent } from './designation/designation.component';
 import { RoleComponent } from './role/role.component';
+import { EmployeeComponent } from './employee/employee.component';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -66,7 +67,7 @@ import { RoleComponent } from './role/role.component';
     BatchDetailsComponent,   
     OrganizationComponent,
     DepartmentComponent ,  
-    UsersComponent, DesignationComponent, RoleComponent ,  
+    UsersComponent, DesignationComponent, RoleComponent, EmployeeComponent ,  
   ],
   imports: [
     BrowserModule,

@@ -87,8 +87,10 @@ export class TaskComponent {
     console.log(localStorage.getItem('taskTabOpened'))
 
     if (this.tabOpened === 'AssignedTask') {
-      document.getElementById("AssignedTask").style.textDecorationLine = 'underline';
-      document.getElementById("OrganizedTask").style.textDecorationLine = 'none';
+      document.getElementById("AssignedTask").style.borderBottom = '2px solid white';
+      document.getElementById("AssignedTask").style.width = 'fit-content';
+      document.getElementById("AssignedTask").style.paddingBottom = '2px';
+      document.getElementById("OrganizedTask").style.borderBottom = 'none';
       this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
 
         (response => {
@@ -100,8 +102,10 @@ export class TaskComponent {
         });
     }
     else {
-      document.getElementById("OrganizedTask").style.textDecorationLine = 'underline';
-      document.getElementById("AssignedTask").style.textDecorationLine = 'none';
+      document.getElementById("OrganizedTask").style.borderBottom = '2px solid white';
+      document.getElementById("OrganizedTask").style.width = 'fit-content';
+      document.getElementById("OrganizedTask").style.paddingBottom = '2px';
+      document.getElementById("AssignedTask").style.borderBottom = 'none';
 
       this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res => {
         this.task = res.body;
@@ -350,8 +354,10 @@ export class TaskComponent {
         if (response.status === HttpStatusCode.Ok) {
           this.toastr.success('task updated Successfully');
           document.getElementById('closeUpdateModal').click();
+          setTimeout(()=>{
+            window.location.reload();
+          },1000)
         }
-
       });
     }
   }

@@ -4,7 +4,7 @@ html{
 /*common properties*/
 
 .container-fluid{
-    padding-top: 10px;
+    padding-top: 72px;
     padding-left:120px;
     padding-right: 32px;
 }
@@ -35,8 +35,6 @@ html{
 #tablehead{
     background: var(--side-text, #ECF7FC);
 }
-
-/*common properties end*/
 
 .input-border{
     border-radius: 8px;
@@ -120,3 +118,6 @@ td{
     color: red;
     font-size: 12px;
 }
+
+/*common properties end*/
+

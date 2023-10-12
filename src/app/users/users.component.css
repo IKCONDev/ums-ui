@@ -2,7 +2,7 @@
 /*common properties*/
 
 .container-fluid{
-    padding-top: 10px;
+    padding-top: 72px;
     padding-left:120px;
     padding-right: 32px;
 }
@@ -32,6 +32,17 @@
 
 #tablehead{
     background: var(--side-text, #ECF7FC);
+}
+th{
+
+  font-size: 11px;
+
+}
+
+td{
+
+  font-size: 11px;
+
 }
 
 /*common properties end*/

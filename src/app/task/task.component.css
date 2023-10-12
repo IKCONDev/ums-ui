@@ -1,5 +1,5 @@
-.container-fluid{
-  padding-top: 10px;
+.container-fluid {
+  padding-top: 72px;
   padding-left:120px;
   padding-right: 32px;
 }
@@ -22,14 +22,14 @@
 }
 
 #OrganizedTask{
-  padding-top: 10px;
+  padding-top: 15px;
   color: #F6FBFD;
   cursor: pointer;
   font-weight: bold;
 }
 
 #AssignedTask{
-  padding-top: 10px;
+  padding-top: 15px;
   color: #F6FBFD;
   cursor: pointer;
   font-weight: bold;

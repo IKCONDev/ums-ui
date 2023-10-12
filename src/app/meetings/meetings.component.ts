@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Component, ElementRef, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+=======
+import { Component, DoCheck, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+>>>>>>> 79c71a264c7b558ee2438c0bbd383a9b8dcfa82e
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -18,7 +22,7 @@ import { JsonPipe } from '@angular/common';
   templateUrl: './meetings.component.html',
   styleUrls: ['./meetings.component.css']
 })
-export class MeetingsComponent implements OnInit {
+export class MeetingsComponent implements OnInit{
 
   eventId: number;
 
@@ -101,19 +105,51 @@ export class MeetingsComponent implements OnInit {
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService) {
     //this is jquery code that will slide the action items rows when show more action items link is clicked
+    this.initializeActionItemsSlider();
+}
+
+/**
+ * 
+ */
+  initializeActionItemsSlider(){
     $(function () {
+      var previousRow=null;
       $('table').on('click', 'a.showmore', function (e) {
         e.preventDefault();
         //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
-        var targetrow = $(this).closest('tr').next('.detail');
-        targetrow.show().find('div').slideToggle('slow', function () {
-          if (!$(this).is(':visible')) {
-            targetrow.hide();
-          }
+        var targetrow = $(this).closest('tr').next('.detail');   
+        if(previousRow){
+          previousRow.hide(1000).find('div').slideUp('slow',function(){
+            if(!$(this).is(':visible')){
+              previousRow.hide();
+              previousRow=null
+            }
+          });
+        }
+        targetrow.show().find('div').slideDown('slow',function(){ 
+          previousRow=targetrow;
+        
         });
-      });
     });
+  }); 
   }
+
+ /**
+  * when ever the dom is updated
+  */
+<<<<<<< HEAD
+  
+ /*ngDoCheck(): void {
+    console.log('executed')
+    this.initializeActionItemsSlider();
+=======
+  ngDoCheck(): void {
+    // console.log('executed')
+    // this.initializeActionItemsSlider();
+>>>>>>> 8404c18a277dac676ec5bc99759e31fbf0dadcbe
+  }
+  */
+
 
   /**
    * 
@@ -124,7 +160,11 @@ export class MeetingsComponent implements OnInit {
       (response =>{
         console.log(response.body)
       })
+    
+
+      
     )
+
    // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
       //this.getOrganizedMeetings();
     //this.getMeetings('OrganizedMeeting');
@@ -356,8 +396,14 @@ export class MeetingsComponent implements OnInit {
       console.log(this.response);
       if(response.status === HttpStatusCode.Ok){
         this.toastr.success('Action item added sucessfully !');
+<<<<<<< HEAD
         document.getElementById('closeAddModal').click();
 
+=======
+        setTimeout(()=>{
+          window.location.reload();  
+         },1000)
+>>>>>>> 79c71a264c7b558ee2438c0bbd383a9b8dcfa82e
       }
     });
     this.fetchActionItemsOfEvent(this.currentMeetingId);
@@ -389,6 +435,8 @@ export class MeetingsComponent implements OnInit {
    * @param tabOpened 
    */
   getMeetings(tabOpened: string) {
+    //re-initailze slider
+    this.initializeActionItemsSlider();
     console.log(tabOpened)
     localStorage.setItem('tabOpened', tabOpened);
     this.tabOpened = localStorage.getItem('tabOpened')
@@ -607,7 +655,7 @@ export class MeetingsComponent implements OnInit {
    */
   convertActionItemToTask(meeting: Meeting) {
     console.log(meeting.meetingId)
-    this.meetingData = meeting;
+    //this.meetingData = meeting;
     var table = document.getElementById("myTable" + meeting.meetingId)
     console.log(table)
     //for(var i=0; i<tables.length; i++){
@@ -870,7 +918,7 @@ export class MeetingsComponent implements OnInit {
      this.toastr.success('Action item updated successfully');
      setTimeout(()=>{
       window.location.reload();  
-     },1500)
+     },1000)
     
     });
    
@@ -935,6 +983,15 @@ onMaterialGroupChange(event) {
   console.log(event);
 }
 
+/**
+ *  fetch the meeting
+ * 
+ */
+fetchUserOrganizedMeetings(meeting : Meeting){
+  this.meetingData = meeting;
+
+}
+
 /** send Mom Email */
 
 actionItemsforSendMOM :[];
@@ -951,3 +1008,4 @@ sendMOMEmail(meetingData : Meeting){
 }
 
 }
+

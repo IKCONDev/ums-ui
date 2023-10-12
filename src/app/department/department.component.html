@@ -16,7 +16,7 @@
                 </div>
                 <div id="addBtnDiv" class="col-sm-1">
                     <button class="form-control" 
-                       id="addBtn" type="submit" data-toggle="modal" data-target="#addDepartmentModal">
+                       id="addBtn" type="submit" data-toggle="modal" data-target="#addModal">
                     <p>Add</p></button>
                 </div>
                 <div id="deleteBtnDiv" class="col-sm-1">
@@ -64,7 +64,7 @@
                             <td>{{department.modifiedDateTime}}</td>
                             <td>
                                 <span id="editIcon" (click)="fetchOneDepartment(department.departmentId)"
-                                data-toggle="modal" data-target="#updateDepartmentModal">
+                                data-toggle="modal" data-target="#updateModal">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
                                     <g id="edit">
@@ -102,7 +102,7 @@
     </div>
     
      <!-- Add Department Modal -->
-     <div class="modal fade" id="addDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
+     <div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -118,7 +118,7 @@
                     <label><b>Department Name</b></label>
                     <input type="text" class="deptInput form-control" placeholder="department name"
                     [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName()"
-                    minlength="3" maxlength="20"/><br/>
+                    minlength="3" maxlength="40"/><br/>
                     <span *ngIf="departmentNameErrorInfo != ''">
                         <p id="errorMessage">{{departmentNameErrorInfo}}</p>
                     </span>
@@ -153,7 +153,7 @@
                        >Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
+                    <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
                     (click)="clearErrorMessages()">Close</button>
                 </div>
             </div>
@@ -162,7 +162,7 @@
     
     
     <!-- Update Department Modal -->
-    <div class="modal fade" id="updateDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -178,7 +178,7 @@
                     <label><b>Department Name</b></label>
                     <input type="text" class="deptInput form-control" placeholder="department name"
                     [(ngModel)]="existingDepartment.departmentName" (keyup)="validateUpdatedDepartmentName()"
-                    minlength="3" maxlength="20"/><br/>
+                    minlength="3" maxlength="40"/><br/>
                     <span *ngIf="updatedDepartmentNameErrorInfo != ''">
                         <p id="errorMessage">{{updatedDepartmentNameErrorInfo}}</p>
                     </span>
@@ -213,7 +213,7 @@
                        >Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
+                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
                     (click)="clearErrorMessages()">Close</button>
                 </div>
             </div>

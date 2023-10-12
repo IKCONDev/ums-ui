@@ -4,17 +4,17 @@
     overflow: hidden;
     text-overflow: ellipsis; 
   }
-  .container-fluid{
-    padding-top: 20px;
-    padding-left: 140px;
+  .container-fluid {
+    padding-top: 72px;
+    padding-left:120px;
     padding-right: 32px;
-}
+  }
 
 .card-header{
-    background-color: #134E69D9;
-    padding-left: 25px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+  background-color: #134E69D9;
+  padding-left: 25px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 #heading{

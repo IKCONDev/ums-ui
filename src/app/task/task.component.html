@@ -6,11 +6,11 @@
             <div class="col-sm-2">
                 <h2 id="heading">Task List</h2>
             </div>
-            <div class="col-sm-2" id="AssignedTask">
-                <p (click)="getTasks('AssignedTask')" id="AssignedTask">Assigned Tasks</p>
+            <div class="col-sm-2">
+                <p id="AssignedTask" (click)="getTasks('AssignedTask')" >Assigned Tasks</p>
             </div>
-            <div class="col-sm-2" id="OrganizedTask">
-                <p (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks
+            <div class="col-sm-2">
+                <p   (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks
                 </p>
             </div>
             <div class="col-sm-1"></div>
@@ -298,7 +298,7 @@
 
                                         <tr>
                                             <td>Status</td>
-                                            <td> <span><select value="Yet to Start" class="form-control"
+                                            <td> <span><select value="Yet To Start" class="form-control"
                                                         name="taskStatus" [(ngModel)]="update_Task.status"
                                                         required="true" #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
