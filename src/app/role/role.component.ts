@@ -14,7 +14,7 @@ export class RoleComponent implements OnInit {
   @Output() title:string='Roles';
 
   ngOnInit(): void {
-    
+    this.getRoleList();
   }
 
   addRoleObj = {
@@ -26,6 +26,9 @@ export class RoleComponent implements OnInit {
 
   }
 
+  /**
+   * create a new role
+   */
   createdRole: Role
   createRole(){
     this.roleService.createRole(this.addRoleObj).subscribe(
@@ -36,6 +39,21 @@ export class RoleComponent implements OnInit {
           this.toastr.success ("Role Created Sucessfully !")
         }else {
           this.toastr.error ("Role not created. Please try again.")
+        }
+      })
+    )
+  }
+
+  /**
+   * get all roles
+   */
+  roleList: Role[];
+  getRoleList(){
+    this.roleService.getAllRoles().subscribe(
+      (response=>{
+        if(response.status === HttpStatusCode.Ok){
+          this.roleList = response.body;
+          console.log(response.body)
         }
       })
     )
