@@ -102,7 +102,7 @@
     </div>
     
      <!-- Add Department Modal -->
-     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
+     <div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -153,7 +153,7 @@
                        >Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
+                    <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
                     (click)="clearErrorMessages()">Close</button>
                 </div>
             </div>
@@ -162,7 +162,7 @@
     
     
     <!-- Update Department Modal -->
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
+    <div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -213,7 +213,7 @@
                        >Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
+                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
                     (click)="clearErrorMessages()">Close</button>
                 </div>
             </div>

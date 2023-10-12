@@ -96,6 +96,7 @@ export class DepartmentComponent implements OnInit {
         if(response.status === HttpStatusCode.Created){
           this.createdDepartment = response.body;
         this.toastr.success('Department added successfully.')
+        document.getElementById('closeAddModal').click();
           setTimeout(()=>{
             window.location.reload();
           },1000)
@@ -279,6 +280,7 @@ export class DepartmentComponent implements OnInit {
         console.log('exec')
         if(response.status === HttpStatusCode.Created){
           this.toastr.success('Department details updated')
+          document.getElementById('closeUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();
           },1000)
