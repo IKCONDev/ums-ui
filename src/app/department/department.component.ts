@@ -118,7 +118,7 @@ export class DepartmentComponent implements OnInit {
     }else if(this.addDepartment.departmentName.length < 3){
       this.departmentNameErrorInfo = 'department name should have minimum of 3 chars.';
     }else if(this.addDepartment.departmentName.length>20){
-      this.departmentNameErrorInfo = 'department name should not exceed more than 20 chars';
+      this.departmentNameErrorInfo = 'department name should not exceed more than 40 chars';
     }else{
       this.isDepartmentNameValid = true;
       this.departmentNameErrorInfo = '';

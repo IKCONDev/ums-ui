@@ -72,7 +72,7 @@ export class MeetingsComponent implements OnInit {
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
-    actionStatus: 'NotConverted',
+    actionStatus: 'Not Converted',
     startDate: '',
     endDate: ''
 
@@ -133,7 +133,11 @@ export class MeetingsComponent implements OnInit {
       (response =>{
         console.log(response.body)
       })
+    
+
+      
     )
+
    // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
       //this.getOrganizedMeetings();
     //this.getMeetings('OrganizedMeeting');
@@ -616,7 +620,7 @@ export class MeetingsComponent implements OnInit {
    */
   convertActionItemToTask(meeting: Meeting) {
     console.log(meeting.meetingId)
-    this.meetingData = meeting;
+    //this.meetingData = meeting;
     var table = document.getElementById("myTable" + meeting.meetingId)
     console.log(table)
     //for(var i=0; i<tables.length; i++){
@@ -943,6 +947,15 @@ onMaterialGroupChange(event) {
   console.log(event);
 }
 
+/**
+ *  fetch the meeting
+ * 
+ */
+fetchUserOrganizedMeetings(meeting : Meeting){
+  this.meetingData = meeting;
+
+}
+
 /** send Mom Email */
 
 actionItemsforSendMOM :[];
@@ -959,3 +972,4 @@ sendMOMEmail(meetingData : Meeting){
 }
 
 }
+

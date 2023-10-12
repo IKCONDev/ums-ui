@@ -247,7 +247,33 @@ td{
   border-bottom:1px solid white;
   padding-bottom:2px;
 }*/
-
+  
+  #meeting-subject{
+    white-space: nowrap;
+    text-overflow:ellipsis; 
+    overflow: hidden;
+    max-width:90px;
+    cursor: pointer;
+  }
+  
+  #meeting-subject:hover{
+    overflow: visible;
+    white-space: normal;
+  }
+  span{
+    display:inline-block;
+    border-bottom:1px solid white;
+    padding-bottom:2px;
+  }
+  table.sendMOMEmail td,table.sendMOMEmail2 td {
+     font-size: 15px;
+     padding-left: 7px;
+  }
+ 
+  ::ng-deep .ng-select .ng-select-container , ::ng-deep .ng-select.ng-select-single .ng-select-container{
+    min-height: auto;
+    font-size: 0.8em;
+  }
 
 
 
