@@ -134,8 +134,8 @@ export class MeetingsComponent implements OnInit, DoCheck {
   * when ever the dom is updated
   */
   ngDoCheck(): void {
-    console.log('executed')
-    this.initializeActionItemsSlider();
+    // console.log('executed')
+    // this.initializeActionItemsSlider();
   }
 
 
@@ -417,6 +417,8 @@ export class MeetingsComponent implements OnInit, DoCheck {
    * @param tabOpened 
    */
   getMeetings(tabOpened: string) {
+    //re-initailze slider
+    this.initializeActionItemsSlider();
     console.log(tabOpened)
     localStorage.setItem('tabOpened', tabOpened);
     this.tabOpened = localStorage.getItem('tabOpened')
