@@ -1,7 +1,7 @@
 import { Attendee } from "./Attendee.model"
 import { Transcript } from "./Transcript.model"
 
-export interface Meeting{
+export class Meeting{
 
     meetingId: number
     subject: string
@@ -16,5 +16,12 @@ export interface Meeting{
     meetingTranscripts: Transcript[];
     transcriptData: string[];
     isTranscriptDisabled: boolean;
+
+    /**
+     *
+     */
+    constructor() {
+        
+    }
 
 }

@@ -13,6 +13,7 @@ import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
 import { count } from 'rxjs';
 import { JsonPipe } from '@angular/common';
+import { MOMObject } from '../model/momObject.model';
 
 @Component({
   selector: 'app-meetings',
@@ -972,9 +973,22 @@ fetchUserOrganizedMeetings(meeting : Meeting){
 
 /** send Mom Email */
 emailListForsendingMOM : string[];
-sendMOMEmail( actionItemList: ActionItems[], meeting : Meeting){
-    console.log(meeting.meetingId);
-    console.log(actionItemList);
+
+momObject : MOMObject;
+
+sendMOMEmail( meeting : Meeting, actionItemList: ActionItems[]){
+  this.momObject.meeting = meeting;
+  for(let action of actionItemList){
+
+    if(meeting.meetingId == action.meetingId){
+      this.momObject.actionItemList.push(action);
+
+    }
+  }
+   this.momObject.emailList = this.emailListForsendingMOM;
+    console.log(this.momObject.meeting);
+    console.log(this.momObject.actionItemList);
+    console.log(this.emailListForsendingMOM)
 
 }
 

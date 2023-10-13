@@ -41,16 +41,7 @@ export class EmployeeComponent implements OnInit{
 
     this.getAllEmployees();
     this.getAllDepartments();
-    for(let employee of this.employeeData){
-         
-      for(let department of this.departmentList){
-          
-        if(employee.department.departmentId == department.departmentId ){
-             employee.department.departmentName = department.departmentName;
-             console.log(employee.department.departmentName);
-        }
-      }
-    }
+   
      
   }
   getAllEmployees(){
@@ -99,12 +90,21 @@ export class EmployeeComponent implements OnInit{
   }
   
   fetchoneEmployeewithDepartment(employeeid : number){
+
      this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe(
         response =>{
           this.existingEmployee = response.body;
           console.log(this.existingEmployee);
 
-        });
+     });
+     for(let employee of this.employeeData){
+      for(let department of this.departmentList){
+        if(employee.department.departmentId == department.departmentId ){
+             employee.department.departmentName = department.departmentName;
+             console.log(employee.department.departmentName);
+        }
+      }
+    } 
   }
 
   departmentList : Department[]
@@ -114,10 +114,12 @@ export class EmployeeComponent implements OnInit{
     this.departmentservice.getDepartmentList().subscribe(
        response=>{
         this.departmentList = response.body;
-        console.log(this.departmentList);
-          
+        console.log(this.departmentList); 
        }
     )
+  }
+  
+  removeEmployee(){
 
   }
   
