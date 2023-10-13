@@ -15,7 +15,7 @@
             </div>
             <div id="addBtnDiv" class="col-sm-1">
                 <button class="form-control" 
-                   id="addBtn" type="submit" data-toggle="modal" data-target="#addModal">
+                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal">
                 <p>Add</p></button>
             </div>
             <div id="deleteBtnDiv" class="col-sm-1">
@@ -47,8 +47,8 @@
                     <th>Modified Date</th>
                     <th>Actions</th>
                 </thead>
-                <tbody *ngFor="let employee of employeeData">
-                    <tr>
+                <tbody *ngIf ="employeeData !=null">
+                    <tr *ngFor="let employee of employeeData; let i=index">
                         <td>
                             <input type="checkbox"/>
                         </td>
@@ -58,13 +58,12 @@
                         <td>{{employee.email}}</td>
                         <td>{{employee.department}}</td>
                         <td>{{employee.designation}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                
+                        <td>{{employee.createdDateTime}}</td>
+                        <td>{{employee.modifiedBy}}</td>
+                        <td>{{employee.modifiedDateTime}}</td>
                         <td>
                             <span id="editIcon"
-                            data-toggle="modal" data-target="#updateModal">
+                            data-toggle="modal" data-target="#updateEmployeeModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                 fill="none">
                                 <g id="edit">
@@ -73,8 +72,8 @@
                                         fill="#5590AA" />
                                 </g>
                             </svg>
-                            &nbsp;
                             </span>
+                            &nbsp;
                             <span id="trashIcon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
@@ -100,3 +99,73 @@
         </div>
     </div>
 </div>
+
+
+<!-- Add employee Modal -->
+<div class="modal" tabindex="-1" id="addEmployeeModal">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title">Add Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                ><span aria-hidden="true">×</span></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" >
+    
+                <label><b>First Name</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="createdEmployee.firstName"><br/>
+                <label><b>Last Name</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="createdEmployee.lastName" /><br/>
+                <label><b>Email</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="createdEmployee.email" /><br/>
+                <label><b>Department</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>
+                <label><b>Designation</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="createdEmployee.designation"/>
+
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createEmployee()">Save</button>
+                <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" id="closeAddModal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- update employee Modal -->
+<div class="modal" tabindex="-1" id="updateEmployeeModal">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title">Update Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                ><span aria-hidden="true">×</span></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <label><b>First Name</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="existingEmployee.firstName"><br/>
+                <label><b>Last Name</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="existingEmployee.lastName" /><br/>
+                <label><b>Email</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="existingEmployee.email" /><br/>
+                <label><b>Department</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId" /><br/>
+                <label><b>Designation</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="existingEmployee.designation"/>
+
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" >Save</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

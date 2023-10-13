@@ -75,8 +75,9 @@ export class UsersComponent  implements OnInit{
     //this.addUserObj.userRoles.at(0).roleName; 
     this.userService.createUser(this.addUserObj).subscribe(
        response =>{
-        this.addUserObj = response.body;
+        
         if(response.status == HttpStatusCode.Created){
+          this.addUserObj = response.body;
            this.toastr.success("user added successfully");
            document.getElementById('closeAddModal').click();
            setTimeout(()=>{
@@ -95,7 +96,12 @@ export class UsersComponent  implements OnInit{
   existingUserObj={
 
     email : '',
-    userRoles: null,
+    userRoles: [
+      {
+        roleId:0,
+        roleName:''
+      }
+    ],
     active : false,
     otpCode: 0,
     twoFactorAuthentication: false,
@@ -110,8 +116,6 @@ export class UsersComponent  implements OnInit{
         console.log(this.existingUserObj.email);
       }
     )
-
-
   }
 
 }

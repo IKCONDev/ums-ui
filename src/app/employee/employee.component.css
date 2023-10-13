@@ -66,4 +66,22 @@
 #tablehead{
     background: var(--side-text, #ECF7FC);
 }
+th{
+    font-size: 11px;
+}
 
+td{
+    font-size: 11px;
+}
+.updateEmployeeInput, .addEmployeeInput{
+    border: 1px solid #2AA3D9;
+    height: 50px;
+    width: 400px;
+}
+.modal-body{
+    margin-left: 35px;
+}
+#modalHeader{
+    background-color: #134E69D9; 
+    color: #ecf7fc;
+}
