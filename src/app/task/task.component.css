@@ -20,6 +20,13 @@
     padding-left: 24px;
     padding-right: 24px;
 }
+#filter {
+  padding-top: 10px;
+  color: #F6FBFD;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 
 #OrganizedTask{
   padding-top: 15px;
@@ -58,19 +65,29 @@ th,td{
     padding-top:15px ;
    
   }
-  #delete_button{
+  /*#delete_button{
     position: relative;
     line-height: 150%;
     border-radius: 4px;
     background-color: #ecf7fc;
     box-sizing: border-box;
-    padding: 8px 32px;
+    padding: 8px 20px;
     align-items: center;
     justify-content: flex-start;
     text-align: left;
     font-size: 14px;
     color: #000;
-  }
+  }*/
+  
+#deleteBtn{
+    border-radius: 4px;
+    background: var(--side-text, #ECF7FC);
+ }
+
+#deleteBtnDiv{
+    padding-top: 9px;
+    
+}
   .edit-icon:hover{
     color: aqua;
     cursor: pointer;

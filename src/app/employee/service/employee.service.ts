@@ -26,10 +26,10 @@ export class EmployeeService{
     }
 
     deleteEmployee(id: number){
-        return this.http.delete(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/save`,{observe : 'response'});
+        return this.http.delete(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/delete/${id}`,{observe : 'response'});
     }
     getEmployeeWithDepartment(employeeid : number){
-        return this.http.delete(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/get/{employeeid}`,{observe : 'response'});
+        return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/get/${employeeid}`,{observe : 'response'});
 
     }
 
