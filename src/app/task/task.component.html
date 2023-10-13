@@ -34,8 +34,8 @@
                     <th>Task ID</th>
                     <th style="width: 140px;">Title</th>
                     <th>Assignees</th>
-                    <th>StartDate</th>
-                    <th>DueDate</th>
+                    <th>Start Date</th>
+                    <th>Due Date</th>
                     <th>Priority</th>
                     <th>Status</th>
                     <th></th>
@@ -79,8 +79,8 @@
                         <th>Title</th>
                         <th>ActionItem</th>
                         <th>Assignees</th>
-                        <th>StartDate</th>
-                        <th>DueDate</th>
+                        <th>Start Date</th>
+                        <th>Due Date</th>
                         <th>Priority</th>
                         <th>Status</th>
                         <th></th>
@@ -99,8 +99,8 @@
                     <th>Task ID</th>
                     <th style="width: 140px;">Title</th>
                     <th>Owner</th>
-                    <th>StartDate/Time</th>
-                    <th>DueDate/Time</th>
+                    <th>Start Date/Time</th>
+                    <th>Due Date/Time</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -134,8 +134,8 @@
                         <th>Id</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>StartDate/Time</th>
-                        <th>EndDate/Time</th>
+                        <th>Start Date/Time</th>
+                        <th>End Date/Time</th>
                     </thead>
                 </table>
                 <p id="no-meetings">No tasks asisgned for you yet ! </p>
@@ -237,9 +237,9 @@
                                         </td>-->
                                             <td>
                                                 <div>
-                                                    <ng-select class="form-control" [searchable]="true"
+                                                    <ng-select  [searchable]="true"
                                                         [clearable]="true" id="taskOwner" name="taskOwner"
-                                                        (change)="validateTaskOwner()"
+                                                        (change)="validateTaskOwner()" style="margin-top: 4px;"
                                                         [(ngModel)]="update_Task.taskOwner">
                                                         <ng-option [value]="">choose</ng-option>
                                                         <ng-option [value]="emailId"

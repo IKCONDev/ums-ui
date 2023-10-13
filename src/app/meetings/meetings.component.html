@@ -175,7 +175,7 @@
                                         <tr style="background-color: white;">
                                             <td style="text-align: center;" colspan="7">
                                                 <a data-toggle="modal" data-target="#myModal_add"
-                                                    style="cursor: pointer;padding-left: 50px;"
+                                                    style="cursor: pointer;padding-left: 50px; "
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                             </td>
                                            <!----<td>
@@ -268,11 +268,11 @@
             <div class="modal-dialog">
                 <div class="modal-content" id="modal-content"style="margin: 10px;margin: 70px;">
                     <!--Modal Header-->
-                    <div class="modal-header">
+                    <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
                         <h4 class="modal-title" style="text-align: center;">Add Action Item</h4>
                     </div>
                     <br>
-                    <form #form="ngForm" method="POST">
+                    <form #form="ngForm" id="formId" method="POST">
                         <label><b>Action Item Title</b></label>
                         <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
                             [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"

@@ -179,10 +179,14 @@ td{
     cursor: pointer;
   }
 
-  #modal-content{
+  /*#modal-content{
     width: 600px;
     padding-left: 50px;
-  }
+  }*/
+
+#formId{
+  padding-left: 15px;
+}
 
   #errorSpan{
     padding-left: 10px;

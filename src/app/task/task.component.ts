@@ -91,6 +91,7 @@ export class TaskComponent {
       document.getElementById("AssignedTask").style.width = 'fit-content';
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
+      document.getElementById("delete_button").style.display="none";
       this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
 
         (response => {
@@ -106,6 +107,7 @@ export class TaskComponent {
       document.getElementById("OrganizedTask").style.width = 'fit-content';
       document.getElementById("OrganizedTask").style.paddingBottom = '2px';
       document.getElementById("AssignedTask").style.borderBottom = 'none';
+      document.getElementById("delete_button").style.display="block";
 
       this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res => {
         this.task = res.body;
