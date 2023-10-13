@@ -21,7 +21,7 @@
                 </div>
                 <div id="deleteBtnDiv" class="col-sm-1">
                     <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn"
-                     value="Delete"><p>Delete</p></button>
+                     value="Delete" (click)="removeAllSelectedDepartments()"><p>Delete</p></button>
                 </div>
                 <div class="col-sm-1" id="filter">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
@@ -32,7 +32,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <table class="table table-hover">
+                <table id="table" class="table table-hover">
                     <thead id="thead">
                         <th>
                             <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
@@ -51,7 +51,7 @@
                     <tbody *ngFor="let department of departmentList">
                         <tr id="dataRow">
                             <td>
-                                <input type="checkbox" class="subCheckBox" value="{{department.departmentId}}"/>
+                                <input type="checkbox" id="subcheckBox" class="subCheckBox" value="{{department.departmentId}}"/>
                             </td>
                             <td>{{department.departmentId}}</td>
                             <td>{{department.departmentName}}</td>
