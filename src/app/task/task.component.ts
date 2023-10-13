@@ -91,6 +91,8 @@ export class TaskComponent {
       document.getElementById("AssignedTask").style.width = 'fit-content';
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
+      document.getElementById("delete_button").style.display="none";
+      document.getElementById("readOnly").style.setProperty("readonly","true");
       this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
 
         (response => {
@@ -106,6 +108,7 @@ export class TaskComponent {
       document.getElementById("OrganizedTask").style.width = 'fit-content';
       document.getElementById("OrganizedTask").style.paddingBottom = '2px';
       document.getElementById("AssignedTask").style.borderBottom = 'none';
+      document.getElementById("delete_button").style.display="block";
 
       this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res => {
         this.task = res.body;
@@ -151,11 +154,15 @@ export class TaskComponent {
   validateTaskDescription() {
     // var taskDescription=event.target.value;
     if (this.update_Task.taskDescription === '') {
-      this.taskDescriptionErrorInfo = 'Enter task description';
+      this.taskDescriptionErrorInfo = 'Description is required';
       this.isTaskDescriptionValid = false;
     }
     else if (this.update_Task.taskDescription.length <= 10) {
-      this.taskDescriptionErrorInfo = 'task description should be more than 10 characters';
+      this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
+      this.isTaskDescriptionValid = false;
+    }
+    else if(this.update_Task.taskDescription.length >= 250){
+      this.taskDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isTaskDescriptionValid = false;
     }
     else {
@@ -367,6 +374,7 @@ export class TaskComponent {
    * @param form 
    */
   clearErrorMessages(form: NgForm) {
+
     this.taskTitleErrrorInfo = "";
     this.taskDescriptionErrorInfo = "";
     this.taskPriorityErrorInfo = "";

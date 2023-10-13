@@ -45,7 +45,7 @@
                             <label id="passwordLabel">Password</label>
                             <input type="password" id="password" name="password" [(ngModel)]="user.password"
                                 placeholder="Password" class="form-control"
-                                (click)="setupPasswordInputPlaceholder($event)" (change)="setPassword($event)" />
+                                (click)="setupPasswordInputPlaceholder($event)" (change)="setPassword($event)" maxlength="16" />
                             <span id="eyeIcon">
                                 <i class="fa fa-eye" id="passwordEye" (click)="showHidePassword()"
                                     style="cursor: pointer;"></i>

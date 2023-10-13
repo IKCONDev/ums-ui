@@ -58,6 +58,11 @@ th,td{
     padding-top:15px ;
    
   }
+
+  #thead {
+    background: var(--side-text, #ECF7FC);
+  }
+
   #delete_button{
     position: relative;
     line-height: 150%;
@@ -80,13 +85,13 @@ th,td{
  }*/
 
  .box{
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 
 }
 .checkbox{
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 #modal_checkbox{
   
