@@ -58,6 +58,11 @@ th,td{
     padding-top:15px ;
    
   }
+
+  #thead {
+    background: var(--side-text, #ECF7FC);
+  }
+
   #delete_button{
     position: relative;
     line-height: 150%;

@@ -101,6 +101,8 @@
                     <th>Owner</th>
                     <th>Start Date/Time</th>
                     <th>Due Date/Time</th>
+                    <th style="padding-left:6px;">Priority</th>
+                    <th>Status</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -110,6 +112,8 @@
                         <td>{{task.taskOwner}}</td>
                         <td>{{task.startDate}}</td>
                         <td>{{task.dueDate}}</td>
+                        <td>{{task.taskPriority}}</td>
+                        <td>{{task.status}}</td>
                         <td>
                             <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
                                 (click)="editTask(task.taskId)" (click)="getActiveUsersEmailIdList()">
@@ -209,14 +213,14 @@
 
                             <div style=" width:530px; height: 250px; background-color: #ecf7fc;">
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
-                                    <label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
-                                        Text</label>
+                                    <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
+                                        Text</label>-->
                                 </div>
                                 <textarea style="width: 530px; height:220px;background-color: #ecf7fc;"
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..."></textarea>
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..." minlength="10" maxlength="250"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
