@@ -966,6 +966,7 @@ onMaterialGroupChange(event) {
  */
 fetchUserOrganizedMeetings(meeting : Meeting){
   this.meetingData = meeting;
+  console.log(this.meetingData);
 
 }
 

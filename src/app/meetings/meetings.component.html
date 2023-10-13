@@ -101,7 +101,7 @@
 
                         <td style="padding-left: 12px;"><a class="showmore" id="showActionItems{{meeting.meetingId}}"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)" >Show Action Items</a></td>
-                        <td><button data-target="#xlModal" data-toggle="modal" (click)="fetchUserOrganizedMeetings(meeting)"
+                        <td><button type="text" data-target="#xlModal" data-toggle="modal" (click)="fetchUserOrganizedMeetings(meeting)"
                             (click)="fetchActionItemsOfEvent(meeting.meetingId)" (click)="getActiveUMSUsersEmailIdList()">sendMoM</button></td>
                     </tr>
                     <tr class="detail">
@@ -478,13 +478,13 @@
         </div>
     </div>
 
-
+    
     <!-- MOM modal -->
-    <div class="modal" tabindex="-1"  id="xlModal"  >
+    <div class="modal" tabindex="-1"  id="xlModal">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" *ngIf="meetingData != null">
+            <div class="modal-content" *ngIf="meetingData != null" >
                 <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
-                <h5 class="modal-title" id="xlModalLabel">Meeting Minutes - {{meetingData.subject}}</h5>
+                <h5 class="modal-title">Meeting Minutes</h5>
                 <div style="padding-left: 300px;"> 
                     <button type="submit" style="color:black;" (click)="sendMOMEmail(actionItemsOfMeeting,meetingData)">Send
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
@@ -516,7 +516,7 @@
                         </ng-select>
                     </div>
                     <hr>
-                    <div class="row"   *ngIf="meetingData!=null">
+                    <div class="row" *ngIf="meetingData != null">
                         <div class="col-md-6" >
                         <table class="sendMOMEmail">
                             <thead>
