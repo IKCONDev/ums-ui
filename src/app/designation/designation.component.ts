@@ -1,5 +1,5 @@
 import { Component, Output } from '@angular/core';
-import { Designation } from '../model/designation.model';
+import { Designation } from '../model/Designation.model';
 import { DesignationService } from './service/designation.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
@@ -186,7 +186,7 @@ export class DesignationComponent {
       (response) => {
         console.log('exec')
         if(response.status === HttpStatusCode.PartialContent){
-          this.toastr.success('Department details updated')
+          this.toastr.success('Designation '+this.existingDesignation.id+' details updated')
           document.getElementById('closeUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();
@@ -218,6 +218,72 @@ export class DesignationComponent {
      return this.isUpdatedDesignationNameValid;
    }
 
+   /**
+    * 
+    */
+   checkSubCheckBoxes(mainCheckBox: any){
+    //  var subCheckBoxesRow = document.querySelector('dataRow');
+    //  var subCheckBoxes = subCheckBoxesRow.querySelector("input[type='checkbox']") as HTMLInputElement;
+    //  subCheckBoxes.forEach( subCheckBox => {
+      
+    //  });
+    var departmentsToBeDeleted = [];
+   // var table = document.getElementById("myTable1")
+   // console.log(table)
+    //for(var i=0; i<tables.length; i++){
+    var rows = document.getElementsByTagName("tr");
+    //var subCheckBoxes = rows
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      console.log("the value is" + rows[i]);
+      var subCheckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+      subCheckbox.checked = mainCheckBox.checked;
+      subCheckbox.click();
+    }
+   }
+
+
+   /**
+   * remove multiple departments
+   */
+  designationIdsToBeDeleted = [];
+  removeAllSelectedDesignations(){
+    //initialize to empty array on clikck from second time
+    this.designationIdsToBeDeleted = [];
+   var subCheckBoxes = document.getElementsByClassName('subCheckBox') as HTMLCollectionOf<HTMLInputElement>;
+   for(var i=0; i<subCheckBoxes.length; i++){
+    if(subCheckBoxes[i].checked){
+      this.designationIdsToBeDeleted.push(subCheckBoxes[i].value);
+      console.log(this.designationIdsToBeDeleted);
+    }
+   }
+   //delete the selected departments
+   if(this.designationIdsToBeDeleted.length>0){
+    var isconfirmed = window.confirm('Are yopu sure, you really want to delete these records ?')
+    if(isconfirmed){
+      console.log(this.designationIdsToBeDeleted)
+      this.designationService.deleteAllSelectedDesignationsById(this.designationIdsToBeDeleted).subscribe(
+        (response => {
+          if(response.status === HttpStatusCode.Ok){
+            var isAllDeleted = response.body    
+            this.toastr.success('Designations deleted sucessfully')  
+            setTimeout(()=>{
+              window.location.reload();
+            },1000)  
+          }else{
+            this.toastr.error('Error while deleting designations... Please try again !');
+          }
+        })
+      )
+    }else{
+      this.toastr.warning('Designations not deleted')
+    }
+   }else{
+    this.toastr.error('Please select atleast one record to delete.')
+   }
+   
+  }
+
   
 
    /**
@@ -228,5 +294,7 @@ export class DesignationComponent {
     this.updatedDesignationNameErrorInfo = '';
   
   }
+
+
 
 }

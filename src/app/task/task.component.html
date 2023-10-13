@@ -40,8 +40,8 @@
                     <th>Task ID</th>
                     <th style="width: 140px;">Title</th>
                     <th>Assignees</th>
-                    <th>StartDate</th>
-                    <th>DueDate</th>
+                    <th>Start Date</th>
+                    <th>Due Date</th>
                     <th>Priority</th>
                     <th>Status</th>
                     <th></th>
@@ -85,8 +85,8 @@
                         <th>Title</th>
                         <th>ActionItem</th>
                         <th>Assignees</th>
-                        <th>StartDate</th>
-                        <th>DueDate</th>
+                        <th>Start Date</th>
+                        <th>Due Date</th>
                         <th>Priority</th>
                         <th>Status</th>
                         <th></th>
@@ -105,8 +105,10 @@
                     <th>Task ID</th>
                     <th style="width: 140px;">Title</th>
                     <th>Owner</th>
-                    <th>StartDate/Time</th>
-                    <th>DueDate/Time</th>
+                    <th>Start Date/Time</th>
+                    <th>Due Date/Time</th>
+                    <th style="padding-left:6px;">Priority</th>
+                    <th>Status</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -116,6 +118,8 @@
                         <td>{{task.taskOwner}}</td>
                         <td>{{task.startDate}}</td>
                         <td>{{task.dueDate}}</td>
+                        <td>{{task.taskPriority}}</td>
+                        <td>{{task.status}}</td>
                         <td>
                             <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
                                 (click)="editTask(task.taskId)" (click)="getActiveUsersEmailIdList()">
@@ -140,8 +144,8 @@
                         <th>Id</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>StartDate/Time</th>
-                        <th>EndDate/Time</th>
+                        <th>Start Date/Time</th>
+                        <th>End Date/Time</th>
                     </thead>
                 </table>
                 <p id="no-meetings">No tasks asisgned for you yet ! </p>
@@ -215,14 +219,14 @@
 
                             <div style=" width:530px; height: 250px; background-color: #ecf7fc;">
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
-                                    <label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
-                                        Text</label>
+                                    <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
+                                        Text</label>-->
                                 </div>
                                 <textarea style="width: 530px; height:220px;background-color: #ecf7fc;"
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..."></textarea>
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..." minlength="10" maxlength="250"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
@@ -243,9 +247,9 @@
                                         </td>-->
                                             <td>
                                                 <div>
-                                                    <ng-select class="form-control" [searchable]="true"
+                                                    <ng-select  [searchable]="true"
                                                         [clearable]="true" id="taskOwner" name="taskOwner"
-                                                        (change)="validateTaskOwner()"
+                                                        (change)="validateTaskOwner()" style="margin-top: 4px;"
                                                         [(ngModel)]="update_Task.taskOwner">
                                                         <ng-option [value]="">choose</ng-option>
                                                         <ng-option [value]="emailId"

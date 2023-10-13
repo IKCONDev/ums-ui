@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Department } from "src/app/model/Department.model";
-import { Designation } from "src/app/model/designation.model";
+import { Designation } from "src/app/model/Designation.model";
 
 @Injectable({
     providedIn : 'root'
@@ -64,6 +64,10 @@ export class DesignationService{
     getDesignation(designationId: number){
         console.log(designationId)
         return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.designationMicroservicepathUrl}/get/${designationId}`,{observe:'response'});
+    }
+
+    deleteAllSelectedDesignationsById(ids: any[]){
+        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.designationMicroservicepathUrl}/delete/all/${ids}`,{observe:'response'});
     }
 
 }

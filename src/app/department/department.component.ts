@@ -422,4 +422,44 @@ export class DepartmentComponent implements OnInit {
   }
   */
 
+  /**
+   * remove multiple departments
+   */
+  departmentIdsToBeDeleted = [];
+  removeAllSelectedDepartments(){
+    //initialize to empty array on clikck from second time
+    this.departmentIdsToBeDeleted = [];
+   var subCheckBoxes = document.getElementsByClassName('subCheckBox') as HTMLCollectionOf<HTMLInputElement>;
+   for(var i=0; i<subCheckBoxes.length; i++){
+    if(subCheckBoxes[i].checked){
+      this.departmentIdsToBeDeleted.push(subCheckBoxes[i].value);
+      console.log(this.departmentIdsToBeDeleted);
+    }
+   }
+   //delete the selected departments
+   if(this.departmentIdsToBeDeleted.length>0){
+    var isconfirmed = window.confirm('Are yopu sure, you really want to delete these records ?')
+    if(isconfirmed){
+      this.departmentService.deleteSelectedDepartmentsById(this.departmentIdsToBeDeleted).subscribe(
+        (response => {
+          if(response.status === HttpStatusCode.Ok){
+            var isAllDeleted = response.body    
+            this.toastr.success('Departments deleted sucessfully')  
+            setTimeout(()=>{
+              window.location.reload();
+            },1000)  
+          }else{
+            this.toastr.error('Error while deleting departments... Please try again !');
+          }
+        })
+      )
+    }else{
+      this.toastr.warning('Departments not deleted')
+    }
+   }else{
+    this.toastr.error('Please select atleast one record to delete.')
+   }
+   
+  }
+
 }

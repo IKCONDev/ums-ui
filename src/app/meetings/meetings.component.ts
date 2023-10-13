@@ -202,11 +202,11 @@ export class MeetingsComponent implements OnInit{
     if(this.addDetails.actionItemDescription === ''){
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
-    }else if(this.addDetails.actionItemDescription.length < 10){
-      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 chars';
+    }else if(this.addDetails.actionItemDescription.length <= 10){
+      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isActionItemDescriptionValid = false;
-    }else if(this.addDetails.actionItemDescription.length > 200){
-      this.actionItemDescriptionErrorInfo = 'Description must not exceed 200 chars';
+    }else if(this.addDetails.actionItemDescription.length >= 250){
+      this.actionItemDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isActionItemDescriptionValid = false;
     }else{
       this.actionItemDescriptionErrorInfo = '';
@@ -250,6 +250,14 @@ export class MeetingsComponent implements OnInit{
     this.addDetails.endDate = '';
     this.addDetails.startDate = '';
 
+    // this.updatedetails.actionItemTitle = '';
+    // this.updatedetails.actionItemDescription = '';
+    // this.updatedetails.actionItemOwner = '';
+    // this.updatedetails.actionPriority = '';
+    // this.updatedetails.actionStatus = '';
+    // this.updatedetails.endDate = '';
+    // this.updatedetails.startDate = '';
+
     //clear Error messages
      this.actionItemTitleErrorInfo = '';
      this.actionItemDescriptionErrorInfo = '';
@@ -258,6 +266,13 @@ export class MeetingsComponent implements OnInit{
      this.actionItemStartDateErrorInfo = '';
      this.actionItemEndDateErrorInfo = '';
 
+     this.updateActionItemTitleErrorInfo = '';
+     this.updateActionItemDescErrorInfo = '';
+     this.updateActionItemOwnerErrorInfo = '';
+     this.updateActionItemPriorityErrorInfo = '';
+     this.updateActionItemStartDateErrorInfo = '';
+     this.updateActionItemEndDateErrorInfo = '';
+
      //
      this.isActionItemTitleValid = false;
      this.isActionItemDescriptionValid = false;
@@ -265,6 +280,13 @@ export class MeetingsComponent implements OnInit{
      this.isActionItemOwnerValid = false;
      this.isActionItemStartDateValid = false;
      this.isActionItemEndDateValid = false;
+
+     this.isUpdateActionItemTitleValid = false;
+     this.isUpdateActionItemDescValid = false;
+     this.isUpdateActionItemPriorityValid = false;
+     this.isUpdateActionItemOwnerValid = false;
+     this.isUpdateActionItemStartDateValid = false;
+     this.isUpdateActionItemEndDateValid = false;
   }
 
   /**
@@ -545,13 +567,15 @@ export class MeetingsComponent implements OnInit{
         console.log(this.isMetingActionItemsDeleted);
         if (this.isMetingActionItemsDeleted) {
           this.toastr.success('Action Items are deleted')
+          setTimeout(()=>{
+            window.location.reload();
+          },1000)
         } else {
           this.toastr.error('Action items were not deleted, try again')
         }
       }
     )
     //need to change this later
-    window.location.reload();
   }
 
 
@@ -671,6 +695,9 @@ export class MeetingsComponent implements OnInit{
     (response =>{
       console.log(response.body)
       this.toastr.success('Action items converted to task succesfully')
+      setTimeout(()=>{
+        window.location.reload();  
+       },1000)
     })
   )
   }
@@ -911,8 +938,10 @@ export class MeetingsComponent implements OnInit{
  * @param event 
  */
 checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event:any){
+  //var mainChekckBox = event.checked;
   var mainCheckBox = document.getElementById('actionItemMainCheck'+meetingId) as HTMLInputElement;
-  if(mainCheckBox.checked){
+  if(mainCheckBox.checked === true){
+    console.log(mainCheckBox.checked+" in if")
     var table = document.getElementById("myTable" + meetingId)
     console.log(table)
     var rows = table.getElementsByTagName("tr");
@@ -920,20 +949,42 @@ checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event:any){
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+      if(!checkbox.checked){
       checkbox.click();
     }
+    }
+  
     var buttons = document.getElementById('submitAndDelete' + meetingId);
     console.log('executed')
       buttons.style.display = 'table-cell'
       var emptyCell = document.getElementById('emptycell' + meetingId);
       emptyCell.style.display = 'none'
   }else{
+    
+    console.log(mainCheckBox.checked+" in else")
+    var table = document.getElementById("myTable" + meetingId)
+    console.log(table)
+    var rows = table.getElementsByTagName("tr");
+      if(mainCheckBox.checked === false){
+        console.log("entering the if method")
+        console.log("te length of the row "+rows.length)
+        for (var j = 0; j < rows.length; j++) {
+          console.log('in for loop '+j)
+          var row = rows[j];
+          var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+          if(checkbox.checked){
+          checkbox.click();
+          }
+        }
+        
+      }
     var buttons = document.getElementById('submitAndDelete' + meetingId);
           buttons.style.display = 'none'
           var emptyCell = document.getElementById('emptycell' + meetingId);
           emptyCell.style.display = 'table-cell'
   }
 }
+
 
 min:any = "";
 
