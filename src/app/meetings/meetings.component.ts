@@ -670,6 +670,9 @@ export class MeetingsComponent implements OnInit{
     (response =>{
       console.log(response.body)
       this.toastr.success('Action items converted to task succesfully')
+      setTimeout(()=>{
+        window.location.reload();  
+       },1000)
     })
   )
   }
