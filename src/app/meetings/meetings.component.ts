@@ -544,13 +544,15 @@ export class MeetingsComponent implements OnInit{
         console.log(this.isMetingActionItemsDeleted);
         if (this.isMetingActionItemsDeleted) {
           this.toastr.success('Action Items are deleted')
+          setTimeout(()=>{
+            window.location.reload();
+          },1000)
         } else {
           this.toastr.error('Action items were not deleted, try again')
         }
       }
     )
     //need to change this later
-    window.location.reload();
   }
 
 
@@ -910,8 +912,10 @@ export class MeetingsComponent implements OnInit{
  * @param event 
  */
 checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event:any){
+  //var mainChekckBox = event.checked;
   var mainCheckBox = document.getElementById('actionItemMainCheck'+meetingId) as HTMLInputElement;
-  if(mainCheckBox.checked){
+  if(mainCheckBox.checked === true){
+    console.log(mainCheckBox.checked+" in if")
     var table = document.getElementById("myTable" + meetingId)
     console.log(table)
     var rows = table.getElementsByTagName("tr");
@@ -919,20 +923,42 @@ checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event:any){
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+      if(!checkbox.checked){
       checkbox.click();
     }
+    }
+  
     var buttons = document.getElementById('submitAndDelete' + meetingId);
     console.log('executed')
       buttons.style.display = 'table-cell'
       var emptyCell = document.getElementById('emptycell' + meetingId);
       emptyCell.style.display = 'none'
   }else{
+    
+    console.log(mainCheckBox.checked+" in else")
+    var table = document.getElementById("myTable" + meetingId)
+    console.log(table)
+    var rows = table.getElementsByTagName("tr");
+      if(mainCheckBox.checked === false){
+        console.log("entering the if method")
+        console.log("te length of the row "+rows.length)
+        for (var j = 0; j < rows.length; j++) {
+          console.log('in for loop '+j)
+          var row = rows[j];
+          var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+          if(checkbox.checked){
+          checkbox.click();
+          }
+        }
+        
+      }
     var buttons = document.getElementById('submitAndDelete' + meetingId);
           buttons.style.display = 'none'
           var emptyCell = document.getElementById('emptycell' + meetingId);
           emptyCell.style.display = 'table-cell'
   }
 }
+
 
 min:any = "";
 
