@@ -11,6 +11,7 @@
     width: 580px;
     float: left;
     padding-left: 40px;
+    height: max-content;
   }
 
   #logoScreen {

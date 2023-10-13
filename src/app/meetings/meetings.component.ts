@@ -973,17 +973,10 @@ fetchUserOrganizedMeetings(meeting : Meeting){
 }
 
 /** send Mom Email */
-
-actionItemsforSendMOM :[];
-sendMOMEmail(meetingData : Meeting){
-  
-  for(let action of this.actionItemsOfMeeting){
-    if(meetingData.meetingId === action.meetingId){
-          this.actionItemsforSendMOM =action;
-          console.log(this.actionItemsforSendMOM);
-    }
-
-  }
+emailListForsendingMOM : string[];
+sendMOMEmail( actionItemList: ActionItems[], meeting : Meeting){
+    console.log(meeting.meetingId);
+    console.log(actionItemList);
 
 }
 

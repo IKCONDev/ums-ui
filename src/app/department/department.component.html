@@ -35,7 +35,7 @@
                 <table class="table table-hover">
                     <thead id="thead">
                         <th>
-                            <input type="checkbox"/>
+                            <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
                         </th>
                         <th>ID</th>
                         <th>Department Name</th>
@@ -49,9 +49,9 @@
                         <th>Actions</th>
                     </thead>
                     <tbody *ngFor="let department of departmentList">
-                        <tr>
+                        <tr id="dataRow">
                             <td>
-                                <input type="checkbox"/>
+                                <input type="checkbox" class="subCheckBox" value="{{department.departmentId}}"/>
                             </td>
                             <td>{{department.departmentId}}</td>
                             <td>{{department.departmentName}}</td>

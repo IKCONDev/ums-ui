@@ -114,6 +114,8 @@ export class DesignationComponent {
    * @param departmentId 
    */
   removeDesignation(designationId: number){
+    var isConfirmed = window.confirm('Are you sure, you really want to delete this record?')
+   if(isConfirmed){
     this.designationService.deleteDesignation(designationId).subscribe(
       (response) => {
         console.log('exuected')
@@ -126,6 +128,9 @@ export class DesignationComponent {
         }
       }
     )
+   }else{
+    this.toastr.warning('Designation '+ designationId+ ' not deleted.')
+   }
   }
 
   /**

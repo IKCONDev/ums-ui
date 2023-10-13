@@ -486,7 +486,7 @@
                 <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
                 <h5 class="modal-title" id="xlModalLabel">Meeting Minutes - {{meetingData.subject}}</h5>
                 <div style="padding-left: 300px;"> 
-                    <button type="submit" style="color:black;" (click)="sendMOMEmail(meetingData)">Send
+                    <button type="submit" style="color:black;" (click)="sendMOMEmail(actionItemsOfMeeting,meetingData)">Send
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
                         <g id="send">
                         <mask id="mask0_3149_68857" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="12" height="13">
@@ -507,7 +507,7 @@
                  <div class="modal-body">
                     <label for="email" style="padding-left: 0px;"><b>Superiors</b></label>
                     <div style="padding-left: 10px;">
-                        <ng-select class="form-control" [searchable]="true" [clearable]="true" id="sendEmailTo"  [multiple]="true" [selectableGroup]="true"
+                        <ng-select [searchable]="true" [clearable]="true" id="sendEmailTo"  [multiple]="true" [selectableGroup]="true"
                             name="sendEmailTo" style="width: 400px;">
                             <ng-option [value]="">choose</ng-option>
                             <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">

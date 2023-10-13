@@ -4,7 +4,7 @@
 @media screen and (min-width: 480px) {}
 
 .container-fluid {
-  padding-top: 72px;
+  padding-top: 10px;
   padding-left:120px;
   padding-right: 32px;
 }
@@ -274,10 +274,6 @@ td{
      padding-left: 7px;
   }
  
-  ::ng-deep .ng-select .ng-select-container , ::ng-deep .ng-select.ng-select-single .ng-select-container{
-    min-height: auto;
-    font-size: 0.8em;
-  }
 
 
 

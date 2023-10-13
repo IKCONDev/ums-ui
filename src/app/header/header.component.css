@@ -4,7 +4,6 @@
   background: var(--side-text, #ECF7FC);
   color: white;
   padding: 10px 20px;
-  position: fixed;
   width: 100%;
 }
 
