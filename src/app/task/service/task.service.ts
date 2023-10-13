@@ -1,6 +1,6 @@
 import { Injectable,OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Task } from 'src/app/model/task.model';
+import { Task } from 'src/app/model/Task.model';
 
 @Injectable({
     providedIn:'root'

@@ -1,6 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Task } from '../model/task.model';
+import { Task } from '../model/Task.model';
 import { TaskService } from './service/task.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { event } from 'jquery';

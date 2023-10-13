@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { ActionItems } from 'src/app/model/actionitem.model';
 import { Observable } from 'rxjs';
-import { Task } from 'src/app/model/task.model';
+import { Task } from 'src/app/model/Task.model';
 
 @Injectable({
   providedIn: 'root',

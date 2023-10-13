@@ -1,5 +1,5 @@
 import { Component, Output } from '@angular/core';
-import { Designation } from '../model/designation.model';
+import { Designation } from '../model/Designation.model';
 import { DesignationService } from './service/designation.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
