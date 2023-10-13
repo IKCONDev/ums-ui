@@ -10,6 +10,7 @@
   #loginScreen {
     width: 580px;
     float: left;
+    height: fit-content;
     padding-left: 40px;
     height: max-content;
   }
