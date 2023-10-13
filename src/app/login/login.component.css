@@ -6,7 +6,7 @@
 
 } */
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 300px) {
   #loginScreen {
     width: 580px;
     float: left;
