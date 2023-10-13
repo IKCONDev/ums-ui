@@ -21,7 +21,7 @@
             </div>
             <div id="deleteBtnDiv" class="col-sm-1">
                 <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn"
-                 value="Delete"><p>Delete</p></button>
+                 value="Delete" (click)="removeAllSelectedDesignations()"><p>Delete</p></button>
             </div>
             <div class="col-sm-1" id="filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
@@ -35,7 +35,7 @@
             <table class="table table-hover">
                 <thead id="thead">
                     <th>
-                        <input type="checkbox"/>
+                        <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
                     </th>
                     <th>ID</th>
                     <th>Designation Name</th>
@@ -48,7 +48,7 @@
                 <tbody>
                     <tr *ngFor="let designation of designationList">
                         <td>
-                            <input type="checkbox"/>
+                            <input id="subcheckBox" class="subCheckBox" type="checkbox" value="{{designation.id}}"/>
                         </td>
                         <td>{{designation.id}}</td>
                         <td>{{designation.designationName}}</td>
@@ -110,7 +110,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label><b>Designation Name</b></label>
-                    <input type="text" class="deptInput form-control" placeholder="department name"
+                    <input type="text" class="deptInput form-control" placeholder="designation name"
                     [(ngModel)]="addDesignation.designationName" (keyup)="validateDesignationName()"
                     minlength="5" maxlength="40"/><br/>
                     <span *ngIf="designationNameErrorInfo != ''">

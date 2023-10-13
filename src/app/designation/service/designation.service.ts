@@ -66,4 +66,8 @@ export class DesignationService{
         return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.designationMicroservicepathUrl}/get/${designationId}`,{observe:'response'});
     }
 
+    deleteAllSelectedDesignationsById(ids: any[]){
+        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.designationMicroservicepathUrl}/delete/all/${ids}`,{observe:'response'});
+    }
+
 }

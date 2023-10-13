@@ -5,7 +5,7 @@
     <app-header [title]="title" id="header"></app-header>
 </div>
 <div class="container-fluid">
-    <hr>
+    <div class="container-body">
     <div class="profimgParent" *ngIf="user != null">
         <div><img class="pexels-photo-by-pixabay" [src]="'data:image/png/jpg/jpeg;base64,'+user.profilePic" />
         </div>
@@ -126,5 +126,6 @@
             <div *ngIf="isDisable==true"></div>
         </div>
     </div>
-    <hr>
+    
+</div>
 </div>

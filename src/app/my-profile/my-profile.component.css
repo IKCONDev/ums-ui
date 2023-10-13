@@ -6,9 +6,15 @@
 }
 
 .container-fluid {
-    padding-top: 72px;
-    padding-left: 274px;
-    padding-right: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-body{
+    padding-left: 250px;
+    position: relative;
+    width: 1400px;
+    max-height: fit-content;
 }
 
 .rectangle-div {
