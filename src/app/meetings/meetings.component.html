@@ -312,8 +312,9 @@
                     <div style="padding-left: 10px;">
                         <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;"
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
-                            #actionItemDescription="ngModel" minlength="10" maxlength="200" id="actionItemDescription"
-=======
+                            #actionItemDescription="ngModel" minlength="10" maxlength="200" id="actionItemDescription">
+                        </textarea>
+
     <!-- action item add modal -->
     <div>
         <!-- add modal -->
@@ -347,7 +348,6 @@
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
                             #actionItemDescription="ngModel" minlength="10" maxlength="250"
                             id="actionItemDescription"
->>>>>>> b0a1b33b8121dc2806a2b8d07e3aec20dcde6ae6
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
                             (keyup)="validateActionDescription()"></textarea>
                     </div>
