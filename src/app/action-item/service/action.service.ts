@@ -47,7 +47,7 @@ export class ActionService {
      * @returns 
      */
     updateActionItem(actionItem:ActionItems){
-      
+      console.log(actionItem)
        return this.http.put(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/update/${actionItem.actionItemId}`,actionItem,{observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
       }

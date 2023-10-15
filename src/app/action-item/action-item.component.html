@@ -190,9 +190,9 @@
             </div>
             <label>Action Owner</label>
             <div style="padding-left: 10px;">
-                <ng-select class="form-control" [searchable]="true" [clearable]="true" id="uAcItemOwner"
-                    name="uAcItemOwner" (change)="validateUpdateActionItemOwner()"
-                    [(ngModel)]="updatedetails.actionItemOwner" style="width: 400px;">
+                <ng-select class="form-control" [searchable]="true" [clearable]="true" id="actionItemOwner"
+                    name="actionItemOwner" style="width: 400px;" (change)="validateUpdateActionItemOwner()"
+                    [(ngModel)]="updatedetails.actionItemOwner">
                     <ng-option [value]="">choose</ng-option>
                     <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                         {{emailId}}
