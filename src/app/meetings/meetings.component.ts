@@ -3,7 +3,7 @@ import { Component, ElementRef, OnChanges, OnInit, Output, SimpleChanges, ViewCh
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
-import { ActionItems } from '../model/actionitem.model';
+import { ActionItems } from '../model/Actionitem.model';
 import { ActionItemComponent } from '../action-item/action-item.component';
 import { ActionService } from '../action-item/service/action.service';
 import { NavigationEnd, Router } from '@angular/router';
