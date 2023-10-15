@@ -19,9 +19,15 @@
             </div>
             <!--<div class="col-sm-1" style="padding-top: 17px;"><button id="add_button"type="btn btn-primary" (click)="addTask()"
                     data-toggle="modal" data-target="#myModal_add">delete</button></div>-->
-
-            <div class="col-sm-1" style="padding-top: 8px;"><button id="delete_button" type="btn btn-primary"
-                    (click)="checkCheckBoxes()">Delete</button></div>
+                    <div id="deleteBtnDiv" class="col-sm-1">
+                        <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn"
+                         value="Delete"><p>Delete</p></button> </div>
+             <div class="col-sm-1" id="filter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                            <path d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z" fill="#E5EEF1"/>
+                          </svg>
+            </div>
+    
         </div>
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedTask'">
@@ -34,8 +40,8 @@
                     <th>Task ID</th>
                     <th style="width: 140px;">Title</th>
                     <th>Assignees</th>
-                    <th>StartDate</th>
-                    <th>DueDate</th>
+                    <th>Start Date</th>
+                    <th>Due Date</th>
                     <th>Priority</th>
                     <th>Status</th>
                     <th></th>
@@ -79,8 +85,8 @@
                         <th>Title</th>
                         <th>ActionItem</th>
                         <th>Assignees</th>
-                        <th>StartDate</th>
-                        <th>DueDate</th>
+                        <th>Start Date</th>
+                        <th>Due Date</th>
                         <th>Priority</th>
                         <th>Status</th>
                         <th></th>
@@ -99,8 +105,10 @@
                     <th>Task ID</th>
                     <th style="width: 140px;">Title</th>
                     <th>Owner</th>
-                    <th>StartDate/Time</th>
-                    <th>DueDate/Time</th>
+                    <th>Start Date/Time</th>
+                    <th>Due Date/Time</th>
+                    <th style="padding-left:6px;">Priority</th>
+                    <th>Status</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -110,6 +118,8 @@
                         <td>{{task.taskOwner}}</td>
                         <td>{{task.startDate}}</td>
                         <td>{{task.dueDate}}</td>
+                        <td>{{task.taskPriority}}</td>
+                        <td>{{task.status}}</td>
                         <td>
                             <span class="edit-icon" data-target="#xlModal" data-toggle="modal"
                                 (click)="editTask(task.taskId)" (click)="getActiveUsersEmailIdList()">
@@ -134,8 +144,8 @@
                         <th>Id</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>StartDate/Time</th>
-                        <th>EndDate/Time</th>
+                        <th>Start Date/Time</th>
+                        <th>End Date/Time</th>
                     </thead>
                 </table>
                 <p id="no-meetings">No tasks asisgned for you yet ! </p>
@@ -209,14 +219,14 @@
 
                             <div style=" width:530px; height: 250px; background-color: #ecf7fc;">
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
-                                    <label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
-                                        Text</label>
+                                    <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
+                                        Text</label>-->
                                 </div>
                                 <textarea style="width: 530px; height:220px;background-color: #ecf7fc;"
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..."></textarea>
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..." minlength="10" maxlength="250"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
@@ -237,9 +247,9 @@
                                         </td>-->
                                             <td>
                                                 <div>
-                                                    <ng-select class="form-control" [searchable]="true"
+                                                    <ng-select  [searchable]="true"
                                                         [clearable]="true" id="taskOwner" name="taskOwner"
-                                                        (change)="validateTaskOwner()"
+                                                        (change)="validateTaskOwner()" style="margin-top: 4px;"
                                                         [(ngModel)]="update_Task.taskOwner">
                                                         <ng-option [value]="">choose</ng-option>
                                                         <ng-option [value]="emailId"

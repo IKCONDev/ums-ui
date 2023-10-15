@@ -179,10 +179,15 @@ td{
     cursor: pointer;
   }
 
-  #modal-content{
+  /*#modal-content{
     width: 600px;
     padding-left: 50px;
-  }
+  }*/
+
+#formId{
+  margin-left:35px;
+
+}
 
   #errorSpan{
     padding-left: 10px;
@@ -230,18 +235,6 @@ td{
     margin-left: 500px; 
   }
 
-#meeting-subject{
-  white-space: nowrap;
-  text-overflow:ellipsis; 
-  overflow: hidden;
-  max-width:90px;
-  cursor: pointer;
-}
-
-#meeting-subject:hover{
-  overflow: visible;
-  white-space: normal;
-}
 /*span{
   display:inline-block;
   border-bottom:1px solid white;

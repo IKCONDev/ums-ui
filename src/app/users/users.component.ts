@@ -4,6 +4,8 @@ import { Users } from '../model/Users.model';
 import { MsalInterceptorAuthRequest } from '@azure/msal-angular';
 import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { RoleService } from '../role/service/role.service';
+import { Role } from '../model/Role.model';
 
 @Component({
   selector: 'app-users',
@@ -16,7 +18,7 @@ export class UsersComponent  implements OnInit{
 
   userList :Users[];
 
-  constructor(private userService:UserService, private toastr : ToastrService){}
+  constructor(private userService:UserService, private toastr : ToastrService, private roleService: RoleService){}
 
   ngOnInit(): void {
      this.userService.getAll().subscribe(
@@ -26,6 +28,7 @@ export class UsersComponent  implements OnInit{
             console.log(this.userList);
 
         });
+      this.getAllRoles();
 
   }
   userDetails: any;
@@ -116,6 +119,20 @@ export class UsersComponent  implements OnInit{
         console.log(this.existingUserObj.email);
       }
     )
+  }
+
+  /**
+   * get roles
+   */
+  roles : Role[];
+  getAllRoles(){
+    this.roleService.getAllRoles().subscribe(
+      response=>{
+         this.roles = response.body;
+         console.log(" roles:"+ this.roles);
+      }
+    )
+      
   }
 
 }

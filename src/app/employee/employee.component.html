@@ -15,7 +15,7 @@
             </div>
             <div id="addBtnDiv" class="col-sm-1">
                 <button class="form-control" 
-                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal">
+                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal" (click)="getAllDepartments()">
                 <p>Add</p></button>
             </div>
             <div id="deleteBtnDiv" class="col-sm-1">
@@ -48,7 +48,7 @@
                     <th>Actions</th>
                 </thead>
                 <tbody *ngIf ="employeeData !=null">
-                    <tr *ngFor="let employee of employeeData; let i=index">
+                    <tr *ngFor="let employee of employeeData; let i=index;">
                         <td>
                             <input type="checkbox"/>
                         </td>
@@ -63,7 +63,8 @@
                         <td>{{employee.modifiedDateTime}}</td>
                         <td>
                             <span id="editIcon"
-                            data-toggle="modal" data-target="#updateEmployeeModal">
+                            data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)"
+                            (click)="getAllDepartments()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                 fill="none">
                                 <g id="edit">
@@ -115,15 +116,20 @@
             <div class="modal-body" >
     
                 <label><b>First Name</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="createdEmployee.firstName"><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="addEmployee.firstName"><br/>
                 <label><b>Last Name</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="createdEmployee.lastName" /><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="addEmployee.lastName" /><br/>
                 <label><b>Email</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="createdEmployee.email" /><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="addEmployee.email" /><br/>
                 <label><b>Department</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>
+                <select class="form-control" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="addEmployee.departmentId">
+                                                     <option>select</option>
+                                                     <option *ngFor="let department of departmentList" [value]="department.departmentId">{{department.departmentName}}</option>
+                                                       
+               </select> <br/>
+                <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="createdEmployee.designation"/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="addEmployee.designation"/>
 
             </div>
             <!-- Modal footer -->
@@ -154,14 +160,19 @@
                 <label><b>Email</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="existingEmployee.email" /><br/>
                 <label><b>Department</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId" /><br/>
+                <select class="form-control" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId">
+                    <option>select</option>
+                    <option *ngFor="let department of departmentList" [value]="department.departmentId">{{department.departmentName}}</option>
+                      
+               </select> <br/>
+               <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId" /><br/>-->
                 <label><b>Designation</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="existingEmployee.designation"/>
 
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" >Save</button>
+                <button type="button" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
             </div>
         </div>

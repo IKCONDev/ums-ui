@@ -61,4 +61,8 @@ export class DepartmentService{
         return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/${departmentId}`,{observe:'response'});
     }
 
+    deleteSelectedDepartmentsById(ids: any[]){
+        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/delete/all/${ids}`,{observe:'response'});
+    }
+
 }

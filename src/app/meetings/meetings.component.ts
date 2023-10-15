@@ -3,7 +3,7 @@ import { Component, ElementRef, OnChanges, OnInit, Output, SimpleChanges, ViewCh
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
-import { ActionItems } from '../model/actionitem.model';
+import { ActionItems } from '../model/Actionitem.model';
 import { ActionItemComponent } from '../action-item/action-item.component';
 import { ActionService } from '../action-item/service/action.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
 import { count } from 'rxjs';
 import { JsonPipe } from '@angular/common';
+import { MOMObject } from '../model/momObject.model';
 
 @Component({
   selector: 'app-meetings',
@@ -201,11 +202,11 @@ export class MeetingsComponent implements OnInit{
     if(this.addDetails.actionItemDescription === ''){
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
-    }else if(this.addDetails.actionItemDescription.length < 10){
-      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 chars';
+    }else if(this.addDetails.actionItemDescription.length <= 10){
+      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isActionItemDescriptionValid = false;
-    }else if(this.addDetails.actionItemDescription.length > 200){
-      this.actionItemDescriptionErrorInfo = 'Description must not exceed 200 chars';
+    }else if(this.addDetails.actionItemDescription.length >= 250){
+      this.actionItemDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isActionItemDescriptionValid = false;
     }else{
       this.actionItemDescriptionErrorInfo = '';
@@ -249,6 +250,14 @@ export class MeetingsComponent implements OnInit{
     this.addDetails.endDate = '';
     this.addDetails.startDate = '';
 
+    // this.updatedetails.actionItemTitle = '';
+    // this.updatedetails.actionItemDescription = '';
+    // this.updatedetails.actionItemOwner = '';
+    // this.updatedetails.actionPriority = '';
+    // this.updatedetails.actionStatus = '';
+    // this.updatedetails.endDate = '';
+    // this.updatedetails.startDate = '';
+
     //clear Error messages
      this.actionItemTitleErrorInfo = '';
      this.actionItemDescriptionErrorInfo = '';
@@ -257,6 +266,13 @@ export class MeetingsComponent implements OnInit{
      this.actionItemStartDateErrorInfo = '';
      this.actionItemEndDateErrorInfo = '';
 
+     this.updateActionItemTitleErrorInfo = '';
+     this.updateActionItemDescErrorInfo = '';
+     this.updateActionItemOwnerErrorInfo = '';
+     this.updateActionItemPriorityErrorInfo = '';
+     this.updateActionItemStartDateErrorInfo = '';
+     this.updateActionItemEndDateErrorInfo = '';
+
      //
      this.isActionItemTitleValid = false;
      this.isActionItemDescriptionValid = false;
@@ -264,6 +280,13 @@ export class MeetingsComponent implements OnInit{
      this.isActionItemOwnerValid = false;
      this.isActionItemStartDateValid = false;
      this.isActionItemEndDateValid = false;
+
+     this.isUpdateActionItemTitleValid = false;
+     this.isUpdateActionItemDescValid = false;
+     this.isUpdateActionItemPriorityValid = false;
+     this.isUpdateActionItemOwnerValid = false;
+     this.isUpdateActionItemStartDateValid = false;
+     this.isUpdateActionItemEndDateValid = false;
   }
 
   /**
@@ -674,12 +697,19 @@ export class MeetingsComponent implements OnInit{
   this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted,meeting).subscribe(
     (response =>{
       console.log(response.body)
+<<<<<<< HEAD
       
       this.toastr.success('Action items converted to task succesfully')  
       setTimeout(()=>{
         window.location.reload();  
        },1000)
      
+=======
+      this.toastr.success('Action items converted to task succesfully')
+      setTimeout(()=>{
+        window.location.reload();  
+       },1000)
+>>>>>>> 9399cea125ea82b440393f582f991c6cc4ab8d1e
     })
   )
   }
@@ -1000,14 +1030,28 @@ onMaterialGroupChange(event) {
  */
 fetchUserOrganizedMeetings(meeting : Meeting){
   this.meetingData = meeting;
+  console.log(this.meetingData);
 
 }
 
 /** send Mom Email */
 emailListForsendingMOM : string[];
-sendMOMEmail( actionItemList: ActionItems[], meeting : Meeting){
-    console.log(meeting.meetingId);
-    console.log(actionItemList);
+
+momObject : MOMObject;
+
+sendMOMEmail( meeting : Meeting, actionItemList: ActionItems[]){
+  this.momObject.meeting = meeting;
+  for(let action of actionItemList){
+
+    if(meeting.meetingId == action.meetingId){
+      this.momObject.actionItemList.push(action);
+
+    }
+  }
+   this.momObject.emailList = this.emailListForsendingMOM;
+    console.log(this.momObject.meeting);
+    console.log(this.momObject.actionItemList);
+    console.log(this.emailListForsendingMOM)
 
 }
 

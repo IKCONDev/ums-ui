@@ -1,3 +1,9 @@
+.container-fluid{
+  margin-left: 110px;
+  padding-top: 20px;
+  margin-right: 30px;
+}
+
 .modal.right .modal-dialog {
     position: fixed;
     margin: auto;
@@ -53,5 +59,31 @@
 a p{
     font-size: 13px;
     padding-left: 54%;
+}
+
+#generalDiv{
+   margin-left: 70px;
+}
+
+#automationDiv{
+  margin-left: 70px;
+}
+
+a{
+  color: var(--Primary-text, #202224);
+  
+}
+
+b{
+  color: var(--Primary-text, #202224);
+}
+
+h4{
+  color: var(--Primary-text, #202224);
+}
+
+a{
+  text-decoration: none;
+  cursor: pointer;
 }
 

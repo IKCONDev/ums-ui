@@ -16,7 +16,7 @@
                 </div>
                 <div id="addBtnDiv" class="col-sm-2">
                     <button class="form-control" 
-                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal">
+                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()">
                     Add User</button>
                 </div>
                 <div id="deleteBtnDiv" class="col-sm-2">
@@ -115,7 +115,12 @@
                 <label><b>Email</b></label>
                 <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"/><br/>
                 <label><b>Role</b></label>
-                <input type="text" class="adduserInput form-control" placeholder="Role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"/>
+                <select class="form-control" class="addEmployeeInput form-control" placeholder="role" [(ngModel)]="addUserObj.userRoles.at(0).roleName">
+                    <option>select</option>
+                    <option *ngFor="let role of roles" [value]="role.roleName">{{role.roleName}}</option>
+                      
+                </select> <br/>
+                 <!--  <input type="text" class="adduserInput form-control" placeholder="Role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"/>-->
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">

@@ -1,6 +1,153 @@
-<div>
-    <app-side-menubar></app-side-menubar>
+<div class="row">
+    <div class="col-sm-2">
+        <app-side-menubar></app-side-menubar>
+    </div>
 </div>
 <div>
     <app-header [title]="title"></app-header>
+</div>
+<div class="container-fluid">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <img src="data:image/png;base64,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"
+                    height="200" width="250" />
+                <br />
+                <!-- orgName -->
+                <h4 *ngIf="org.orgName === null">-</h4>
+                <h4 *ngIf="org.orgName !== null">{{org.orgName}}</h4>
+                <!-- add textbox -->
+                <br />
+
+                <!-- orgWebsite -->
+                <p *ngIf="org.orgWebsite === null">-</p>
+                <p *ngIf="org.orgWebsite !== null">{{org.orgWebsite}}</p>
+                <!-- add textbox -->
+
+                <!-- orgFunctionalType -->
+                <p *ngIf="org.orgFunctionalType === null">-</p>
+                <p *ngIf="org.orgFunctionalType !== null">{{org.orgFunctionalType}}</p>
+                <!-- add textbox -->
+
+                <!--orgContactPerson  -->
+                <p *ngIf="org.orgContactPerson === null">-</p>
+                <p *ngIf="org.orgContactPerson !== null">{{org.orgContactPerson}}</p>
+                <!-- add textbox -->
+
+                <!-- orgContact -->
+                <p *ngIf="org.orgContact === null">-</p>
+                <p *ngIf="org.orgContact !== null">{{org.orgContact}}</p>
+                <!-- add textbox -->
+
+                <!-- orgContactPersonEmail -->
+                <p *ngIf="org.orgContactPersonEmail === null">-</p>
+                <p *ngIf="org.orgContactPersonEmail !== null">{{org.orgContactPersonEmail}}</p>
+                <!-- add textbox -->
+                <br/>
+
+                <!-- orgAddress -->
+                <h5>Address details</h5>
+                <p *ngIf="org.orgAddress === null">-</p>
+                <p *ngIf="org.orgAddress !== null">{{org.orgAddress}}</p>
+                <!-- add textarea -->
+            </div>
+            
+            <div class="col-sm-6">
+                <!-- <p class="verticalLine"></p> -->
+                <!-- orgSuperAdminEmailId -->
+                <h5>Super Admin</h5>
+                <div class="row">
+                    <div class="col-sm-1"><label>Email ID</label></div>
+                    <div *ngIf="org.orgSuperAdminEmailId === null" class="col-sm-1">
+                        <p>-</p>
+                    </div>
+                    <div *ngIf="org.orgSuperAdminEmailId != null" class="col-sm-2">
+                        <p>{{org.orgSuperAdminEmailId}}</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- add textbox -->
+                    </div>
+                </div>
+                <br />
+                <!-- orgContactDetails -->
+                <h5>Contact Details</h5>
+                <div class="row">
+                    <!-- orgEmailId -->
+                    <div class="col-sm-1"><label>Email ID</label></div>
+                    <div *ngIf="org.orgEmailId === null" class="col-sm-1">
+                        <p>-</p>
+                    </div>
+                    <div *ngIf="org.orgEmailId != null" class="col-sm-2">
+                        <p>{{org.orgEmailId}}</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- add textbox -->
+                    </div>
+                    <!-- orgContact -->
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <label>Phone</label>
+                        </div>
+                        <div *ngIf="org.orgContact === null" class="col-sm-1">
+                            <p>-</p>
+                        </div>
+                        <div *ngIf="org.orgContact != null" class="col-sm-2">
+                            <p>{{org.orgContact}}</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <!-- add textbox -->
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <!-- orgLocality details  -->
+                <h5>Locality Details</h5>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label>Country</label>
+                    </div>
+                    <div *ngIf="org.orgCountry === null" class="col-sm-1">
+                        <p>-</p>
+                    </div>
+                    <div *ngIf="org.orgCountry != null" class="col-sm-2">
+                        <p>{{org.orgCountry}}</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- add textbox -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label>Timezone</label>
+                    </div>
+                    <div *ngIf="org.orgTimeZone === null" class="col-sm-1">
+                        <p>-</p>
+                    </div>
+                    <div *ngIf="org.orgTimeZone != null" class="col-sm-2">
+                        <p>{{org.orgTimeZone}}</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- add textbox -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <!-- edit icon -->
+                <div style="text-align: end;">
+                    <p>Edit Icon</p>
+                </div>
+                <!-- save icon --show only when edit icon is clicked -->
+                <div style="text-align: end;">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Save Icon</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p>Cancel Icon</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
