@@ -697,19 +697,10 @@ export class MeetingsComponent implements OnInit{
   this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted,meeting).subscribe(
     (response =>{
       console.log(response.body)
-<<<<<<< HEAD
-      
       this.toastr.success('Action items converted to task succesfully')  
       setTimeout(()=>{
         window.location.reload();  
        },1000)
-     
-=======
-      this.toastr.success('Action items converted to task succesfully')
-      setTimeout(()=>{
-        window.location.reload();  
-       },1000)
->>>>>>> 9399cea125ea82b440393f582f991c6cc4ab8d1e
     })
   )
   }

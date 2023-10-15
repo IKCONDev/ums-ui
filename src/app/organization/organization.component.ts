@@ -32,6 +32,10 @@ export class OrganizationComponent implements OnInit {
       })
     )
   }
+  isDisable:boolean=true
+  editInfo(){
+    this.isDisable=false
+  }
 
 
 
