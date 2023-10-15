@@ -183,8 +183,8 @@
                                             </td>-->
                                             <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}" colspan="2">
-                                                <a (click)="convertActionItemToTask(meeting)"
-                                                    style="cursor: pointer; margin-left:-120px;"><button class="btn btn-primary submitButton">Submit</button></a>
+                                                <a 
+                                                    style="cursor: pointer; margin-left:-120px;" ><button class="btn btn-primary submitButton" (click)="convertActionItemToTask(meeting)" [disabled]="disableSubmit">Submit</button></a>
                                                 <a style="padding-left:24px ;cursor: pointer;"
                                                     (click)="checkCheckboxes(meeting.meetingId)"><button class="btn btn-outline-danger deleteButton">Delete</button></a>
                                             </td>

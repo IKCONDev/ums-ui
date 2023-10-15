@@ -102,35 +102,35 @@ export class MeetingsComponent implements OnInit{
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService) {
     //this is jquery code that will slide the action items rows when show more action items link is clicked
-    this.initializeActionItemsSlider();
+    
 }
 
 /**
  * 
- */
+*/
   initializeActionItemsSlider(){
     $(function () {
-      var previousRow=null;
-      $('table').on('click', 'a.showmore', function (e) {
-        e.preventDefault();
+      console.log('function one called');
+      var previousRow;
+     //  var targetrow=null;
+      $('table').on('click', 'a.showmore', function () {
+        console.log('function two called');
+       // e.preventDefault();
         //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
         var targetrow = $(this).closest('tr').next('.detail');   
-        if(previousRow){
-          previousRow.hide(1000).find('div').slideUp('slow',function(){
-            if(!$(this).is(':visible')){
-              previousRow.hide();
-              previousRow=null
-            }
-          });
+        if(previousRow && previousRow[0]!==targetrow[0]){
+          previousRow.hide(500).find('div').slideUp('slow');
         }
-        targetrow.show().find('div').slideDown('slow',function(){ 
-          previousRow=targetrow;
-        
-        });
+        else if(previousRow && previousRow[0]===targetrow[0]){
+        targetrow.hide(500).find('div').slideUp('slow');       
+          previousRow=null;
+          return;
+        }
+      targetrow.show(1000).find('div').slideDown('slow');
+      previousRow=targetrow;
     });
   }); 
   }
-
 
   /**
    * 
@@ -632,6 +632,7 @@ export class MeetingsComponent implements OnInit{
    * 
    * @param meetingId 
    */
+  disableSubmit:Boolean=false;
   convertActionItemToTask(meeting: Meeting) {
     console.log(meeting.meetingId)
     //this.meetingData = meeting;
@@ -647,11 +648,12 @@ export class MeetingsComponent implements OnInit{
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
       console.log(checkbox)
       // Check if the checkbox exists in the row
-      if (checkbox) {
+      if (checkbox&&checkbox!=checkbox[1]) {
         console.log("value of checkbox is " + checkbox.value);
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
           this.actionItemsToBeSubmittedIds.push(checkbox.value)
+          this.disableSubmit=true;
         }
       }
     }
@@ -668,10 +670,16 @@ export class MeetingsComponent implements OnInit{
      //}
     });
     console.log(this.actionItemsToBeSubmitted);
+    
   this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted,meeting).subscribe(
     (response =>{
       console.log(response.body)
-      this.toastr.success('Action items converted to task succesfully')
+      
+      this.toastr.success('Action items converted to task succesfully')  
+      setTimeout(()=>{
+        window.location.reload();  
+       },1000)
+     
     })
   )
   }
