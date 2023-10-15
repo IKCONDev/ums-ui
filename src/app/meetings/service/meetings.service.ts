@@ -111,5 +111,18 @@ export class MeetingService {
       }
       )})
     }
+    /**
+     * @returns
+     * 
+     */
 
-}
+    getMeetingObject(meetingId : number)
+    {
+       return this.http.get<Meeting>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/${meetingId}`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
+       })
+
+    }
+
+  }
+    

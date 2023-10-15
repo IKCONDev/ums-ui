@@ -1016,7 +1016,18 @@ onMaterialGroupChange(event) {
  *  fetch the meeting
  * 
  */
-fetchUserOrganizedMeetings(meeting : Meeting){
+meetingToCompare : Meeting;
+fetchUserOrganizedMeetings(meeting : any){
+
+ /* this.meetingsService.getMeetingObject(meetingId).subscribe(
+      response =>{
+        console.log(response.body);
+         this.meetingToCompare= response.body;
+        
+         console.log("meeting object:"+ this.meetingToCompare);
+
+      }
+  )*/
   this.meetingData = meeting;
   console.log(this.meetingData);
 

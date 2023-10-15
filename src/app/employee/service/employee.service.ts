@@ -21,8 +21,8 @@ export class EmployeeService{
 
         return this.http.post<Employee>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/saveEmployee`,employee,{observe : 'response'});
     }
-    updateEmployee(employee : Employee){
-        return this.http.put<Employee>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/update`,employee,{observe : 'response'});
+    updateEmployee(employee : any){
+        return this.http.put<any>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/update`,employee,{observe : 'response'});
     }
 
     deleteEmployee(id: number){

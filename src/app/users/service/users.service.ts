@@ -17,9 +17,9 @@ export class UserService{
         return this.http.get<Users[]>(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/all`,{observe:'response'}); 
     }
 
-    update(email:String,user : Users){
+    update(user : Users){
         console.log("came to update"+ user);
-        return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/update/{email}`,user,{observe:'response'});
+        return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/update`,user,{observe:'response'});
     }
     createUser(user : any){
         return this.http.post<Users>(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/save`,user,{observe:'response'});
@@ -28,7 +28,9 @@ export class UserService{
     getSingleUser(email : String){
         return this.http.get<Users>(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/getUser/${email}`,{observe:'response'});
     }
-
+    deleteUser(email : String){
+        return this.http.delete(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/delete/${email}`,{observe :'response'});
+    }
 
 
 }

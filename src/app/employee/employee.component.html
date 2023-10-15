@@ -38,7 +38,7 @@
                     </th>
                     <th>ID</th>
                     <th>First Name</th>
-                    <th>Last Code</th>
+                    <th>Last Nmae</th>
                     <th>Email Id</th>
                     <th>Department</th>
                     <th>Designation</th>
@@ -75,7 +75,7 @@
                             </svg>
                             </span>
                             &nbsp;
-                            <span id="trashIcon">
+                            <span id="trashIcon" (click)="removeEmployee(employee.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                 viewBox="0 0 482.428 482.429" xml:space="preserve">
@@ -172,7 +172,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" (click)="updateEmployee(existingEmployee)">Save</button>
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
             </div>
         </div>

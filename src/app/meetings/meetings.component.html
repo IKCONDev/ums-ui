@@ -286,34 +286,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-<!-- action item add modal -->
-    <!-- add modal -->
-<div class="modal" id="myModal_add">
-        <div class="modal-dialog">
-            <div class="modal-content" id="modal-content" style="margin: 10px;margin: 70px;">
-                <!--Modal Header-->
-                <div class="modal-header">
-                    <h4 class="modal-title" style="text-align: center;">Add Action Item</h4>
-                </div>
-                <br>
-                <form #form="ngForm" method="POST">
-                    <label><b>ActionItem Title</b></label>
-                    <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
-                        [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
-                        id="actionItemTitle" minlength="5" maxlength="50" #actionItemTitle="ngModel"
-                        [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
-                        (keyup)="validateActionTitle()">
-                    <div *ngIf="actionItemTitleErrorInfo != ''">
-                        <span id="errorSpan">{{actionItemTitleErrorInfo}}</span>
-                    </div>
-                    <!-- title end -->
-                    <label><b>ActionItem Description</b></label>
-                    <div style="padding-left: 10px;">
-                        <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;"
-                            [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
-                            #actionItemDescription="ngModel" minlength="10" maxlength="200" id="actionItemDescription">
-                        </textarea>
 
     <!-- action item add modal -->
     <div>
@@ -419,19 +391,6 @@
         </div>
 </div>
 
-<<<<<<< HEAD
-
-<!--Modal for update-->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content" style="margin: 10px;">
-            <!--Modal Header-->
-            <div class="modal-header">
-                <h4 class="modal-title" style="text-align: center;">UpdateActionItem</h4>
-            </div>
-            <br>
-            <!--- <label>ActionItem Title</label>
-=======
     <!--Modal for update-->
     <div class="modal" id="myModal"  data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
@@ -446,7 +405,7 @@
                 </div>
                 <br>
                 <!--- <label>ActionItem Title</label>
->>>>>>> b0a1b33b8121dc2806a2b8d07e3aec20dcde6ae6
+
             <input type="text" style="width: 400px;" value="{{this.updatedetails.actionTitle}}">
             <label>ActionItem Description</label>
             <input type="text" style="width:400px; " value="{{this.updatedetails.description}}">-->
@@ -457,8 +416,6 @@
             <input type="datetime-local" style="width:400px;" value="{{this.updatedetails.startDate}}">
             <label>EndDate</label>
             <input type="datetime-local" style="width:400px;" value="{{this.updatedetails.endDate}}">-->
-
-<<<<<<< HEAD
 
             <label><b>ActionItem Title</b></label>
             <input type="text" class="form-control" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle"
@@ -539,7 +496,6 @@
                 <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
                     (click)="updateActionItem(form)" [(ngModel)]="updatedetails">Update</button>
                 <button type="button" class="btn btn-outline-danger cancelButton" data-dismiss="modal">Cancel</button>
-=======
                 <div id="formId">
                     <label><b>Action Item Title</b></label>
                     <input type="text" class="form-control" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle" required="true"
@@ -628,7 +584,6 @@
                         [(ngModel)]="updatedetails">Update</button>
                     <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton" data-dismiss="modal">Cancel</button>
                 </div>
->>>>>>> b0a1b33b8121dc2806a2b8d07e3aec20dcde6ae6
             </div>
         </div>
     </div>
@@ -639,8 +594,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="margin: 10px;">
             <!--Modal Header-->
-            <div class="modal-header" style="background-color:#134E69D9 ;" *ngIf="meetingData != null">
-                    <h5 class="modal-title"style="color: #ecf7fc;;">Meeting Minutes -{{meetingData.subject}}</h5>
+            <div class="modal-header" style="background-color:#134E69D9 ;">
+                    <h5 class="modal-title"style="color: #ecf7fc;;">Meeting Minutes</h5>
                     <div style="padding-left: 300px;"> 
                         <button type="submit" style="color:black;">Send
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
@@ -660,10 +615,10 @@
                         <p aria-hidden="true" style="color:white; padding-top: 0px;">&times;</p>
                     </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" *ngIf="meetingData != null">
              <label><b>Superiors</b></label>
 
-             <div style="padding-left: 10px;">
+             <div style="padding-left: 10px;" *ngIf="userEmailIdList != null">
                 <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM" [multiple]="true"
                     style="width: 400px;" [(ngModel)]="emailListForsendingMOM ">
                         <ng-option [value]="">choose</ng-option>

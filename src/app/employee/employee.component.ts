@@ -44,6 +44,11 @@ export class EmployeeComponent implements OnInit{
    
      
   }
+
+  /**
+   *  get all employees in DB
+   */
+
   getAllEmployees(){
 
     this.employeeservice.getAll().subscribe(
@@ -55,6 +60,11 @@ export class EmployeeComponent implements OnInit{
 
   }
   
+
+/***
+ * 
+ *  create employee
+ */
  createdEmployee : Employee;
   createEmployee(){
     console.log(this.addEmployee);
@@ -89,6 +99,10 @@ export class EmployeeComponent implements OnInit{
     modifiedByEmailId: '',
   }
   
+  /**
+   * 
+   * @param employeeid 
+   */
   fetchoneEmployeewithDepartment(employeeid : number){
 
      this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe(
@@ -107,6 +121,9 @@ export class EmployeeComponent implements OnInit{
     } 
   }
 
+  /**
+   *  get all departmentList
+   */
   departmentList : Department[]
 
   getAllDepartments(){
@@ -118,10 +135,130 @@ export class EmployeeComponent implements OnInit{
        }
     )
   }
+  /**
+   * remove employee
+   */
   
-  removeEmployee(){
+  removeEmployee(employeeId : number){
+    var isconfirmed = window.confirm('Are you sure, you really want to delete the record ?');
+
+    if(isconfirmed){
+
+      this.employeeservice.deleteEmployee(employeeId).subscribe(
+        response =>{
+            if(response.status == HttpStatusCode.Ok){
+                this.toastr.success("record deleted successfully");
+            }
+        }
+     )
+ 
+    }
+
+  }
+  /**
+   *  update employee
+   */
+  
+  updateEmployee(employee : any){
+    
+    this.employeeservice.updateEmployee(employee).subscribe(
+       response=>{
+         var employeerecord = response.body;
+         if(response.status == HttpStatusCode.Created){
+             this.toastr.success("updated employee successfully");
+         }
+         else{
+            this.toastr.error("update employee failed");
+         }
+       }
+    )
 
   }
   
+  /**
+   * 
+   * validations for create Employee
+   * 
+   */
+  isEmployeeFirstNameValid = false;
+  isEmployeeLasttNameValid = false;
+  isEmployeeEmailIdValid = false;
+  isEmployeeDepartmentValid = false;
+  isEmployeeDesignationtValid = false;
+  
+  employeeFirstNameErrorInfo = '';
+  validateEmployeeFirstName(){
+
+    if(this.addEmployee.firstName == ''){
+        this.employeeFirstNameErrorInfo = "first Name is required";
+        this.isEmployeeFirstNameValid = false;
+    }
+    else{
+       this.employeeFirstNameErrorInfo = "";
+       this.isEmployeeFirstNameValid = true;
+    }
+    return this.isEmployeeFirstNameValid;
+
+  }
+  employeeLastNameErrorInfo ="";
+  validateEmployeeLastName(){
+
+    if(this.addEmployee.lastName == ''){
+      this.employeeLastNameErrorInfo = "Last Name is required";
+     this. isEmployeeLasttNameValid = false;
+  }
+  else{
+     this.employeeFirstNameErrorInfo = "";
+     this. isEmployeeLasttNameValid = true;
+  }
+     
+  return this.isEmployeeLasttNameValid;
+  
+  
+  }
+
+  employeeEmailIdErrorInfo = "";
+  validateEmployeeEmailId(){
+     if(this.addEmployee.email == ''){
+      this.employeeEmailIdErrorInfo = "EmailId is required";
+      this.isEmployeeEmailIdValid = false;
+     }
+     else{
+      this.employeeFirstNameErrorInfo = "";
+      this.isEmployeeEmailIdValid = true;
+     }
+     return this.isEmployeeEmailIdValid;  
+  }
+  employeeDepartmentErrorInfo = "";
+  validateEmployeeDepartment(){
+     if(this.addEmployee.departmentId < 1){
+       this.employeeDepartmentErrorInfo = "Department is required"
+       this.isEmployeeDepartmentValid = false;
+
+     }
+     else{
+       this.employeeDepartmentErrorInfo ="";
+       this.isEmployeeDepartmentValid = true;
+     }
+     return this,this.isEmployeeDepartmentValid;
+
+  }
+
+  employeeDesignationErrorInfo = "";
+
+  validateEmployeeDesignation(){
+
+    if(this.addEmployee.departmentId < 1){
+      this.employeeDepartmentErrorInfo = "Department is required"
+      this.isEmployeeDesignationtValid = false;
+
+    }
+    else{
+      this.employeeDesignationErrorInfo ="";
+      this.isEmployeeDesignationtValid = false;
+    }
+    return this.isEmployeeDesignationtValid;
+  }
+
 
 }
