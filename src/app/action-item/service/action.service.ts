@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { ActionItems } from 'src/app/model/actionitem.model';
+import { ActionItems } from 'src/app/model/Actionitem.model';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/model/Task.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class ActionService {
     private gatewayUrl ='http://localhost:8012'
     private actionItemsMicroservicePathUrl = 'actions';
     private taskMicroServicePathUrl ='task'
-   
+
     constructor(private http:HttpClient){}
 
     /**
@@ -46,7 +47,7 @@ export class ActionService {
      * @returns 
      */
     updateActionItem(actionItem:ActionItems){
-      
+      console.log(actionItem)
        return this.http.put(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/update/${actionItem.actionItemId}`,actionItem,{observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
       }

@@ -106,17 +106,22 @@
                         <td style="padding-left: 12px;"><a class="showmore" id="showActionItems{{meeting.meetingId}}"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)">Show Action Items</a></td>
                         <td>
-                            <span data-target="#xlModal" data-toggle="modal" (click)="fetchUserOrganizedMeetings(meeting)"
-                            (click)="getActiveUMSUsersEmailIdList()" (click)="fetchActionItemsOfEvent(meeting.meetingId)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                                <g id="email" clip-path="url(#clip0_3359_93964)">
-                                <path id="Vector" d="M15.25 3.88281H3.75C2.95937 3.88281 2.31969 4.55781 2.31969 5.38281L2.3125 14.3828C2.3125 15.2078 2.95937 15.8828 3.75 15.8828H15.25C16.0406 15.8828 16.6875 15.2078 16.6875 14.3828V5.38281C16.6875 4.55781 16.0406 3.88281 15.25 3.88281ZM14.9625 7.07031L9.88094 10.3853C9.65094 10.5353 9.34906 10.5353 9.11906 10.3853L4.0375 7.07031C3.85781 6.95031 3.75 6.74781 3.75 6.53031C3.75 6.02781 4.27469 5.72781 4.68438 5.99031L9.5 9.13281L14.3156 5.99031C14.7253 5.72781 15.25 6.02781 15.25 6.53031C15.25 6.74781 15.1422 6.95031 14.9625 7.07031Z" fill="#606060"/>
-                                </g>
-                                <defs>
-                                <clipPath id="clip0_3359_93964">
-                                <rect width="17.25" height="18" fill="white" transform="translate(0.875 0.882812)"/>
-                                </clipPath>
-                                </defs>
+                            <span data-target="#xlModal" data-toggle="modal"
+                                (click)="fetchUserOrganizedMeetings(meeting)" (click)="getActiveUMSUsersEmailIdList()"
+                                (click)="fetchActionItemsOfEvent(meeting.meetingId)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
+                                    fill="none">
+                                    <g id="email" clip-path="url(#clip0_3359_93964)">
+                                        <path id="Vector"
+                                            d="M15.25 3.88281H3.75C2.95937 3.88281 2.31969 4.55781 2.31969 5.38281L2.3125 14.3828C2.3125 15.2078 2.95937 15.8828 3.75 15.8828H15.25C16.0406 15.8828 16.6875 15.2078 16.6875 14.3828V5.38281C16.6875 4.55781 16.0406 3.88281 15.25 3.88281ZM14.9625 7.07031L9.88094 10.3853C9.65094 10.5353 9.34906 10.5353 9.11906 10.3853L4.0375 7.07031C3.85781 6.95031 3.75 6.74781 3.75 6.53031C3.75 6.02781 4.27469 5.72781 4.68438 5.99031L9.5 9.13281L14.3156 5.99031C14.7253 5.72781 15.25 6.02781 15.25 6.53031C15.25 6.74781 15.1422 6.95031 14.9625 7.07031Z"
+                                            fill="#606060" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_3359_93964">
+                                            <rect width="17.25" height="18" fill="white"
+                                                transform="translate(0.875 0.882812)" />
+                                        </clipPath>
+                                    </defs>
                                 </svg>
                             </span>
                         </td>
@@ -205,9 +210,11 @@
                                             <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}"
                                                 colspan="2">
-                                                <a (click)="convertActionItemToTask(meeting)"
-                                                    style="cursor: pointer; margin-left:-120px;"><button
-                                                        class="btn btn-primary submitButton">Submit</button></a>
+                                                <a style="cursor: pointer; margin-left:-120px;"><button
+                                                        class="btn btn-primary submitButton"
+                                                        (click)="convertActionItemToTask(meeting)"
+                                                        [disabled]="disableSubmit">Submit</button></a>
+
                                                 <a style="padding-left:24px ;cursor: pointer;"
                                                     (click)="checkCheckboxes(meeting.meetingId)"><button
                                                         class="btn btn-outline-danger deleteButton">Delete</button></a>
@@ -287,6 +294,33 @@
 </div>
 
 
+<!-- action item add modal -->
+    <!-- add modal -->
+<div class="modal" id="myModal_add">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-content" style="margin: 10px;margin: 70px;">
+                <!--Modal Header-->
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align: center;">Add Action Item</h4>
+                </div>
+                <br>
+                <form #form="ngForm" method="POST">
+                    <label><b>ActionItem Title</b></label>
+                    <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
+                        [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
+                        id="actionItemTitle" minlength="5" maxlength="50" #actionItemTitle="ngModel"
+                        [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
+                        (keyup)="validateActionTitle()">
+                    <div *ngIf="actionItemTitleErrorInfo != ''">
+                        <span id="errorSpan">{{actionItemTitleErrorInfo}}</span>
+                    </div>
+                    <!-- title end -->
+                    <label><b>ActionItem Description</b></label>
+                    <div style="padding-left: 10px;">
+                        <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;"
+                            [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
+                            #actionItemDescription="ngModel" minlength="10" maxlength="200" id="actionItemDescription">
+                        </textarea>
     <!-- action item add modal -->
     <div>
         <!-- add modal -->
@@ -320,6 +354,7 @@
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
                             #actionItemDescription="ngModel" minlength="10" maxlength="250"
                             id="actionItemDescription"
+>>>>>>> b0a1b33b8121dc2806a2b8d07e3aec20dcde6ae6
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
                             (keyup)="validateActionDescription()"></textarea>
                     </div>
@@ -349,47 +384,58 @@
                             <option>select</option>
                             <option *ngFor="let emailId of userEmailIdList">{{emailId}}</option>
                     </select> -->
-                    <div style="padding-left: 10px;">
-                        <ng-select [searchable]="true" [clearable]="true" id="actionItemOwner" name="actionItemOwner"
-                            style="width: 400px;" (change)="validateActionItemOwner()"
-                            [(ngModel)]="addDetails.actionItemOwner">
-                            <ng-option [value]="">choose</ng-option>
-                            <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
-                                {{emailId}}
-                            </ng-option>
-                        </ng-select>
-                    </div>
-                    <div *ngIf="actionItemOwnerErrorInfo != '' || actionItemOwnerErrorInfo==null">
-                        <span id="errorSpan">{{actionItemOwnerErrorInfo}}</span>
-                    </div>
-                    <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
-                    <label><b>Start Date</b></label>
-                    <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
-                        [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" name="startDate"
-                        #startDate="ngModel" [class.invalid]="startDate.invalid && startDate.touched"
-                        (change)="validateActionStartDate()">
-                    <div *ngIf="actionItemStartDateErrorInfo != ''">
-                        <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
-                    </div>
-                    <label><b>End Date</b></label>
-                    <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
-                        [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" name="endDate"
-                        #endDate="ngModel" [class.invalid]="endDate.invalid && endDate.touched"
-                        (change)="validateActionEndDate()">
-                    <div *ngIf="actionItemEndDateErrorInfo != ''">
-                        <span id="errorSpan">{{actionItemEndDateErrorInfo}}</span>
-                    </div>
-                    <!--footer-->
-                    <div class="modal-footer" role="alert">
-                        <button type="submit" class="btn btn-primary saveButton"
-                            (click)="saveActionItem(form)">Save</button>
-                        <button type="button" class="btn btn-outline-danger cancelButton"
-                            (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
+                <div style="padding-left: 10px;">
+                    <ng-select [searchable]="true" [clearable]="true" id="actionItemOwner" name="actionItemOwner"
+                        style="width: 400px;" (change)="validateActionItemOwner()"
+                        [(ngModel)]="addDetails.actionItemOwner">
+                        <ng-option [value]="">choose</ng-option>
+                        <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                            {{emailId}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+                <div *ngIf="actionItemOwnerErrorInfo != '' || actionItemOwnerErrorInfo==null">
+                    <span id="errorSpan">{{actionItemOwnerErrorInfo}}</span>
+                </div>
+                <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
+                <label><b>Start Date</b></label>
+                <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
+                    [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" name="startDate"
+                    #startDate="ngModel" [class.invalid]="startDate.invalid && startDate.touched"
+                    (change)="validateActionStartDate()">
+                <div *ngIf="actionItemStartDateErrorInfo != ''">
+                    <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
+                </div>
+                <label><b>End Date</b></label>
+                <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
+                    [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" name="endDate"
+                    #endDate="ngModel" [class.invalid]="endDate.invalid && endDate.touched"
+                    (change)="validateActionEndDate()">
+                <div *ngIf="actionItemEndDateErrorInfo != ''">
+                    <span id="errorSpan">{{actionItemEndDateErrorInfo}}</span>
+                </div>
+                <!--footer-->
+                <div class="modal-footer" role="alert">
+                    <button type="submit" class="btn btn-primary saveButton"
+                        (click)="saveActionItem(form)">Save</button>
+                    <button type="button" class="btn btn-outline-danger cancelButton" id="closeAddModal"
+                        (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
         </div>
+    </div>
 </div>
+
+<!--Modal for update-->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin: 10px;">
+            <!--Modal Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center;">UpdateActionItem</h4>
+            </div>
+            <br>
+            <!--- <label>ActionItem Title</label>-->
 
     <!--Modal for update-->
     <div class="modal" id="myModal"  data-backdrop="static" data-keyboard="false">
@@ -451,7 +497,7 @@
                 <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
             </div>
             <label><b>Action Owner</b></label>
-            <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="uAcItemOwner"
+            <ng-select [searchable]="true" [clearable]="true" id="uAcItemOwner"
                 [selectableGroup]="true" name="uAcItemOwner" style="width: 411px;padding-left: 10px;"
                 (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner">
                 <ng-option [value]="">choose</ng-option>
@@ -594,8 +640,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="margin: 10px;">
             <!--Modal Header-->
-            <div class="modal-header" style="background-color:#134E69D9 ;">
-                    <h5 class="modal-title"style="color: #ecf7fc;;">Meeting Minutes</h5>
+            <div class="modal-header" style="background-color:#134E69D9 ;" *ngIf="meetingData != null">
+                    <h5 class="modal-title"style="color: #ecf7fc;;">Meeting Minutes -{{meetingData.subject}}</h5>
                     <div style="padding-left: 300px;"> 
                         <button type="submit" style="color:black;">Send
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
@@ -615,10 +661,10 @@
                         <p aria-hidden="true" style="color:white; padding-top: 0px;">&times;</p>
                     </button>
             </div>
-            <div class="modal-body" *ngIf="meetingData != null">
+            <div class="modal-body">
              <label><b>Superiors</b></label>
 
-             <div style="padding-left: 10px;" *ngIf="userEmailIdList != null">
+             <div style="padding-left: 10px;">
                 <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM" [multiple]="true"
                     style="width: 400px;" [(ngModel)]="emailListForsendingMOM ">
                         <ng-option [value]="">choose</ng-option>
@@ -680,22 +726,17 @@
             <!-- <div *ngFor="let action of actionItemsOfMeeting; let i=index">
               <label *ngIf="meetingData.meetingId == action.meetingId">{{i+1}}. {{action.actionItemTitle}}</label>
             </div> -->
-            <div  *ngFor="let action of actionItemsOfMeeting; let i=index">
-             <div *ngIf="meetingData!= null && meetingData.meetingId == action.meetingId">
-               <label >{{i+1}}. {{action.actionItemTitle}}</label>
-             </div>
-             </div>
-             <div class="modal-footer">
-                <button type="submit" id="saveActionItem" class="btn btn-primary updateButton" (click)="sendMOMEmail(meetingData,actionItemsOfMeeting)">Send</button>
-                <button type="button" class="btn btn-outline-danger cancelButton" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-     
-
-            
-
-
-
-
+                            <div *ngFor="let action of actionItemsOfMeeting; let i=index">
+                                <div *ngIf="meetingData!= null && meetingData.meetingId == action.meetingId">
+                                    <label>{{i+1}}. {{action.actionItemTitle}}</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
+                                    (click)="sendMOMEmail(meetingData,actionItemsOfMeeting)">Send</button>
+                                <button type="button" class="btn btn-outline-danger cancelButton"
+                                    data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>

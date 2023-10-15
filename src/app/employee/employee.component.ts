@@ -1,7 +1,6 @@
 import { Component, Output ,OnInit} from '@angular/core';
 import { EmployeeService } from './service/employee.service';
 import { Employee } from '../model/Employee.model';
-import { HttpStatus } from '@azure/msal-common';
 import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { DepartmentService } from '../department/service/department.service';

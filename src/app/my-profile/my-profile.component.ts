@@ -69,9 +69,7 @@ export class MyProfileComponent {
           } else if (response.status === HttpStatusCode.Unauthorized) {
             //TODO: SHOW UNAUTHORIZED PAGE
           }
-          else{
-            this.toastr.error('Invalid Profile Format');
-          }
+          
         }
       )
     } else {

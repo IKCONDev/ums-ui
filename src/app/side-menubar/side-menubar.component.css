@@ -1,5 +1,5 @@
 .sidenav {
-    height:120%;/* Full-height: remove this if you want "auto" height */
+    min-height:100vh;/* Full-height: remove this if you want "auto" height */
     width: 90px;
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
@@ -10,7 +10,6 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     padding-bottom: 10px;
-    
   }
 
   #sideMenuText{

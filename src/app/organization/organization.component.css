@@ -4,6 +4,8 @@
     padding-top: 10px;
     padding-left:140px;
     padding-right: 32px;
+    background: #F6FBFD;
+
 }
 
 .card-header{
@@ -34,3 +36,19 @@
 }
 
 /*common properties end*/
+
+#companyLogo{
+    padding-left: 100px;
+}
+
+.verticalLine{
+    border-left: 1px solid black;
+    height: 600px;
+}
+.fa-pencil {
+    color: #4880FF;
+    border: none;
+    background-color: #fff;
+    padding-bottom: 10px;
+
+}

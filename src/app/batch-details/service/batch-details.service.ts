@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient , HttpHeaders,HttpResponse} from "@angular/common/http";
-import { BatchDetails } from "src/app/model/batchDetails.model";
+import { BatchDetails } from "src/app/model/BatchDetails.model";
 
 @Injectable({
     providedIn : 'root'

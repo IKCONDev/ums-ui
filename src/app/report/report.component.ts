@@ -1,7 +1,7 @@
 import { Component, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ReportService } from './service/reports.service';
-import { BatchDetails } from '../model/batchDetails.model';
+import { BatchDetails } from '../model/BatchDetails.model';
 
 @Component({
   selector: 'app-report',

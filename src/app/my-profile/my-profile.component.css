@@ -9,13 +9,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .container-body{
-    padding-left: 250px;
+    padding-left: 150px;
     position: relative;
     width: 1400px;
     max-height: fit-content;
+    background-color: #fff;
 }
+
 
 .rectangle-div {
     position: relative;
@@ -48,7 +51,7 @@
     justify-content: flex-start;
     gap: 12px;
     text-align: left;
-    font-size: 24px;
+    font-size: 10px;
     color: #202224;
     /* font-family: 'General Sans'; */
 }
@@ -64,7 +67,7 @@
 
 .full-name {
     position: relative;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 150%;
     /* font-family: 'General Sans'; */
     color: #606060;
@@ -88,18 +91,18 @@
 
 .disp-name {
     position: relative;
-    font-size: 16px;
+    font-size: 14px;
     padding-top: 10px;
     padding-bottom: 10px;
 
 }
 
 .space {
-    min-height: 20px;
+    min-height: 10px;
 }
 
 .full-name-parent {
-    position: static;
+    position: relative;
     font-size: 16px;
 }
 
