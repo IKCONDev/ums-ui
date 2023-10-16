@@ -334,4 +334,40 @@ export class EmployeeComponent implements OnInit{
   validateUpdateDesignation(){
 
   }
+
+  /** check the selected checkboxes to delete */
+
+  
+  checkCheckBoxes() {
+    var employeeIdsToBeDeleted = [];
+    var table = document.getElementById("employee-table");
+    console.log(table)
+    //for(var i=0; i<tables.length; i++){
+    var rows = table.getElementsByTagName("tr");
+    var value: number[];
+    // Loop through each row
+    for (var i = 0; i < rows.length; i++) {
+
+      var row = rows[i];
+      console.log("the value is" + rows[i]);
+
+      var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+      console.log(checkbox)
+      // Check if the checkbox exists in the row
+      if (checkbox) {
+
+        console.log("value of checkbox is " + checkbox.value);
+        // Check the 'checked' property to get the state (true or false)
+        if (checkbox.checked) {
+          console.log("the checkbox is selected");
+          employeeIdsToBeDeleted.push(checkbox.value);
+        }
+      }
+
+    }
+    console.log(employeeIdsToBeDeleted);
+    
+
+  }
+
 }
