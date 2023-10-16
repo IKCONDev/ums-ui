@@ -116,26 +116,45 @@
             <div class="modal-body" >
     
                 <label><b>First Name</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="addEmployee.firstName"><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="addEmployee.firstName"
+                 id="firstName" name="firstName"  required="true"   #firstName="ngModel" 
+                 [class.invalid]="firstName.invalid && firstName.touched"  (keyup)="validateEmployeeFirstName()"><br/>
+                 <span *ngIf="employeeFirstNameErrorInfo != ''">
+                    <p id="errorMessage">{{employeeFirstNameErrorInfo}}</p>
+                </span>
                 <label><b>Last Name</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="addEmployee.lastName" /><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="addEmployee.lastName"
+                id="lastName" name="lastName" required="true" #lastName="ngModel" (keyup)="validateEmployeeLastName()"
+                 [class.invalid]="lastName.invalid && lastName.touched"/><br/>
+                 <span *ngIf="employeeLastNameErrorInfo != ''">
+                    <p id="errorMessage">{{employeeLastNameErrorInfo}}</p>
+                 </span>
                 <label><b>Email</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="addEmployee.email" /><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="addEmployee.email"
+                 id="employeeEmail" name="employeeEmail" #employeeEmail="ngModel" (keyup)="validateEmployeeEmailId()" /><br/>
+                 <span *ngIf=" employeeEmailIdErrorInfo != ''">
+                    <p id="errorMessage">{{ employeeEmailIdErrorInfo}}</p>
+                 </span>
                 <label><b>Department</b></label>
-                <select class="form-control" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="addEmployee.departmentId">
+                <select class="form-control" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="addEmployee.departmentId"
+                  id="employeeDept" name="employeeDept" #employeeDept="ngModel">
                                                      <option>select</option>
                                                      <option *ngFor="let department of departmentList" [value]="department.departmentId">{{department.departmentName}}</option>
                                                        
                </select> <br/>
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="addEmployee.designation"/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="addEmployee.designation"
+                 id="employeeDesgn" name="employeeDesgn" #employeeDesgn="ngModel" (keyup)="validateEmployeeDesignation()"/><br/>
+                 <span *ngIf=" employeeDesignationErrorInfo != ''">
+                    <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>
+                 </span>
 
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="createEmployee()">Save</button>
-                <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" id="closeAddModal">Close</button>
+                <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" id="closeAddModal" (click)="clearErrorMessages()">Close</button>
             </div>
         </div>
     </div>

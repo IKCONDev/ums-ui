@@ -65,8 +65,44 @@ export class EmployeeComponent implements OnInit{
  *  create employee
  */
  createdEmployee : Employee;
+  
+
+
   createEmployee(){
-    console.log(this.addEmployee);
+
+    let isFirstNameValid = true;
+    let  isLastNameValid = true;
+    let isEmailIdValid = true;
+    let  isDepartmentValid = true;
+    let  isDesignationValid = true;
+
+    if(!this.isEmployeeFirstNameValid){
+
+      var valid = this.validateEmployeeFirstName();
+      isFirstNameValid = valid;
+    }
+    if(!this.isEmployeeLasttNameValid){
+      var valid = this.validateEmployeeLastName();
+      isLastNameValid = valid;
+    }
+    if(!this.isEmployeeEmailIdValid){
+      var valid = this.validateEmployeeEmailId();
+      isEmailIdValid =valid;
+
+    }
+    if(!this.isEmployeeDepartmentValid){
+      var valid = this.validateEmployeeDepartment();
+      isDepartmentValid = valid;
+
+    }
+    if(!this.isEmployeeDesignationtValid){
+       var valid = this.validateEmployeeDesignation();
+       isDesignationValid = valid;
+    }
+    
+    if(isFirstNameValid == true && isLastNameValid == true && isEmailIdValid == true && isDepartmentValid == true && isDesignationValid == true){
+      
+      console.log(this.addEmployee);
      this.employeeservice.createEmployee(this.addEmployee).subscribe(
        response =>{
         if(response.status == HttpStatusCode.Created){
@@ -78,6 +114,9 @@ export class EmployeeComponent implements OnInit{
 
        }
      )
+    }
+
+    
   }
 
   existingEmployee ={
@@ -192,6 +231,11 @@ export class EmployeeComponent implements OnInit{
         this.employeeFirstNameErrorInfo = "first Name is required";
         this.isEmployeeFirstNameValid = false;
     }
+    else if(this.addEmployee.firstName.length < 4){
+      this.employeeFirstNameErrorInfo = "first Name is required";
+      this.isEmployeeFirstNameValid = false;
+   
+    }
     else{
        this.employeeFirstNameErrorInfo = "";
        this.isEmployeeFirstNameValid = true;
@@ -230,7 +274,7 @@ export class EmployeeComponent implements OnInit{
   }
   employeeDepartmentErrorInfo = "";
   validateEmployeeDepartment(){
-     if(this.addEmployee.departmentId < 1){
+     if(this.addEmployee.departmentId < 1 ){
        this.employeeDepartmentErrorInfo = "Department is required"
        this.isEmployeeDepartmentValid = false;
 
@@ -247,17 +291,47 @@ export class EmployeeComponent implements OnInit{
 
   validateEmployeeDesignation(){
 
-    if(this.addEmployee.departmentId < 1){
-      this.employeeDepartmentErrorInfo = "Department is required"
+    if(this.addEmployee.designation == ''){
+      this.employeeDesignationErrorInfo = "Designation is required"
       this.isEmployeeDesignationtValid = false;
 
     }
     else{
       this.employeeDesignationErrorInfo ="";
-      this.isEmployeeDesignationtValid = false;
+      this.isEmployeeDesignationtValid = true;
     }
     return this.isEmployeeDesignationtValid;
   }
 
+  /**
+   * clear Error Message
+   */
 
+  clearErrorMessages(){
+     this.employeeFirstNameErrorInfo = '';
+     this.employeeLastNameErrorInfo = '';
+     this.employeeEmailIdErrorInfo = '';
+     this.employeeDepartmentErrorInfo = '';
+     this.employeeDesignationErrorInfo ='';
+  
+  }
+  /**
+   * update employee Validations
+   */
+  updateFirst
+  validateupdateFirstName(){
+
+  }
+  validateupdateLastName(){
+
+  }
+  validateupdateEmailId(){
+
+  }
+  validateUpdateDepartment(){
+
+  }
+  validateUpdateDesignation(){
+
+  }
 }

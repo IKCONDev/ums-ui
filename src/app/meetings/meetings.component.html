@@ -354,7 +354,6 @@
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
                             #actionItemDescription="ngModel" minlength="10" maxlength="250"
                             id="actionItemDescription"
->>>>>>> b0a1b33b8121dc2806a2b8d07e3aec20dcde6ae6
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
                             (keyup)="validateActionDescription()"></textarea>
                     </div>
@@ -425,17 +424,6 @@
         </div>
     </div>
 </div>
-
-<!--Modal for update-->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content" style="margin: 10px;">
-            <!--Modal Header-->
-            <div class="modal-header">
-                <h4 class="modal-title" style="text-align: center;">UpdateActionItem</h4>
-            </div>
-            <br>
-            <!--- <label>ActionItem Title</label>-->
 
     <!--Modal for update-->
     <div class="modal" id="myModal"  data-backdrop="static" data-keyboard="false">
@@ -641,22 +629,7 @@
         <div class="modal-content" style="margin: 10px;">
             <!--Modal Header-->
             <div class="modal-header" style="background-color:#134E69D9 ;" *ngIf="meetingData != null">
-                    <h5 class="modal-title"style="color: #ecf7fc;;">Meeting Minutes -{{meetingData.subject}}</h5>
-                    <div style="padding-left: 300px;"> 
-                        <button type="submit" style="color:black;">Send
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
-                            <g id="send">
-                            <mask id="mask0_3149_68857" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="12" height="13">
-                            <rect id="Bounding box" y="0.5" width="12" height="12" fill="#D9D9D9"/>
-                            </mask>
-                            <g mask="url(#mask0_3149_68857)">
-                            <path id="send_2" d="M1.5 10.5V7.5L5.5 6.5L1.5 5.5V2.5L11 6.5L1.5 10.5Z" fill="#4880FF"/>
-                            </g>
-                            </g>
-                         </svg>
-                        </button>
-                    
-                    </div> 
+                    <h5 class="modal-title"style="color: #ecf7fc;;">Meeting Minutes -{{meetingData.subject}}</h5> 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <p aria-hidden="true" style="color:white; padding-top: 0px;">&times;</p>
                     </button>
@@ -726,17 +699,27 @@
             <!-- <div *ngFor="let action of actionItemsOfMeeting; let i=index">
               <label *ngIf="meetingData.meetingId == action.meetingId">{{i+1}}. {{action.actionItemTitle}}</label>
             </div> -->
-                            <div *ngFor="let action of actionItemsOfMeeting; let i=index">
-                                <div *ngIf="meetingData!= null && meetingData.meetingId == action.meetingId">
-                                    <label>{{i+1}}. {{action.actionItemTitle}}</label>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
-                                    (click)="sendMOMEmail(meetingData,actionItemsOfMeeting)">Send</button>
-                                <button type="button" class="btn btn-outline-danger cancelButton"
-                                    data-dismiss="modal">Cancel</button>
-                            </div>
-                        </div>
+             <div *ngFor="let action of actionItemsOfMeeting; let i=index">
+                    <div *ngIf="meetingData!= null && meetingData.meetingId == action.meetingId">
+                        <label>{{i+1}}. {{action.actionItemTitle}}</label>
                     </div>
-                </div>
+             </div>
+            <div class="modal-footer">
+                 <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
+                  (click)="sendMOMEmail(meetingData,actionItemsOfMeeting)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 12 13" fill="none">
+                    <g id="send">
+                    <mask id="mask0_3149_68857" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="12" height="13">
+                    <rect id="Bounding box" y="0.5" width="12" height="12" fill="#D9D9D9"/>
+                    </mask>
+                    <g mask="url(#mask0_3149_68857)">
+                    <path id="send_2" d="M1.5 10.5V7.5L5.5 6.5L1.5 5.5V2.5L11 6.5L1.5 10.5Z" fill="#4880FF"/>
+                    </g>
+                    </g>
+                 </svg>Send</button>
+                <button type="button" class="btn btn-outline-danger cancelButton"
+                        data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
