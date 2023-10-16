@@ -478,12 +478,6 @@
                     <div *ngFor="let attendees of meetingData.attendees">
                         <label>{{attendees.email}}</label>
                     </div>
-                <!--footer-->
-                <div class="modal-footer">
-                    <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
-                        (click)="updateActionItem(form)" [(ngModel)]="updatedetails">Save</button>
-                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton"
-                        data-dismiss="modal">Cancel</button>
                 </div>
                 <hr>            
 
@@ -504,6 +498,7 @@
                         data-dismiss="modal">Cancel</button>
                 </div>
              </form>
+        </div>
     </div>
  </div>
 
