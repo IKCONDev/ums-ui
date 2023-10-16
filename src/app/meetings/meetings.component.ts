@@ -568,12 +568,12 @@ export class MeetingsComponent implements OnInit{
         this.isMetingActionItemsDeleted = response.body;
         console.log(this.isMetingActionItemsDeleted);
         if (this.isMetingActionItemsDeleted) {
-          this.toastr.success('Action Items are deleted')
+          this.toastr.success('Action Items deleted successfully')
           setTimeout(()=>{
             window.location.reload();
           },1000)
         } else {
-          this.toastr.error('Action items were not deleted, try again')
+          this.toastr.error('Action items were not deleted, please try again !')
         }
       }
     )
@@ -725,6 +725,7 @@ export class MeetingsComponent implements OnInit{
    * get the list of active users
    */
   getActiveUMSUsersEmailIdList(){
+    console.log('executed')
     //perform an AJAX call to get list of users
     var isActive:boolean = true;
   // $.ajax({url:"http://localhost:8012/users/getEmail-list/", success: function(result){

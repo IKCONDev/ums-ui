@@ -22,7 +22,7 @@
                 </div>
                 <div id="deleteBtnDiv" class="col-sm-1">
                     <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn"
-                     value="Delete"><p>Delete</p></button>
+                     value="Delete" (click)="removeAllSelectedRoles()"><p>Delete</p></button>
                 </div>
                 <div class="col-sm-1" id="filter">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
@@ -36,7 +36,7 @@
                 <table class="table table-hover">
                     <thead id="thead">
                         <th>
-                            <input type="checkbox"/>
+                            <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
                         </th>
                         <th>Role Id</th>
                         <th>Role Name</th>
@@ -49,7 +49,7 @@
                     <tbody>
                         <tr *ngFor="let role of roleList">
                             <td>
-                                <input type="checkbox"/>
+                                <input type="checkbox" id="subCheckBox" class="subCheckBox" value="{{role.roleId}}"/>
                             </td>
                             <td>{{role.roleId}}</td>
                             <td>{{role.roleName}}</td>

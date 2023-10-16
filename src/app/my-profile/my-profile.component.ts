@@ -12,7 +12,7 @@ import { HttpStatusCode } from '@angular/common/http';
 })
 export class MyProfileComponent {
 
-  fileSize: number = 1000000; //1MB
+  fileSize: number = 4000000; //1MB
   retriveResponse: any;
   isDisable: boolean = true;
   title = 'My Profile'
@@ -73,7 +73,7 @@ export class MyProfileComponent {
         }
       )
     } else {
-      this.toastr.error('File size ig greater than 1MB')
+      this.toastr.error('File size ig greater than 4 MB')
     }
 
   }

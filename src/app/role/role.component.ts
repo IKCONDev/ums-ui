@@ -9,6 +9,7 @@ import { HttpStatusCode } from '@angular/common/http';
   templateUrl: './role.component.html',
   styleUrls: ['./role.component.css']
 })
+
 export class RoleComponent implements OnInit {
 
   @Output() title: string = 'Roles';
@@ -27,6 +28,7 @@ export class RoleComponent implements OnInit {
     modifiedDateTime: Date
   }
 
+  //existing db role obj
   existingRole = {
     roleId: 0,
     roleName: '',
@@ -38,8 +40,11 @@ export class RoleComponent implements OnInit {
     modifiedDateTime: '',
   }
 
-  // addRoleObj: Role;
-
+  /**
+   * 
+   * @param roleService 
+   * @param toastr 
+   */
   constructor(private roleService: RoleService, private toastr: ToastrService) {
 
   }
@@ -50,6 +55,10 @@ export class RoleComponent implements OnInit {
 
   roleNameErrorInfo: string = ''
   isRoleNameValid: boolean = false;
+  /**
+   * 
+   * @returns 
+   */
   validateRoleName() {
     if (this.addRoleObj.roleName === '') {
       this.roleNameErrorInfo = 'role name is required';
@@ -64,6 +73,10 @@ export class RoleComponent implements OnInit {
 
   updatedRoleNameErrorInfo: string = ''
   isUpdatedRoleNameValid = false;
+  /**
+   * 
+   * @returns 
+   */
   validateUpdatedRoleName() {
     if (this.existingRole.roleName === '') {
       this.updatedRoleNameErrorInfo = 'role name is required';
@@ -182,6 +195,10 @@ export class RoleComponent implements OnInit {
     )
   }
 
+  /**
+   * 
+   * @param id 
+   */
   deleteRoleById(id: number) {
     var isConfirmed = window.confirm('Are you sure you want to delete this record ?');
     if (isConfirmed) {
@@ -193,7 +210,7 @@ export class RoleComponent implements OnInit {
               window.location.reload();
             }, 1000);
           } else {
-            this.toastr.error("Role '+id+' could not be deleted.. Please try again !");
+            this.toastr.error('Role '+id+ 'could not be deleted.. Please try again !');
           }
         })
       )
@@ -202,6 +219,75 @@ export class RoleComponent implements OnInit {
     }
   }
 
+
+  /**
+   * 
+   * @param mainCheckBox check subcheckbox if main checkbox is checked
+   */
+  checkSubCheckBoxes(mainCheckBox: any){
+    //  var subCheckBoxesRow = document.querySelector('dataRow');
+    //  var subCheckBoxes = subCheckBoxesRow.querySelector("input[type='checkbox']") as HTMLInputElement;
+    //  subCheckBoxes.forEach( subCheckBox => {
+      
+    //  });
+    var departmentsToBeDeleted = [];
+   // var table = document.getElementById("myTable1")
+   // console.log(table)
+    //for(var i=0; i<tables.length; i++){
+    var rows = document.getElementsByTagName("tr");
+    //var subCheckBoxes = rows
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      console.log("the value is" + rows[i]);
+      var subCheckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+      subCheckbox.checked = mainCheckBox.checked;
+      subCheckbox.click();
+    }
+   }
+
+  /**
+   * remove multiple roles
+   */
+  roleIdsToBeDeleted = [];
+  removeAllSelectedRoles(){
+    //initialize to empty array on click from second time
+    this.roleIdsToBeDeleted = [];
+   var subCheckBoxes = document.getElementsByClassName('subCheckBox') as HTMLCollectionOf<HTMLInputElement>;
+   for(var i=0; i<subCheckBoxes.length; i++){
+    if(subCheckBoxes[i].checked){
+      this.roleIdsToBeDeleted.push(subCheckBoxes[i].value);
+      console.log(this.roleIdsToBeDeleted);
+    }
+   }
+   //delete the selected roles
+   if(this.roleIdsToBeDeleted.length>0){
+    //confirm before deleting
+    var isconfirmed = window.confirm('Are yopu sure, you really want to delete these records ?')
+    if(isconfirmed){
+      this.roleService.deleteSelectedRoles(this.roleIdsToBeDeleted).subscribe(
+        (response => {
+          if(response.status === HttpStatusCode.Ok){
+            var isAllDeleted = response.body    
+            this.toastr.success('Roles deleted sucessfully')  
+            setTimeout(()=>{
+              window.location.reload();
+            },1000)  
+          }else{
+            this.toastr.error('Error while deleting roles... Please try again !');
+          }
+        })
+      )
+    }else{
+      this.toastr.warning('Roles deletion cancelled')
+    }
+   }else{
+    this.toastr.error('Please select atleast one record to delete.')
+   }
+  }
+
+  /**
+   * 
+   */
   clearErrorMessages(){
     //clear create form
     this.addRoleObj.roleName = '';

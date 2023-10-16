@@ -53,6 +53,7 @@
                     <th>Transcript</th>
                     <th>Action Items</th>
                     <th>Mail</th>
+                    <th>Send MOM</th>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr>
@@ -62,8 +63,8 @@
                         <td>{{meeting.organizerEmailId}}</td>
                         <td>{{meeting.startDateTime}}</td>
                         <td>{{meeting.endDateTime}}</td>
-                        <td style="padding-left: 45px;">{{meeting.attendees.length}}</td>
-                        <td style="padding-left: 45px;">
+                        <td style="padding-left: 30px;">{{meeting.attendees.length}}</td>
+                        <td style="padding-left: 30px;">
 
                             <!-- transcript data Modal start -->
                             <button id="transcriptBtn" [disabled]="meeting.isTranscriptDisabled">
@@ -398,7 +399,7 @@
                     <!--footer-->
                     <div class="modal-footer" role="alert">
                         <button type="submit" class="btn btn-primary saveButton"
-                            (click)="saveActionItem(form)">Create</button>
+                            (click)="saveActionItem(form)">Save</button>
                         <button id="closeAddModal" type="button" class="btn btn-outline-danger cancelButton" id="closeAddModal"
                             (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
                     </div>
@@ -474,10 +475,15 @@
                 <hr>
                 <label for="attendees"><b>Attendees</b></label>
                 <div *ngIf="meetingData!= null">
-
                     <div *ngFor="let attendees of meetingData.attendees">
                         <label>{{attendees.email}}</label>
                     </div>
+                <!--footer-->
+                <div class="modal-footer">
+                    <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
+                        (click)="updateActionItem(form)" [(ngModel)]="updatedetails">Save</button>
+                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton"
+                        data-dismiss="modal">Cancel</button>
                 </div>
                 <hr>            
 
