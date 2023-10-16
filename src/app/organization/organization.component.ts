@@ -24,7 +24,7 @@ export class OrganizationComponent implements OnInit {
   org : Organization
   getOrganization(){
     //returns null if no org details are present in DB.
-    this.orgService.getOrganization(9).subscribe(
+    this.orgService.getOrganization(5).subscribe(
       (response => {
         if(response.status === HttpStatusCode.Ok){
           console.log(response.body)
@@ -36,6 +36,7 @@ export class OrganizationComponent implements OnInit {
   isDisable:boolean=false
   editInfo(){
     this.isDisable=true
+    console.log(this.isDisable)
   }
   cancelCompanyDetails(){
     this.isDisable=false;
@@ -44,6 +45,7 @@ export class OrganizationComponent implements OnInit {
   saveOrUpdateOrg(){
   this.isDisable=false;
   if(this.org.orgId===null){
+    console.log('save')
   this.orgService.saveOrganization(this.org).subscribe(
     (response=>{
       this.org=response.body;
@@ -51,6 +53,7 @@ export class OrganizationComponent implements OnInit {
     )
   } 
   else if(this.org.orgId!=0){
+    console.log('update')
     this.orgService.updateOrganisation(this.org).subscribe(
       (response=>{
         this.org=response.body;

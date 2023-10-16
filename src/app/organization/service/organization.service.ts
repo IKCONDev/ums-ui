@@ -22,9 +22,11 @@ export class OrganizationService{
     }
 
     saveOrganization(org){
+        console.log(org)
         return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganisationUrl}`,org,{observe:'response'})
     }
     updateOrganisation(org){
+        console.log(org)
         return this.http.put<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.updateOrganisationUrl}`,org,{observe:'response'})
     }
 
