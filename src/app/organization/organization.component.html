@@ -17,7 +17,7 @@
                 <h4 *ngIf="org.orgName === null">-</h4>
                 <h4 *ngIf="org.orgName !== null">{{org.orgName}}</h4>
                 <!-- add textbox -->
-                <input type="text" [(ngModel)]="org.orgName"  *ngIf="isDisable==true" class="form-control">
+                <input type="text" [(ngModel)]="org.orgName" *ngIf="isDisable==true" class="form-control">
 
 
                 <!-- orgWebsite -->
@@ -96,7 +96,7 @@
                     <div *ngIf="(org.orgSuperAdminEmailId != null)" class="col-sm-4">
 
                         <label *ngIf="isDisable==false">{{org.orgSuperAdminEmailId}}</label>
-                        <input type="text" *ngIf="isDisable==true"placeholder="Organization Super Admin Email Id" [(ngModel)]="org.orgSuperAdminEmailId"
+                        <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgSuperAdminEmailId"
                             class="form-control">
                     </div>
                 </div>
