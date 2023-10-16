@@ -568,12 +568,12 @@ export class MeetingsComponent implements OnInit{
         this.isMetingActionItemsDeleted = response.body;
         console.log(this.isMetingActionItemsDeleted);
         if (this.isMetingActionItemsDeleted) {
-          this.toastr.success('Action Items deleted successfully')
+          this.toastr.success('Action Items are deleted')
           setTimeout(()=>{
             window.location.reload();
           },1000)
         } else {
-          this.toastr.error('Action items were not deleted, please try again !')
+          this.toastr.error('Action items were not deleted, try again')
         }
       }
     )
@@ -725,7 +725,6 @@ export class MeetingsComponent implements OnInit{
    * get the list of active users
    */
   getActiveUMSUsersEmailIdList(){
-    console.log('executed')
     //perform an AJAX call to get list of users
     var isActive:boolean = true;
   // $.ajax({url:"http://localhost:8012/users/getEmail-list/", success: function(result){
@@ -1036,7 +1035,6 @@ fetchUserOrganizedMeetings(meeting : any){
   )*/
   this.meetingData = meeting;
   console.log(this.meetingData);
-
 }
 
 /** send Mom Email */
@@ -1044,12 +1042,12 @@ emailListForsendingMOM : string[];
 
 momObject : MOMObject;
 
-sendMOMEmail(  meeting : Meeting, actionItemList: ActionItems[]){
-  this.momObject.meeting = meeting;
+sendMOMEmail(){
+  this.momObject.meeting = this.meetingData;
 
-  for(let action of actionItemList){
+  for(let action of this.actionItemsOfMeeting){
 
-    if(meeting.meetingId == action.meetingId){
+    if(this.meetingData.meetingId == action.meetingId){
       this.momObject.actionItemList.push(action);
 
 
@@ -1059,7 +1057,7 @@ sendMOMEmail(  meeting : Meeting, actionItemList: ActionItems[]){
     console.log(this.momObject.meeting);
     console.log(this.momObject.actionItemList);
     console.log(this.emailListForsendingMOM)
-  this.meetingsService.sendMinutesofMeeting(this.momObject).subscribe(response =>{
+    this.meetingsService.sendMinutesofMeeting(this.momObject).subscribe(response =>{
      if(response.status == HttpStatusCode.Ok){
         this.toastr.success("email send successfully");
      }
