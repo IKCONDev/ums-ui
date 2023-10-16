@@ -48,7 +48,7 @@ const routes: Routes = [
   {path:"designations", component: DesignationComponent},
   {path:"users", component: UsersComponent},
   {path:'organization', component: OrganizationComponent},
-  {path:'role', component: RoleComponent},
+  {path:'roles', component: RoleComponent},
   {path: 'employee',component:EmployeeComponent},
  
   //{path:"overview", component: OverviewComponent},
