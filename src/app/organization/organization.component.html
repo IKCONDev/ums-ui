@@ -112,6 +112,9 @@
                     <div *ngIf="org.orgEmailId != null" class="col-sm-4">
                         <label *ngIf="isDisable==false">{{org.orgEmailId}}</label>
                         <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgEmailId" class="form-control">
+                        <div *ngIf="isDisable==true">
+                            &nbsp;
+                        </div>
                     </div>
                 </div>
 
@@ -141,6 +144,9 @@
                     <div *ngIf="org.orgCountry != null" class="col-sm-4">
                         <label *ngIf="isDisable==false">{{org.orgCountry}}</label>
                         <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgCountry" class="form-control">
+                        <div *ngIf="isDisable==true">
+                            &nbsp;
+                        </div>
                     </div>
                 </div>
                 <div class="row">
