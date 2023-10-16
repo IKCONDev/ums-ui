@@ -241,6 +241,8 @@ export class MeetingsComponent implements OnInit{
    */
   clearErrorMessages(form: NgForm){
 
+    //form.form.reset();
+
     //reset the form
     this.addDetails.actionItemTitle = '';
     this.addDetails.actionItemDescription = '';

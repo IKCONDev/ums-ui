@@ -10,6 +10,7 @@
     align-items: center;
 }
 
+
 .card-header{
 
     background-color: #134E69D9;
@@ -54,4 +55,10 @@
     background-color: #fff;
     padding-bottom: 10px;
 
+}
+#superadminId{
+    height: 60px;
+    align-self: stretch;
+    border-color: #2AA3D9;
+    display: inline-block;
 }
