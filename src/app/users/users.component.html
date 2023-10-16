@@ -120,11 +120,11 @@
                     <span id="errorMessage">{{useremilIdErrorInfo}}</span>
                 </div>
                 <label><b>Role</b></label>
-                <select class="adduserInput form-control" placeholder="role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"
+                <select class="adduserInput form-control" placeholder="role" [(ngModel)]="addUserObj.userRoles.at(0).roleId"
                 id="userRole" name="userRole" #userRole="ngModel" [class.invalid]="userRole.invalid && userRole.touched"
                 (keyup)="validateuserRole()">
                     <option>select</option>
-                    <option *ngFor="let role of roles" [value]="role.roleName">{{role.roleName}}</option>
+                    <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                       
                 </select> <br/>
                  <!--  <input type="text" class="adduserInput form-control" placeholder="Role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"/>-->
@@ -157,9 +157,9 @@
                 <label><b>Email</b></label>
                 <input type="text" class="updateUserInput form-control" placeholder="Email" [(ngModel)]="existingUserObj.email"/><br/>
                 <label><b>Role</b></label>
-                <select class="adduserInput form-control" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleName">
+                <select class="updateUserInput form-control" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleId">
                     <option>select</option>
-                    <option *ngFor="let role of roles" [value]="role.roleName">{{role.roleName}}</option>
+                    <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                 </select>
                <!---<input type="text" class="updateUserInput form-control" placeholder="Role" [(ngModel)]="existingUserObj.userRoles.at(0).roleName"/>-->
             </div>

@@ -85,3 +85,7 @@ td{
     background-color: #134E69D9; 
     color: #ecf7fc;
 }
+#errorMessage{
+    color: red;
+    font-size: 12px;
+  }

@@ -90,7 +90,16 @@ export class UsersComponent  implements OnInit{
     }
 
     if(isEmailId == true && isRoleName == true){
-       
+    console.log("create user Object"+this.addUserObj.userRoles[0]);
+    //set role based on role id
+    console.log(this.addUserObj.userRoles[0].roleId)
+    this.roles.filter( role =>{
+      console.log(role.roleId)
+      if(this.addUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
+        this.addUserObj.userRoles[0].roleName = role.roleName;
+        console.log(role.roleName);
+      }
+    })
       this.userService.createUser(this.addUserObj).subscribe(
         response =>{
          
@@ -98,9 +107,9 @@ export class UsersComponent  implements OnInit{
            this.addUserObj = response.body;
             this.toastr.success("user added successfully");
             document.getElementById('closeAddModal').click();
-            setTimeout(()=>{
+            /*setTimeout(()=>{
                window.location.reload();
-           },1000)
+           },1000)*/
          }
           
         }
@@ -158,9 +167,14 @@ export class UsersComponent  implements OnInit{
    * 
    * @param user
    */
-  updateUser(user : any){
-    
-    this.userService.update(user).subscribe(
+  updateUser(existingUser : any){
+
+    this.roles.filter(role =>{
+       if(this.existingUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
+          this.existingUserObj.userRoles[0].roleName = role.roleName;
+       }
+    })
+    this.userService.update(existingUser).subscribe(
        response=>{
          var userRecord = response.body;
          if(response.status == HttpStatusCode.Created){
@@ -214,7 +228,7 @@ export class UsersComponent  implements OnInit{
  isRoleNameValid = false;
  roleErrorInfo ="";
  validateuserRole(){
-   if(this.addUserObj.userRoles.at(0).roleName == ''){
+   if(this.addUserObj.userRoles.at(0).roleId == 0){
      this.roleErrorInfo = 'role is required';
      this.isRoleNameValid = false;
    }

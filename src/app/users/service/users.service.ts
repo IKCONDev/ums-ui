@@ -17,7 +17,7 @@ export class UserService{
         return this.http.get<Users[]>(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/all`,{observe:'response'}); 
     }
 
-    update(user : Users){
+    update(user : any){
         console.log("came to update"+ user);
         return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/update`,user,{observe:'response'});
     }
