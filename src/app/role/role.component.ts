@@ -225,11 +225,7 @@ export class RoleComponent implements OnInit {
    * @param mainCheckBox check subcheckbox if main checkbox is checked
    */
   checkSubCheckBoxes(mainCheckBox: any){
-    //  var subCheckBoxesRow = document.querySelector('dataRow');
-    //  var subCheckBoxes = subCheckBoxesRow.querySelector("input[type='checkbox']") as HTMLInputElement;
-    //  subCheckBoxes.forEach( subCheckBox => {
-      
-    //  });
+    
     var departmentsToBeDeleted = [];
    // var table = document.getElementById("myTable1")
    // console.log(table)
@@ -241,7 +237,7 @@ export class RoleComponent implements OnInit {
       console.log("the value is" + rows[i]);
       var subCheckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
       subCheckbox.checked = mainCheckBox.checked;
-      subCheckbox.click();
+      //subCheckbox.click();
     }
    }
 

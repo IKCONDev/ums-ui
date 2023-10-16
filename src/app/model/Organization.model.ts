@@ -1,16 +1,17 @@
 export class Organization{
     orgId: number;
     orgName: string;
+    orgContactNumber :string;
 	orgEmailId: string;
-	orgContact :string;
-    orgContactPerson: string;
+    orgContactPersonName: string;
+    orgContactPersonNumber: string;
 	orgContactPersonEmail: string;
 	orgFunctionalType: string;
 	orgLogo: Blob;
     orgWebsite: string;
 	orgCountry: string;
-	orgTimeZone: string;
-	orgAddress: string;
+	 orgTimeZone: string;
+	 orgAddress: string;
 	orgSuperAdminEmailId: string;
 	defaultReplyEmailId : string;
 	createdDateTime : string;
@@ -18,12 +19,5 @@ export class Organization{
 	createdBy : string;
 	modifiedBy : string;
     createdByEmailId : string;
-	modifiedByEmailId : string;
-
-    /**
-     *
-     */
-    constructor() {
-        
-    }
+	 modifiedByEmailId : string;
 }
