@@ -24,7 +24,7 @@ export class OrganizationComponent implements OnInit {
   org : Organization
   getOrganization(){
     //returns null if no org details are present in DB.
-    this.orgService.getOrganization(5).subscribe(
+    this.orgService.getOrganization(10).subscribe(
       (response => {
         if(response.status === HttpStatusCode.Ok){
           console.log(response.body)
