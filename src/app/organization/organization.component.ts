@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { OrganizationService } from './service/organization.service';
 import { Organization } from '../model/Organization.model';
 import { HttpStatusCode } from '@angular/common/http';
+import { Toast, ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-organization',
@@ -12,7 +13,7 @@ export class OrganizationComponent implements OnInit {
 
   @Output() title:string='Organization';
 
-  constructor(private orgService: OrganizationService){
+  constructor(private orgService: OrganizationService, private toast:ToastrService){
 
   }
 
@@ -32,9 +33,31 @@ export class OrganizationComponent implements OnInit {
       })
     )
   }
-  isDisable:boolean=true
+  isDisable:boolean=false
   editInfo(){
-    this.isDisable=false
+    this.isDisable=true
+  }
+  cancelCompanyDetails(){
+    this.isDisable=false;
+  }
+
+  saveOrUpdateOrg(){
+  this.isDisable=false;
+  if(this.org.orgId===null){
+  this.orgService.saveOrganization().subscribe(
+    (response=>{
+      this.org=response;
+    })
+    )
+  } 
+  else if(this.org.orgId!=0){
+    this.orgService.updateOrganisation().subscribe(
+      (response=>{
+        this.org=response;
+      })
+    )
+
+    }
   }
 
 
