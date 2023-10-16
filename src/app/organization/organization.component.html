@@ -17,34 +17,34 @@
                 <h4 *ngIf="org.orgName === null">-</h4>
                 <h4 *ngIf="org.orgName !== null">{{org.orgName}}</h4>
                 <!-- add textbox -->
-                <input type="text" class="form-control">
+                <input type="text" *ngIf="isDisable==true" class="form-control">
                 <br />
 
                 <!-- orgWebsite -->
                 <p *ngIf="org.orgWebsite === null">-</p>
                 <p *ngIf="org.orgWebsite !== null">{{org.orgWebsite}}</p>
                 <!-- add textbox -->
-                <input type="text" class="form-control">
+                <input type="text" *ngIf="isDisable==true" class="form-control">
                 <!-- orgFunctionalType -->
                 <p *ngIf="org.orgFunctionalType === null">-</p>
                 <p *ngIf="org.orgFunctionalType !== null">{{org.orgFunctionalType}}</p>
                 <!-- add textbox -->
-                <input type="text" class="form-control">
+                <input type="text" *ngIf="isDisable==true" class="form-control">
                 <!--orgContactPerson  -->
                 <p *ngIf="org.orgContactPerson === null">-</p>
                 <p *ngIf="org.orgContactPerson !== null">{{org.orgContactPerson}}</p>
                 <!-- add textbox -->
-                <input type="text" class="form-control">
+                <input type="text" *ngIf="isDisable==true" class="form-control">
                 <!-- orgContact -->
                 <p *ngIf="org.orgContact === null">-</p>
                 <p *ngIf="org.orgContact !== null">{{org.orgContact}}</p>
                 <!-- add textbox -->
-                <input type="text" class="form-control">
+                <input type="text" *ngIf="isDisable==true" class="form-control">
                 <!-- orgContactPersonEmail -->
                 <p *ngIf="org.orgContactPersonEmail === null">-</p>
                 <p *ngIf="org.orgContactPersonEmail !== null">{{org.orgContactPersonEmail}}</p>
                 <!-- add textbox -->
-                <input type="text" class="form-control">
+                <input type="text" *ngIf="isDisable==true" class="form-control">
                 <br/>
 
                 <!-- orgAddress -->
@@ -52,7 +52,7 @@
                 <p *ngIf="org.orgAddress === null">-</p>
                 <p *ngIf="org.orgAddress !== null">{{org.orgAddress}}</p>
                 <!-- add textarea -->
-                <input type="text" class="form-control">
+                <input type="text" *ngIf="isDisable==true" class="form-control">
             </div>
             
             <div class="col-sm-6">
@@ -67,9 +67,9 @@
                     <div *ngIf="org.orgSuperAdminEmailId != null" class="col-sm-2">
                         <p>{{org.orgSuperAdminEmailId}}</p>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4" *ngIf="isDisable==true">
                         <!-- add textbox -->
-                        <input type="text" class="form-control">
+                        <input type="text" [ngModel]="org.orgSuperAdminEmailId" class="form-control">
                     </div>
                 </div>
                 <br />
@@ -84,9 +84,9 @@
                     <div *ngIf="org.orgEmailId != null" class="col-sm-2">
                         <p>{{org.orgEmailId}}</p>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4" *ngIf="isDisable==true">
                         <!-- add textbox -->
-                        <input type="text" class="form-control">
+                        <input type="text" [ngModel]="org.orgEmailId" class="form-control">
                     </div>
                     <!-- orgContact -->
                     <div class="row">
@@ -99,9 +99,9 @@
                         <div *ngIf="org.orgContact != null" class="col-sm-2">
                             <p>{{org.orgContact}}</p>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4" *ngIf="isDisable==true">
                             <!-- add textbox -->
-                            <input type="text" class="form-control">
+                            <input type="text"[ngModel]="org.orgContact" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -118,9 +118,9 @@
                     <div *ngIf="org.orgCountry != null" class="col-sm-2">
                         <p>{{org.orgCountry}}</p>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4" *ngIf="isDisable==true">
                         <!-- add textbox -->
-                        <input type="text" class="form-control">
+                        <input type="text" [ngModel]="org.orgCountry"  class="form-control">
                     </div>
                 </div>
                 <div class="row">
@@ -133,9 +133,9 @@
                     <div *ngIf="org.orgTimeZone != null" class="col-sm-2">
                         <p>{{org.orgTimeZone}}</p>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4" *ngIf="isDisable==true">
                         <!-- add textbox -->
-                        <input type="text" class="form-control">
+                        <input type="text"[ngModel]="org.orgTimeZone" class="form-control">
                     </div>
                 </div>
             </div>
@@ -143,17 +143,17 @@
                 <!-- edit icon -->
                 <div style="text-align: end;">
                     
-                    <button type="button" hidden="isDisable" class="fa fa-pencil"(click)="editInfo()"> </button>
+                    <button type="button"  class="fa fa-pencil"(click)="editInfo()"[hidden]="isDisable"> </button>
                 </div>
                 
                 <!-- save icon --show only when edit icon is clicked -->
                 <div style="text-align: end;">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <p>Save Icon</p>
+                        <div class="col-sm-6"*ngIf="isDisable==true" >
+                            <button class="btn btn-primary" (click)="saveOrUpdateOrg()" >Save </button>
                         </div>
-                        <div class="col-sm-6">
-                            <p>Cancel Icon</p>
+                        <div class="col-sm-6"*ngIf="isDisable==true" >
+                            <button class="btn btn-danger"(click)="cancelCompanyDetails()">Cancel </button>
                         </div>
                     </div>
                 </div>
