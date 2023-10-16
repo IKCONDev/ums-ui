@@ -59,5 +59,12 @@ export class RoleService {
         return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/delete/${id}`,{observe:'response'});
     }
 
+    /**
+     * 
+     */
+    deleteSelectedRoles(ids: any[]){
+        return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/all/${ids}`,{observe:'response'});
+    }
+
 }
 

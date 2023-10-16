@@ -10,6 +10,7 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     padding-bottom: 10px;
+    /* height: 1000px; */
   }
 
   #sideMenuText{

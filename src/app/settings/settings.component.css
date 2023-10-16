@@ -87,3 +87,7 @@ a{
   cursor: pointer;
 }
 
+a:hover{
+  color: gray;
+}
+
