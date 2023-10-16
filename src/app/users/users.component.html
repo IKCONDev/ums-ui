@@ -58,7 +58,7 @@
                                   </label>
                             </td>
                             <td>
-                                <span class="edit-icon" data-target="#updateUserModal" data-toggle="modal" (click)="fetchOneUser(user.email)">
+                                <span class="edit-icon" data-target="#updateUserModal" data-toggle="modal" (click)="fetchOneUser(user.email)" (click)="getAllRoles()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 20"
                                     fill="none">
                                     <g id="edit">
@@ -69,7 +69,7 @@
                                 </svg>
                               </span>
                               &nbsp;
-                              <span id="trashIcon">
+                              <span id="trashIcon" (click)="removeUser(user.email)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                 viewBox="0 0 482.428 482.429" xml:space="preserve">
@@ -113,9 +113,16 @@
                 <label><b>Last Name</b></label>
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b></label>
-                <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"/><br/>
+                <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
+                required ="true"  id="usrEmailId" name="usrEmailId" #usrEmailId="ngModel" [class.invalid]="usrEmailId.invalid && usrEmailId.touched"
+                (keyup)=" validateUserEmailId()"/><br/>
+                <div *ngIf="useremilIdErrorInfo != ''">
+                    <span id="errorMessage">{{useremilIdErrorInfo}}</span>
+                </div>
                 <label><b>Role</b></label>
-                <select class="form-control" class="addEmployeeInput form-control" placeholder="role" [(ngModel)]="addUserObj.userRoles.at(0).roleName">
+                <select class="adduserInput form-control" placeholder="role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"
+                id="userRole" name="userRole" #userRole="ngModel" [class.invalid]="userRole.invalid && userRole.touched"
+                (keyup)="validateuserRole()">
                     <option>select</option>
                     <option *ngFor="let role of roles" [value]="role.roleName">{{role.roleName}}</option>
                       
@@ -150,11 +157,15 @@
                 <label><b>Email</b></label>
                 <input type="text" class="updateUserInput form-control" placeholder="Email" [(ngModel)]="existingUserObj.email"/><br/>
                 <label><b>Role</b></label>
-                <input type="text" class="updateUserInput form-control" placeholder="Role" [(ngModel)]="existingUserObj.userRoles.at(0).roleName"/>
+                <select class="adduserInput form-control" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleName">
+                    <option>select</option>
+                    <option *ngFor="let role of roles" [value]="role.roleName">{{role.roleName}}</option>
+                </select>
+               <!---<input type="text" class="updateUserInput form-control" placeholder="Role" [(ngModel)]="existingUserObj.userRoles.at(0).roleName"/>-->
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary"  (click)="updateUser(existingUserObj)">Save</button>
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
             </div>
         </div>

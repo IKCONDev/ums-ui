@@ -10,6 +10,8 @@ export class OrganizationService{
     private apiGatewayUrl = 'http://localhost:8012';
 
     private adminMicroserviceOrganizationPathUrl = 'org';
+    private saveOrganisationUrl='/save';
+    private updateOrganisationUrl='/update';
 
     constructor(private http: HttpClient){
         
@@ -19,6 +21,11 @@ export class OrganizationService{
         return this.http.get<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}/${id}`,{observe: 'response'})
     }
 
-
+    saveOrganization(org){
+        return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganisationUrl}`,org,{observe:'response'})
+    }
+    updateOrganisation(org){
+        return this.http.put<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.updateOrganisationUrl}`,org,{observe:'response'})
+    }
 
 }

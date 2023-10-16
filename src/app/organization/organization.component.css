@@ -5,7 +5,9 @@
     padding-left:140px;
     padding-right: 32px;
     background: #F6FBFD;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-header{
@@ -25,6 +27,7 @@
     padding-top: 10px;
     padding-left: 24px;
     padding-right: 24px;
+    position: relative;
 }
 
 #thead {

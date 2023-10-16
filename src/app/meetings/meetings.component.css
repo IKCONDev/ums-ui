@@ -179,10 +179,9 @@ td{
     cursor: pointer;
   }
 
-  /*#modal-content{
-    width: 600px;
-    padding-left: 50px;
-  }*/
+  /* #modal-content{
+    margin-left: 50px;
+  } */
 
 #formId{
   margin-left:35px;
@@ -262,7 +261,7 @@ td{
      font-size: 15px;
      padding-left: 7px;
   }
- 
+
 
 
 
