@@ -1039,11 +1039,10 @@ fetchUserOrganizedMeetings(meeting : any){
 
 /** send Mom Email */
 emailListForsendingMOM : string[];
-
 momObject : MOMObject;
-
 sendMOMEmail(){
-  this.momObject.meeting = this.meetingData;
+  this.momObject.meeting = new Meeting();
+  this.momObject.meeting.subject = this.meetingData.subject;
 
   for(let action of this.actionItemsOfMeeting){
 
