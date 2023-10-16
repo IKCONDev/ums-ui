@@ -340,7 +340,7 @@ export class EmployeeComponent implements OnInit{
   
   checkCheckBoxes() {
     var employeeIdsToBeDeleted = [];
-    var table = document.getElementById("employee-table");
+    var table = document.getElementById("employee");
     console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
@@ -366,7 +366,19 @@ export class EmployeeComponent implements OnInit{
 
     }
     console.log(employeeIdsToBeDeleted);
+    this.deleteEmployeesById(employeeIdsToBeDeleted);
     
+
+  }
+  deleteEmployeesById(employee : any[]){
+    
+    this.employeeservice.deleteAllEmployee(employee).subscribe(
+       response=>{
+          if(response.status == HttpStatusCode.Ok){
+             this.toastr.success("employee deleted");
+          }
+       }
+    )
 
   }
 

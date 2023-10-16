@@ -32,6 +32,9 @@ export class EmployeeService{
         return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/get/${employeeid}`,{observe : 'response'});
 
     }
+    deleteAllEmployee(employee : any[]){
+        return this.http.delete(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/deleteAll/${employee}`,{observe : 'response'});
+    }
 
 }
 
