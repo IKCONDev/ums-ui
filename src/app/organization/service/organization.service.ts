@@ -21,11 +21,11 @@ export class OrganizationService{
         return this.http.get<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}/${id}`,{observe: 'response'})
     }
 
-    saveOrganization(){
-        return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganisationUrl}`,{observe:'response'})
+    saveOrganization(org){
+        return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganisationUrl}`,org,{observe:'response'})
     }
-    updateOrganisation(){
-        return this.http.put<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.updateOrganisationUrl}`,{observe:'response'})
+    updateOrganisation(org){
+        return this.http.put<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.updateOrganisationUrl}`,org,{observe:'response'})
     }
 
 }

@@ -44,16 +44,16 @@ export class OrganizationComponent implements OnInit {
   saveOrUpdateOrg(){
   this.isDisable=false;
   if(this.org.orgId===null){
-  this.orgService.saveOrganization().subscribe(
+  this.orgService.saveOrganization(this.org).subscribe(
     (response=>{
-      this.org=response;
+      this.org=response.body;
     })
     )
   } 
   else if(this.org.orgId!=0){
-    this.orgService.updateOrganisation().subscribe(
+    this.orgService.updateOrganisation(this.org).subscribe(
       (response=>{
-        this.org=response;
+        this.org=response.body;
       })
     )
 
