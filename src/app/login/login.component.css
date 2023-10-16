@@ -99,6 +99,10 @@ a:hover{
   background-color: lightcyan;
 }
 
+#microsoftLoginDiv{
+  margin-bottom: 60px;
+}
+
 
 #password {
   height: 60px;

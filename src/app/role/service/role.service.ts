@@ -23,6 +23,10 @@ export class RoleService {
         return this.http.get<Role[]>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/all`,{observe:'response'});
     }
 
+    updateRole(role : any){
+
+    }
+
     
 
   
