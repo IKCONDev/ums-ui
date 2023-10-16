@@ -25,7 +25,7 @@ export class OrganizationService{
         console.log(org)
         return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganisationUrl}`,org,{observe:'response'})
     }
-    updateOrganisation(org){
+    updateOrganization(org){
         console.log(org)
         return this.http.put<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.updateOrganisationUrl}`,org,{observe:'response'})
     }

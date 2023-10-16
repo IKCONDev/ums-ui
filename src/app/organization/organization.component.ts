@@ -54,7 +54,7 @@ export class OrganizationComponent implements OnInit {
   } 
   else if(this.org.orgId!=0){
     console.log('update')
-    this.orgService.updateOrganisation(this.org).subscribe(
+    this.orgService.updateOrganization(this.org).subscribe(
       (response=>{
         this.org=response.body;
       })

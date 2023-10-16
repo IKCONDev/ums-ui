@@ -7,16 +7,14 @@
 <div class="container-fluid">
     <div class="card-header">
         <div class="row">
-            <div class="col-sm-2">
-                <h2 id="heading">Meeting List</h2>
+            <div class="col-sm-3">
+                <h3 id="heading">Meeting List</h3>
             </div>
             <div class="col-sm-2">
                 <p id="organizedMeeting" (click)="getMeetings('OrganizedMeeting')">Organized Meeting</p>
             </div>
             <div class="col-sm-2">
                 <p id="attendedMeeting" (click)="getMeetings('AttendedMeeting')">Attended Meeting</p>
-            </div>
-            <div class="col-sm-1">
             </div>
             <div class="col-sm-3">
                 <input type="search" class="form-control" placeholder="Search meeting title" />
