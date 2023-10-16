@@ -91,8 +91,8 @@ export class TaskComponent {
       document.getElementById("AssignedTask").style.width = 'fit-content';
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
-      document.getElementById("delete_button").style.display="none";
-      document.getElementById("readOnly").style.setProperty("readonly","true");
+      //document.getElementById("delete_button").style.display="none";
+     // document.getElementById("readOnly").style.setProperty("readonly","true");
       this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
 
         (response => {
