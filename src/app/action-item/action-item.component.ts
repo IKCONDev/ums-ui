@@ -78,16 +78,25 @@ export class ActionItemComponent implements OnInit {
   constructor(private service: ActionService, private taskService: TaskService, private toastr: ToastrService,
     private meetingsService: MeetingService) {
 
-    $(function () {
-      $('table').on('click', 'a.showmore', function (e) {
-        e.preventDefault();
-        //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
-        var targetrow = $(this).closest('tr').next('.detail');
-        targetrow.show().find('div').slideToggle('slow', function () {
-          if (!$(this).is(':visible')) {
-            targetrow.hide();
+      $(function () {
+        console.log('function one called');
+        var previousRow;
+       //  var targetrow=null;
+        $('table').on('click', 'a.showmore', function () {
+          console.log('function two called');
+         // e.preventDefault();
+          //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
+          var targetrow = $(this).closest('tr').next('.detail');   
+          if(previousRow && previousRow[0]!==targetrow[0]){
+            previousRow.hide(500).find('div').slideUp('slow');
           }
-        });
+          else if(previousRow && previousRow[0]===targetrow[0]){
+          targetrow.hide(500).find('div').slideUp('slow');       
+            previousRow=null;
+            return;
+          }
+        targetrow.show(1000).find('div').slideDown('slow');
+        previousRow=targetrow;
       });
     });
 
