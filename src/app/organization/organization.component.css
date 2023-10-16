@@ -56,9 +56,9 @@
     padding-bottom: 10px;
 
 }
-#superadminId{
-    height: 60px;
-    align-self: stretch;
-    border-color: #2AA3D9;
-    display: inline-block;
+div#adjustTextBox{
+    padding-left: 40px;
+}
+label#adjustTextBox{
+    padding-left: 20px;
 }
