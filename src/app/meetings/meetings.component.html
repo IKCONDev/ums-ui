@@ -16,7 +16,8 @@
             <div class="col-sm-2">
                 <p id="attendedMeeting" (click)="getMeetings('AttendedMeeting')">Attended Meeting</p>
             </div>
-            <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+            </div>
             <div class="col-sm-3">
                 <input type="search" class="form-control" placeholder="Search meeting title" />
             </div>
@@ -51,6 +52,7 @@
                     <th>Attendees</th>
                     <th>Transcript</th>
                     <th>Action Items</th>
+                    <th>Mail</th>
                     <th>Send MOM</th>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
@@ -105,8 +107,11 @@
 
                         <td style="padding-left: 12px;"><a class="showmore" id="showActionItems{{meeting.meetingId}}"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)">Show Action Items</a></td>
-                        <td style="padding-left: 30px;">
-                            <span data-target="#xlModal" data-toggle="modal"
+                        <td>
+                            <!--<button type="submit"  data-toggle="modal" data-target="#mommodal">send
+
+                            </button>-->
+                            <span data-toggle="modal" data-target="#mommodal"
                                 (click)="fetchUserOrganizedMeetings(meeting)" (click)="getActiveUMSUsersEmailIdList()"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
@@ -404,204 +409,79 @@
     </div>
 
     <!--Modal for update-->
-    <div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content" style="margin: 10px;">
+    <div class="modal" id="mommodal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin: 10px;" style="width: 100%;">
                 <!--Modal Header-->
-                <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
-                    <h4 class="modal-title" style="text-align: center;">Update Action Item</h4>
+                <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff" *ngIf="meetingData!=null">
+                    <h4 class="modal-title" style="text-align: center;">Meeting Minutes - {{meetingData.subject}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
-                            (click)="clearErrorMessages(form)">&times;</span>
+                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
                     </button>
                 </div>
                 <br>
             <!-- modal body/form -->
-            <form #form="ngForm" id="formId" method="POST">
-                <!-- title -->
-                <label><b>ActionItem Title</b></label>
-                <input type="text" class="form-control" style="width: 400px;"
-                    [(ngModel)]="updatedetails.actionItemTitle" required="true" name="uAcItemTitle" id="uAcItemTitle"
-                    minlength="5" maxlength="500" #uAcItemTitle="ngModel"
-                    [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched"
-                    (keyup)="validateUpdateActionTitle()">
-                <div *ngIf="updateActionItemTitleErrorInfo != ''">
-                    <span id="errorSpan">{{updateActionItemTitleErrorInfo}}</span>
-                </div>
-                <!-- description -->
-                <label><b>ActionItem Description</b></label>
+            <form #form="ngForm" id="momform" method="POST">
+                <label><b>Superiors</b></label>
+
                 <div style="padding-left: 10px;">
-                    <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;"
-                        [(ngModel)]="updatedetails.actionItemDescription" required="true" name="uAcItemDesc"
-                        id="uAcItemDesc" minlength="5" maxlength="500" #uAcItemDesc="ngModel"
-                        [class.invalid]="uAcItemDesc.invalid && uAcItemDesc.touched"
-                        (keyup)="validateUpdateActionDescription()"></textarea>
+                    <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM"
+                        [multiple]="true" style="width: 400px;" [(ngModel)]="emailListForsendingMOM ">
+                        <ng-option [value]="">choose</ng-option>
+                        <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                            {{emailId}}
+                        </ng-option>
+                    </ng-select>
                 </div>
-                <div *ngIf="updateActionItemDescErrorInfo != ''">
-                    <span id="errorSpan">{{updateActionItemDescErrorInfo}}</span>
+                <hr>
+                <div class="row" *ngIf="meetingData!=null">
+                    <div class="col-md-6">
+                        <table class="sendMOMEmail">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Meeting Title :</b></td>
+                                    <td>{{meetingData.subject}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Start Date :</b></td>
+                                    <td>{{meetingData. startDateTime}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Duration : </b></td>
+                                    <td>{{meetingData.endDateTime}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="sendMOMEmail2">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Organizer :</b></td>
+                                    <td>{{meetingData.organizerName}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Description :</b></td>
+                                    <td>{{null}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <!-- priority -->
-                <label><b>Priority</b></label>
-                <select id="priority" class="form-control" style="width: 400px;"
-                    [(ngModel)]="updatedetails.actionPriority" required="true" name="uAcPriority" #uAcPriority="ngModel"
-                    [class.invalid]="uAcPriority.invalid && uAcPriority.touched" id="actionItemPriority"
-                    (click)="validateUpdateActionPriority()">
-                    <option>select</option>
-                    <option>High</option>
-                    <option>Medium</option>
-                    <option>Low</option>
-                </select>
-                <div *ngIf="updateActionItemPriorityErrorInfo != ''">
-                    <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
+                <hr>
+                <label for="attendees"><b>Attendees</b></label>
+                <div *ngIf="meetingData!= null">
+                    <div *ngFor="let attendees of meetingData.attendees">
+                        <label>{{attendees.email}}</label>
+                    </div>
                 </div>
-                <!-- owner -->
-                <label><b>Action Owner</b></label>
-                <ng-select [searchable]="true" [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
-                    name="uAcItemOwner" style="width: 411px;padding-left: 10px;"
-                    (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner">
-                    <ng-option [value]="">choose</ng-option>
-                    <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
-                        {{emailId}}
-                    </ng-option>
-                </ng-select>
-                <div style="width: 410px;padding-left: 10px;">
-                    <!-- <ng-select class="form-control" [items]="userEmailIdList" bindLabel="name" bindValue="id" [multiple]="true" groupBy="selectedAllGroup"
-                    [selectableGroup]="true" placeholder="" (change)="onMaterialGroupChange($event)" 
-                    style="background-color: white;">
-                
-                    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> Select All
-                    </ng-template>
-                </ng-select> -->
-                </div>
-                <div *ngIf="updateActionItemOwnerErrorInfo != '' || updateActionItemOwnerErrorInfo==null">
-                    <span id="errorSpan">{{updateActionItemOwnerErrorInfo}}</span>
-                </div>
-                <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
-                <!-- start date -->
-                <label><b>StartDate</b></label>
-                <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
-                    [(ngModel)]="updatedetails.startDate" required="true" id="uAcItemStartDate" name="uAcItemStartDate"
-                    #uAcItemStartDate="ngModel" [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
-                    (change)="validateUpdateActionStartDate()">
-                <div *ngIf="updateActionItemStartDateErrorInfo != ''">
-                    <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
-                </div>
-                <!-- end date -->
-                <label><b>EndDate</b></label>
-                <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
-                    [(ngModel)]="updatedetails.endDate" required="true" id="uAcItemEndDate" name="uAcItemEndDate"
-                    #uAcItemEndDate="ngModel" [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"
-                    (change)="validateUpdateActionEndDate()">
-                <div *ngIf="updateActionItemEndDateErrorInfo != ''">
-                    <span id="errorSpan">{{updateActionItemEndDateErrorInfo}}</span>
-                </div>
+                <hr>            
 
-                <!--footer-->
-                <div class="modal-footer">
-                    <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
-                        (click)="updateActionItem(form)" [(ngModel)]="updatedetails">Save</button>
-                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton"
-                        data-dismiss="modal">Cancel</button>
-                </div>
-             </form>
-            </div>
-        </div>
-
-
-                <div class="modal" id="xlModal">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content" style="margin: 10px;">
-                            <!--Modal Header-->
-                            <div class="modal-header" style="background-color:#134E69D9 ;" *ngIf="meetingData != null">
-                                <h5 class="modal-title" style="color: #ecf7fc;;">Meeting Minutes
-                                    -{{meetingData.subject}}</h5>
-                                <div style="padding-left: 300px;">
-                                    <button type="submit" style="color:black;">Send
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
-                                            viewBox="0 0 12 13" fill="none">
-                                            <g id="send">
-                                                <mask id="mask0_3149_68857" style="mask-type:alpha"
-                                                    maskUnits="userSpaceOnUse" x="0" y="0" width="12" height="13">
-                                                    <rect id="Bounding box" y="0.5" width="12" height="12"
-                                                        fill="#D9D9D9" />
-                                                </mask>
-                                                <g mask="url(#mask0_3149_68857)">
-                                                    <path id="send_2"
-                                                        d="M1.5 10.5V7.5L5.5 6.5L1.5 5.5V2.5L11 6.5L1.5 10.5Z"
-                                                        fill="#4880FF" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </button>
-
-                                </div>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <p aria-hidden="true" style="color:white; padding-top: 0px;">&times;</p>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <label><b>Superiors</b></label>
-
-                                <div style="padding-left: 10px;">
-                                    <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM"
-                                        [multiple]="true" style="width: 400px;" [(ngModel)]="emailListForsendingMOM ">
-                                        <ng-option [value]="">choose</ng-option>
-                                        <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
-                                            {{emailId}}
-                                        </ng-option>
-                                    </ng-select>
-                                </div>
-                                <hr>
-                                <div class="row" *ngIf="meetingData!=null">
-                                    <div class="col-md-6">
-                                        <table class="sendMOMEmail">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><b>Meeting Title :</b></td>
-                                                    <td>{{meetingData.subject}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Start Date :</b></td>
-                                                    <td>{{meetingData. startDateTime}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Duration : </b></td>
-                                                    <td>{{meetingData.endDateTime}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <table class="sendMOMEmail2">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><b>Organizer :</b></td>
-                                                    <td>{{meetingData.organizerName}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Description :</b></td>
-                                                    <td>{{null}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <hr>
-                                <label for="attendees"><b>Attendees</b></label>
-                                <div *ngIf="meetingData!= null">
-
-                                    <div *ngFor="let attendees of meetingData.attendees">
-                                        <label>{{attendees.email}}</label>
-                                    </div>
-                                </div>
-                                <hr>
-
-                                <label for="Actions"><b>Action Item</b></label>
+                 <label for="Actions"><b>Action Item</b></label>
                                 <!-- <div *ngFor="let action of actionItemsOfMeeting; let i=index">
               <label *ngIf="meetingData.meetingId == action.meetingId">{{i+1}}. {{action.actionItemTitle}}</label>
             </div> -->
@@ -610,12 +490,17 @@
                                         <label>{{i+1}}. {{action.actionItemTitle}}</label>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
-                                        (click)="sendMOMEmail(meetingData,actionItemsOfMeeting)">Send</button>
-                                    <button type="button" class="btn btn-outline-danger cancelButton"
-                                        data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!--footer-->
+                <div class="modal-footer">
+                    <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
+                        (click)="sendMOMEmail(meetingData,actionItemsOfMeeting)">Send</button>
+                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton"
+                        data-dismiss="modal">Cancel</button>
+                </div>
+             </form>
+        </div>
+    </div>
+ </div>
+
+ 
+ 

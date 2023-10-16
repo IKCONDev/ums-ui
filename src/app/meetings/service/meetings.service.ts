@@ -5,6 +5,7 @@ import { Meeting } from 'src/app/model/Meeting.model';
 import { Attendee } from 'src/app/model/Attendee.model';
 import { ActionItems } from 'src/app/model/Actionitem.model';
 import { Users } from 'src/app/model/Users.model';
+import { MOMObject } from 'src/app/model/momObject.model';
 
 @Injectable({
   providedIn: 'root',
@@ -122,6 +123,12 @@ export class MeetingService {
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
        })
 
+    }
+
+    sendMinutesofMeeting(object : MOMObject){
+      return this.http.get<any>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/send-mom`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
+       })
     }
 
   }

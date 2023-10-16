@@ -1025,7 +1025,7 @@ onMaterialGroupChange(event) {
 meetingToCompare : Meeting;
 fetchUserOrganizedMeetings(meeting : any){
 
- this.meetingsService.getMeetingObject(meeting.meetingId).subscribe(
+ /*this.meetingsService.getMeetingObject(meeting.meetingId).subscribe(
       response =>{
         console.log(response.body);
          this.meetingToCompare= response.body;
@@ -1033,7 +1033,7 @@ fetchUserOrganizedMeetings(meeting : any){
          console.log("meeting object:"+ this.meetingToCompare);
 
       }
-  )
+  )*/
   this.meetingData = meeting;
   console.log(this.meetingData);
 
@@ -1044,12 +1044,14 @@ emailListForsendingMOM : string[];
 
 momObject : MOMObject;
 
-sendMOMEmail( meeting : Meeting, actionItemList: ActionItems[]){
+sendMOMEmail(  meeting : Meeting, actionItemList: ActionItems[]){
   this.momObject.meeting = meeting;
+
   for(let action of actionItemList){
 
     if(meeting.meetingId == action.meetingId){
       this.momObject.actionItemList.push(action);
+
 
     }
   }
@@ -1057,6 +1059,13 @@ sendMOMEmail( meeting : Meeting, actionItemList: ActionItems[]){
     console.log(this.momObject.meeting);
     console.log(this.momObject.actionItemList);
     console.log(this.emailListForsendingMOM)
+  this.meetingsService.sendMinutesofMeeting(this.momObject).subscribe(response =>{
+     if(response.status == HttpStatusCode.Ok){
+        this.toastr.success("email send successfully");
+     }
+  }
+     
+  )
 
 }
 
