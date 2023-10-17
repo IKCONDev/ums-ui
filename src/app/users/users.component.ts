@@ -105,7 +105,7 @@ export class UsersComponent  implements OnInit{
          
          if(response.status == HttpStatusCode.Created){
            this.addUserObj = response.body;
-            this.toastr.success("user added successfully");
+            this.toastr.success("User added successfully");
             document.getElementById('closeAddModal').click();
             /*setTimeout(()=>{
                window.location.reload();
@@ -178,10 +178,10 @@ export class UsersComponent  implements OnInit{
        response=>{
          var userRecord = response.body;
          if(response.status == HttpStatusCode.Created){
-             this.toastr.success("updated user successfully");
+             this.toastr.success("Updated user successfully");
          }
          else{
-            this.toastr.error("update user failed");
+            this.toastr.error("Error occured while updting user");
          }
        }
     )
@@ -199,16 +199,16 @@ export class UsersComponent  implements OnInit{
         response=>{
            var userRecord = response.body;
            if(response.status == HttpStatusCode.Ok){
-             this.toastr.success("user Deleted successfully");
+             this.toastr.success("User deleted successfully");
            }
            else{
-            this.toastr.error("error occued while Deleting user");
+            this.toastr.error("Error occued while Deleting user");
           }
          
         });
     }
     else{
-      this.toastr.warning("user not Deleted");
+      this.toastr.warning("User not deleted");
     }
     
 
@@ -221,7 +221,7 @@ export class UsersComponent  implements OnInit{
  useremilIdErrorInfo ="";
  validateUserEmailId(){
    if(this.addUserObj.email == ''){
-      this.useremilIdErrorInfo = "emailId is required";
+      this.useremilIdErrorInfo = "emailid is required";
       this.isEmailValid = false;
    }
    else{

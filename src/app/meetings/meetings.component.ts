@@ -1039,24 +1039,33 @@ fetchUserOrganizedMeetings(meeting : any){
 
 /** send Mom Email */
 emailListForsendingMOM : string[];
+SendActionItemList = new Array() ;
 momObject : MOMObject;
+resultData : boolean;
 sendMOMEmail(){
-  this.momObject.meeting = new Meeting();
-  this.momObject.meeting.subject = this.meetingData.subject;
+ // this.momObject.meeting.subject = this.meetingData.subject;
 
-  for(let action of this.actionItemsOfMeeting){
+  for(var i=0; i<this.actionItemsOfMeeting.length; i++){
 
-    if(this.meetingData.meetingId == action.meetingId){
-      this.momObject.actionItemList.push(action);
-
-
-    }
+     if(this.meetingData.meetingId == this.actionItemsOfMeeting[i].meetingId){
+         this.SendActionItemList.push(this.actionItemsOfMeeting[i]);
+         //console.log("loop executed successfully"+i);
+     }
   }
-   this.momObject.emailList = this.emailListForsendingMOM;
-    console.log(this.momObject.meeting);
-    console.log(this.momObject.actionItemList);
-    console.log(this.emailListForsendingMOM)
-    this.meetingsService.sendMinutesofMeeting(this.momObject).subscribe(response =>{
+  console.log(this.SendActionItemList);
+   /* if(this.meetingData.meetingId == action.meetingId){
+     // this.momObject.actionItemList.push(action);
+      this.SendActionItemList.push(action);
+
+
+    }*/
+  console.log("entered sendmom email method");
+   //this.momObject.emailList = this.emailListForsendingMOM;
+    //console.log(this.momObject.meeting);
+    //console.log(this.momObject.actionItemList);
+    //console.log(this.emailListForsendingMOM)
+    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData).subscribe(response =>{
+  
      if(response.status == HttpStatusCode.Ok){
         this.toastr.success("email send successfully");
      }

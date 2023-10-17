@@ -364,7 +364,7 @@
                             <textarea type="text" style="margin-left: 30px;width: 500px;" class="form-control"
                                 name="taskTitle" required="true" [(ngModel)]="update_Task.taskTitle"
                                 #taskTitle="ngModel" [class.invalid]="taskTitle.invalid && taskTitle.touched"
-                                (keyup)="validateTaskTitle()"></textarea>
+                                (keyup)="validateTaskTitle()" readonly></textarea>
                             <div *ngIf="taskTitleErrrorInfo !=''">
                                 <span style="margin-left: 25px; color: red;">{{taskTitleErrrorInfo}}</span>
                             </div>
@@ -385,7 +385,7 @@
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..." minlength="10" maxlength="250"></textarea>
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..." minlength="10" maxlength="250" readonly></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
@@ -458,10 +458,10 @@
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
-                                                        (click)="validateTaskDueDate()"></span>
-                                                <div *ngIf="taskDueDateErrorInfo !=''">
+                                                        (click)="validateTaskDueDate()" readonly></span>
+                                                <!---  <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
-                                                </div>
+                                                </div>-->
                                             </td>
                                         </tr>
 
