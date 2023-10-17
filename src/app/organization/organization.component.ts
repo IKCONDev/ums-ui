@@ -13,7 +13,7 @@ export class OrganizationComponent implements OnInit {
 
   @Output() title:string='Organization';
 
-  constructor(private orgService: OrganizationService, private toast:ToastrService){
+  constructor(private orgService: OrganizationService, private toastr:ToastrService){
 
   }
 
@@ -24,7 +24,7 @@ export class OrganizationComponent implements OnInit {
   org : Organization
   getOrganization(){
     //returns null if no org details are present in DB.
-    this.orgService.getOrganization(10).subscribe(
+    this.orgService.getOrganization(5).subscribe(
       (response => {
         if(response.status === HttpStatusCode.Ok){
           console.log(response.body)
@@ -49,6 +49,7 @@ export class OrganizationComponent implements OnInit {
   this.orgService.saveOrganization(this.org).subscribe(
     (response=>{
       this.org=response.body;
+      this.toastr.success('Company details saved successfully');
     })
     )
   } 
@@ -57,6 +58,7 @@ export class OrganizationComponent implements OnInit {
     this.orgService.updateOrganization(this.org).subscribe(
       (response=>{
         this.org=response.body;
+        this.toastr.success('Company details saved successfully');
       })
     )
 
