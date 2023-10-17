@@ -259,10 +259,10 @@ export class TaskComponent {
       this.taskStartDateErrorInfo = 'select the start date';
       this.isTaskStartDateValid = false;
     }
-    else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
+    /*else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
       this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
       this.isTaskStartDateValid = false;
-    }
+    }*/
     else {
       this.taskStartDateErrorInfo = '';
       this.isTaskStartDateValid = true;
@@ -361,6 +361,7 @@ export class TaskComponent {
         if (response.status === HttpStatusCode.Ok) {
           this.toastr.success('task updated Successfully');
           document.getElementById('closeUpdateModal').click();
+          document.getElementById('closeAssignedUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();
           },1000)
