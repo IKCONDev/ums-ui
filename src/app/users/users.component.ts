@@ -199,10 +199,16 @@ export class UsersComponent  implements OnInit{
         response=>{
            var userRecord = response.body;
            if(response.status == HttpStatusCode.Ok){
-             this.toastr.success("Deleted successfully");
+             this.toastr.success("user Deleted successfully");
            }
-        }
-       )
+           else{
+            this.toastr.error("error occued while Deleting user");
+          }
+         
+        });
+    }
+    else{
+      this.toastr.warning("user not Deleted");
     }
     
 

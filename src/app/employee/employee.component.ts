@@ -71,10 +71,10 @@ export class EmployeeComponent implements OnInit{
   createEmployee(){
 
     let isFirstNameValid = true;
-    let  isLastNameValid = true;
+    let isLastNameValid = true;
     let isEmailIdValid = true;
-    let  isDepartmentValid = true;
-    let  isDesignationValid = true;
+    let isDepartmentValid = true;
+    let isDesignationValid = true;
 
     if(!this.isEmployeeFirstNameValid){
 
@@ -103,17 +103,16 @@ export class EmployeeComponent implements OnInit{
     if(isFirstNameValid == true && isLastNameValid == true && isEmailIdValid == true && isDepartmentValid == true && isDesignationValid == true){
       
       console.log(this.addEmployee);
-     this.employeeservice.createEmployee(this.addEmployee).subscribe(
+      this.employeeservice.createEmployee(this.addEmployee).subscribe(
        response =>{
         if(response.status == HttpStatusCode.Created){
 
           this.createdEmployee = response.body;
           this.toastr.success("Employee created successfully");
+          document.getElementById('closeAddModal').click();
         }
-          
-
        }
-     )
+     );
     }
 
     
@@ -185,11 +184,16 @@ export class EmployeeComponent implements OnInit{
       this.employeeservice.deleteEmployee(employeeId).subscribe(
         response =>{
             if(response.status == HttpStatusCode.Ok){
-                this.toastr.success("record deleted successfully");
+                this.toastr.success("employee deleted successfully");
+            }
+            else{
+                this.toastr.error("Error occured while deleting employee pls try again!");
             }
         }
-     )
- 
+     );
+    }
+    else{
+        this.toastr.warning("employee not Deleted");
     }
 
   }
@@ -198,18 +202,53 @@ export class EmployeeComponent implements OnInit{
    */
   
   updateEmployee(employee : any){
-    
-    this.employeeservice.updateEmployee(employee).subscribe(
-       response=>{
-         var employeerecord = response.body;
-         if(response.status == HttpStatusCode.Created){
-             this.toastr.success("updated employee successfully");
-         }
-         else{
-            this.toastr.error("update employee failed");
-         }
-       }
-    )
+
+    let isFirstNameValid = true;
+    let isLastNameValid = true;
+    let isEmailIdValid = true;
+    let isDepartmentValid = true;
+    let isDesignationValid = true;
+
+    if(!this.isUpdateFirstNameValid){
+
+      var valid = this.validateUpdateFirstName();
+      isFirstNameValid = valid;
+    }
+    if(!this.isUpdateLastNameValid){
+      var valid = this.validateUpdateLastName();
+      isLastNameValid = valid;
+    }
+    if(!this.isUpdateEmailIdValid){
+      var valid = this.validateUpdateEmailId();
+      isEmailIdValid =valid;
+
+    }
+    if(!this.isUpdateDepartmentValid){
+      var valid = this.validateUpdateDepartment();
+      isDepartmentValid = valid;
+
+    }
+    if(!this.isUpdateDesignationtValid){
+       var valid = this.validateUpdateDesignation();
+       isDesignationValid = valid;
+    }
+     
+    if(isEmailIdValid == true && isFirstNameValid == true && isLastNameValid == true && isDepartmentValid == true &&
+      isDesignationValid == true){
+       
+        this.employeeservice.updateEmployee(employee).subscribe(
+          response=>{
+            var employeerecord = response.body;
+            if(response.status == HttpStatusCode.Created){
+                this.toastr.success("updated employee successfully");
+            }
+            else{
+               this.toastr.error("update employee failed");
+            }
+          }
+       )                                                 
+
+    }
 
   }
   
@@ -246,9 +285,14 @@ export class EmployeeComponent implements OnInit{
   employeeLastNameErrorInfo ="";
   validateEmployeeLastName(){
 
-    if(this.addEmployee.lastName == ''){
+  if(this.addEmployee.lastName == ''){
       this.employeeLastNameErrorInfo = "Last Name is required";
      this. isEmployeeLasttNameValid = false;
+  }
+  else if(this.addEmployee.lastName.length >5){
+    this.employeeFirstNameErrorInfo = "";
+    this. isEmployeeLasttNameValid = true;
+
   }
   else{
      this.employeeFirstNameErrorInfo = "";
@@ -313,25 +357,107 @@ export class EmployeeComponent implements OnInit{
      this.employeeEmailIdErrorInfo = '';
      this.employeeDepartmentErrorInfo = '';
      this.employeeDesignationErrorInfo ='';
+    
+     this.updateFirstNameErrorInfo ="";
+     this.updateLastNameErrorInfo ="";
+     this.updateEmailIdErrorInfo ="";
+     this.updateDepartmentErrorInfo ="";
+     this.updateDesignationErrorInfo ="";
   
   }
   /**
    * update employee Validations
    */
-  updateFirst
-  validateupdateFirstName(){
+   
+  isUpdateFirstNameValid = false;
+  isUpdateLastNameValid = false;
+  isUpdateEmailIdValid = false;
+  isUpdateDepartmentValid = false;
+  isUpdateDesignationtValid = false;
+
+  updateFirstNameErrorInfo ="";
+
+  validateUpdateFirstName(){
+
+    if(this.existingEmployee.firstName == ''){
+      this.updateFirstNameErrorInfo = "first Name is required";
+      this.isUpdateFirstNameValid = false;
+    }
+    else if(this.existingEmployee.firstName.length < 5){
+      this.updateFirstNameErrorInfo = "first Name is required";
+      this.isUpdateFirstNameValid = false;
+    }
+    else{
+       this.updateFirstNameErrorInfo = "";
+       this.isUpdateFirstNameValid = true;
+     }
+     return this.isUpdateFirstNameValid;
+  }
+  updateLastNameErrorInfo ="";
+  validateUpdateLastName(){
+
+   if(this.existingEmployee.lastName == ''){
+      this.updateLastNameErrorInfo = "Last Name is required";
+      this.isUpdateLastNameValid = false;
+    }
+    else if(this.existingEmployee.lastName.length < 5){
+      this.updateLastNameErrorInfo = "Last Name is required";
+      this.isUpdateLastNameValid = false;
+    }
+    else{
+      this.updateLastNameErrorInfo = "";
+      this.isUpdateLastNameValid = true;
+    }
+    return this.isUpdateLastNameValid;
+  }
+  updateEmailIdErrorInfo = "";
+  validateUpdateEmailId(){
+
+    if(this.existingEmployee.email == ''){
+      this.updateEmailIdErrorInfo = "emailId is required";
+      this.isUpdateEmailIdValid = false;
+    }
+    else if(this.existingEmployee.email.length < 10){
+      this.updateEmailIdErrorInfo = "emailId is required";
+      this.isUpdateEmailIdValid = false;
+    }
+    else{
+      this.updateEmailIdErrorInfo = "";
+      this.isUpdateEmailIdValid = true;
+    }
+    return this.isUpdateLastNameValid;
 
   }
-  validateupdateLastName(){
-
-  }
-  validateupdateEmailId(){
-
-  }
+  updateDepartmentErrorInfo ="";
   validateUpdateDepartment(){
+    if(this.existingEmployee.departmentId <1){
+      this.updateDepartmentErrorInfo = "department is required";
+      this.isUpdateDepartmentValid  = false;
+    }
+    else{
+      this.updateDepartmentErrorInfo = "";
+      this.isUpdateDepartmentValid  = true;
+    }
+    return this.isUpdateDepartmentValid;
+
 
   }
+  updateDesignationErrorInfo ="";
   validateUpdateDesignation(){
+
+    if(this.existingEmployee.designation == ''){
+      this.updateDesignationErrorInfo = "designation is required";
+      this.isUpdateEmailIdValid = false;
+    }
+    else if(this.existingEmployee.designation.length < 5){
+      this.updateDesignationErrorInfo = "designation is required";
+      this.isUpdateEmailIdValid = false;
+    }
+    else{
+      this.updateDesignationErrorInfo = "";
+      this.isUpdateEmailIdValid = true;
+    }
+    return this.isUpdateLastNameValid;
 
   }
 
@@ -339,6 +465,7 @@ export class EmployeeComponent implements OnInit{
 
   
   checkCheckBoxes() {
+
     var employeeIdsToBeDeleted = [];
     var table = document.getElementById("employee");
     console.log(table)
@@ -371,14 +498,27 @@ export class EmployeeComponent implements OnInit{
 
   }
   deleteEmployeesById(employee : any[]){
+    var isconfirmed = window.confirm("Are you sure, you really want to delete these records?");
+    if(isconfirmed){
+
+      this.employeeservice.deleteAllEmployee(employee).subscribe(
+        response=>{
+           if(response.status == HttpStatusCode.Ok){
+              this.toastr.success("employee deleted");
+           }
+           else{
+               this.toastr.error("Error while deleting employee... Please try again !"); 
+           }
+        }
+     )
+
+    }
+    else{
+      this.toastr.warning("employees not Deleted");
+
+    }
     
-    this.employeeservice.deleteAllEmployee(employee).subscribe(
-       response=>{
-          if(response.status == HttpStatusCode.Ok){
-             this.toastr.success("employee deleted");
-          }
-       }
-    )
+   
 
   }
 

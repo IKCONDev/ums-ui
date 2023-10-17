@@ -118,37 +118,45 @@
                 <label><b>First Name</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="addEmployee.firstName"
                  id="firstName" name="firstName"  required="true"   #firstName="ngModel" 
-                 [class.invalid]="firstName.invalid && firstName.touched"  (keyup)="validateEmployeeFirstName()"><br/>
+                 [class.invalid]="firstName.invalid && firstName.touched"  (keyup)="validateEmployeeFirstName()">
                  <span *ngIf="employeeFirstNameErrorInfo != ''">
                     <p id="errorMessage">{{employeeFirstNameErrorInfo}}</p>
                 </span>
+                <br/>
                 <label><b>Last Name</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="addEmployee.lastName"
                 id="lastName" name="lastName" required="true" #lastName="ngModel" (keyup)="validateEmployeeLastName()"
-                 [class.invalid]="lastName.invalid && lastName.touched"/><br/>
+                 [class.invalid]="lastName.invalid && lastName.touched"/>
                  <span *ngIf="employeeLastNameErrorInfo != ''">
                     <p id="errorMessage">{{employeeLastNameErrorInfo}}</p>
                  </span>
+                 <br/>
                 <label><b>Email</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="addEmployee.email"
-                 id="employeeEmail" name="employeeEmail" #employeeEmail="ngModel" (keyup)="validateEmployeeEmailId()" /><br/>
+                 id="employeeEmail" name="employeeEmail" #employeeEmail="ngModel" (keyup)="validateEmployeeEmailId()" />
                  <span *ngIf=" employeeEmailIdErrorInfo != ''">
                     <p id="errorMessage">{{ employeeEmailIdErrorInfo}}</p>
                  </span>
+                 <br/>
                 <label><b>Department</b></label>
                 <select class="form-control" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="addEmployee.departmentId"
-                  id="employeeDept" name="employeeDept" #employeeDept="ngModel">
+                  id="employeeDept" name="employeeDept" #employeeDept="ngModel" (change)="validateEmployeeDepartment()">
                                                      <option>select</option>
                                                      <option *ngFor="let department of departmentList" [value]="department.departmentId">{{department.departmentName}}</option>
                                                        
-               </select> <br/>
+               </select> 
+               <span *ngIf=" employeeDepartmentErrorInfo != ''">
+                <p id="errorMessage">{{ employeeDepartmentErrorInfo}}</p>
+             </span>
+               <br/>
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="addEmployee.designation"
-                 id="employeeDesgn" name="employeeDesgn" #employeeDesgn="ngModel" (keyup)="validateEmployeeDesignation()"/><br/>
+                 id="employeeDesgn" name="employeeDesgn" #employeeDesgn="ngModel" (keyup)="validateEmployeeDesignation()"/>
                  <span *ngIf=" employeeDesignationErrorInfo != ''">
                     <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>
                  </span>
+                 <br/>
 
             </div>
             <!-- Modal footer -->
@@ -167,32 +175,54 @@
             <!-- Modal header -->
             <div class="modal-header" id="modalHeader">
                 <h5 class="modal-title">Update Employee</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearErrorMessages()"
                 ><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>First Name</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="existingEmployee.firstName"><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="existingEmployee.firstName"
+                 id="updateFirstName" name="updateFirstName"  required="true"   #updateFirstName="ngModel" 
+                 [class.invalid]="updateFirstName.invalid && updateFirstName.touched"  (keyup)="validateUpdateFirstName()">
+                <span *ngIf="updateFirstNameErrorInfo != ''">
+                    <p id="errorMessage">{{updateFirstNameErrorInfo}}</p>
+                </span><br/>
                 <label><b>Last Name</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="existingEmployee.lastName" /><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="existingEmployee.lastName" 
+                id="updateLastName" name="updateLastName" required="true" #updateLastName="ngModel" (keyup)="validateUpdateLastName()"
+                 [class.invalid]="updateLastName.invalid && updateLastName.touched"/>
+                <span *ngIf="updateLastNameErrorInfo != ''">
+                    <p id="errorMessage">{{updateLastNameErrorInfo}}</p>
+                </span><br/>
                 <label><b>Email</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="existingEmployee.email" /><br/>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="existingEmployee.email"
+                id="updateEmail" name="updateEmail" required="true" #updateEmail="ngModel" (keyup)="validateUpdateEmailId()"
+                 [class.invalid]="updateEmail.invalid && updateEmail.touched">
+                <span *ngIf="updateEmailIdErrorInfo != ''">
+                    <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
+                </span><br/>
                 <label><b>Department</b></label>
-                <select class="form-control" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId">
+                <select class="form-control" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId"
+                id="updateDept" name="updateDept" #updateDept="ngModel" (change)="validateUpdateDepartment()">
                     <option>select</option>
                     <option *ngFor="let department of departmentList" [value]="department.departmentId">{{department.departmentName}}</option>
                       
-               </select> <br/>
+               </select>
+               <span *ngIf="updateDepartmentErrorInfo != ''">
+                <p id="errorMessage">{{updateDepartmentErrorInfo}}</p>
+               </span><br/>
                <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId" /><br/>-->
                 <label><b>Designation</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="existingEmployee.designation"/>
-
+                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="existingEmployee.designation"
+                id="updateDesgn" name="updateDesgn" #updateDesgn="ngModel" (keyup)="validateUpdateDesignation()"/>
+                <span *ngIf="updateDesignationErrorInfo != ''">
+                    <p id="errorMessage">{{updateDesignationErrorInfo}}</p>
+                   </span><br/>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="updateEmployee(existingEmployee)">Save</button>
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal" (click)="clearErrorMessages()">Close</button>
             </div>
         </div>
     </div>
