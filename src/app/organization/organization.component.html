@@ -22,7 +22,12 @@
                         <h4 *ngIf="org.orgName !== null">{{org.orgName}}</h4>
                     </label>
                     <!-- add textbox -->
-                    <input type="text" placeholder="Enter company name" [(ngModel)]="org.orgName" *ngIf="isDisable==true" class="form-control">
+                    <input type="text" placeholder="Enter company name" [(ngModel)]="org.orgName" *ngIf="isDisable==true" 
+                    class="form-control"
+                    minlength="3" maxlength="40" (keyup)="validateOrgName()">
+                    <span *ngIf="updatedOrgNameErrorInfo!= ''">
+                        <p id="errorMessage">{{updatedOrgNameErrorInfo}}</p>
+                    </span>
                     <div *ngIf="isDisable==true" style="padding-bottom: 0px;">
                         &nbsp;
                     </div>
@@ -35,7 +40,10 @@
                 <label *ngIf="org.orgWebsite !== null && isDisable==false"><a href={{org.orgWebsite}}>
                         {{org.orgWebsite}}</a></label>
                 <input type="text" placeholder="Enter company website url" [(ngModel)]="org.orgWebsite" *ngIf="isDisable==true" 
-                class="form-control">
+                class="form-control"  minlength="6" maxlength="50" (keyup)="validateWebsite()">
+                <span *ngIf="updatedOrgWebsiteErrorInfo!= ''">
+                    <p id="errorMessage">{{updatedOrgWebsiteErrorInfo}}</p>
+                </span>
                 <div *ngIf="isDisable==true" style="padding-bottom: 0px;">
                     &nbsp;
                 </div>
@@ -52,7 +60,10 @@
                     <label *ngIf="org.orgFunctionalType !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgFunctionalType}}</label>
                     <input type="text" placeholder="Enter company type" [(ngModel)]="org.orgFunctionalType" 
-                    *ngIf="isDisable==true" class="form-control">
+                    *ngIf="isDisable==true" class="form-control" minlength="6" maxlength="50" (keyup)="validateOrgFunction()">
+                    <span *ngIf="updatedorgFunctionalTypeErrorInfo!= ''">
+                        <p id="errorMessage">{{updatedorgFunctionalTypeErrorInfo}}</p>
+                    </span>
                     <div *ngIf="isDisable==true" style="padding-bottom: 6px;">
 
                     </div>
@@ -69,12 +80,16 @@
                     <b *ngIf="org.orgContactPersonName === null  && isDisable == false">-</b>
                     <label *ngIf="org.orgContactPersonName !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonName}}</label>
-                    <input type="text"placeholder="Enter company contact person" [(ngModel)]="org.orgContactPersonName" *ngIf="isDisable==true" class="form-control">
+                    <input type="text"placeholder="Enter company contact person" [(ngModel)]="org.orgContactPersonName" *ngIf="isDisable==true"
+                     class="form-control"  minlength="3" maxlength="50"(keyup)="validateOrgContactPersonNameFunction()">
+                    <span *ngIf="updatedorgContactPersonNameErrorInfo!= ''">
+                        <p id="errorMessage">{{updatedorgContactPersonNameErrorInfo}}</p>
+                    </span>
                     <div *ngIf="isDisable==true" style="padding-bottom: 6px;">
 
                     </div>
                 </div>
-
+                
                 <!-- orgContact -->
                 <div>
                     <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +100,11 @@
                     <b *ngIf="org.orgContactPersonNumber === null  && isDisable == false">-</b>
                     <label *ngIf="org.orgContactPersonNumber !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonNumber}}</label>
-                    <input type="text" placeholder="Enter contact person number" [(ngModel)]="org.orgContactPersonNumber" *ngIf="isDisable==true" class="form-control">
+                    <input type="text" placeholder="Enter contact person number" [(ngModel)]="org.orgContactPersonNumber"
+                     *ngIf="isDisable==true" minlength="10" maxlength="10" (keyup)="validateOrgContactPersonNumber()" class="form-control">
+                     <span *ngIf="updatedorgContactPersonNumberErrorInfo!= ''">
+                        <p id="errorMessage">{{updatedorgContactPersonNumberErrorInfo}}</p>
+                    </span>
                     <div *ngIf="isDisable==true" style="padding-bottom: 6px;">
 
                     </div>
@@ -108,7 +127,10 @@
                     <label *ngIf="org.orgContactPersonEmail !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonEmail}}</label>
                     <input type="text" placeholder="Enter contact person email" [(ngModel)]="org.orgContactPersonEmail" *ngIf="isDisable==true"
-                        class="form-control">
+                        class="form-control" (keyup)="validateOrgContactPersonEmail()">
+                        <span *ngIf="updatedorgContactPersonEmailErrorInfo!= ''">
+                            <p id="errorMessage">{{updatedorgContactPersonEmailErrorInfo}}</p>
+                        </span>
                     <div *ngIf="isDisable==true" style="padding-bottom: 6px;">
 
                     </div>
@@ -118,8 +140,15 @@
                 <h5>Address details</h5>
                 <p *ngIf="org.orgAddress === null  && isDisable == false">-</p>
                 <label *ngIf="org.orgAddress !== null && isDisable==false">{{org.orgAddress}}</label>
+                <div>
+                    <span *ngIf="updatedOrgAddressErrorInfo!= ''">
+                        <p id="errorMessage">{{updatedOrgAddressErrorInfo}}</p>
+                    </span>
+                </div>
                 <textarea style="margin-bottom: 40px;" [(ngModel)]="org.orgAddress" *ngIf="isDisable==true" rows="3" cols="10"
-                    class="form-control"></textarea>
+                    class="form-control" (keyup)="validateOrgAddress()">
+                </textarea>
+               
             </div>
 
             <div class="col-sm-6">
@@ -137,7 +166,10 @@
                         </div>
                         <div>
                             <input type="text" placeholder="Enter super admin email id" *ngIf="isDisable==true" [(ngModel)]="org.orgSuperAdminEmailId"
-                                class="form-control">
+                                class="form-control"(keyup)="validateSuperAdminEmail()">
+                                <span *ngIf="updatedOrgSuperAdminEmailErrorInfo!= ''">
+                                    <p id="errorMessage">{{updatedOrgSuperAdminEmailErrorInfo}}</p>
+                                </span>
                         </div>
                     </div>
                 </div>
@@ -156,7 +188,11 @@
                         </div>
                         <div>
                             <input type="text" placeholder="Enter company email id" *ngIf="isDisable==true" [(ngModel)]="org.orgEmailId"
-                                class="form-control">
+                                class="form-control" (keyup)="validateCompanyEmail()" >
+                                <span *ngIf="updatedCompanyEmailErrorInfo!= ''">
+                                    <p id="errorMessage">{{updatedCompanyEmailErrorInfo}}</p>
+                                </span>
+
                         </div>
                         <div *ngIf="isDisable==true">
                             &nbsp;
@@ -178,7 +214,10 @@
                         </div>
                         <div>
                             <input type="text" placeholder="Enter company contact number" *ngIf="isDisable==true" [(ngModel)]="org.orgContactNumber"
-                                class="form-control">
+                                class="form-control" (keyup)="validateOrgContactNumber()" minlength="10" maxlength="10">
+                                <span *ngIf="updatedOrgContactNumberErrorInfo!= ''">
+                                    <p id="errorMessage">{{updatedOrgContactNumberErrorInfo}}</p>
+                                </span>
                         </div>
                     </div>
                 </div>
@@ -198,7 +237,10 @@
                         </div>
                         <div>
                             <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgCountry"
-                                class="form-control">
+                                class="form-control" (keyup)="validateOrgCountry()">
+                                <span *ngIf="updatedOrgCountryErrorInfo!= ''">
+                                    <p id="errorMessage">{{updatedOrgCountryErrorInfo}}</p>
+                                </span>
                         </div>
                         <div *ngIf="isDisable==true">
                             &nbsp;
@@ -227,7 +269,7 @@
                 <!-- edit icon -->
                 <div style="text-align: end;">
 
-                    <button type="button" class="fa fa-pencil" (click)="editInfo()" [hidden]="isDisable"> </button>
+                    <button type="button" class="fa fa-pencil" (click)="editInfo()" [hidden]="isDisable==true"> </button>
                 </div>
 
                 <!-- save icon --show only when edit icon is clicked -->

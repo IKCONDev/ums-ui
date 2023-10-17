@@ -62,3 +62,8 @@ div#adjustTextBox{
 label#adjustTextBox{
     padding-left: 20px;
 }
+
+#errorMessage{
+    color: red;
+    font-size: 12px;
+}
