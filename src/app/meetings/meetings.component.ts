@@ -1003,6 +1003,7 @@ export class MeetingsComponent implements OnInit {
         }
 
       }
+<<<<<<< HEAD
       var buttons = document.getElementById('submitAndDelete' + meetingId);
       buttons.style.display = 'none'
       var emptyCell = document.getElementById('emptycell' + meetingId);
@@ -1078,6 +1079,43 @@ export class MeetingsComponent implements OnInit {
     console.log(this.emailListForsendingMOM)
     this.meetingsService.sendMinutesofMeeting(this.momObject).subscribe(response => {
       if (response.status == HttpStatusCode.Ok) {
+=======
+  )*/
+  this.meetingData = meeting;
+  console.log(this.meetingData);
+}
+
+/** send Mom Email */
+emailListForsendingMOM : string[];
+SendActionItemList = new Array() ;
+momObject : MOMObject;
+resultData : boolean;
+sendMOMEmail(){
+ // this.momObject.meeting.subject = this.meetingData.subject;
+
+  for(var i=0; i<this.actionItemsOfMeeting.length; i++){
+
+     if(this.meetingData.meetingId == this.actionItemsOfMeeting[i].meetingId){
+         this.SendActionItemList.push(this.actionItemsOfMeeting[i]);
+         //console.log("loop executed successfully"+i);
+     }
+  }
+  console.log(this.SendActionItemList);
+   /* if(this.meetingData.meetingId == action.meetingId){
+     // this.momObject.actionItemList.push(action);
+      this.SendActionItemList.push(action);
+
+
+    }*/
+  console.log("entered sendmom email method");
+   //this.momObject.emailList = this.emailListForsendingMOM;
+    //console.log(this.momObject.meeting);
+    //console.log(this.momObject.actionItemList);
+    //console.log(this.emailListForsendingMOM)
+    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData).subscribe(response =>{
+  
+     if(response.status == HttpStatusCode.Ok){
+>>>>>>> 9050cc0fe7838f07593fc4a574ceddc6d94be79c
         this.toastr.success("email send successfully");
       }
     }

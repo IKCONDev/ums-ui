@@ -57,6 +57,7 @@ export class EmployeeComponent implements OnInit{
         console.log(this.employeeData);
     })
 
+
   }
   
 
@@ -66,8 +67,6 @@ export class EmployeeComponent implements OnInit{
  */
  createdEmployee : Employee;
   
-
-
   createEmployee(){
 
     let isFirstNameValid = true;
@@ -184,7 +183,7 @@ export class EmployeeComponent implements OnInit{
       this.employeeservice.deleteEmployee(employeeId).subscribe(
         response =>{
             if(response.status == HttpStatusCode.Ok){
-                this.toastr.success("employee deleted successfully");
+                this.toastr.success("Employee deleted successfully");
             }
             else{
                 this.toastr.error("Error occured while deleting employee pls try again!");
@@ -193,7 +192,7 @@ export class EmployeeComponent implements OnInit{
      );
     }
     else{
-        this.toastr.warning("employee not Deleted");
+        this.toastr.warning("Employee not Deleted");
     }
 
   }
@@ -244,7 +243,7 @@ export class EmployeeComponent implements OnInit{
                 document.getElementById('closeUpdateModal').click();
             }
             else{
-               this.toastr.error("update employee failed");
+               this.toastr.error("Error occured while updating employee");
             }
           }
        )                                                 
@@ -268,11 +267,11 @@ export class EmployeeComponent implements OnInit{
   validateEmployeeFirstName(){
 
     if(this.addEmployee.firstName == ''){
-        this.employeeFirstNameErrorInfo = "first Name is required";
+        this.employeeFirstNameErrorInfo = "First Name is required";
         this.isEmployeeFirstNameValid = false;
     }
     else if(this.addEmployee.firstName.length < 4){
-      this.employeeFirstNameErrorInfo = "first Name is required";
+      this.employeeFirstNameErrorInfo = "First Name is required";
       this.isEmployeeFirstNameValid = false;
    
     }
@@ -381,11 +380,11 @@ export class EmployeeComponent implements OnInit{
   validateUpdateFirstName(){
 
     if(this.existingEmployee.firstName == ''){
-      this.updateFirstNameErrorInfo = "first Name is required";
+      this.updateFirstNameErrorInfo = "First Name is required";
       this.isUpdateFirstNameValid = false;
     }
     else if(this.existingEmployee.firstName.length < 5){
-      this.updateFirstNameErrorInfo = "first Name is required";
+      this.updateFirstNameErrorInfo = "First Name is required";
       this.isUpdateFirstNameValid = false;
     }
     else{
@@ -415,11 +414,11 @@ export class EmployeeComponent implements OnInit{
   validateUpdateEmailId(){
 
     if(this.existingEmployee.email == ''){
-      this.updateEmailIdErrorInfo = "emailId is required";
+      this.updateEmailIdErrorInfo = "EmailId is required";
       this.isUpdateEmailIdValid = false;
     }
     else if(this.existingEmployee.email.length < 10){
-      this.updateEmailIdErrorInfo = "emailId is required";
+      this.updateEmailIdErrorInfo = "EmailId is required";
       this.isUpdateEmailIdValid = false;
     }
     else{
@@ -432,7 +431,7 @@ export class EmployeeComponent implements OnInit{
   updateDepartmentErrorInfo ="";
   validateUpdateDepartment(){
     if(this.existingEmployee.departmentId <1){
-      this.updateDepartmentErrorInfo = "department is required";
+      this.updateDepartmentErrorInfo = "Department is required";
       this.isUpdateDepartmentValid  = false;
     }
     else{
@@ -447,11 +446,11 @@ export class EmployeeComponent implements OnInit{
   validateUpdateDesignation(){
 
     if(this.existingEmployee.designation == ''){
-      this.updateDesignationErrorInfo = "designation is required";
+      this.updateDesignationErrorInfo = "Designation is required";
       this.isUpdateEmailIdValid = false;
     }
     else if(this.existingEmployee.designation.length < 5){
-      this.updateDesignationErrorInfo = "designation is required";
+      this.updateDesignationErrorInfo = "Designation is required";
       this.isUpdateEmailIdValid = false;
     }
     else{
@@ -505,7 +504,7 @@ export class EmployeeComponent implements OnInit{
       this.employeeservice.deleteAllEmployee(employee).subscribe(
         response=>{
            if(response.status == HttpStatusCode.Ok){
-              this.toastr.success("employee deleted");
+              this.toastr.success("Employee deleted successfully");
            }
            else{
                this.toastr.error("Error while deleting employee... Please try again !"); 
@@ -515,12 +514,9 @@ export class EmployeeComponent implements OnInit{
 
     }
     else{
-      this.toastr.warning("employees not Deleted");
+      this.toastr.warning("Employees not Deleted");
 
     }
-    
-   
-
   }
 
 }

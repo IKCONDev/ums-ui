@@ -142,17 +142,6 @@ export class MeetingService {
 
     /**
      * 
-     * @param object 
-     * @returns 
-     */
-    sendMinutesofMeeting(object : MOMObject){
-      return this.http.get<any>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/send-mom`,{observe:'response',headers: new HttpHeaders({
-        'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
-       })
-    }
-
-    /**
-     * 
      * @param meeting 
      * @returns 
      */
@@ -161,6 +150,16 @@ export class MeetingService {
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
        })
     }
-
-  }
     
+    sendMinutesofMeeting(emailList: String[],meeting: Meeting){
+      console.log("the email List is"+emailList);
+      var momObject ={
+        meeting: meeting,
+        emailList: emailList
+        
+      }
+      return this.http.post<any>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/send-momdata/`,momObject,{observe:'response'})
+    }
+
+
+}
