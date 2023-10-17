@@ -195,6 +195,7 @@ td{
   #errorSpan{
     padding-left: 10px;
     color: red;
+    font-size: 12px;
   }
 
   #searchMeetings{
@@ -264,6 +265,16 @@ td{
   table.sendMOMEmail td,table.sendMOMEmail2 td {
      font-size: 15px;
      padding-left: 7px;
+  }
+
+  #createBtnDiv{
+    padding-top: 10px;
+    color: white;
+    cursor: pointer;
+  }
+
+  #createBtnDiv :hover{
+    color: lightgray;
   }
 
 

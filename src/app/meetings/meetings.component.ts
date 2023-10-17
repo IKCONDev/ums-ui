@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
-import { count } from 'rxjs';
+import { count, max } from 'rxjs';
 import { JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
 
@@ -20,7 +20,7 @@ import { MOMObject } from '../model/momObject.model';
   templateUrl: './meetings.component.html',
   styleUrls: ['./meetings.component.css']
 })
-export class MeetingsComponent implements OnInit{
+export class MeetingsComponent implements OnInit {
 
   eventId: number;
 
@@ -50,13 +50,13 @@ export class MeetingsComponent implements OnInit{
   actionItemsToBeSubmittedIds = [];
   isEventActionItemsSubmitted;
   actionItemsToBeSubmitted = [];
-  
+
   //errorinformation properties
   actionItemTitleErrorInfo: string = '';
-  actionItemEndDateErrorInfo:string = '';
-  actionItemDescriptionErrorInfo: string =''
+  actionItemEndDateErrorInfo: string = '';
+  actionItemDescriptionErrorInfo: string = ''
   actionItemPriorityErrorInfo: string = ''
-  actionItemStartDateErrorInfo: string =''
+  actionItemStartDateErrorInfo: string = ''
 
   actionItemStartDate: String = ''
 
@@ -69,8 +69,8 @@ export class MeetingsComponent implements OnInit{
   addDetails = {
     actionItemId: 0,
     meetingId: 0,
-    emailId:'',
-    actionItemOwner:'',
+    emailId: '',
+    actionItemOwner: '',
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
@@ -82,8 +82,8 @@ export class MeetingsComponent implements OnInit{
   updatedetails = {
     actionItemId: 0,
     meetingId: 0,
-    emailId:'',
-    actionItemOwner:'',
+    emailId: '',
+    actionItemOwner: '',
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
@@ -103,34 +103,34 @@ export class MeetingsComponent implements OnInit{
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService) {
     //this is jquery code that will slide the action items rows when show more action items link is clicked
-    
-}
 
-/**
- * 
-*/
-  initializeActionItemsSlider(){
+  }
+
+  /**
+   * 
+  */
+  initializeActionItemsSlider() {
     $(function () {
       console.log('function one called');
       var previousRow;
-     //  var targetrow=null;
+      //  var targetrow=null;
       $('table').on('click', 'a.showmore', function () {
         console.log('function two called');
-       // e.preventDefault();
+        // e.preventDefault();
         //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
-        var targetrow = $(this).closest('tr').next('.detail');   
-        if(previousRow && previousRow[0]!==targetrow[0]){
+        var targetrow = $(this).closest('tr').next('.detail');
+        if (previousRow && previousRow[0] !== targetrow[0]) {
           previousRow.hide(500).find('div').slideUp('slow');
         }
-        else if(previousRow && previousRow[0]===targetrow[0]){
-        targetrow.hide(500).find('div').slideUp('slow');       
-          previousRow=null;
+        else if (previousRow && previousRow[0] === targetrow[0]) {
+          targetrow.hide(500).find('div').slideUp('slow');
+          previousRow = null;
           return;
         }
-      targetrow.show(1000).find('div').slideDown('slow');
-      previousRow=targetrow;
+        targetrow.show(1000).find('div').slideDown('slow');
+        previousRow = targetrow;
+      });
     });
-  }); 
   }
 
   /**
@@ -139,16 +139,16 @@ export class MeetingsComponent implements OnInit{
   ngOnInit(): void {
     //generate action items for user meetings automatically upon component initialization
     this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
-      (response =>{
+      (response => {
         console.log(response.body)
       })
-    
 
-      
+
+
     )
 
-   // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
-      //this.getOrganizedMeetings();
+    // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
+    //this.getOrganizedMeetings();
     //this.getMeetings('OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
@@ -175,18 +175,18 @@ export class MeetingsComponent implements OnInit{
    * 
    * @returns 
    */
-  validateActionTitle():boolean{
-   // var actionItemTitle = event.target.value;
-    if(this.addDetails.actionItemTitle === ''){
+  validateActionTitle(): boolean {
+    // var actionItemTitle = event.target.value;
+    if (this.addDetails.actionItemTitle === '') {
       this.actionItemTitleErrorInfo = "Action Item title is required";
       this.isActionItemTitleValid = false;
-    }else if(this.addDetails.actionItemTitle.length < 5){
+    } else if (this.addDetails.actionItemTitle.length < 5) {
       this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 chars';
       this.isActionItemTitleValid = false;
-    }else if(this.addDetails.actionItemTitle.length > 50){
+    } else if (this.addDetails.actionItemTitle.length > 50) {
       this.actionItemTitleErrorInfo = 'Title should not exceed 50 chars';
       this.isActionItemTitleValid = false;
-    }else{
+    } else {
       this.actionItemTitleErrorInfo = '';
       this.isActionItemTitleValid = true;
     }
@@ -197,18 +197,18 @@ export class MeetingsComponent implements OnInit{
    * 
    * @param event 
    */
-  validateActionDescription(): boolean{
+  validateActionDescription(): boolean {
     //var actionItemDescription = event.target.value;
-    if(this.addDetails.actionItemDescription === ''){
+    if (this.addDetails.actionItemDescription === '') {
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
-    }else if(this.addDetails.actionItemDescription.length <= 10){
+    } else if (this.addDetails.actionItemDescription.length <= 10) {
       this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isActionItemDescriptionValid = false;
-    }else if(this.addDetails.actionItemDescription.length >= 250){
+    } else if (this.addDetails.actionItemDescription.length >= 250) {
       this.actionItemDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isActionItemDescriptionValid = false;
-    }else{
+    } else {
       this.actionItemDescriptionErrorInfo = '';
       this.isActionItemDescriptionValid = true;
     }
@@ -220,17 +220,17 @@ export class MeetingsComponent implements OnInit{
    * 
    * @param event 
    */
-  validateActionPriority(){
+  validateActionPriority() {
     //var actionItemPriority = event.target.value;
-    if(this.addDetails.actionPriority === ''){
+    if (this.addDetails.actionPriority === '') {
       this.actionItemPriorityErrorInfo = "Priority is required";
       this.isActionItemPriorityValid = false;
-    }else if(this.addDetails.actionPriority === 'select'){
+    } else if (this.addDetails.actionPriority === 'select') {
       this.actionItemPriorityErrorInfo = "Priority is required";
       this.isActionItemPriorityValid = false;
-    }else{
+    } else {
       this.actionItemPriorityErrorInfo = '';
-      this.isActionItemPriorityValid =true;
+      this.isActionItemPriorityValid = true;
     }
     return this.isActionItemPriorityValid;
   }
@@ -239,11 +239,11 @@ export class MeetingsComponent implements OnInit{
    * 
    * @param form 
    */
-  clearErrorMessages(form: NgForm){
+  clearErrorMessages(form: NgForm) {
 
     //form.form.reset();
 
-    //reset the form
+    //reset the add action item form
     this.addDetails.actionItemTitle = '';
     this.addDetails.actionItemDescription = '';
     this.addDetails.actionItemOwner = '';
@@ -260,51 +260,71 @@ export class MeetingsComponent implements OnInit{
     // this.updatedetails.endDate = '';
     // this.updatedetails.startDate = '';
 
-    //clear Error messages
-     this.actionItemTitleErrorInfo = '';
-     this.actionItemDescriptionErrorInfo = '';
-     this.actionItemOwnerErrorInfo = '';
-     this.actionItemPriorityErrorInfo = '';
-     this.actionItemStartDateErrorInfo = '';
-     this.actionItemEndDateErrorInfo = '';
+    //clear add action item form Error messages
+    this.actionItemTitleErrorInfo = '';
+    this.actionItemDescriptionErrorInfo = '';
+    this.actionItemOwnerErrorInfo = '';
+    this.actionItemPriorityErrorInfo = '';
+    this.actionItemStartDateErrorInfo = '';
+    this.actionItemEndDateErrorInfo = '';
 
-     this.updateActionItemTitleErrorInfo = '';
-     this.updateActionItemDescErrorInfo = '';
-     this.updateActionItemOwnerErrorInfo = '';
-     this.updateActionItemPriorityErrorInfo = '';
-     this.updateActionItemStartDateErrorInfo = '';
-     this.updateActionItemEndDateErrorInfo = '';
+    //clear update action item form Error messages
+    this.updateActionItemTitleErrorInfo = '';
+    this.updateActionItemDescErrorInfo = '';
+    this.updateActionItemOwnerErrorInfo = '';
+    this.updateActionItemPriorityErrorInfo = '';
+    this.updateActionItemStartDateErrorInfo = '';
+    this.updateActionItemEndDateErrorInfo = '';
 
-     //
-     this.isActionItemTitleValid = false;
-     this.isActionItemDescriptionValid = false;
-     this.isActionItemPriorityValid = false;
-     this.isActionItemOwnerValid = false;
-     this.isActionItemStartDateValid = false;
-     this.isActionItemEndDateValid = false;
+    //reset add action item form boolean properties
+    this.isActionItemTitleValid = false;
+    this.isActionItemDescriptionValid = false;
+    this.isActionItemPriorityValid = false;
+    this.isActionItemOwnerValid = false;
+    this.isActionItemStartDateValid = false;
+    this.isActionItemEndDateValid = false;
 
-     this.isUpdateActionItemTitleValid = false;
-     this.isUpdateActionItemDescValid = false;
-     this.isUpdateActionItemPriorityValid = false;
-     this.isUpdateActionItemOwnerValid = false;
-     this.isUpdateActionItemStartDateValid = false;
-     this.isUpdateActionItemEndDateValid = false;
+    //reset update action item form boolean properties
+    this.isUpdateActionItemTitleValid = false;
+    this.isUpdateActionItemDescValid = false;
+    this.isUpdateActionItemPriorityValid = false;
+    this.isUpdateActionItemOwnerValid = false;
+    this.isUpdateActionItemStartDateValid = false;
+    this.isUpdateActionItemEndDateValid = false;
+
+    //reset the create meeting form
+    this.addMeeting.subject = '';
+    this.addMeeting.startDateTime = '';
+    this.addMeeting.endDateTime = '';
+    this.addMeeting.attendees = [];
+
+    //reset the create meeting form boolean properties
+    this.isMeetingSubjectValid = false;
+    this.isMeetingStartDateValid = false;
+    this.isMeetingEndDateValid = false;
+    this.isMeetingAttendeesValid = false;
+
+    //reset the create meeting error messages
+    this.meetingSubjectErrorInfo = '';
+    this.meetingStartDateErrorInfo ='';
+    this.meetingEndDateErrorInfo = '';
+    this.meetingAttendeesErrorInfo = '';
   }
 
   /**
    * 
    * @param event 
    */
-  validateActionStartDate(){
+  validateActionStartDate() {
     //var actionItemStartDate = event.target.value;
     console.log(this.actionItemStartDate);
-    if(this.addDetails.startDate === ''){
+    if (this.addDetails.startDate === '') {
       this.actionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isActionItemStartDateValid = false;
-    }else if(new Date(this.addDetails.startDate.toString()) < new Date(Date.now())){
+    } else if (new Date(this.addDetails.startDate.toString()) < new Date(Date.now())) {
       this.actionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
       this.isActionItemStartDateValid = false;
-    }else{
+    } else {
       this.actionItemStartDateErrorInfo = '';
       this.isActionItemStartDateValid = true;
     }
@@ -317,34 +337,34 @@ export class MeetingsComponent implements OnInit{
    * 
    * @returns 
    */
-  validateActionItemOwner(){
+  validateActionItemOwner() {
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
-    if(this.addDetails.actionItemOwner === '' || this.addDetails.actionItemOwner === null){
+    if (this.addDetails.actionItemOwner === '' || this.addDetails.actionItemOwner === null) {
       this.actionItemOwnerErrorInfo = 'Owner is required';
       this.isActionItemOwnerValid = false;
-    }else{
+    } else {
       this.actionItemOwnerErrorInfo = '';
       this.isActionItemOwnerValid = true;
     }
     return this.isActionItemOwnerValid;
   }
 
-  
+
   /**
    * 
    * @param event 
    */
-  validateActionEndDate(){
-   // var actionItemEndDate = event.target.value;
+  validateActionEndDate() {
+    // var actionItemEndDate = event.target.value;
     //console.log(actionItemEndDate);
-    if(this.addDetails.endDate === ''){
+    if (this.addDetails.endDate === '') {
       this.actionItemEndDateErrorInfo = 'End Date cannot be blank'
       this.isActionItemEndDateValid = false;
-    }else if(new Date(this.addDetails.endDate) < new Date(this.addDetails.startDate.toString())){
+    } else if (new Date(this.addDetails.endDate) < new Date(this.addDetails.startDate.toString())) {
       this.actionItemEndDateErrorInfo = 'End date cannot be less than start date.'
       this.isActionItemEndDateValid = false;
-    }else{
+    } else {
       this.actionItemEndDateErrorInfo = '';
       this.isActionItemEndDateValid = true;
     }
@@ -357,62 +377,62 @@ export class MeetingsComponent implements OnInit{
    */
 
   saveActionItem(form: NgForm) {
-   let isTitlevalid = true;
-   let isDescriptionValid = true;
-   let isPriorityValid = true;
-   let isOwnervalid = true;
-   let isEndDateValid = true;
-   let isStartDateValid = true;
-    if(this.isActionItemTitleValid===false){
-        var valid = this.validateActionTitle();
-        console.log(valid)
-        isTitlevalid = valid;
+    let isTitlevalid = true;
+    let isDescriptionValid = true;
+    let isPriorityValid = true;
+    let isOwnervalid = true;
+    let isEndDateValid = true;
+    let isStartDateValid = true;
+    if (this.isActionItemTitleValid === false) {
+      var valid = this.validateActionTitle();
+      console.log(valid)
+      isTitlevalid = valid;
     }
-    if(this.isActionItemDescriptionValid===false){
+    if (this.isActionItemDescriptionValid === false) {
       var valid = this.validateActionDescription();
       console.log(valid)
       isDescriptionValid = valid;
     }
-    if(!this.isActionItemPriorityValid){
+    if (!this.isActionItemPriorityValid) {
       var valid = this.validateActionPriority();
       isPriorityValid = valid;
     }
-    if(!this.isActionItemOwnerValid){
+    if (!this.isActionItemOwnerValid) {
       var valid = this.validateActionItemOwner();
       isOwnervalid = valid;
     }
-    if(!this.isActionItemStartDateValid){
+    if (!this.isActionItemStartDateValid) {
       var valid = this.validateActionStartDate();
       isStartDateValid = valid;
     }
-    if(!this.isActionItemEndDateValid){
+    if (!this.isActionItemEndDateValid) {
       var valid = this.validateActionEndDate();
       isEndDateValid = valid;
     }
-    console.log(isTitlevalid+''+isDescriptionValid+''+isEndDateValid+''+isStartDateValid+''+isPriorityValid+''+isOwnervalid)
-    if(isTitlevalid === true && isDescriptionValid === true
-      && isPriorityValid === true && isOwnervalid==true && isStartDateValid===true
+    console.log(isTitlevalid + '' + isDescriptionValid + '' + isEndDateValid + '' + isStartDateValid + '' + isPriorityValid + '' + isOwnervalid)
+    if (isTitlevalid === true && isDescriptionValid === true
+      && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
       console.log(this.addDetails);
-    this.addDetails.meetingId = this.currentMeetingId;
-    this.addDetails.emailId = localStorage.getItem('email');
-    this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
-      this.response = response.body;
-      this.actions_details = response.body;
-      console.log(this.response);
-      if(response.status === HttpStatusCode.Ok){
-        this.toastr.success('Action item added sucessfully !');
-        document.getElementById('closeAddModal').click();
-        setTimeout(()=>{
-          window.location.reload();  
-         },1000)
-      }
-    });
-    this.fetchActionItemsOfEvent(this.currentMeetingId);
-    //reset the form after submitting
-    form.form.reset();
-    // //need to change this later
-    // window.location.reload();
+      this.addDetails.meetingId = this.currentMeetingId;
+      this.addDetails.emailId = localStorage.getItem('email');
+      this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
+        this.response = response.body;
+        this.actions_details = response.body;
+        console.log(this.response);
+        if (response.status === HttpStatusCode.Ok) {
+          this.toastr.success('Action item added sucessfully !');
+          document.getElementById('closeAddModal').click();
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000)
+        }
+      });
+      this.fetchActionItemsOfEvent(this.currentMeetingId);
+      //reset the form after submitting
+      form.form.reset();
+      // //need to change this later
+      // window.location.reload();
     }
   }
 
@@ -426,8 +446,8 @@ export class MeetingsComponent implements OnInit{
     //this.router.navigateByUrl('/meeting-actionitems/'+eventid);
     this.meetingsService.getActionItems().subscribe(
       (response => {
-       // this.actionItemsOfEvent = response.body;
-       this.actionItemsOfMeeting = response.body;
+        // this.actionItemsOfEvent = response.body;
+        this.actionItemsOfMeeting = response.body;
       })
     )
   }
@@ -510,7 +530,7 @@ export class MeetingsComponent implements OnInit{
       const data = transcriptData.join('\n');
 
       // Add the transcript data into a blob storage with the specified fileName
-      const blob = new Blob([data], { type: 'text/plain'});
+      const blob = new Blob([data], { type: 'text/plain' });
 
       // Create and return the URL to the browser with the blob containing transcript data
       url = window.URL.createObjectURL(blob);
@@ -557,7 +577,7 @@ export class MeetingsComponent implements OnInit{
    * @param meetingId 
    */
   deleteActionItems(actionItemIds: any[], meetingId: number) {
-    if(actionItemIds.length < 1 ){
+    if (actionItemIds.length < 1) {
       this.toastr.error('No action items selected to delete');
       return;
     }
@@ -569,9 +589,9 @@ export class MeetingsComponent implements OnInit{
         console.log(this.isMetingActionItemsDeleted);
         if (this.isMetingActionItemsDeleted) {
           this.toastr.success('Action Items are deleted')
-          setTimeout(()=>{
+          setTimeout(() => {
             window.location.reload();
-          },1000)
+          }, 1000)
         } else {
           this.toastr.error('Action items were not deleted, try again')
         }
@@ -597,30 +617,30 @@ export class MeetingsComponent implements OnInit{
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-     
+
       let value;
-      if(checkbox){
+      if (checkbox) {
         value = checkbox.checked
       }
 
-        if(value === true){
+      if (value === true) {
         console.log(checkbox)
         console.log(value)
-        count = count+1;
+        count = count + 1;
         console.log(count);
-        
+
+        var buttons = document.getElementById('submitAndDelete' + meetingId);
+        buttons.style.display = 'table-cell'
+        var emptyCell = document.getElementById('emptycell' + meetingId);
+        emptyCell.style.display = 'none'
+
+      } else {
+        if (count < 1) {
           var buttons = document.getElementById('submitAndDelete' + meetingId);
-          buttons.style.display = 'table-cell'
-          var emptyCell = document.getElementById('emptycell' + meetingId);
-          emptyCell.style.display = 'none'
-         
-        }else {
-          if(count < 1){
-            var buttons = document.getElementById('submitAndDelete' + meetingId);
           buttons.style.display = 'none'
           var emptyCell = document.getElementById('emptycell' + meetingId);
           emptyCell.style.display = 'table-cell'
-          }
+        }
       }
     }
   }
@@ -657,7 +677,7 @@ export class MeetingsComponent implements OnInit{
    * 
    * @param meetingId 
    */
-  disableSubmit:Boolean=false;
+  disableSubmit: Boolean = false;
   convertActionItemToTask(meeting: Meeting) {
     console.log(meeting.meetingId)
     //this.meetingData = meeting;
@@ -673,38 +693,38 @@ export class MeetingsComponent implements OnInit{
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
       console.log(checkbox)
       // Check if the checkbox exists in the row
-      if (checkbox&&checkbox!=checkbox[1]) {
+      if (checkbox && checkbox != checkbox[1]) {
         console.log("value of checkbox is " + checkbox.value);
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
           this.actionItemsToBeSubmittedIds.push(checkbox.value)
-          this.disableSubmit=true;
+          this.disableSubmit = true;
         }
       }
     }
     console.log(" action item's to be submitted are " + this.actionItemsToBeSubmittedIds)
-    this.actionItemsOfMeeting.filter((action)=>{
-     //if(action.status === 'NotConverted'){
-      var acitems = this.actionItemsToBeSubmittedIds.forEach((acId)=>{
-        console.log(acId+" to be submitted")
-          if(acId == action.actionItemId){
-            console.log(acId+" to be submitted")
-            this.actionItemsToBeSubmitted.push(action);
-          }
-        })
-     //}
+    this.actionItemsOfMeeting.filter((action) => {
+      //if(action.status === 'NotConverted'){
+      var acitems = this.actionItemsToBeSubmittedIds.forEach((acId) => {
+        console.log(acId + " to be submitted")
+        if (acId == action.actionItemId) {
+          console.log(acId + " to be submitted")
+          this.actionItemsToBeSubmitted.push(action);
+        }
+      })
+      //}
     });
     console.log(this.actionItemsToBeSubmitted);
-    
-  this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted,meeting).subscribe(
-    (response =>{
-      console.log(response.body)
-      this.toastr.success('Action items converted to task succesfully')  
-      setTimeout(()=>{
-        window.location.reload();  
-       },1000)
-    })
-  )
+
+    this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted, meeting).subscribe(
+      (response => {
+        console.log(response.body)
+        this.toastr.success('Action items converted to task succesfully')
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000)
+      })
+    )
   }
 
   /**
@@ -713,7 +733,7 @@ export class MeetingsComponent implements OnInit{
    * @param subject 
    * @param transriptData 
    */
-  displayTranscriptData(meetingId: number, meetingSubject: string, meetingTransriptData: string[]){
+  displayTranscriptData(meetingId: number, meetingSubject: string, meetingTransriptData: string[]) {
     this.transcriptMeetingId = meetingId;
     this.meetingSubject = meetingSubject;
     this.meetingTrasncriptData = meetingTransriptData;
@@ -724,14 +744,14 @@ export class MeetingsComponent implements OnInit{
   /**
    * get the list of active users
    */
-  getActiveUMSUsersEmailIdList(){
+  getActiveUMSUsersEmailIdList() {
     //perform an AJAX call to get list of users
-    var isActive:boolean = true;
-  // $.ajax({url:"http://localhost:8012/users/getEmail-list/", success: function(result){
-  //   this.userEmailIdList = result;
-  //   console.log(result);
-  //   console.log(this.userEmailIdList[0]);
-  // }});
+    var isActive: boolean = true;
+    // $.ajax({url:"http://localhost:8012/users/getEmail-list/", success: function(result){
+    //   this.userEmailIdList = result;
+    //   console.log(result);
+    //   console.log(this.userEmailIdList[0]);
+    // }});
     this.meetingsService.getActiveUserEmailIdList().subscribe(
       (response) => {
         this.userEmailIdList = response.body;
@@ -762,17 +782,17 @@ export class MeetingsComponent implements OnInit{
    * 
    * @returns 
    */
-  validateUpdateActionTitle(){
-    if(this.updatedetails.actionItemTitle === ''){
+  validateUpdateActionTitle() {
+    if (this.updatedetails.actionItemTitle === '') {
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
-    }else if(this.updatedetails.actionItemTitle.length < 5){
+    } else if (this.updatedetails.actionItemTitle.length < 5) {
       this.updateActionItemTitleErrorInfo = 'Title should be minimum of 5 chars';
       this.isUpdateActionItemTitleValid = false;
-    }else if(this.updatedetails.actionItemTitle.length > 50){
+    } else if (this.updatedetails.actionItemTitle.length > 50) {
       this.updateActionItemTitleErrorInfo = 'Title should not exceed 50 chars';
       this.isUpdateActionItemTitleValid = false;
-    }else{
+    } else {
       this.updateActionItemTitleErrorInfo = '';
       this.isUpdateActionItemTitleValid = true;
     }
@@ -783,17 +803,17 @@ export class MeetingsComponent implements OnInit{
    * 
    * @returns 
    */
-  validateUpdateActionDescription(){
-    if(this.updatedetails.actionItemDescription === ''){
+  validateUpdateActionDescription() {
+    if (this.updatedetails.actionItemDescription === '') {
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
-    }else if(this.updatedetails.actionItemDescription.length < 10){
+    } else if (this.updatedetails.actionItemDescription.length < 10) {
       this.updateActionItemDescErrorInfo = 'Description should be manimum of 10 chars';
       this.isUpdateActionItemDescValid = false;
-    }else if(this.updatedetails.actionItemDescription.length>200){
+    } else if (this.updatedetails.actionItemDescription.length > 200) {
       this.updateActionItemDescErrorInfo = 'Description should not exceed 200 chars';
       this.isUpdateActionItemDescValid = false;
-    }else{
+    } else {
       this.updateActionItemDescErrorInfo = '';
       this.isUpdateActionItemDescValid = true;
     }
@@ -804,15 +824,15 @@ export class MeetingsComponent implements OnInit{
    * 
    * @returns 
    */
-  validateUpdateActionPriority(){
+  validateUpdateActionPriority() {
     //var actionItemPriority = event.target.value;
-    if(this.updatedetails.actionPriority === ''){
-      this.updateActionItemPriorityErrorInfo = "Priority is required";
-     this.isUpdateActionItemPriorityValid = false;
-    }else if(this.updatedetails.actionPriority === 'select'){
+    if (this.updatedetails.actionPriority === '') {
       this.updateActionItemPriorityErrorInfo = "Priority is required";
       this.isUpdateActionItemPriorityValid = false;
-    }else{
+    } else if (this.updatedetails.actionPriority === 'select') {
+      this.updateActionItemPriorityErrorInfo = "Priority is required";
+      this.isUpdateActionItemPriorityValid = false;
+    } else {
       this.updateActionItemPriorityErrorInfo = '';
       this.isUpdateActionItemPriorityValid = true;
     }
@@ -823,12 +843,12 @@ export class MeetingsComponent implements OnInit{
    * 
    * @returns 
    */
-  validateUpdateActionItemOwner(){
+  validateUpdateActionItemOwner() {
     //var actionItemOwner = event.target.value;
-    if(this.updatedetails.actionItemOwner === '' || this.updatedetails.actionItemOwner === null){
+    if (this.updatedetails.actionItemOwner === '' || this.updatedetails.actionItemOwner === null) {
       this.updateActionItemOwnerErrorInfo = 'Owner is required';
       this.isUpdateActionItemOwnerValid = false;
-    }else{
+    } else {
       this.updateActionItemOwnerErrorInfo = '';
       this.isUpdateActionItemOwnerValid = true;
     }
@@ -839,232 +859,359 @@ export class MeetingsComponent implements OnInit{
    * 
    * @returns 
    */
-  validateUpdateActionStartDate(){
+  validateUpdateActionStartDate() {
     //var actionItemStartDate = event.target.value;
     console.log(this.actionItemStartDate);
-    if(this.updatedetails.startDate === ''){
+    if (this.updatedetails.startDate === '') {
       this.updateActionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isUpdateActionItemStartDateValid = false;
-    }else if(new Date(this.updatedetails.startDate.toString()) < new Date(Date.now())){
+    } else if (new Date(this.updatedetails.startDate.toString()) < new Date(Date.now())) {
       this.updateActionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
       this.isUpdateActionItemStartDateValid = false;
-    }else{
+    } else {
       this.updateActionItemStartDateErrorInfo = '';
       this.isUpdateActionItemStartDateValid = true;
     }
     return this.isUpdateActionItemStartDateValid;
   }
 
-   /**
-    * 
-    * @returns 
-    */
-   validateUpdateActionEndDate(){
-    // var actionItemEndDate = event.target.value;
-     //console.log(actionItemEndDate);
-     if(this.updatedetails.endDate === ''){
-       this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank'
-       this.isUpdateActionItemEndDateValid = false;
-     }else if(new Date(this.updatedetails.endDate) < new Date(this.updatedetails.startDate.toString())){
-       this.updateActionItemEndDateErrorInfo = 'End date cannot be less than start date.'
-       this.isUpdateActionItemEndDateValid = false;
-     }else{
-       this.updateActionItemEndDateErrorInfo = '';
-       this.isUpdateActionItemEndDateValid = true;
-     }
-     return this.isUpdateActionItemEndDateValid;
-   }
-
-    /**
+  /**
    * 
-   * @param meeting 
+   * @returns 
    */
-  updateModelClose:string;
+  validateUpdateActionEndDate() {
+    // var actionItemEndDate = event.target.value;
+    //console.log(actionItemEndDate);
+    if (this.updatedetails.endDate === '') {
+      this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank'
+      this.isUpdateActionItemEndDateValid = false;
+    } else if (new Date(this.updatedetails.endDate) < new Date(this.updatedetails.startDate.toString())) {
+      this.updateActionItemEndDateErrorInfo = 'End date cannot be less than start date.'
+      this.isUpdateActionItemEndDateValid = false;
+    } else {
+      this.updateActionItemEndDateErrorInfo = '';
+      this.isUpdateActionItemEndDateValid = true;
+    }
+    return this.isUpdateActionItemEndDateValid;
+  }
+
+  /**
+ * 
+ * @param meeting 
+ */
+  updateModelClose: string;
   updateActionItem(form: NgForm) {
     let isTitlevalid = true;
-   let isDescriptionValid = true;
-   let isPriorityValid = true;
-   let isOwnervalid = true;
-   let isEndDateValid = true;
-   let isStartDateValid = true;
-    if(this.isUpdateActionItemTitleValid===false){
-        var valid = this.validateUpdateActionTitle();
-        console.log(valid)
-        isTitlevalid = valid;
+    let isDescriptionValid = true;
+    let isPriorityValid = true;
+    let isOwnervalid = true;
+    let isEndDateValid = true;
+    let isStartDateValid = true;
+    if (this.isUpdateActionItemTitleValid === false) {
+      var valid = this.validateUpdateActionTitle();
+      console.log(valid)
+      isTitlevalid = valid;
     }
-    if(this.isUpdateActionItemDescValid===false){
+    if (this.isUpdateActionItemDescValid === false) {
       var valid = this.validateUpdateActionDescription();
       console.log(valid)
       isDescriptionValid = valid;
     }
-    if(!this.isUpdateActionItemPriorityValid){
+    if (!this.isUpdateActionItemPriorityValid) {
       var valid = this.validateUpdateActionPriority();
       isPriorityValid = valid;
     }
-    if(!this.isUpdateActionItemOwnerValid){
+    if (!this.isUpdateActionItemOwnerValid) {
       var valid = this.validateUpdateActionItemOwner();
       isOwnervalid = valid;
     }
-    if(!this.isUpdateActionItemStartDateValid){
+    if (!this.isUpdateActionItemStartDateValid) {
       var valid = this.validateUpdateActionStartDate();
       isStartDateValid = valid;
     }
-    if(!this.isUpdateActionItemEndDateValid){
+    if (!this.isUpdateActionItemEndDateValid) {
       var valid = this.validateUpdateActionEndDate();
       isEndDateValid = valid;
     }
-    console.log(isTitlevalid+''+isDescriptionValid+''+isEndDateValid+''+isStartDateValid+''+isPriorityValid+''+isOwnervalid)
-    if(isTitlevalid === true && isDescriptionValid === true
-      && isPriorityValid === true && isOwnervalid==true && isStartDateValid===true
+    console.log(isTitlevalid + '' + isDescriptionValid + '' + isEndDateValid + '' + isStartDateValid + '' + isPriorityValid + '' + isOwnervalid)
+    if (isTitlevalid === true && isDescriptionValid === true
+      && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
-    this.id = this.updatedetails.actionItemId;
-    console.log(this.updatedetails);
-    this.actionItemService.updateActionItem(this.updatedetails).subscribe(response => {
-      this.data = response.body;
-      console.log(this.data);
-     //var modal = document.getElementById('myModal');
-     //modal.setAttribute('data-dismiss','modal');
-     document.getElementById('closeUpdateModal').click();
-     this.toastr.success('Action item updated successfully');
-     setTimeout(()=>{
-      window.location.reload();  
-     },1000)
-    
-    });
-   
-    //need to change this later
-    //window.location.reload();
-  }
-}
+      this.id = this.updatedetails.actionItemId;
+      console.log(this.updatedetails);
+      this.actionItemService.updateActionItem(this.updatedetails).subscribe(response => {
+        this.data = response.body;
+        console.log(this.data);
+        //var modal = document.getElementById('myModal');
+        //modal.setAttribute('data-dismiss','modal');
+        document.getElementById('closeUpdateModal').click();
+        this.toastr.success('Action item updated successfully');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000)
 
-/**
- * 
- * @param meetingId 
- * @param event 
- */
-checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event:any){
-  //var mainChekckBox = event.checked;
-  var mainCheckBox = document.getElementById('actionItemMainCheck'+meetingId) as HTMLInputElement;
-  if(mainCheckBox.checked === true){
-    console.log(mainCheckBox.checked+" in if")
-    var table = document.getElementById("myTable" + meetingId)
-    console.log(table)
-    var rows = table.getElementsByTagName("tr");
-    // Loop through each row
-    for (var i = 0; i < rows.length; i++) {
-      var row = rows[i];
-      var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-      if(!checkbox.checked){
-      checkbox.click();
+      });
+
+      //need to change this later
+      //window.location.reload();
     }
-    }
-  
-    var buttons = document.getElementById('submitAndDelete' + meetingId);
-    console.log('executed')
+  }
+
+  /**
+   * 
+   * @param meetingId 
+   * @param event 
+   */
+  checkAllcheckBoxesOfCurrentMeeting(meetingId: number, event: any) {
+    //var mainChekckBox = event.checked;
+    var mainCheckBox = document.getElementById('actionItemMainCheck' + meetingId) as HTMLInputElement;
+    if (mainCheckBox.checked === true) {
+      console.log(mainCheckBox.checked + " in if")
+      var table = document.getElementById("myTable" + meetingId)
+      console.log(table)
+      var rows = table.getElementsByTagName("tr");
+      // Loop through each row
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+        if (!checkbox.checked) {
+          checkbox.click();
+        }
+      }
+
+      var buttons = document.getElementById('submitAndDelete' + meetingId);
+      console.log('executed')
       buttons.style.display = 'table-cell'
       var emptyCell = document.getElementById('emptycell' + meetingId);
       emptyCell.style.display = 'none'
-  }else{
-    
-    console.log(mainCheckBox.checked+" in else")
-    var table = document.getElementById("myTable" + meetingId)
-    console.log(table)
-    var rows = table.getElementsByTagName("tr");
-      if(mainCheckBox.checked === false){
+    } else {
+
+      console.log(mainCheckBox.checked + " in else")
+      var table = document.getElementById("myTable" + meetingId)
+      console.log(table)
+      var rows = table.getElementsByTagName("tr");
+      if (mainCheckBox.checked === false) {
         console.log("entering the if method")
-        console.log("te length of the row "+rows.length)
+        console.log("te length of the row " + rows.length)
         for (var j = 0; j < rows.length; j++) {
-          console.log('in for loop '+j)
+          console.log('in for loop ' + j)
           var row = rows[j];
           var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-          if(checkbox.checked){
-          checkbox.click();
+          if (checkbox.checked) {
+            checkbox.click();
           }
         }
-        
-      }
-    var buttons = document.getElementById('submitAndDelete' + meetingId);
-          buttons.style.display = 'none'
-          var emptyCell = document.getElementById('emptycell' + meetingId);
-          emptyCell.style.display = 'table-cell'
-  }
-}
-
-
-min:any = "";
-
-/**
- * 
- */
-pastDateTime(){
-  var tdate:any = new Date();
-  var date:any = tdate.getDate();
-  if(date<10){
-    date = "0" + date;
-  }
-  var month:any = tdate.getMonth()+1;
-  if(month<10){
-    month = "0" + month;
-  }  
-  var year:any = tdate.getFullYear();
-  var hours:any = tdate.getHours();
-  var minutes:any = tdate.getMinutes();
-  this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
-  console.log(this.min);
-}
-
-onMaterialGroupChange(event) {
-  console.log(event);
-}
-
-/**
- *  fetch the meeting
- * 
- */
-meetingToCompare : Meeting;
-fetchUserOrganizedMeetings(meeting : any){
-
- /*this.meetingsService.getMeetingObject(meeting.meetingId).subscribe(
-      response =>{
-        console.log(response.body);
-         this.meetingToCompare= response.body;
-        
-         console.log("meeting object:"+ this.meetingToCompare);
 
       }
-  )*/
-  this.meetingData = meeting;
-  console.log(this.meetingData);
-}
-
-/** send Mom Email */
-emailListForsendingMOM : string[];
-momObject : MOMObject;
-sendMOMEmail(){
-  this.momObject.meeting = new Meeting();
-  this.momObject.meeting.subject = this.meetingData.subject;
-
-  for(let action of this.actionItemsOfMeeting){
-
-    if(this.meetingData.meetingId == action.meetingId){
-      this.momObject.actionItemList.push(action);
-
-
+      var buttons = document.getElementById('submitAndDelete' + meetingId);
+      buttons.style.display = 'none'
+      var emptyCell = document.getElementById('emptycell' + meetingId);
+      emptyCell.style.display = 'table-cell'
     }
   }
-   this.momObject.emailList = this.emailListForsendingMOM;
+
+
+  min: any = "";
+
+  /**
+   * 
+   */
+  pastDateTime() {
+    var tdate: any = new Date();
+    var date: any = tdate.getDate();
+    if (date < 10) {
+      date = "0" + date;
+    }
+    var month: any = tdate.getMonth() + 1;
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var year: any = tdate.getFullYear();
+    var hours: any = tdate.getHours();
+    var minutes: any = tdate.getMinutes();
+    this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
+    console.log(this.min);
+  }
+
+  onMaterialGroupChange(event) {
+    console.log(event);
+  }
+
+  /**
+   *  fetch the meeting
+   * 
+   */
+  meetingToCompare: Meeting;
+  fetchUserOrganizedMeetings(meeting: any) {
+
+    /*this.meetingsService.getMeetingObject(meeting.meetingId).subscribe(
+         response =>{
+           console.log(response.body);
+            this.meetingToCompare= response.body;
+           
+            console.log("meeting object:"+ this.meetingToCompare);
+   
+         }
+     )*/
+    this.meetingData = meeting;
+    console.log(this.meetingData);
+  }
+
+  /** send Mom Email */
+  emailListForsendingMOM: string[];
+  momObject: MOMObject;
+  sendMOMEmail() {
+    this.momObject.meeting = new Meeting();
+    this.momObject.meeting.subject = this.meetingData.subject;
+
+    for (let action of this.actionItemsOfMeeting) {
+
+      if (this.meetingData.meetingId == action.meetingId) {
+        this.momObject.actionItemList.push(action);
+
+
+      }
+    }
+    this.momObject.emailList = this.emailListForsendingMOM;
     console.log(this.momObject.meeting);
     console.log(this.momObject.actionItemList);
     console.log(this.emailListForsendingMOM)
-    this.meetingsService.sendMinutesofMeeting(this.momObject).subscribe(response =>{
-     if(response.status == HttpStatusCode.Ok){
+    this.meetingsService.sendMinutesofMeeting(this.momObject).subscribe(response => {
+      if (response.status == HttpStatusCode.Ok) {
         this.toastr.success("email send successfully");
-     }
-  }
-     
-  )
+      }
+    }
 
-}
+    )
+  }
+
+  addMeeting = {
+    meetingId: 0,
+    subject: '',
+    organizerName: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
+    organizerEmailId: localStorage.getItem('email'),
+    startDateTime: '',
+    endDateTime: '',
+    attendees: [],
+    //actionItems: 
+    emailId: localStorage.getItem('email'),
+    attendeeCount: 0,
+    createdBy: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
+    createByEmailId: localStorage.getItem('email'),
+    //meetingTranscripts: [],
+    //transcriptData:[],
+    //isTranscriptDisabled: boolean;
+  }
+
+  createdMeeting: Meeting;
+  /**
+   * 
+   */
+  createMeeting(from: NgForm) {
+
+    var isSubjectvalid = true;
+    var isStartDateValid = true;
+    var isEndDateValid = true;
+    var isAttendeesvalid = true;
+
+    if(this.isMeetingSubjectValid === false){
+      var valid = this.validateMeetingSubject();
+      isSubjectvalid = valid;
+    }
+    if(this.isMeetingStartDateValid === false){
+      var valid = this.validateMeetingStartDateTime();
+      isStartDateValid = valid;
+    }
+    if(this.isMeetingSubjectValid === false){
+      var valid = this.validateMeetingEndDateTime();
+      isEndDateValid = valid;
+    }
+    if(this.isMeetingAttendeesValid === false){
+      var valid = this.validateMeetingAttendees();
+      isAttendeesvalid = valid;
+    }
+
+    if(isSubjectvalid && isStartDateValid && isEndDateValid){
+      //create meeting
+    console.log(this.addMeeting)
+    this.meetingsService.createMeeting(this.addMeeting).subscribe(
+      (response => {
+        if (response.status === HttpStatusCode.Created) {
+          //get the created meeting
+          this.createdMeeting = response.body;
+          console.log(response.body);
+          this.toastr.success('Meeting created successfully');
+          document.getElementById('closeCreateMeetingModal').click();
+          setTimeout(()=>{
+            window.location.reload();
+          },1000);
+        } else {
+          this.toastr.error('Error while creating meeting. Please try again !');
+        }
+      })
+    )
+    }
+  }
+
+  meetingSubjectErrorInfo = '';
+  isMeetingSubjectValid = false;
+  validateMeetingSubject() {
+    if (this.addMeeting.subject === '') {
+      this.meetingSubjectErrorInfo = 'Meeting subject is required';
+    } else if (this.addMeeting.subject.length < 4) {
+      this.meetingSubjectErrorInfo = 'Meeting subject should have minimum of 4 chars';
+    } else if (this.addMeeting.subject.length > 100) {
+      this.meetingSubjectErrorInfo = 'Meeting subject should not exceed maximum of 100 chars';
+    } else {
+      this.isMeetingSubjectValid = true;
+      this.meetingSubjectErrorInfo = '';
+    }
+    return this.isMeetingSubjectValid;
+  }
+
+  meetingStartDateErrorInfo = '';
+  isMeetingStartDateValid = false;
+  validateMeetingStartDateTime() {
+    if (this.addMeeting.startDateTime === '') {
+      this.meetingStartDateErrorInfo = 'Start date time is required';
+    } else if (this.addMeeting.startDateTime === null) {
+      this.meetingStartDateErrorInfo = 'Start date time is required';
+    } else if (new Date(this.addMeeting.startDateTime) < new Date(Date.now())) {
+      this.meetingStartDateErrorInfo = 'Start date time cannot be a previous date';
+    } else {
+      this.meetingStartDateErrorInfo = '';
+      this.isMeetingStartDateValid = true;
+    }
+    return this.isMeetingStartDateValid;
+  }
+
+  meetingEndDateErrorInfo = '';
+  isMeetingEndDateValid = false;
+  validateMeetingEndDateTime() {
+    if (this.addMeeting.endDateTime === '') {
+      this.meetingEndDateErrorInfo = 'End date time is required';
+    } else if (this.addMeeting.endDateTime === null) {
+      this.meetingEndDateErrorInfo = 'End date time is required';
+    } else if (new Date(this.addMeeting.endDateTime) < new Date(this.addMeeting.startDateTime)) {
+      this.meetingEndDateErrorInfo = 'End date time cannot be less than start date time';
+    } else {
+      this.meetingEndDateErrorInfo = '';
+      this.isMeetingEndDateValid = true;
+    }
+    return this.isMeetingEndDateValid;
+  }
+
+  meetingAttendeesErrorInfo = '';
+  isMeetingAttendeesValid = false;
+  validateMeetingAttendees() {
+    if (this.addMeeting.attendees.length === 0) {
+      this.meetingAttendeesErrorInfo = 'Meetings attendees are required';
+    } else {
+      this.meetingAttendeesErrorInfo = '';
+      this.isMeetingAttendeesValid = true;
+    }
+    return this.isMeetingAttendeesValid;
+  }
 
 }
 

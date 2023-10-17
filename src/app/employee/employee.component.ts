@@ -241,6 +241,7 @@ export class EmployeeComponent implements OnInit{
             var employeerecord = response.body;
             if(response.status == HttpStatusCode.Created){
                 this.toastr.success("updated employee successfully");
+                document.getElementById('closeUpdateModal').click();
             }
             else{
                this.toastr.error("update employee failed");

@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="card-header">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <h3 id="heading">Meeting List</h3>
             </div>
             <div class="col-sm-2">
@@ -26,6 +26,9 @@
                         fill="#ffffff" />
                 </svg>
             </div>
+            <div id="createBtnDiv" class="col-sm-1">
+               <i style="padding-top: 5px;" class="fa-solid fa-2x fa-plus-square" data-toggle="modal" data-target="#createModal" (click)="getActiveUMSUsersEmailIdList()">
+               </i></div>
             <div class="col-sm-1" id="filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                     <path
@@ -102,9 +105,9 @@
                             <!-- transcript data Modal end -->
                         </td>
 
-                        <td style="padding-left: 12px;"><a class="showmore" id="showActionItems{{meeting.meetingId}}"
+                        <td><a class="showmore" id="showActionItems{{meeting.meetingId}}"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)">Show Action Items</a></td>
-                        <td>
+                        <td style="padding-left: 25px;">
                             <!--<button type="submit"  data-toggle="modal" data-target="#mommodal">send
 
                             </button>-->
@@ -147,7 +150,7 @@
                                             <th id="tablehead">Start Date</th>
                                             <th id="tablehead">Description</th>
                                             <th id="tablehead">Status</th>
-                                            <th id="tablehead">Edit</th>
+                                            <th id="tablehead">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
@@ -601,6 +604,92 @@
                         data-dismiss="modal">Cancel</button>
                 </div>
              </form>
+        </div>
+    </div>
+ </div>
+
+ <!-- Create Modal Div -->
+ <div>
+    <div class="modal" id="createModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin: 10px;">
+                <!--Modal Header-->
+                <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
+                    <h4 class="modal-title" style="text-align: center;">Create Meeting</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+                            (click)="clearErrorMessages(form)">&times;</span>
+                    </button>
+                </div>
+                <br>
+            <!-- modal body/form -->
+            <form #form="ngForm" id="formId" method="POST">
+                <!-- title -->
+                <label><b>Meeting title</b></label>
+                <input type="text" class="form-control" style="width: 400px;"
+                    [(ngModel)]="addMeeting.subject" required="true" name="subject" id="subject"
+                    minlength="4" maxlength="100"  (keyup)="validateMeetingSubject()"
+                    placeholder="Enter subject">
+                <div>
+                    <span id="errorSpan" *ngIf="meetingSubjectErrorInfo != ''">
+                        <p>{{meetingSubjectErrorInfo}}</p>
+                    </span>
+                </div>
+                <!-- start date time -->
+                <label><b>Start date time</b></label>
+                <input type="datetime-local" class="form-control" [(ngModel)]="addMeeting.startDateTime" 
+                style="width: 400px;" (change)="validateMeetingStartDateTime()" id="meetingStartDate" name="meetingStartDate"
+                />
+                <div>
+                    <span id="errorSpan" *ngIf="meetingStartDateErrorInfo != ''">
+                        <p>{{meetingStartDateErrorInfo}}</p>
+                    </span>
+                </div>
+                <!-- end date time -->
+                <label><b>End date time</b></label>
+                <input type="datetime-local" class="form-control" [(ngModel)]="addMeeting.endDateTime" 
+                style="width: 400px;" (change)="validateMeetingEndDateTime()" id="meetingEndDate" name="meetingEndDate"/>
+                <div>
+                    <span id="errorSpan" *ngIf="meetingEndDateErrorInfo != ''">
+                        <p>{{meetingEndDateErrorInfo}}</p>
+                    </span>
+                </div>
+                <!-- attendees -->
+                <label><b>Attendees</b></label>
+                <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees" [selectableGroup]="true"
+                    name="meetingAttendees" style="width: 411px;padding-left: 10px;"
+                    [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()" placeholder="choose attendees">
+                    <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                        {{emailId}}
+                    </ng-option>
+                </ng-select>
+                <div>
+                    <span id="errorSpan" *ngIf="meetingAttendeesErrorInfo != ''">
+                        <p>{{meetingAttendeesErrorInfo}}</p>
+                    </span>
+                </div>
+                <!-- organizer Name-->
+                <label><b>Organizer Name</b></label>
+                <input type="text" class="form-control" [(ngModel)]="addMeeting.organizerName" 
+                style="width: 400px;" id="meetingOrganizerName" name="meetingOrganizerName" readonly/>
+                <!-- organizer email id -->
+                <label><b>Organizer Email Id</b></label>
+                <input type="text" class="form-control" [(ngModel)]="addMeeting.organizerEmailId" 
+                style="width: 400px;" id="meetingOrganizerEmailId" name="meetingOrganizerEmailId" readonly/>
+                <!-- <div>
+                    <span id="errorSpan" *ngIf="meetingOrganizerNameErrorInfo != ''">
+                        <p>{{meetingOrganizerNameErrorInfo}}</p>
+                    </span>
+                </div> -->
+                <!--footer-->
+                <div class="modal-footer">
+                    <button type="submit" id="createMeeting" class="btn btn-primary updateButton"
+                     (click)="createMeeting(form)">Create</button>
+                    <button type="button" id="closeCreateMeetingModal" class="btn btn-outline-danger cancelButton"
+                        data-dismiss="modal" (click)="clearErrorMessages(form)">Cancel</button>
+                </div>
+             </form>
+            </div>
         </div>
     </div>
  </div>

@@ -26,8 +26,17 @@ export class MeetingService {
   //to be removed
   private actionItemsOfEventPathUrl = 'events/actionitems/';
  
+  /**
+   * 
+   * @param http 
+   */
   constructor(private http: HttpClient){}
 
+    /**
+     * 
+     * @param emailId,
+     * @returns 
+     */
     getUserOraganizedMeetingsByUserId(emailId: string){
       return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/`+emailId, {observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
@@ -35,6 +44,11 @@ export class MeetingService {
       )});
     }
 
+    /**
+     * 
+     * @param emailId 
+     * @returns 
+     */
     getUserAttendedMeetingsByUserId(emailId: string){
       return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/attended/`+emailId, {observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
@@ -112,21 +126,38 @@ export class MeetingService {
       }
       )})
     }
-    /**
-     * @returns
-     * 
-     */
+    
 
+    /**
+     * 
+     * @param meetingId 
+     * @returns 
+     */
     getMeetingObject(meetingId : number)
     {
        return this.http.get<Meeting>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/${meetingId}`,{observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
        })
-
     }
 
+    /**
+     * 
+     * @param object 
+     * @returns 
+     */
     sendMinutesofMeeting(object : MOMObject){
       return this.http.get<any>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/send-mom`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
+       })
+    }
+
+    /**
+     * 
+     * @param meeting 
+     * @returns 
+     */
+    createMeeting(meeting: any){
+      return this.http.post<Meeting>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/create`,meeting,{observe: 'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
        })
     }
