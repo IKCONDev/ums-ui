@@ -42,7 +42,7 @@
                                     <p id="userid"><b>Employee Id: </b>{{userDetails.employee.id}}</p>
                                 </div>
                                 <div>
-                                    <p id="fullname">{{userDetails.employee.firstName}}  {{userDetails.employee.lastName}}</p>
+                                    <p id="fullname">{{userDetails.employee.firstName | titlecase}}  {{userDetails.employee.lastName | titlecase}}</p>
                                 </div>
                                 <div>
                                     <p id="username">{{userDetails.employee.email}}</p>
