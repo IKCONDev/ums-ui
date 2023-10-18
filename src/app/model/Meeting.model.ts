@@ -16,6 +16,14 @@ export class Meeting{
     meetingTranscripts: Transcript[];
     transcriptData: string[];
     isTranscriptDisabled: boolean;
+    startTimeZone: string;
+    endTimeZone: string;
+    location: string;
+    onlineMeetingProvider: string;
+    seriesMasterId: string;
+    occurrenceId: string
+    batchId: number;
+    isManualMeeting: boolean;
 
     /**
      *

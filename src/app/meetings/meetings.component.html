@@ -106,7 +106,7 @@
                         </td>
 
                         <td><a class="showmore" id="showActionItems{{meeting.meetingId}}"
-                                (click)="fetchActionItemsOfEvent(meeting.meetingId)">Show Action Items</a></td>
+                                (click)="fetchActionItemsOfEvent(meeting.meetingId)" style="color:#007bff">Show Action Items</a></td>
                         <td style="padding-left: 25px;">
                             <!--<button type="submit"  data-toggle="modal" data-target="#mommodal">send
 
@@ -204,7 +204,7 @@
                                     </tbody>
                                     <tbody>
                                         <tr style="background-color: white;">
-                                            <td style="text-align: center;" colspan="7">
+                                            <td style="text-align: center;color:#007bff" colspan="7">
                                                 <a data-toggle="modal" data-target="#myModal_add"
                                                     style="cursor: pointer;padding-left: 50px; "
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
@@ -637,7 +637,7 @@
                 </div>
                 <!-- start date time -->
                 <label><b>Start date time</b></label>
-                <input type="datetime-local" class="form-control" [(ngModel)]="addMeeting.startDateTime" 
+                <input type="datetime-local" class="form-control" min="{{min}}" [(ngModel)]="addMeeting.startDateTime" 
                 style="width: 400px;" (change)="validateMeetingStartDateTime()" id="meetingStartDate" name="meetingStartDate"
                 />
                 <div>
@@ -647,7 +647,7 @@
                 </div>
                 <!-- end date time -->
                 <label><b>End date time</b></label>
-                <input type="datetime-local" class="form-control" [(ngModel)]="addMeeting.endDateTime" 
+                <input type="datetime-local" class="form-control" min="{{min}}" [(ngModel)]="addMeeting.endDateTime" 
                 style="width: 400px;" (change)="validateMeetingEndDateTime()" id="meetingEndDate" name="meetingEndDate"/>
                 <div>
                     <span id="errorSpan" *ngIf="meetingEndDateErrorInfo != ''">
@@ -658,7 +658,7 @@
                 <label><b>Attendees</b></label>
                 <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees" [selectableGroup]="true"
                     name="meetingAttendees" style="width: 411px;padding-left: 10px;"
-                    [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()" placeholder="choose attendees">
+                    [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()" pla placeholder="choose attendees">
                     <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                         {{emailId}}
                     </ng-option>
