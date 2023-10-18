@@ -343,11 +343,11 @@
                     <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
                     <!-- priority -->
                     <label for="priority"><b>Priority</b></label>
-                    <select id="priority" class="form-control" style="width: 400px;"
+                    <select id="priority" class="form-control form-select" style="width: 400px;"
                         [(ngModel)]="addDetails.actionPriority" required="true" name="actionPriority"
                         #actionPriority="ngModel" [class.invalid]="actionPriority.invalid && actionPriority.touched"
                         id="actionItemPriority" (click)="validateActionPriority()">
-                        <option>select</option>
+                        <option disabled selected value>Select</option>
                         <option>High</option>
                         <option>Medium</option>
                         <option>Low</option>
@@ -367,8 +367,9 @@
                     <div style="padding-left: 10px;">
                         <ng-select [searchable]="true" [clearable]="true" id="actionItemOwner" name="actionItemOwner"
                             style="width: 400px;" (change)="validateActionItemOwner()"
-                            [(ngModel)]="addDetails.actionItemOwner">
-                            <ng-option [value]="">choose</ng-option>
+                            [(ngModel)]="addDetails.actionItemOwner" placeholder="choose owner">
+                             <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+
                             <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                                 {{emailId}}
                             </ng-option>
@@ -447,11 +448,11 @@
                 </div>
                 <!-- priority -->
                 <label><b>Priority</b></label>
-                <select id="priority" class="form-control" style="width: 400px;"
+                <select id="priority" class="form-control form-select" style="width: 400px;"
                     [(ngModel)]="updatedetails.actionPriority" required="true" name="uAcPriority" #uAcPriority="ngModel"
                     [class.invalid]="uAcPriority.invalid && uAcPriority.touched" id="actionItemPriority"
                     (click)="validateUpdateActionPriority()">
-                    <option>select</option>
+                    <option disabled selected value>Select</option>
                     <option>High</option>
                     <option>Medium</option>
                     <option>Low</option>
@@ -460,15 +461,17 @@
                     <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
                 </div>
                 <!-- owner -->
+                <div style="padding-left: 10px;">
                 <label><b>Action Owner</b></label>
                 <ng-select [searchable]="true" [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
-                    name="uAcItemOwner" style="width: 411px;padding-left: 10px;"
-                    (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner">
-                    <ng-option [value]="">choose</ng-option>
+                    name="uAcItemOwner" style="width:  400px;"
+                    (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner" placeholder="choose owner">
+                   <!--- <ng-option [value]="" disabled selected value>choose</ng-option>-->
                     <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                         {{emailId}}
                     </ng-option>
                 </ng-select>
+               </div>
                 <div style="width: 410px;padding-left: 10px;">
                     <!-- <ng-select class="form-control" [items]="userEmailIdList" bindLabel="name" bindValue="id" [multiple]="true" groupBy="selectedAllGroup"
                     [selectableGroup]="true" placeholder="" (change)="onMaterialGroupChange($event)" 
@@ -658,7 +661,7 @@
                 <label><b>Attendees</b></label>
                 <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees" [selectableGroup]="true"
                     name="meetingAttendees" style="width: 411px;padding-left: 10px;"
-                    [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()" pla placeholder="choose attendees">
+                    [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()" placeholder="choose attendees">
                     <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                         {{emailId}}
                     </ng-option>

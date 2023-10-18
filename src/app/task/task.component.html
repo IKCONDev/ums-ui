@@ -184,7 +184,7 @@
 </div> -->
 
 
-<!---Long modal-->
+<!---Organized modal-->
 <div class="modal fade" id="xlModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -202,7 +202,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
-                            <textarea type="text" style="margin-left: 30px;width: 500px;" class="form-control"
+                            <textarea type="text" style="margin-left: 30px;width: 530px;" class="form-control"
                                 name="taskTitle" required="true" [(ngModel)]="update_Task.taskTitle"
                                 #taskTitle="ngModel" [class.invalid]="taskTitle.invalid && taskTitle.touched"
                                 (keyup)="validateTaskTitle()"></textarea>
@@ -251,7 +251,7 @@
                                                         [clearable]="true" id="taskOwner" name="taskOwner"
                                                         (change)="validateTaskOwner()" style="margin-top: 4px;"
                                                         [(ngModel)]="update_Task.taskOwner">
-                                                        <ng-option [value]="">choose</ng-option>
+                                                        <ng-option disabled selected value>choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
                                                         </ng-option>
@@ -265,12 +265,13 @@
                                         </tr>
                                         <tr>
                                             <td><label for="prority">Priority</label></td>
-                                            <td><span><select id="priority" class="form-control"
+                                            <td><span><select id="priority" class="form-control form-select"
+
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
                                                         [class.invalid]="taskPriority.invalid && taskPriority.touched"
                                                         (click)="validateTaskPriority()">
-                                                        <option value="select">select</option>
+                                                        <option disabled selected value >select</option>
                                                         <option>High</option>
                                                         <option>Medium</option>
                                                         <option>Low</option>
@@ -361,10 +362,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
-                            <textarea type="text" style="margin-left: 30px;width: 500px;" class="form-control"
+                            <textarea type="text" style="margin-left: 30px;width: 530px;" class="form-control"
                                 name="taskTitle" required="true" [(ngModel)]="update_Task.taskTitle"
                                 #taskTitle="ngModel" [class.invalid]="taskTitle.invalid && taskTitle.touched"
-                                (keyup)="validateTaskTitle()" readonly></textarea>
+                                (keyup)="validateTaskTitle()" disabled></textarea>
                             <div *ngIf="taskTitleErrrorInfo !=''">
                                 <span style="margin-left: 25px; color: red;">{{taskTitleErrrorInfo}}</span>
                             </div>
@@ -376,8 +377,8 @@
                         <label style="font-size: 20px;">Description</label>
                         <div class="col-md-6">
 
-                            <div style=" width:530px; height: 250px; background-color: #ecf7fc;">
-                                <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
+                            <div style=" width:530px; height: 250px; background-color: #ecf7fc;" disabled>
+                                <div class="col-md-12" style="background-color: #134E69D9; height: 40px;" >
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
                                 </div>
@@ -385,7 +386,7 @@
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..." minlength="10" maxlength="250" readonly></textarea>
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..." minlength="10" maxlength="250" disabled></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
@@ -409,7 +410,7 @@
                                                     <ng-select  [searchable]="true"
                                                         [clearable]="true" id="taskOwner" name="taskOwner"
                                                         (change)="validateTaskOwner()" style="margin-top: 4px;"
-                                                        [(ngModel)]="update_Task.taskOwner">
+                                                        [(ngModel)]="update_Task.taskOwner" disabled>
                                                         <ng-option [value]="">choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
@@ -428,7 +429,7 @@
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
                                                         [class.invalid]="taskPriority.invalid && taskPriority.touched"
-                                                        (click)="validateTaskPriority()">
+                                                        (click)="validateTaskPriority()" disabled>
                                                         <option value="select">select</option>
                                                         <option>High</option>
                                                         <option>Medium</option>
@@ -445,7 +446,7 @@
                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
                                                         [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
-                                                        (click)="validateTaskStartDate()"  readonly></span>
+                                                        (click)="validateTaskStartDate()"  disabled></span>
                                                <!--- <div *ngIf="taskStartDateErrorInfo!=''">
                                                     <span id="error_msg">{{taskStartDateErrorInfo}}</span>
                                                 </div>-->
@@ -458,7 +459,7 @@
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
-                                                        (click)="validateTaskDueDate()" readonly></span>
+                                                        (click)="validateTaskDueDate()" disabled></span>
                                                 <!---  <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
                                                 </div>-->
