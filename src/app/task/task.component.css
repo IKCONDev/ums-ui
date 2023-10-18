@@ -178,3 +178,11 @@ th,td{
   overflow: visible;
   white-space: normal;
 }
+
+#priority{
+   width: 315px;
+   height: 35px;
+   font-size: 14px;
+   border-radius: 0px;
+   border-color: none;
+}
