@@ -181,7 +181,8 @@ getTokenPopup(request) {
     firstName: '',
     lastName: '',
     email: '',
-    twoFactorAuth: ''
+    twoFactorAuth: '',
+    jwtExpiry: ''
   }
 
   errorInfo: String = ''
@@ -210,6 +211,8 @@ getTokenPopup(request) {
         this.loginInfo.lastName = response.headers.get('lastName')
         this.loginInfo.email = response.headers.get('email')
         this.loginInfo.twoFactorAuth = response.headers.get('twoFactorAuth')
+        this.loginInfo.jwtExpiry = response.headers.get('jwtExpiry').toString()
+        console.log('Jwt expiry : '+ this.loginInfo.jwtExpiry);
 
 
         if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
@@ -224,6 +227,7 @@ getTokenPopup(request) {
           localStorage.setItem('lastName', this.loginInfo.lastName);
           localStorage.setItem('userId', this.loginInfo.userId);
           localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
+          localStorage.setItem('jwtExpiry',this.loginInfo.jwtExpiry)
           let navigationExtras: NavigationExtras = {
             state: {
               loginInfo: this.loginInfo
@@ -245,6 +249,7 @@ getTokenPopup(request) {
           localStorage.setItem('lastName', this.loginInfo.lastName);
           localStorage.setItem('userId', this.loginInfo.userId);
           localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
+          localStorage.setItem('jwtExpiry',this.loginInfo.jwtExpiry)
           let navigationExtras: NavigationExtras = {
             state: {
               loginInfo: this.loginInfo

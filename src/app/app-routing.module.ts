@@ -22,6 +22,7 @@ import { UsersComponent } from './users/users.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { RoleComponent } from './role/role.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { SessionTimeoutComponent } from './session-timeout/session-timeout.component';
 
 
 /**
@@ -50,7 +51,7 @@ const routes: Routes = [
   {path:'organization', component: OrganizationComponent},
   {path:'roles', component: RoleComponent},
   {path: 'employee',component:EmployeeComponent},
- 
+  {path: 'session-timeout', component: SessionTimeoutComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '',redirectTo:'/login', pathMatch: 'full'},

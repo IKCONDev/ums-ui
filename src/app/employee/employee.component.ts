@@ -5,6 +5,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../model/Department.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -35,13 +36,13 @@ export class EmployeeComponent implements OnInit{
 
   employeeData : Employee[];
 
-  constructor( private employeeservice : EmployeeService, private toastr : ToastrService, private departmentservice : DepartmentService) {}
-  ngOnInit(): void {
+  constructor( private employeeservice : EmployeeService, private toastr : ToastrService, 
+    private departmentservice : DepartmentService, private router: Router) {}
 
+
+  ngOnInit(): void {
     this.getAllEmployees();
     this.getAllDepartments();
-   
-     
   }
 
   /**
@@ -50,12 +51,17 @@ export class EmployeeComponent implements OnInit{
 
   getAllEmployees(){
 
-    this.employeeservice.getAll().subscribe(
-      response =>{
+    this.employeeservice.getAll().subscribe({
+      next: response =>{
 
         this.employeeData = response.body;
         console.log(this.employeeData);
-    })
+    },error: error =>{
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl('/session-timeout')
+      }
+     }
+  })
 
 
   }
@@ -102,16 +108,20 @@ export class EmployeeComponent implements OnInit{
     if(isFirstNameValid == true && isLastNameValid == true && isEmailIdValid == true && isDepartmentValid == true && isDesignationValid == true){
       
       console.log(this.addEmployee);
-      this.employeeservice.createEmployee(this.addEmployee).subscribe(
-       response =>{
+      this.employeeservice.createEmployee(this.addEmployee).subscribe({
+       next: response =>{
         if(response.status == HttpStatusCode.Created){
 
           this.createdEmployee = response.body;
           this.toastr.success("Employee created successfully");
           document.getElementById('closeAddModal').click();
         }
+       },error: error =>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
        }
-     );
+      });
     }
 
     
@@ -141,12 +151,17 @@ export class EmployeeComponent implements OnInit{
    */
   fetchoneEmployeewithDepartment(employeeid : number){
 
-     this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe(
-        response =>{
+     this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe({
+       next: response =>{
           this.existingEmployee = response.body;
           console.log(this.existingEmployee);
 
-     });
+     },error: error =>{
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl('/session-timeout')
+      }
+     }
+    });
      for(let employee of this.employeeData){
       for(let department of this.departmentList){
         if(employee.department.departmentId == department.departmentId ){
@@ -163,13 +178,16 @@ export class EmployeeComponent implements OnInit{
   departmentList : Department[]
 
   getAllDepartments(){
-
-    this.departmentservice.getDepartmentList().subscribe(
-       response=>{
+    this.departmentservice.getDepartmentList().subscribe({
+       next: response=>{
         this.departmentList = response.body;
         console.log(this.departmentList); 
+       },error: error =>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
        }
-    )
+      })
   }
   /**
    * remove employee
@@ -180,16 +198,20 @@ export class EmployeeComponent implements OnInit{
 
     if(isconfirmed){
 
-      this.employeeservice.deleteEmployee(employeeId).subscribe(
-        response =>{
+      this.employeeservice.deleteEmployee(employeeId).subscribe({
+        next: response =>{
             if(response.status == HttpStatusCode.Ok){
                 this.toastr.success("Employee deleted successfully");
             }
             else{
                 this.toastr.error("Error occured while deleting employee pls try again!");
             }
-        }
-     );
+        },error: error =>{
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout')
+          }
+         }
+      });
     }
     else{
         this.toastr.warning("Employee not Deleted");
@@ -235,8 +257,8 @@ export class EmployeeComponent implements OnInit{
     if(isEmailIdValid == true && isFirstNameValid == true && isLastNameValid == true && isDepartmentValid == true &&
       isDesignationValid == true){
        
-        this.employeeservice.updateEmployee(employee).subscribe(
-          response=>{
+        this.employeeservice.updateEmployee(employee).subscribe({
+          next: response=>{
             var employeerecord = response.body;
             if(response.status == HttpStatusCode.Created){
                 this.toastr.success("updated employee successfully");
@@ -245,8 +267,12 @@ export class EmployeeComponent implements OnInit{
             else{
                this.toastr.error("Error occured while updating employee");
             }
+          },error: error =>{
+            if(error.status === HttpStatusCode.Unauthorized){
+              this.router
+            }
           }
-       )                                                 
+        })                                                 
 
     }
 
@@ -332,13 +358,10 @@ export class EmployeeComponent implements OnInit{
   }
 
   employeeDesignationErrorInfo = "";
-
   validateEmployeeDesignation(){
-
     if(this.addEmployee.designation == ''){
       this.employeeDesignationErrorInfo = "Designation is required"
       this.isEmployeeDesignationtValid = false;
-
     }
     else{
       this.employeeDesignationErrorInfo ="";
@@ -378,7 +401,6 @@ export class EmployeeComponent implements OnInit{
   updateFirstNameErrorInfo ="";
 
   validateUpdateFirstName(){
-
     if(this.existingEmployee.firstName == ''){
       this.updateFirstNameErrorInfo = "First Name is required";
       this.isUpdateFirstNameValid = false;
@@ -393,9 +415,9 @@ export class EmployeeComponent implements OnInit{
      }
      return this.isUpdateFirstNameValid;
   }
+
   updateLastNameErrorInfo ="";
   validateUpdateLastName(){
-
    if(this.existingEmployee.lastName == ''){
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
@@ -410,9 +432,9 @@ export class EmployeeComponent implements OnInit{
     }
     return this.isUpdateLastNameValid;
   }
+
   updateEmailIdErrorInfo = "";
   validateUpdateEmailId(){
-
     if(this.existingEmployee.email == ''){
       this.updateEmailIdErrorInfo = "EmailId is required";
       this.isUpdateEmailIdValid = false;
@@ -428,6 +450,7 @@ export class EmployeeComponent implements OnInit{
     return this.isUpdateLastNameValid;
 
   }
+
   updateDepartmentErrorInfo ="";
   validateUpdateDepartment(){
     if(this.existingEmployee.departmentId <1){
@@ -439,9 +462,8 @@ export class EmployeeComponent implements OnInit{
       this.isUpdateDepartmentValid  = true;
     }
     return this.isUpdateDepartmentValid;
-
-
   }
+
   updateDesignationErrorInfo ="";
   validateUpdateDesignation(){
 
@@ -458,14 +480,12 @@ export class EmployeeComponent implements OnInit{
       this.isUpdateEmailIdValid = true;
     }
     return this.isUpdateLastNameValid;
-
   }
 
   /** check the selected checkboxes to delete */
 
   
   checkCheckBoxes() {
-
     var employeeIdsToBeDeleted = [];
     var table = document.getElementById("employee");
     console.log(table)
@@ -494,24 +514,26 @@ export class EmployeeComponent implements OnInit{
     }
     console.log(employeeIdsToBeDeleted);
     this.deleteEmployeesById(employeeIdsToBeDeleted);
-    
-
   }
+
+
   deleteEmployeesById(employee : any[]){
     var isconfirmed = window.confirm("Are you sure, you really want to delete these records?");
     if(isconfirmed){
-
-      this.employeeservice.deleteAllEmployee(employee).subscribe(
-        response=>{
+      this.employeeservice.deleteAllEmployee(employee).subscribe({
+        next: response=>{
            if(response.status == HttpStatusCode.Ok){
               this.toastr.success("Employee deleted successfully");
            }
            else{
                this.toastr.error("Error while deleting employee... Please try again !"); 
            }
-        }
-     )
-
+        },error: error =>{
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout')
+          }
+         }
+      })
     }
     else{
       this.toastr.warning("Employees not Deleted");

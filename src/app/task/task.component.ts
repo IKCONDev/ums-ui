@@ -7,6 +7,7 @@ import { event } from 'jquery';
 import { MeetingService } from '../meetings/service/meetings.service';
 import { NgForm } from '@angular/forms';
 import { HttpStatusCode } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -57,7 +58,8 @@ export class TaskComponent {
    * @param meetingService 
    * @param toastr 
    */
-  constructor(private service: TaskService, private meetingService: MeetingService, private toastr: ToastrService) { }
+  constructor(private service: TaskService, private meetingService: MeetingService, 
+    private toastr: ToastrService, private router: Router) { }
 
   /**
    * 
@@ -93,15 +95,19 @@ export class TaskComponent {
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
      // document.getElementById("delete_button").style.display="none";
      // document.getElementById("readOnly").style.setProperty("readonly","true");
-      this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe
-
-        (response => {
+      this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe({
+        next:(response) => {
           console.log(response.body)
           //extract the meetings from response object
           this.assignedTasks = response.body;
           this.assignedTasksCount = response.body.length
           localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
-        });
+        },error: (error) => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }
+        }
+      });
     }
     else {
       document.getElementById("OrganizedTask").style.borderBottom = '2px solid white';
@@ -110,11 +116,17 @@ export class TaskComponent {
       document.getElementById("AssignedTask").style.borderBottom = 'none';
      // document.getElementById("delete_button").style.display="block";
 
-      this.service.getTaskByUserId(localStorage.getItem('email')).subscribe(res => {
+      this.service.getTaskByUserId(localStorage.getItem('email')).subscribe({
+        next: (res) => {
         this.task = res.body;
         this.taskCount = res.body.length;
         console.log(this.task);
-      });
+      },error: (error) => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+    });
     }
 
   }
@@ -355,7 +367,8 @@ export class TaskComponent {
     }
     if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStatusValid === true &&
       isDueDateValid === true && isStatusValid === true) {
-      this.service.updateTask(this.update_Task).subscribe(response => {
+      this.service.updateTask(this.update_Task).subscribe({
+        next:(response) => {
         this.response = response.body;
         //this.data = response.body;
         if (response.status === HttpStatusCode.Ok) {
@@ -366,7 +379,12 @@ export class TaskComponent {
             window.location.reload();
           },1000)
         }
-      });
+      },error: (error) => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+    });
     }
   }
 
@@ -434,7 +452,8 @@ export class TaskComponent {
       this.toastr.error('No tasks selected to delete')
       return;
     }
-    this.service.deleteAllTasksByTaskIds(taskIds).subscribe(res => {
+    this.service.deleteAllTasksByTaskIds(taskIds).subscribe({
+      next:(res) => {
       this.istaskDeleted = res.body;
       console.log(this.istaskDeleted);
       if (this.istaskDeleted) {
@@ -446,7 +465,12 @@ export class TaskComponent {
         console.log("tasks not deleted");
         this.toastr.error("action Items are not deleted try again");
       }
-    });
+    },error: (error) => {
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }
+  });
   }
   checkAllCheckBoxes(event: any) {
     var checkbox = event.target.value;
@@ -472,12 +496,16 @@ export class TaskComponent {
    * 
    */
   getActiveUsersEmailIdList() {
-    this.meetingService.getActiveUserEmailIdList().subscribe(response => {
+    this.meetingService.getActiveUserEmailIdList().subscribe({
+      next: (response) => {
       this.userEmailIdList = response.body;
       console.log(this.userEmailIdList);
-
-
-    });
+    },error: (error) => {
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }
+  });
   }
 
   min: any = "";

@@ -1,0 +1,15 @@
+body{
+    padding-left: 500px;
+    padding-top: 70px;
+    background-color: lightgray;
+    height: 758px;
+}
+
+#smileyDiv{
+    padding-left: 150px;
+}
+
+a:hover{
+    cursor: pointer;
+}
+

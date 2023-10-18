@@ -6,6 +6,8 @@ import { TaskService } from '../task/service/task.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { MeetingService } from '../meetings/service/meetings.service';
+import { HttpStatusCode } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-action-item',
@@ -76,7 +78,7 @@ export class ActionItemComponent implements OnInit {
    * @param meetingsService 
    */
   constructor(private service: ActionService, private taskService: TaskService, private toastr: ToastrService,
-    private meetingsService: MeetingService) {
+    private meetingsService: MeetingService, private router: Router) {
 
       $(function () {
         console.log('function one called');
@@ -113,15 +115,21 @@ export class ActionItemComponent implements OnInit {
        this.actionItemCount = response.body.length;
        
      });*/
-    this.service.getUserActionItemsByUserId(localStorage.getItem('email')).subscribe(res => {
+    this.service.getUserActionItemsByUserId(localStorage.getItem('email')).subscribe({
+      next:(res) => {
       this.actionItems = res.body;
       console.log(res.body);
       this.actionItemCount = res.body.length;
-    });
+    },error: (error) =>{
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+  });
   };
 
   /**
-   * 
+   * currently this feature is disabled
    * @param id 
    */
   editData(id: number) {
@@ -145,7 +153,7 @@ export class ActionItemComponent implements OnInit {
  
   
   /**
-   * 
+   * currently this feature is disabled
    * @param event 
    */
   updateDetails(event: any) {
@@ -155,7 +163,6 @@ export class ActionItemComponent implements OnInit {
     console.log(this.updatedetails);
     this.service.updateActionItem(this.updatedetails).subscribe(response => {
       this.data = response.body;
-
       console.log(this.data);
     });
   }
@@ -165,10 +172,16 @@ export class ActionItemComponent implements OnInit {
    */
   ViewTaskDetails() {
     console.log("fetching task details");
-    this.service.getAlltasks().subscribe(response => {
+    this.service.getAlltasks().subscribe({
+     next: (response) => {
       this.task_array = response.body;
       console.log(this.task_array);
-    });
+    },error: (error) =>{
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+  });
     console.log("request success");
 
   }
@@ -184,7 +197,7 @@ export class ActionItemComponent implements OnInit {
 
 
   /**
-   * 
+   * currently this feature is disabled
    * @param form 
    */
   saveActionItem(form: NgForm) {
@@ -236,7 +249,7 @@ export class ActionItemComponent implements OnInit {
   actionItem_id: number;
 
   /**
-   * 
+   * currently this feature is disabled
    */
   checkCheckBoxes() {
     var actionItemsToBeDeleted = [];
@@ -275,7 +288,7 @@ export class ActionItemComponent implements OnInit {
   
   isActionsDeleted: boolean = false;
   /**
-   * 
+   * currently this feature is disabled
    * @param actionItemList 
    */
   deleteActionItems(actionItemList: any[]) {
@@ -299,7 +312,7 @@ export class ActionItemComponent implements OnInit {
   str: string;
   
   /**
-   * 
+   * currently this feature is disabled
    * @param id 
    * @returns 
    */
@@ -323,7 +336,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @param actionItemid 
    * @param id 
    */
@@ -341,7 +354,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @returns 
    */
   validateActionTitle(): boolean {
@@ -363,7 +376,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @param event 
    */
   validateActionDescription(): boolean {
@@ -386,7 +399,7 @@ export class ActionItemComponent implements OnInit {
 
 
   /**
-   * 
+   * currently this feature is disabled
    * @param event 
    */
   validateActionPriority() {
@@ -405,7 +418,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @param form 
    */
   clearErrorMessages(form: NgForm) {
@@ -418,7 +431,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @param event 
    */
   validateActionStartDate() {
@@ -437,8 +450,9 @@ export class ActionItemComponent implements OnInit {
   }
 
   actionItemOwnerErrorInfo: string = '';
+
   /**
-   * 
+   * currently this feature is disabled
    * @returns 
    */
   validateActionItemOwner() {
@@ -456,7 +470,7 @@ export class ActionItemComponent implements OnInit {
 
 
   /**
-   * 
+   * currently this feature is disabled
    * @param event 
    */
   validateActionEndDate() {
@@ -490,7 +504,7 @@ export class ActionItemComponent implements OnInit {
   isUpdateActionItemEndDateValid = false;
 
   /**
-   * 
+   * currently this feature is disabled
    * @returns 
    */
   validateUpdateActionTitle(){
@@ -511,7 +525,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @returns 
    */
   validateUpdateActionDescription(){
@@ -532,7 +546,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @returns 
    */
   validateUpdateActionPriority(){
@@ -551,7 +565,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @returns 
    */
   validateUpdateActionItemOwner(){
@@ -567,7 +581,7 @@ export class ActionItemComponent implements OnInit {
   }
 
   /**
-   * 
+   * currently this feature is disabled
    * @returns 
    */
   validateUpdateActionStartDate(){
@@ -586,7 +600,7 @@ export class ActionItemComponent implements OnInit {
   }
 
    /**
-    * 
+    * currently this feature is disabled
     * @returns 
     */
    validateUpdateActionEndDate(){
@@ -606,7 +620,7 @@ export class ActionItemComponent implements OnInit {
    }
 
     /**
-   * 
+   * currently this feature is disabled
    * @param meeting 
    */
   updateActionItem(form: NgForm) {
@@ -660,7 +674,7 @@ export class ActionItemComponent implements OnInit {
 
   userEmailIdList: string[];
   /**
-   * 
+   * currently this feature is disabled
    */
   getActiveUMSUsersEmailIdList() {
     //perform an AJAX call to get list of users
