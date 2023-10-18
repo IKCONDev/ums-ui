@@ -3,6 +3,8 @@ import { RoleService } from './service/role.service';
 import { Role } from '../model/Role.model';
 import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
+import { error } from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-role',
@@ -45,7 +47,8 @@ export class RoleComponent implements OnInit {
    * @param roleService 
    * @param toastr 
    */
-  constructor(private roleService: RoleService, private toastr: ToastrService) {
+  constructor(private roleService: RoleService, private toastr: ToastrService,
+    private router: Router) {
 
   }
 
@@ -106,8 +109,8 @@ export class RoleComponent implements OnInit {
       this.addRoleObj.createdBy = localStorage.getItem('firstName');
       this.addRoleObj.createdByEmailId = localStorage.getItem('email');
       console.log(this.addRoleObj)
-      this.roleService.createRole(this.addRoleObj).subscribe(
-        (response => {
+      this.roleService.createRole(this.addRoleObj).subscribe({
+        next: (response) => {
           if (response.status == HttpStatusCode.Created) {
             this.createdRole = response.body;
             this.toastr.success("Role Created Sucessfully !")
@@ -119,8 +122,12 @@ export class RoleComponent implements OnInit {
           } else {
             this.toastr.error("Role not created. Please try again.")
           }
-        })
-      )
+        },error: error =>{
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }
+        }
+      })
     }
 
   }
@@ -141,8 +148,8 @@ export class RoleComponent implements OnInit {
       this.existingRole.modifiedBy = localStorage.getItem('firstName');
     this.existingRole.modifiedByEmailId = localStorage.getItem('email');
     //this.updatedRole.modifiedDateTime = new Date(Date.now)
-    this.roleService.updateRole(this.existingRole).subscribe(
-      (response => {
+    this.roleService.updateRole(this.existingRole).subscribe({
+     next: (response) => {
         if (response.status == HttpStatusCode.Created) {
           this.toastr.success("Role Updated Sucessfully !")
           //close form modal
@@ -153,8 +160,12 @@ export class RoleComponent implements OnInit {
         } else {
           this.toastr.error("Role not updated. Please try again.")
         }
-      })
-    )
+      },error: error =>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+    })
     }
   }
 
@@ -163,8 +174,8 @@ export class RoleComponent implements OnInit {
    * @param id 
    */
   getRoleById(id: number) {
-    this.roleService.getRole(id).subscribe(
-      (response => {
+    this.roleService.getRole(id).subscribe({
+     next: (response) => {
         // this.existingRole = response.body;
         // this.existingRole.roleId = this.existingRole.roleId;
         // this.existingRole.roleName = this.existingRole.roleName;
@@ -176,8 +187,12 @@ export class RoleComponent implements OnInit {
         // this.existingRole.modifiedDateTime = new Date(this.existingRole.modifiedDateTime).toISOString();
         this.existingRole = response.body;
         console.log(this.existingRole);
-      })
-    )
+      },error: error =>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+  })
   }
 
 
@@ -185,14 +200,18 @@ export class RoleComponent implements OnInit {
    * get all roles
    */
   getRoleList() {
-    this.roleService.getAllRoles().subscribe(
-      (response => {
+    this.roleService.getAllRoles().subscribe({
+      next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           this.roleList = response.body;
           console.log(response.body)
         }
-      })
-    )
+      },error: error =>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+  })
   }
 
   /**
@@ -202,8 +221,8 @@ export class RoleComponent implements OnInit {
   deleteRoleById(id: number) {
     var isConfirmed = window.confirm('Are you sure you want to delete this record ?');
     if (isConfirmed) {
-      this.roleService.deleteRole(id).subscribe(
-        (response => {
+      this.roleService.deleteRole(id).subscribe({
+        next: (response) => {
           if (response.status === HttpStatusCode.Ok) {
             this.toastr.success('Role ' + id + ' deleted successfully')
             setTimeout(() => {
@@ -212,8 +231,12 @@ export class RoleComponent implements OnInit {
           } else {
             this.toastr.error('Role '+id+ 'could not be deleted.. Please try again !');
           }
-        })
-      )
+        },error: error =>{
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }
+        }
+    })
     } else {
       this.toastr.warning('Role deletion cancelled');
     }
@@ -265,8 +288,8 @@ export class RoleComponent implements OnInit {
     //confirm before deleting
     var isconfirmed = window.confirm('Are yopu sure, you really want to delete these records ?')
     if(isconfirmed){
-      this.roleService.deleteSelectedRoles(this.roleIdsToBeDeleted).subscribe(
-        (response => {
+      this.roleService.deleteSelectedRoles(this.roleIdsToBeDeleted).subscribe({
+        next: (response) => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             this.toastr.success('Roles deleted sucessfully')  
@@ -276,8 +299,12 @@ export class RoleComponent implements OnInit {
           }else{
             this.toastr.error('Error while deleting roles... Please try again !');
           }
-        })
-      )
+        },error: error =>{
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }
+        }
+      })
     }else{
       this.toastr.warning('Roles deletion cancelled')
     }

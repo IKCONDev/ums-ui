@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Role } from "src/app/model/Role.model";
 
 @Injectable({
@@ -20,7 +20,10 @@ export class RoleService {
      * @returns 
      */
     createRole(role: any){
-        return this.http.post<Role>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/create`,role,{observe:'response'});
+        return this.http.post<Role>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/create`,role,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
 
     }
 
@@ -29,7 +32,10 @@ export class RoleService {
      * @returns 
      */
     getAllRoles(){
-        return this.http.get<Role[]>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/all`,{observe:'response'});
+        return this.http.get<Role[]>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/all`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     /**
@@ -38,7 +44,10 @@ export class RoleService {
      * @returns 
      */
     updateRole(role : any){
-        return this.http.put<Role>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/update`,role,{observe:'response'});
+        return this.http.put<Role>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/update`,role,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     /**
@@ -47,7 +56,10 @@ export class RoleService {
      * @returns 
      */
     getRole(id : number){
-        return this.http.get<any>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/${id}`,{observe:'response'});
+        return this.http.get<any>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/${id}`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     /**
@@ -56,14 +68,20 @@ export class RoleService {
      * @returns 
      */
     deleteRole(id: number){
-        return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/delete/${id}`,{observe:'response'});
+        return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/delete/${id}`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     /**
      * 
      */
     deleteSelectedRoles(ids: any[]){
-        return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/all/${ids}`,{observe:'response'});
+        return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/all/${ids}`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
 }

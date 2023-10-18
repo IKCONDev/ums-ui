@@ -5,7 +5,6 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordEmailVerificationComponent } from './forgot-password-email-verification/forgot-password-email-verification.component';
 import { ForgotPasswordOtpValidationComponent } from './forgot-password-otp-validation/forgot-password-otp-validation.component';
 import { ForgotPasswordResetComponent } from './forgot-password-reset/forgot-password-reset.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
 import { MeetingsComponent } from './meetings/meetings.component';
@@ -23,10 +22,12 @@ import { OrganizationComponent } from './organization/organization.component';
 import { RoleComponent } from './role/role.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { SessionTimeoutComponent } from './session-timeout/session-timeout.component';
+import { ServiceUnavailableComponent } from './service-unavailable/service-unavailable.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 /**
- * 
+ * escribe the routes for the required components of UMS application
  */
 const routes: Routes = [
   {path:"",component:LoginComponent},
@@ -35,7 +36,6 @@ const routes: Routes = [
   {path:"verify-email", component:ForgotPasswordEmailVerificationComponent},
   {path:"verify-otp", component: ForgotPasswordOtpValidationComponent},
   {path:"reset-password", component: ForgotPasswordResetComponent},
-  {path:"not-found", component:PageNotFoundComponent},
   {path:"two-step", component:TwofactorAuthenticationComponent},
   {path:"verify-twostep", component: TwofactorOtpValidationComponent},
   {path:"meetings", component: MeetingsComponent},
@@ -52,9 +52,11 @@ const routes: Routes = [
   {path:'roles', component: RoleComponent},
   {path: 'employee',component:EmployeeComponent},
   {path: 'session-timeout', component: SessionTimeoutComponent},
+  {path: 'service-unavailable', component:ServiceUnavailableComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
-  {path: '',redirectTo:'/login', pathMatch: 'full'},
+  {path: '**', component:PageNotFoundComponent},
+  {path: '',redirectTo:'/login', pathMatch: 'full'}
 ];
 
 @NgModule({

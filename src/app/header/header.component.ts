@@ -4,6 +4,7 @@ import { HeaderService } from './service/header.service';
 import { error } from 'jquery';
 import { Employee } from '../model/Employee.model';
 import { Users } from '../model/Users.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,8 @@ export class HeaderComponent {
    * @param headerService 
    * @param router 
    */
-  constructor(private headerService: HeaderService, private router: Router){
+  constructor(private headerService: HeaderService, private router: Router, 
+    private toastr: ToastrService){
 
   }
 
@@ -93,7 +95,8 @@ export class HeaderComponent {
    */
   logout(){
     //sessionStorage.clear();
-    //localStorage.clear();
+    localStorage.clear();
+    this.toastr.success('Logged out sucessfully...Hope you had a great experience')
    // window.localStorage.clear ();
     this.router.navigateByUrl('/login');
   }

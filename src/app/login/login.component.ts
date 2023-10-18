@@ -15,6 +15,15 @@ import { InteractionRequiredAuthError, LogLevel, PublicClientApplication } from 
 
 export class LoginComponent {
 
+  constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
+    @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService) { 
+     this.myMSALObj = new PublicClientApplication(this.msalConfig);
+     
+  }
+
+  /**
+ * MICROSOFT AUTH LOGIN STARTS HERE
+ */
   msalConfig = {
     auth: {
         clientId: "20acd1bc-5533-4aaa-a77c-91d2600abea3",
@@ -67,15 +76,16 @@ username = "";
 accessToken = "";
 myMSALObj;
 
-constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
-  @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService) { 
-   this.myMSALObj = new PublicClientApplication(this.msalConfig);
-   
-}
-
+/**
+ * initializes the MicrosoftAuthLibraryObject
+ */
 async initializeMSAL() {
   await this.myMSALObj.initialize();
 }
+
+/**
+ * asyncNOnInit - executes whenever the component is initialized
+ */
 async ngOnInit() {
   console.log(this.router.url);
   this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
@@ -92,6 +102,10 @@ async ngOnInit() {
   }
 }
 
+/**
+ * 
+ * @returns 
+ */
 selectAccount() {
     const currentAccounts = this.myMSALObj.getAllAccounts();
     if (currentAccounts.length === 0) {
@@ -106,6 +120,10 @@ selectAccount() {
     }
 }
 
+/**
+ * 
+ * @param response 
+ */
 handleResponse(response) {
     if (response !== null) {
         this.username = response.account.username;
@@ -119,6 +137,9 @@ handleResponse(response) {
     }
 }
 
+/**
+ * Sign in to Microsoft Account
+ */
 async signIn() {
   await this.initializeMSAL(); // Initialize MSAL first
   this.myMSALObj.loginPopup(this.loginRequest)
@@ -128,6 +149,9 @@ async signIn() {
       });
 }
 
+/**
+ * Signout method - optional
+ */
 signOut() {
     const logoutRequest = {
         account: this.myMSALObj.getAccountByUsername(this.username),
@@ -138,8 +162,11 @@ signOut() {
     this.myMSALObj.logoutPopup(logoutRequest);
 }
 
-//selectAccount();
-
+/**
+ * Shows the token popup to login to application
+ * @param request 
+ * @returns 
+ */
 getTokenPopup(request) {
 
     /**
@@ -167,8 +194,9 @@ getTokenPopup(request) {
     });
 }
 
-//custom login
-
+/**
+ * CUSTOM LOGIN IMPL STARTS HERE
+ */
   user = {
     email: '',
     password: ''
@@ -188,22 +216,32 @@ getTokenPopup(request) {
   errorInfo: String = ''
   inputField: HTMLInputElement;
   eyeIcon: HTMLElement;
-
   private destroy$: Subject<void> = new Subject<void>();
 
 
+  /**
+   * 
+   * @param username 
+   */
   setUsername(username: any) {
     this.user.email = username.target.value;
   }
 
+  /**
+   * 
+   * @param password 
+   */
   setPassword(password: any) {
     this.user.password = password.target.value;
   }
 
+  /**
+   * Custom login method of UMS application
+   */
   login() {
     console.log('submitted')
-    this.loginService.logUserIfValid(this.user).subscribe(
-      response => {
+    this.loginService.logUserIfValid(this.user).subscribe({
+      next: response => {
         this.loginInfo.token = response.headers.get('token')
         this.loginInfo.userId = response.headers.get('userId')
         this.loginInfo.userRole = response.headers.get('userRole')
@@ -258,20 +296,21 @@ getTokenPopup(request) {
           this.router.navigate(['two-step'], navigationExtras)
           console.log(navigationExtras + ' extras')
         }
-      },
-      error => {
+      },error: error => {
         if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
-          this.router.navigate(['/not-found'])
+          this.router.navigate(['/service-unavailable'])
         } else if (error.status === HttpStatusCode.Unauthorized) {
           this.errorInfo = 'Invalid Credentials'
           //login failure popup
           this.toastr.error('Incorrect Username or Password', 'Login Failure')
         }
       }
-    )
+   })
   }
 
-
+  /**
+   * 
+   */
   setupEmailInputPlaceholder(): void {
     const emailInput = this.elementRef.nativeElement.querySelector('#email');
 
@@ -292,6 +331,10 @@ getTokenPopup(request) {
     });
   }
 
+  /**
+   * 
+   * @param event 
+   */
   setupPasswordInputPlaceholder(event: any) {
     const passwordInput = this.elementRef.nativeElement.querySelector('#password');
 
@@ -324,6 +367,9 @@ getTokenPopup(request) {
    */
   }
 
+  /**
+   * 
+   */
   showHidePassword(){
     this.inputField = document.getElementById("password") as HTMLInputElement;
     this.eyeIcon = document.getElementById('passwordEye') as HTMLElement;
@@ -338,6 +384,9 @@ getTokenPopup(request) {
     }
   }
 
+  /**
+   * executes when the component is destroyed/uninitialized
+   */
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
