@@ -44,7 +44,9 @@
                     <th>Designation</th>
                     <th>Created Date</th>
                     <th>Modified By</th>
+                    <th>createdBy</th>
                     <th>Modified Date</th>
+                    <th></th>
                     <th>Actions</th>
                 </thead>
                 <tbody *ngIf ="employeeData !=null">
@@ -60,7 +62,9 @@
                         <td>{{employee.designation}}</td>
                         <td>{{employee.createdDateTime}}</td>
                         <td>{{employee.modifiedBy}}</td>
+                        <td>{{employee.createdBy}}</td>
                         <td>{{employee.modifiedDateTime}}</td>
+                        <td>{{employee.createdByEmailId}}</td>
                         <td>
                             <span id="editIcon"
                             data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)"
