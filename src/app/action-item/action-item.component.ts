@@ -14,7 +14,7 @@ import { MeetingService } from '../meetings/service/meetings.service';
 })
 export class ActionItemComponent implements OnInit {
 
-  @Output() title: string = 'Actions'
+  @Output() title: string = 'Action Items';
   actionItemCount: number = 0;
   id: number;
   //actionItem:ActionItems = new ActionItems();
