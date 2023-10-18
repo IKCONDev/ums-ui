@@ -26,9 +26,11 @@
                         fill="#ffffff" />
                 </svg>
             </div>
-            <div id="createBtnDiv" class="col-sm-1">
+            <div *ngIf="tabOpened === 'OrganizedMeeting'" id="createBtnDiv" class="col-sm-1">
                <i style="padding-top: 5px;" class="fa-solid fa-2x fa-plus-square" data-toggle="modal" data-target="#createModal" (click)="getActiveUMSUsersEmailIdList()">
                </i></div>
+               <div *ngIf="tabOpened === 'AttendedMeeting'" class="col-sm-1">
+                </div>
             <div class="col-sm-1" id="filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                     <path

@@ -19,13 +19,22 @@ export class ActionItemComponent implements OnInit {
   @Output() title: string = 'Action Items';
   actionItemCount: number = 0;
   id: number;
-  //actionItem:ActionItems = new ActionItems();
-  task_array: Task[];
   actions: Object;
   isfill: boolean = false;
-  actionItems: ActionItems[];
   actionItems_new: ActionItems;
   email: string;
+  data: object = {};
+  response: Object;
+  actions_details: Object
+  actionItem_id: number;
+  temp_data: number
+  str: string;
+  isActionsDeleted: boolean = false;
+  task_array: Task[];
+  actionItems: ActionItems[];
+  userEmailIdList: string[];
+
+  //update action item object
   updatedetails = {
     actionItemId: 0,
     meetingId: 0,
@@ -39,6 +48,7 @@ export class ActionItemComponent implements OnInit {
     endDate: ''
   }
 
+  //add action item object
   addDetails = {
     actionItemId: 0,
     meetingId: 0,
@@ -52,10 +62,13 @@ export class ActionItemComponent implements OnInit {
     endDate: ''
   }
 
-  data: object = {};
-  response: Object;
-  actions_details: Object
-
+  //add object error validation properties
+  actionItemTitleErrorInfo: string = '';
+  actionItemOwnerErrorInfo: string = '';
+  actionItemEndDateErrorInfo: string = '';
+  actionItemDescriptionErrorInfo: string = ''
+  actionItemPriorityErrorInfo: string = ''
+  actionItemStartDateErrorInfo: string = ''
   isActionItemTitleValid = false;
   isActionItemDescriptionValid = false;
   isActionItemPriorityValid = false;
@@ -63,12 +76,20 @@ export class ActionItemComponent implements OnInit {
   isActionItemStartDateValid = false;
   isActionItemEndDateValid = false;
 
-  //errorinformation properties
-  actionItemTitleErrorInfo: string = '';
-  actionItemEndDateErrorInfo: string = '';
-  actionItemDescriptionErrorInfo: string = ''
-  actionItemPriorityErrorInfo: string = ''
-  actionItemStartDateErrorInfo: string = ''
+  //update object error alidation properties
+  updateActionItemTitleErrorInfo: string = '';
+  updateActionItemDescErrorInfo:string = '';
+  updateActionItemPriorityErrorInfo:string = '';
+  updateActionItemOwnerErrorInfo:string = '';
+  updateActionItemStartDateErrorInfo:string = '';
+  updateActionItemEndDateErrorInfo:string = '';
+  isUpdateActionItemTitleValid = false;
+  isUpdateActionItemDescValid = false;
+  isUpdateActionItemPriorityValid = false;
+  isUpdateActionItemOwnerValid = false;
+  isUpdateActionItemStartDateValid = false;
+  isUpdateActionItemEndDateValid = false;
+
 
   /**
    * 
@@ -80,6 +101,7 @@ export class ActionItemComponent implements OnInit {
   constructor(private service: ActionService, private taskService: TaskService, private toastr: ToastrService,
     private meetingsService: MeetingService, private router: Router) {
 
+      //show action items slider control code
       $(function () {
         console.log('function one called');
         var previousRow;
@@ -109,12 +131,6 @@ export class ActionItemComponent implements OnInit {
    */
   ngOnInit(): void {
     console.log("logged in userId is: " + localStorage.getItem('email'));
-    /* this.service.getAllActionItems().subscribe(response => {
-       console.log(this.actionItems);
-       this.actionItems = response.body;
-       this.actionItemCount = response.body.length;
-       
-     });*/
     this.service.getUserActionItemsByUserId(localStorage.getItem('email')).subscribe({
       next:(res) => {
       this.actionItems = res.body;
@@ -148,7 +164,6 @@ export class ActionItemComponent implements OnInit {
 
     });
     console.log("data fetching");
-
   }
  
   
@@ -246,7 +261,6 @@ export class ActionItemComponent implements OnInit {
       });
     }
   }
-  actionItem_id: number;
 
   /**
    * currently this feature is disabled
@@ -281,12 +295,9 @@ export class ActionItemComponent implements OnInit {
 
     }
     console.log(actionItemsToBeDeleted);
-
     this.deleteActionItems(actionItemsToBeDeleted);
-
   }
   
-  isActionsDeleted: boolean = false;
   /**
    * currently this feature is disabled
    * @param actionItemList 
@@ -308,8 +319,7 @@ export class ActionItemComponent implements OnInit {
     });
   }
 
-  temp_data: number
-  str: string;
+
   
   /**
    * currently this feature is disabled
@@ -449,7 +459,6 @@ export class ActionItemComponent implements OnInit {
     return this.isActionItemStartDateValid;
   }
 
-  actionItemOwnerErrorInfo: string = '';
 
   /**
    * currently this feature is disabled
@@ -489,19 +498,7 @@ export class ActionItemComponent implements OnInit {
     return this.isActionItemEndDateValid;
   }
 
-  updateActionItemTitleErrorInfo = '';
-  updateActionItemDescErrorInfo = '';
-  updateActionItemPriorityErrorInfo = '';
-  updateActionItemOwnerErrorInfo = '';
-  updateActionItemStartDateErrorInfo = '';
-  updateActionItemEndDateErrorInfo = '';
-
-  isUpdateActionItemTitleValid = false;
-  isUpdateActionItemDescValid = false;
-  isUpdateActionItemPriorityValid = false;
-  isUpdateActionItemOwnerValid = false;
-  isUpdateActionItemStartDateValid = false;
-  isUpdateActionItemEndDateValid = false;
+ 
 
   /**
    * currently this feature is disabled
@@ -672,7 +669,6 @@ export class ActionItemComponent implements OnInit {
   }
 }
 
-  userEmailIdList: string[];
   /**
    * currently this feature is disabled
    */

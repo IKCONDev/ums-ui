@@ -11,6 +11,10 @@ export class DepartmentService{
     gatewayMicroservicePathUrl: string = 'http://localhost:8012';
     departmentMicroservicepathUrl: string = 'departments';
 
+    /**
+     * 
+     * @param http 
+     */
     constructor(private http: HttpClient){
         
     }
@@ -20,7 +24,10 @@ export class DepartmentService{
      * @returns 
      */
     getDepartmentList(){
-        return this.http.get<Department[]>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/all`,{observe:'response'});
+        return this.http.get<Department[]>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/all`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     /**
@@ -73,6 +80,11 @@ export class DepartmentService{
           )});
     }
 
+    /**
+     * 
+     * @param ids 
+     * @returns 
+     */
     deleteSelectedDepartmentsById(ids: any[]){
         return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/delete/all/${ids}`,{observe:'response',headers: new HttpHeaders({
             'Authorization':'Bearer '+localStorage.getItem('jwtToken')

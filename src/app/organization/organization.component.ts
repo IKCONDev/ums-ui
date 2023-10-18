@@ -3,6 +3,8 @@ import { OrganizationService } from './service/organization.service';
 import { Organization } from '../model/Organization.model';
 import { HttpStatusCode } from '@angular/common/http';
 import { Toast, ToastrModule, ToastrService } from 'ngx-toastr';
+import { error } from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-organization',
@@ -12,37 +14,87 @@ import { Toast, ToastrModule, ToastrService } from 'ngx-toastr';
 export class OrganizationComponent implements OnInit {
 
   @Output() title: string = 'Organization';
+  org: Organization;
+  isDisable: boolean = false;
 
-  constructor(private orgService: OrganizationService, private toast: ToastrService) {}
-  
+  //error validation properties
+  updatedOrgNameErrorInfo: string = '';
+  isUpdateorgNameValid: boolean = false;
+  updatedOrgWebsiteErrorInfo: string = ''
+  isUpdateWebsiteNameValid: boolean = false;
+  updatedorgFunctionalTypeErrorInfo: string = ''
+  isUpdateOrgFunctionValid: boolean = false;
+  updatedorgContactPersonNameErrorInfo: string = ''
+  isUpdateOrgContactPersonNameValid: boolean = false;
+  updatedorgContactPersonNumberErrorInfo: string = '';
+  isUpdateOrgContactPersonNumberValid: boolean = false;
+  updatedOrgAddressErrorInfo: string = '';
+  isUpdateOrgAddressValid: boolean = false;
+  updatedOrgContactNumberErrorInfo: string = '';
+  isupdatedOrgContactNumberValid: boolean = false;
+  updatedOrgCountryErrorInfo: string = '';
+  isupdatedOrgCountryValid: boolean = false;
+  updatedorgContactPersonEmailErrorInfo: string = '';
+  isUpdateOrgContactPersonEmailValid: boolean = false;
+  updatedOrgSuperAdminEmailErrorInfo: string = '';
+  isUpdateOrgSuperAdminEmailValid: boolean = false;
+  updatedCompanyEmailErrorInfo: string = '';
+  isUpdateCompanyEmailValid: boolean = false;
 
+  /**
+   * 
+   * @param orgService 
+   * @param toast 
+   * @param router 
+   */
+  constructor(private orgService: OrganizationService, private toast: ToastrService,
+    private router: Router) { }
+
+
+    /**
+     * 
+     */
   ngOnInit(): void {
     this.getOrganization();
   }
 
-  org: Organization
+  /**
+   * 
+   */
   getOrganization() {
     //returns null if no org details are present in DB.
-    this.orgService.getOrganization(10).subscribe(
-      (response => {
+    this.orgService.getOrganization(10).subscribe({
+      next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           console.log(response.body)
           this.org = response.body;
         }
-      })
-    )
+      }, error: error => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+    })
   }
 
-  isDisable: boolean = false
+  /**
+   * 
+   */
   editInfo() {
     this.isDisable = true
     console.log(this.isDisable)
   }
 
+  /**
+   * 
+   */
   cancelCompanyDetails() {
     this.isDisable = false;
   }
 
+  /**
+   * 
+   */
   saveOrUpdateOrg() {
     var flag = 0;
     var isOrgNameValid = true;
@@ -119,48 +171,56 @@ export class OrganizationComponent implements OnInit {
       this.isDisable = false;
       console.log(isOrgFunctionValid)
       if (this.org.orgId === null) {
-        console.log('save')
-        this.orgService.saveOrganization(this.org).subscribe(
-          (response => {
+        this.orgService.saveOrganization(this.org).subscribe({
+          next: (response) => {
             this.org = response.body;
-            setTimeout(()=>{
+            setTimeout(() => {
               window.location.reload();
-            },1000)
-          })
-        )
+            }, 1000)
+          }, error: error => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl('/session-timeout')
+            }
+          }
+        })
       }
       else if (this.org.orgId != 0) {
         console.log('update')
-        this.orgService.updateOrganization(this.org).subscribe(
-          (response => {
+        this.orgService.updateOrganization(this.org).subscribe({
+          next: (response) => {
             this.org = response.body;
-            setTimeout(()=>{
+            setTimeout(() => {
               window.location.reload();
-            },1000)
-          })
-        )
-
+            }, 1000)
+          }, error: error => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl('/session-timeout')
+            }
+          }
+        })
       }
     }
     else {
       this.isDisable = true;
     }
-
   }
 
-  updatedOrgNameErrorInfo: string = '';
-  isUpdateorgNameValid: boolean = false;
+
+  /**
+   * 
+   * @returns 
+   */
   validateOrgName() {
     // var deptName=  event.target.value;
-    if(this.org.orgName.length == 0){
+    if (this.org.orgName.length == 0) {
       this.isUpdateorgNameValid = true;
       this.updatedOrgNameErrorInfo = '';
     }
-     else if (this.org.orgName.length < 3) {
+    else if (this.org.orgName.length < 3) {
       this.updatedOrgNameErrorInfo = 'Organisation name should have minimum of 3 chars.';
     } else if (this.org.orgName.length > 40) {
       this.updatedOrgNameErrorInfo = 'Organisation name should not exceed more than 40 chars';
-    }else if (this.org.orgName.length > 40) {
+    } else if (this.org.orgName.length > 40) {
       this.updatedOrgNameErrorInfo = 'Organisation name should not exceed more than 40 chars';
     } else {
       this.isUpdateorgNameValid = true;
@@ -169,10 +229,13 @@ export class OrganizationComponent implements OnInit {
     return this.isUpdateorgNameValid;
   }
 
-  updatedOrgWebsiteErrorInfo: string = ''
-  isUpdateWebsiteNameValid: boolean = false;
+
+/**
+ * 
+ * @returns 
+ */
   validateWebsite() {
-    if(this.org.orgWebsite.length===0){
+    if (this.org.orgWebsite.length === 0) {
       this.isUpdateWebsiteNameValid = true;
       this.updatedOrgWebsiteErrorInfo = '';
     }
@@ -187,10 +250,12 @@ export class OrganizationComponent implements OnInit {
     return this.isUpdateWebsiteNameValid;
   }
 
-  updatedorgFunctionalTypeErrorInfo: string = ''
-  isUpdateOrgFunctionValid: boolean = false;
+  /**
+   * 
+   * @returns 
+   */
   validateOrgFunction() {
-    if(this.org.orgFunctionalType.length==0){
+    if (this.org.orgFunctionalType.length == 0) {
       this.isUpdateOrgFunctionValid = true;
       this.updatedorgFunctionalTypeErrorInfo = '';
     }
@@ -204,14 +269,17 @@ export class OrganizationComponent implements OnInit {
     }
     return this.isUpdateOrgFunctionValid;
   }
-  updatedorgContactPersonNameErrorInfo: string = ''
-  isUpdateOrgContactPersonNameValid: boolean = false;
+ 
+  /**
+   * 
+   * @returns 
+   */
   validateOrgContactPersonNameFunction() {
-    if(this.org.orgContactPersonName.length===0){
+    if (this.org.orgContactPersonName.length === 0) {
       this.isUpdateOrgContactPersonNameValid = true;
       this.updatedorgContactPersonNameErrorInfo = '';
     }
-     else if (this.org.orgContactPersonName.length < 3) {
+    else if (this.org.orgContactPersonName.length < 3) {
       this.updatedorgContactPersonNameErrorInfo = 'Organisation Contact person Name should have minimum of 3 chars.';
     } else if (this.org.orgContactPersonName.length > 50) {
       this.updatedorgContactPersonNameErrorInfo = 'Organisation Contact person should not exceed more than 50 chars';
@@ -224,14 +292,16 @@ export class OrganizationComponent implements OnInit {
 
 
   // validate org contact person number
-  updatedorgContactPersonNumberErrorInfo: string = '';
-  isUpdateOrgContactPersonNumberValid: boolean = false;
+  /**
+   * 
+   * @returns 
+   */
   validateOrgContactPersonNumber() {
-    if(this.org.orgContactPersonNumber.length===0){
+    if (this.org.orgContactPersonNumber.length === 0) {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
     }
-      else if (this.org.orgContactPersonNumber.length < 10) {
+    else if (this.org.orgContactPersonNumber.length < 10) {
       this.updatedorgContactPersonNumberErrorInfo = 'Organisation Contact person Number should have minimum of 10 digits.';
     } else if (this.org.orgContactPersonNumber.length > 10) {
       this.updatedorgContactPersonNumberErrorInfo = 'Organisation Contact person Number should not exceed more than 10 digits';
@@ -242,10 +312,10 @@ export class OrganizationComponent implements OnInit {
     return this.isUpdateOrgContactPersonNumberValid;
   }
 
-  //ValidateOrgAdddress
-
-  updatedOrgAddressErrorInfo: string = '';
-  isUpdateOrgAddressValid: boolean = false;
+  /**
+   * 
+   * @returns 
+   */
   validateOrgAddress() {
     if (this.org.orgAddress.length === 0) {
       this.updatedOrgAddressErrorInfo = '';
@@ -263,10 +333,11 @@ export class OrganizationComponent implements OnInit {
     }
     return this.isUpdateOrgAddressValid;
   }
-  //validateOrgContact
 
-  updatedOrgContactNumberErrorInfo: string = '';
-  isupdatedOrgContactNumberValid: boolean = false;
+  /**
+   * 
+   * @returns 
+   */
   validateOrgContactNumber() {
     if (this.org.orgContactNumber.length === 0) {
       this.updatedOrgContactNumberErrorInfo = '';
@@ -276,18 +347,18 @@ export class OrganizationComponent implements OnInit {
       this.updatedOrgContactNumberErrorInfo = 'Contact number should have minimum of 10 digits.';
     } else if (this.org.orgContactNumber.length > 10) {
       this.updatedOrgContactNumberErrorInfo = 'Contact number should not exceed more than 10 digits';
-    }else {
+    } else {
       this.isupdatedOrgContactNumberValid = true;
       this.updatedOrgContactNumberErrorInfo = '';
     }
     return this.isupdatedOrgContactNumberValid;
   }
 
-  //validate Country 
 
-  updatedOrgCountryErrorInfo: string = '';
-  isupdatedOrgCountryValid: boolean = false;
-
+  /**
+   * 
+   * @returns 
+   */
   validateOrgCountry() {
     if (this.org.orgCountry.length === 0) {
       this.updatedOrgCountryErrorInfo = '';
@@ -304,9 +375,10 @@ export class OrganizationComponent implements OnInit {
     return this.isupdatedOrgCountryValid;
   }
 
-  //validate Org Contact Person Email
-  updatedorgContactPersonEmailErrorInfo: string = '';
-  isUpdateOrgContactPersonEmailValid: boolean = false;
+  /**
+   * 
+   * @returns 
+   */
   validateOrgContactPersonEmail() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
     if (this.org.orgContactPersonEmail.length === 0) {
@@ -324,8 +396,10 @@ export class OrganizationComponent implements OnInit {
     return this.isUpdateOrgContactPersonNumberValid;
   }
 
-  updatedOrgSuperAdminEmailErrorInfo: string = '';
-  isUpdateOrgSuperAdminEmailValid: boolean = false;
+  /**
+   * 
+   * @returns 
+   */
   validateSuperAdminEmail() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
     if (this.org.orgSuperAdminEmailId.length === 0) {
@@ -342,8 +416,11 @@ export class OrganizationComponent implements OnInit {
     }
     return this.isUpdateOrgSuperAdminEmailValid;
   }
-  updatedCompanyEmailErrorInfo: string = '';
-  isUpdateCompanyEmailValid: boolean = false;
+
+  /**
+   * 
+   * @returns 
+   */
   validateCompanyEmail() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
     if (this.org.orgEmailId.length === 0) {

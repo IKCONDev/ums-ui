@@ -28,10 +28,7 @@ export class HeaderService {
      */
     fetchUserProfile(username: string):any{
       //httpHeaders: HttpHeaders = new HttpHeaders();
-        return this.http.get<Employee>(`${this.finalHttpUrl}${this.userProfileUrl}/`+username,{observe:'response',headers: new HttpHeaders({
-          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
-        }
-        )})
+        return this.http.get<Employee>(`${this.finalHttpUrl}${this.userProfileUrl}/`+username,{observe:'response'});
     }
     
 

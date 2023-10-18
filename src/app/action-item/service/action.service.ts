@@ -15,6 +15,10 @@ export class ActionService {
     private actionItemsMicroservicePathUrl = 'actions';
     private taskMicroServicePathUrl ='task'
 
+    /**
+     * 
+     * @param http 
+     */
     constructor(private http:HttpClient){}
 
     /**

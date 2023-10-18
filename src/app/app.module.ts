@@ -17,7 +17,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SideMenubarComponent } from './side-menubar/side-menubar.component';
 import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
@@ -39,6 +38,8 @@ import { DesignationComponent } from './designation/designation.component';
 import { RoleComponent } from './role/role.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { SessionTimeoutComponent } from './session-timeout/session-timeout.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ServiceUnavailableComponent } from './service-unavailable/service-unavailable.component';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -53,7 +54,6 @@ import { SessionTimeoutComponent } from './session-timeout/session-timeout.compo
     ForgotPasswordOtpValidationComponent,
     ForgotPasswordResetComponent,
     LoginNavbarComponent,
-    PageNotFoundComponent,
     HeaderComponent,
     SideMenubarComponent,
     TwofactorAuthenticationComponent,
@@ -68,7 +68,7 @@ import { SessionTimeoutComponent } from './session-timeout/session-timeout.compo
     BatchDetailsComponent,   
     OrganizationComponent,
     DepartmentComponent ,  
-    UsersComponent, DesignationComponent, RoleComponent, EmployeeComponent, SessionTimeoutComponent ,  
+    UsersComponent, DesignationComponent, RoleComponent, EmployeeComponent, SessionTimeoutComponent, PageNotFoundComponent, ServiceUnavailableComponent
   ],
   imports: [
     BrowserModule,
