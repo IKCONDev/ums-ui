@@ -15,6 +15,7 @@ import { count, max } from 'rxjs';
 import { JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
 import { error } from 'jquery';
+import {MatCheckboxModule} from '@angular/material/checkbox'
 
 @Component({
   selector: 'app-meetings',
@@ -122,9 +123,11 @@ export class MeetingsComponent implements OnInit {
         var targetrow = $(this).closest('tr').next('.detail');
         if (previousRow && previousRow[0] !== targetrow[0]) {
           previousRow.hide(500).find('div').slideUp('slow');
+          $('.mainCheckBox').prop('checked',false)
         }
         else if (previousRow && previousRow[0] === targetrow[0]) {
           targetrow.hide(500).find('div').slideUp('slow');
+          $('.mainCheckBox').prop('checked',false)
           previousRow = null;
           return;
         }
@@ -1274,6 +1277,16 @@ sendMOMEmail(){
     }
     return this.isMeetingAttendeesValid;
   }
+
+  /**
+   * 
+   * @param index 
+   */
+   toggleMainCheckbox(index: number){
+    if(!$('#ac-check'+index).is(':checked')){
+      $('.mainCheckBox').prop('checked',false)
+    }
+   }
 
 }
 
