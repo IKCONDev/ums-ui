@@ -4,6 +4,7 @@ import { DepartmentService } from './service/department.service';
 import { OnInit } from '@angular/core';
 import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-department',
@@ -25,7 +26,7 @@ export class DepartmentComponent implements OnInit {
   updateDepartment: Department;
 
   constructor(private departmentService: DepartmentService,
-    private toastr: ToastrService){
+    private toastr: ToastrService, private router: Router){
     //get all departments List on component initialization
     this.getAllDepartments();
     
@@ -43,12 +44,16 @@ export class DepartmentComponent implements OnInit {
    * get list of all departments from Database and display to admin in UI
    */
   getAllDepartments(){
-    this.departmentService.getDepartmentList().subscribe(
-      (response)=>{
+    this.departmentService.getDepartmentList().subscribe({
+      next: (response)=>{
         this.departmentList = response.body;
         console.log(this.departmentList)
+      },error: (error) => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
-    )
+  })
   }
 
   
@@ -91,8 +96,8 @@ export class DepartmentComponent implements OnInit {
     //set createdBy
     this.addDepartment.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     this.addDepartment.createdByEmailId = localStorage.getItem('email');
-    this.departmentService.saveDepartment(this.addDepartment).subscribe(
-      (response)=> {
+    this.departmentService.saveDepartment(this.addDepartment).subscribe({
+      next: (response)=> {
         if(response.status === HttpStatusCode.Created){
           this.createdDepartment = response.body;
         this.toastr.success('Department added successfully.')
@@ -101,8 +106,12 @@ export class DepartmentComponent implements OnInit {
             window.location.reload();
           },1000)
         }
+      },error: (error) => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
-    )
+     })
      }
   }
 
@@ -193,8 +202,8 @@ export class DepartmentComponent implements OnInit {
    // document.getElementById('deleteConfirmModal').click();
    var isConfirmed = window.confirm('Are you sure, you really want to delete this record?')
    if(isConfirmed){
-    this.departmentService.deleteDepartment(departmentId).subscribe(
-      (response) => {
+    this.departmentService.deleteDepartment(departmentId).subscribe({
+      next:(response) => {
         console.log('exuected')
         if(response.status === HttpStatusCode.Ok){
           var result = response.body;
@@ -205,8 +214,12 @@ export class DepartmentComponent implements OnInit {
         }else{
           this.toastr.error('error while deleting department with id: '+departmentId)
         }
+      },error: (error) => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
-    )
+   })
    }else{
     this.toastr.warning('Department '+departmentId+' not deleted.')
    }
@@ -235,14 +248,18 @@ export class DepartmentComponent implements OnInit {
    */
   fetchOneDepartment(departmentId: number){
     console.log(departmentId)
-    this.departmentService.getDepartment(departmentId).subscribe(
-      (response=>{
+    this.departmentService.getDepartment(departmentId).subscribe({
+      next: (response)=>{
         if(response.status === HttpStatusCode.Ok){
          this.existingDepartment = response.body;
          console.log(this.existingDepartment)
         }
-      })
-    )
+      },error: (error) => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+    })
   }
 
 
@@ -283,8 +300,8 @@ export class DepartmentComponent implements OnInit {
      &&isHeadValid === true && isLocationValid === true){
       this.existingDepartment.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     console.log(this.existingDepartment)
-    this.departmentService.updateDepartment(this.existingDepartment).subscribe(
-      (response) => {
+    this.departmentService.updateDepartment(this.existingDepartment).subscribe({
+      next: (response) => {
         console.log('exec')
         if(response.status === HttpStatusCode.Created){
           this.toastr.success('Department details updated')
@@ -293,8 +310,12 @@ export class DepartmentComponent implements OnInit {
             window.location.reload();
           },1000)
         }
+      },error: (error) => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
-    )
+     })
      }
   }
 
@@ -440,8 +461,8 @@ export class DepartmentComponent implements OnInit {
    if(this.departmentIdsToBeDeleted.length>0){
     var isconfirmed = window.confirm('Are yopu sure, you really want to delete these records ?')
     if(isconfirmed){
-      this.departmentService.deleteSelectedDepartmentsById(this.departmentIdsToBeDeleted).subscribe(
-        (response => {
+      this.departmentService.deleteSelectedDepartmentsById(this.departmentIdsToBeDeleted).subscribe({
+        next:(response) => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             this.toastr.success('Departments deleted sucessfully')  
@@ -451,8 +472,12 @@ export class DepartmentComponent implements OnInit {
           }else{
             this.toastr.error('Error while deleting departments... Please try again !');
           }
-        })
-      )
+        },error: (error) => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout')
+          }
+        }
+      })
     }else{
       this.toastr.warning('Departments not deleted')
     }

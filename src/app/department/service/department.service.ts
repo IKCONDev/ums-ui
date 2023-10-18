@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Department } from "src/app/model/Department.model";
 
@@ -30,7 +30,10 @@ export class DepartmentService{
      */
     saveDepartment(newDepartment: any){
         console.log(newDepartment)
-        return this.http.post<Department>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/save`,newDepartment,{observe:'response'});
+        return this.http.post<Department>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/save`,newDepartment,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     /**
@@ -39,7 +42,10 @@ export class DepartmentService{
      * @returns 
      */
     deleteDepartment(departmentId: number){
-        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/delete/${departmentId}`,{observe:'response'});
+        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/delete/${departmentId}`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     /**
@@ -48,7 +54,10 @@ export class DepartmentService{
      * @returns 
      */
     updateDepartment(updatedDepartment: any){
-        return this.http.put<Department>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/update`,updatedDepartment,{observe:'response'});
+        return this.http.put<Department>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/update`,updatedDepartment,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     /**
@@ -58,11 +67,17 @@ export class DepartmentService{
      */
     getDepartment(departmentId: number){
         console.log(departmentId)
-        return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/${departmentId}`,{observe:'response'});
+        return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/${departmentId}`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
     deleteSelectedDepartmentsById(ids: any[]){
-        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/delete/all/${ids}`,{observe:'response'});
+        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/delete/all/${ids}`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
     }
 
 }
