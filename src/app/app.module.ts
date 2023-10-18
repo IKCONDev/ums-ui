@@ -38,6 +38,7 @@ import { UsersComponent } from './users/users.component';
 import { DesignationComponent } from './designation/designation.component';
 import { RoleComponent } from './role/role.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { SessionTimeoutComponent } from './session-timeout/session-timeout.component';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -67,7 +68,7 @@ import { EmployeeComponent } from './employee/employee.component';
     BatchDetailsComponent,   
     OrganizationComponent,
     DepartmentComponent ,  
-    UsersComponent, DesignationComponent, RoleComponent, EmployeeComponent ,  
+    UsersComponent, DesignationComponent, RoleComponent, EmployeeComponent, SessionTimeoutComponent ,  
   ],
   imports: [
     BrowserModule,

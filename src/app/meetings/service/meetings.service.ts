@@ -158,8 +158,9 @@ export class MeetingService {
         emailList: emailList
         
       }
-      return this.http.post<any>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/send-momdata/`,momObject,{observe:'response'})
+      return this.http.post<any>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/send-momdata/`,momObject,{observe: 'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
+       })
     }
-
 
 }

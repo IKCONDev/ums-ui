@@ -14,6 +14,7 @@ import { Users } from '../model/Users.model';
 import { count, max } from 'rxjs';
 import { JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-meetings',
@@ -416,7 +417,8 @@ export class MeetingsComponent implements OnInit {
       console.log(this.addDetails);
       this.addDetails.meetingId = this.currentMeetingId;
       this.addDetails.emailId = localStorage.getItem('email');
-      this.actionItemService.saveActionItem(this.addDetails).subscribe(response => {
+      this.actionItemService.saveActionItem(this.addDetails).subscribe({
+        next: (response) => {
         this.response = response.body;
         this.actions_details = response.body;
         console.log(this.response);
@@ -427,7 +429,13 @@ export class MeetingsComponent implements OnInit {
             window.location.reload();
           }, 1000)
         }
-      });
+      },
+      error: (error)=>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    });
       this.fetchActionItemsOfEvent(this.currentMeetingId);
       //reset the form after submitting
       form.form.reset();
@@ -444,12 +452,17 @@ export class MeetingsComponent implements OnInit {
     this.currentMeetingId = meetingId;
     console.log(meetingId)
     //this.router.navigateByUrl('/meeting-actionitems/'+eventid);
-    this.meetingsService.getActionItems().subscribe(
-      (response => {
+    this.meetingsService.getActionItems().subscribe({
+      next: (response => {
         // this.actionItemsOfEvent = response.body;
         this.actionItemsOfMeeting = response.body;
-      })
-    )
+      }),
+      error: (error)=>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+  })
   }
 
   /**
@@ -470,8 +483,8 @@ export class MeetingsComponent implements OnInit {
       document.getElementById("organizedMeeting").style.paddingBottom = '2px';
       document.getElementById("attendedMeeting").style.borderBottom = 'none';
       //get user organized meetings
-      this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe(
-        (response) => {
+      this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe({
+        next: (response) =>{
           this.meetings = response.body;
           this.meetingCount = response.body.length
           localStorage.setItem('meetingCount', this.meetingCount.toString());
@@ -497,23 +510,33 @@ export class MeetingsComponent implements OnInit {
               meeting.isTranscriptDisabled = true;
             }
           });
-        }
-      )
+        },//next
+        error: (error) =>{
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl("/session-timeout")
+          }
+        }//error
+      })//subscribe
     } else {
       document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
       document.getElementById("attendedMeeting").style.paddingBottom = '2px';
       document.getElementById("attendedMeeting").style.width = 'fit-content';
       document.getElementById("organizedMeeting").style.borderBottom = 'none';
       //get user attended meetings
-      this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe(
-        (response) => {
+      this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe({
+        next:(response) => {
           //extract the meetings from response object
           this.attendedMeetings = response.body;
           this.attendedMeetingCount = response.body.length
           localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
           console.log(this.attendedMeetings);
-        }
-      )
+        },//next
+        error: (error)=>{
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl("/session-timeout")
+          }
+        }//error
+    })//subscribe
     }
   }
 
@@ -583,8 +606,8 @@ export class MeetingsComponent implements OnInit {
     }
     console.log('deleteActionItems()')
     //subscribe to the response
-    this.meetingsService.deleteActionItemsOfMeeting(actionItemIds, meetingId).subscribe(
-      (response) => {
+    this.meetingsService.deleteActionItemsOfMeeting(actionItemIds, meetingId).subscribe({
+      next: (response) => {
         this.isMetingActionItemsDeleted = response.body;
         console.log(this.isMetingActionItemsDeleted);
         if (this.isMetingActionItemsDeleted) {
@@ -595,9 +618,12 @@ export class MeetingsComponent implements OnInit {
         } else {
           this.toastr.error('Action items were not deleted, try again')
         }
-      }
-    )
-    //need to change this later
+      },error: (error)=>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+  })
   }
 
 
@@ -653,7 +679,8 @@ export class MeetingsComponent implements OnInit {
    * @param id 
    */
   editActionItem(id: number) {
-    this.actionItemService.getActionItemById(id).subscribe(response => {
+    this.actionItemService.getActionItemById(id).subscribe({
+      next:(response) => {
       this.actionItems_new = response.body;
       console.log(this.actionItems_new);
       this.updatedetails.actionItemId = this.actionItems_new.actionItemId;
@@ -667,7 +694,12 @@ export class MeetingsComponent implements OnInit {
       this.updatedetails.startDate = this.actionItems_new.startDate;
       this.updatedetails.endDate = this.actionItems_new.endDate;
 
-    });
+    },error: (error)=>{
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl("/session-timeout")
+      }
+    }//error
+  });
     console.log("data fetching");
   }
 
@@ -716,15 +748,19 @@ export class MeetingsComponent implements OnInit {
     });
     console.log(this.actionItemsToBeSubmitted);
 
-    this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted, meeting).subscribe(
-      (response => {
+    this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted, meeting).subscribe({
+      next:(response) => {
         console.log(response.body)
         this.toastr.success('Action items converted to task succesfully')
         setTimeout(() => {
           window.location.reload();
         }, 1000)
-      })
-    )
+      },error: (error)=>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    })
   }
 
   /**
@@ -752,13 +788,17 @@ export class MeetingsComponent implements OnInit {
     //   console.log(result);
     //   console.log(this.userEmailIdList[0]);
     // }});
-    this.meetingsService.getActiveUserEmailIdList().subscribe(
-      (response) => {
+    this.meetingsService.getActiveUserEmailIdList().subscribe({
+      next:(response) => {
         this.userEmailIdList = response.body;
         console.log(response.body);
         console.log(this.userEmailIdList);
-      }
-    )
+      },error: (error)=>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    })
   }
 
   /**
@@ -939,7 +979,8 @@ export class MeetingsComponent implements OnInit {
       && isEndDateValid === true) {
       this.id = this.updatedetails.actionItemId;
       console.log(this.updatedetails);
-      this.actionItemService.updateActionItem(this.updatedetails).subscribe(response => {
+      this.actionItemService.updateActionItem(this.updatedetails).subscribe({
+        next:(response) => {
         this.data = response.body;
         console.log(this.data);
         //var modal = document.getElementById('myModal');
@@ -949,8 +990,12 @@ export class MeetingsComponent implements OnInit {
         setTimeout(() => {
           window.location.reload();
         }, 1000)
-
-      });
+      },error: (error)=>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    });
 
       //need to change this later
       //window.location.reload();
@@ -1085,14 +1130,17 @@ sendMOMEmail(){
     //console.log(this.momObject.meeting);
     //console.log(this.momObject.actionItemList);
     //console.log(this.emailListForsendingMOM)
-    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData).subscribe(response =>{
-  
+    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData).subscribe({
+     next: (response) =>{
      if(response.status == HttpStatusCode.Ok){
         this.toastr.success("email send successfully");
       }
-    }
-
-    )
+    },error: (error)=>{
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl("/session-timeout")
+      }
+    }//error
+  })
   }
 
   addMeeting = {
@@ -1144,8 +1192,8 @@ sendMOMEmail(){
     if(isSubjectvalid && isStartDateValid && isEndDateValid){
       //create meeting
     console.log(this.addMeeting)
-    this.meetingsService.createMeeting(this.addMeeting).subscribe(
-      (response => {
+    this.meetingsService.createMeeting(this.addMeeting).subscribe({
+      next: (response) => {
         if (response.status === HttpStatusCode.Created) {
           //get the created meeting
           this.createdMeeting = response.body;
@@ -1158,8 +1206,12 @@ sendMOMEmail(){
         } else {
           this.toastr.error('Error while creating meeting. Please try again !');
         }
-      })
-    )
+      },error: (error)=>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    })
     }
   }
 

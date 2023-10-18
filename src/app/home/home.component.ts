@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { HomeService } from './service/home.service';
 import { outputAst } from '@angular/compiler';
 import { SideMenubarComponent } from '../side-menubar/side-menubar.component';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -51,26 +52,35 @@ export class HomeComponent {
     }
 
     /**
-     * get user organized meetings
+     * get user organized meetings count
      */
-    homeService.getUserorganizedMeetingCount().subscribe(
-      (response=>{
+    homeService.getUserorganizedMeetingCount().subscribe({
+      next:(response)=>{
         this.organizedMeetingsCount = response.body.toString();
         console.log(this.organizedMeetingsCount)
         localStorage.setItem('totalMeetingsOrganized',response.body.toString())
+      },error: (error) =>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
       })
-    )
+    
 
     /**
-     * get User attended meetings
+     * get User attended meetings count
      */
-    homeService.getUserAttendedMeetingCount().subscribe(
-      (response=>{
+    homeService.getUserAttendedMeetingCount().subscribe({
+      next: (response)=>{
         this.attendedMeetingsCount = response.body.toString();
         console.log(this.attendedMeetingsCount);
         localStorage.setItem('attenedMeetingsCount',response.body.toString());
-      })
-    )
+      },error: (error) =>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+    })
 
   }
 
