@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class ActionItemComponent implements OnInit {
 
-  @Output() title: string = 'Actions'
+  @Output() title: string = 'Action Items';
   actionItemCount: number = 0;
   id: number;
   actions: Object;
