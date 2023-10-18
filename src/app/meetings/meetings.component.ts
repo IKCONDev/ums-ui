@@ -15,7 +15,6 @@ import { count, max } from 'rxjs';
 import { JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
 import { error } from 'jquery';
-import {MatCheckboxModule} from '@angular/material/checkbox'
 
 @Component({
   selector: 'app-meetings',

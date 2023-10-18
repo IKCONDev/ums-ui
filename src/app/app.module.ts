@@ -40,7 +40,6 @@ import { EmployeeComponent } from './employee/employee.component';
 import { SessionTimeoutComponent } from './session-timeout/session-timeout.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ServiceUnavailableComponent } from './service-unavailable/service-unavailable.component';
-import { MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckbox, MatCheckboxDefaultOptions, MatCheckboxModule } from '@angular/material/checkbox';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -80,10 +79,8 @@ import { MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckbox, MatCheckboxDefaultOptions, M
     BrowserAnimationsModule,
     NgSelectModule,
     ReactiveFormsModule,
-    MatCheckboxModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy,}, 
-    {provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'noop' } as MatCheckboxDefaultOptions}],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy,}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
