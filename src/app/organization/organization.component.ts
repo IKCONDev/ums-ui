@@ -23,7 +23,7 @@ export class OrganizationComponent implements OnInit {
   org: Organization
   getOrganization() {
     //returns null if no org details are present in DB.
-    this.orgService.getOrganization(5).subscribe(
+    this.orgService.getOrganization(10).subscribe(
       (response => {
         if (response.status === HttpStatusCode.Ok) {
           console.log(response.body)
@@ -251,11 +251,11 @@ export class OrganizationComponent implements OnInit {
       this.updatedOrgAddressErrorInfo = '';
       this.isUpdateOrgAddressValid = true;
     }
-    else if (this.org.orgAddress.length < 50) {
-      this.updatedOrgAddressErrorInfo = 'Organisation Address should have minimum of 50 chars';
+    else if (this.org.orgAddress.length < 30) {
+      this.updatedOrgAddressErrorInfo = 'Organisation Address should have minimum of 30 chars';
     }
-    else if (this.org.orgAddress.length > 250) {
-      this.updatedOrgAddressErrorInfo = 'Organisation address should not exceed more than 250 chars';
+    else if (this.org.orgAddress.length > 300) {
+      this.updatedOrgAddressErrorInfo = 'Organisation address should not exceed more than 300 chars';
     }
     else {
       this.isUpdateOrgAddressValid = true;

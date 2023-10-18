@@ -145,8 +145,8 @@
                         <p id="errorMessage">{{updatedOrgAddressErrorInfo}}</p>
                     </span>
                 </div>
-                <textarea style="margin-bottom: 40px;" [(ngModel)]="org.orgAddress" *ngIf="isDisable==true" rows="3" cols="10"
-                    class="form-control" (keyup)="validateOrgAddress()">
+                <textarea style="margin-bottom: 40px;max-height:250px;" [(ngModel)]="org.orgAddress" *ngIf="isDisable==true" rows="3" cols="10"
+                    class="form-control" (keyup)="validateOrgAddress()" minlength="30" maxlength="300">
                 </textarea>
                
             </div>
