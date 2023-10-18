@@ -97,7 +97,10 @@ export class ForgotPasswordResetComponent {
      if(this.result_value=== true){
        console.log("strong password");
        this.passwordCriteria="Strong Password";
-
+      if(this.newPassword!=this.confirmPassword){
+        this.verificationResponse="Password doesn't match"
+        this.isUpdate=true;
+      }
      }
      else{
         console.log("weak password");
@@ -133,7 +136,7 @@ export class ForgotPasswordResetComponent {
     return (newPassword.length>=minLength && hasUppercase&&hasLowercase&&hasNumber&&hasSpecialChar&&!space);
   }
   updatePassword(){ 
-    if(this.passwordCriteria==="Strong Password"){
+    if(this.newPassword === this.confirmPassword&&this.passwordCriteria==="Strong Password"){
       this.resetPasswordService.updateUserPassword(this.email, this.newPassword, this.confirmPassword)
       .subscribe(
       (response) => {
