@@ -13,7 +13,7 @@
 
 #heading{
     color: #F6FBFD;
-    padding-top: 10px;
+    padding-top: 8px;
 }
 .card-body{
     padding-top: 10px;
@@ -102,7 +102,7 @@ th,td{
     margin: 10px;
  }*/
 
- .box{
+ .mainCheckBox{
   width: 15px;
   height: 15px;
 
@@ -166,16 +166,15 @@ th,td{
   border-color: #fd5454;
 }
 
-#task-subject{
+#meeting-subject{
   white-space: nowrap;
   text-overflow:ellipsis; 
   overflow: hidden;
   max-width:90px;
   cursor: pointer;
-  word-wrap: break-word;
 }
 
-#task-subject:hover{
+#meeting-subject:hover{
   overflow: visible;
   white-space: normal;
 }
@@ -184,6 +183,6 @@ th,td{
    width: 315px;
    height: 35px;
    font-size: 14px;
-   border-radius: 0px;
-   border-color: none;
+   
+   
 }
