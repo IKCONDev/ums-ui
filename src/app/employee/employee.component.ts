@@ -538,22 +538,22 @@ export class EmployeeComponent implements OnInit{
     }
   }
 
-  checkAllCheckBoxes(event: any) {
-    var checkbox = event.target.value;
-    console.log("the value is:" + checkbox);
-    if (checkbox === 'on') {
+  checkAllCheckBoxes(mainCheckBox: any) {
+   // var checkbox = event.target.value;
+   // console.log("the value is:" + checkbox);
       console.log("checked");
       var table = document.getElementById('employee');
-      var rows = table.getElementsByTagName('tr')
+      var rows = document.getElementsByTagName('tr')
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
         var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+        ischeckbox.checked = mainCheckBox.checked;
         ischeckbox.click();
 
       }
 
-    }
-  }
+}
+  
 
   toggleMainCheckBox(index : number){
 
