@@ -145,14 +145,9 @@ export class MeetingsComponent implements OnInit {
       (response => {
         console.log(response.body)
       })
-
-
-
     )
-
-    // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
-    //this.getOrganizedMeetings();
-    //this.getMeetings('OrganizedMeeting');
+    //set default tab to OrganizedMeetings tab when application is opened
+    localStorage.setItem('tabOpened','OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
     this.getMeetings(this.tabOpened);
