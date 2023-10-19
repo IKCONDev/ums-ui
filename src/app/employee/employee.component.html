@@ -15,7 +15,7 @@
             </div>
             <div id="addBtnDiv" class="col-sm-1">
                 <button class="form-control" 
-                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal" (click)="getAllDepartments()">
+                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal">
                 <p>Add</p></button>
             </div>
             <div id="deleteBtnDiv" class="col-sm-1">
@@ -67,8 +67,7 @@
                         <td>{{employee.createdByEmailId}}</td>
                         <td>
                             <span id="editIcon"
-                            data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)"
-                            (click)="getAllDepartments()">
+                            data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                 fill="none">
                                 <g id="edit">

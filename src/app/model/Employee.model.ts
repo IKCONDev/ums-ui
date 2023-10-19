@@ -1,6 +1,6 @@
 import { Department } from "./Department.model";
 
-export interface Employee{
+export class Employee{
     id: number;
     employeeOrgId:string;
     teamsUserId: string;

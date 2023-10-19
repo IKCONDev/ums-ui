@@ -92,7 +92,7 @@
                         <th></th>
                     </thead>
                 </table>
-                <p id="no-meetings">No Tasks Yet ! </p>
+                <p id="no-meetings">No Tasks Organized Yet ! </p>
             </ng-template>
         </div>
         <!--  -->
@@ -148,7 +148,7 @@
                         <th>End Date/Time</th>
                     </thead>
                 </table>
-                <p id="no-meetings">No tasks asisgned for you yet ! </p>
+                <p id="no-meetings">No Tasks Assigned Yet!</p>
             </ng-template>
         </div>
     </div>
@@ -202,7 +202,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
-                            <textarea type="text" style="margin-left: 30px;width: 530px;" class="form-control"
+                            <textarea type="text" style="margin-left: 30px;width: 530px;" placeholder="Enter Title"    class="form-control"
                                 name="taskTitle" required="true" [(ngModel)]="update_Task.taskTitle"
                                 #taskTitle="ngModel" [class.invalid]="taskTitle.invalid && taskTitle.touched"
                                 (keyup)="validateTaskTitle()"></textarea>
@@ -309,12 +309,12 @@
 
                                         <tr>
                                             <td>Status</td>
-                                            <td> <span><select value="Yet To Start" class="form-control"
-                                                        name="taskStatus" [(ngModel)]="update_Task.status"
+                                            <td> <span><select value="Yet To Start" class="form-control form-select"
+                                                        name="taskStatus" placeholder="select"  [(ngModel)]="update_Task.status"
                                                         required="true" #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
-                                                        <option>Select</option>
+                                                        <option disabled selected value>Select</option>
                                                         <option>Yet to start</option>
                                                         <option>Inprogress</option>
                                                         <option>Completed</option>
@@ -468,12 +468,12 @@
 
                                         <tr>
                                             <td>Status</td>
-                                            <td> <span><select value="Yet To Start" class="form-control"
+                                            <td> <span><select value="Yet To Start" class="form-control form-select"
                                                         name="taskStatus" [(ngModel)]="update_Task.status"
                                                         required="true" #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
-                                                        <option>Select</option>
+                                                        <option disabled selected value>Select</option>
                                                         <option>Yet to start</option>
                                                         <option>Inprogress</option>
                                                         <option>Completed</option>
