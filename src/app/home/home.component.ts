@@ -13,18 +13,20 @@ import { HttpStatusCode } from '@angular/common/http';
 
 export class HomeComponent {
 
-
-  loginDetails = {
-    firstName:'',
-    token: '',
-    userId: '',
-    userRole: '',
-    userData: ''
-  }
-
  title: string = 'Overview';
  organizedMeetingsCount:string = localStorage.getItem('totalMeetingsOrganized');
  attendedMeetingsCount: string = localStorage.getItem('attenedMeetingsCount');
+ actionItemsCount: number = 0;
+ organizedTasksCount: number = 0;
+ assignedTasksCount: number = 0;
+
+ loginDetails = {
+  firstName:'',
+  token: '',
+  userId: '',
+  userRole: '',
+  userData: ''
+}
   
   //get the latest selected component on page load /refresh
   //selectedOption:string = localStorage.getItem('selectedComponent');
@@ -44,6 +46,7 @@ export class HomeComponent {
       userRole: '',
       userData: ''
     }
+
     //get Navigation extras , collect from router object
     if(this.router.getCurrentNavigation().extras.state){
       loginInfo = this.router.getCurrentNavigation().extras.state['loginInfo'];
@@ -82,6 +85,10 @@ export class HomeComponent {
       }
     })
 
+    this.getUserOrganizedActionItemsCount();
+    this.getUserAssignedTasksCount();
+    this.getUserOrganizedTasksCount();
+
   }
 
   /*
@@ -97,5 +104,42 @@ export class HomeComponent {
     //set overview as default component after logout in home page
   }
   */
+
+
+  /**
+   * 
+   */
+  getUserOrganizedActionItemsCount(){
+    this.homeService.getActionItemsCountByUserId().subscribe({
+      next: response =>{
+        this.organizedTasksCount = response.body;
+        console.log(response.body);
+      }
+    })
+  }
+
+/**
+ * 
+ */
+  getUserOrganizedTasksCount(){
+    this.homeService.getActionItemsCountByUserId().subscribe({
+      next: response =>{
+        this.assignedTasksCount = response.body;
+        console.log(response.body);
+      }
+    })
+  }
+
+  /**
+   * 
+   */
+  getUserAssignedTasksCount(){
+    this.homeService.getActionItemsCountByUserId().subscribe({
+      next: response =>{
+        this.actionItemsCount = response.body;
+        console.log(response.body);
+      }
+    })
+  }
 
 }

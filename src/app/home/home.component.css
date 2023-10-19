@@ -14,12 +14,16 @@ body {
 }
 
 #homepage-body {
-    padding-left: 140px;
+    padding-left: 100px;
     padding-top: 10px;
     
 }
 
-#totalMeetings {
+/* .container-fluid{
+    
+} */
+
+#total {
     color: var(--Secondary-text, #606060);
     font-family: sans-serif;
     font-size: 16px;
