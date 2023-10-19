@@ -166,15 +166,16 @@ th,td{
   border-color: #fd5454;
 }
 
-#meeting-subject{
+#task-subject{
   white-space: nowrap;
   text-overflow:ellipsis; 
   overflow: hidden;
   max-width:90px;
   cursor: pointer;
+  word-wrap: break-word;
 }
 
-#meeting-subject:hover{
+#task-subject:hover{
   overflow: visible;
   white-space: normal;
 }

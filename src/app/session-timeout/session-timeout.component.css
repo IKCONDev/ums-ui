@@ -1,31 +1,29 @@
 .container-fluid{
-    padding-top:20px;
-    height: 100vh;
-    align-items: center;
-    background-color: lightgray;
-    justify-content: center;
     
-}
-
-#smileyDiv{
-    justify-content: center;
-    align-items: center;
     display: flex;
-
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:#2AA3D9;
+    
     
 }
+.container-body{
+    background-color: white;
+    width: 920px;
+    height: 480px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 23px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
 ul
 a:hover{
     cursor: pointer;
 }
-div#heading{
-    justify-content: center;
-    display: flex;
-    align-items: center;
-}
-ul li{
-    justify-content: center;
-    display: flex; 
-    padding-right: 545px ; 
-}
+
 

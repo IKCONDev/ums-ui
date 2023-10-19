@@ -147,10 +147,10 @@
                                             </th>
                                             <!-- <th id="tablehead"></th> -->
                                             <th id="tablehead">Action Item Id</th>
-                                            <th id="tablehead">Action Item</th>
+                                            <th id="tablehead" style="width: 170px;">Action Item</th>
                                             <th id="tablehead">Owner(suggested)</th>
                                             <th id="tablehead">Start Date</th>
-                                            <th id="tablehead">Description</th>
+                                            <th id="tablehead" style="width: 170px;">Description</th>
                                             <th id="tablehead">Status</th>
                                             <th id="tablehead">Actions</th>
                                         </tr>
@@ -179,10 +179,10 @@
                                             </td> -->
                                             <!--  -->
                                             <td>A000{{i+1}}</td>
-                                            <td>{{actionItem.actionItemTitle}}</td>
+                                            <td id="meeting-subject">{{actionItem.actionItemTitle}}</td>
                                             <td>{{actionItem.actionItemOwner}}</td>
                                             <td>{{actionItem.startDate}}</td>
-                                            <td>{{actionItem.actionItemDescription}}</td>
+                                            <td id="meeting-subject">{{actionItem.actionItemDescription}}</td>
                                             <td>{{actionItem.actionStatus}}</td>
                                             <td *ngIf="actionItem.actionStatus==='Not Converted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
