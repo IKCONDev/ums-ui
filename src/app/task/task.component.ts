@@ -441,6 +441,18 @@ export class TaskComponent {
 
   }
 
+  checkSubCheckBoxes(mainCheckBox: any){
+    var departmentsToBeDeleted = [];
+    var rows = document.getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      console.log("the value is" + rows[i]);
+      var subCheckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+      subCheckbox.checked = mainCheckBox.checked;
+      subCheckbox.click();
+    }
+   }
+
   //Delete the tasks
   istaskDeleted: boolean = false;
 
@@ -449,12 +461,22 @@ export class TaskComponent {
    * @param taskIds 
    * @returns 
    */
+  tasksTobeDeleted = [];
   deleteTasks(taskIds: any[]) {
+    //initialize to empty array on clikck from second time
+    this.tasksTobeDeleted = [];
+   var subCheckBoxes = document.getElementsByClassName('subCheckBox') as HTMLCollectionOf<HTMLInputElement>;
+   for(var i=0; i<subCheckBoxes.length; i++){
+    if(subCheckBoxes[i].checked){
+      this.tasksTobeDeleted.push(subCheckBoxes[i].value);
+      console.log(this.tasksTobeDeleted);
+    }
+   }
     if (taskIds.length < 1) {
       this.toastr.error('No tasks selected to delete')
       return;
     }
-    this.service.deleteAllTasksByTaskIds(taskIds).subscribe({
+    this.service.deleteAllTasksByTaskIds(this.tasksTobeDeleted).subscribe({
       next:(res) => {
       this.istaskDeleted = res.body;
       console.log(this.istaskDeleted);
@@ -532,10 +554,12 @@ export class TaskComponent {
     console.log(this.min);
   }
   
+  /**
+   * 
+   */
   toggleMainCheckBox(index : number){
-
-    if(!$('#ac-check'+index).is(':checked')){
-      $('.mainCheckBox').prop('checked',false);
+    if(!$('#subCheckBox'+index).is(':checked')){
+      $('#mainCheckBox').prop('checked',false);
     }
 
   }
