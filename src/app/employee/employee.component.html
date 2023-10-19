@@ -33,8 +33,8 @@
         <div class="row">
             <table class="table table-hover" id="employee">
                 <thead id="thead">
-                    <th>
-                        <input type="checkbox"/>
+                    <th style="padding-left: 10px;">
+                        <input type="checkbox" class="main-checkbox" (click)="checkAllCheckBoxes($event)"/>
                     </th>
                     <th>ID</th>
                     <th>First Name</th>
@@ -51,7 +51,7 @@
                 </thead>
                 <tbody *ngIf ="employeeData !=null">
                     <tr *ngFor="let employee of employeeData; let i=index;">
-                        <td>
+                        <td style="padding-left: 15x;">
                             <input type="checkbox" value="{{employee.id}}"/>
                         </td>
                         <td>{{employee.id}}</td>

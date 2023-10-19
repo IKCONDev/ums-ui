@@ -89,3 +89,12 @@ td{
     color: red;
     font-size: 12px;
   }
+.checkbox{
+    width: 10px;
+    height: 10px;
+}
+.main-checkbox{
+    width: 12px;
+    height: 12px;
+
+}
