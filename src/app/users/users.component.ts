@@ -221,7 +221,7 @@ export class UsersComponent  implements OnInit{
  useremilIdErrorInfo ="";
  validateUserEmailId(){
    if(this.addUserObj.email == ''){
-      this.useremilIdErrorInfo = "emailid is required";
+      this.useremilIdErrorInfo = "Emailid is required";
       this.isEmailValid = false;
    }
    else{
@@ -234,19 +234,24 @@ export class UsersComponent  implements OnInit{
  isRoleNameValid = false;
  roleErrorInfo ="";
  validateuserRole(){
-   if(this.addUserObj.userRoles.at(0).roleId == 0){
-     this.roleErrorInfo = 'role is required';
+   if(this.addUserObj.userRoles.at(0).roleId == 0 ){
+     this.roleErrorInfo = 'Role is required';
      this.isRoleNameValid = false;
    }
-   else if(this.addUserObj.userRoles.at(0).roleName == 'select'){
-    this.roleErrorInfo = 'role is required';
+   else if(this.addUserObj.userRoles.at(0).roleName.toString() == 'select'){
+    this.roleErrorInfo = 'Role is required';
     this.isRoleNameValid = false;
    }
    else{
       this.roleErrorInfo = '';
-      this.isEmailValid = true;
+      this.isRoleNameValid= true;
    }
-   return this.isEmailValid;
+   return this.isRoleNameValid;
+ }
+
+ clearErrorMessages(){
+    this.roleErrorInfo ="";
+    this.useremilIdErrorInfo = ''
  }
 
 

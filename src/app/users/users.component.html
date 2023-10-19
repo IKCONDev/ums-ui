@@ -104,7 +104,7 @@
             <div class="modal-header" id="modalHeader">
                 <h5 class="modal-title">Add User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                ><span aria-hidden="true">×</span></button>
+                (click)="clearErrorMessages()"><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
             <div class="modal-body" >
@@ -120,19 +120,23 @@
                     <span id="errorMessage">{{useremilIdErrorInfo}}</span>
                 </div><br/>
                 <label><b>Role</b></label>
-                <select class="adduserInput form-control" placeholder="role" [(ngModel)]="addUserObj.userRoles.at(0).roleId"
+                <select class="adduserInput form-control form-select" placeholder="select" [(ngModel)]="addUserObj.userRoles.at(0).roleId"
                 id="userRole" name="userRole" #userRole="ngModel" [class.invalid]="userRole.invalid && userRole.touched"
                 (change)="validateuserRole()">
-                    <option>select</option>
+                   <option value='select'>select</option>
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                       
-                </select> <br/>
+                </select>
+                <div *ngIf=" roleErrorInfo != ''">
+                    <span id="errorMessage">{{roleErrorInfo }}</span>
+                </div><br/>
+                 <br/>
                  <!--  <input type="text" class="adduserInput form-control" placeholder="Role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"/>-->
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="createUser()">Save</button>
-                <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" id="closeAddModal">Close</button>
+                <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" id="closeAddModal" (click)="clearErrorMessages()">Close</button>
             </div>
         </div>
     </div>
@@ -155,12 +159,23 @@
                 <label><b>Last Name</b></label>
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b></label>
-                <input type="text" class="updateUserInput form-control" placeholder="Email" [(ngModel)]="existingUserObj.email"/><br/>
+                <input type="text" class="updateUserInput form-control" placeholder="Email" [(ngModel)]="existingUserObj.email"
+                id="updateEmail" name="updateEmail" #updateEmail="ngModel" [class.invalid]="updateEmail.invalid && updateEmail.touched"
+                (change)="validateUserEmailId()"/>
+                <div *ngIf="useremilIdErrorInfo != ''">
+                    <span id="errorMessage">{{useremilIdErrorInfo}}</span>
+                </div><br/>
+                <br/>
                 <label><b>Role</b></label>
-                <select class="updateUserInput form-control" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleId">
+                <select class="updateUserInput form-control" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleId"
+                id="updateRole" name="updateRole" #updateRole="ngModel" [class.invalid]="updateRole.invalid && updateRole.touched"
+                (change)="validateuserRole()">
                     <option>select</option>
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                 </select>
+                <div *ngIf=" roleErrorInfo != ''">
+                    <span id="errorMessage">{{roleErrorInfo }}</span>
+                </div><br/>
                <!---<input type="text" class="updateUserInput form-control" placeholder="Role" [(ngModel)]="existingUserObj.userRoles.at(0).roleName"/>-->
             </div>
             <!-- Modal footer -->

@@ -555,4 +555,12 @@ export class EmployeeComponent implements OnInit{
     }
   }
 
+  toggleMainCheckBox(index : number){
+
+    if(!$('#ac-check'+index).is(':checked')){
+      $('.mainCheckBox').prop('checked',false);
+    }
+
+  }
+
 }
