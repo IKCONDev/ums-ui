@@ -28,7 +28,7 @@
             <thead class="header" style="background-color: #ecf7fc;">
                <!---<th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>-->
                 <th>Action Item ID</th>
-                <th>Title</th>
+                <th style="width: 140px;">Title</th>
                 <th>Owner</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -44,7 +44,7 @@
                             value="{{actionItem.actionItemId}}"></td>-->
                     <!--<td>{{actionItem.actionItemId}}</td>-->
                     <td>A000{{actionItem.actionItemId}}</td>
-                    <td>{{actionItem.actionItemTitle}}</td>
+                    <td id="actionItem-subject">{{actionItem.actionItemTitle}}</td>
                     <td>{{actionItem.actionItemOwner}}</td>
                     <td>{{actionItem.startDate}}</td>
                     <td>{{actionItem.endDate}}</td>
@@ -106,8 +106,8 @@
                             <table class="table table-hover">
                                 <thead>
                                     <th id="tablehead">Task ID</th>
-                                    <th id="tablehead">Task Title</th>
-                                    <th id="tablehead">Action Item</th>
+                                    <th id="tablehead" style="width: 170px;">Task Title</th>
+                                    <th id="tablehead" style="width: 170px;">Action Item</th>
                                     <th id="tablehead">Assignees</th>
                                     <th id="tablehead">Start Date</th>
                                     <th id="tablehead">Due Date</th>
@@ -117,8 +117,8 @@
                                 <tbody *ngFor="let element of task_array">
                                     <tr *ngIf="actionItem.actionItemId == element.actionItemId">
                                         <td>T000{{i+1}}</td>
-                                        <td>{{element.taskTitle}}</td>
-                                        <td>{{element.taskDescription}}</td>
+                                        <td id="actionItem-subject">{{element.taskTitle}}</td>
+                                        <td id="actionItem-subject">{{element.taskDescription}}</td>
                                         <td>{{element.taskOwner}}</td>
                                         <td>{{element.startDate}}</td>
                                         <td>{{element.dueDate}}</td>

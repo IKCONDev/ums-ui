@@ -13,7 +13,7 @@
 
 #heading{
     color: #F6FBFD;
-    padding-top: 10px;
+    padding-top: 8px;
 }
 .card-body{
     padding-top: 10px;
@@ -102,7 +102,7 @@ th,td{
     margin: 10px;
  }*/
 
- .box{
+ .mainCheckBox{
   width: 15px;
   height: 15px;
 
@@ -183,6 +183,6 @@ th,td{
    width: 315px;
    height: 35px;
    font-size: 14px;
-   border-radius: 0px;
-   border-color: none;
+   
+   
 }

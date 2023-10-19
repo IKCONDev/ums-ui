@@ -148,6 +148,11 @@ export class UsersComponent  implements OnInit{
         console.log(this.existingUserObj.email);
       }
     )
+    this.roles.filter(role =>{
+      if(this.existingUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
+         this.existingUserObj.userRoles[0].roleName = role.roleName;
+      }
+   })
   }
 
   /**
@@ -169,23 +174,19 @@ export class UsersComponent  implements OnInit{
    */
   updateUser(existingUser : any){
 
-    this.roles.filter(role =>{
-       if(this.existingUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
-          this.existingUserObj.userRoles[0].roleName = role.roleName;
-       }
-    })
-    this.userService.update(existingUser).subscribe(
-       response=>{
-         var userRecord = response.body;
-         if(response.status == HttpStatusCode.Created){
-             this.toastr.success("Updated user successfully");
-         }
-         else{
-            this.toastr.error("Error occured while updting user");
-         }
-       }
-    )
-
+    
+     this.userService.update(existingUser).subscribe(
+        response=>{
+          var userRecord = response.body;
+          if(response.status == HttpStatusCode.Created){
+              this.toastr.success("Updated user successfully");
+          }
+          else{
+             this.toastr.error("Error occured while updting user");
+          }
+        }
+     )
+    
   }
 
   /**
@@ -238,7 +239,7 @@ export class UsersComponent  implements OnInit{
      this.roleErrorInfo = 'Role is required';
      this.isRoleNameValid = false;
    }
-   else if(this.addUserObj.userRoles.at(0).roleName.toString() == 'select'){
+   else if(this.addUserObj.userRoles.at(0).roleName.toString() === 'select'){
     this.roleErrorInfo = 'Role is required';
     this.isRoleNameValid = false;
    }

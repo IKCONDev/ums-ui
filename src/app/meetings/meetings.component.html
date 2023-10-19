@@ -59,7 +59,7 @@
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr>
-                        <td style="padding-left: 22px;">M000{{meeting.meetingId}}</td>
+                        <td style="padding-left: 22px;">{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerEmailId}}</td>
@@ -147,10 +147,10 @@
                                             </th>
                                             <!-- <th id="tablehead"></th> -->
                                             <th id="tablehead">Action Item Id</th>
-                                            <th id="tablehead">Action Item</th>
+                                            <th id="tablehead" style="width: 170px;">Action Item</th>
                                             <th id="tablehead">Owner(suggested)</th>
                                             <th id="tablehead">Start Date</th>
-                                            <th id="tablehead">Description</th>
+                                            <th id="tablehead" style="width: 170px;">Description</th>
                                             <th id="tablehead">Status</th>
                                             <th id="tablehead">Actions</th>
                                         </tr>
@@ -179,10 +179,10 @@
                                             </td> -->
                                             <!--  -->
                                             <td>A000{{i+1}}</td>
-                                            <td>{{actionItem.actionItemTitle}}</td>
+                                            <td id="meeting-subject">{{actionItem.actionItemTitle}}</td>
                                             <td>{{actionItem.actionItemOwner}}</td>
                                             <td>{{actionItem.startDate}}</td>
-                                            <td>{{actionItem.actionItemDescription}}</td>
+                                            <td id="meeting-subject">{{actionItem.actionItemDescription}}</td>
                                             <td>{{actionItem.actionStatus}}</td>
                                             <td *ngIf="actionItem.actionStatus==='Not Converted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
@@ -285,7 +285,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
-                        <td>M000{{meeting.meetingId}}</td>
+                        <td>{{meeting.meetingId}}</td>
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime}}</td>
@@ -614,9 +614,9 @@
                                 </div>
                 <!--footer-->
                 <div class="modal-footer">
-                    <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
+                    <button type="submit" id="sendMomEmail" class="btn btn-primary updateButton"
                         (click)="sendMOMEmail()">Send</button>
-                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton"
+                    <button type="button" id="closeSendMoMEmail" class="btn btn-outline-danger cancelButton"
                         data-dismiss="modal">Cancel</button>
                 </div>
              </form>

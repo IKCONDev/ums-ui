@@ -35,7 +35,7 @@
                 <table class="table table-hover" id="myTable">
                     <thead id="thead">
                         <th>ID</th>
-                        <th>Name</th>
+                        <!--<th>Name</th>-->
                         <th>Mail Id</th>
                         <th>Role</th>
                         <th>User Status</th>
@@ -46,7 +46,7 @@
                     <tbody>
                         <tr *ngFor="let user of userList; let i = index">    
                             <td>{{i+1}}</td>
-                            <td></td>
+                            <!--<td></td>-->
                             <td>{{user.email}}</td>
                             <td>{{user.userRoles[0].roleName}}</td>
                             <td>{{user.active == true? 'Active': 'Inactive'}}</td>
@@ -123,13 +123,13 @@
                 <select class="adduserInput form-control form-select" placeholder="select" [(ngModel)]="addUserObj.userRoles.at(0).roleId"
                 id="userRole" name="userRole" #userRole="ngModel" [class.invalid]="userRole.invalid && userRole.touched"
                 (change)="validateuserRole()">
-                   <option value='select'>select</option>
+                   <option value=>select</option>
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                       
                 </select>
                 <div *ngIf=" roleErrorInfo != ''">
                     <span id="errorMessage">{{roleErrorInfo }}</span>
-                </div><br/>
+                </div>
                  <br/>
                  <!--  <input type="text" class="adduserInput form-control" placeholder="Role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"/>-->
             </div>

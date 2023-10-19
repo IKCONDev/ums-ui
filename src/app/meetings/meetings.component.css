@@ -251,6 +251,7 @@ td{
     overflow: hidden;
     max-width:90px;
     cursor: pointer;
+    word-wrap: break-word;
   }
   
   #meeting-subject:hover{

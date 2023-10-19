@@ -531,6 +531,13 @@ export class TaskComponent {
     this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
     console.log(this.min);
   }
+  
+  toggleMainCheckBox(index : number){
 
+    if(!$('#ac-check'+index).is(':checked')){
+      $('.mainCheckBox').prop('checked',false);
+    }
+
+  }
 
 }
