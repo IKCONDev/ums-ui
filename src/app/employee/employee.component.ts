@@ -75,8 +75,8 @@ export class EmployeeComponent implements OnInit{
         this.employeeData = response.body;
         console.log(this.employeeData);
        // var departmentList = this.getAllDepartments();
-      })
-    }
+    })
+  }
    
   
 /***

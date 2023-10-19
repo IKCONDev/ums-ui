@@ -1106,7 +1106,6 @@ SendActionItemList = new Array() ;
 momObject : MOMObject;
 resultData : boolean;
 sendMOMEmail(){
- // this.momObject.meeting.subject = this.meetingData.subject;
 
   for(var i=0; i<this.actionItemsOfMeeting.length; i++){
 
@@ -1116,21 +1115,15 @@ sendMOMEmail(){
      }
   }
   console.log(this.SendActionItemList);
-   /* if(this.meetingData.meetingId == action.meetingId){
-     // this.momObject.actionItemList.push(action);
-      this.SendActionItemList.push(action);
-
-
-    }*/
   console.log("entered sendmom email method");
-   //this.momObject.emailList = this.emailListForsendingMOM;
-    //console.log(this.momObject.meeting);
-    //console.log(this.momObject.actionItemList);
-    //console.log(this.emailListForsendingMOM)
     this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData).subscribe({
      next: (response) =>{
      if(response.status == HttpStatusCode.Ok){
         this.toastr.success("email send successfully");
+        document.getElementById('closeSendMoMEmail').click();
+      }
+      else{
+         this.toastr.error("Error occured while sending email, please try again");
       }
     },error: (error)=>{
       if(error.status === HttpStatusCode.Unauthorized){
