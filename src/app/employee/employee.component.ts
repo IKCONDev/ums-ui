@@ -38,8 +38,18 @@ export class EmployeeComponent implements OnInit{
   constructor( private employeeservice : EmployeeService, private toastr : ToastrService, private departmentservice : DepartmentService) {}
   ngOnInit(): void {
 
-    this.getAllEmployees();
-    this.getAllDepartments();
+     this.getAllEmployees();
+     this.getAllDepartments();
+
+     if(this.departmentList && this.departmentList.length >0){
+      this.employeeData.map(emp =>{
+        for(let i=0; i< this.departmentList.length; i++){
+          if(emp.department.departmentId == this.departmentList[i].departmentId){
+             emp.department.departmentName = this.departmentList[i].departmentName;
+          }
+       }
+     })
+    }
 
     /*setTimeout(() =>{this.employeeData.map (emp =>{
       this.departmentList.map(dept =>{
@@ -48,28 +58,27 @@ export class EmployeeComponent implements OnInit{
            console.log(emp.department.departmentName);
          }
       })},2000)})*/
-      for(let emp of this.employeeData){
-        console.log("employee record"+emp);
-      }
-     
-  }
-
+      // this.employeeData.forEach( empdata =>{
+      //    console.log(empdata);
+      // })
+  } 
+ 
   /**
    *  get all employees in DB
    */
 
+  departmentList: Department[]
   getAllEmployees(){
 
     this.employeeservice.getAll().subscribe(
       response =>{
-
         this.employeeData = response.body;
         console.log(this.employeeData);
-    })
+       // var departmentList = this.getAllDepartments();
+      })
+    }
+   
   
-  }
-  
-
 /***
  * 
  *  create employee
@@ -158,29 +167,28 @@ export class EmployeeComponent implements OnInit{
           console.log(this.existingEmployee);
 
      });
-     for(let employee of this.employeeData){
+    /* for(let employee of this.employeeData){
       for(let department of this.departmentList){
         if(employee.department.departmentId == department.departmentId ){
              employee.department.departmentName = department.departmentName;
              console.log(employee.department.departmentName);
         }
       }
-    } 
+    } */
   }
 
   /**
    *  get all departmentList
    */
-  departmentList : Department[]
 
-  getAllDepartments(){
+   getAllDepartments(){
 
-    this.departmentservice.getDepartmentList().subscribe(
-       response=>{
-        this.departmentList = response.body;
-        console.log(this.departmentList); 
-       }
-    )
+      this.departmentservice.getDepartmentList().subscribe(
+      response=>{
+      this.departmentList = response.body;
+      console.log(this.departmentList); 
+      })
+  
   }
   /**
    * remove employee
@@ -528,6 +536,31 @@ export class EmployeeComponent implements OnInit{
       this.toastr.warning("Employees not Deleted");
 
     }
+  }
+
+  checkAllCheckBoxes(event: any) {
+    var checkbox = event.target.value;
+    console.log("the value is:" + checkbox);
+    if (checkbox === 'on') {
+      console.log("checked");
+      var table = document.getElementById('employee');
+      var rows = table.getElementsByTagName('tr')
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+        ischeckbox.click();
+
+      }
+
+    }
+  }
+
+  toggleMainCheckBox(index : number){
+
+    if(!$('#ac-check'+index).is(':checked')){
+      $('.mainCheckBox').prop('checked',false);
+    }
+
   }
 
 }

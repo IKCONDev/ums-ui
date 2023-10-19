@@ -15,7 +15,7 @@
             </div>
             <div id="addBtnDiv" class="col-sm-1">
                 <button class="form-control" 
-                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal" (click)="getAllDepartments()">
+                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal">
                 <p>Add</p></button>
             </div>
             <div id="deleteBtnDiv" class="col-sm-1">
@@ -33,8 +33,8 @@
         <div class="row">
             <table class="table table-hover" id="employee">
                 <thead id="thead">
-                    <th>
-                        <input type="checkbox"/>
+                    <th style="padding-left: 10px;">
+                        <input type="checkbox" class="mainCheckBox" (click)="checkAllCheckBoxes($event)"/>
                     </th>
                     <th>ID</th>
                     <th>First Name</th>
@@ -51,8 +51,8 @@
                 </thead>
                 <tbody *ngIf ="employeeData !=null">
                     <tr *ngFor="let employee of employeeData; let i=index;">
-                        <td>
-                            <input type="checkbox" value="{{employee.id}}"/>
+                        <td style="padding-left: 15x;">
+                            <input type="checkbox" value="{{employee.id}}" id="ac-check{{i}}" class="ac-check" (change)="toggleMainCheckBox(i)"/>
                         </td>
                         <td>{{employee.id}}</td>
                         <td>{{employee.firstName}}</td>
@@ -67,8 +67,7 @@
                         <td>{{employee.createdByEmailId}}</td>
                         <td>
                             <span id="editIcon"
-                            data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)"
-                            (click)="getAllDepartments()">
+                            data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                 fill="none">
                                 <g id="edit">

@@ -20,7 +20,7 @@ export class EmployeeService {
      * @returns 
      */
     getAll() {
-        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/all`, {
+        return this.http.get<[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/all`, {
             observe: 'response', headers: new HttpHeaders({
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             }
