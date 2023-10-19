@@ -39,16 +39,17 @@
                     </th>
                     <th>ID</th>
                     <th>Designation Name</th>
-                    <th>created By</th>
+                    <th>Created By</th>
                     <th>Created Date</th>
                     <th>Modified By</th>
                     <th>Modified Date</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let designation of designationList">
+                    <tr *ngFor="let designation of designationList; let i = index;">
                         <td>
-                            <input id="subcheckBox" class="subCheckBox" type="checkbox" value="{{designation.id}}"/>
+                            <input id="subCheckBox{{i}}" class="subCheckBox" type="checkbox" value="{{designation.id}}"
+                            (click)="toggleMainCheckBox(i)"/>
                         </td>
                         <td>{{designation.id}}</td>
                         <td>{{designation.designationName}}</td>

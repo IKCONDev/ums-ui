@@ -47,9 +47,10 @@
                         <th>Actions</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let role of roleList">
+                        <tr *ngFor="let role of roleList; let i=index">
                             <td>
-                                <input type="checkbox" id="subCheckBox" class="subCheckBox" value="{{role.roleId}}"/>
+                                <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox" 
+                                value="{{role.roleId}}" (click)="toggleMainCheckBox(i)"/>
                             </td>
                             <td>{{role.roleId}}</td>
                             <td>{{role.roleName}}</td>

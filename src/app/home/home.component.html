@@ -16,7 +16,7 @@
   </div>
   <div id="homepage-body">
     <!-- total  meetings organized -->
-    <div id="totalMeetings">
+    <div id="total">
       <div>
         <p>Total Meetings Organized
           <span id="totalMeetingsIcon" style="padding-left: 20px;">
@@ -31,9 +31,9 @@
         <p>{{organizedMeetingsCount}}</p>
       </div>
     </div>
-    &nbsp; &nbsp;
+    &nbsp;
     <!-- total meetings attended -->
-    <div id="totalMeetings">
+    <div id="total">
       <div>
         <p>Total Meetings Attended
           <span id="totalMeetingsIcon" style="padding-left: 20px;">
@@ -48,7 +48,57 @@
         <p>{{attendedMeetingsCount}}</p>
       </div>
     </div>
+    &nbsp;
+    <div id="total">
+      <div>
+        <p>Total ActionItems
+          <span id="totalMeetingsIcon" style="padding-left: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path
+                d="M9.375 25.5375H17.625V23.2875H9.375V25.5375ZM13.875 19.125H22.125V16.875H13.875V19.125ZM18.375 12.7125H26.625V10.4625H18.375V12.7125ZM6.75 31.5C6.15 31.5 5.625 31.275 5.175 30.825C4.725 30.375 4.5 29.85 4.5 29.25V6.75C4.5 6.15 4.725 5.625 5.175 5.175C5.625 4.725 6.15 4.5 6.75 4.5H29.25C29.85 4.5 30.375 4.725 30.825 5.175C31.275 5.625 31.5 6.15 31.5 6.75V29.25C31.5 29.85 31.275 30.375 30.825 30.825C30.375 31.275 29.85 31.5 29.25 31.5H6.75ZM6.75 29.25H29.25V6.75H6.75V29.25Z"
+                fill="#606060" />
+            </svg>
+          </span>
+        </p>
+          <!-- total action items organized -->
+        <p>{{actionItemsCount}}</p>
+      </div>
+    </div>
+    &nbsp;
+    <div id="total">
+      <div>
+        <p>Total Tasks Organized
+          <span id="totalMeetingsIcon" style="padding-left: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path
+                d="M9.375 25.5375H17.625V23.2875H9.375V25.5375ZM13.875 19.125H22.125V16.875H13.875V19.125ZM18.375 12.7125H26.625V10.4625H18.375V12.7125ZM6.75 31.5C6.15 31.5 5.625 31.275 5.175 30.825C4.725 30.375 4.5 29.85 4.5 29.25V6.75C4.5 6.15 4.725 5.625 5.175 5.175C5.625 4.725 6.15 4.5 6.75 4.5H29.25C29.85 4.5 30.375 4.725 30.825 5.175C31.275 5.625 31.5 6.15 31.5 6.75V29.25C31.5 29.85 31.275 30.375 30.825 30.825C30.375 31.275 29.85 31.5 29.25 31.5H6.75ZM6.75 29.25H29.25V6.75H6.75V29.25Z"
+                fill="#606060" />
+            </svg>
+          </span>
+        </p>
+          <!-- total action items organized -->
+        <p>{{organizedTasksCount}}</p>
+      </div>
+    </div>
+    &nbsp;
   </div>
+  <div id="homepage-body">
+      <div id="total">
+        <div>
+          <p>Total Tasks Assigned
+            <span id="totalMeetingsIcon" style="padding-left: 20px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <path
+                  d="M9.375 25.5375H17.625V23.2875H9.375V25.5375ZM13.875 19.125H22.125V16.875H13.875V19.125ZM18.375 12.7125H26.625V10.4625H18.375V12.7125ZM6.75 31.5C6.15 31.5 5.625 31.275 5.175 30.825C4.725 30.375 4.5 29.85 4.5 29.25V6.75C4.5 6.15 4.725 5.625 5.175 5.175C5.625 4.725 6.15 4.5 6.75 4.5H29.25C29.85 4.5 30.375 4.725 30.825 5.175C31.275 5.625 31.5 6.15 31.5 6.75V29.25C31.5 29.85 31.275 30.375 30.825 30.825C30.375 31.275 29.85 31.5 29.25 31.5H6.75ZM6.75 29.25H29.25V6.75H6.75V29.25Z"
+                  fill="#606060" />
+              </svg>
+            </span>
+          </p>
+            <!-- total action items organized -->
+          <p>{{assignedTasksCount}}</p>
+        </div>
+      </div>
+    </div>
 </body>
 
 <!-- <div class="navbar">

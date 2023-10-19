@@ -295,6 +295,16 @@ export class DesignationComponent {
   
   }
 
+  /**
+   * 
+   * @param index Uncheck the main checkbox when any of its child/subcheckbox is checked
+   */
+  toggleMainCheckBox(index: number){
+    if(!$('#subCheckBox'+index).is(':checked')){
+      $('#mainCheckBox').prop('checked',false);
+    }
+  }
+
 
 
 }

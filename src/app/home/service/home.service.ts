@@ -8,6 +8,8 @@ export class HomeService {
 
   gatewayUrl = "http://localhost:8012"
   meetingsMicroservicePathUrl = 'meetings';
+  actionItemsMicroservicePathUrl = 'actions';
+  tasksMicroservicePathUrl = 'tasks'
 
   constructor(private http: HttpClient) { }
 
@@ -44,5 +46,47 @@ export class HomeService {
       )
     });
   }
+
+  /**
+   * 
+   * @returns 
+   */
+  getActionItemsCountByUserId(){
+    return this.http.get<number>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/organized/count/`+localStorage.getItem('email'), {
+      observe: 'response', headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      )
+    });
+  }
+
+   /**
+   * 
+   * @returns 
+   */
+   getOrganizedTasksCountByUserId(){
+    return this.http.get<number>(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/organized/count/`+localStorage.getItem('email'), {
+      observe: 'response', headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      )
+    });
+  }
+
+
+   /**
+   * 
+   * @returns 
+   */
+   getAssignedTasksCountByUserId(){
+    return this.http.get<number>(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/assigned/count/`+localStorage.getItem('email'), {
+      observe: 'response', headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      )
+    });
+  }
+
+
 
 }

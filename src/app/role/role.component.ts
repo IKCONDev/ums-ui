@@ -327,5 +327,16 @@ export class RoleComponent implements OnInit {
     this.updatedRoleNameErrorInfo = '';
   }
 
+  /**
+   * 
+   * @param index Uncheck the main checkbox when any of its child/subcheckbox is checked
+   */
+  toggleMainCheckBox(index: number){
+    if(!$('#subCheckBox'+index).is(':checked')){
+      $('#mainCheckBox').prop('checked',false);
+      //$('#mainCheckBox').css
+    }
+  }
+
 
 }

@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="container-body">
     <div class="profimgParent" *ngIf="user != null">
-        <div><img class="pexels-photo-by-pixabay" [src]="'data:image/png/jpg/jpeg;base64,'+user.profilePic" />
+        <div style="padding-left: 10px;"><img class="profile-pic" [src]="'data:image/png/jpg/jpeg;base64,'+user.profilePic" />
         </div>
         <div id="move" style="padding-left:30px;">
             <input type="file" accept="image/*" id="move" class="btn btn success"

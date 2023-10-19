@@ -4,7 +4,13 @@ h2{
     text-align: center;
 }
 
-img{
+.row{
+    padding-top: 20px;
     align-items: center;
     text-align: center;
 }
+
+body{
+    background-color: lightgray;
+}
+
