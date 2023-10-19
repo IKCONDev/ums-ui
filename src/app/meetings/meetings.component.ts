@@ -122,9 +122,11 @@ export class MeetingsComponent implements OnInit {
         var targetrow = $(this).closest('tr').next('.detail');
         if (previousRow && previousRow[0] !== targetrow[0]) {
           previousRow.hide(500).find('div').slideUp('slow');
+          $('.mainCheckBox').prop('checked',false)
         }
         else if (previousRow && previousRow[0] === targetrow[0]) {
           targetrow.hide(500).find('div').slideUp('slow');
+          $('.mainCheckBox').prop('checked',false)
           previousRow = null;
           return;
         }
@@ -143,14 +145,9 @@ export class MeetingsComponent implements OnInit {
       (response => {
         console.log(response.body)
       })
-
-
-
     )
-
-    // setTimeout(() => { this.ngOnInit() }, 1000 * 3)
-    //this.getOrganizedMeetings();
-    //this.getMeetings('OrganizedMeeting');
+    //set default tab to OrganizedMeetings tab when application is opened
+    localStorage.setItem('tabOpened','OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
     this.getMeetings(this.tabOpened);
@@ -1274,6 +1271,16 @@ sendMOMEmail(){
     }
     return this.isMeetingAttendeesValid;
   }
+
+  /**
+   * 
+   * @param index 
+   */
+   toggleMainCheckbox(index: number){
+    if(!$('#ac-check'+index).is(':checked')){
+      $('.mainCheckBox').prop('checked',false)
+    }
+   }
 
 }
 

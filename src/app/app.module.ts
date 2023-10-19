@@ -77,9 +77,10 @@ import { ServiceUnavailableComponent } from './service-unavailable/service-unava
     HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    NgSelectModule
+    NgSelectModule,
+    ReactiveFormsModule,
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy,}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

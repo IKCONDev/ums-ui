@@ -72,6 +72,8 @@ export class TaskComponent {
         console.log(this.task);
      });*/
 
+    //set default tab to Organized Task when application is opened
+    localStorage.setItem('taskTabOpened','OrganizedTask');
     this.tabOpened = localStorage.getItem('taskTabOpened')
     console.log(this.tabOpened)
     this.getTasks(this.tabOpened);

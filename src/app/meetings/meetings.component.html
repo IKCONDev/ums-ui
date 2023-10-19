@@ -141,7 +141,7 @@
                                 <table id="myTable{{meeting.meetingId}}" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th id="tablehead"><input type="checkbox"
+                                            <th id="tablehead"><input type="checkbox" class="mainCheckBox"
                                                     id="actionItemMainCheck{{meeting.meetingId}}"
                                                     (change)="checkAllcheckBoxesOfCurrentMeeting(meeting.meetingId, $event)" />
                                             </th>
@@ -164,9 +164,20 @@
                                                 <ng-template #enableCheck>
                                                     <input type="checkbox" id="ac-check{{i}}" class="ac-check"
                                                         value="{{actionItem.actionItemId}}"
-                                                        (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)" />
+                                                        (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)"
+                                                        (change)="toggleMainCheckbox(i)"/>
                                                 </ng-template>
                                             </td>
+                                            <!--  -->
+                                            <!-- <td>
+                                                <section>
+                                                    <span class="example-list-section">
+                                                        <mat-checkbox class="example-margin">
+                                                        </mat-checkbox>
+                                                    </span>
+                                                </section>
+                                            </td> -->
+                                            <!--  -->
                                             <td>A000{{i+1}}</td>
                                             <td>{{actionItem.actionItemTitle}}</td>
                                             <td>{{actionItem.actionItemOwner}}</td>
@@ -274,7 +285,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
-                        <td>M000{{i+1}}</td>
+                        <td>M000{{meeting.meetingId}}</td>
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime}}</td>

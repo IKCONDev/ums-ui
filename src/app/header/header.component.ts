@@ -96,6 +96,7 @@ export class HeaderComponent {
   logout(){
     //sessionStorage.clear();
     localStorage.clear();
+   // localStorage.setItem('tabOpened','OrganizedMeeting');
     this.toastr.success('Logged out sucessfully...Hope you had a great experience')
    // window.localStorage.clear ();
     this.router.navigateByUrl('/login');
