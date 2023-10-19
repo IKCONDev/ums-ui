@@ -39,7 +39,7 @@
                     <div class="col-6">
                         <label for="firstName" *ngIf="isDisable==true">{{ user.employee.firstName | titlecase}}</label>
                         <input type="text" id="firstName" [(ngModel)]="user.employee.firstName" [hidden]="isDisable"
-                            [disabled]="isDisable" class="form-control" maxlength="50">
+                            [disabled]="isDisable" class="form-control" readonly="true" maxlength="50">
                     </div>
                 </div>
             </div>
