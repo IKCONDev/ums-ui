@@ -375,12 +375,12 @@ getTokenPopup(request) {
     this.eyeIcon = document.getElementById('passwordEye') as HTMLElement;
     if(this.inputField.type === "password"){
       this.inputField.type = "text";
-      this.eyeIcon.classList.add('fa-eye-slash');
-      this.eyeIcon.classList.remove('fa-eye')
+      this.eyeIcon.classList.add('fa-eye');
+      this.eyeIcon.classList.remove('fa-eye-slash')
     }else{
       this.inputField.type = "password";
-      this.eyeIcon.classList.remove('fa-eye-slash');
-      this.eyeIcon.classList.add('fa-eye')
+      this.eyeIcon.classList.remove('fa-eye');
+      this.eyeIcon.classList.add('fa-eye-slash')
     }
   }
 

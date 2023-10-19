@@ -157,12 +157,12 @@ export class ForgotPasswordResetComponent {
     this.eyeIcon = document.getElementById('newPasswordEye') as HTMLElement;
     if(this.inputField.type === "password"){
       this.inputField.type = "text";
-      this.eyeIcon.classList.add('fa-eye-slash');
-      this.eyeIcon.classList.remove('fa-eye')
+      this.eyeIcon.classList.add('fa-eye');
+      this.eyeIcon.classList.remove('fa-eye-slash')
     }else{
       this.inputField.type = "password";
-      this.eyeIcon.classList.remove('fa-eye-slash');
-      this.eyeIcon.classList.add('fa-eye')
+      this.eyeIcon.classList.remove('fa-eye');
+      this.eyeIcon.classList.add('fa-eye-slash')
     }
   }
   showConfirmPasswordEyeIcon(){
@@ -170,12 +170,12 @@ export class ForgotPasswordResetComponent {
     this.eyeIcon = document.getElementById('confirmPasswordEye') as HTMLElement;
     if(this.inputField.type === "password"){
       this.inputField.type = "text";
-      this.eyeIcon.classList.add('fa-eye-slash');
-      this.eyeIcon.classList.remove('fa-eye')
+      this.eyeIcon.classList.add('fa-eye');
+      this.eyeIcon.classList.remove('fa-eye-slash')
     }else{
       this.inputField.type = "password";
-      this.eyeIcon.classList.remove('fa-eye-slash');
-      this.eyeIcon.classList.add('fa-eye')
+      this.eyeIcon.classList.remove('fa-eye');
+      this.eyeIcon.classList.add('fa-eye-slash')
     }
     
   }
