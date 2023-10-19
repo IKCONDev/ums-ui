@@ -36,7 +36,7 @@
                 <!-- orgWebsite -->
                 <!-- <label>Website : </label> -->
                 <div>
-                    <p *ngIf="org.orgWebsite === null  && isDisable == false">-</p>
+                    <p *ngIf="org.orgWebsite === null || org.orgWebsite === '' && isDisable == false">-</p>
                 <label *ngIf="org.orgWebsite !== null && isDisable==false"><a href={{org.orgWebsite}}>
                         {{org.orgWebsite}}</a></label>
                 <input type="text" placeholder="Enter company website url" [(ngModel)]="org.orgWebsite" *ngIf="isDisable==true" 
@@ -56,7 +56,7 @@
                             d="M9 5.75V4.25C9 3.425 8.325 2.75 7.5 2.75H3C2.175 2.75 1.5 3.425 1.5 4.25V14.75C1.5 15.575 2.175 16.25 3 16.25H15C15.825 16.25 16.5 15.575 16.5 14.75V7.25C16.5 6.425 15.825 5.75 15 5.75H9ZM4.5 14.75H3V13.25H4.5V14.75ZM4.5 11.75H3V10.25H4.5V11.75ZM4.5 8.75H3V7.25H4.5V8.75ZM4.5 5.75H3V4.25H4.5V5.75ZM7.5 14.75H6V13.25H7.5V14.75ZM7.5 11.75H6V10.25H7.5V11.75ZM7.5 8.75H6V7.25H7.5V8.75ZM7.5 5.75H6V4.25H7.5V5.75ZM14.25 14.75H9V13.25H10.5V11.75H9V10.25H10.5V8.75H9V7.25H14.25C14.6625 7.25 15 7.5875 15 8V14C15 14.4125 14.6625 14.75 14.25 14.75ZM13.5 8.75H12V10.25H13.5V8.75ZM13.5 11.75H12V13.25H13.5V11.75Z"
                             fill="#202224" />
                     </svg>&nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgFunctionalType === null  && isDisable == false">-</b>
+                    <b *ngIf="org.orgFunctionalType === null || org.orgFunctionalType === ''  && isDisable == false">-</b>
                     <label *ngIf="org.orgFunctionalType !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgFunctionalType}}</label>
                     <input type="text" placeholder="Enter company type" [(ngModel)]="org.orgFunctionalType" 
@@ -77,7 +77,7 @@
                             d="M9 9.5C10.6575 9.5 12 8.1575 12 6.5C12 4.8425 10.6575 3.5 9 3.5C7.3425 3.5 6 4.8425 6 6.5C6 8.1575 7.3425 9.5 9 9.5ZM9 11C6.9975 11 3 12.005 3 14V14.75C3 15.1625 3.3375 15.5 3.75 15.5H14.25C14.6625 15.5 15 15.1625 15 14.75V14C15 12.005 11.0025 11 9 11Z"
                             fill="#202224" />
                     </svg>&nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgContactPersonName === null  && isDisable == false">-</b>
+                    <b *ngIf="org.orgContactPersonName === null || org.orgContactPersonName === ''  && isDisable == false">-</b>
                     <label *ngIf="org.orgContactPersonName !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonName}}</label>
                     <input type="text"placeholder="Enter company contact person" [(ngModel)]="org.orgContactPersonName" *ngIf="isDisable==true"
@@ -97,7 +97,7 @@
                             d="M9.65979 4.28781C12.0448 4.58781 13.9123 6.45531 14.2123 8.84031C14.2573 9.22281 14.5798 9.50031 14.9548 9.50031C14.9848 9.50031 15.0148 9.50031 15.0448 9.49281C15.4573 9.44031 15.7498 9.06531 15.6973 8.65281C15.3148 5.58531 12.9073 3.17781 9.83979 2.79531C9.42729 2.75031 9.05229 3.04281 9.00729 3.45531C8.95479 3.86781 9.24729 4.24281 9.65979 4.28781ZM9.94479 5.87031C9.54729 5.76531 9.13479 6.00531 9.02979 6.41031C8.92479 6.81531 9.16479 7.22031 9.56979 7.32531C10.3573 7.52781 10.9723 8.14281 11.1823 8.93781C11.2723 9.27531 11.5723 9.50031 11.9098 9.50031C11.9698 9.50031 12.0373 9.49281 12.0973 9.47781C12.4948 9.37281 12.7348 8.96031 12.6373 8.56281C12.2848 7.23531 11.2573 6.20781 9.94479 5.87031ZM14.4223 11.9453L12.5173 11.7278C12.0598 11.6753 11.6098 11.8328 11.2873 12.1553L9.90729 13.5353C7.78479 12.4553 6.04479 10.7228 4.96479 8.59281L6.35229 7.20531C6.67479 6.88281 6.83229 6.43281 6.77979 5.97531L6.56229 4.08531C6.47229 3.32781 5.83479 2.75781 5.06979 2.75781H3.77229C2.92479 2.75781 2.21979 3.46281 2.27229 4.31031C2.66979 10.7153 7.79229 15.8303 14.1898 16.2278C15.0373 16.2803 15.7423 15.5753 15.7423 14.7278V13.4303C15.7498 12.6728 15.1798 12.0353 14.4223 11.9453Z"
                             fill="#202224" />
                     </svg>&nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgContactPersonNumber === null  && isDisable == false">-</b>
+                    <b *ngIf="org.orgContactPersonNumber === null || org.orgContactPersonNumber === ''  && isDisable == false">-</b>
                     <label *ngIf="org.orgContactPersonNumber !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonNumber}}</label>
                     <input type="text" placeholder="Enter contact person number" [(ngModel)]="org.orgContactPersonNumber"
@@ -123,7 +123,7 @@
                             </clipPath>
                         </defs>
                     </svg> &nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgContactPersonEmail === null && isDisable == false">-</b>
+                    <b *ngIf="org.orgContactPersonEmail === null || org.orgContactPersonEmail === '' && isDisable == false">-</b>
                     <label *ngIf="org.orgContactPersonEmail !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonEmail}}</label>
                     <input type="text" placeholder="Enter contact person email" [(ngModel)]="org.orgContactPersonEmail" *ngIf="isDisable==true"
@@ -132,13 +132,12 @@
                             <p id="errorMessage">{{updatedorgContactPersonEmailErrorInfo}}</p>
                         </span>
                     <div *ngIf="isDisable==true" style="padding-bottom: 6px;">
-
                     </div>
                 </div>
 
                 <!-- orgAddress -->
                 <h5>Address details</h5>
-                <p *ngIf="org.orgAddress === null  && isDisable == false">-</p>
+                <p *ngIf="org.orgAddress === null || org.orgAddress === ''  && isDisable == false">-</p>
                 <label *ngIf="org.orgAddress !== null && isDisable==false">{{org.orgAddress}}</label>
                 <div>
                     <span *ngIf="updatedOrgAddressErrorInfo!= ''">
@@ -157,7 +156,7 @@
                 <h5>Super Admin</h5>
                 <div class="row">
                     <div class="col-sm-3"><label>Email ID</label></div>
-                    <div *ngIf="org.orgSuperAdminEmailId === null  && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgSuperAdminEmailId === null || org.orgSuperAdminEmailId === ''  && isDisable == false" class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -179,7 +178,7 @@
                 <div class="row">
                     <!-- orgEmailId -->
                     <div class="col-sm-3"><label>Email ID</label></div>
-                    <div *ngIf="org.orgEmailId === null  && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgEmailId === null || org.orgEmailId === ''  && isDisable == false" class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -205,7 +204,7 @@
                     <div class="col-sm-3">
                         <label>Phone</label>
                     </div>
-                    <div *ngIf="org.orgContactNumber === null  && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgContactNumber === null || org.orgContactNumber === ''  && isDisable == false" class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -228,7 +227,7 @@
                     <div class="col-sm-3">
                         <label>Country</label>
                     </div>
-                    <div *ngIf="org.orgCountry === null  && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgCountry === null || org.orgCountry===''  && isDisable == false" class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -237,7 +236,8 @@
                         </div>
                         <div>
                             <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgCountry"
-                                class="form-control" (keyup)="validateOrgCountry()">
+                                class="form-control" (keyup)="validateOrgCountry()"
+                                placeholder="Enter country">
                                 <span *ngIf="updatedOrgCountryErrorInfo!= ''">
                                     <p id="errorMessage">{{updatedOrgCountryErrorInfo}}</p>
                                 </span>
@@ -251,7 +251,7 @@
                     <div class="col-sm-3">
                         <label>Timezone</label>
                     </div>
-                    <div *ngIf="org.orgTimeZone === null  && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgTimeZone === null || org.orgTimeZone===''   && isDisable == false" class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -260,7 +260,7 @@
                         </div>
                         <div>
                             <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone"
-                                class="form-control">
+                                class="form-control" placeholder="Enter timeZone">
                         </div>
                     </div>
                 </div>

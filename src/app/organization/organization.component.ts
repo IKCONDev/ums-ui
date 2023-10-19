@@ -212,9 +212,12 @@ export class OrganizationComponent implements OnInit {
    */
   validateOrgName() {
     // var deptName=  event.target.value;
-    if (this.org.orgName.length == 0) {
-      this.isUpdateorgNameValid = true;
-      this.updatedOrgNameErrorInfo = '';
+    if (this.org.orgName === null) {
+      this.isUpdateorgNameValid = false;
+      this.updatedOrgNameErrorInfo = 'Organization name is required';
+    }else if(this.org.orgName=== ''){
+      this.isUpdateorgNameValid = false;
+      this.updatedOrgNameErrorInfo = 'Organization name is required';
     }
     else if (this.org.orgName.length < 3) {
       this.updatedOrgNameErrorInfo = 'Organisation name should have minimum of 3 chars.';
@@ -235,13 +238,18 @@ export class OrganizationComponent implements OnInit {
  * @returns 
  */
   validateWebsite() {
-    if (this.org.orgWebsite.length === 0) {
+    if (this.org.orgWebsite === null) {
+      this.isUpdateWebsiteNameValid = true;
+      this.updatedOrgWebsiteErrorInfo = '';
+    }else if(this.org.orgWebsite === ''){
       this.isUpdateWebsiteNameValid = true;
       this.updatedOrgWebsiteErrorInfo = '';
     }
     else if (this.org.orgWebsite.length < 6) {
+      this.isUpdateWebsiteNameValid = false;
       this.updatedOrgWebsiteErrorInfo = 'Website should have minimum of 6 chars.';
     } else if (this.org.orgWebsite.length > 50) {
+      this.isUpdateWebsiteNameValid = false;
       this.updatedOrgWebsiteErrorInfo = 'Website should not exceed more than 50 chars';
     } else {
       this.isUpdateWebsiteNameValid = true;
@@ -255,13 +263,18 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgFunction() {
-    if (this.org.orgFunctionalType.length == 0) {
+    if (this.org.orgFunctionalType === '') {
+      this.isUpdateOrgFunctionValid = true;
+      this.updatedorgFunctionalTypeErrorInfo = '';
+    }else if(this.org.orgFunctionalType === null){
       this.isUpdateOrgFunctionValid = true;
       this.updatedorgFunctionalTypeErrorInfo = '';
     }
     else if (this.org.orgFunctionalType.length < 6) {
+      this.isUpdateOrgFunctionValid = false;
       this.updatedorgFunctionalTypeErrorInfo = 'Functional Type should have minimum of 6 chars.';
     } else if (this.org.orgFunctionalType.length > 50) {
+      this.isUpdateOrgFunctionValid = false;
       this.updatedorgFunctionalTypeErrorInfo = 'Functional Type should not exceed more than 50 chars';
     } else {
       this.isUpdateOrgFunctionValid = true;
@@ -275,13 +288,18 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgContactPersonNameFunction() {
-    if (this.org.orgContactPersonName.length === 0) {
+    if (this.org.orgContactPersonName === '') {
+      this.isUpdateOrgContactPersonNameValid = true;
+      this.updatedorgContactPersonNameErrorInfo = '';
+    }else if(this.org.orgContactPersonName === null){
       this.isUpdateOrgContactPersonNameValid = true;
       this.updatedorgContactPersonNameErrorInfo = '';
     }
     else if (this.org.orgContactPersonName.length < 3) {
+      this.isUpdateOrgContactPersonNameValid = false;
       this.updatedorgContactPersonNameErrorInfo = 'Organisation Contact person Name should have minimum of 3 chars.';
     } else if (this.org.orgContactPersonName.length > 50) {
+      this.isUpdateOrgContactPersonNameValid = false;
       this.updatedorgContactPersonNameErrorInfo = 'Organisation Contact person should not exceed more than 50 chars';
     } else {
       this.isUpdateOrgContactPersonNameValid = true;
@@ -297,14 +315,19 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgContactPersonNumber() {
-    if (this.org.orgContactPersonNumber.length === 0) {
+    if (this.org.orgContactPersonNumber === '') {
+      this.isUpdateOrgContactPersonNumberValid = true;
+      this.updatedorgContactPersonNumberErrorInfo = '';
+    }else if(this.org.orgContactPersonNumber === null){
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
     }
     else if (this.org.orgContactPersonNumber.length < 10) {
       this.updatedorgContactPersonNumberErrorInfo = 'Organisation Contact person Number should have minimum of 10 digits.';
+      this.isUpdateOrgContactPersonNumberValid = false;
     } else if (this.org.orgContactPersonNumber.length > 10) {
       this.updatedorgContactPersonNumberErrorInfo = 'Organisation Contact person Number should not exceed more than 10 digits';
+      this.isUpdateOrgContactPersonNumberValid = false;
     } else {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
@@ -317,14 +340,19 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgAddress() {
-    if (this.org.orgAddress.length === 0) {
+    if (this.org.orgAddress === '') {
+      this.updatedOrgAddressErrorInfo = '';
+      this.isUpdateOrgAddressValid = true;
+    }else if (this.org.orgAddress === null){
       this.updatedOrgAddressErrorInfo = '';
       this.isUpdateOrgAddressValid = true;
     }
     else if (this.org.orgAddress.length < 30) {
+      this.isUpdateOrgAddressValid = false;
       this.updatedOrgAddressErrorInfo = 'Organisation Address should have minimum of 30 chars';
     }
     else if (this.org.orgAddress.length > 300) {
+      this.isUpdateOrgAddressValid = false;
       this.updatedOrgAddressErrorInfo = 'Organisation address should not exceed more than 300 chars';
     }
     else {
@@ -339,13 +367,18 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgContactNumber() {
-    if (this.org.orgContactNumber.length === 0) {
+    if (this.org.orgContactNumber === '') {
+      this.updatedOrgContactNumberErrorInfo = '';
+      this.isupdatedOrgContactNumberValid = true;
+    }else if(this.org.orgContactNumber === null){
       this.updatedOrgContactNumberErrorInfo = '';
       this.isupdatedOrgContactNumberValid = true;
     }
     else if (this.org.orgContactNumber.length < 10) {
+      this.isupdatedOrgContactNumberValid = false;
       this.updatedOrgContactNumberErrorInfo = 'Contact number should have minimum of 10 digits.';
     } else if (this.org.orgContactNumber.length > 10) {
+      this.isupdatedOrgContactNumberValid = false;
       this.updatedOrgContactNumberErrorInfo = 'Contact number should not exceed more than 10 digits';
     } else {
       this.isupdatedOrgContactNumberValid = true;
@@ -360,13 +393,18 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgCountry() {
-    if (this.org.orgCountry.length === 0) {
+    if (this.org.orgCountry === '') {
+      this.updatedOrgCountryErrorInfo = '';
+      this.isupdatedOrgCountryValid = true;
+    }else if(this.org.orgCountry === null){
       this.updatedOrgCountryErrorInfo = '';
       this.isupdatedOrgCountryValid = true;
     }
     else if (this.org.orgCountry.length < 4) {
+      this.isupdatedOrgCountryValid = false;
       this.updatedOrgCountryErrorInfo = 'Organisation Country should have minimum of 4 chars.';
     } else if (this.org.orgCountry.length > 30) {
+      this.isupdatedOrgCountryValid = false;
       this.updatedOrgCountryErrorInfo = 'Organisation Country should not exceed more than 30 chars.';
     } else {
       this.isupdatedOrgCountryValid = true;
@@ -381,19 +419,22 @@ export class OrganizationComponent implements OnInit {
    */
   validateOrgContactPersonEmail() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
-    if (this.org.orgContactPersonEmail.length === 0) {
+    if (this.org.orgContactPersonEmail === '') {
       this.updatedorgContactPersonEmailErrorInfo = '';
-      this.isUpdateOrgContactPersonNumberValid = true;
+      this.isUpdateOrgContactPersonEmailValid = true;
+    }else if(this.org.orgContactPersonEmail === null){
+      this.updatedorgContactPersonEmailErrorInfo = '';
+      this.isUpdateOrgContactPersonEmailValid = true;
     }
     else if (emailRegExp.test(this.org.orgContactPersonEmail) === true) {
       this.updatedorgContactPersonEmailErrorInfo = '';
-      this.isUpdateOrgContactPersonNumberValid = true;
+      this.isUpdateOrgContactPersonEmailValid = true;
     }
     else {
-      this.isUpdateOrgContactPersonNumberValid = false;
+      this.isUpdateOrgContactPersonEmailValid = false;
       this.updatedorgContactPersonEmailErrorInfo = 'Please enter correct email ';
     }
-    return this.isUpdateOrgContactPersonNumberValid;
+    return this.isUpdateOrgContactPersonEmailValid;
   }
 
   /**
@@ -402,7 +443,10 @@ export class OrganizationComponent implements OnInit {
    */
   validateSuperAdminEmail() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
-    if (this.org.orgSuperAdminEmailId.length === 0) {
+    if (this.org.orgSuperAdminEmailId === '') {
+      this.updatedOrgSuperAdminEmailErrorInfo = '';
+      this.isUpdateOrgSuperAdminEmailValid = true;
+    }else if(this.org.orgSuperAdminEmailId === null){
       this.updatedOrgSuperAdminEmailErrorInfo = '';
       this.isUpdateOrgSuperAdminEmailValid = true;
     }
@@ -423,7 +467,10 @@ export class OrganizationComponent implements OnInit {
    */
   validateCompanyEmail() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
-    if (this.org.orgEmailId.length === 0) {
+    if (this.org.orgEmailId === '') {
+      this.updatedCompanyEmailErrorInfo = '';
+      this.isUpdateCompanyEmailValid = true;
+    }else if(this.org.orgEmailId === null){
       this.updatedCompanyEmailErrorInfo = '';
       this.isUpdateCompanyEmailValid = true;
     }
