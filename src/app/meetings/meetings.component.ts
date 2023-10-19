@@ -176,13 +176,13 @@ export class MeetingsComponent implements OnInit {
   validateActionTitle(): boolean {
     // var actionItemTitle = event.target.value;
     if (this.addDetails.actionItemTitle === '') {
-      this.actionItemTitleErrorInfo = "Action Item title is required";
+      this.actionItemTitleErrorInfo = "Title is required";
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length < 5) {
-      this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 chars';
+    } else if (this.addDetails.actionItemTitle.length <= 5) {
+      this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters';
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length > 50) {
-      this.actionItemTitleErrorInfo = 'Title should not exceed 50 chars';
+    } else if (this.addDetails.actionItemTitle.length >= 50) {
+      this.actionItemTitleErrorInfo = 'Title must not exceed 50 characters';
       this.isActionItemTitleValid = false;
     } else {
       this.actionItemTitleErrorInfo = '';

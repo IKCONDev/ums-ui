@@ -139,3 +139,17 @@ tr.detail div {
   padding-left: 10px;
   color: red;
 }
+
+#actionItem-subject{
+  white-space: nowrap;
+  text-overflow:ellipsis; 
+  overflow: hidden;
+  max-width:90px;
+  cursor: pointer;
+  word-wrap: break-word;
+}
+
+#actionItem-subject:hover{
+  overflow: visible;
+  white-space: normal;
+}

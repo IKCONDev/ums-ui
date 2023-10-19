@@ -143,12 +143,16 @@ export class TaskComponent {
   validateTaskTitle() {
     //var taskTitle = event.target.value;
     if (this.update_Task.taskTitle == "") {
-      this.taskTitleErrrorInfo = 'Enter the Task Title';
+      this.taskTitleErrrorInfo = 'Title is required';
       this.isTaskTitleValid = false;
 
     }
-    else if (this.update_Task.taskTitle.length < 5) {
-      this.taskTitleErrrorInfo = 'task title should be more than 5 characters';
+    else if (this.update_Task.taskTitle.length <= 5) {
+      this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters';
+      this.isTaskTitleValid = false;
+    }
+    else if(this.update_Task.taskTitle.length >= 50){
+      this.taskTitleErrrorInfo = 'Title should not exceed 50 characters';
       this.isTaskTitleValid = false;
     }
     else {
@@ -176,7 +180,7 @@ export class TaskComponent {
       this.isTaskDescriptionValid = false;
     }
     else if(this.update_Task.taskDescription.length >= 250){
-      this.taskDescriptionErrorInfo = 'Description must not exceed 250 characters';
+      this.taskDescriptionErrorInfo = 'Description should not exceed 250 characters';
       this.isTaskDescriptionValid = false;
     }
     else {
@@ -197,11 +201,11 @@ export class TaskComponent {
   validateTaskPriority() {
     //var taskPriority = event.target.value;
     if (this.update_Task.taskPriority === '') {
-      this.taskPriorityErrorInfo = 'task priority should not be empty';
+      this.taskPriorityErrorInfo = 'Task priority should not be empty';
       this.isTaskPriorityValid = false;
     }
     else if (this.update_Task.taskPriority == 'select') {
-      this.taskPriorityErrorInfo = 'task priority is required';
+      this.taskPriorityErrorInfo = 'Task priority is required';
       this.isTaskPriorityValid = false;
     }
     else {
@@ -243,11 +247,11 @@ export class TaskComponent {
 
     if (this.update_Task.taskOwner == '' || this.update_Task.taskOwner === null) {
 
-      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.taskOwnerErrorInfo = 'Task Owner is required';
       this.isTaskOwnerValid = false;
     }
     else if (this.update_Task.taskOwner == '') {
-      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.taskOwnerErrorInfo = 'Task Owner is required';
       this.isTaskOwnerValid = false;
 
     }
@@ -270,7 +274,7 @@ export class TaskComponent {
 
 
     if (this.update_Task.startDate === '') {
-      this.taskStartDateErrorInfo = 'select the start date';
+      this.taskStartDateErrorInfo = 'Select the start date';
       this.isTaskStartDateValid = false;
     }
     /*else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
@@ -293,11 +297,11 @@ export class TaskComponent {
   validateTaskDueDate() {
     // var taskDueDate=event.target.value;
     if (this.update_Task.dueDate === '') {
-      this.taskDueDateErrorInfo = 'select the due date';
+      this.taskDueDateErrorInfo = 'Select the due date';
       this.isTaskDueDateValid = false;
     }
     else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
-      this.taskDueDateErrorInfo = 'Date should`nt lessthan startdate';
+      this.taskDueDateErrorInfo = 'Date should`nt less than startdate';
       this.isTaskDueDateValid = false;
     }
     else {
@@ -374,7 +378,7 @@ export class TaskComponent {
         this.response = response.body;
         //this.data = response.body;
         if (response.status === HttpStatusCode.Ok) {
-          this.toastr.success('task updated Successfully');
+          this.toastr.success('Task updated Successfully');
           document.getElementById('closeUpdateModal').click();
           document.getElementById('closeAssignedUpdateModal').click();
           setTimeout(()=>{
