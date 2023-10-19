@@ -1,14 +1,10 @@
-body{
-    padding-left: 500px;
-    padding-top: 70px;
-    background-color: lightgray;
-    height: 758px;
+h2{
+    width:  auto;
+    align-items: center;
+    text-align: center;
 }
 
-#smileyDiv{
-    padding-left: 220px;
-}
-
-a:hover{
-    cursor: pointer;
+img{
+    align-items: center;
+    text-align: center;
 }

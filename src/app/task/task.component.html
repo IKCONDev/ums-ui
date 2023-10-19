@@ -52,7 +52,7 @@
                                 id="checkbox">
                         </td>
                         <!--- <td>{{item.taskId}}</td>-->
-                        <td>T000{{i+1}}</td>
+                        <td>T000{{item.taskId}}</td>
                         <td id="meeting-subject">{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
                         <td>{{item.startDate}}</td>
@@ -113,7 +113,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let task of assignedTasks; let i = index">
-                        <td>T000{{i+1}}</td>
+                        <td>T000{{task.taskId}}</td>
                         <td id="meeting-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
                         <td>{{task.startDate}}</td>
