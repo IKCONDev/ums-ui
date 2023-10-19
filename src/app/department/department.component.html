@@ -48,10 +48,12 @@
                         <th>Modified Date</th>
                         <th>Actions</th>
                     </thead>
-                    <tbody *ngFor="let department of departmentList">
+                    <tbody *ngFor="let department of departmentList;let i = index">
                         <tr id="dataRow">
                             <td>
-                                <input type="checkbox" id="subcheckBox" class="subCheckBox" value="{{department.departmentId}}"/>
+                                <input type="checkbox" id="subCheckBox{{i}}" 
+                                class="subCheckBox" value="{{department.departmentId}}"
+                                (click)="toggleMainCheckBox(i)"/>
                             </td>
                             <td>{{department.departmentId}}</td>
                             <td>{{department.departmentName}}</td>
