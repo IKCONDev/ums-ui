@@ -9,7 +9,7 @@ export class HomeService {
   gatewayUrl = "http://localhost:8012"
   meetingsMicroservicePathUrl = 'meetings';
   actionItemsMicroservicePathUrl = 'actions';
-  tasksMicroservicePathUrl = 'tasks'
+  tasksMicroservicePathUrl = 'task'
 
   constructor(private http: HttpClient) { }
 
