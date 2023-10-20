@@ -441,7 +441,7 @@
                 <label><b>ActionItem Title</b></label>
                 <input type="text" class="form-control" style="width: 400px;"
                     [(ngModel)]="updatedetails.actionItemTitle" required="true" name="uAcItemTitle" id="uAcItemTitle"
-                    minlength="5" maxlength="500" #uAcItemTitle="ngModel"
+                    minlength="5" maxlength="50" #uAcItemTitle="ngModel"
                     [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched"
                     (keyup)="validateUpdateActionTitle()">
                 <div *ngIf="updateActionItemTitleErrorInfo != ''">
@@ -450,9 +450,9 @@
                 <!-- description -->
                 <label><b>ActionItem Description</b></label>
                 <div style="padding-left: 10px;">
-                    <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;"
+                    <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;max-height:200px"
                         [(ngModel)]="updatedetails.actionItemDescription" required="true" name="uAcItemDesc"
-                        id="uAcItemDesc" minlength="5" maxlength="500" #uAcItemDesc="ngModel"
+                        id="uAcItemDesc" minlength="10" maxlength="250" #uAcItemDesc="ngModel"
                         [class.invalid]="uAcItemDesc.invalid && uAcItemDesc.touched"
                         (keyup)="validateUpdateActionDescription()"></textarea>
                 </div>

@@ -748,7 +748,7 @@ export class MeetingsComponent implements OnInit {
     this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted, meeting).subscribe({
       next:(response) => {
         console.log(response.body)
-        this.toastr.success('Action items converted to task succesfully')
+        this.toastr.success('Action items converted to task successfully')
         setTimeout(() => {
           window.location.reload();
         }, 1000)
@@ -823,11 +823,11 @@ export class MeetingsComponent implements OnInit {
     if (this.updatedetails.actionItemTitle === '') {
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length < 5) {
-      this.updateActionItemTitleErrorInfo = 'Title should be minimum of 5 chars';
+    } else if (this.updatedetails.actionItemTitle.length <= 5) {
+      this.updateActionItemTitleErrorInfo = 'Title should have minimum of 5 characters';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length > 50) {
-      this.updateActionItemTitleErrorInfo = 'Title should not exceed 50 chars';
+    } else if (this.updatedetails.actionItemTitle.length >= 50) {
+      this.updateActionItemTitleErrorInfo = 'Title must not exceed 50 characters';
       this.isUpdateActionItemTitleValid = false;
     } else {
       this.updateActionItemTitleErrorInfo = '';
@@ -844,11 +844,11 @@ export class MeetingsComponent implements OnInit {
     if (this.updatedetails.actionItemDescription === '') {
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
-    } else if (this.updatedetails.actionItemDescription.length < 10) {
-      this.updateActionItemDescErrorInfo = 'Description should be manimum of 10 chars';
+    } else if (this.updatedetails.actionItemDescription.length <= 10) {
+      this.updateActionItemDescErrorInfo = 'Description should have minimum of 10 characters';
       this.isUpdateActionItemDescValid = false;
-    } else if (this.updatedetails.actionItemDescription.length > 200) {
-      this.updateActionItemDescErrorInfo = 'Description should not exceed 200 chars';
+    } else if (this.updatedetails.actionItemDescription.length >= 250) {
+      this.updateActionItemDescErrorInfo = 'Description must not exceed 250 characters';
       this.isUpdateActionItemDescValid = false;
     } else {
       this.updateActionItemDescErrorInfo = '';

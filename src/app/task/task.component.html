@@ -203,7 +203,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
-                            <textarea type="text" style="margin-left: 30px;width: 530px;background-color: #ecf7fc;" placeholder="Enter Title"    class="form-control"
+                            <textarea type="text" style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;" placeholder="Enter Title"    class="form-control"
                                 name="taskTitle" required="true" [(ngModel)]="update_Task.taskTitle"
                                 #taskTitle="ngModel" [class.invalid]="taskTitle.invalid && taskTitle.touched"
                                 (keyup)="validateTaskTitle()" minlength="5" maxlength="50"></textarea>
@@ -223,7 +223,7 @@
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
                                 </div>
-                                <textarea style="width: 530px; height:220px;background-color: #ecf7fc;"
+                                <textarea style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
@@ -363,7 +363,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
-                            <textarea type="text" style="margin-left: 30px;width: 530px;" class="form-control"
+                            <textarea type="text" style="margin-left: 30px;width: 530px;min-height: 55px;max-height: 55px;" class="form-control"
                                 name="taskTitle" required="true" [(ngModel)]="update_Task.taskTitle"
                                 #taskTitle="ngModel" [class.invalid]="taskTitle.invalid && taskTitle.touched"
                                 (keyup)="validateTaskTitle()" disabled></textarea>
@@ -383,7 +383,7 @@
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
                                 </div>
-                                <textarea style="width: 530px; height:220px;background-color: #ecf7fc;"
+                                <textarea style="width: 530px; min-height:220px;max-height:220px;background-color:#ecf7fc;"
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
