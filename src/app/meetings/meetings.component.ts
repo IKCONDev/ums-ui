@@ -1160,7 +1160,7 @@ sendMOMEmail(){
     var isSubjectvalid = true;
     var isStartDateValid = true;
     var isEndDateValid = true;
-    var isAttendeesvalid = true;
+    var isAttendeesValid = true;
 
     if(this.isMeetingSubjectValid === false){
       var valid = this.validateMeetingSubject();
@@ -1176,10 +1176,10 @@ sendMOMEmail(){
     }
     if(this.isMeetingAttendeesValid === false){
       var valid = this.validateMeetingAttendees();
-      isAttendeesvalid = valid;
+      isAttendeesValid = valid;
     }
 
-    if(isSubjectvalid && isStartDateValid && isEndDateValid){
+    if(isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid){
       //create meeting
     console.log(this.addMeeting)
     this.meetingsService.createMeeting(this.addMeeting).subscribe({
