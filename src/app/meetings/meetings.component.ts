@@ -1119,7 +1119,7 @@ sendMOMEmail(){
     this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData).subscribe({
      next: (response) =>{
      if(response.status == HttpStatusCode.Ok){
-        this.toastr.success("email send successfully");
+        this.toastr.success("Email sent successfully");
         document.getElementById('closeSendMoMEmail').click();
       }
       else{

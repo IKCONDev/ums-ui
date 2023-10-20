@@ -50,8 +50,8 @@
                     <!-- <th>Id</th> -->
                     <th style="width: 200px;">Title</th>
                     <th>Organizer</th>
-                    <th>Start Date/Time</th>
-                    <th>End Date/Time</th>
+                    <th>Start Date & Time</th>
+                    <th>End Date & Time</th>
                     <th>Attendees</th>
                     <th>Transcript</th>
                     <th>Action Items</th>
@@ -149,7 +149,7 @@
                                             <th id="tablehead">Action Item Id</th>
                                             <th id="tablehead" style="width: 170px;">Action Item</th>
                                             <th id="tablehead">Owner(suggested)</th>
-                                            <th id="tablehead">Start Date</th>
+                                            <th id="tablehead">Start Date & Time</th>
                                             <th id="tablehead" style="width: 170px;">Description</th>
                                             <th id="tablehead">Status</th>
                                             <th id="tablehead">Actions</th>
@@ -280,8 +280,8 @@
                     <th>Sno</th>
                     <th style="width: 200px;">Title</th>
                     <th>Organizer</th>
-                    <th>Start Date/Time</th>
-                    <th>End Date/Time</th>
+                    <th>Start Date & Time</th>
+                    <th>End Date & Time</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
@@ -301,8 +301,8 @@
                         <th>Id</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>Start Date/Time</th>
-                        <th>End Date/Time</th>
+                        <th>Start Date & Time</th>
+                        <th>End Date & Time</th>
                     </thead>
                 </table>
                 <p id="no-meetings">No Meetings Attended Yet ! </p>
@@ -393,7 +393,7 @@
                     </div>
                     <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                     <!-- start date -->
-                    <label><b>Start Date</b></label>
+                    <label><b>Start Date & Time</b></label>
                     <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" name="startDate"
                         #startDate="ngModel" [class.invalid]="startDate.invalid && startDate.touched"
@@ -402,7 +402,7 @@
                         <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                     </div>
                     <!-- end date -->
-                    <label><b>End Date</b></label>
+                    <label><b>End Date & Time</b></label>
                     <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" name="endDate"
                         #endDate="ngModel" [class.invalid]="endDate.invalid && endDate.touched"
@@ -500,7 +500,7 @@
                 </div>
                 <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
                 <!-- start date -->
-                <label><b>StartDate</b></label>
+                <label><b>StartDate & Time</b></label>
                 <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
                     [(ngModel)]="updatedetails.startDate" required="true" id="uAcItemStartDate" name="uAcItemStartDate"
                     #uAcItemStartDate="ngModel" [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
@@ -509,7 +509,7 @@
                     <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
                 </div>
                 <!-- end date -->
-                <label><b>EndDate</b></label>
+                <label><b>EndDate & Time</b></label>
                 <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
                     [(ngModel)]="updatedetails.endDate" required="true" id="uAcItemEndDate" name="uAcItemEndDate"
                     #uAcItemEndDate="ngModel" [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"
@@ -652,7 +652,7 @@
                     </span>
                 </div>
                 <!-- start date time -->
-                <label><b>Start date time</b></label>
+                <label><b>Start Date & Time</b></label>
                 <input type="datetime-local" class="form-control" min="{{min}}" [(ngModel)]="addMeeting.startDateTime" 
                 style="width: 400px;" (change)="validateMeetingStartDateTime()" id="meetingStartDate" name="meetingStartDate"
                 />
@@ -662,7 +662,7 @@
                     </span>
                 </div>
                 <!-- end date time -->
-                <label><b>End date time</b></label>
+                <label><b>End Date & Time</b></label>
                 <input type="datetime-local" class="form-control" min="{{min}}" [(ngModel)]="addMeeting.endDateTime" 
                 style="width: 400px;" (change)="validateMeetingEndDateTime()" id="meetingEndDate" name="meetingEndDate"/>
                 <div>
