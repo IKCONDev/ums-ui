@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit {
   getUserOrganizedActionItemsCount(){
     this.homeService.getActionItemsCountByUserId().subscribe({
       next: response =>{
-        this.organizedTasksCount = response.body;
+        this.actionItemsCount = response.body;
         console.log(response.body);
       }
     })
@@ -132,9 +132,9 @@ export class HomeComponent implements OnInit {
  * 
  */
   getUserOrganizedTasksCount(){
-    this.homeService.getActionItemsCountByUserId().subscribe({
+    this.homeService.getOrganizedTasksCountByUserId().subscribe({
       next: response =>{
-        this.assignedTasksCount = response.body;
+        this.organizedTasksCount = response.body;
         console.log(response.body);
       }
     })
@@ -144,9 +144,9 @@ export class HomeComponent implements OnInit {
    * 
    */
   getUserAssignedTasksCount(){
-    this.homeService.getActionItemsCountByUserId().subscribe({
+    this.homeService.getAssignedTasksCountByUserId().subscribe({
       next: response =>{
-        this.actionItemsCount = response.body;
+        this.assignedTasksCount = response.body;
         console.log(response.body);
       }
     })

@@ -143,12 +143,16 @@ export class TaskComponent {
   validateTaskTitle() {
     //var taskTitle = event.target.value;
     if (this.update_Task.taskTitle == "") {
-      this.taskTitleErrrorInfo = 'Enter the Task Title';
+      this.taskTitleErrrorInfo = 'Title is required';
       this.isTaskTitleValid = false;
 
     }
-    else if (this.update_Task.taskTitle.length < 5) {
-      this.taskTitleErrrorInfo = 'task title should be more than 5 characters';
+    else if (this.update_Task.taskTitle.length <= 5) {
+      this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters';
+      this.isTaskTitleValid = false;
+    }
+    else if (this.update_Task.taskTitle.length >= 50) {
+      this.taskTitleErrrorInfo = 'Title must not exceed 50 characters';
       this.isTaskTitleValid = false;
     }
     else {
