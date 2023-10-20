@@ -9,15 +9,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
-.container-body{
+
+.container-body {
     padding-left: 150px;
     position: relative;
     width: 1400px;
     max-height: fit-content;
     background-color: #fff;
 }
+
 
 
 .rectangle-div {
@@ -35,21 +36,53 @@
 
 .pexels-photo-by-pixabay {
     position: relative;
-    
+
     height: 157.5px;
     object-fit: cover;
+
     padding-top: 33.72px;
     padding-left: 48px;
 }
+
+#file-input{
+    display: none;
+    
+}
+
+
+#file-input-label {
+    font-size: 1.3em;
+    padding: 10px 15px;
+    border: 1px solid black;
+    border-radius: 4%;
+}
+.container {
+  display: flex;
+  
+ 
+  border-radius: 50%;
+  overflow: hidden;
+  height: 150px;
+  width: 150px;
+}
+
+
 .profile-pic {
-    object-fit: contain;
-    background-size: contain;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
-    overflow: hidden;
+    background-size: cover;
+    object-fit: cover;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-    width: 150px;
-    height:100px;
-  }
+    
+}
+.profile-pic:hover{
+    cursor: pointer;
+    background-size: cover;
+    border-radius: 50%; 
+    background-color: #202224;
+    /*mask-image: url("src/app/my-profile/camera-1389.svg");
+}
 
 .profimgParent {
     position: relative;
@@ -137,6 +170,7 @@
     gap: 24px;
 }
 
+
 .frame-parent {
     position: relative;
     width: 100%;
@@ -155,6 +189,7 @@
 .prof-name {
     position: relative;
     line-height: 150%;
+    margin-top: 68px;
 }
 
 .prof-mail {
