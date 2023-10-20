@@ -236,7 +236,7 @@ getTokenPopup(request) {
 
 
   /**
-   * 
+   * sets the input text field value to user object
    * @param username 
    */
   setUsername(username: any) {
@@ -244,13 +244,17 @@ getTokenPopup(request) {
   }
 
   /**
-   * 
+   * sets the input password value to user object
    * @param password 
    */
   setPassword(password: any) {
     this.user.password = password.target.value;
   }
 
+  /**
+   * Login to application when Enter button is clicked
+   * @param event 
+   */
   loginIfEnterButtonIsClicked(event: KeyboardEvent){
     //if enter button is clicked submit the form
     if(event.key === 'Enter'){
@@ -332,7 +336,7 @@ getTokenPopup(request) {
   }
 
   /**
-   * 
+   * set the email input place holder
    */
   setupEmailInputPlaceholder(): void {
     const emailInput = this.elementRef.nativeElement.querySelector('#email');
@@ -355,7 +359,7 @@ getTokenPopup(request) {
   }
 
   /**
-   * 
+   * set the password input place holder
    * @param event 
    */
   setupPasswordInputPlaceholder(event: any) {
@@ -391,7 +395,7 @@ getTokenPopup(request) {
   }
 
   /**
-   * 
+   * show / hide the password on eye button click
    */
   showHidePassword(){
     this.inputField = document.getElementById("password") as HTMLInputElement;
