@@ -52,12 +52,33 @@ export class UsersComponent  implements OnInit{
       }
       else{
          user.active = false;
+         console.log("de-selected")
          this.userService.update(user).subscribe(res =>{
         this.userDetails =res.body;
        });
      }
  
   }
+  }
+  checkUserTogglebuttonEnabled(user : Users, i : number){
+
+    //var table = document.getElementById('myTable');
+   // var rows = table.getElementsByTagName("tr");
+    var checkbox = document.getElementById('slider'+i) as HTMLInputElement
+    console.log("checkbox method is executed"+ "slider"+i +checkbox.checked);
+    if(!checkbox.checked){
+       user.active = false;
+       this.userService.update(user).subscribe(res =>{
+          this.userDetails = res.body;
+       })
+    }
+    else{
+       user.active = true;
+       this.userService.update(user).subscribe(res =>{
+        this.userDetails = res.body;
+     })
+
+    }
   }
   addUserObj ={
      

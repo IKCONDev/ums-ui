@@ -1,132 +1,152 @@
 <div>
-    <app-side-menubar ></app-side-menubar>
+    <app-side-menubar></app-side-menubar>
 </div>
-<div >
+<div>
     <app-header [title]="title" id="header"></app-header>
 </div>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="container-fluid">
     <div class="container-body">
-    <div class="profimgParent" *ngIf="user != null">
-        <div style="padding-left: 10px;"><img class="profile-pic" [src]="'data:image/png/jpg/jpeg;base64,'+user.profilePic" />
-        </div>
-        <div id="move" style="padding-left:30px;">
-            <input type="file" accept="image/*" id="move" class="btn btn success"
-                (change)="onFileChanged($event)" />
-        </div>
 
-        <div class="prfname-parent">
+        <div class="row">
+           <div class="col-sm-3 container" style="padding-right:240px ;padding-top: 24px;">
+            <label for="file-input">
+                <img class="profile-pic" [src]="'data:image/png/jpg/jpeg;base64,'+user.profilePic" width="110px" height="110px"/>
+            </label>
+            <input id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)" />
+            
+        </div>
+        <div class="col-sm-9" style="padding-left: px;">
+        
             <div class="prof-name">{{user.employee.firstName | titlecase}}</div>
-            <div class="prof-mail">{{user.employee.email}}</div>
+            <div
+             class="prof-mail">{{user.employee.email}}</div>
+        </div>
+        
         </div>
 
-    </div>
+        <!-- <div class="image-upload">
+            <div class="profimgParent" *ngIf="user != null">
+                <div class="row">
+                    <div class="col-8"></div>
+                    <div class="col-4">
+                       
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-6" ></div>
-        <div class="space" *ngIf="isDisable==false"></div>
-        <div class="col-6" *ngIf="isDisable ==true"  >
-            <button type="button" class="fa fa-pencil" (click)="editUserInfo()"> </button>
+                <input id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)" />
 
+            </div>
+        </div> -->
+
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="space" *ngIf="isDisable==false"></div>
+            <div class="col-6" *ngIf="isDisable ==true">
+                <button type="button" class="fa fa-pencil" (click)="editUserInfo()"> </button>
+
+            </div>
         </div>
-    </div>
-    &nbsp;
-    <div class="row" *ngIf="user != null" style=" margin-left: 25px;">
-        <div class="col-6">
-            <div class="full-name-parent">
-                <div style="padding-left: 15px;" class="full-name"><label>Full Name</label></div>
-                <div class="disp-name">
-                    <div class="col-6">
-                        <label for="firstName" *ngIf="isDisable==true">{{ user.employee.firstName | titlecase}}</label>
-                        <input type="text" id="firstName" [(ngModel)]="user.employee.firstName" [hidden]="isDisable"
-                            [disabled]="isDisable" class="form-control" readonly="true" maxlength="50">
-                    </div>
-                </div>
-            </div>
-            <div class="full-name-parent">
-                <div style="padding-left: 15px;" class="full-name"><label>Gender</label></div>
-                <div class="disp-name">    
-                    <div class="col-6">
-                        <label for="firstName"  *ngIf="isDisable==true">Male</label>
-                        <input type="text" value="Male" [hidden]="isDisable"
-                            readonly="true" class="form-control" >
-                    </div>
-                </div>
-            </div>
-            <div class="full-name-parent">
-                <div style="padding-left: 15px;" class="full-name"><label>Role</label></div>
-                <div class="disp-name">
-                    <div class="col-6">
-                        <label for="role" *ngIf="isDisable==true">{{user.userRoles[0].roleName}}</label>
-                        <input type="text" id="role" [ngModel]="user.userRoles[0].roleName" [hidden]="isDisable"
-                            readonly="true"  class="form-control">
+        &nbsp;
+        <div class="row" *ngIf="user != null" style=" margin-left: 25px;">
+            <div class="col-6">
+                <div class="full-name-parent">
+                    <div style="padding-left: 15px;" class="full-name"><label>Full Name</label></div>
+                    <div class="disp-name">
+                        <div class="col-6">
+                            <label for="firstName" *ngIf="isDisable==true">{{ user.employee.firstName |
+                                titlecase}}</label>
+                            <input type="text" id="firstName" [(ngModel)]="user.employee.firstName" [hidden]="isDisable"
+                                [disabled]="isDisable" class="form-control" readonly="true" maxlength="50">
                         </div>
-                </div>
-            </div>
-            <div class="full-name-parent">
-                <div style="padding-left: 15px;" class="full-name"><label>Department</label></div>
-                <div class="disp-name">
-                    <div class="col-6">
-                        <label for="department" *ngIf="isDisable==true">{{user.employee.department.departmentName}}</label>
-                        <input type="text" [ngModel]="user.employee.department.departmentName" [hidden]="isDisable"
-                        readonly="true" class="disp-name" class="form-control">
                     </div>
                 </div>
+                <div class="full-name-parent">
+                    <div style="padding-left: 15px;" class="full-name"><label>Gender</label></div>
+                    <div class="disp-name">
+                        <div class="col-6">
+                            <label for="firstName" *ngIf="isDisable==true">Male</label>
+                            <input type="text" value="Male" [hidden]="isDisable" readonly="true" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="full-name-parent">
+                    <div style="padding-left: 15px;" class="full-name"><label>Role</label></div>
+                    <div class="disp-name">
+                        <div class="col-6">
+                            <label for="role" *ngIf="isDisable==true">{{user.userRoles[0].roleName}}</label>
+                            <input type="text" id="role" [ngModel]="user.userRoles[0].roleName" [hidden]="isDisable"
+                                readonly="true" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="full-name-parent">
+                    <div style="padding-left: 15px;" class="full-name"><label>Department</label></div>
+                    <div class="disp-name">
+                        <div class="col-6">
+                            <label for="department"
+                                *ngIf="isDisable==true">{{user.employee.department.departmentName}}</label>
+                            <input type="text" [ngModel]="user.employee.department.departmentName" [hidden]="isDisable"
+                                readonly="true" class="disp-name" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="full-name-parent">
+                    <div style="padding-left: 15px;" class="full-name"><label>Display Name</label></div>
+                    <div class="disp-name">
+                        <div class="col-6">
+                            <label for="DisplayName" *ngIf="isDisable==true">{{user.employee.firstName |
+                                titlecase}}</label>
+                            <input type="text" [ngModel]="user.employee.firstName" [hidden]="isDisable" readonly="true"
+                                class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="padding-left: 15px;" class="full-name"><label>Date Of Joining</label></div>
+                    <div class="disp-name">
+                        <div class="col-6">
+                            <label for="dateOfJoin" *ngIf="isDisable==true">Na</label>
+                            <input type="text" id="dateOfJoin" value="NA" class="form-control" [hidden]="isDisable"
+                                readonly="true">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="padding-left: 15px;" class="full-name"><label>Designation</label></div>
+                    <div class="disp-name">
+                        <div class="col-6">
+                            <label for="Designation" *ngIf="isDisable==true">{{user.employee.designation}}</label>
+                            <input type="text" id="Designation" [ngModel]="user.employee.designation"
+                                [hidden]="isDisable" readonly="true" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="padding-left: 15px;" class="full-name"><label>Reporting Manager</label></div>
+                    <div class="disp-name">
+                        <div class="col-6">
+                            <label for="Reporting Manager" *ngIf="isDisable==true">Anil</label>
+                            <input type="text" id="Reporting Manager" value="Anil" readonly="true" [hidden]="isDisable"
+                                class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div style="padding-left: 15px;" class="full-name">
+                    <div class="disp-name">
+                        <b *ngIf="isDisable !=true">
+                            <button type="submit" class="btn btn-primary" (click)="updateUserInfo()">Save</button>
+                            &nbsp;<button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+                        </b>
+                    </div>
+                </div>
+                <div *ngIf="isDisable==true"></div>
             </div>
         </div>
-        <div class="col-6">
-            <div class="full-name-parent">
-                <div style="padding-left: 15px;" class="full-name"><label>Display Name</label></div>
-                <div class="disp-name">
-                    <div class="col-6">
-                        <label for="DisplayName" *ngIf="isDisable==true">{{user.employee.firstName | titlecase}}</label>
-                        <input type="text" [ngModel]="user.employee.firstName" [hidden]="isDisable"
-                        readonly="true" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div style="padding-left: 15px;" class="full-name"><label>Date Of Joining</label></div>
-                <div class="disp-name">
-                    <div class="col-6">
-                        <label for="dateOfJoin" *ngIf="isDisable==true">Na</label>
-                        <input type="text" id="dateOfJoin" value="NA" class="form-control" [hidden]="isDisable"
-                        readonly="true">
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div style="padding-left: 15px;" class="full-name"><label>Designation</label></div>
-                <div class="disp-name">
-                    <div class="col-6">
-                        <label for="Designation" *ngIf="isDisable==true">{{user.employee.designation}}</label>
-                        <input type="text" id="Designation" [ngModel]="user.employee.designation" [hidden]="isDisable"
-                        readonly="true" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div style="padding-left: 15px;" class="full-name"><label>Reporting Manager</label></div>
-                <div class="disp-name">
-                    <div class="col-6">
-                        <label for="Reporting Manager" *ngIf="isDisable==true">Anil</label>
-                        <input type="text" id="Reporting Manager" value="Anil" readonly="true"
-                            [hidden]="isDisable" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div style="padding-left: 15px;" class="full-name">
-            <div class="disp-name">
-                <b *ngIf="isDisable !=true">
-                    <button type="submit" class="btn btn-primary" (click)="updateUserInfo()">Save</button>
-                    &nbsp;<button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
-                </b>
-            </div>
-            </div>
-            <div *ngIf="isDisable==true"></div>
-        </div>
+
+
     </div>
-    
-</div>
 </div>

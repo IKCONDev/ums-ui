@@ -48,7 +48,9 @@ export class EmployeeComponent implements OnInit{
       this.employeeData.map(emp =>{
         for(let i=0; i< this.departmentList.length; i++){
           if(emp.department.departmentId == this.departmentList[i].departmentId){
+
              emp.department.departmentName = this.departmentList[i].departmentName;
+             console.log(emp.department.departmentName);
           }
        }
      })
