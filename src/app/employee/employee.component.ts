@@ -5,6 +5,8 @@ import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../model/Department.model';
+import { error } from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -35,7 +37,8 @@ export class EmployeeComponent implements OnInit{
 
   employeeData :Employee[];
 
-  constructor( private employeeservice : EmployeeService, private toastr : ToastrService, private departmentservice : DepartmentService) {}
+  constructor( private employeeservice : EmployeeService, private toastr : ToastrService,
+     private departmentservice : DepartmentService, private router: Router) {}
   ngOnInit(): void {
 
      this.getAllEmployees();
@@ -161,12 +164,17 @@ export class EmployeeComponent implements OnInit{
    */
   fetchoneEmployeewithDepartment(employeeid : number){
 
-     this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe(
-        response =>{
+     this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe({
+       next: response =>{
           this.existingEmployee = response.body;
           console.log(this.existingEmployee);
-
-     });
+     },
+     error: error => {
+      if(error.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl('/session-timeout');
+      }
+     }
+    });
     /* for(let employee of this.employeeData){
       for(let department of this.departmentList){
         if(employee.department.departmentId == department.departmentId ){

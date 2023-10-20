@@ -232,7 +232,6 @@ export class OrganizationComponent implements OnInit {
     return this.isUpdateorgNameValid;
   }
 
-
 /**
  * 
  * @returns 
