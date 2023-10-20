@@ -15,14 +15,8 @@
   padding-left: 118px;
 }
 
-#profile-icon{
-  display: flex;
-width: 36px;
-height: 36px;
-justify-content: center;
-align-items: center;
-flex-shrink: 0;
-}
+
+
 
 #profile-icon:hover{
   fill: #4880FF;

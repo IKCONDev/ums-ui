@@ -21,6 +21,22 @@ export class LoginComponent {
      
   }
 
+  // ngDoCheck(){
+  //   var username = document.getElementById('email');
+  //   var password = document.getElementById('password');
+
+  //   username.addEventListener("keypress", function(event) {
+  //     // If the user presses the "Enter" key on the keyboard
+  //     if (event.key === "Enter") {
+  //       // Cancel the default action, if needed
+  //       event.preventDefault();
+  //       // Trigger the button element with a click
+  //       document.getElementById("myBtn").click();
+  //     }
+  //   });
+    
+  // }
+
   /**
  * MICROSOFT AUTH LOGIN STARTS HERE
  */
@@ -233,6 +249,13 @@ getTokenPopup(request) {
    */
   setPassword(password: any) {
     this.user.password = password.target.value;
+  }
+
+  loginIfEnterButtonIsClicked(event: KeyboardEvent){
+    //if enter button is clicked submit the form
+    if(event.key === 'Enter'){
+      this.login();
+    }
   }
 
   /**

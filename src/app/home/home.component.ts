@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { HomeService } from './service/home.service';
 import { outputAst } from '@angular/compiler';
@@ -11,7 +11,7 @@ import { HttpStatusCode } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
  title: string = 'Overview';
  organizedMeetingsCount:string = localStorage.getItem('totalMeetingsOrganized');
@@ -53,11 +53,13 @@ export class HomeComponent {
       console.log(this.router.getCurrentNavigation().extras.state['loginInfo'])
       this.loginDetails = loginInfo
     }
+  }
 
-    /**
+   /**
      * get user organized meetings count
      */
-    homeService.getUserorganizedMeetingCount().subscribe({
+   getUserorganizedMeetingCount(){
+    this.homeService.getUserorganizedMeetingCount().subscribe({
       next:(response)=>{
         this.organizedMeetingsCount = response.body.toString();
         console.log(this.organizedMeetingsCount)
@@ -68,12 +70,13 @@ export class HomeComponent {
         }
       }
       })
-    
+   }
 
-    /**
+  /**
      * get User attended meetings count
      */
-    homeService.getUserAttendedMeetingCount().subscribe({
+  getUserAttendedMeetingCount(){
+    this.homeService.getUserAttendedMeetingCount().subscribe({
       next: (response)=>{
         this.attendedMeetingsCount = response.body.toString();
         console.log(this.attendedMeetingsCount);
@@ -84,11 +87,18 @@ export class HomeComponent {
         }
       }
     })
+  }
 
+  /**
+   * 
+   */
+  ngOnInit(): void {
+    //get all counts and display in home/overview poge
+    this.getUserorganizedMeetingCount();
     this.getUserOrganizedActionItemsCount();
     this.getUserAssignedTasksCount();
     this.getUserOrganizedTasksCount();
-
+    this.getUserAttendedMeetingCount();
   }
 
   /*
