@@ -464,37 +464,48 @@ export class TaskComponent {
   tasksTobeDeleted = [];
   deleteTasks(taskIds: any[]) {
     //initialize to empty array on clikck from second time
+   var isconfirmed = window.confirm("Are you sure, you really want to delete these records?")
+   if(isconfirmed){
+
     this.tasksTobeDeleted = [];
-   var subCheckBoxes = document.getElementsByClassName('subCheckBox') as HTMLCollectionOf<HTMLInputElement>;
-   for(var i=0; i<subCheckBoxes.length; i++){
-    if(subCheckBoxes[i].checked){
-      this.tasksTobeDeleted.push(subCheckBoxes[i].value);
-      console.log(this.tasksTobeDeleted);
+    var subCheckBoxes = document.getElementsByClassName('subCheckBox') as HTMLCollectionOf<HTMLInputElement>;
+    for(var i=0; i<subCheckBoxes.length; i++){
+     if(subCheckBoxes[i].checked){
+       this.tasksTobeDeleted.push(subCheckBoxes[i].value);
+       console.log(this.tasksTobeDeleted);
+     }
     }
+     if (taskIds.length < 1) {
+       this.toastr.error('No tasks selected to delete')
+       return;
+     }
+     this.service.deleteAllTasksByTaskIds(this.tasksTobeDeleted).subscribe({
+       next:(res) => {
+       this.istaskDeleted = res.body;
+       console.log(this.istaskDeleted);
+       if (this.istaskDeleted) {
+         console.log("tasks deleted");
+         window.location.reload();
+         this.toastr.success("tasks Deleted");
+       }
+       else {
+         console.log("tasks not deleted");
+         this.toastr.error("action Items are not deleted try again");
+       }
+     },error: (error) => {
+       if(error.status === HttpStatusCode.Unauthorized){
+         this.router.navigateByUrl('/session-timeout');
+       }
+     }
+   });
+
    }
-    if (taskIds.length < 1) {
-      this.toastr.error('No tasks selected to delete')
-      return;
-    }
-    this.service.deleteAllTasksByTaskIds(this.tasksTobeDeleted).subscribe({
-      next:(res) => {
-      this.istaskDeleted = res.body;
-      console.log(this.istaskDeleted);
-      if (this.istaskDeleted) {
-        console.log("tasks deleted");
-        window.location.reload();
-        this.toastr.success("tasks Deleted");
-      }
-      else {
-        console.log("tasks not deleted");
-        this.toastr.error("action Items are not deleted try again");
-      }
-    },error: (error) => {
-      if(error.status === HttpStatusCode.Unauthorized){
-        this.router.navigateByUrl('/session-timeout');
-      }
-    }
-  });
+   else{
+      this.toastr.warning("No tasks deleted");
+        
+   }
+   
+
   }
   checkAllCheckBoxes(event: any) {
     var checkbox = event.target.value;

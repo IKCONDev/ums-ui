@@ -22,16 +22,22 @@ export class UsersComponent  implements OnInit{
   constructor(private userService:UserService, private toastr : ToastrService, private roleService: RoleService){}
 
   ngOnInit(): void {
-     this.userService.getAll().subscribe(
-          response=>{
-            
-            this.userList = response.body;
-            console.log(this.userList);
 
-        });
-      
+    this.getAllUsers();
+  }
+  getAllUsers(){
+
+    this.userService.getAll().subscribe(
+      response=>{
+        
+        this.userList = response.body;
+        console.log(this.userList);
+
+    });
 
   }
+
+
   userDetails: any;
   checkToggleButton(user : Users, i :number){
     
@@ -44,18 +50,13 @@ export class UsersComponent  implements OnInit{
       var checkbox = document.getElementById('slider'+i) as HTMLInputElement;
       console.log(checkbox)
       if(checkbox.checked == true){
-        console.log("selected");
+        
         user.active = true;
-        this.userService.update(user).subscribe(res =>{
-            this.userDetails =res.body;
-        });
+        
       }
       else{
          user.active = false;
          console.log("de-selected")
-         this.userService.update(user).subscribe(res =>{
-        this.userDetails =res.body;
-       });
      }
  
   }
@@ -71,6 +72,7 @@ export class UsersComponent  implements OnInit{
        this.userService.update(user).subscribe(res =>{
           this.userDetails = res.body;
        })
+       localStorage.setItem('slider','false')
     }
     else{
        user.active = true;
@@ -137,7 +139,6 @@ export class UsersComponent  implements OnInit{
      )
 
     }
-
     //this.addUserObj.userRoles.at(0).roleName; 
     
 
