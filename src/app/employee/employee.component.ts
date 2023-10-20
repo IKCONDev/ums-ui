@@ -557,14 +557,18 @@ export class EmployeeComponent implements OnInit{
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
         var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-        ischeckbox.checked = mainCheckBox.checked;
-        ischeckbox.click();
+        if(ischeckbox){
+          ischeckbox.checked = mainCheckBox.checked;
+          ischeckbox.click();
+        }
+        else{
+           ischeckbox.click();
+        }
+        
 
       }
 
 }
-  
-
   toggleMainCheckBox(index : number){
 
     if(!$('#ac-check'+index).is(':checked')){
