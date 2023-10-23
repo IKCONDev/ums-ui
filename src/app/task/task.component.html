@@ -38,9 +38,10 @@
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedTask'">
         <div calss="row" *ngIf="taskCount > 0 ; else noMeetings">
-            <table class="table table-hover" id="myTable1">
+            <table id="table" class="table table-hover">
                 <thead style="background-color: #ecf7fc; padding-top: 0px;">
-                    <th style="padding-left: 22px;"><input type="checkbox" class="mainCheckBox" id="mainCheckBox"
+                    <tr>
+                        <th style="padding-left: 22px;"><input type="checkbox" class="mainCheckBox" id="mainCheckBox"
                             style="margin: 0px;" (change)="checkSubCheckBoxes($event)">
                     </th>
                     <th>Task ID</th>
@@ -51,6 +52,7 @@
                     <th>Priority</th>
                     <th>Status</th>
                     <th></th>
+                    </tr>
                 </thead>
                 <tbody *ngFor="let item of task let i = index">
                     <tr>
@@ -106,9 +108,10 @@
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
         <div class="row" *ngIf="assignedTasksCount>0; else noAssignedTasks">
-            <table class="table table-hover" height="40">
+            <table class="table table-hover" height="40" id="table">
                 <thead id="thead" style="background-color: #ecf7fc; padding-top: 0px;">
-                    <th>Task ID</th>
+                    <tr>
+                        <th>Task ID</th>
                     <th style="width: 170px;">Title</th>
                     <th>Owner</th>
                     <th>Start Date & Time</th>
@@ -116,6 +119,7 @@
                     <th style="padding-left:6px;">Priority</th>
                     <th>Status</th>
                     <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let task of assignedTasks; let i = index">

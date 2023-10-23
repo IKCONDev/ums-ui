@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Task } from '../model/Task.model';
 import { TaskService } from './service/task.service';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Output() title: string = 'Tasks'
   task: Task[]
@@ -50,8 +50,27 @@ export class TaskComponent {
     actionItemId: 0,
     actionTitle: '',
     userId: ''
-
   }
+
+  private table: any;
+
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
+
   /**
    * 
    * @param service 
