@@ -1,41 +1,46 @@
-    <div>
-        <app-side-menubar></app-side-menubar>
-    </div>
-    <div>
-        <app-header [title]="title"></app-header>
-    </div>
-    
-    <div class="container-fluid">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-5">
-                    <h3 id="heading">Department</h3>
-                </div>
-                <div class="col-sm-4" id="searchDiv">
-                    <input type="search" class="form-control" placeholder="Search user"/>
-                </div>
-                <div id="addBtnDiv" class="col-sm-1">
-                    <button class="form-control" 
-                       id="addBtn" type="submit" data-toggle="modal" data-target="#addModal">
-                    <p>Add</p></button>
-                </div>
-                <div id="deleteBtnDiv" class="col-sm-1">
-                    <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn"
-                     value="Delete" (click)="removeAllSelectedDepartments()"><p>Delete</p></button>
-                </div>
-                <div class="col-sm-1" id="filter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
-                        <path d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z" fill="#E5EEF1"/>
-                      </svg>
-                </div>
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title"></app-header>
+</div>
+
+<div class="container-fluid">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-5">
+                <h3 id="heading">Department</h3>
+            </div>
+            <div class="col-sm-4" id="searchDiv">
+                <input type="search" class="form-control" placeholder="Search user" />
+            </div>
+            <div id="addBtnDiv" class="col-sm-1">
+                <button class="form-control" id="addBtn" type="submit" data-toggle="modal" data-target="#addModal">
+                    <p>Add</p>
+                </button>
+            </div>
+            <div id="deleteBtnDiv" class="col-sm-1">
+                <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn" value="Delete"
+                    (click)="removeAllSelectedDepartments()">
+                    <p>Delete</p>
+                </button>
+            </div>
+            <div class="col-sm-1" id="filter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
+                        fill="#E5EEF1" />
+                </svg>
             </div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <table id="table" class="table table-hover">
-                    <thead id="thead">
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <table id="table" class="table table-hover">
+                <thead id="thead">
+                    <tr>
                         <th>
-                            <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
+                            <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)" />
                         </th>
                         <th>ID</th>
                         <th>Department Name</th>
@@ -47,27 +52,27 @@
                         <th>Modified By</th>
                         <th>Modified Date</th>
                         <th>Actions</th>
-                    </thead>
-                    <tbody *ngFor="let department of departmentList;let i = index">
-                        <tr id="dataRow">
-                            <td>
-                                <input type="checkbox" id="subCheckBox{{i}}" 
-                                class="subCheckBox" value="{{department.departmentId}}"
-                                (click)="toggleMainCheckBox(i)"/>
-                            </td>
-                            <td>{{department.departmentId}}</td>
-                            <td>{{department.departmentName}}</td>
-                            <td>{{department.departmentCode}}</td>
-                            <td>{{department.departmentHead}}</td>
-                            <td>{{department.departmentAddress}}</td>
-                            <td>{{department.createdBy}}</td>
-                            <td>{{department.createdDateTime}}</td>
-                            <td>{{department.modifiedBy}}</td>
-                            <td>{{department.modifiedDateTime}}</td>
-                            <td>
-                                <span id="editIcon" (click)="fetchOneDepartment(department.departmentId)"
+                    </tr>
+                </thead>
+                <tbody *ngFor="let department of departmentList;let i = index">
+                    <tr id="dataRow">
+                        <td>
+                            <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox"
+                                value="{{department.departmentId}}" (click)="toggleMainCheckBox(i)" />
+                        </td>
+                        <td>{{department.departmentId}}</td>
+                        <td>{{department.departmentName}}</td>
+                        <td>{{department.departmentCode}}</td>
+                        <td>{{department.departmentHead}}</td>
+                        <td>{{department.departmentAddress}}</td>
+                        <td>{{department.createdBy}}</td>
+                        <td>{{department.createdDateTime}}</td>
+                        <td>{{department.modifiedBy}}</td>
+                        <td>{{department.modifiedDateTime}}</td>
+                        <td>
+                            <span id="editIcon" (click)="fetchOneDepartment(department.departmentId)"
                                 data-toggle="modal" data-target="#updateModal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
                                     <g id="edit">
                                         <path id="Vector"
@@ -76,9 +81,9 @@
                                     </g>
                                 </svg>
                                 &nbsp;
-                                </span>
-                                <span id="trashIcon" (click)="removeDepartment(department.departmentId)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            </span>
+                            <span id="trashIcon" (click)="removeDepartment(department.departmentId)">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                     viewBox="0 0 482.428 482.429" xml:space="preserve">
                                     <g>
@@ -94,130 +99,130 @@
                                         </g>
                                     </g>
                                 </svg>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    
-     <!-- Add Department Modal -->
-     <div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header" id="modalHeader">
-                    <h5 class="modal-title" id="xlModalLabel">Add Department</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+</div>
+
+<!-- Add Department Modal -->
+<div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="xlModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title" id="xlModalLabel">Add Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
                         (click)="clearErrorMessages()">&times;</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <label><b>Department Name</b></label>
-                    <input type="text" class="deptInput form-control" placeholder="department name"
-                    [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName()"
-                    minlength="3" maxlength="40"/><br/>
-                    <span *ngIf="departmentNameErrorInfo != ''">
-                        <p id="errorMessage">{{departmentNameErrorInfo}}</p>
-                    </span>
-                    <!--   -->
-                    <label><b>Department Head</b></label>
-                    <input type="search" class="deptInput form-control" placeholder="department head"
-                    [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()"/><br/>
-                    <span *ngIf="departmentHeadErrorInfo != ''">
-                        <p id="errorMessage">{{departmentHeadErrorInfo}}</p>
-                    </span>
-                    <!--  -->
-                    <label><b>Department Code</b></label>
-                    <input type="text" class="deptInput form-control" placeholder="department code"
-                    [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode()"
-                    minlength="2" maxlength="4"/><br/>
-                    <span *ngIf="departmentCodeErrorInfo != ''">
-                        <p id="errorMessage">{{departmentCodeErrorInfo}}</p>
-                    </span>
-                    <!--  -->
-                    <label><b>Department Location</b></label>
-                    <input type="text" class="deptInput form-control" placeholder="department location"
-                    [(ngModel)]="addDepartment.departmentAddress" (keyup)="validateDepartmentLocation()"
-                   minlength="3" maxlength="20"/>
-                    <span *ngIf="departmentLocationErrorInfo != ''">
-                        <p id="errorMessage">{{departmentLocationErrorInfo}}</p>
-                    </span>
-                    <!--  -->
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer" role="alert">
-                    <button type="submit" class="btn btn-primary saveButton" (click)="createDepartment()"
-                       >Save</button>
-                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <label><b>Department Name</b></label>
+                <input type="text" class="deptInput form-control" placeholder="department name"
+                    [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName()" minlength="3"
+                    maxlength="40" /><br />
+                <span *ngIf="departmentNameErrorInfo != ''">
+                    <p id="errorMessage">{{departmentNameErrorInfo}}</p>
+                </span>
+                <!--   -->
+                <label><b>Department Head</b></label>
+                <input type="search" class="deptInput form-control" placeholder="department head"
+                    [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()" /><br />
+                <span *ngIf="departmentHeadErrorInfo != ''">
+                    <p id="errorMessage">{{departmentHeadErrorInfo}}</p>
+                </span>
+                <!--  -->
+                <label><b>Department Code</b></label>
+                <input type="text" class="deptInput form-control" placeholder="department code"
+                    [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode()" minlength="2"
+                    maxlength="4" /><br />
+                <span *ngIf="departmentCodeErrorInfo != ''">
+                    <p id="errorMessage">{{departmentCodeErrorInfo}}</p>
+                </span>
+                <!--  -->
+                <label><b>Department Location</b></label>
+                <input type="text" class="deptInput form-control" placeholder="department location"
+                    [(ngModel)]="addDepartment.departmentAddress" (keyup)="validateDepartmentLocation()" minlength="3"
+                    maxlength="20" />
+                <span *ngIf="departmentLocationErrorInfo != ''">
+                    <p id="errorMessage">{{departmentLocationErrorInfo}}</p>
+                </span>
+                <!--  -->
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer" role="alert">
+                <button type="submit" class="btn btn-primary saveButton" (click)="createDepartment()">Save</button>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
+                <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton" data-dismiss="modal"
                     (click)="clearErrorMessages()">Close</button>
-                </div>
             </div>
         </div>
     </div>
-    
-    
-    <!-- Update Department Modal -->
-    <div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="xlModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header" id="modalHeader">
-                    <h5 class="modal-title" id="xlModalLabel">Update Department</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+</div>
+
+
+<!-- Update Department Modal -->
+<div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="xlModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title" id="xlModalLabel">Update Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
                         (click)="clearErrorMessages()">&times;</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <label><b>Department Name</b></label>
-                    <input type="text" class="deptInput form-control" placeholder="department name"
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <label><b>Department Name</b></label>
+                <input type="text" class="deptInput form-control" placeholder="department name"
                     [(ngModel)]="existingDepartment.departmentName" (keyup)="validateUpdatedDepartmentName()"
-                    minlength="3" maxlength="40"/><br/>
-                    <span *ngIf="updatedDepartmentNameErrorInfo != ''">
-                        <p id="errorMessage">{{updatedDepartmentNameErrorInfo}}</p>
-                    </span>
-                    <!--   -->
-                    <label><b>Department Head</b></label>
-                    <input type="search" class="deptInput form-control" placeholder="department head"
-                    [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateUpdatedDepartmentHead()"/><br/>
-                    <span *ngIf="updatedDepartmentHeadErrorInfo != ''">
-                        <p id="errorMessage">{{updatedDepartmentHeadErrorInfo}}</p>
-                    </span>
-                    <!--  -->
-                    <label><b>Department Code</b></label>
-                    <input type="text" class="deptInput form-control" placeholder="department code"
+                    minlength="3" maxlength="40" /><br />
+                <span *ngIf="updatedDepartmentNameErrorInfo != ''">
+                    <p id="errorMessage">{{updatedDepartmentNameErrorInfo}}</p>
+                </span>
+                <!--   -->
+                <label><b>Department Head</b></label>
+                <input type="search" class="deptInput form-control" placeholder="department head"
+                    [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateUpdatedDepartmentHead()" /><br />
+                <span *ngIf="updatedDepartmentHeadErrorInfo != ''">
+                    <p id="errorMessage">{{updatedDepartmentHeadErrorInfo}}</p>
+                </span>
+                <!--  -->
+                <label><b>Department Code</b></label>
+                <input type="text" class="deptInput form-control" placeholder="department code"
                     [(ngModel)]="existingDepartment.departmentCode" (keyup)="validateUpdatedDepartmentCode()"
-                    minlength="2" maxlength="4"/><br/>
-                    <span *ngIf="updatedDepartmentCodeErrorInfo != ''">
-                        <p id="errorMessage">{{updatedDepartmentCodeErrorInfo}}</p>
-                    </span>
-                    <!--  -->
-                    <label><b>Department Location</b></label>
-                    <input type="text" class="deptInput form-control" placeholder="department location"
+                    minlength="2" maxlength="4" /><br />
+                <span *ngIf="updatedDepartmentCodeErrorInfo != ''">
+                    <p id="errorMessage">{{updatedDepartmentCodeErrorInfo}}</p>
+                </span>
+                <!--  -->
+                <label><b>Department Location</b></label>
+                <input type="text" class="deptInput form-control" placeholder="department location"
                     [(ngModel)]="existingDepartment.departmentAddress" (keyup)="validateUpdatedDepartmentLocation()"
-                   minlength="3" maxlength="20"/>
-                    <span *ngIf="updatedDepartmentLocationErrorInfo != ''">
-                        <p id="errorMessage">{{updatedDepartmentLocationErrorInfo}}</p>
-                    </span>
-                    <!--  -->
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer" role="alert">
-                    <button type="submit" class="btn btn-primary saveButton" (click)="modifyDepartment()"
-                       >Save</button>
-                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    minlength="3" maxlength="20" />
+                <span *ngIf="updatedDepartmentLocationErrorInfo != ''">
+                    <p id="errorMessage">{{updatedDepartmentLocationErrorInfo}}</p>
+                </span>
+                <!--  -->
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer" role="alert">
+                <button type="submit" class="btn btn-primary saveButton" (click)="modifyDepartment()">Save</button>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger closeButton" data-dismiss="modal" 
-                    (click)="clearErrorMessages()">Close</button>
-                </div>
+                <button type="button" id="closeUpdateModal" class="btn btn-outline-danger closeButton"
+                    data-dismiss="modal" (click)="clearErrorMessages()">Close</button>
             </div>
         </div>
     </div>
+</div>

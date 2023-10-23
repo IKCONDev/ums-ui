@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -14,14 +14,16 @@ import { Users } from '../model/Users.model';
 import { count, max } from 'rxjs';
 import { JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
-import { error } from 'jquery';
+
 
 @Component({
   selector: 'app-meetings',
   templateUrl: './meetings.component.html',
   styleUrls: ['./meetings.component.css']
 })
-export class MeetingsComponent implements OnInit {
+export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  private table: any;
 
   eventId: number;
 
@@ -155,6 +157,30 @@ export class MeetingsComponent implements OnInit {
     //disable actionItem btn default
     this.isActionItemSaveButtonDisabled = true;
     this.pastDateTime();
+  }
+
+  /**
+   * 
+   */
+  ngAfterViewInit(): void {
+    console.log('executed - After View Init')
+    $(document).ready(() => {
+      this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  /**
+   * 
+   */
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
   }
 
   /**
