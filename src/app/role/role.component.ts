@@ -1,4 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+
+import { Component, AfterViewInit, OnDestroy, OnInit, Output } from '@angular/core';
+import * as $ from 'jquery';
+import 'datatables.net';
 import { RoleService } from './service/role.service';
 import { Role } from '../model/Role.model';
 import { ToastrService } from 'ngx-toastr';
@@ -6,17 +9,38 @@ import { HttpStatusCode } from '@angular/common/http';
 import { error } from 'jquery';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
   styleUrls: ['./role.component.css']
 })
 
-export class RoleComponent implements OnInit {
+export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
 
+  private table: any;
+
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#dataTable').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
+
+  roleList: any[];
   @Output() title: string = 'Roles';
   createdRole: Role
-  roleList: Role[];
+  //roleList: Role[];
 
   //new role object
   addRoleObj = {
