@@ -46,7 +46,8 @@
         <div class="row">
             <table class="table table-hover">
                 <thead id="thead">
-                    <th>Meeting Id</th>
+                    <tr>
+                        <th>Meeting Id</th>
                     <!-- <th>Id</th> -->
                     <th style="width: 200px;">Title</th>
                     <th>Organizer</th>
@@ -56,6 +57,7 @@
                     <th>Transcript</th>
                     <th>Action Items</th>
                     <th>Send MOM</th>
+                    </tr>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr>
@@ -63,8 +65,8 @@
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerEmailId}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime+'z'| date:'MMM d, y, h:mm a'}}</td>
                         <td style="padding-left: 30px;">{{meeting.attendees.length}}</td>
                         <td style="padding-left: 30px;">
 
@@ -222,10 +224,6 @@
                                                     style="cursor: pointer;padding-left: 50px; "
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                             </td>
-                                            <!----<td>
-                                                <button clas="btn-primary"  data-target="#xlModal" data-toggle="modal" (click)="convertActionItemToTask(meeting)">Submit</button>
-                                            </td>-->
-                                            <!-- submit and delete btn -->
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}"
                                                 colspan="2">
                                                 <a style="cursor: pointer; margin-left:-120px;"><button
@@ -275,21 +273,23 @@
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AttendedMeeting'">
         <div class="row" *ngIf="attendedMeetingCount>0; else noMeetings">
-            <table class="table table-hover" height="40">
+            <table id="table" class="table table-hover" height="40">
                 <thead id="thead">
-                    <th>Sno</th>
-                    <th style="width: 200px;">Title</th>
-                    <th>Organizer</th>
-                    <th>Start Date & Time</th>
-                    <th>End Date & Time</th>
+                    <tr>
+                     <th>Sno</th>
+                     <th style="width: 200px;">Title</th>
+                     <th>Organizer</th>
+                     <th>Start Date & Time</th>
+                     <th>End Date & Time</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
                         <td>M000{{meeting.meetingId}}</td>
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -568,11 +568,11 @@
                                 </tr>
                                 <tr>
                                     <td><b>Start Date :</b></td>
-                                    <td>{{meetingData. startDateTime}}</td>
+                                    <td>{{meetingData. startDateTime|date:'MMM d, y, h:mm a'}}</td>
                                 </tr>
                                 <tr>
                                     <td><b>Duration : </b></td>
-                                    <td>{{meetingData.endDateTime}}</td>
+                                    <td>{{meetingData.endDateTime|date:'MMM d, y, h:mm a'}}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -46,8 +46,8 @@
                     <td>A000{{actionItem.actionItemId}}</td>
                     <td id="actionItem-subject">{{actionItem.actionItemTitle}}</td>
                     <td>{{actionItem.actionItemOwner}}</td>
-                    <td>{{actionItem.startDate}}</td>
-                    <td>{{actionItem.endDate}}</td>
+                    <td>{{actionItem.startDate|date:'MMM d, y, h:mm a'}}</td>
+                    <td>{{actionItem.endDate|date:'MMM d, y, h:mm a'}}</td>
                     <td>{{actionItem.actionStatus}}</td>
                     <!-- edit btn -->
                     <!--<td><button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
@@ -120,8 +120,8 @@
                                         <td id="actionItem-subject">{{element.taskTitle}}</td>
                                         <td id="actionItem-subject">{{element.taskDescription}}</td>
                                         <td>{{element.taskOwner}}</td>
-                                        <td>{{element.startDate}}</td>
-                                        <td>{{element.dueDate}}</td>
+                                        <td>{{element.startDate|date:'MMM d, y, h:mm a'}}</td>
+                                        <td>{{element.dueDate|date:'MMM d, y, h:mm a'}}</td>
                                         <td>{{element.taskPriority}}</td>
                                         <td>{{element.status}}</td>
                                     </tr>

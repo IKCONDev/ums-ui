@@ -1,4 +1,4 @@
-import { Component,Output } from '@angular/core';
+import { AfterViewInit, Component,OnDestroy,Output } from '@angular/core';
 import { Department } from '../model/Department.model';
 import { DepartmentService } from './service/department.service';
 import { OnInit } from '@angular/core';
@@ -6,12 +6,32 @@ import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.css']
 })
-export class DepartmentComponent implements OnInit {
+export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  private table: any;
+
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
 
   @Output() title:string='Departments';
   departmentList: Department[];
