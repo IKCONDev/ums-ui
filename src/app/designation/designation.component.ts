@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { Designation } from '../model/Designation.model';
 import { DesignationService } from './service/designation.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,7 @@ import { HttpStatusCode } from '@angular/common/http';
   templateUrl: './designation.component.html',
   styleUrls: ['./designation.component.css']
 })
-export class DesignationComponent {
+export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Output() title:string='Designations';
   designationList: Designation[];
@@ -19,6 +19,25 @@ export class DesignationComponent {
     createdByEmailId: ''
   }
   updateDesignation: Designation;
+
+  private table: any;
+
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
 
   constructor(private designationService: DesignationService,
     private toastr: ToastrService){

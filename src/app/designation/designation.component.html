@@ -32,18 +32,20 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <table class="table table-hover">
+            <table id="table" class="table table-hover">
                 <thead id="thead">
-                    <th>
-                        <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
-                    </th>
-                    <th>ID</th>
-                    <th>Designation Name</th>
-                    <th>Created By</th>
-                    <th>Created Date</th>
-                    <th>Modified By</th>
-                    <th>Modified Date</th>
-                    <th>Actions</th>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
+                        </th>
+                        <th>ID</th>
+                        <th>Designation Name</th>
+                        <th>Created By</th>
+                        <th>Created Date</th>
+                        <th>Modified By</th>
+                        <th>Modified Date</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let designation of designationList; let i = index;">
@@ -68,7 +70,6 @@
                                         fill="#5590AA" />
                                 </g>
                             </svg>
-                            &nbsp;
                             </span>
                             <span id="trashIcon" (click)="removeDesignation(designation.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

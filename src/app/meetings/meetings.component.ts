@@ -82,6 +82,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     endDate: ''
 
   }
+  
   updatedetails = {
     actionItemId: 0,
     meetingId: 0,
@@ -97,7 +98,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * 
+   * executes when the component loaded first time
    * @param meetingsService 
    * @param actionItemService 
    * @param router 
@@ -139,7 +140,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * 
+   * executes when the component is initialized or loaded first time
    */
   ngOnInit(): void {
     //generate action items for user meetings automatically upon component initialization
@@ -160,7 +161,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * 
+   * executes after the initialization of component
    */
   ngAfterViewInit(): void {
     console.log('executed - After View Init')
@@ -175,7 +176,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * 
+   * executes after the un-initialization of component
    */
   ngOnDestroy(): void {
     if (this.table) {
