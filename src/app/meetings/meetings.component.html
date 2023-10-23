@@ -65,8 +65,8 @@
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerEmailId}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime+'z'| date:'MMM d, y, h:mm a'}}</td>
                         <td style="padding-left: 30px;">{{meeting.attendees.length}}</td>
                         <td style="padding-left: 30px;">
 
@@ -288,8 +288,8 @@
                         <td>M000{{meeting.meetingId}}</td>
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -568,11 +568,11 @@
                                 </tr>
                                 <tr>
                                     <td><b>Start Date :</b></td>
-                                    <td>{{meetingData. startDateTime}}</td>
+                                    <td>{{meetingData. startDateTime|date:'MMM d, y, h:mm a'}}</td>
                                 </tr>
                                 <tr>
                                     <td><b>Duration : </b></td>
-                                    <td>{{meetingData.endDateTime}}</td>
+                                    <td>{{meetingData.endDateTime|date:'MMM d, y, h:mm a'}}</td>
                                 </tr>
                             </tbody>
                         </table>
