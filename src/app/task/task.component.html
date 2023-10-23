@@ -61,8 +61,8 @@
                         <td>T000{{item.taskId}}</td>
                         <td id="task-subject">{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
-                        <td>{{item.startDate}}</td>
-                        <td>{{item.dueDate}}</td>
+                        <td>{{item.startDate|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{item.dueDate|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{item.taskPriority}}</td>
                         <td>{{item.status}}</td>
                         <td>
@@ -122,8 +122,8 @@
                         <td>T000{{task.taskId}}</td>
                         <td id="task-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
-                        <td>{{task.startDate}}</td>
-                        <td>{{task.dueDate}}</td>
+                        <td>{{task.startDate|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{task.dueDate|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{task.taskPriority}}</td>
                         <td>{{task.status}}</td>
                         <td>
