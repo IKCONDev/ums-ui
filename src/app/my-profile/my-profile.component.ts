@@ -69,6 +69,9 @@ export class MyProfileComponent {
           } else if (response.status === HttpStatusCode.Unauthorized) {
             //TODO: SHOW UNAUTHORIZED PAGE
           }
+          else if(response.status===HttpStatusCode.NoContent){
+            this.toastr.error('Please select a valid image file')
+          }
           
         }
       )
