@@ -7,6 +7,8 @@ import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../model/Department.model';
 import { error } from 'jquery';
 import { Router } from '@angular/router';
+import { DesignationService } from '../designation/service/designation.service';
+import { Designation } from '../model/Designation.model';
 
 @Component({
   selector: 'app-employee',
@@ -25,6 +27,10 @@ export class EmployeeComponent implements OnInit{
     firstName: '',
     lastName: '',
     email: '',
+    empDesignation :{
+       id:0,
+       designationName:''
+    },
     designation : '',
     departmentId: 0,
     createdDateTime: '',
@@ -38,13 +44,14 @@ export class EmployeeComponent implements OnInit{
   employeeData :Employee[];
 
   constructor( private employeeservice : EmployeeService, private toastr : ToastrService,
-     private departmentservice : DepartmentService, private router: Router) {}
+     private departmentservice : DepartmentService, private router: Router, private designationService : DesignationService) {}
   ngOnInit(): void {
 
      this.getAllEmployees();
-     this.getAllDepartments();
+    // this.getAllDepartments();
+     //this.getAllDesignations();
 
-     if(this.departmentList && this.departmentList.length >0){
+    /* if(this.departmentList && this.departmentList.length >0){
       this.employeeData.map(emp =>{
         for(let i=0; i< this.departmentList.length; i++){
           if(emp.department.departmentId == this.departmentList[i].departmentId){
@@ -54,8 +61,8 @@ export class EmployeeComponent implements OnInit{
           }
        }
      })
-    }
-
+    }*/
+  
     /*setTimeout(() =>{this.employeeData.map (emp =>{
       this.departmentList.map(dept =>{
          if(emp.department.departmentId == dept.departmentId){
@@ -79,6 +86,13 @@ export class EmployeeComponent implements OnInit{
       response =>{
         this.employeeData = response.body;
         console.log(this.employeeData);
+        for(let emp of this.employeeData){
+          for(let designation of this.designationList){
+            if(emp.empDesignation.id === designation.id){
+               emp.empDesignation.designationName = designation.designationName;
+            }
+          }
+       }
        // var departmentList = this.getAllDepartments();
     })
   }
@@ -200,6 +214,20 @@ export class EmployeeComponent implements OnInit{
       })
   
   }
+  designationList : Designation[];
+  getAllDesignations(){
+    this.designationService.getDesignationList().subscribe({
+      next : response =>{
+        this.designationList = response.body;
+        console.log(this.designationList);
+
+      }
+    }
+    );
+    return this.designationList;
+     
+  }
+
   /**
    * remove employee
    */
@@ -209,14 +237,16 @@ export class EmployeeComponent implements OnInit{
 
     if(isconfirmed){
 
-      this.employeeservice.deleteEmployee(employeeId).subscribe(
-        response =>{
+      this.employeeservice.deleteEmployee(employeeId).subscribe({
+         next : response =>{
             if(response.status == HttpStatusCode.Ok){
                 this.toastr.success("Employee deleted successfully");
             }
-            else{
-                this.toastr.error("Error occured while deleting employee pls try again!");
-            }
+         },
+         error: error => {
+            this.toastr.error("Error occured while deleting employee");
+             console.log("error occured");
+         }
         }
      );
     }
@@ -556,16 +586,13 @@ export class EmployeeComponent implements OnInit{
       var rows = document.getElementsByTagName('tr')
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
-        var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+        var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement
         if(ischeckbox){
           ischeckbox.checked = mainCheckBox.checked;
           ischeckbox.click();
         }
-        else{
-           ischeckbox.click();
-        }
-        
-
+       
+      
       }
 
 }
