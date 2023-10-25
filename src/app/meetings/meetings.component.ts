@@ -202,7 +202,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateActionTitle(): boolean {
     // var actionItemTitle = event.target.value;
-    if (this.addDetails.actionItemTitle === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.addDetails.actionItemTitle === ''|| this.addDetails.actionItemTitle.trim()==="" || regex.exec(this.addDetails.actionItemTitle)===null) {
       this.actionItemTitleErrorInfo = "Title is required";
       this.isActionItemTitleValid = false;
     } else if (this.addDetails.actionItemTitle.length <= 5) {
@@ -224,7 +225,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateActionDescription(): boolean {
     //var actionItemDescription = event.target.value;
-    if (this.addDetails.actionItemDescription === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim()==="" || regex.exec(this.addDetails.actionItemDescription)===null) {
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
     } else if (this.addDetails.actionItemDescription.length <= 10) {
@@ -847,7 +849,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @returns 
    */
   validateUpdateActionTitle() {
-    if (this.updatedetails.actionItemTitle === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.updatedetails.actionItemTitle === '' || this.updatedetails.actionItemTitle.trim()==="" || regex.exec(this.updatedetails.actionItemTitle)===null) {
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
     } else if (this.updatedetails.actionItemTitle.length <= 5) {
@@ -868,7 +871,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @returns 
    */
   validateUpdateActionDescription() {
-    if (this.updatedetails.actionItemDescription === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim()==="" ||  regex.exec(this.updatedetails.actionItemDescription)===null) {
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
     } else if (this.updatedetails.actionItemDescription.length <= 10) {
