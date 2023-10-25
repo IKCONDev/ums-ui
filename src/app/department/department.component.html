@@ -55,7 +55,7 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let department of departmentList;let i = index">
-                    <tr id="dataRow">
+                    <tr class="trbody" id="dataRow">
                         <td>
                             <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox"
                                 value="{{department.departmentId}}" (click)="toggleMainCheckBox(i)" />
