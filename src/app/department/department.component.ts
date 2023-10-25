@@ -418,25 +418,12 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
      return this.isDepartmentLocationValid;
    }
 
-   checkSubCheckBoxes(mainCheckBox: any){
-    //  var subCheckBoxesRow = document.querySelector('dataRow');
-    //  var subCheckBoxes = subCheckBoxesRow.querySelector("input[type='checkbox']") as HTMLInputElement;
-    //  subCheckBoxes.forEach( subCheckBox => {
-      
-    //  });
-    var departmentsToBeDeleted = [];
-   // var table = document.getElementById("myTable1")
-   // console.log(table)
-    //for(var i=0; i<tables.length; i++){
-    var rows = document.getElementsByClassName("trbody");
-    //var subCheckBoxes = rows
-    for (var i = 0; i < rows.length; i++) {
-      var row = rows[i];
-      console.log("the value is" + rows[i]);
-      var subCheckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-      subCheckbox.checked = mainCheckBox.checked;
-      subCheckbox.click();
-    }
+  checkSubCheckBoxes(){
+      if($('#mainCheckBox').is(':checked')){
+        $('.subCheckBox').prop('checked', true);
+      }else{
+        $('.subCheckBox').prop('checked', false);
+      }
    }
 
    /**

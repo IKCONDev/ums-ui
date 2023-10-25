@@ -61,6 +61,12 @@ export class UsersComponent  implements OnInit{
  
   }
   }
+
+  /**
+   * 
+   * @param user 
+   * @param i 
+   */
   checkUserTogglebuttonEnabled(user : Users, i : number){
 
     //var table = document.getElementById('myTable');

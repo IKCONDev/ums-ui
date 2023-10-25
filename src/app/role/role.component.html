@@ -51,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let role of roleList; let i=index">
+                        <tr class="trbody" *ngFor="let role of roleList; let i=index">
                             <td>
                                 <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox" 
                                 value="{{role.roleId}}" (click)="toggleMainCheckBox(i)"/>
