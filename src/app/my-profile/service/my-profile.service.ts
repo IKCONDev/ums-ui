@@ -11,6 +11,11 @@ import { Users } from 'src/app/model/Users.model';
 
 export class MyProfileService{
 
+  /**
+   * 
+   * @param http 
+   * @param headerService 
+   */
     constructor(private http: HttpClient, private headerService: HeaderService){
       
     }
