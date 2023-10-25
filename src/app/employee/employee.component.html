@@ -15,7 +15,8 @@
             </div>
             <div id="addBtnDiv" class="col-sm-1">
                 <button class="form-control" 
-                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal" (click)=" getAllDesignations()">
+                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal" (click)="getAllDesignations()"
+                   (click)="getAllDepartments()">
                 <p>Add</p></button>
             </div>
             <div id="deleteBtnDiv" class="col-sm-1">
@@ -35,13 +36,13 @@
                 <thead id="thead">
                     <tr>
                     <th style="padding-left: 10px;">
-                        <input type="checkbox" class="mainCheckBox" (change)="checkAllCheckBoxes($event)"/>
+                        <input type="checkbox"   id="mainCheckBox" class="mainCheckBox" (click)="checkSubCheckBoxes()"/>
                     </th>
                     <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email Id</th>
-                    <th>Department</th>
+                   <!--- <th>Department</th>-->
                     <th>Designation</th>
                     <th>Created Date</th>
                     <th>Modified By</th>
@@ -52,16 +53,17 @@
                 </tr>
                 </thead>
                 <tbody *ngIf ="employeeData !=null" >
-                    <tr class="trbody" *ngFor="let employee of employeeData; let i=index;">
+                    <tr *ngFor="let employee of employeeData; let i=index;">
                         <td style="padding-left: 15x;">
-                            <input type="checkbox" value="{{employee.id}}" id="ac-check{{i}}" class="checkbox" (change)="toggleMainCheckBox(i)"/>
+                            <input type="checkbox" value="{{employee.id}}" id="ac-check{{i}}" class="subCheckBox" (change)="toggleMainCheckBox(i)"/>
                         </td>
                         <td>{{employee.id}}</td>
                         <td>{{employee.firstName}}</td>
                         <td>{{employee.lastName}}</td>
                         <td>{{employee.email}}</td>
-                        <td>{{"hh"}}</td>
-                        <td>{{employee.empDesignation.designationName}}</td>
+                        <!--<td>{{"hh"}}</td> 
+                        <td>{{employee.empDesignation.designationName}}</td>-->
+                        <td></td>
                         <td>{{employee.createdDateTime}}</td>
                         <td>{{employee.modifiedBy}}</td>
                         <td>{{employee.createdBy}}</td>
@@ -70,7 +72,8 @@
                        
                         <td>
                             <span id="editIcon"
-                            data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)">
+                            data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)"
+                            (click)="getAllDepartments()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                 fill="none">
                                 <g id="edit">
@@ -124,7 +127,7 @@
     
                 <label><b>First Name</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="addEmployee.firstName"
-                 id="firstName" name="firstName"  required="true"   #firstName="ngModel" 
+                 id="firstName" name="firstName"  required="true"   #firstName="ngModel"  maxlength="50"
                  [class.invalid]="firstName.invalid && firstName.touched"  (keyup)="validateEmployeeFirstName()">
                  <span *ngIf="employeeFirstNameErrorInfo != ''">
                     <p id="errorMessage">{{employeeFirstNameErrorInfo}}</p>
@@ -146,10 +149,10 @@
                  </span>
                  <br/>
                 <label><b>Department</b></label>
-                <select class="form-control" class="addEmployeeInput form-control" placeholder="department" [(ngModel)]="addEmployee.departmentId"
+                <select class="form-control" class="addEmployeeInput form-control form-select" placeholder="department" [(ngModel)]="addEmployee.departmentId"
                   id="employeeDept" name="employeeDept" #employeeDept="ngModel" (change)="validateEmployeeDepartment()">
-                                                     <option>select</option>
-                                                     <option *ngFor="let department of departmentList" value="department.departmentId">{{department.departmentName}}</option>
+                                                     <option default>select</option>
+                                                     <option *ngFor="let department of departmentList" [value]="department.departmentId">{{department.departmentName}}</option>
                                                        
                </select> 
                <span *ngIf=" employeeDepartmentErrorInfo != ''">
@@ -158,10 +161,10 @@
                <br/>
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b></label>
-                <select class="addEmployeeInput form-control" placeholder="designation" id="employeeDesgn" name="employeeDesgn" 
+                <select class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn" name="employeeDesgn" 
                  (keyup)="validateEmployeeDesignation()" [(ngModel)]="addEmployee.empDesignation.id">
-                    <option >Select</option>
-                    <option *ngFor="let designation of designationList" value="designation.id">{{designation.designationName}}</option>
+                    <option default >select</option>
+                    <option *ngFor="let designation of designationList" [value]="designation.id">{{designation.designationName}}</option>
                 </select>
                 <span *ngIf=" employeeDesignationErrorInfo != ''">
                     <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>
@@ -219,7 +222,7 @@
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br/>
                 <label><b>Department</b></label>
-                <select class="form-control" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId"
+                <select class="form-control" class="addEmployeeInput form-control form-select" placeholder="Department" [(ngModel)]="existingEmployee.departmentId"
                 id="updateDept" name="updateDept" #updateDept="ngModel" (change)="validateUpdateDepartment()">
                     <option>select</option>
                     <option *ngFor="let department of departmentList" [value]="department.departmentId">{{department.departmentName}}</option>
@@ -230,7 +233,7 @@
                </span><br/>
                <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId" /><br/>-->
                 <label><b>Designation</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="existingEmployee.designation"
+                <input type="text" class="addEmployeeInput form-control form-select" placeholder="Designation" [(ngModel)]="existingEmployee.designation"
                 id="updateDesgn" name="updateDesgn" #updateDesgn="ngModel" (keyup)="validateUpdateDesignation()"/>
                 <span *ngIf="updateDesignationErrorInfo != ''">
                     <p id="errorMessage">{{updateDesignationErrorInfo}}</p>

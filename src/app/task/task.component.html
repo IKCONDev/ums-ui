@@ -38,7 +38,7 @@
                 <thead style="background-color: #ecf7fc;">
                     <tr>
                         <th><input type="checkbox" class="mainCheckBox" id="mainCheckBox"
-                            style="margin: 0px;" (change)="checkSubCheckBoxes($event)">
+                            style="margin: 0px;" (change)="checkSubCheckBoxes()">
                     </th>
                     <th>Task ID</th>
                     <th style="width: 170px;">Title</th>
@@ -47,11 +47,11 @@
                     <th>Due Date & Time</th>
                     <th>Priority</th>
                     <th>Status</th>
-                    <th></th>
+                    <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of task let i = index">
-                    <tr class="trbody">
+                <tbody>
+                    <tr class="trbody" *ngFor="let item of task let i = index">
                         <td style="padding-left: 17px;"><input type="checkbox" value="{{item.taskId}}"
                                 class="subCheckBox" id="subCheckBox{{i}}" (change)="toggleMainCheckBox(i)">
                         </td>

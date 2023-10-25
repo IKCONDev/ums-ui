@@ -15,8 +15,12 @@
                     <div class="modal-header">
                         <h5 class="font-weight-bold">Notifications</h5>
                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                       <h4 class="modal-title" id="myProfileLabel"></h4>
+                       <h4 class="modal-title" id="notificationModal"></h4>
                    </div>
+                   <div class="modal-body">
+                   
+                        <app-notifications></app-notifications>
+                    </div>
                     
                 </div>
             </div>
@@ -43,7 +47,7 @@
             <div class="modal right fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-        
+                        <div style="background-color: #ECF7FC;">
                         <div class="modal-header">
                              <h5 class="font-weight-bold">Profile</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -79,11 +83,13 @@
                                         <button data-dismiss="modal" id="logoutRef" (click)="logout()"  class="btn btn-outline-danger">Logout</button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
                                 <!-- role -->
                                 
                                 <div id="profileContent" style="padding-top: 6px;">
                                     <div id="divContent">
-                                        &nbsp;&nbsp;
                                         <p id="heading">Role</p>
                                         <p id="headingData">{{userDetails.userRoles[0].roleName}}</p>
                                     </div>
