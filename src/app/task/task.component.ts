@@ -50,7 +50,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     actionItemId: 0,
     actionTitle: '',
     userId: ''
+
   }
+
 
   private table: any;
 
@@ -161,7 +163,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskTitle() {
     //var taskTitle = event.target.value;
-    if (this.update_Task.taskTitle == "") {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim()==="" || regex.exec(this.update_Task.taskTitle)===null) {
       this.taskTitleErrrorInfo = 'Title is required';
       this.isTaskTitleValid = false;
 
@@ -190,7 +193,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskDescription() {
     // var taskDescription=event.target.value;
-    if (this.update_Task.taskDescription === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim()==="" || regex.exec(this.update_Task.taskDescription)===null) {
       this.taskDescriptionErrorInfo = 'Description is required';
       this.isTaskDescriptionValid = false;
     }
@@ -465,8 +469,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   checkSubCheckBoxes(mainCheckBox: any){
-    var departmentsToBeDeleted = [];
-    var rows = document.getElementsByTagName("tr");
+    //var departmentsToBeDeleted = [];
+   // var table = document.getElementById('table');
+    var rows = document.getElementsByClassName('trbody')
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
       console.log("the value is" + rows[i]);
@@ -592,7 +597,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    */
   toggleMainCheckBox(index : number){
-    if(!$('#subCheckBox'+index).is(':checked')){
+    if(!$('.trbody #subCheckBox'+index).is(':checked')){
       $('#mainCheckBox').prop('checked',false);
     }
 

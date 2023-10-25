@@ -44,7 +44,7 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of userList; let i = index">    
+                        <tr class="trbody" *ngFor="let user of userList; let i = index">    
                             <td>{{i+1}}</td>
                             <!--<td></td>-->
                             <td>{{user.email}}</td>
@@ -103,7 +103,7 @@
 </div>
 
 <!-- Add User Modal -->
-<div class="modal" tabindex="-1" id="addUserModal">
+<div class="modal" tabindex="-1" id="addUserModal"  data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <!-- Modal header -->

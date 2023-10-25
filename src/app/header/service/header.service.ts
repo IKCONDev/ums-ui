@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Employee } from 'src/app/model/Employee.model';
+import { Users } from 'src/app/model/Users.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,7 @@ export class HeaderService {
      */
     fetchUserProfile(username: string):any{
       //httpHeaders: HttpHeaders = new HttpHeaders();
-        return this.http.get<Employee>(`${this.finalHttpUrl}${this.userProfileUrl}/`+username,{observe:'response'});
+        return this.http.get<Users>(`${this.finalHttpUrl}${this.userProfileUrl}/`+username,{observe:'response'});
     }
     
 

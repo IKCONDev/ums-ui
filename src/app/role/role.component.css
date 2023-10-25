@@ -7,6 +7,7 @@ html{
     padding-top: 10px;
     padding-left:120px;
     padding-right: 32px;
+    padding-bottom: 20px;
 }
 
 .card-header{
@@ -30,6 +31,10 @@ html{
 
 #thead {
     background: var(--side-text, #ECF7FC);
+}
+
+table th{
+    padding-bottom: 20px;
 }
 
 #tablehead{
@@ -99,10 +104,10 @@ th{
     font-size: 11px;
 }
 
-td{
+table td{
     font-size: 11px;
-   
-}
+    padding-left: 17px;
+} 
 
 #updateHeading{
     color: #2AA3D9;
@@ -126,3 +131,4 @@ td{
     color: red;
     font-size: 12px;
 }
+

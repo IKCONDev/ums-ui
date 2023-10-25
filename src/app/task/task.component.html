@@ -3,30 +3,26 @@
 <div class="container-fluid">
     <div class="card-header">
         <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-2 d-flex">
                 <h3 id="heading">Task List</h3>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 d-flex">
                 <p id="AssignedTask" (click)="getTasks('AssignedTask')">Assigned Tasks</p>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 d-flex">
                 <p (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks
                 </p>
             </div>
-            <div class="col-sm-1"></div>
-            <div class="col-sm-3" style="padding-top: 9px; ">
+            <div class="col-sm-3 d-flex" style="padding-top: 9px; ">
                 <input type="search" class="form-control" placeholder="Search task " />
             </div>
             <!--<div class="col-sm-1" style="padding-top: 17px;"><button id="add_button"type="btn btn-primary" (click)="addTask()"
                     data-toggle="modal" data-target="#myModal_add">delete</button></div>-->
-            <div *ngIf="tabOpened === 'OrganizedTask'" id="deleteBtnDiv" class="col-sm-1">
-                <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn" value="Delete"
-                    (click)="checkCheckBoxes()">
-                    <p>Delete</p>
-                </button>
+            <div *ngIf="tabOpened === 'OrganizedTask'" id="deleteBtnDiv" class="col-sm-2">
+               <button class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
             </div>
-            <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1"></div>
-            <div class="col-sm-1" id="filter">
+            <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1 d-flex align-items-end"></div>
+            <div class="col-sm-1 d-flex" id="filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
@@ -37,11 +33,11 @@
         </div>
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedTask'">
-        <div calss="row" *ngIf="taskCount > 0 ; else noMeetings">
-            <table id="table" class="table table-hover">
-                <thead style="background-color: #ecf7fc; padding-top: 0px;">
+        <div calss="row d-flex" *ngIf="taskCount > 0 ; else noMeetings">
+            <table id="table"  class="table table-hover">
+                <thead style="background-color: #ecf7fc;">
                     <tr>
-                        <th style="padding-left: 22px;"><input type="checkbox" class="mainCheckBox" id="mainCheckBox"
+                        <th><input type="checkbox" class="mainCheckBox" id="mainCheckBox"
                             style="margin: 0px;" (change)="checkSubCheckBoxes($event)">
                     </th>
                     <th>Task ID</th>
@@ -55,8 +51,8 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of task let i = index">
-                    <tr>
-                        <td style="padding-left: 21px;"><input type="checkbox" value="{{item.taskId}}"
+                    <tr class="trbody">
+                        <td style="padding-left: 17px;"><input type="checkbox" value="{{item.taskId}}"
                                 class="subCheckBox" id="subCheckBox{{i}}" (change)="toggleMainCheckBox(i)">
                         </td>
                         <!--- <td>{{item.taskId}}</td>-->
@@ -107,7 +103,7 @@
     </div>
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
-        <div class="row" *ngIf="assignedTasksCount>0; else noAssignedTasks">
+        <div class="row d-flex" *ngIf="assignedTasksCount>0; else noAssignedTasks">
             <table class="table table-hover" height="40" id="table">
                 <thead id="thead" style="background-color: #ecf7fc; padding-top: 0px;">
                     <tr>

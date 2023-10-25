@@ -26,6 +26,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         paging: true,
         searching: true, // Enable search feature
         pageLength: 7,
+        
         // Add other options here as needed
       });
     });
