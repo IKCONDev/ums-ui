@@ -229,14 +229,17 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   }
   designationList : Designation[];
   getAllDesignations(){
+    console.log("method started");
     this.designationService.getDesignationList().subscribe({
-      next : response =>{
-        this.designationList = response.body;
-        console.log(this.designationList);
+      next : (response) =>{
 
+        if(response.status === HttpStatusCode.Ok){
+          this.designationList = response.body;
+          console.log(this.designationList);
+
+        }
       }
-    }
-    );
+    });
      
   }
 
@@ -406,7 +409,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
 
   validateEmployeeDesignation(){
 
-    if(this.addEmployee.designation == ''){
+    if(this.addEmployee.empDesignation.id == 0){
       this.employeeDesignationErrorInfo = "Designation is required"
       this.isEmployeeDesignationtValid = false;
 
@@ -612,6 +615,14 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
       }
 
 }
+checkSubCheckBoxes(){
+  if($('#mainCheckBox').is(':checked')){
+    $('.subCheckBox').prop('checked', true);
+  }else{
+    $('.subCheckBox').prop('checked', false);
+  }
+}
+
   toggleMainCheckBox(index : number){
 
     if(!$('#ac-check'+index).is(':checked')){
