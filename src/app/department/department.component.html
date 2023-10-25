@@ -54,8 +54,8 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let department of departmentList;let i = index">
-                    <tr class="trbody" id="dataRow">
+                <tbody>
+                    <tr class="trbody" id="dataRow" *ngFor="let department of departmentList;let i = index">
                         <td>
                             <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox"
                                 value="{{department.departmentId}}" (click)="toggleMainCheckBox(i)" />
