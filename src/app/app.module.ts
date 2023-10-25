@@ -40,6 +40,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { SessionTimeoutComponent } from './session-timeout/session-timeout.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ServiceUnavailableComponent } from './service-unavailable/service-unavailable.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 //import  '../../fonts/general-sans/css/general-sans.css';
 
@@ -68,7 +69,7 @@ import { ServiceUnavailableComponent } from './service-unavailable/service-unava
     BatchDetailsComponent,   
     OrganizationComponent,
     DepartmentComponent ,  
-    UsersComponent, DesignationComponent, RoleComponent, EmployeeComponent, SessionTimeoutComponent, PageNotFoundComponent, ServiceUnavailableComponent
+    UsersComponent, DesignationComponent, RoleComponent, EmployeeComponent, SessionTimeoutComponent, PageNotFoundComponent, ServiceUnavailableComponent, NotificationsComponent
   ],
   imports: [
     BrowserModule,
