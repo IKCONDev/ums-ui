@@ -61,6 +61,12 @@ export class UsersComponent  implements OnInit{
  
   }
   }
+
+  /**
+   * 
+   * @param user 
+   * @param i 
+   */
   checkUserTogglebuttonEnabled(user : Users, i : number){
 
     //var table = document.getElementById('myTable');
@@ -241,14 +247,15 @@ export class UsersComponent  implements OnInit{
    * validate create User
    */
  isEmailValid = false;
- useremilIdErrorInfo ="";
+ useremailIdErrorInfo ="";
  validateUserEmailId(){
-   if(this.addUserObj.email == ''){
-      this.useremilIdErrorInfo = "Emailid is required";
+    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
+   if(this.addUserObj.email == ''||emailRegExp.test(this.addUserObj.email)===false){
+      this.useremailIdErrorInfo = "Emailid is required";
       this.isEmailValid = false;
    }
    else{
-     this.useremilIdErrorInfo = '';
+     this.useremailIdErrorInfo = '';
      this.isEmailValid = true;
    }
    return this.isEmailValid;
@@ -274,7 +281,7 @@ export class UsersComponent  implements OnInit{
 
  clearErrorMessages(){
     this.roleErrorInfo ="";
-    this.useremilIdErrorInfo = ''
+    this.useremailIdErrorInfo = ''
  }
 
 

@@ -144,10 +144,10 @@ export class ForgotPasswordResetComponent {
         if(this.passwordUpdateStatus === 1){
           this.toastr.success("Success","ResetPassword");
           this.router.navigateByUrl("/");
-         }else{
-          this.toastr.error("Password Criteria Not Met","ResetPassword");
+         }else if(this.passwordUpdateStatus===0){
+          this.toastr.warning("error","Password cannot be the same as previous two password");
+         }
         }
-      }
       )
     }
   }

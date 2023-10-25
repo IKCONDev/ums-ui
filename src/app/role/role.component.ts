@@ -26,7 +26,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         paging: true,
         searching: true, // Enable search feature
         pageLength: 7,
-        
         // Add other options here as needed
       });
     });
@@ -273,25 +272,11 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    * @param mainCheckBox check subcheckbox if main checkbox is checked
    */
   checkSubCheckBoxes(mainCheckBox: any){
-
-    // $(".mainCheckBox input['type=checkbox']").click(function(){
-    //   var context = $(this).next('tr');
-    //   $(".subCheckBox input['type=checkbox']").prop("checked",true);
-    // })
-    
-    var departmentsToBeDeleted = [];
-   // var table = document.getElementById("myTable1")
-   // console.log(table)
-    //for(var i=0; i<tables.length; i++){
-    var rows = document.getElementsByTagName("tr");
-    //var subCheckBoxes = rows
-    for (var i = 0; i < rows.length; i++) {
-      var row = rows[i];
-      console.log("the value is" + rows[i]);
-      var subCheckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-      subCheckbox.checked = mainCheckBox.checked;
-      subCheckbox.click();
-    }
+      if($('#mainCheckBox').is(':checked')){
+        $('.subCheckBox').prop('checked', true);
+      }else{
+        $('.subCheckBox').prop('checked', false);
+      }
    }
 
   /**

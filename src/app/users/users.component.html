@@ -122,8 +122,8 @@
                 <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
                 required ="true"  id="usrEmailId" name="usrEmailId" #usrEmailId="ngModel" [class.invalid]="usrEmailId.invalid && usrEmailId.touched"
                 (keyup)=" validateUserEmailId()"/>
-                <div *ngIf="useremilIdErrorInfo != ''">
-                    <span id="errorMessage">{{useremilIdErrorInfo}}</span>
+                <div *ngIf="useremailIdErrorInfo != ''">
+                    <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br/>
                 <label><b>Role</b></label>
                 <select class="adduserInput form-control form-select" placeholder="select" [(ngModel)]="addUserObj.userRoles.at(0).roleId"
@@ -168,8 +168,8 @@
                 <input type="text" class="updateUserInput form-control" placeholder="Email" [(ngModel)]="existingUserObj.email"
                 id="updateEmail" name="updateEmail" #updateEmail="ngModel" [class.invalid]="updateEmail.invalid && updateEmail.touched"
                 (change)="validateUserEmailId()"/>
-                <div *ngIf="useremilIdErrorInfo != ''">
-                    <span id="errorMessage">{{useremilIdErrorInfo}}</span>
+                <div *ngIf="useremailIdErrorInfo != ''">
+                    <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br/>
                 <br/>
                 <label><b>Role</b></label>
