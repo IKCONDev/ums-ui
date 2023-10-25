@@ -1,4 +1,4 @@
-import { Component, Output ,OnInit} from '@angular/core';
+import { Component, Output ,OnInit,AfterViewInit,OnDestroy } from '@angular/core';
 import { EmployeeService } from './service/employee.service';
 import { Employee } from '../model/Employee.model';
 import { HttpStatusCode } from '@angular/common/http';
@@ -7,15 +7,38 @@ import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../model/Department.model';
 import { error } from 'jquery';
 import { Router } from '@angular/router';
+import { DesignationService } from '../designation/service/designation.service';
+import { Designation } from '../model/Designation.model';
 
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit{
+export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   
   @Output() title:string='Employees';
+
+  private table: any;
+
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
+
+
 
  addEmployee ={
 
@@ -25,6 +48,10 @@ export class EmployeeComponent implements OnInit{
     firstName: '',
     lastName: '',
     email: '',
+    empDesignation :{
+       id:0,
+       designationName:''
+    },
     designation : '',
     departmentId: 0,
     createdDateTime: '',
@@ -38,24 +65,10 @@ export class EmployeeComponent implements OnInit{
   employeeData :Employee[];
 
   constructor( private employeeservice : EmployeeService, private toastr : ToastrService,
-     private departmentservice : DepartmentService, private router: Router) {}
+     private departmentservice : DepartmentService, private router: Router, private designationService : DesignationService) {}
   ngOnInit(): void {
 
-     this.getAllEmployees();
-     this.getAllDepartments();
-
-     if(this.departmentList && this.departmentList.length >0){
-      this.employeeData.map(emp =>{
-        for(let i=0; i< this.departmentList.length; i++){
-          if(emp.department.departmentId == this.departmentList[i].departmentId){
-
-             emp.department.departmentName = this.departmentList[i].departmentName;
-             console.log(emp.department.departmentName);
-          }
-       }
-     })
-    }
-
+     this.getAllEmployees(); 
     /*setTimeout(() =>{this.employeeData.map (emp =>{
       this.departmentList.map(dept =>{
          if(emp.department.departmentId == dept.departmentId){
@@ -75,11 +88,25 @@ export class EmployeeComponent implements OnInit{
   departmentList: Department[]
   getAllEmployees(){
 
-    this.employeeservice.getAll().subscribe(
-      response =>{
+    this.employeeservice.getAll().subscribe({
+      next : response =>{
         this.employeeData = response.body;
         console.log(this.employeeData);
-       // var departmentList = this.getAllDepartments();
+      /*if(this.departmentList != null)
+      {
+        this.employeeData.map(emp =>{
+          for(let i=0; i< this.departmentList.length; i++){
+            console.log("loop entered")
+            if(emp.department.departmentId == this.departmentList[i].departmentId){
+  
+               emp.department.departmentName = this.departmentList[i].departmentName;
+               console.log(emp.department.departmentName);
+            }
+         }
+       })
+      }*/
+    }
+     
     })
   }
    
@@ -200,6 +227,19 @@ export class EmployeeComponent implements OnInit{
       })
   
   }
+  designationList : Designation[];
+  getAllDesignations(){
+    this.designationService.getDesignationList().subscribe({
+      next : response =>{
+        this.designationList = response.body;
+        console.log(this.designationList);
+
+      }
+    }
+    );
+     
+  }
+
   /**
    * remove employee
    */
@@ -209,14 +249,16 @@ export class EmployeeComponent implements OnInit{
 
     if(isconfirmed){
 
-      this.employeeservice.deleteEmployee(employeeId).subscribe(
-        response =>{
+      this.employeeservice.deleteEmployee(employeeId).subscribe({
+         next : response =>{
             if(response.status == HttpStatusCode.Ok){
                 this.toastr.success("Employee deleted successfully");
             }
-            else{
-                this.toastr.error("Error occured while deleting employee pls try again!");
-            }
+         },
+         error: error => {
+            this.toastr.error("Error occured while deleting employee");
+             console.log("error occured");
+         }
         }
      );
     }
@@ -496,7 +538,7 @@ export class EmployeeComponent implements OnInit{
   checkCheckBoxes() {
 
     var employeeIdsToBeDeleted = [];
-    var table = document.getElementById("employee");
+    var table = document.getElementById("table");
     console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
@@ -552,20 +594,17 @@ export class EmployeeComponent implements OnInit{
    // var checkbox = event.target.value;
    // console.log("the value is:" + checkbox);
       console.log("checked");
-      var table = document.getElementById('employee');
+      var table = document.getElementById('table');
       var rows = document.getElementsByTagName('tr')
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
-        var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
+        var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement
         if(ischeckbox){
           ischeckbox.checked = mainCheckBox.checked;
           ischeckbox.click();
         }
-        else{
-           ischeckbox.click();
-        }
-        
-
+       
+      
       }
 
 }
