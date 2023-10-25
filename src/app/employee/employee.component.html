@@ -15,8 +15,7 @@
             </div>
             <div id="addBtnDiv" class="col-sm-1">
                 <button class="form-control" 
-                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal" (click)=" getAllDesignations()"
-                     (click)="getAllDepartments()">
+                   id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal" (click)=" getAllDesignations()">
                 <p>Add</p></button>
             </div>
             <div id="deleteBtnDiv" class="col-sm-1">
@@ -62,8 +61,7 @@
                         <td>{{employee.lastName}}</td>
                         <td>{{employee.email}}</td>
                         <td>{{"hh"}}</td>
-                        <!--<td>{{employee.empDesignation.designationName}}</td>-->
-                        <td></td>
+                        <td>{{employee.empDesignation.designationName}}</td>
                         <td>{{employee.createdDateTime}}</td>
                         <td>{{employee.modifiedBy}}</td>
                         <td>{{employee.createdBy}}</td>

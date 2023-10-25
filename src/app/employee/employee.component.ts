@@ -538,7 +538,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   checkCheckBoxes() {
 
     var employeeIdsToBeDeleted = [];
-    var table = document.getElementById("employee");
+    var table = document.getElementById("table");
     console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
@@ -594,7 +594,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
    // var checkbox = event.target.value;
    // console.log("the value is:" + checkbox);
       console.log("checked");
-      var table = document.getElementById('employee');
+      var table = document.getElementById('table');
       var rows = document.getElementsByTagName('tr')
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
