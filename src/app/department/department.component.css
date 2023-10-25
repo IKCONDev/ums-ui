@@ -97,8 +97,9 @@ th{
     font-size: 11px;
 }
 
-td{
+table td{
     font-size: 11px;
+    padding-left: 17px;
 }
 
 #updateHeading{

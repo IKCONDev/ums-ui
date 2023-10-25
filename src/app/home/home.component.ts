@@ -4,6 +4,8 @@ import { HomeService } from './service/home.service';
 import { outputAst } from '@angular/compiler';
 import { SideMenubarComponent } from '../side-menubar/side-menubar.component';
 import { HttpStatusCode } from '@angular/common/http';
+import { HeaderService } from '../header/service/header.service';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +39,7 @@ export class HomeComponent implements OnInit {
    * @param router 
    * @param homeService 
    */
-  constructor(private router: Router, private homeService:HomeService,
+  constructor(private router: Router, private homeService:HomeService,private headerService: HeaderService
     ){
     let loginInfo = {
       firstName: '',
@@ -53,6 +55,15 @@ export class HomeComponent implements OnInit {
       console.log(this.router.getCurrentNavigation().extras.state['loginInfo'])
       this.loginDetails = loginInfo
     }
+    //get employeedetails
+    this.headerService.fetchUserProfile(localStorage.getItem('email')).subscribe({
+      next: response =>{
+        localStorage.setItem('firstName',response.body.employee.firstName);
+        localStorage.setItem('lastName', response.body.employee.lastName);
+        console.log(response)
+        console.log(localStorage.getItem('lastName'))
+      }
+    });
   }
 
    /**
