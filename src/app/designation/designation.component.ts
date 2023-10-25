@@ -246,11 +246,10 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     //  subCheckBoxes.forEach( subCheckBox => {
       
     //  });
-    var departmentsToBeDeleted = [];
    // var table = document.getElementById("myTable1")
    // console.log(table)
     //for(var i=0; i<tables.length; i++){
-    var rows = document.getElementsByTagName("tr");
+    var rows = document.getElementsByClassName("trbody");
     //var subCheckBoxes = rows
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];

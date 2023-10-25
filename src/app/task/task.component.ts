@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Output() title: string = 'Tasks'
   task: Task[]
@@ -50,11 +50,28 @@ export class TaskComponent implements OnInit {
     actionItemId: 0,
     actionTitle: '',
     userId: ''
+
   }
+
 
   private table: any;
 
-  
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
 
   /**
    * 
@@ -450,7 +467,9 @@ export class TaskComponent implements OnInit {
   }
 
   checkSubCheckBoxes(mainCheckBox: any){
-    var rows = document.getElementsByTagName("tr");
+    //var departmentsToBeDeleted = [];
+   // var table = document.getElementById('table');
+    var rows = document.getElementsByClassName('trbody')
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
       console.log("the value is" + rows[i]);
@@ -519,7 +538,7 @@ export class TaskComponent implements OnInit {
     console.log("the value is:" + checkbox);
     if (checkbox === 'on') {
       console.log("checked");
-      var table = document.getElementById('table');
+      var table = document.getElementById('myTable1');
       var rows = table.getElementsByTagName('tr')
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
@@ -576,7 +595,7 @@ export class TaskComponent implements OnInit {
    * 
    */
   toggleMainCheckBox(index : number){
-    if(!$('#subCheckBox'+index).is(':checked')){
+    if(!$('.trbody #subCheckBox'+index).is(':checked')){
       $('#mainCheckBox').prop('checked',false);
     }
 
