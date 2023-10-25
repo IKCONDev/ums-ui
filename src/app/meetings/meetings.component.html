@@ -148,13 +148,13 @@
                                                     (change)="checkAllcheckBoxesOfCurrentMeeting(meeting.meetingId, $event)" />
                                             </th>
                                             <!-- <th id="tablehead"></th> -->
-                                            <th id="tablehead">Action Item Id</th>
-                                            <th id="tablehead" style="width: 170px;">Action Item</th>
-                                            <th id="tablehead">Owner(suggested)</th>
-                                            <th id="tablehead">Start Date & Time</th>
-                                            <th id="tablehead" style="width: 170px;">Description</th>
-                                            <th id="tablehead">Status</th>
-                                            <th id="tablehead">Actions</th>
+                                            <th id="tablehead" style="padding: 1.4em;">Action Item Id</th>
+                                            <th id="tablehead" style="width: 170px;padding: 1.4em;">Action Item</th>
+                                            <th id="tablehead"style="padding: 1.4em;">Owner(suggested)</th>
+                                            <th id="tablehead"style="padding: 1.4em;">Start Date & Time</th>
+                                            <th id="tablehead" style="width: 170px;padding: 1.4em;">Description</th>
+                                            <th id="tablehead"style="padding: 1.4em;">Status</th>
+                                            <th id="tablehead"style="padding: 1.4em;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
@@ -180,12 +180,12 @@
                                                 </section>
                                             </td> -->
                                             <!--  -->
-                                            <td>A000{{actionItem.actionItemId}}</td>
-                                            <td id="meeting-subject">{{actionItem.actionItemTitle}}</td>
-                                            <td>{{actionItem.actionItemOwner}}</td>
-                                            <td>{{actionItem.startDate}}</td>
-                                            <td id="meeting-subject">{{actionItem.actionItemDescription}}</td>
-                                            <td>{{actionItem.actionStatus}}</td>
+                                            <td style="padding: 1.7em;" >A000{{actionItem.actionItemId}}</td>
+                                            <td id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemTitle}}</td>
+                                            <td style="padding: 1.7em;">{{actionItem.actionItemOwner}}</td>
+                                            <td style="padding: 1.7em;">{{actionItem.startDate}}</td>
+                                            <td id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemDescription}}</td>
+                                            <td style="padding: 1.7em;">{{actionItem.actionStatus}}</td>
                                             <td *ngIf="actionItem.actionStatus==='Not Converted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
                                                 <span class="edit-icon"

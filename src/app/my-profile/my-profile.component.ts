@@ -12,7 +12,7 @@ import { HttpStatusCode } from '@angular/common/http';
 })
 export class MyProfileComponent {
 
-  fileSize: number = 4000000; //1MB
+  fileSize: number = 4194304; //1MB
   retriveResponse: any;
   isDisable: boolean = true;
   title = 'My Profile'
