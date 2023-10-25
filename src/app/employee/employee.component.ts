@@ -1,4 +1,4 @@
-import { Component, Output ,OnInit} from '@angular/core';
+import { Component, Output ,OnInit,AfterViewInit,OnDestroy } from '@angular/core';
 import { EmployeeService } from './service/employee.service';
 import { Employee } from '../model/Employee.model';
 import { HttpStatusCode } from '@angular/common/http';
@@ -15,9 +15,30 @@ import { Designation } from '../model/Designation.model';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit{
+export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   
   @Output() title:string='Employees';
+
+  private table: any;
+
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
+
+
 
  addEmployee ={
 
@@ -47,22 +68,7 @@ export class EmployeeComponent implements OnInit{
      private departmentservice : DepartmentService, private router: Router, private designationService : DesignationService) {}
   ngOnInit(): void {
 
-     this.getAllEmployees();
-    // this.getAllDepartments();
-     //this.getAllDesignations();
-
-    /* if(this.departmentList && this.departmentList.length >0){
-      this.employeeData.map(emp =>{
-        for(let i=0; i< this.departmentList.length; i++){
-          if(emp.department.departmentId == this.departmentList[i].departmentId){
-
-             emp.department.departmentName = this.departmentList[i].departmentName;
-             console.log(emp.department.departmentName);
-          }
-       }
-     })
-    }*/
-  
+     this.getAllEmployees(); 
     /*setTimeout(() =>{this.employeeData.map (emp =>{
       this.departmentList.map(dept =>{
          if(emp.department.departmentId == dept.departmentId){
@@ -82,18 +88,25 @@ export class EmployeeComponent implements OnInit{
   departmentList: Department[]
   getAllEmployees(){
 
-    this.employeeservice.getAll().subscribe(
-      response =>{
+    this.employeeservice.getAll().subscribe({
+      next : response =>{
         this.employeeData = response.body;
         console.log(this.employeeData);
-        for(let emp of this.employeeData){
-          for(let designation of this.designationList){
-            if(emp.empDesignation.id === designation.id){
-               emp.empDesignation.designationName = designation.designationName;
+      /*if(this.departmentList != null)
+      {
+        this.employeeData.map(emp =>{
+          for(let i=0; i< this.departmentList.length; i++){
+            console.log("loop entered")
+            if(emp.department.departmentId == this.departmentList[i].departmentId){
+  
+               emp.department.departmentName = this.departmentList[i].departmentName;
+               console.log(emp.department.departmentName);
             }
-          }
-       }
-       // var departmentList = this.getAllDepartments();
+         }
+       })
+      }*/
+    }
+     
     })
   }
    
@@ -224,7 +237,6 @@ export class EmployeeComponent implements OnInit{
       }
     }
     );
-    return this.designationList;
      
   }
 
