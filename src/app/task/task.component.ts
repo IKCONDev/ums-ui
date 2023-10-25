@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TaskComponent implements OnInit {
 
   @Output() title: string = 'Tasks'
   task: Task[]
@@ -54,22 +54,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private table: any;
 
-  ngAfterViewInit(): void {
-    $(document).ready(() => {
-      this.table = $('#table').DataTable({
-        paging: true,
-        searching: true, // Enable search feature
-        pageLength: 7,
-        // Add other options here as needed
-      });
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this.table) {
-      this.table.destroy();
-    }
-  }
+  
 
   /**
    * 
@@ -161,7 +146,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskTitle() {
     //var taskTitle = event.target.value;
-    if (this.update_Task.taskTitle == "") {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim()==="" || regex.exec(this.update_Task.taskTitle)===null) {
       this.taskTitleErrrorInfo = 'Title is required';
       this.isTaskTitleValid = false;
 
@@ -190,7 +176,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskDescription() {
     // var taskDescription=event.target.value;
-    if (this.update_Task.taskDescription === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim()==="" || regex.exec(this.update_Task.taskDescription)===null) {
       this.taskDescriptionErrorInfo = 'Description is required';
       this.isTaskDescriptionValid = false;
     }
@@ -465,7 +452,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   checkSubCheckBoxes(mainCheckBox: any){
-    var departmentsToBeDeleted = [];
     var rows = document.getElementsByTagName("tr");
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
@@ -535,7 +521,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log("the value is:" + checkbox);
     if (checkbox === 'on') {
       console.log("checked");
-      var table = document.getElementById('myTable1');
+      var table = document.getElementById('table');
       var rows = table.getElementsByTagName('tr')
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];

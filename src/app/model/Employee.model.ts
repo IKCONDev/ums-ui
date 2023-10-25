@@ -10,6 +10,7 @@ export class Employee{
     firstName: string;
     lastName: string;
     email: string;
+    reportingManager: string;
     designation : string;
     empDesignation: Designation;
     department: Department;
