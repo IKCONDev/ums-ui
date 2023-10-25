@@ -541,7 +541,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     var table = document.getElementById("table");
     console.log(table)
     //for(var i=0; i<tables.length; i++){
-    var rows = table.getElementsByTagName("tr");
+    var rows = table.getElementsByClassName("trbody");
     var value: number[];
     // Loop through each row
     for (var i = 0; i < rows.length; i++) {
@@ -590,12 +590,16 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     }
   }
 
+  /**
+   * 
+   * @param mainCheckBox 
+   */
   checkAllCheckBoxes(mainCheckBox: any) {
    // var checkbox = event.target.value;
    // console.log("the value is:" + checkbox);
       console.log("checked");
       var table = document.getElementById('table');
-      var rows = document.getElementsByTagName('tr')
+      var rows = document.getElementsByClassName('trbody')
       for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
         var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement
