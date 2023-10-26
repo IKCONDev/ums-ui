@@ -273,7 +273,7 @@
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AttendedMeeting'">
         <div class="row" *ngIf="attendedMeetingCount>0; else noMeetings">
-            <table id="table" class="table table-hover" height="40">
+            <table  id="table" class="table table-hover" height="40">
                 <thead id="thead">
                     <tr>
                      <th>Sno</th>
@@ -537,7 +537,7 @@
                 <!--Modal Header-->
                 <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff" *ngIf="meetingData!=null">
                     <h4 class="modal-title" style="text-align: center;">Meeting Minutes - {{meetingData.subject}}</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearErrorMessages(form)">
                         <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
                     </button>
                 </div>
@@ -617,7 +617,7 @@
                     <button type="submit" id="sendMomEmail" class="btn btn-primary updateButton"
                         (click)="sendMOMEmail()">Send</button>
                     <button type="button" id="closeSendMoMEmail" class="btn btn-outline-danger cancelButton"
-                        data-dismiss="modal">Cancel</button>
+                        data-dismiss="modal" (click)="clearErrorMessages(form)">Cancel</button>
                 </div>
              </form>
         </div>
@@ -653,7 +653,7 @@
                 </div>
                 <!-- start date time -->
                 <label><b>Start Date & Time</b></label>
-                <input type="datetime-localng" class="form-control" min="{{min}}" [(ngModel)]="addMeeting.startDateTime" 
+                <input type="datetime-local" class="form-control" min="{{min}}" [(ngModel)]="addMeeting.startDateTime" 
                 style="width: 400px;" (change)="validateMeetingStartDateTime()" id="meetingStartDate" name="meetingStartDate"
                 />
                 <div>

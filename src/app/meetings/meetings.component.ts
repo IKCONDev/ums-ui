@@ -268,6 +268,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   clearErrorMessages(form: NgForm) {
 
+    //clear EmailList
+    this.emailListForsendingMOM = [];
+
     //form.form.reset();
 
     //reset the add action item form
