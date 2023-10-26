@@ -436,10 +436,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   checkCheckBoxes() {
     var tasksToBeDeleted = [];
-    var table = document.getElementById("myTable1")
+    var table = document.getElementById("table")
     console.log(table)
     //for(var i=0; i<tables.length; i++){
-    var rows = table.getElementsByTagName("tr");
+    var rows = table.getElementsByClassName("trbody");
     var value: number[];
     // Loop through each row
     for (var i = 0; i < rows.length; i++) {
