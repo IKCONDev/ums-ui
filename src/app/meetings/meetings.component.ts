@@ -3,7 +3,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, Output } from '@angular/co
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
-import { ActionItems } from '../model/Actionitem.model';
+import { ActionItems } from '../model/actionitem.model';
 import { ActionItemComponent } from '../action-item/action-item.component';
 import { ActionService } from '../action-item/service/action.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -1204,7 +1204,7 @@ sendMOMEmail(){
       var valid = this.validateMeetingStartDateTime();
       isStartDateValid = valid;
     }
-    if(this.isMeetingSubjectValid === false){
+    if(this.isMeetingEndDateValid === false){
       var valid = this.validateMeetingEndDateTime();
       isEndDateValid = valid;
     }
