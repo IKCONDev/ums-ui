@@ -1,5 +1,5 @@
 import { Meeting } from "./Meeting.model";
-import { ActionItems } from "./Actionitem.model";
+import { ActionItems } from "./actionitem.model";
 
 export class MOMObject{
 

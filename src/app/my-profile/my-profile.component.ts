@@ -76,7 +76,7 @@ export class MyProfileComponent {
         }
       )
     } else {
-      this.toastr.error('File size ig greater than 4 MB')
+      this.toastr.error('File size is greater than 4 MB')
     }
 
   }

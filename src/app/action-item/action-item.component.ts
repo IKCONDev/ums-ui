@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { ActionItems } from 'src/app/model/Actionitem.model';
+import { ActionItems } from 'src/app/model/actionitem.model';
 import { ActionService } from './service/action.service';
 import { Task } from '../model/Task.model';
 import { TaskService } from '../task/service/task.service';
