@@ -280,6 +280,7 @@ export class UsersComponent  implements OnInit{
  }
 
  clearErrorMessages(){
+  $(".modal-body input").val("")
     this.roleErrorInfo ="";
     this.useremailIdErrorInfo = ''
  }
