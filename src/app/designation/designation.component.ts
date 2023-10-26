@@ -296,6 +296,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     * 
     */
    clearErrorMessages(){
+    $(".modal-body input").val("")
     this.designationNameErrorInfo = '';
     this.updatedDesignationNameErrorInfo = '';
   

@@ -430,6 +430,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     * 
     */
    clearErrorMessages(){
+    $(".modal-body input").val("")
     this.departmentNameErrorInfo = '';
     this.departmentCodeErrorInfo = '';
     this.departmentHeadErrorInfo = '';

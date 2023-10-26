@@ -99,3 +99,6 @@ td{
     height: 13.5px;
 
 }
+#trashIcon, #editIcon{
+     cursor: pointer;
+}
