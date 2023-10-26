@@ -39,7 +39,7 @@ export class ActionItemComponent implements OnInit {
     actionItemId: 0,
     meetingId: 0,
     emailId: '',
-    actionItemOwner: '',
+    actionItemOwner: [],
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
@@ -53,7 +53,7 @@ export class ActionItemComponent implements OnInit {
     actionItemId: 0,
     meetingId: 0,
     emailId: '',
-    actionItemOwner: '',
+    actionItemOwner: [],
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
@@ -467,7 +467,7 @@ export class ActionItemComponent implements OnInit {
   validateActionItemOwner() {
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
-    if (this.addDetails.actionItemOwner === '' || this.addDetails.actionItemOwner === null) {
+    if (this.addDetails.actionItemOwner === null) {
       this.actionItemOwnerErrorInfo = 'Owner is required';
       this.isActionItemOwnerValid = false;
     } else {
@@ -567,7 +567,7 @@ export class ActionItemComponent implements OnInit {
    */
   validateUpdateActionItemOwner(){
     //var actionItemOwner = event.target.value;
-    if(this.updatedetails.actionItemOwner === '' || this.updatedetails.actionItemOwner === null){
+    if(this.updatedetails.actionItemOwner === null){
       this.updateActionItemOwnerErrorInfo = 'Owner is required';
       this.isUpdateActionItemOwnerValid = false;
     }else{
