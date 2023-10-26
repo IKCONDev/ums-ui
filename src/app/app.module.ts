@@ -41,9 +41,6 @@ import { SessionTimeoutComponent } from './session-timeout/session-timeout.compo
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ServiceUnavailableComponent } from './service-unavailable/service-unavailable.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-
-
-
 //import  '../../fonts/general-sans/css/general-sans.css';
 
 
@@ -71,7 +68,14 @@ import { NotificationsComponent } from './notifications/notifications.component'
     BatchDetailsComponent,   
     OrganizationComponent,
     DepartmentComponent ,  
-    UsersComponent, DesignationComponent, RoleComponent, EmployeeComponent, SessionTimeoutComponent, PageNotFoundComponent, ServiceUnavailableComponent,NotificationsComponent
+    UsersComponent, 
+    DesignationComponent, 
+    RoleComponent, 
+    EmployeeComponent, 
+    SessionTimeoutComponent, 
+    PageNotFoundComponent, 
+    ServiceUnavailableComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

@@ -1204,7 +1204,7 @@ sendMOMEmail(){
       var valid = this.validateMeetingStartDateTime();
       isStartDateValid = valid;
     }
-    if(this.isMeetingSubjectValid === false){
+    if(this.isMeetingEndDateValid === false){
       var valid = this.validateMeetingEndDateTime();
       isEndDateValid = valid;
     }

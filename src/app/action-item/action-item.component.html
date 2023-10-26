@@ -45,7 +45,9 @@
                     <!--<td>{{actionItem.actionItemId}}</td>-->
                     <td>A000{{actionItem.actionItemId}}</td>
                     <td id="actionItem-subject">{{actionItem.actionItemTitle}}</td>
-                    <td>{{actionItem.actionItemOwner}}</td>
+                    <td>
+                        <p *ngFor="let owner of actionItem.actionItemOwner">{{owner}}</p>
+                    </td>
                     <td>{{actionItem.startDate|date:'MMM d, y, h:mm a'}}</td>
                     <td>{{actionItem.endDate|date:'MMM d, y, h:mm a'}}</td>
                     <td>{{actionItem.actionStatus}}</td>
