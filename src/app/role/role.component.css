@@ -133,3 +133,16 @@ table td{
     font-size: 12px;
 }
 
+#role-subject{
+    white-space: nowrap;
+    text-overflow:ellipsis; 
+    overflow: hidden;
+    max-width:80px;
+    cursor: pointer;
+    word-wrap: break-word;
+  }
+  
+#role-subject:hover{
+    overflow: visible;
+    white-space: normal;
+  }

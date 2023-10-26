@@ -132,8 +132,8 @@
                 </span>
                 <!--   -->
                 <label><b>Department Head</b></label>
-                <input type="search" class="deptInput form-control" placeholder="department head"
-                    [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()" /><br />
+                <input type="text" class="deptInput form-control" placeholder="department head"
+                    [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()"  maxlength="50"/><br />
                 <span *ngIf="departmentHeadErrorInfo != ''">
                     <p id="errorMessage">{{departmentHeadErrorInfo}}</p>
                 </span>

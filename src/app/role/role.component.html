@@ -40,7 +40,7 @@
                                 <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
                             </th>
                             <th>Role Id</th>
-                            <th>Role Name</th>
+                            <th style="width: 80px;">Role Name</th>
                             <th>Created By</th>
                             <th>Created Date</th>
                             <th>Modified By</th>
@@ -57,7 +57,7 @@
                                 value="{{role.roleId}}" (click)="toggleMainCheckBox(i)"/>
                             </td>
                             <td>{{role.roleId}}</td>
-                            <td>{{role.roleName}}</td>
+                            <td id="role-subject">{{role.roleName}}</td>
                             <td>{{role.createdBy}}</td>
                             <td>{{role.createdDateTime}}</td>
                             <td>{{role.modifiedBy}}</td>
@@ -118,7 +118,7 @@
                 <div class="modal-body">
                     <label><b>Role Name</b></label>
                     <input type="text" class="deptInput form-control" placeholder="role name"
-                    [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()"/><br/>
+                    [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()" maxlength="50"/><br/>
                     <span id="errorInfo" *ngIf="roleNameErrorInfo != ''">{{roleNameErrorInfo}}</span>
                 </div>
                 <!-- Modal footer -->
