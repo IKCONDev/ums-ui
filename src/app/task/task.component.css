@@ -166,7 +166,7 @@ th,td{
   border-color: #fd5454;
 }
 
-#meeting-subject{
+#task-subject{
   white-space: nowrap;
   text-overflow:ellipsis; 
   overflow: hidden;
@@ -174,7 +174,7 @@ th,td{
   cursor: pointer;
 }
 
-#meeting-subject:hover{
+#task-subject:hover{
   overflow: visible;
   white-space: normal;
 }
