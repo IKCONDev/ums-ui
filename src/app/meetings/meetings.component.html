@@ -150,7 +150,7 @@
                                             <!-- <th id="tablehead"></th> -->
                                             <th id="tablehead" style="padding: 1.4em;">Action Item Id</th>
                                             <th id="tablehead" style="width: 170px;padding: 1.4em;">Action Item</th>
-                                            <th id="tablehead"style="padding: 1.4em;">Owner(suggested)</th>
+                                            <th id="tablehead"style="padding: 1.4em;">Owner</th>
                                             <th id="tablehead"style="padding: 1.4em;">Start Date & Time</th>
                                             <th id="tablehead" style="width: 170px;padding: 1.4em;">Description</th>
                                             <th id="tablehead"style="padding: 1.4em;">Status</th>
@@ -182,7 +182,9 @@
                                             <!--  -->
                                             <td style="padding: 1.7em;" >A000{{actionItem.actionItemId}}</td>
                                             <td id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemTitle}}</td>
-                                            <td style="padding: 1.7em;">{{actionItem.actionItemOwner}}</td>
+                                            <td style="padding: 1.7em;">
+                                                <p *ngFor="let owner of actionItem.actionItemOwner" >{{owner}}</p>
+                                            </td>
                                             <td style="padding: 1.7em;">{{actionItem.startDate}}</td>
                                             <td id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemDescription}}</td>
                                             <td style="padding: 1.7em;">{{actionItem.actionStatus}}</td>
@@ -378,7 +380,8 @@
                             <option *ngFor="let emailId of userEmailIdList">{{emailId}}</option>
                     </select> -->
                     <div style="padding-left: 10px;">
-                        <ng-select [searchable]="true" [clearable]="true" id="actionItemOwner" name="actionItemOwner"
+                        <ng-select [multiple]="true" [searchable]="true" [clearable]="true" id="actionItemOwner" 
+                            name="actionItemOwner"
                             style="width: 400px;" (change)="validateActionItemOwner()"
                             [(ngModel)]="addDetails.actionItemOwner" placeholder="choose owner">
                              <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
@@ -476,7 +479,7 @@
                 <!-- owner -->
                 <div style="padding-left: 10px;">
                 <label><b>Action Owner</b></label>
-                <ng-select [searchable]="true" [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
+                <ng-select [multiple]="true" [searchable]="true" [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
                     name="uAcItemOwner" style="width:  400px;"
                     (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner" placeholder="choose owner">
                    <!--- <ng-option [value]="" disabled selected value>choose</ng-option>-->

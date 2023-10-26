@@ -73,7 +73,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     actionItemId: 0,
     meetingId: 0,
     emailId: '',
-    actionItemOwner: '',
+    actionItemOwner: [],
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
@@ -87,7 +87,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     actionItemId: 0,
     meetingId: 0,
     emailId: '',
-    actionItemOwner: '',
+    actionItemOwner: [],
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
@@ -276,7 +276,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //reset the add action item form
     this.addDetails.actionItemTitle = '';
     this.addDetails.actionItemDescription = '';
-    this.addDetails.actionItemOwner = '';
+    this.addDetails.actionItemOwner = [];
     this.addDetails.actionPriority = '';
     this.addDetails.actionStatus = '';
     this.addDetails.endDate = '';
@@ -370,7 +370,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateActionItemOwner() {
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
-    if (this.addDetails.actionItemOwner === '' || this.addDetails.actionItemOwner === null) {
+    if (this.addDetails.actionItemOwner === null) {
       this.actionItemOwnerErrorInfo = 'Owner is required';
       this.isActionItemOwnerValid = false;
     } else {
@@ -916,7 +916,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateUpdateActionItemOwner() {
     //var actionItemOwner = event.target.value;
-    if (this.updatedetails.actionItemOwner === '' || this.updatedetails.actionItemOwner === null) {
+    if (this.updatedetails.actionItemOwner === null) {
       this.updateActionItemOwnerErrorInfo = 'Owner is required';
       this.isUpdateActionItemOwnerValid = false;
     } else {
