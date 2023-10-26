@@ -299,10 +299,10 @@
                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
                                                         [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
-                                                        (click)="validateTaskStartDate()"></span>
-                                                <!--- <div *ngIf="taskStartDateErrorInfo!=''">
+                                                        (change)="validateTaskStartDate()"></span>
+                                                <div *ngIf="taskStartDateErrorInfo!=''">
                                                     <span id="error_msg">{{taskStartDateErrorInfo}}</span>
-                                                </div>-->
+                                                </div>
 
                                             </td>
                                         </tr>
@@ -312,7 +312,7 @@
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
-                                                        (click)="validateTaskDueDate()"></span>
+                                                        (change)="validateTaskDueDate()"></span>
                                                 <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
                                                 </div>
@@ -327,12 +327,12 @@
                                                         #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
-                                                        <option disabled selected value>Select</option>
+                                                        <option default>Select</option>
                                                         <option>Yet to start</option>
                                                         <option>Inprogress</option>
                                                         <option>Completed</option>
                                                     </select>
-                                                    <div *ngIf="taskStatusErrorInfo != ''">
+                                                    <div *ngIf="taskStatusErrorInfo !=''">
                                                         <span id="error_msg">{{taskStatusErrorInfo}}</span>
                                                     </div>
                                                 </span></td>
