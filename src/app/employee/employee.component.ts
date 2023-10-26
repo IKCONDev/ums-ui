@@ -301,7 +301,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
       isDepartmentValid = valid;
 
     }
-    if(!this.isUpdateDesignationtValid){
+    if(!this.isUpdateDesignationValid){
        var valid = this.validateUpdateDesignation();
        isDesignationValid = valid;
     }
@@ -364,12 +364,12 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
      this. isEmployeeLasttNameValid = false;
   }
   else if(this.addEmployee.lastName.length >5){
-    this.employeeFirstNameErrorInfo = "";
+    this.employeeLastNameErrorInfo = "";
     this. isEmployeeLasttNameValid = true;
 
   }
   else{
-     this.employeeFirstNameErrorInfo = "";
+     this.employeeLastNameErrorInfo = "";
      this. isEmployeeLasttNameValid = true;
   }
      
@@ -380,12 +380,13 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
 
   employeeEmailIdErrorInfo = "";
   validateEmployeeEmailId(){
-     if(this.addEmployee.email == ''){
+    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
+     if(this.addEmployee.email == ''||emailRegExp.test(this.addEmployee.email)===false){
       this.employeeEmailIdErrorInfo = "EmailId is required";
       this.isEmployeeEmailIdValid = false;
      }
      else{
-      this.employeeFirstNameErrorInfo = "";
+      this.employeeEmailIdErrorInfo = "";
       this.isEmployeeEmailIdValid = true;
      }
      return this.isEmployeeEmailIdValid;  
@@ -437,7 +438,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
      this.updateEmailIdErrorInfo ="";
      this.updateDepartmentErrorInfo ="";
      this.updateDesignationErrorInfo ="";
-  
+
   }
   /**
    * update employee Validations
@@ -447,7 +448,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   isUpdateLastNameValid = false;
   isUpdateEmailIdValid = false;
   isUpdateDepartmentValid = false;
-  isUpdateDesignationtValid = false;
+  isUpdateDesignationValid = false;
 
   updateFirstNameErrorInfo ="";
 
@@ -486,8 +487,8 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   }
   updateEmailIdErrorInfo = "";
   validateUpdateEmailId(){
-
-    if(this.existingEmployee.email == ''){
+    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
+    if(this.existingEmployee.email == '' || emailRegExp.test(this.existingEmployee.email)===false){
       this.updateEmailIdErrorInfo = "EmailId is required";
       this.isUpdateEmailIdValid = false;
     }
@@ -499,7 +500,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
       this.updateEmailIdErrorInfo = "";
       this.isUpdateEmailIdValid = true;
     }
-    return this.isUpdateLastNameValid;
+    return this.isUpdateEmailIdValid;
 
   }
   updateDepartmentErrorInfo ="";
@@ -521,17 +522,17 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
 
     if(this.existingEmployee.designation == ''){
       this.updateDesignationErrorInfo = "Designation is required";
-      this.isUpdateEmailIdValid = false;
+      this.isUpdateDesignationValid = false;
     }
     else if(this.existingEmployee.designation.length < 5){
       this.updateDesignationErrorInfo = "Designation is required";
-      this.isUpdateEmailIdValid = false;
+      this.isUpdateDesignationValid = false;
     }
     else{
       this.updateDesignationErrorInfo = "";
-      this.isUpdateEmailIdValid = true;
+      this.isUpdateDesignationValid = true;
     }
-    return this.isUpdateLastNameValid;
+    return this.isUpdateDesignationValid;
 
   }
 

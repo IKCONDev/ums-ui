@@ -135,7 +135,7 @@
                 <br/>
                 <label><b>Last Name</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="addEmployee.lastName"
-                id="lastName" name="lastName" required="true" #lastName="ngModel" (keyup)="validateEmployeeLastName()"
+                id="lastName" name="lastName" required="true" #lastName="ngModel"  maxlength="50" (keyup)="validateEmployeeLastName()"
                  [class.invalid]="lastName.invalid && lastName.touched"/>
                  <span *ngIf="employeeLastNameErrorInfo != ''">
                     <p id="errorMessage">{{employeeLastNameErrorInfo}}</p>
