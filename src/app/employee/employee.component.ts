@@ -427,6 +427,8 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
    */
 
   clearErrorMessages(){
+   
+    $(".modal-body input").val("")
      this.employeeFirstNameErrorInfo = '';
      this.employeeLastNameErrorInfo = '';
      this.employeeEmailIdErrorInfo = '';
