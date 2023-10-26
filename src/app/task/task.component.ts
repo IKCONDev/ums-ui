@@ -163,7 +163,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskTitle() {
     //var taskTitle = event.target.value;
-    if (this.update_Task.taskTitle == "") {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim()==="" || regex.exec(this.update_Task.taskTitle)===null) {
       this.taskTitleErrrorInfo = 'Title is required';
       this.isTaskTitleValid = false;
 
@@ -192,7 +193,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskDescription() {
     // var taskDescription=event.target.value;
-    if (this.update_Task.taskDescription === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim()==="" || regex.exec(this.update_Task.taskDescription)===null) {
       this.taskDescriptionErrorInfo = 'Description is required';
       this.isTaskDescriptionValid = false;
     }

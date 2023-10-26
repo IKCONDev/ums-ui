@@ -1308,6 +1308,17 @@ sendMOMEmail(){
       $('.mainCheckBox').prop('checked',false)
     }
    }
+   //Duration of meeting
+   hoursDiff : any
+   minutesDiff  : any
+   getDuration(meeting : Meeting){
+     var startdate =  new Date(meeting.startDateTime);
+     var endDate = new Date(meeting.endDateTime);
 
+     this.hoursDiff = (endDate.getHours()-startdate.getHours());
+     this.minutesDiff = (endDate.getMinutes()-startdate.getMinutes());
+
+
+   }
 }
 

@@ -87,7 +87,8 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    * @returns 
    */
   validateRoleName() {
-    if (this.addRoleObj.roleName === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.addRoleObj.roleName === '' || this.addRoleObj.roleName.trim()==="" || regex.exec(this.addRoleObj.roleName)===null) {
       this.roleNameErrorInfo = 'role name is required';
     } else if (this.addRoleObj.roleName.length < 2) {
       this.roleNameErrorInfo = 'role name should have min of 2 chars'
@@ -105,7 +106,8 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    * @returns 
    */
   validateUpdatedRoleName() {
-    if (this.existingRole.roleName === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.existingRole.roleName === '' || this.existingRole.roleName.trim()==="" || regex.exec(this.existingRole.roleName)===null) {
       this.updatedRoleNameErrorInfo = 'role name is required';
     } else if (this.existingRole.roleName.length < 2) {
       this.updatedRoleNameErrorInfo = 'role name should have min of 2 chars'

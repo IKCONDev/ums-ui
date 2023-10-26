@@ -339,8 +339,9 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   
   employeeFirstNameErrorInfo = '';
   validateEmployeeFirstName(){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
 
-    if(this.addEmployee.firstName == ''){
+    if(this.addEmployee.firstName == '' || this.addEmployee.firstName.trim()==="" || regex.exec(this.addEmployee.firstName)===null){
         this.employeeFirstNameErrorInfo = "First Name is required";
         this.isEmployeeFirstNameValid = false;
     }
@@ -358,8 +359,9 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   }
   employeeLastNameErrorInfo ="";
   validateEmployeeLastName(){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
 
-  if(this.addEmployee.lastName == ''){
+  if(this.addEmployee.lastName == '' || this.addEmployee.lastName.trim()==="" || regex.exec(this.addEmployee.lastName)===null){
       this.employeeLastNameErrorInfo = "Last Name is required";
      this. isEmployeeLasttNameValid = false;
   }
@@ -455,8 +457,9 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   updateFirstNameErrorInfo ="";
 
   validateUpdateFirstName(){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
 
-    if(this.existingEmployee.firstName == ''){
+    if(this.existingEmployee.firstName == '' || this.existingEmployee.firstName.trim()==="" || regex.exec(this.existingEmployee.firstName)===null){
       this.updateFirstNameErrorInfo = "First Name is required";
       this.isUpdateFirstNameValid = false;
     }
@@ -472,8 +475,9 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   }
   updateLastNameErrorInfo ="";
   validateUpdateLastName(){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
 
-   if(this.existingEmployee.lastName == ''){
+   if(this.existingEmployee.lastName == '' || this.existingEmployee.lastName.trim()==="" || regex.exec(this.existingEmployee.lastName)===null){
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
     }

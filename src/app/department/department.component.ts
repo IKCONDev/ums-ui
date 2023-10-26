@@ -143,7 +143,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isDepartmentNameValid = false;
   validateDepartmentName(){
    // var deptName=  event.target.value;
-    if(this.addDepartment.departmentName === ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.addDepartment.departmentName === '' || this.addDepartment.departmentName.trim()==="" || regex.exec(this.addDepartment.departmentName)===null){
       this.departmentNameErrorInfo = 'Department name is required';
     }else if(this.addDepartment.departmentName.length < 3){
       this.departmentNameErrorInfo = 'department name should have minimum of 3 chars.';
@@ -163,7 +164,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isDepartmentHeadValid = false;
   validateDepartmentHead(){
     //var deptHead = event.target.value;
-    if(this.addDepartment.departmentHead === ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.addDepartment.departmentHead === ''|| this.addDepartment.departmentHead.trim()==="" || regex.exec(this.addDepartment.departmentHead)===null){
       this.departmentHeadErrorInfo = 'Department head is required';
     }else{
       this.isDepartmentHeadValid = true;
@@ -179,7 +181,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isDepartmentCodeValid = false;
   validateDepartmentCode(){
     //var deptCode = event.target.value;
-    if(this.addDepartment.departmentCode === ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.addDepartment.departmentCode === ''|| this.addDepartment.departmentCode.trim()==="" || regex.exec(this.addDepartment.departmentCode)===null){
       this.departmentCodeErrorInfo = 'Department code is required';
     }else if(this.addDepartment.departmentCode.length < 2){
       this.departmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
@@ -200,7 +203,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isDepartmentLocationValid = false;
   validateDepartmentLocation(){
    // var deptLocation = event.target.value;
-    if(this.addDepartment.departmentAddress === ''){
+   const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.addDepartment.departmentAddress === ''|| this.addDepartment.departmentAddress.trim()==="" || regex.exec(this.addDepartment.departmentAddress)===null){
       this.departmentLocationErrorInfo = 'Department location is required';
     }else if(this.addDepartment.departmentAddress.length < 3){
       this.departmentLocationErrorInfo = 'Department location should be minimum of 3 chars.';
@@ -347,7 +351,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isUpdatedDepartmentNameValid = false;
   validateUpdatedDepartmentName(){
     // var deptName=  event.target.value;
-     if(this.existingDepartment.departmentName === ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+     if(this.existingDepartment.departmentName === ''|| this.existingDepartment.departmentName.trim()==="" || regex.exec(this.existingDepartment.departmentName)===null){
        this.updatedDepartmentNameErrorInfo = 'Department name is required';
      }else if(this.existingDepartment.departmentName.length < 3){
        this.updatedDepartmentNameErrorInfo = 'department name should have minimum of 3 chars.';
@@ -367,7 +372,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isUpdatedDepartmentHeadValid = false;
   validateUpdatedDepartmentHead(){
     //var deptHead = event.target.value;
-    if(this.existingDepartment.departmentHead === ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.existingDepartment.departmentHead === '' || this.existingDepartment.departmentHead.trim()==="" || regex.exec(this.existingDepartment.departmentHead)===null){
       this.updatedDepartmentHeadErrorInfo = 'Department head is required';
     }else{
       this.isDepartmentHeadValid = true;
@@ -383,7 +389,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isUpdatedDepartmentCodeValid = false;
   validateUpdatedDepartmentCode(){
     //var deptCode = event.target.value;
-    if(this.existingDepartment.departmentCode === ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.existingDepartment.departmentCode === '' || this.existingDepartment.departmentCode.trim()==="" || regex.exec(this.existingDepartment.departmentCode)===null){
       this.updatedDepartmentCodeErrorInfo = 'Department code is required';
     }else if(this.existingDepartment.departmentCode.length < 2){
       this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
@@ -404,7 +411,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isUpdatedDepartmentLocationValid = false;
   validateUpdatedDepartmentLocation(){
     // var deptLocation = event.target.value;
-     if(this.existingDepartment.departmentAddress === ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+     if(this.existingDepartment.departmentAddress === '' || this.existingDepartment.departmentAddress.trim()==="" || regex.exec(this.existingDepartment.departmentAddress)===null){
        this.updatedDepartmentLocationErrorInfo = 'Department location is required';
      }else if(this.existingDepartment.departmentAddress.length < 3){
        this.updatedDepartmentLocationErrorInfo = 'Department location should be minimum of 3 chars.';

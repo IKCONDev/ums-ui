@@ -113,7 +113,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
   isDesignationNameValid = false;
   validateDesignationName(){
    // var deptName=  event.target.value;
-    if(this.addDesignation.designationName === ''){
+   const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.addDesignation.designationName === '' || this.addDesignation.designationName.trim()==="" || regex.exec(this.addDesignation.designationName)===null){
       this.designationNameErrorInfo = 'Designation name is required';
     }else if(this.addDesignation.designationName.length < 5){
       this.designationNameErrorInfo = 'Designation name should have minimum of 5 chars.';
@@ -224,7 +225,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
   isUpdatedDesignationNameValid = false;
   validateUpdatedDesignationName(){
     // var deptName=  event.target.value;
-     if(this.existingDesignation.designationName === ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+     if(this.existingDesignation.designationName === '' || this.existingDesignation.designationName.trim()==="" || regex.exec(this.existingDesignation.designationName)===null){
        this.updatedDesignationNameErrorInfo = 'Department name is required';
      }else if(this.existingDesignation.designationName.length < 5){
        this.updatedDesignationNameErrorInfo = 'department name should have minimum of 5 chars.';
