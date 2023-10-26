@@ -208,6 +208,7 @@ export class UsersComponent  implements OnInit{
           var userRecord = response.body;
           if(response.status == HttpStatusCode.Created){
               this.toastr.success("Updated user successfully");
+              document.getElementById('closeUpdateModal').click();
           }
           else{
              this.toastr.error("Error occured while updting user");

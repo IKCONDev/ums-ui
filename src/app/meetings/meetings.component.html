@@ -441,7 +441,7 @@
             <!-- modal body/form -->
             <form #form="ngForm" id="formId" method="POST">
                 <!-- title -->
-                <label><b>ActionItem Title</b></label>
+                <label><b>Action Item Title</b></label>
                 <input type="text" class="form-control" style="width: 400px;"
                     [(ngModel)]="updatedetails.actionItemTitle" required="true" name="uAcItemTitle" id="uAcItemTitle"
                     minlength="5" maxlength="50" #uAcItemTitle="ngModel"
@@ -451,7 +451,7 @@
                     <span id="errorSpan">{{updateActionItemTitleErrorInfo}}</span>
                 </div>
                 <!-- description -->
-                <label><b>ActionItem Description</b></label>
+                <label><b>Action Item Description</b></label>
                 <div style="padding-left: 10px;">
                     <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;max-height:200px"
                         [(ngModel)]="updatedetails.actionItemDescription" required="true" name="uAcItemDesc"
@@ -477,10 +477,10 @@
                     <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
                 </div>
                 <!-- owner -->
-                <div style="padding-left: 10px;">
+                <div style="padding-left: 1px;">
                 <label><b>Action Owner</b></label>
                 <ng-select [multiple]="true" [searchable]="true" [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
-                    name="uAcItemOwner" style="width:  400px;"
+                    name="uAcItemOwner" style="width:409px;padding-left: 10px;"
                     (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner" placeholder="choose owner">
                    <!--- <ng-option [value]="" disabled selected value>choose</ng-option>-->
                     <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
@@ -503,7 +503,7 @@
                 </div>
                 <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
                 <!-- start date -->
-                <label><b>StartDate & Time</b></label>
+                <label><b>Start Date & Time</b></label>
                 <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
                     [(ngModel)]="updatedetails.startDate" required="true" id="uAcItemStartDate" name="uAcItemStartDate"
                     #uAcItemStartDate="ngModel" [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
@@ -512,7 +512,7 @@
                     <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
                 </div>
                 <!-- end date -->
-                <label><b>EndDate & Time</b></label>
+                <label><b>End Date & Time</b></label>
                 <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
                     [(ngModel)]="updatedetails.endDate" required="true" id="uAcItemEndDate" name="uAcItemEndDate"
                     #uAcItemEndDate="ngModel" [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"
