@@ -398,7 +398,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       var valid = this.validateTaskStatus();
       isStatusValid = valid;
     }
-    if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStatusValid === true &&
+    if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStartDateValid === true &&
       isDueDateValid === true && isStatusValid === true) {
       this.service.updateTask(this.update_Task).subscribe({
         next:(response) => {
