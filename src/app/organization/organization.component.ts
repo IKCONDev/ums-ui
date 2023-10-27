@@ -362,9 +362,10 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgAddress() {
-    if (this.org.orgAddress === '') {
-      this.updatedOrgAddressErrorInfo = '';
-      this.isUpdateOrgAddressValid = true;
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.org.orgAddress === ''|| this.org.orgAddress.trim() ==="" ||  regex.exec(this.org.orgAddress)===null) {
+      this.updatedOrgAddressErrorInfo = 'address is required';
+      this.isUpdateOrgAddressValid = false;
     }else if (this.org.orgAddress === null){
       this.updatedOrgAddressErrorInfo = '';
       this.isUpdateOrgAddressValid = true;
