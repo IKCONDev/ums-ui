@@ -70,6 +70,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
 
     this.getAllEmployees();
+    this.getAllDepartments();
   }
 
   /**
@@ -208,13 +209,25 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   getAllDepartments() {
-
     this.departmentservice.getDepartmentList().subscribe(
       response => {
         this.departmentList = response.body;
         console.log(this.departmentList);
       })
-
+      this.employeeservice.getAll().subscribe({
+       next: response => {
+         var employeeList: Employee[] = response.body;
+         this.employeeData = employeeList;
+         this.employeeData.forEach(employee => {
+          this.departmentList.forEach(department => {
+            if(employee.departmentId === department.departmentId){
+              console.log(true)
+              employee.departmentName = department.departmentName
+            }
+          })
+        })
+       } 
+      })
   }
 
   designationList: Designation[];

@@ -14,11 +14,12 @@ export class Employee{
     designation : string;
     empDesignation: Designation;
     department: Department;
+    departmentId: number;
     createdDateTime: string;
     modifiedDateTime: string;
     createdBy: string;
     modifiedBy: string;
     createdByEmailId: string;
     modifiedByEmailId: string;
-    
+    departmentName: string;
 }
