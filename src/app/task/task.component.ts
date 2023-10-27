@@ -604,5 +604,22 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
   }
+   
+  deleteTaskById(id:number){
+    var isconfirmed = window.confirm("Are you sure, you want to really delete the record");
+     if(isconfirmed){
+
+      this.service.deleteTaskById(id).subscribe({
+        next : (response)=>{
+           if(response.status==HttpStatusCode.Ok){
+             this.toastr.success("Task Deleted successfully");
+           }
+        }
+     })
+
+     }
+
+           
+  }
 
 }

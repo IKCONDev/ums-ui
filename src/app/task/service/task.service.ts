@@ -87,5 +87,14 @@ export class TaskService{
           }
           )})
     }
+    deleteTaskById(taskId:any){
+
+        return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/delete/${taskId}`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )})
+         
+    }
+
     
 }
