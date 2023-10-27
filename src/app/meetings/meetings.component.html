@@ -278,7 +278,6 @@
             <table  id="table" class="table table-hover" height="40">
                 <thead id="thead">
                     <tr>
-                     <th>Sno</th>
                      <th>Meeting ID</th>
                      <th style="width: 200px;">Title</th>
                      <th>Organizer</th>
@@ -286,13 +285,13 @@
                      <th>End Date & Time</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
                         <td>M000{{meeting.meetingId}}</td>
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime|date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{meeting.endDateTime|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime}}</td>
                     </tr>
                 </tbody>
             </table>
