@@ -1,1 +1,11 @@
-<p>notifications works!</p>
+<div class="container-fluid">
+    <div *ngIf="notificationCount === 0; else notifications">
+        <p >No Notifications Yet !</p>
+    </div>
+    <ng-template #notifications>
+        <div *ngFor="let notification of notificationList">
+            <div style="text-align: start;padding-left: 5px;" class="card">{{notification.message}}</div>
+            &nbsp;
+        </div>
+    </ng-template>
+</div>
