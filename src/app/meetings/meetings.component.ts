@@ -1204,7 +1204,7 @@ sendMOMEmail(){
       var valid = this.validateMeetingStartDateTime();
       isStartDateValid = valid;
     }
-    if(this.isMeetingSubjectValid === false){
+    if(this.isMeetingEndDateValid === false){
       var valid = this.validateMeetingEndDateTime();
       isEndDateValid = valid;
     }
@@ -1242,12 +1242,16 @@ sendMOMEmail(){
   meetingSubjectErrorInfo = '';
   isMeetingSubjectValid = false;
   validateMeetingSubject() {
-    if (this.addMeeting.subject === '') {
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.addMeeting.subject === '' || this.addMeeting.subject.trim()==="" || regex.exec(this.addMeeting.subject)===null) {
       this.meetingSubjectErrorInfo = 'Meeting subject is required';
+      this.isMeetingSubjectValid = false;
     } else if (this.addMeeting.subject.length < 4) {
       this.meetingSubjectErrorInfo = 'Meeting subject should have minimum of 4 chars';
+      this.isMeetingSubjectValid = false;
     } else if (this.addMeeting.subject.length > 100) {
       this.meetingSubjectErrorInfo = 'Meeting subject should not exceed maximum of 100 chars';
+      this.isMeetingSubjectValid = false;
     } else {
       this.isMeetingSubjectValid = true;
       this.meetingSubjectErrorInfo = '';
@@ -1260,10 +1264,13 @@ sendMOMEmail(){
   validateMeetingStartDateTime() {
     if (this.addMeeting.startDateTime === '') {
       this.meetingStartDateErrorInfo = 'Start date time is required';
+      this.isMeetingStartDateValid = false;
     } else if (this.addMeeting.startDateTime === null) {
       this.meetingStartDateErrorInfo = 'Start date time is required';
+      this.isMeetingStartDateValid = false;
     } else if (new Date(this.addMeeting.startDateTime) < new Date(Date.now())) {
       this.meetingStartDateErrorInfo = 'Start date time cannot be a previous date';
+      this.isMeetingStartDateValid = false;
     } else {
       this.meetingStartDateErrorInfo = '';
       this.isMeetingStartDateValid = true;
@@ -1276,10 +1283,13 @@ sendMOMEmail(){
   validateMeetingEndDateTime() {
     if (this.addMeeting.endDateTime === '') {
       this.meetingEndDateErrorInfo = 'End date time is required';
+      this.isMeetingEndDateValid = false;
     } else if (this.addMeeting.endDateTime === null) {
       this.meetingEndDateErrorInfo = 'End date time is required';
+      this.isMeetingEndDateValid = false;
     } else if (new Date(this.addMeeting.endDateTime) < new Date(this.addMeeting.startDateTime)) {
       this.meetingEndDateErrorInfo = 'End date time cannot be less than start date time';
+      this.isMeetingEndDateValid = false;
     } else {
       this.meetingEndDateErrorInfo = '';
       this.isMeetingEndDateValid = true;
@@ -1292,6 +1302,7 @@ sendMOMEmail(){
   validateMeetingAttendees() {
     if (this.addMeeting.attendees.length === 0) {
       this.meetingAttendeesErrorInfo = 'Meetings attendees are required';
+      this.isMeetingAttendeesValid = false;
     } else {
       this.meetingAttendeesErrorInfo = '';
       this.isMeetingAttendeesValid = true;
