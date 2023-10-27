@@ -454,6 +454,10 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.employeeDesignationErrorInfo = '';
     this.employeeReportingManagerErrorInfo = '';
 
+    
+
+  }
+  clearUpdateErrorMessages(){
     this.updateFirstNameErrorInfo = "";
     this.updateLastNameErrorInfo = "";
     this.updateEmailIdErrorInfo = "";
