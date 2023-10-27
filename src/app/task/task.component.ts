@@ -247,10 +247,14 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskStatus() {
     // var taskStatus = event.target.value;
-    if (this.update_Task.status === 'Select') {
+    if (this.update_Task.status === null) {
       this.taskStatusErrorInfo = 'Status is required';
       this.isTaskStatusValid = false;
 
+    }
+    else if(this.update_Task.status === 'Select'){
+      this.taskStatusErrorInfo = 'Status is required';
+      this.isTaskStatusValid = false;
     }
     else {
       this.taskStatusErrorInfo = '';
@@ -382,19 +386,19 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       var valid = this.validateTaskPriority();
       isPriorityValid = valid;
     }
-    if (this.isTaskStartDateValid === false) {
+    if (!this.isTaskStartDateValid) {
       var valid = this.validateTaskStartDate();
       isStartDateValid = valid;
     }
-    if (this.isTaskDueDateValid === false) {
+    if (!this.isTaskDueDateValid) {
       var valid = this.validateTaskDueDate();
       isDueDateValid = valid;
     }
-    if (this.isTaskStatusValid === false) {
+    if (!this.isTaskStatusValid) {
       var valid = this.validateTaskStatus();
       isStatusValid = valid;
     }
-    if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStatusValid === true &&
+    if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStartDateValid === true &&
       isDueDateValid === true && isStatusValid === true) {
       this.service.updateTask(this.update_Task).subscribe({
         next:(response) => {
