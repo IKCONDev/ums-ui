@@ -83,6 +83,7 @@ export class OrganizationComponent implements OnInit {
   editInfo() {
     this.isDisable = true
     console.log(this.isDisable)
+   
   }
 
   /**
@@ -90,6 +91,28 @@ export class OrganizationComponent implements OnInit {
    */
   cancelCompanyDetails() {
     this.isDisable = false;
+    this.updatedOrgNameErrorInfo= '';
+    this.isUpdateorgNameValid= false;
+    this.updatedOrgWebsiteErrorInfo= ''
+    this.isUpdateWebsiteNameValid = false;
+    this.updatedorgFunctionalTypeErrorInfo= ''
+    this.isUpdateOrgFunctionValid = false;
+    this.updatedorgContactPersonNameErrorInfo = ''
+    this.isUpdateOrgContactPersonNameValid = false;
+    this.updatedorgContactPersonNumberErrorInfo= '';
+    this.isUpdateOrgContactPersonNumberValid = false;
+    this.updatedOrgAddressErrorInfo = '';
+    this.isUpdateOrgAddressValid = false;
+   this. updatedOrgContactNumberErrorInfo = '';
+    this.isupdatedOrgContactNumberValid = false;
+    this.updatedOrgCountryErrorInfo = '';
+    this.isupdatedOrgCountryValid = false;
+    this.updatedorgContactPersonEmailErrorInfo= '';
+    this.isUpdateOrgContactPersonEmailValid= false;
+    this.updatedOrgSuperAdminEmailErrorInfo = '';
+    this.isUpdateOrgSuperAdminEmailValid = false;
+    this.updatedCompanyEmailErrorInfo= '';
+    this.isUpdateCompanyEmailValid = false;
   }
 
   /**

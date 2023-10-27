@@ -236,7 +236,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
             window.location.reload();
           },1000)
         }else{
-          this.toastr.error('error while deleting department with id: '+departmentId)
+          this.toastr.error('Error while deleting department ' + departmentId  +' ... Please try again !')
         }
       },error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){
@@ -481,12 +481,12 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
         next:(response) => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Departments deleted sucessfully')  
+            this.toastr.success('Records deleted sucessfully')  
             setTimeout(()=>{
               window.location.reload();
             },1000)  
           }else{
-            this.toastr.error('Error while deleting departments... Please try again !');
+            this.toastr.error('Error while deleting records... Please try again !');
           }
         },error: (error) => {
           if(error.status === HttpStatusCode.Unauthorized){
@@ -495,7 +495,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       })
     }else{
-      this.toastr.warning('Departments not deleted')
+      this.toastr.warning('Records not deleted')
     }
    }else{
     this.toastr.error('Please select atleast one record to delete.')
