@@ -205,14 +205,14 @@ export class UsersComponent  implements OnInit{
         response=>{
           var userRecord = response.body;
           if(response.status == HttpStatusCode.Created){
-              this.toastr.success("Updated user successfully");
+              this.toastr.success("User updated successfully");
               document.getElementById('closeUpdateModal').click();
               setTimeout(() => {
                 window.location.reload();
                },1000);
           }
           else{
-             this.toastr.error("Error occured while updting user");
+             this.toastr.error("Error occured while updating user");
           }
         }
      )
@@ -236,7 +236,7 @@ export class UsersComponent  implements OnInit{
              },1000);
            }
            else{
-            this.toastr.error("Error occued while Deleting user");
+            this.toastr.error("Error occued while deleting user");
           }
          
         });
@@ -256,7 +256,7 @@ export class UsersComponent  implements OnInit{
  validateUserEmailId(){
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
    if(this.addUserObj.email == ''||emailRegExp.test(this.addUserObj.email)===false){
-      this.useremailIdErrorInfo = "Emailid is required";
+      this.useremailIdErrorInfo = "Email ID is required";
       this.isEmailValid = false;
    }
    else{

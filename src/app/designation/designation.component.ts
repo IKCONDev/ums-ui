@@ -141,7 +141,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log('exuected')
         if(response.status === HttpStatusCode.Ok){
           var result = response.body;
-          this.toastr.success('Department '+designationId+' deleted successfully.')
+          this.toastr.success('Designation '+designationId+' deleted successfully.')
           setTimeout(()=>{
             window.location.reload();
           },1000)
@@ -274,17 +274,17 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         (response => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Designations deleted sucessfully')  
+            this.toastr.success('Records deleted sucessfully')  
             setTimeout(()=>{
               window.location.reload();
             },1000)  
           }else{
-            this.toastr.error('Error while deleting designations... Please try again !');
+            this.toastr.error('Error while deleting records... Please try again !');
           }
         })
       )
     }else{
-      this.toastr.warning('Designations not deleted')
+      this.toastr.warning('Records not deleted')
     }
    }else{
     this.toastr.error('Please select atleast one record to delete.')
