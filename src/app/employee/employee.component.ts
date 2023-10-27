@@ -1,4 +1,4 @@
-import { Component, Output ,OnInit,AfterViewInit,OnDestroy } from '@angular/core';
+import { Component, Output, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { EmployeeService } from './service/employee.service';
 import { Employee } from '../model/Employee.model';
 import { HttpStatusCode } from '@angular/common/http';
@@ -15,9 +15,9 @@ import { Designation } from '../model/Designation.model';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
-  
-  @Output() title:string='Employees';
+export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  @Output() title: string = 'Employees';
 
   private table: any;
 
@@ -40,20 +40,20 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
 
 
 
- addEmployee ={
+  addEmployee = {
 
     id: 0,
-    employeeOrgId:'',
+    employeeOrgId: '',
     teamsUserId: '',
     firstName: '',
     lastName: '',
     email: '',
-    empDesignation :{
-       id:0,
-       designationName:''
+    empDesignation: {
+      id: 0,
+      designationName: ''
     },
     reportingManager: '',
-    designation : '',
+    designation: '',
     departmentId: 0,
     createdDateTime: '',
     modifiedDateTime: '',
@@ -63,62 +63,38 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     modifiedByEmailId: '',
   }
 
-  employeeData :Employee[];
+  employeeData: Employee[];
 
-  constructor( private employeeservice : EmployeeService, private toastr : ToastrService,
-     private departmentservice : DepartmentService, private router: Router, private designationService : DesignationService) {}
+  constructor(private employeeservice: EmployeeService, private toastr: ToastrService,
+    private departmentservice: DepartmentService, private router: Router, private designationService: DesignationService) { }
   ngOnInit(): void {
 
-     this.getAllEmployees(); 
-    /*setTimeout(() =>{this.employeeData.map (emp =>{
-      this.departmentList.map(dept =>{
-         if(emp.department.departmentId == dept.departmentId){
-           emp.department.departmentName = dept.departmentName;
-           console.log(emp.department.departmentName);
-         }
-      })},2000)})*/
-      // this.employeeData.forEach( empdata =>{
-      //    console.log(empdata);
-      // })
-  } 
- 
+    this.getAllEmployees();
+  }
+
   /**
    *  get all employees in DB
    */
 
   departmentList: Department[]
-  getAllEmployees(){
-
+  getAllEmployees() {
     this.employeeservice.getAll().subscribe({
-      next : response =>{
+      next: response => {
         this.employeeData = response.body;
         console.log(this.employeeData);
-      /*if(this.departmentList != null)
-      {
-        this.employeeData.map(emp =>{
-          for(let i=0; i< this.departmentList.length; i++){
-            console.log("loop entered")
-            if(emp.department.departmentId == this.departmentList[i].departmentId){
-  
-               emp.department.departmentName = this.departmentList[i].departmentName;
-               console.log(emp.department.departmentName);
-            }
-         }
-       })
-      }*/
-    }
-     
+      }
+
     })
   }
-   
-  
-/***
- * 
- *  create employee
- */
- createdEmployee : Employee;
-  
-  createEmployee(){
+
+
+  /***
+   * 
+   *  create employee
+   */
+  createdEmployee: Employee;
+
+  createEmployee() {
 
     let isFirstNameValid = true;
     let isLastNameValid = true;
@@ -127,71 +103,71 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     let isDepartmentValid = true;
     let isDesignationValid = true;
 
-    if(!this.isEmployeeFirstNameValid){
+    if (!this.isEmployeeFirstNameValid) {
 
       var valid = this.validateEmployeeFirstName();
       isFirstNameValid = valid;
     }
-    if(!this.isEmployeeLasttNameValid){
+    if (!this.isEmployeeLasttNameValid) {
       var valid = this.validateEmployeeLastName();
       isLastNameValid = valid;
     }
-    if(!this.isEmployeeEmailIdValid){
+    if (!this.isEmployeeEmailIdValid) {
       var valid = this.validateEmployeeEmailId();
-      isEmailIdValid =valid;
+      isEmailIdValid = valid;
 
     }
-    if(!this.isEmployeeReportingManagerValid){
+    if (!this.isEmployeeReportingManagerValid) {
       var valid = this.validateEmployeeReportingManager();
       isReportingManagerValid = valid;
     }
-    if(!this.isEmployeeDepartmentValid){
+    if (!this.isEmployeeDepartmentValid) {
       var valid = this.validateEmployeeDepartment();
       isDepartmentValid = valid;
 
     }
-    if(!this.isEmployeeDesignationtValid){
-       var valid = this.validateEmployeeDesignation();
-       isDesignationValid = valid;
+    if (!this.isEmployeeDesignationtValid) {
+      var valid = this.validateEmployeeDesignation();
+      isDesignationValid = valid;
     }
-    
-    if(isFirstNameValid == true && isLastNameValid == true && isEmailIdValid == true &&  isReportingManagerValid == true  &&isDepartmentValid == true && isDesignationValid == true){
-      
+
+    if (isFirstNameValid == true && isLastNameValid == true && isEmailIdValid == true && isReportingManagerValid == true && isDepartmentValid == true && isDesignationValid == true) {
+
       console.log(this.addEmployee);
-      this.addEmployee.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+      this.addEmployee.createdBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       this.addEmployee.createdByEmailId = localStorage.getItem('email');
       this.employeeservice.createEmployee(this.addEmployee).subscribe(
-       response =>{
-        if(response.status == HttpStatusCode.Created){
-          this.createdEmployee = response.body;
-          this.toastr.success("Employee created successfully");
-          document.getElementById('closeAddModal').click();
-          setTimeout(() => {
-            window.location.reload;
-          },1000)
+        response => {
+          if (response.status == HttpStatusCode.Created) {
+            this.createdEmployee = response.body;
+            this.toastr.success("Employee created successfully");
+            document.getElementById('closeAddModal').click();
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000)
+          }
         }
-       }
-     );
+      );
     }
 
-    
+
   }
 
-  existingEmployee ={
+  existingEmployee = {
 
     id: 0,
-    employeeOrgId:'',
+    employeeOrgId: '',
     teamsUserId: '',
     firstName: '',
     lastName: '',
     email: '',
-    empDesignation :{
-      id:0,
-      designationName:''
-   },
+    empDesignation: {
+      id: 0,
+      designationName: ''
+    },
     reportingManager: '',
-    designation : '',
-    departmentId :0,
+    designation: '',
+    departmentId: 0,
     createdDateTime: '',
     modifiedDateTime: '',
     createdBy: '',
@@ -199,23 +175,23 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     createdByEmailId: '',
     modifiedByEmailId: '',
   }
-  
+
   /**
    * 
    * @param employeeid 
    */
-  fetchoneEmployeewithDepartment(employeeid : number){
+  fetchoneEmployeewithDepartment(employeeid: number) {
 
-     this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe({
-       next: response =>{
-          this.existingEmployee = response.body;
-          console.log(this.existingEmployee);
-     },
-     error: error => {
-      if(error.status === HttpStatusCode.Unauthorized){
-        this.router.navigateByUrl('/session-timeout');
+    this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe({
+      next: response => {
+        this.existingEmployee = response.body;
+        console.log(this.existingEmployee);
+      },
+      error: error => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout');
+        }
       }
-     }
     });
     /* for(let employee of this.employeeData){
       for(let department of this.departmentList){
@@ -231,66 +207,69 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
    *  get all departmentList
    */
 
-   getAllDepartments(){
+  getAllDepartments() {
 
-      this.departmentservice.getDepartmentList().subscribe(
-      response=>{
-      this.departmentList = response.body;
-      console.log(this.departmentList); 
+    this.departmentservice.getDepartmentList().subscribe(
+      response => {
+        this.departmentList = response.body;
+        console.log(this.departmentList);
       })
-  
+
   }
-  designationList : Designation[];
-  getAllDesignations(){
+
+  designationList: Designation[];
+  /**
+   * 
+   */
+  getAllDesignations() {
     console.log("method started");
     this.designationService.getDesignationList().subscribe({
-      next : (response) =>{
+      next: (response) => {
 
-        if(response.status === HttpStatusCode.Ok){
+        if (response.status === HttpStatusCode.Ok) {
           this.designationList = response.body;
           console.log(this.designationList);
 
         }
       }
     });
-     
   }
 
   /**
    * remove employee
    */
-  
-  removeEmployee(employeeId : number){
+
+  removeEmployee(employeeId: number) {
     var isconfirmed = window.confirm('Are you sure, you really want to delete the record ?');
 
-    if(isconfirmed){
+    if (isconfirmed) {
 
       this.employeeservice.deleteEmployee(employeeId).subscribe({
-         next : response =>{
-            if(response.status == HttpStatusCode.Ok){
-                this.toastr.success("Employee deleted successfully");
-                setTimeout(() => {
-                  window.location.reload;
-                },1000)
-            }
-         },
-         error: error => {
-            this.toastr.error("Error occured while deleting employee");
-             console.log("error occured");
-         }
+        next: response => {
+          if (response.status == HttpStatusCode.Ok) {
+            this.toastr.success('Employee ' +employeeId+' deleted successfully');
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000)
+          }
+        },
+        error: error => {
+          this.toastr.error("Error occured while deleting employee "+employeeId);
+          console.log("error occured");
         }
-     );
+      }
+      );
     }
-    else{
-        this.toastr.warning("Employee not deleted");
+    else {
+      this.toastr.warning('Employee ' +employeeId+ ' not deleted');
     }
 
   }
   /**
    *  update employee
    */
-  
-  updateEmployee(employee : any){
+
+  updateEmployee(employee: any) {
 
     let isFirstNameValid = true;
     let isLastNameValid = true;
@@ -299,54 +278,54 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     let isDepartmentValid = true;
     let isDesignationValid = true;
 
-    if(!this.isUpdateFirstNameValid){
+    if (!this.isUpdateFirstNameValid) {
 
       var valid = this.validateUpdateFirstName();
       isFirstNameValid = valid;
     }
-    if(!this.isUpdateLastNameValid){
+    if (!this.isUpdateLastNameValid) {
       var valid = this.validateUpdateLastName();
       isLastNameValid = valid;
     }
-    if(!this.isUpdateEmailIdValid){
+    if (!this.isUpdateEmailIdValid) {
       var valid = this.validateUpdateEmailId();
-      isEmailIdValid =valid;
+      isEmailIdValid = valid;
 
     }
-    if(!this.isUpdateReportingManagerValid){
+    if (!this.isUpdateReportingManagerValid) {
       var valid = this.validateUpdateReportingManager();
       isReportingManagerValid = valid;
     }
-    if(!this.isUpdateDepartmentValid){
+    if (!this.isUpdateDepartmentValid) {
       var valid = this.validateUpdateDepartment();
       isDepartmentValid = valid;
 
     }
-    if(!this.isUpdateDesignationValid){
-       var valid = this.validateUpdateDesignation();
-       isDesignationValid = valid;
+    if (!this.isUpdateDesignationValid) {
+      var valid = this.validateUpdateDesignation();
+      isDesignationValid = valid;
     }
-     
-    if(isEmailIdValid == true && isFirstNameValid == true && isReportingManagerValid== true &&isLastNameValid == true && isDepartmentValid == true &&
-      isDesignationValid == true){
-       this.existingEmployee.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
-        this.employeeservice.updateEmployee(employee).subscribe(
-          response=>{
-            var employeerecord = response.body;
-            if(response.status == HttpStatusCode.Created){
-                this.toastr.success("updated employee successfully");
-                document.getElementById('closeUpdateModal').click();
-            }
-            else{
-               this.toastr.error("Error occured while updating employee");
-            }
+
+    if (isEmailIdValid == true && isFirstNameValid == true && isReportingManagerValid == true && isLastNameValid == true && isDepartmentValid == true &&
+      isDesignationValid == true) {
+      this.existingEmployee.modifiedBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
+      this.employeeservice.updateEmployee(employee).subscribe(
+        response => {
+          var employeerecord = response.body;
+          if (response.status == HttpStatusCode.Created) {
+            this.toastr.success('Employee '+this.existingEmployee.id+' updated successfully');
+            document.getElementById('closeUpdateModal').click();
           }
-       )                                                 
+          else {
+            this.toastr.error("Error occured while updating employee "+this.existingEmployee.id);
+          }
+        }
+      )
 
     }
 
   }
-  
+
   /**
    * 
    * validations for create Employee
@@ -358,72 +337,72 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   isEmployeeReportingManagerValid = false;
   isEmployeeDepartmentValid = false;
   isEmployeeDesignationtValid = false;
-  
+
   employeeFirstNameErrorInfo = '';
-  validateEmployeeFirstName(){
+  validateEmployeeFirstName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
 
-    if(this.addEmployee.firstName == '' || this.addEmployee.firstName.trim()==="" || regex.exec(this.addEmployee.firstName)===null){
-        this.employeeFirstNameErrorInfo = "First Name is required";
-        this.isEmployeeFirstNameValid = false;
-    }
-    else if(this.addEmployee.firstName.length < 4){
+    if (this.addEmployee.firstName == '' || this.addEmployee.firstName.trim() === "" || regex.exec(this.addEmployee.firstName) === null) {
       this.employeeFirstNameErrorInfo = "First Name is required";
       this.isEmployeeFirstNameValid = false;
-   
     }
-    else{
-       this.employeeFirstNameErrorInfo = "";
-       this.isEmployeeFirstNameValid = true;
+    else if (this.addEmployee.firstName.length < 4) {
+      this.employeeFirstNameErrorInfo = "First Name is required";
+      this.isEmployeeFirstNameValid = false;
+
+    }
+    else {
+      this.employeeFirstNameErrorInfo = "";
+      this.isEmployeeFirstNameValid = true;
     }
     return this.isEmployeeFirstNameValid;
 
   }
-  employeeLastNameErrorInfo ="";
-  validateEmployeeLastName(){
+  employeeLastNameErrorInfo = "";
+  validateEmployeeLastName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
 
-  if(this.addEmployee.lastName == '' || this.addEmployee.lastName.trim()==="" || regex.exec(this.addEmployee.lastName)===null){
+    if (this.addEmployee.lastName == '' || this.addEmployee.lastName.trim() === "" || regex.exec(this.addEmployee.lastName) === null) {
       this.employeeLastNameErrorInfo = "Last Name is required";
-     this. isEmployeeLasttNameValid = false;
-  }
-  else if(this.addEmployee.lastName.length >5){
-    this.employeeLastNameErrorInfo = "";
-    this. isEmployeeLasttNameValid = true;
+      this.isEmployeeLasttNameValid = false;
+    }
+    else if (this.addEmployee.lastName.length > 5) {
+      this.employeeLastNameErrorInfo = "";
+      this.isEmployeeLasttNameValid = true;
 
-  }
-  else{
-     this.employeeLastNameErrorInfo = "";
-     this. isEmployeeLasttNameValid = true;
-  }
-     
-  return this.isEmployeeLasttNameValid;
-  
-  
+    }
+    else {
+      this.employeeLastNameErrorInfo = "";
+      this.isEmployeeLasttNameValid = true;
+    }
+
+    return this.isEmployeeLasttNameValid;
+
+
   }
 
   employeeEmailIdErrorInfo = "";
-  validateEmployeeEmailId(){
+  validateEmployeeEmailId() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
-     if(this.addEmployee.email == ''||emailRegExp.test(this.addEmployee.email)===false){
-      this.employeeEmailIdErrorInfo = "EmailId is required";
+    if (this.addEmployee.email == '' || emailRegExp.test(this.addEmployee.email) === false) {
+      this.employeeEmailIdErrorInfo = "Email ID is required";
       this.isEmployeeEmailIdValid = false;
-     }
-     else{
+    }
+    else {
       this.employeeEmailIdErrorInfo = "";
       this.isEmployeeEmailIdValid = true;
-     }
-     return this.isEmployeeEmailIdValid;  
+    }
+    return this.isEmployeeEmailIdValid;
   }
 
-  employeeReportingManagerErrorInfo ="";
-  validateEmployeeReportingManager(){
+  employeeReportingManagerErrorInfo = "";
+  validateEmployeeReportingManager() {
 
-    if(this.addEmployee.reportingManager==''){
-      this.employeeReportingManagerErrorInfo = "RM is required";
+    if (this.addEmployee.reportingManager == '') {
+      this.employeeReportingManagerErrorInfo = "Reporting Manager is required";
       this.isEmployeeReportingManagerValid = false;
     }
-    else{
+    else {
       this.employeeReportingManagerErrorInfo = "";
       this.isEmployeeReportingManagerValid = true;
     }
@@ -431,31 +410,31 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   }
 
   employeeDepartmentErrorInfo = "";
-  validateEmployeeDepartment(){
-     if(this.addEmployee.departmentId < 1 ){
-       this.employeeDepartmentErrorInfo = "Department is required"
-       this.isEmployeeDepartmentValid = false;
+  validateEmployeeDepartment() {
+    if (this.addEmployee.departmentId < 1) {
+      this.employeeDepartmentErrorInfo = "Department is required"
+      this.isEmployeeDepartmentValid = false;
 
-     }
-     else{
-       this.employeeDepartmentErrorInfo ="";
-       this.isEmployeeDepartmentValid = true;
-     }
-     return this,this.isEmployeeDepartmentValid;
+    }
+    else {
+      this.employeeDepartmentErrorInfo = "";
+      this.isEmployeeDepartmentValid = true;
+    }
+    return this, this.isEmployeeDepartmentValid;
 
   }
 
   employeeDesignationErrorInfo = "";
 
-  validateEmployeeDesignation(){
+  validateEmployeeDesignation() {
 
-    if(this.addEmployee.empDesignation.id == 0){
+    if (this.addEmployee.empDesignation.id == 0) {
       this.employeeDesignationErrorInfo = "Designation is required"
       this.isEmployeeDesignationtValid = false;
 
     }
-    else{
-      this.employeeDesignationErrorInfo ="";
+    else {
+      this.employeeDesignationErrorInfo = "";
       this.isEmployeeDesignationtValid = true;
     }
     return this.isEmployeeDesignationtValid;
@@ -465,28 +444,28 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
    * clear Error Message
    */
 
-  clearErrorMessages(){
-   
+  clearErrorMessages() {
+
     $(".modal-body input").val("")
-     this.employeeFirstNameErrorInfo = '';
-     this.employeeLastNameErrorInfo = '';
-     this.employeeEmailIdErrorInfo = '';
-     this.employeeDepartmentErrorInfo = '';
-     this.employeeDesignationErrorInfo ='';
-     this.employeeReportingManagerErrorInfo = '';
-    
-     this.updateFirstNameErrorInfo ="";
-     this.updateLastNameErrorInfo ="";
-     this.updateEmailIdErrorInfo ="";
-     this.updateReportingManagerErrorInfo='';
-     this.updateDepartmentErrorInfo ="";
-     this.updateDesignationErrorInfo ="";
+    this.employeeFirstNameErrorInfo = '';
+    this.employeeLastNameErrorInfo = '';
+    this.employeeEmailIdErrorInfo = '';
+    this.employeeDepartmentErrorInfo = '';
+    this.employeeDesignationErrorInfo = '';
+    this.employeeReportingManagerErrorInfo = '';
+
+    this.updateFirstNameErrorInfo = "";
+    this.updateLastNameErrorInfo = "";
+    this.updateEmailIdErrorInfo = "";
+    this.updateReportingManagerErrorInfo = '';
+    this.updateDepartmentErrorInfo = "";
+    this.updateDesignationErrorInfo = "";
 
   }
   /**
    * update employee Validations
    */
-   
+
   isUpdateFirstNameValid = false;
   isUpdateLastNameValid = false;
   isUpdateEmailIdValid = false;
@@ -494,97 +473,97 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   isUpdateDepartmentValid = false;
   isUpdateDesignationValid = false;
 
-  updateFirstNameErrorInfo ="";
+  updateFirstNameErrorInfo = "";
 
-  validateUpdateFirstName(){
+  validateUpdateFirstName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
 
-    if(this.existingEmployee.firstName == '' || this.existingEmployee.firstName.trim()==="" || regex.exec(this.existingEmployee.firstName)===null){
+    if (this.existingEmployee.firstName == '' || this.existingEmployee.firstName.trim() === "" || regex.exec(this.existingEmployee.firstName) === null) {
       this.updateFirstNameErrorInfo = "First Name is required";
       this.isUpdateFirstNameValid = false;
     }
-    else if(this.existingEmployee.firstName.length < 5){
+    else if (this.existingEmployee.firstName.length < 5) {
       this.updateFirstNameErrorInfo = "First Name is required";
       this.isUpdateFirstNameValid = false;
     }
-    else{
-       this.updateFirstNameErrorInfo = "";
-       this.isUpdateFirstNameValid = true;
-     }
-     return this.isUpdateFirstNameValid;
+    else {
+      this.updateFirstNameErrorInfo = "";
+      this.isUpdateFirstNameValid = true;
+    }
+    return this.isUpdateFirstNameValid;
   }
-  updateLastNameErrorInfo ="";
-  validateUpdateLastName(){
+  updateLastNameErrorInfo = "";
+  validateUpdateLastName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
 
-   if(this.existingEmployee.lastName == '' || this.existingEmployee.lastName.trim()==="" || regex.exec(this.existingEmployee.lastName)===null){
+    if (this.existingEmployee.lastName == '' || this.existingEmployee.lastName.trim() === "" || regex.exec(this.existingEmployee.lastName) === null) {
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
     }
-    else if(this.existingEmployee.lastName.length < 5){
+    else if (this.existingEmployee.lastName.length < 5) {
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
     }
-    else{
+    else {
       this.updateLastNameErrorInfo = "";
       this.isUpdateLastNameValid = true;
     }
     return this.isUpdateLastNameValid;
   }
   updateEmailIdErrorInfo = "";
-  validateUpdateEmailId(){
+  validateUpdateEmailId() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
-    if(this.existingEmployee.email == '' || emailRegExp.test(this.existingEmployee.email)===false){
-      this.updateEmailIdErrorInfo = "EmailId is required";
+    if (this.existingEmployee.email == '' || emailRegExp.test(this.existingEmployee.email) === false) {
+      this.updateEmailIdErrorInfo = "Email ID is required";
       this.isUpdateEmailIdValid = false;
     }
-    else if(this.existingEmployee.email.length < 10){
-      this.updateEmailIdErrorInfo = "EmailId is required";
+    else if (this.existingEmployee.email.length < 10) {
+      this.updateEmailIdErrorInfo = "Email ID is required";
       this.isUpdateEmailIdValid = false;
     }
-    else{
+    else {
       this.updateEmailIdErrorInfo = "";
       this.isUpdateEmailIdValid = true;
     }
     return this.isUpdateEmailIdValid;
 
   }
-  updateReportingManagerErrorInfo ="";
-  validateUpdateReportingManager(){
+  updateReportingManagerErrorInfo = "";
+  validateUpdateReportingManager() {
 
-    if(this.existingEmployee.reportingManager ===''){
-      this.updateReportingManagerErrorInfo = "RM is required";
-      this.isUpdateReportingManagerValid  = false;
+    if (this.existingEmployee.reportingManager === '') {
+      this.updateReportingManagerErrorInfo = "Reporting Manager is required";
+      this.isUpdateReportingManagerValid = false;
     }
-    else{
+    else {
       this.updateReportingManagerErrorInfo = "";
-      this.isUpdateReportingManagerValid  = true;
+      this.isUpdateReportingManagerValid = true;
 
-  }
-  return this.isUpdateReportingManagerValid;
-  }
-  updateDepartmentErrorInfo ="";
-  validateUpdateDepartment(){
-    if(this.existingEmployee.departmentId <=0){
-      this.updateDepartmentErrorInfo = "Department is required";
-      this.isUpdateDepartmentValid  = false;
     }
-    else{
+    return this.isUpdateReportingManagerValid;
+  }
+  updateDepartmentErrorInfo = "";
+  validateUpdateDepartment() {
+    if (this.existingEmployee.departmentId <= 0) {
+      this.updateDepartmentErrorInfo = "Department is required";
+      this.isUpdateDepartmentValid = false;
+    }
+    else {
       this.updateDepartmentErrorInfo = "";
-      this.isUpdateDepartmentValid  = true;
+      this.isUpdateDepartmentValid = true;
     }
     return this.isUpdateDepartmentValid;
 
 
   }
-  updateDesignationErrorInfo ="";
-  validateUpdateDesignation(){
+  updateDesignationErrorInfo = "";
+  validateUpdateDesignation() {
 
-    if(this.existingEmployee.empDesignation.id <= 0){
+    if (this.existingEmployee.empDesignation.id <= 0) {
       this.updateDesignationErrorInfo = "Designation is required";
       this.isUpdateDesignationValid = false;
     }
-    else{
+    else {
       this.updateDesignationErrorInfo = "";
       this.isUpdateDesignationValid = true;
     }
@@ -594,7 +573,9 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
 
   /** check the selected checkboxes to delete */
 
-  
+/**
+ * 
+ */
   checkCheckBoxes() {
 
     var employeeIdsToBeDeleted = [];
@@ -625,70 +606,57 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     }
     console.log(employeeIdsToBeDeleted);
     this.deleteEmployeesById(employeeIdsToBeDeleted);
-    
-
   }
-  deleteEmployeesById(employee : any[]){
-    var isconfirmed = window.confirm("Are you sure, you really want to delete these records?");
-    if(isconfirmed){
 
-      this.employeeservice.deleteAllEmployee(employee).subscribe(
-        response=>{
-           if(response.status == HttpStatusCode.Ok){
-              this.toastr.success("Employee deleted successfully");
-              setTimeout(() => {
-                window.location.reload;
-              },1000)
-           }
-           else{
-               this.toastr.error("Error while deleting employee... Please try again !"); 
-           }
+  /**
+   * 
+   * @param employee 
+   */
+  deleteEmployeesById(ids: any[]) {
+    var isconfirmed = window.confirm("Are you sure, you really want to delete selected records?");
+    if (isconfirmed) {
+
+      this.employeeservice.deleteAllEmployee(ids).subscribe(
+        response => {
+          if (response.status == HttpStatusCode.Ok) {
+            this.toastr.success('Records deleted successfully');
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000)
+          }
+          else {
+            this.toastr.error("Error while deleting records... Please try again !");
+          }
         }
-     )
+      )
 
     }
-    else{
+    else {
       this.toastr.warning("Records not deleted");
 
     }
   }
 
+
   /**
    * 
-   * @param mainCheckBox 
    */
-  checkAllCheckBoxes(mainCheckBox: any) {
-   // var checkbox = event.target.value;
-   // console.log("the value is:" + checkbox);
-      console.log("checked");
-      var table = document.getElementById('table');
-      var rows = document.getElementsByClassName('trbody')
-      for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        var ischeckbox = row.querySelector("input[type='checkbox']") as HTMLInputElement
-        if(ischeckbox){
-          ischeckbox.checked = mainCheckBox.checked;
-          ischeckbox.click();
-        }
-       
-      
-      }
-
-}
-checkSubCheckBoxes(){
-  if($('#mainCheckBox').is(':checked')){
-    $('.subCheckBox').prop('checked', true);
-  }else{
-    $('.subCheckBox').prop('checked', false);
-  }
-}
-
-  toggleMainCheckBox(index : number){
-
-    if(!$('#ac-check'+index).is(':checked')){
-      $('.mainCheckBox').prop('checked',false);
+  checkSubCheckBoxes() {
+    if ($('#mainCheckBox').is(':checked')) {
+      $('.subCheckBox').prop('checked', true);
+    } else {
+      $('.subCheckBox').prop('checked', false);
     }
+  }
 
+  /**
+   * 
+   * @param index 
+   */
+  toggleMainCheckBox(index: number) {
+    if (!$('#ac-check' + index).is(':checked')) {
+      $('.mainCheckBox').prop('checked', false);
+    }
   }
 
 }
