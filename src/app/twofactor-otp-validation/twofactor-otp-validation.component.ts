@@ -107,7 +107,7 @@ export class TwofactorOtpValidationComponent {
             email: this.email
           }
         }
-        this.toastr.success('Login success')
+        this.toastr.success('Login Success')
         this.router.navigateByUrl("/home", navigationExtras)
       }else{
         console.log(' invalid otp please enter a valid one or request for resend otp')

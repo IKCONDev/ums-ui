@@ -98,6 +98,10 @@ th,td{
     color: aqua;
     cursor: pointer;
  }
+ #trashIcon :hover{
+  cursor: pointer;
+ }
+
  /* input{
     margin: 10px;
  }*/

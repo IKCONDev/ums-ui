@@ -640,7 +640,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isMetingActionItemsDeleted = response.body;
         console.log(this.isMetingActionItemsDeleted);
         if (this.isMetingActionItemsDeleted) {
-          this.toastr.success('Action Items are deleted')
+          this.toastr.success('Action items are deleted')
           setTimeout(() => {
             window.location.reload();
           }, 1000)

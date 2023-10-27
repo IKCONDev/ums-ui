@@ -89,9 +89,9 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
   validateRoleName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.addRoleObj.roleName === '' || this.addRoleObj.roleName.trim()==="" || regex.exec(this.addRoleObj.roleName)===null) {
-      this.roleNameErrorInfo = 'role name is required';
+      this.roleNameErrorInfo = 'Role name is required';
     } else if (this.addRoleObj.roleName.length < 2) {
-      this.roleNameErrorInfo = 'role name should have min of 2 chars'
+      this.roleNameErrorInfo = 'Role name should have min of 2 chars'
     } else {
       this.roleNameErrorInfo = '';
       this.isRoleNameValid = true;
@@ -108,9 +108,9 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
   validateUpdatedRoleName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.existingRole.roleName === '' || this.existingRole.roleName.trim()==="" || regex.exec(this.existingRole.roleName)===null) {
-      this.updatedRoleNameErrorInfo = 'role name is required';
+      this.updatedRoleNameErrorInfo = 'Role name is required';
     } else if (this.existingRole.roleName.length < 2) {
-      this.updatedRoleNameErrorInfo = 'role name should have min of 2 chars'
+      this.updatedRoleNameErrorInfo = 'Role name should have min of 2 chars'
     } else {
       this.updatedRoleNameErrorInfo = '';
       this.isUpdatedRoleNameValid = true;
@@ -132,14 +132,14 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     console.log(isNameValid)
     //if no form errors submit the form
     if (isNameValid) {
-      this.addRoleObj.createdBy = localStorage.getItem('firstName');
+      this.addRoleObj.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
       this.addRoleObj.createdByEmailId = localStorage.getItem('email');
       console.log(this.addRoleObj)
       this.roleService.createRole(this.addRoleObj).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Created) {
             this.createdRole = response.body;
-            this.toastr.success("Role Created Sucessfully !")
+            this.toastr.success("Role created sucessfully !")
             //close form modal
             document.getElementById('closeAddModal').click();
             setTimeout(() => {
@@ -177,7 +177,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     this.roleService.updateRole(this.existingRole).subscribe({
      next: (response) => {
         if (response.status == HttpStatusCode.Created) {
-          this.toastr.success("Role Updated Sucessfully !")
+          this.toastr.success("Role updated sucessfully !")
           //close form modal
           document.getElementById('closeUpdateModal').click();
           setTimeout(() => {
@@ -255,7 +255,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
               window.location.reload();
             }, 1000);
           } else {
-            this.toastr.error('Role '+id+ 'could not be deleted.. Please try again !');
+            this.toastr.error('Error while deleting role '+id+ '... Please try again !');
           }
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
@@ -264,7 +264,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         }
     })
     } else {
-      this.toastr.warning('Role deletion cancelled');
+      this.toastr.warning('Role '+id+' not deleted.');
     }
   }
 
@@ -298,18 +298,18 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    //delete the selected roles
    if(this.roleIdsToBeDeleted.length>0){
     //confirm before deleting
-    var isconfirmed = window.confirm('Are yopu sure, you really want to delete these records ?')
+    var isconfirmed = window.confirm('Are you sure, you really want to delete these records ?')
     if(isconfirmed){
       this.roleService.deleteSelectedRoles(this.roleIdsToBeDeleted).subscribe({
         next: (response) => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Roles deleted sucessfully')  
+            this.toastr.success('Records deleted sucessfully')  
             setTimeout(()=>{
               window.location.reload();
             },1000)  
           }else{
-            this.toastr.error('Error while deleting roles... Please try again !');
+            this.toastr.error('Error while deleting records... Please try again !');
           }
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
@@ -318,7 +318,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         }
       })
     }else{
-      this.toastr.warning('Roles deletion cancelled')
+      this.toastr.warning('Records not deleted')
     }
    }else{
     this.toastr.error('Please select atleast one record to delete.')

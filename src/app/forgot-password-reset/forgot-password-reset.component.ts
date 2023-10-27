@@ -95,7 +95,7 @@ export class ForgotPasswordResetComponent {
      this.result_value=this.isPasswordvalid(this.newPassword);
      console.log(this.newPassword); 
      if(this.result_value=== true){
-       console.log("strong password");
+       console.log("Strong password");
        this.passwordCriteria="Strong Password";
       if(this.newPassword!=this.confirmPassword){
         this.verificationResponse="Password doesn't match"
@@ -103,7 +103,7 @@ export class ForgotPasswordResetComponent {
       }
      }
      else{
-        console.log("weak password");
+        console.log("Weak password");
         this.passwordCriteria="Weak Password";
      }
      
@@ -142,10 +142,10 @@ export class ForgotPasswordResetComponent {
       (response) => {
         this.passwordUpdateStatus = response.body;
         if(this.passwordUpdateStatus === 1){
-          this.toastr.success("Success","ResetPassword");
+          this.toastr.success("Success","Reset Password");
           this.router.navigateByUrl("/");
          }else if(this.passwordUpdateStatus===0){
-          this.toastr.warning("error","Password cannot be the same as previous two password");
+          this.toastr.warning("Error","Password cannot be the same as previous two password");
          }
         }
       )
