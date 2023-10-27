@@ -55,7 +55,7 @@
                 </tr>
                 </thead>
                 <tbody *ngIf ="employeeData !=null" >
-                    <tr *ngFor="let employee of employeeData; let i=index;">
+                    <tr class="trbody" *ngFor="let employee of employeeData; let i=index;">
                         <td style="padding-left: 15x;">
                             <input type="checkbox" value="{{employee.id}}" id="ac-check{{i}}" class="subCheckBox" 
                             (change)="toggleMainCheckBox(i)"/>
@@ -65,9 +65,8 @@
                         <td>{{employee.lastName}}</td>
                         <td>{{employee.email}}</td>
                         <td>{{employee.reportingManager}}</td>
-                        <td></td>
-                       <!--- <td>{{employee.empDesignation.designationName}}</td>-->
-                        <td></td>
+                        <td>{{"hsgdhs"}}</td>
+                        <td>{{employee.empDesignation.designationName}}</td>
                         <td>{{employee.createdDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>{{employee.modifiedBy}}</td>
                         <td>{{employee.createdBy}}</td>

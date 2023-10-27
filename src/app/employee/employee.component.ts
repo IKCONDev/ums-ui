@@ -143,7 +143,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
             this.toastr.success("Employee created successfully");
             document.getElementById('closeAddModal').click();
             setTimeout(() => {
-              window.location.reload;
+              window.location.reload();
             }, 1000)
           }
         }
@@ -249,7 +249,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           if (response.status == HttpStatusCode.Ok) {
             this.toastr.success('Employee ' +employeeId+' deleted successfully');
             setTimeout(() => {
-              window.location.reload;
+              window.location.reload();
             }, 1000)
           }
         },
@@ -612,16 +612,16 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    * @param employee 
    */
-  deleteEmployeesById(employee: any[]) {
+  deleteEmployeesById(ids: any[]) {
     var isconfirmed = window.confirm("Are you sure, you really want to delete selected records?");
     if (isconfirmed) {
 
-      this.employeeservice.deleteAllEmployee(employee).subscribe(
+      this.employeeservice.deleteAllEmployee(ids).subscribe(
         response => {
           if (response.status == HttpStatusCode.Ok) {
             this.toastr.success('Records deleted successfully');
             setTimeout(() => {
-              window.location.reload;
+              window.location.reload();
             }, 1000)
           }
           else {
