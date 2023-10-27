@@ -52,6 +52,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
        id:0,
        designationName:''
     },
+    reportingManager: '',
     designation : '',
     departmentId: 0,
     createdDateTime: '',
@@ -122,6 +123,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     let isFirstNameValid = true;
     let isLastNameValid = true;
     let isEmailIdValid = true;
+    let isReportingManagerValid = true;
     let isDepartmentValid = true;
     let isDesignationValid = true;
 
@@ -139,6 +141,10 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
       isEmailIdValid =valid;
 
     }
+    if(!this.isEmployeeReportingManagerValid){
+      var valid = this.validateEmployeeReportingManager();
+      isReportingManagerValid = valid;
+    }
     if(!this.isEmployeeDepartmentValid){
       var valid = this.validateEmployeeDepartment();
       isDepartmentValid = valid;
@@ -149,7 +155,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
        isDesignationValid = valid;
     }
     
-    if(isFirstNameValid == true && isLastNameValid == true && isEmailIdValid == true && isDepartmentValid == true && isDesignationValid == true){
+    if(isFirstNameValid == true && isLastNameValid == true && isEmailIdValid == true &&  isReportingManagerValid == true  &&isDepartmentValid == true && isDesignationValid == true){
       
       console.log(this.addEmployee);
       this.addEmployee.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
@@ -177,6 +183,11 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     firstName: '',
     lastName: '',
     email: '',
+    empDesignation :{
+      id:0,
+      designationName:''
+   },
+    reportingManager: '',
     designation : '',
     departmentId :0,
     createdDateTime: '',
@@ -279,6 +290,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     let isFirstNameValid = true;
     let isLastNameValid = true;
     let isEmailIdValid = true;
+    let isReportingManagerValid = true;
     let isDepartmentValid = true;
     let isDesignationValid = true;
 
@@ -296,6 +308,10 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
       isEmailIdValid =valid;
 
     }
+    if(!this.isUpdateReportingManagerValid){
+      var valid = this.validateUpdateReportingManager();
+      isReportingManagerValid = valid;
+    }
     if(!this.isUpdateDepartmentValid){
       var valid = this.validateUpdateDepartment();
       isDepartmentValid = valid;
@@ -306,9 +322,9 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
        isDesignationValid = valid;
     }
      
-    if(isEmailIdValid == true && isFirstNameValid == true && isLastNameValid == true && isDepartmentValid == true &&
+    if(isEmailIdValid == true && isFirstNameValid == true && isReportingManagerValid== true &&isLastNameValid == true && isDepartmentValid == true &&
       isDesignationValid == true){
-       
+       this.existingEmployee.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
         this.employeeservice.updateEmployee(employee).subscribe(
           response=>{
             var employeerecord = response.body;
@@ -334,6 +350,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   isEmployeeFirstNameValid = false;
   isEmployeeLasttNameValid = false;
   isEmployeeEmailIdValid = false;
+  isEmployeeReportingManagerValid = false;
   isEmployeeDepartmentValid = false;
   isEmployeeDesignationtValid = false;
   
@@ -393,6 +410,21 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
      }
      return this.isEmployeeEmailIdValid;  
   }
+
+  employeeReportingManagerErrorInfo ="";
+  validateEmployeeReportingManager(){
+
+    if(this.addEmployee.reportingManager==''){
+      this.employeeReportingManagerErrorInfo = "RM is required";
+      this.isEmployeeReportingManagerValid = false;
+    }
+    else{
+      this.employeeReportingManagerErrorInfo = "";
+      this.isEmployeeReportingManagerValid = true;
+    }
+    return this.isEmployeeReportingManagerValid;
+  }
+
   employeeDepartmentErrorInfo = "";
   validateEmployeeDepartment(){
      if(this.addEmployee.departmentId < 1 ){
@@ -436,10 +468,12 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
      this.employeeEmailIdErrorInfo = '';
      this.employeeDepartmentErrorInfo = '';
      this.employeeDesignationErrorInfo ='';
+     this.employeeReportingManagerErrorInfo = '';
     
      this.updateFirstNameErrorInfo ="";
      this.updateLastNameErrorInfo ="";
      this.updateEmailIdErrorInfo ="";
+     this.updateReportingManagerErrorInfo='';
      this.updateDepartmentErrorInfo ="";
      this.updateDesignationErrorInfo ="";
 
@@ -451,6 +485,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   isUpdateFirstNameValid = false;
   isUpdateLastNameValid = false;
   isUpdateEmailIdValid = false;
+  isUpdateReportingManagerValid = false;
   isUpdateDepartmentValid = false;
   isUpdateDesignationValid = false;
 
@@ -509,9 +544,23 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
     return this.isUpdateEmailIdValid;
 
   }
+  updateReportingManagerErrorInfo ="";
+  validateUpdateReportingManager(){
+
+    if(this.existingEmployee.reportingManager ===''){
+      this.updateReportingManagerErrorInfo = "RM is required";
+      this.isUpdateReportingManagerValid  = false;
+    }
+    else{
+      this.updateReportingManagerErrorInfo = "";
+      this.isUpdateReportingManagerValid  = true;
+
+  }
+  return this.isUpdateReportingManagerValid;
+  }
   updateDepartmentErrorInfo ="";
   validateUpdateDepartment(){
-    if(this.existingEmployee.departmentId <1){
+    if(this.existingEmployee.departmentId <=0){
       this.updateDepartmentErrorInfo = "Department is required";
       this.isUpdateDepartmentValid  = false;
     }
@@ -526,11 +575,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
   updateDesignationErrorInfo ="";
   validateUpdateDesignation(){
 
-    if(this.existingEmployee.designation == ''){
-      this.updateDesignationErrorInfo = "Designation is required";
-      this.isUpdateDesignationValid = false;
-    }
-    else if(this.existingEmployee.designation.length < 5){
+    if(this.existingEmployee.empDesignation.id <= 0){
       this.updateDesignationErrorInfo = "Designation is required";
       this.isUpdateDesignationValid = false;
     }
