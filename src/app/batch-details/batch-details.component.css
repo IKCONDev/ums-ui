@@ -32,3 +32,16 @@
 #tablehead{
     background: var(--side-text, #ECF7FC);
 }
+
+#no-records {
+
+    text-align: center;
+    padding-top: 180px;
+    color: #000;
+    font-family: General Sans;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    /* 40px */
+}

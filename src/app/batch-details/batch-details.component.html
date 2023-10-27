@@ -6,36 +6,52 @@
 </div>
 <div class="container-fluid">
     <div class="card-header">
-            <div class="row">
-               <div class="col-sm-4">
-                 <h2 id="heading">Batch Processing</h2>
-               </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <h2 id="heading">Batch Processing</h2>
             </div>
+        </div>
     </div>
     <div class="card-body">
-        <div class="row">
+        <div *ngIf="batchRecordsCount > 0; else noBatchRecords" class="row">
             <table class="table table-hover">
                 <thead id="thead">
-                    <th>ID</th>
-                    <th>Start Date</th>
-                    <th>End Time</th>
-                    <th>Status</th>
-                    <th>LastSuccessfullExecutionDateTime</th>
+                    <tr>
+                        <th>ID</th>
+                        <th>Start Date</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                        <th>LastSuccessfullExecutionDateTime</th>
+                    </tr>
                 </thead>
                 <tbody *ngFor="let item of batchDetails">
                     <tr>
-                      <td>{{item.batchId}}</td>
-                      <td>{{item.startDateTime}}</td>
-                      <td>{{item.endDateTime}}</td>
-                      <td>{{item.status}}</td>
-                      <td>
-                       {{item.lastSuccessfullExecutionDateTime}}
-                      </td>
+                        <td>{{item.batchId}}</td>
+                        <td>{{item.startDateTime}}</td>
+                        <td>{{item.endDateTime}}</td>
+                        <td>{{item.status}}</td>
+                        <td>
+                            {{item.lastSuccessfullExecutionDateTime}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
+        <!-- NO records -->
+        <ng-template #noBatchRecords>
+            <table class="table table-hover">
+                <thead id="thead">
+                    <tr>
+                        <th>ID</th>
+                        <th>Start Date</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                        <th>LastSuccessfullExecutionDateTime</th>
+                    </tr>
+                </thead>
+            </table>
+             <p id="no-records">No Batch Reports Yet ! </p>
+        </ng-template>
     </div>
-     
+
 </div>

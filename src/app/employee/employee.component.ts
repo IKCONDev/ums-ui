@@ -68,7 +68,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private employeeservice: EmployeeService, private toastr: ToastrService,
     private departmentservice: DepartmentService, private router: Router, private designationService: DesignationService) { }
   ngOnInit(): void {
-
     this.getAllEmployees();
     this.getAllDepartments();
   }

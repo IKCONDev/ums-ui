@@ -43,7 +43,7 @@ const routes: Routes = [
   {path:"task",component:TaskComponent},
   {path:"my-profile",component:MyProfileComponent},
   {path:"reports",component:ReportComponent},
-  {path:"batch-details",component:BatchDetailsComponent},
+  {path:"batch-report",component:BatchDetailsComponent},
   {path:"settings",component:SettingsComponent},
   {path:"departments",component: DepartmentComponent},
   {path:"designations", component: DesignationComponent},

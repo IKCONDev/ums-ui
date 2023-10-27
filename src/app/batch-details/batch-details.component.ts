@@ -11,7 +11,7 @@ import { BatchDetailsService } from './service/batch-details.service';
 export class BatchDetailsComponent implements OnInit{
 
   batchDetails:BatchDetails[];
-
+  batchRecordsCount: number = 0;
    @Output() title:string='Batch Details';
 
    /**
@@ -27,10 +27,7 @@ export class BatchDetailsComponent implements OnInit{
       this.batchService.getAllBatchProcessDetails().subscribe(
          res=>{
           this.batchDetails = res.body;
-          console.log(this.batchDetails);
-             this.batchDetails.filter(batchDetail => {
-             
-           })
+          this.batchRecordsCount = this.batchDetails.length;
      });
    }
 }
