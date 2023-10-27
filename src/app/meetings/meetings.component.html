@@ -47,7 +47,7 @@
             <table class="table table-hover">
                 <thead id="thead">
                     <tr>
-                        <th>Meeting Id</th>
+                        <th>Meeting ID</th>
                     <!-- <th>Id</th> -->
                     <th style="width: 200px;">Title</th>
                     <th>Organizer</th>
@@ -148,7 +148,7 @@
                                                     (change)="checkAllcheckBoxesOfCurrentMeeting(meeting.meetingId, $event)" />
                                             </th>
                                             <!-- <th id="tablehead"></th> -->
-                                            <th id="tablehead" style="padding: 1.4em;">Action Item Id</th>
+                                            <th id="tablehead" style="padding: 1.4em;">Action Item ID</th>
                                             <th id="tablehead" style="width: 170px;padding: 1.4em;">Action Item</th>
                                             <th id="tablehead"style="padding: 1.4em;">Owner</th>
                                             <th id="tablehead"style="padding: 1.4em;">Start Date & Time</th>
@@ -279,6 +279,7 @@
                 <thead id="thead">
                     <tr>
                      <th>Sno</th>
+                     <th>Meeting ID</th>
                      <th style="width: 200px;">Title</th>
                      <th>Organizer</th>
                      <th>Start Date & Time</th>
@@ -300,7 +301,7 @@
             <ng-template #noMeetings>
                 <table class="table table-hover">
                     <thead id="thead">
-                        <th>Id</th>
+                        <th>ID</th>
                         <th>Title</th>
                         <th>Organizer</th>
                         <th>Start Date & Time</th>
@@ -692,7 +693,7 @@
                 <input type="text" class="form-control" [(ngModel)]="addMeeting.organizerName" 
                 style="width: 400px;" id="meetingOrganizerName" name="meetingOrganizerName" readonly/>
                 <!-- organizer email id -->
-                <label><b>Organizer Email Id</b></label>
+                <label><b>Organizer Email ID</b></label>
                 <input type="text" class="form-control" [(ngModel)]="addMeeting.organizerEmailId" 
                 style="width: 400px;" id="meetingOrganizerEmailId" name="meetingOrganizerEmailId" readonly/>
                 <!-- <div>
