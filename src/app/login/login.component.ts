@@ -282,7 +282,7 @@ getTokenPopup(request) {
 
         if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
           //login success popup
-          this.toastr.success('Login success')
+          this.toastr.success('Login Success')
           this.errorInfo = ''
           localStorage.setItem('jwtToken', this.loginInfo.token);
           console.log(response.headers.get('token'));
@@ -329,7 +329,7 @@ getTokenPopup(request) {
         } else if (error.status === HttpStatusCode.Unauthorized) {
           this.errorInfo = 'Invalid Credentials'
           //login failure popup
-          this.toastr.error('Incorrect Username or Password', 'Login Failure')
+          this.toastr.error('Incorrect username or password', 'Login Failure')
         }
       }
    })
