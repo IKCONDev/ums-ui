@@ -483,6 +483,19 @@ export class OrganizationComponent implements OnInit {
     }
     return this.isUpdateCompanyEmailValid;
   }
+numberValidation(event: KeyboardEvent) {
+  const invalidChars = ['+', '-', '.', 'e'];
+  const emailRegExp = /[a-zA-Z]/;
+  const inputElement = event.target as HTMLInputElement;
+ 
+  if (
+    invalidChars.includes(event.key) ||
+    emailRegExp.test(event.key) ||
+    (inputElement.value.length >= 10 && event.key !== 'Backspace')
+  ) {
+    event.preventDefault();
+  }
+}
 
 }
 

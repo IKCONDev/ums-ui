@@ -101,7 +101,7 @@
                     <label *ngIf="org.orgContactPersonNumber !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonNumber}}</label>
                     <input type="text" placeholder="Enter contact person number" [(ngModel)]="org.orgContactPersonNumber"
-                     *ngIf="isDisable==true" minlength="10" maxlength="10" (keyup)="validateOrgContactPersonNumber()" class="form-control">
+                     *ngIf="isDisable==true" minlength="10" maxlength="10" (keyup)="validateOrgContactPersonNumber()" (keydown)="numberValidation($event)" class="form-control">
                      <span *ngIf="updatedorgContactPersonNumberErrorInfo!= ''">
                         <p id="errorMessage">{{updatedorgContactPersonNumberErrorInfo}}</p>
                     </span>
@@ -213,7 +213,7 @@
                         </div>
                         <div>
                             <input type="text" placeholder="Enter company contact number" *ngIf="isDisable==true" [(ngModel)]="org.orgContactNumber"
-                                class="form-control" (keyup)="validateOrgContactNumber()" minlength="10" maxlength="10">
+                                class="form-control" (keyup)="validateOrgContactNumber()" (keydown)="numberValidation($event)" minlength="10" maxlength="18">
                                 <span *ngIf="updatedOrgContactNumberErrorInfo!= ''">
                                     <p id="errorMessage">{{updatedOrgContactNumberErrorInfo}}</p>
                                 </span>
