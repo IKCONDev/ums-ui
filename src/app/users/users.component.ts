@@ -136,9 +136,9 @@ export class UsersComponent  implements OnInit{
            this.addUserObj = response.body;
             this.toastr.success("User added successfully");
             document.getElementById('closeAddModal').click();
-            /*setTimeout(()=>{
+            setTimeout(()=>{
                window.location.reload();
-           },1000)*/
+           },1000);
          }
           
         }
@@ -146,8 +146,6 @@ export class UsersComponent  implements OnInit{
 
     }
     //this.addUserObj.userRoles.at(0).roleName; 
-    
-
   }
   
   /**
@@ -209,6 +207,9 @@ export class UsersComponent  implements OnInit{
           if(response.status == HttpStatusCode.Created){
               this.toastr.success("Updated user successfully");
               document.getElementById('closeUpdateModal').click();
+              setTimeout(() => {
+                window.location.reload();
+               },1000);
           }
           else{
              this.toastr.error("Error occured while updting user");
@@ -230,6 +231,9 @@ export class UsersComponent  implements OnInit{
            var userRecord = response.body;
            if(response.status == HttpStatusCode.Ok){
              this.toastr.success("User deleted successfully");
+             setTimeout(() => {
+              window.location.reload();
+             },1000);
            }
            else{
             this.toastr.error("Error occued while Deleting user");

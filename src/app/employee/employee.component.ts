@@ -163,10 +163,12 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
       this.employeeservice.createEmployee(this.addEmployee).subscribe(
        response =>{
         if(response.status == HttpStatusCode.Created){
-
           this.createdEmployee = response.body;
           this.toastr.success("Employee created successfully");
           document.getElementById('closeAddModal').click();
+          setTimeout(() => {
+            window.location.reload;
+          },1000)
         }
        }
      );
@@ -267,6 +269,9 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
          next : response =>{
             if(response.status == HttpStatusCode.Ok){
                 this.toastr.success("Employee deleted successfully");
+                setTimeout(() => {
+                  window.location.reload;
+                },1000)
             }
          },
          error: error => {
@@ -277,7 +282,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
      );
     }
     else{
-        this.toastr.warning("Employee not Deleted");
+        this.toastr.warning("Employee not deleted");
     }
 
   }
@@ -631,6 +636,9 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
         response=>{
            if(response.status == HttpStatusCode.Ok){
               this.toastr.success("Employee deleted successfully");
+              setTimeout(() => {
+                window.location.reload;
+              },1000)
            }
            else{
                this.toastr.error("Error while deleting employee... Please try again !"); 
@@ -640,7 +648,7 @@ export class EmployeeComponent implements OnInit,OnDestroy, AfterViewInit{
 
     }
     else{
-      this.toastr.warning("Employees not Deleted");
+      this.toastr.warning("Records not deleted");
 
     }
   }

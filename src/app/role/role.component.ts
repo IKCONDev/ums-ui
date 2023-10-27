@@ -132,7 +132,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     console.log(isNameValid)
     //if no form errors submit the form
     if (isNameValid) {
-      this.addRoleObj.createdBy = localStorage.getItem('firstName');
+      this.addRoleObj.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
       this.addRoleObj.createdByEmailId = localStorage.getItem('email');
       console.log(this.addRoleObj)
       this.roleService.createRole(this.addRoleObj).subscribe({
