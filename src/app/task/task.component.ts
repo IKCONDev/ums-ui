@@ -356,7 +356,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.update_Task = res.body;
     });
     this.isSaveButtonDisabled = true;
-
   }
 
   data: Object;
@@ -614,8 +613,15 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
            if(response.status==HttpStatusCode.Ok){
              this.toastr.success("Task Deleted successfully");
            }
+           else{
+             this.toastr.error("Error Occured While deleting Task")
+          }
         }
      })
+
+     }
+     else{
+      this.toastr.warning("Task "+id+" is not Deleted");
 
      }
 
