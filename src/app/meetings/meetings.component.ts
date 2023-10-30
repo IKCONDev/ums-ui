@@ -633,6 +633,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.toastr.error('No action items selected to delete');
       return;
     }
+    
     console.log('deleteActionItems()')
     //subscribe to the response
     this.meetingsService.deleteActionItemsOfMeeting(actionItemIds, meetingId).subscribe({
