@@ -116,7 +116,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <label><b>Role Name</b></label>
+                    <label><b>Role Name</b><span id="required">*</span></label>
                     <input type="text" class="deptInput form-control" placeholder="role name"
                     [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()" maxlength="50"/><br/>
                     <span id="errorInfo" *ngIf="roleNameErrorInfo != ''">{{roleNameErrorInfo}}</span>
@@ -144,7 +144,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <label><b>Role Name</b></label>
+                    <label><b>Role Name</b><span id="required">*</span></label>
                     <input type="text" class="deptInput form-control" placeholder="role name"
                     [(ngModel)]="existingRole.roleName" (keyup)="validateUpdatedRoleName()"/><br/>
                     <span id="errorInfo" *ngIf="updatedRoleNameErrorInfo != ''">{{updatedRoleNameErrorInfo}}</span>

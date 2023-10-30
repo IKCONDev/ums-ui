@@ -125,7 +125,7 @@
             <!-- Modal body -->
             <div class="modal-body" >
     
-                <label><b>First Name</b></label>
+                <label><b>First Name</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="addEmployee.firstName"
                  id="firstName" name="firstName"  required="true"   #firstName="ngModel"  maxlength="50"
                  [class.invalid]="firstName.invalid && firstName.touched"  (keyup)="validateEmployeeFirstName()">
@@ -133,7 +133,7 @@
                     <p id="errorMessage">{{employeeFirstNameErrorInfo}}</p>
                 </span>
                 <br/>
-                <label><b>Last Name</b></label>
+                <label><b>Last Name</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="addEmployee.lastName"
                 id="lastName" name="lastName" required="true" #lastName="ngModel"  maxlength="50" (keyup)="validateEmployeeLastName()"
                  [class.invalid]="lastName.invalid && lastName.touched"/>
@@ -141,14 +141,14 @@
                     <p id="errorMessage">{{employeeLastNameErrorInfo}}</p>
                  </span>
                  <br/>
-                <label><b>Email</b></label>
+                <label><b>Email</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="addEmployee.email"
                  id="employeeEmail" name="employeeEmail" #employeeEmail="ngModel" (keyup)="validateEmployeeEmailId()" />
                  <span *ngIf=" employeeEmailIdErrorInfo != ''">
                     <p id="errorMessage">{{ employeeEmailIdErrorInfo}}</p>
                  </span>
                  <br/>
-                 <label><b>Reporting Manager</b></label>
+                 <label><b>Reporting Manager</b><span id="required">*</span></label>
                  <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"[(ngModel)]="addEmployee.reportingManager"
                  id="reportingManager" name="reportingManager" #reportingManager="ngModel" (keyup)="validateEmployeeReportingManager()" />
                  <span *ngIf="employeeReportingManagerErrorInfo != ''">
@@ -209,28 +209,28 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <label><b>First Name</b></label>
+                <label><b>First Name</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="First Name" [(ngModel)]="existingEmployee.firstName"
                  id="updateFirstName" name="updateFirstName"  required="true"   #updateFirstName="ngModel" 
                  [class.invalid]="updateFirstName.invalid && updateFirstName.touched"  (keyup)="validateUpdateFirstName()">
                 <span *ngIf="updateFirstNameErrorInfo != ''">
                     <p id="errorMessage">{{updateFirstNameErrorInfo}}</p>
                 </span><br/>
-                <label><b>Last Name</b></label>
+                <label><b>Last Name</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"[(ngModel)]="existingEmployee.lastName" 
                 id="updateLastName" name="updateLastName" required="true" #updateLastName="ngModel" (keyup)="validateUpdateLastName()"
                  [class.invalid]="updateLastName.invalid && updateLastName.touched"/>
                 <span *ngIf="updateLastNameErrorInfo != ''">
                     <p id="errorMessage">{{updateLastNameErrorInfo}}</p>
                 </span><br/>
-                <label><b>Email</b></label>
+                <label><b>Email</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Email"[(ngModel)]="existingEmployee.email"
                 id="updateEmail" name="updateEmail" required="true" #updateEmail="ngModel" (keyup)="validateUpdateEmailId()"
                  [class.invalid]="updateEmail.invalid && updateEmail.touched">
                 <span *ngIf="updateEmailIdErrorInfo != ''">
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br/>
-                <label><b>Reporting Manager</b></label>
+                <label><b>Reporting Manager</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"[(ngModel)]="existingEmployee.reportingManager"
                  id="updateReportingManager" name="updateReportingManager" #updateReportingManager="ngModel" (keyup)="validateUpdateReportingManager()" />
                  <span *ngIf="updateReportingManagerErrorInfo != ''">
