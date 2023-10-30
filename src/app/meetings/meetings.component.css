@@ -49,7 +49,7 @@
 }
 
 #thead {
-    background: var(--side-text, #ECF7FC);
+    background: var(--side-text, #ECF7FC)
 }
 
 #tablehead{
@@ -99,11 +99,6 @@
     /* 40px */
 }
 
-#required{
-  color: red;
-  padding-left: 2px;
-}
-
 #transcriptBtn {
     border: 0px;
     background-color: white;
@@ -116,13 +111,13 @@
 
 /* 
  */
- table th{
-  background: var(--side-text, #ECF7FC);
+ th{
   font-size: 11px;
 }
 
 td{
   font-size: 11px;
+ 
 }
 
  tr.detail {
