@@ -288,12 +288,12 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
  isRoleNameValid = false;
  roleErrorInfo ="";
  validateuserRole(){
-   if(this.addUserObj.userRoles.at(0).roleId == 0 ){
+   if(this.addUserObj.userRoles.at(0).roleId >0 ){
      this.roleErrorInfo = 'Role is required';
      this.isRoleNameValid = false;
    }
    else if(this.addUserObj.userRoles.at(0).roleName.toString() === 'select'){
-    this.roleErrorInfo = 'Role is required';
+    this.roleErrorInfo = 'Role is required for select' ;
     this.isRoleNameValid = false;
    }
    else{
