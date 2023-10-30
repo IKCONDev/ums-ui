@@ -47,7 +47,7 @@
                     <th>Modified By</th>
                     <th>Created By</th>
                     <th>Modified Date</th>
-                    <th>Created By Email ID</th>
+                    <!-- <th>Created By Email ID</th> -->
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -68,8 +68,7 @@
                         <td>{{employee.modifiedBy}}</td>
                         <td>{{employee.createdBy}}</td>
                         <td>{{employee.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>  
-                        <td>{{employee.createdByEmailId}}</td>
-                       
+                        <!-- <td>{{employee.createdByEmailId}}</td> -->
                         <td>
                             <span id="editIcon"
                             data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)"
