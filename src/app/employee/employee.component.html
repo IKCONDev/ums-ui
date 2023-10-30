@@ -7,21 +7,18 @@
 <div class="container-fluid">
     <div class="card-header">
         <div class="row">
-            <div class="col-sm-5 d-flex">
+            <div class="col-sm-8 d-flex">
                 <h3 id="heading">Employees</h3>
             </div>
             <div id="addBtnDiv" class="col-sm-1 d-flex">
                 <button class="form-control" 
                    id="addBtn" type="submit" data-toggle="modal" data-target="#addEmployeeModal" (click)="getAllDesignations()"
-                   (click)="getAllDepartments()">
+                   (click)="getAllDepartments()" style="width: 80px;">
                 <p>Add</p></button>
             </div>
-            <div id="deleteBtnDiv" class="col-sm-1">
-                <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn"
-                 value="Delete" (click)="checkCheckBoxes()"><p>Delete</p></button>
-            </div>
             <div id="deleteBtnDiv" class="col-sm-2">
-                <button class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
+                <button type="submit" class=" form-control" id="deleteBtn" name="deleteBtn"
+                (click)="checkCheckBoxes()"  style="width: 80px;" >Delete</button>
              </div>
             <div class="col-sm-1 d-flex" id="filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
