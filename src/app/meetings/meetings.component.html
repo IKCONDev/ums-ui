@@ -551,13 +551,17 @@
                 <label><b>Superiors</b><span id="required">*</span></label>
 
                 <div style="padding-left: 10px;">
-                    <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM"
-                        [multiple]="true" style="width: 400px;" [(ngModel)]="emailListForsendingMOM ">
+                    <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM" #sendMOM="ngModel"
+                        [multiple]="true" style="width: 400px;" [(ngModel)]="emailListForsendingMOM " (keyup)="validateMoMEmail()"
+                        [class.invalid]="sendMOM.invalid && sendMOM.touched">
                         <ng-option [value]="">choose</ng-option>
                         <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                             {{emailId}}
                         </ng-option>
                     </ng-select>
+                    <div *ngIf="emailListErrorInfo != ''">
+                        <span id="errorSpan">{{emailListErrorInfo}}</span>
+                    </div>
                 </div>
                 <hr>
                 <div class="row" *ngIf="meetingData!=null">
