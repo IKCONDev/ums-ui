@@ -242,7 +242,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
    *  delete user
    */
   removeUser(useremailId : any){
-    var isconfirmed = window.confirm("Are you sure, you really want to delete records ?");
+    var isconfirmed = window.confirm("Are you sure, you really want to delete user ?");
     if(isconfirmed){
 
       this.userService.deleteUser(useremailId).subscribe(

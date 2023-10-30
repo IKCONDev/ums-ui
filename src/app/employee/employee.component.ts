@@ -252,7 +252,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   removeEmployee(employeeId: number) {
-    var isconfirmed = window.confirm('Are you sure, you really want to delete the record ?');
+    var isconfirmed = window.confirm('Are you sure, you really want to delete the employee ?');
 
     if (isconfirmed) {
 
@@ -629,26 +629,26 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param employee 
    */
   deleteEmployeesById(ids: any[]) {
-    var isconfirmed = window.confirm("Are you sure, you really want to delete selected records?");
+    var isconfirmed = window.confirm("Are you sure, you really want to delete selected employees?");
     if (isconfirmed) {
 
       this.employeeservice.deleteAllEmployee(ids).subscribe(
         response => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success('Records deleted successfully');
+            this.toastr.success('Employees deleted successfully');
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
           else {
-            this.toastr.error("Error while deleting records... Please try again !");
+            this.toastr.error("Error while deleting employees... Please try again !");
           }
         }
       )
 
     }
     else {
-      this.toastr.warning("Records not deleted");
+      this.toastr.warning("Employees not deleted");
 
     }
   }

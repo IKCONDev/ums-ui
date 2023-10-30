@@ -250,7 +250,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    * @param id 
    */
   deleteRoleById(id: number) {
-    var isConfirmed = window.confirm('Are you sure you want to delete this record ?');
+    var isConfirmed = window.confirm('Are you sure you want to delete this role ?');
     if (isConfirmed) {
       this.roleService.deleteRole(id).subscribe({
         next: (response) => {
@@ -303,18 +303,18 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    //delete the selected roles
    if(this.roleIdsToBeDeleted.length>0){
     //confirm before deleting
-    var isconfirmed = window.confirm('Are you sure, you really want to delete these records ?')
+    var isconfirmed = window.confirm('Are you sure, you really want to delete these roles ?')
     if(isconfirmed){
       this.roleService.deleteSelectedRoles(this.roleIdsToBeDeleted).subscribe({
         next: (response) => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Records deleted sucessfully')  
+            this.toastr.success('Roles deleted sucessfully')  
             setTimeout(()=>{
               window.location.reload();
             },1000)  
           }else{
-            this.toastr.error('Error while deleting records... Please try again !');
+            this.toastr.error('Error while deleting roles... Please try again !');
           }
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
@@ -323,10 +323,10 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         }
       })
     }else{
-      this.toastr.warning('Records not deleted')
+      this.toastr.warning('Roles not deleted')
     }
    }else{
-    this.toastr.error('Please select atleast one record to delete.')
+    this.toastr.error('Please select atleast one role to delete.')
    }
   }
 
