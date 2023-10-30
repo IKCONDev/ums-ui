@@ -172,7 +172,6 @@
                 <div *ngIf="useremailIdErrorInfo != ''">
                     <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br/>
-                <br/>
                 <label><b>Role</b></label>
                 <select class="updateUserInput form-control" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleId"
                 id="updateRole" name="updateRole" #updateRole="ngModel" [class.invalid]="updateRole.invalid && updateRole.touched"
