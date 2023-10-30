@@ -6,6 +6,12 @@ import { SideMenubarComponent } from '../side-menubar/side-menubar.component';
 import { HttpStatusCode } from '@angular/common/http';
 import { HeaderService } from '../header/service/header.service';
 import { error } from 'jquery';
+import { Chart, registerables } from 'chart.js';
+import { Meeting } from '../model/Meeting.model';
+Chart.register(...registerables);
+
+
+
 
 @Component({
   selector: 'app-home',
@@ -65,6 +71,7 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+  
 
    /**
      * get user organized meetings count
@@ -110,6 +117,11 @@ export class HomeComponent implements OnInit {
     this.getUserAssignedTasksCount();
     this.getUserOrganizedTasksCount();
     this.getUserAttendedMeetingCount();
+    this.createChart();
+    
+    
+
+  
   }
 
   /*
@@ -162,5 +174,42 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+  
+  createChart(){
+    var myChart = new Chart("myChart", {
+      type: 'bar',
+      data: {// values on X-Axis
+        labels: ['Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday','Sunday'], 
+	       datasets: [
+          {
+            label: "Asigned Task",
+            data: ['600','576', '572', '679', '92'
+								 ],
+            backgroundColor: 'blue'
+          },
+          {
+            label: "Inprogress Task",
+            data: ['42', '42', '36', '27', '17'],
+            backgroundColor: 'pink'
+          },
+          {
+            label: "Completed Task",
+            data: ['542', '542', '536', '327', '17'],
+            backgroundColor: 'limegreen'
+          }  
+
+        ]
+        
+      },
+      options: {
+        aspectRatio:2.5
+        
+      }
+      
+    });
+  }
+  
+  
+
 
 }
