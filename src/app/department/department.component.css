@@ -121,5 +121,11 @@ table td{
     font-size: 12px;
 }
 
+#required{
+    color: red;
+    padding-left: 2px;
+}
+
 /*common properties end*/
+
 

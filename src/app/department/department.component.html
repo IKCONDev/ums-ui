@@ -119,7 +119,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <label><b>Department Name</b></label>
+                <label><b>Department Name</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="department name"
                     [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName()" minlength="3"
                     maxlength="40" /><br />
@@ -127,14 +127,14 @@
                     <p id="errorMessage">{{departmentNameErrorInfo}}</p>
                 </span>
                 <!--   -->
-                <label><b>Department Head</b></label>
+                <label><b>Department Head</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="department head"
                     [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()"  maxlength="50"/><br />
                 <span *ngIf="departmentHeadErrorInfo != ''">
                     <p id="errorMessage">{{departmentHeadErrorInfo}}</p>
                 </span>
                 <!--  -->
-                <label><b>Department Code</b></label>
+                <label><b>Department Code</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="department code"
                     [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode()" minlength="2"
                     maxlength="4" /><br />
@@ -142,7 +142,7 @@
                     <p id="errorMessage">{{departmentCodeErrorInfo}}</p>
                 </span>
                 <!--  -->
-                <label><b>Department Location</b></label>
+                <label><b>Department Location</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="department location"
                     [(ngModel)]="addDepartment.departmentAddress" (keyup)="validateDepartmentLocation()" minlength="3"
                     maxlength="20" />
@@ -179,7 +179,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <label><b>Department Name</b></label>
+                <label><b>Department Name</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="department name"
                     [(ngModel)]="existingDepartment.departmentName" (keyup)="validateUpdatedDepartmentName()"
                     minlength="3" maxlength="40" /><br />
@@ -187,14 +187,14 @@
                     <p id="errorMessage">{{updatedDepartmentNameErrorInfo}}</p>
                 </span>
                 <!--   -->
-                <label><b>Department Head</b></label>
+                <label><b>Department Head</b><span id="required">*</span></label>
                 <input type="search" class="deptInput form-control" placeholder="department head"
                     [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateUpdatedDepartmentHead()" /><br />
                 <span *ngIf="updatedDepartmentHeadErrorInfo != ''">
                     <p id="errorMessage">{{updatedDepartmentHeadErrorInfo}}</p>
                 </span>
                 <!--  -->
-                <label><b>Department Code</b></label>
+                <label><b>Department Code</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="department code"
                     [(ngModel)]="existingDepartment.departmentCode" (keyup)="validateUpdatedDepartmentCode()"
                     minlength="2" maxlength="4" /><br />
@@ -202,7 +202,7 @@
                     <p id="errorMessage">{{updatedDepartmentCodeErrorInfo}}</p>
                 </span>
                 <!--  -->
-                <label><b>Department Location</b></label>
+                <label><b>Department Location</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="department location"
                     [(ngModel)]="existingDepartment.departmentAddress" (keyup)="validateUpdatedDepartmentLocation()"
                     minlength="3" maxlength="20" />

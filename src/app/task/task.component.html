@@ -229,7 +229,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
+                            <label style="margin-left: 30px; font-size: 20px;"><b>Task Title</b><span id="required">*</span></label><br>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
                                 placeholder="Enter Title" class="form-control" name="taskTitle" required="true"
@@ -244,7 +244,7 @@
                     </div>
 
                     <div class="row" style="margin: 20px;">
-                        <label style="font-size: 20px;">Description</label>
+                        <label style="font-size: 20px;"><b>Description</b><span id="required">*</span></label>
                         <div class="col-md-6">
 
                             <div style=" width:530px; height: 250px; background-color: #ecf7fc;">
@@ -274,7 +274,7 @@
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>Assignee </td>
+                                            <td><b>Assignee</b><span id="required">*</span> </td>
                                             <!--<td><span><input type="text"
                                             [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
                                         </td>-->
@@ -296,7 +296,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><label for="prority">Priority</label></td>
+                                            <td><label for="prority"><b>Priority</b><span id="required">*</span></label></td>
                                             <td><span><select id="priority" class="form-control form-select"
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
@@ -313,7 +313,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Start Date & Time</td>
+                                            <td><b>Start Date & Time</b><span id="required">*</span></td>
                                             <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
@@ -326,7 +326,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Due Date & Time</td>
+                                            <td><b>Due Date & Time</b><span id="required">*</span></td>
                                             <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
@@ -339,7 +339,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td>Status</td>
+                                            <td><b>Status</b><span id="required">*</span></td>
                                             <td> <span><select value="Yet To Start" class="form-control form-select"
                                                         name="taskStatus" placeholder="select"
                                                         #taskStatus="ngModel"
@@ -398,7 +398,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 30px; font-size: 20px;">Task Title</label><br>
+                            <label style="margin-left: 30px; font-size: 20px;"><b>Task Title</b><span id="required">*</span></label><br>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;min-height: 55px;max-height: 55px;background-color: #ecf7fc;"
                                 class="form-control" name="taskTitle" required="true"
@@ -413,7 +413,7 @@
                     </div>
 
                     <div class="row" style="margin: 20px;">
-                        <label style="font-size: 20px;">Description</label>
+                        <label style="font-size: 20px;"><b>Description</b><span id="required">*</span></label>
                         <div class="col-md-6">
 
                             <div style=" width:530px; height: 250px; background-color: #ecf7fc;" disabled>
@@ -443,7 +443,7 @@
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>Assignee </td>
+                                            <td><b>Assignee</b> <span id="required">*</span> </td>
                                             <!--<td><span><input type="text"
                                             [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
                                         </td>-->
@@ -467,7 +467,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><label for="prority">Priority</label></td>
+                                            <td><label for="prority"><b>Priority</b></label></td>
                                             <td><span><select id="priority" class="form-control"
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
@@ -484,7 +484,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Start Date & Time</td>
+                                            <td><b>Start Date & Time</b></td>
                                             <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
@@ -497,7 +497,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Due Date & Time</td>
+                                            <td><b>Due Date & Time</b></td>
                                             <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
@@ -510,13 +510,12 @@
                                         </tr>
 
                                         <tr>
-                                            <td>Status</td>
+                                            <td><b>Status</b> <span id="required">*</span></td>
                                             <td> <span><select value="Yet To Start" class="form-control form-select"
                                                         name="taskStatus" [(ngModel)]="update_Task.status"
                                                         required="true" #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
-                                                        <option disabled selected value>Select</option>
                                                         <option>Yet to start</option>
                                                         <option>Inprogress</option>
                                                         <option>Completed</option>
