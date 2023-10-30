@@ -153,3 +153,7 @@ tr.detail div {
   overflow: visible;
   white-space: normal;
 }
+
+#filter{
+  padding-top: 10px;
+}
