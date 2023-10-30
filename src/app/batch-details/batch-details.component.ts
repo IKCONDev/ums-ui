@@ -1,5 +1,5 @@
 
-import { Component, Output } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { BatchDetails } from '../model/BatchDetails.model';
 import { BatchDetailsService } from './service/batch-details.service';
@@ -8,7 +8,27 @@ import { BatchDetailsService } from './service/batch-details.service';
   templateUrl: './batch-details.component.html',
   styleUrls: ['./batch-details.component.css']
 })
-export class BatchDetailsComponent implements OnInit{
+export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
+
+
+  private table: any;
+
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
 
   batchDetails:BatchDetails[];
   batchRecordsCount: number = 0;

@@ -1,4 +1,4 @@
-import { Component , OnInit, Output} from '@angular/core';
+import { AfterViewInit, Component , OnDestroy, OnInit, Output} from '@angular/core';
 import { UserService } from './service/users.service';
 import { Users } from '../model/Users.model';
 import { MsalInterceptorAuthRequest } from '@azure/msal-angular';
@@ -13,7 +13,26 @@ import { Role } from '../model/Role.model';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent  implements OnInit{
+export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
+
+  private table: any;
+
+  ngAfterViewInit(): void {
+    $(document).ready(() => {
+      this.table = $('#myTable').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
 
   @Output() title:string='Users';
 
