@@ -442,7 +442,7 @@
             <!-- modal body/form -->
             <form #form="ngForm" id="formId" method="POST">
                 <!-- title -->
-                <label><b>ActionItem Title</b><span id="required">*</span></label>
+                <label><b>Action Item Title</b><span id="required">*</span></label>
                 <input type="text" class="form-control" style="width: 400px;"
                     [(ngModel)]="updatedetails.actionItemTitle" required="true" name="uAcItemTitle" id="uAcItemTitle"
                     minlength="5" maxlength="50" #uAcItemTitle="ngModel"
@@ -452,9 +452,9 @@
                     <span id="errorSpan">{{updateActionItemTitleErrorInfo}}</span>
                 </div>
                 <!-- description -->
-                <label><b>ActionItem Description</b><span id="required">*</span></label>
+                <label><b>Action Item Description</b><span id="required">*</span></label>
                 <div style="padding-left: 10px;">
-                    <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;max-height:200px"
+                    <textarea type="text" rows="3" cols="3" class="form-control" style="width:400px;max-height:200p;margin-top: 4px;"
                         [(ngModel)]="updatedetails.actionItemDescription" required="true" name="uAcItemDesc"
                         id="uAcItemDesc" minlength="10" maxlength="250" #uAcItemDesc="ngModel"
                         [class.invalid]="uAcItemDesc.invalid && uAcItemDesc.touched"
@@ -478,10 +478,11 @@
                     <span id="errorSpan">{{updateActionItemPriorityErrorInfo}}</span>
                 </div>
                 <!-- owner -->
-                <div style="padding-left: 10px;">
+                <div style="padding-left: 1px;">
                 <label><b>Action Owner</b><span id="required">*</span></label>
                 <ng-select [multiple]="true" [searchable]="true" [clearable]="true" id="uAcItemOwner" [selectableGroup]="true"
-                    name="uAcItemOwner" style="width:  400px;"
+                    name="uAcItemOwner" style="width:400px;margin-left: 10px;
+                    margin-top:3px;margin-bottom: 3px;"
                     (change)="validateUpdateActionItemOwner()" [(ngModel)]="updatedetails.actionItemOwner" placeholder="choose owner">
                    <!--- <ng-option [value]="" disabled selected value>choose</ng-option>-->
                     <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">

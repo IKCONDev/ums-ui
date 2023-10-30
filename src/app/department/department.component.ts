@@ -228,7 +228,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   removeDepartment(departmentId: number){
    // document.getElementById('deleteConfirmModal').click();
-   var isConfirmed = window.confirm('Are you sure, you really want to delete this record?')
+   var isConfirmed = window.confirm('Are you sure, you really want to delete this department?')
    if(isConfirmed){
     this.departmentService.deleteDepartment(departmentId).subscribe({
       next:(response) => {
@@ -483,18 +483,18 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    }
    //delete the selected departments
    if(this.departmentIdsToBeDeleted.length>0){
-    var isconfirmed = window.confirm('Are yopu sure, you really want to delete these records ?')
+    var isconfirmed = window.confirm('Are you sure, you really want to delete these departments ?')
     if(isconfirmed){
       this.departmentService.deleteSelectedDepartmentsById(this.departmentIdsToBeDeleted).subscribe({
         next:(response) => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Records deleted sucessfully')  
+            this.toastr.success('Departments deleted sucessfully')  
             setTimeout(()=>{
               window.location.reload();
             },1000)  
           }else{
-            this.toastr.error('Error while deleting records... Please try again !');
+            this.toastr.error('Error while deleting departments... Please try again !');
           }
         },error: (error) => {
           if(error.status === HttpStatusCode.Unauthorized){
@@ -503,10 +503,10 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       })
     }else{
-      this.toastr.warning('Records not deleted')
+      this.toastr.warning('Departments not deleted')
     }
    }else{
-    this.toastr.error('Please select atleast one record to delete.')
+    this.toastr.error('Please select atleast one department to delete.')
    }
    
   }
