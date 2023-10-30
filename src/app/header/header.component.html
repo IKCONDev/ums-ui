@@ -3,26 +3,29 @@
     <div class="icon">
         <!-- notification icon -->
         <div data-toggle="modal" data-target="#notificationModal">
-        <svg xmlns="http://www.w3.org/2000/svg"id="notification" width="37" height="37" viewBox="0 0 37 37" fill="none">
-            <path id="notification-icon"
-                d="M22.2498 30.6953V29.9453H28.3698C30.3695 29.9453 31.3851 27.5199 29.9652 26.1L28.2498 24.3847V17.1953C28.2498 12.5307 25.8414 8.45687 21.4998 7.14127V6.69531C21.4998 5.0361 20.159 3.69531 18.4998 3.69531C16.8406 3.69531 15.4998 5.0361 15.4998 6.69531V7.14067C11.1446 8.45473 8.74983 12.5165 8.74983 17.1953V24.3847L7.0345 26.1C5.62591 27.5086 6.59913 29.9453 8.61483 29.9453H14.7498V30.6953C14.7498 32.7571 16.4182 34.4453 18.4998 34.4453C20.564 34.4453 22.2498 32.7595 22.2498 30.6953Z"
-                fill="#F6FBFD" stroke="#4880FF" stroke-width="1.5" />
-        </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" id="notification" width="37" height="37" viewBox="0 0 37 37"
+                fill="none">
+                <path id="notification-icon"
+                    d="M22.2498 30.6953V29.9453H28.3698C30.3695 29.9453 31.3851 27.5199 29.9652 26.1L28.2498 24.3847V17.1953C28.2498 12.5307 25.8414 8.45687 21.4998 7.14127V6.69531C21.4998 5.0361 20.159 3.69531 18.4998 3.69531C16.8406 3.69531 15.4998 5.0361 15.4998 6.69531V7.14067C11.1446 8.45473 8.74983 12.5165 8.74983 17.1953V24.3847L7.0345 26.1C5.62591 27.5086 6.59913 29.9453 8.61483 29.9453H14.7498V30.6953C14.7498 32.7571 16.4182 34.4453 18.4998 34.4453C20.564 34.4453 22.2498 32.7595 22.2498 30.6953Z"
+                    fill="#F6FBFD" stroke="#4880FF" stroke-width="1.5" />
+            </svg>
         </div>
         <!-- notification modal -->
-        <div class="modal right fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">
+        <div class="modal right fade" id="notificationModal" tabindex="-1" role="dialog"
+            aria-labelledby="myProfileLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="font-weight-bold">Notifications</h5>
-                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                       <h4 class="modal-title" id="notificationModal"></h4>
-                   </div>
-                   <div class="modal-body">
-                   
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="notificationModal"></h4>
+                    </div>
+                    <div class="modal-body">
+
                         <app-notifications></app-notifications>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -31,33 +34,39 @@
             <div data-toggle="modal" data-target="#profileModal">
                 <div class="header-pic">
                     <div class="profile-pic" id="profile-icon" *ngIf="userDetails.profilePic != null">
-                        <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="32px" height="32px" alt="profile pic"/>
+                        <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="32px" height="32px"
+                            alt="profile pic" />
                     </div>
-                    <div *ngIf="userDetails.profilePic === null" >
+                    <div *ngIf="userDetails.profilePic === null">
                         <svg id="profile-icon" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 512 512">
                             <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                            <path d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" fill="#5590AA"/></svg>
+                            <path
+                                d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+                                fill="#5590AA" />
+                        </svg>
                     </div>
                 </div>
             </div>
-                
+
             <!-- <i class="far fa-user" data-toggle="modal" data-target="#profileModal"></i> -->
         </div>
-            <!--profile Panel modal -->
-            <div class="modal right fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div style="background-color: #ECF7FC;">
+        <!--profile Panel modal -->
+        <div class="modal right fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myProfileLabel">
+            <div class="modal-dialog" role="document">
+                <div style="padding-bottom: 20px;" class="modal-content">
+                    <div style="background-color: #ECF7FC;">
                         <div class="modal-header">
-                             <h5 class="font-weight-bold">Profile</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h5 class="font-weight-bold">Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myProfileLabel"></h4>
                         </div>
-        
+
                         <div class="modal-body">
                             <div class="container">
                                 <div class="profile-pic" *ngIf="userDetails != null">
-                                    <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px" height="110px" alt="profile pic"/>
+                                    <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px"
+                                        height="110px" alt="profile pic" />
                                 </div>
                             </div>
                             <!-- profile details -->
@@ -66,7 +75,8 @@
                                     <p id="userid"><b>Employee Id: </b>{{userDetails.employee.id}}</p>
                                 </div>
                                 <div>
-                                    <p id="fullname">{{userDetails.employee.firstName | titlecase}}  {{userDetails.employee.lastName | titlecase}}</p>
+                                    <p id="fullname">{{userDetails.employee.firstName | titlecase}}
+                                        {{userDetails.employee.lastName | titlecase}}</p>
                                 </div>
                                 <div>
                                     <p id="username">{{userDetails.employee.email}}</p>
@@ -77,44 +87,47 @@
                                 <!-- my profile and logout -->
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <button id="profileButton" class="btn btn-primary" data-dismiss="modal" (click)="openProfilePanel()">My Profile</button>
+                                        <button id="profileButton" class="btn btn-primary" data-dismiss="modal"
+                                            (click)="openProfilePanel()">My Profile</button>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button data-dismiss="modal" id="logoutRef" (click)="logout()"  class="btn btn-outline-danger">Logout</button>
+                                        <button data-dismiss="modal" id="logoutRef" (click)="logout()"
+                                            class="btn btn-outline-danger">Logout</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                                <!-- role -->
-                                
-                                <div id="profileContent" style="padding-top: 6px;">
-                                    <div id="divContent">
-                                        <p id="heading">Role</p>
-                                        <p id="headingData">{{userDetails.userRoles[0].roleName}}</p>
-                                    </div>
-                                    <div id="divContent">
-                                        <p id="heading">Department</p>
-                                        <p id="headingData">{{userDetails.employee.department.departmentName}}</p>
-                                    </div>
-                                    <div id="divContent">
-                                        <p id="heading">Reporting Manager</p>
-                                        <p id="headingData">{{userDetails.employee.reportingManager}}</p>
-                                    </div>
-                                    <div id="divContent">
-                                        <p id="heading">Two factor authentication</p>
-                                        <!--<p id="headingData">{{userDetails.twoFactorAuthentication}}</p>-->
-                                        <div class="slide-container" [class.active]="userDetails.twoFactorAuthentication">
-                                            <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication" (click)="toggleSlider()">
-                                              <div class="slider-handle"></div>
-                                            </div>
-                                        </div>  
-                                    </div>
+                    <!-- role -->
+
+                    <div id="profileContent" style="padding-top: 6px;">
+                        <div id="divContent">
+                            <p id="heading">Role</p>
+                            <p id="headingData">{{userDetails.userRoles[0].roleName}}</p>
+                        </div>
+                        <div id="divContent">
+                            <p id="heading">Department</p>
+                            <p id="headingData">{{userDetails.employee.department.departmentName}}</p>
+                        </div>
+                        <div id="divContent">
+                            <p id="heading">Reporting Manager</p>
+                            <p id="headingData">{{userDetails.employee.reportingManager}}</p>
+                        </div>
+                        <div id="divContent">
+                            <p id="heading">Two factor authentication</p>
+                            <!--<p id="headingData">{{userDetails.twoFactorAuthentication}}</p>-->
+                            <div class="slide-container" [class.active]="userDetails.twoFactorAuthentication">
+                                <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication"
+                                    (click)="toggleSlider()">
+                                    <div class="slider-handle"></div>
                                 </div>
                             </div>
                         </div>
-                        
-                    </div><!-- modal-content -->
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- modal-content -->
 
     </div>
     <!--profile Panel modal -->
@@ -128,74 +141,74 @@
                             aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myProfileLabel"></h4>
                 </div>
-                <div style="background-color: #f6fbfd;" >
-                <div class="modal-body">
-                    
-                    <div class="container">
-                        <div class="profile-pic" *ngIf="userDetails != null">
-                            <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px"
-                                height="110px" alt="profile pic" />
-                        </div>
-                    </div>
-                    <!-- profile details -->
+                <div style="background-color: #f6fbfd;">
+                    <div class="modal-body">
 
-                    <div *ngIf="userDetails != null">
-                        
-                        <div style="padding-top: 6px;">
-                            <p id="userid"><b>Ikcon Id: </b>{{userDetails.employee.id}}</p>
-                        </div>
-                        <div>
-                            <p id="fullname">{{userDetails.employee.firstName}} {{userDetails.employee.lastName}}
-                            </p>
-                        </div>
-                        <div>
-                            <p id="username">{{userDetails.employee.email}}</p>
-                        </div>
-                        <div>
-                            <p id="designation">{{userDetails.employee.designation}}</p>
-                        </div>
-                        <!-- my profile and logout -->
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <button class="btn btn-primary" data-dismiss="modal"
-                                    (click)="openProfilePanel()">My Profile</button>
+                        <div class="container">
+                            <div class="profile-pic" *ngIf="userDetails != null">
+                                <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px"
+                                    height="110px" alt="profile pic" />
                             </div>
-                            <div class="col-sm-6">
-                                <a id="logoutRef" href="#">
-                                    <p id="logout">Logout</p>
-                                </a>
+                        </div>
+                        <!-- profile details -->
+
+                        <div *ngIf="userDetails != null">
+
+                            <div style="padding-top: 6px;">
+                                <p id="userid"><b>Ikcon Id: </b>{{userDetails.employee.id}}</p>
+                            </div>
+                            <div>
+                                <p id="fullname">{{userDetails.employee.firstName}} {{userDetails.employee.lastName}}
+                                </p>
+                            </div>
+                            <div>
+                                <p id="username">{{userDetails.employee.email}}</p>
+                            </div>
+                            <div>
+                                <p id="designation">{{userDetails.employee.designation}}</p>
+                            </div>
+                            <!-- my profile and logout -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button class="btn btn-primary" data-dismiss="modal" (click)="openProfilePanel()">My
+                                        Profile</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a id="logoutRef" href="#">
+                                        <p id="logout">Logout</p>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                  </div>  
                 </div>
                 <!-- role -->
                 <div class="modal-body" style="padding-top: 30px;">
-                <div id="profileContent" *ngIf="userDetails != null" style="padding-bottom: 6px;">
-                    <div id="divContent">
-                        <p id="heading">Role</p>
-                        <p id="headingData">{{userDetails.userRoles[0].roleName}}</p>
-                    </div>
-                    <div id="divContent">
-                        <p id="heading">Department</p>
-                        <p id="headingData">{{userDetails.employee.department.departmentName}}</p>
-                    </div>
-                    <div id="divContent">
-                        <p id="heading">Reporting Manager</p>
-                        <p id="headingData">{{userDetails.employee.reportingManager}}</p>
-                    </div>
-                    <div id="divContent">
-                        <p id="heading">Two factor authentication</p>
-                        <div class="slide-container">
-                            <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication"
-                                (click)="toggleSlider()">
-                                <div class="slider-handle"></div>
+                    <div id="profileContent" *ngIf="userDetails != null" style="padding-bottom: 6px;">
+                        <div id="divContent">
+                            <p id="heading">Role</p>
+                            <p id="headingData">{{userDetails.userRoles[0].roleName}}</p>
+                        </div>
+                        <div id="divContent">
+                            <p id="heading">Department</p>
+                            <p id="headingData">{{userDetails.employee.department.departmentName}}</p>
+                        </div>
+                        <div id="divContent">
+                            <p id="heading">Reporting Manager</p>
+                            <p id="headingData">{{userDetails.employee.reportingManager}}</p>
+                        </div>
+                        <div id="divContent">
+                            <p id="heading">Two factor authentication</p>
+                            <div class="slide-container">
+                                <div class="slide-button" [class.active]="userDetails.twoFactorAuthentication"
+                                    (click)="toggleSlider()">
+                                    <div class="slider-handle"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-                
+
             </div><!-- modal-content -->
         </div><!-- modal-dialog -->
     </div><!-- modal -->
