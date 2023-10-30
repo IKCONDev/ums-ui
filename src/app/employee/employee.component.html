@@ -177,7 +177,9 @@
                     <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>
                  </span>
                  <br/>
-
+                <label><b>Microsoft Teams Id</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="teams Id" [(ngModel)]="addEmployee.teamsUserId"
+                id="employeeTeamsId" name="employeeTeamsId"  #employeeTeamsId="ngModel">
                <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="addEmployee.designation"
                  id="employeeDesgn" name="employeeDesgn" #employeeDesgn="ngModel" (keyup)="validateEmployeeDesignation()"/>
                  <span *ngIf=" employeeDesignationErrorInfo != ''">
