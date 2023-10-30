@@ -1,4 +1,4 @@
-<body>
+  <body>
   <!-- <div>
     <app-side-menubar (componentToOpen)="onSelectedOptionChange($event)"></app-side-menubar>
   </div>
@@ -102,20 +102,20 @@
       </div>
     </div>
   </div>
-  <br>
+  
   <div class="row">
 
     <div class="col-sm-1"></div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
       <div class="card">
         <div class="card-body">
           <div id="divChart">
           <b>Tasks</b>
-          <select style="float: right;">
-            <option>Week</option>
-            <option>Months</option>
+          <ng-select style="float: right; width: 180px;">
+            <ng-option>Week</ng-option>
+            <ng-option>Months</ng-option>
             <option>Year</option>
-            </select>
+          </ng-select>
             <canvas id="myChart"></canvas>
             
         </div>
@@ -123,9 +123,26 @@
         </div>
       </div>
     </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <div id="divChart" >
+          <b>Meetings</b>
+          <ng-select style="float: right; width: 180px;">
+            <ng-option>Week</ng-option>
+            <ng-option>Months</ng-option>
+            <option>Year</option>
+          </ng-select>
+            <canvas id="myChart2"></canvas>
+            
+        </div>
+      
+        </div>
+      </div>
+    </div>
   </div>
-</body>
 
+  </body>
 <!-- <div class="navbar">
           <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
           <button (click)="checkDemo()">DEMO</button>

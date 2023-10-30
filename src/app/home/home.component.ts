@@ -118,6 +118,7 @@ export class HomeComponent implements OnInit {
     this.getUserOrganizedTasksCount();
     this.getUserAttendedMeetingCount();
     this.createChart();
+    this.createChart2();
     
     
 
@@ -204,11 +205,45 @@ export class HomeComponent implements OnInit {
       options: {
         aspectRatio:2.5
         
+        
       }
       
     });
   }
-  
+  createChart2(){
+    var myChart = new Chart("myChart2", {
+      type: 'bar',
+      data: {// values on X-Axis
+        labels: ['Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday','Sunday'], 
+	       datasets: [
+          {
+            label: "Asigned Task",
+            data: ['600','576', '572', '679', '92'
+								 ],
+            backgroundColor: 'blue'
+          },
+          {
+            label: "Inprogress Task",
+            data: ['42', '42', '36', '27', '17'],
+            backgroundColor: 'pink'
+          },
+          {
+            label: "Completed Task",
+            data: ['542', '542', '536', '327', '17'],
+            backgroundColor: 'limegreen'
+          }  
+
+        ]
+        
+      },
+      options: {
+        aspectRatio:2.5
+        
+        
+      }
+      
+    });
+  }
   
 
 
