@@ -15,9 +15,6 @@
   padding-left: 118px;
 }
 
-
-
-
 #profile-icon:hover{
   fill: #4880FF;
   cursor: pointer;
@@ -223,6 +220,7 @@
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  border: 1px solid lightgray;
 }
 
 /* two factor authentication slide button */

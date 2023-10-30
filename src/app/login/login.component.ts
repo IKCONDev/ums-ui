@@ -328,8 +328,10 @@ getTokenPopup(request) {
           this.router.navigate(['/service-unavailable'])
         } else if (error.status === HttpStatusCode.Unauthorized) {
           this.errorInfo = 'Invalid Credentials'
-          //login failure popup
           this.toastr.error('Incorrect username or password', 'Login Failure')
+        }else if(error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('UserInactiveException')){
+          //dont even generate a jwt token for inactive user.
+          this.toastr.error('Provided user account is inactive','Account Disabled')
         }
       }
    })

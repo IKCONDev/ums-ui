@@ -118,7 +118,7 @@
                 <div class="modal-body">
                     <label><b>Role Name</b><span id="required">*</span></label>
                     <input type="text" class="deptInput form-control" placeholder="role name"
-                    [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()" maxlength="50"/><br/>
+                    [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()" minlength="3" maxlength="50"/><br/>
                     <span id="errorInfo" *ngIf="roleNameErrorInfo != ''">{{roleNameErrorInfo}}</span>
                 </div>
                 <!-- Modal footer -->
@@ -146,7 +146,7 @@
                 <div class="modal-body">
                     <label><b>Role Name</b><span id="required">*</span></label>
                     <input type="text" class="deptInput form-control" placeholder="role name"
-                    [(ngModel)]="existingRole.roleName" (keyup)="validateUpdatedRoleName()"/><br/>
+                    [(ngModel)]="existingRole.roleName" (keyup)="validateUpdatedRoleName()" minlength="3" maxlength="50"/><br/>
                     <span id="errorInfo" *ngIf="updatedRoleNameErrorInfo != ''">{{updatedRoleNameErrorInfo}}</span>
                 </div>
                 <!-- Modal footer -->

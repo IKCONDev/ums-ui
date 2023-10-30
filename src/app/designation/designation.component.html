@@ -113,7 +113,7 @@
                     <label><b>Designation Name</b><span id="required">*</span></label>
                     <input type="text" class="deptInput form-control" placeholder="designation name"
                     [(ngModel)]="addDesignation.designationName" (keyup)="validateDesignationName()"
-                    minlength="5" maxlength="40"/><br/>
+                    minlength="5" maxlength="50"/><br/>
                     <span *ngIf="designationNameErrorInfo != ''">
                         <p id="errorMessage">{{designationNameErrorInfo}}</p>
                     </span>
@@ -148,7 +148,7 @@
                     <label><b>Designation Name</b><span id="required">*</span></label>
                     <input type="text" class="deptInput form-control" placeholder="designation name"
                     [(ngModel)]="existingDesignation.designationName" (keyup)="validateUpdatedDesignationName()"
-                    minlength="5" maxlength="40"/><br/>
+                    minlength="5" maxlength="50"/><br/>
                     <span *ngIf="updatedDesignationNameErrorInfo != ''">
                         <p id="errorMessage">{{updatedDesignationNameErrorInfo}}</p>
                     </span>
