@@ -257,6 +257,9 @@
                   <span *ngIf="updateDesignationErrorInfo != ''">
                     <p id="errorMessage">{{updateDesignationErrorInfo}}</p>
                    </span><br/>
+                <label><b>Microsoft Teams Id</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="teams Id" [(ngModel)]="existingEmployee.teamsUserId"
+                id="updateTeamsId" name="updateTeamsId"  #updateTeamsId="ngModel">
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
