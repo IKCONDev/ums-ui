@@ -1328,7 +1328,20 @@ sendMOMEmail(){
      this.hoursDiff = (endDate.getHours()-startdate.getHours());
      this.minutesDiff = (endDate.getMinutes()-startdate.getMinutes());
 
-
+   }
+   emailListErrorInfo = '';
+   isemailforSendMoMEmailValid = false;
+   validateMoMEmail(){
+      
+    if(this.emailListForsendingMOM == null){
+       this.emailListErrorInfo = 'choose the emailId to send Email';
+       this.isemailforSendMoMEmailValid = false;
+    }
+    else{
+       this.emailListErrorInfo =''
+       this.isemailforSendMoMEmailValid = true;
+    }
+     
    }
 }
 

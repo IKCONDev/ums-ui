@@ -47,7 +47,7 @@
                     <th>Modified By</th>
                     <th>Created By</th>
                     <th>Modified Date</th>
-                    <th>Created By Email ID</th>
+                    <!-- <th>Created By Email ID</th> -->
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -68,8 +68,7 @@
                         <td>{{employee.modifiedBy}}</td>
                         <td>{{employee.createdBy}}</td>
                         <td>{{employee.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>  
-                        <td>{{employee.createdByEmailId}}</td>
-                       
+                        <!-- <td>{{employee.createdByEmailId}}</td> -->
                         <td>
                             <span id="editIcon"
                             data-toggle="modal" data-target="#updateEmployeeModal" (click)="fetchoneEmployeewithDepartment(employee.id)"
@@ -177,7 +176,9 @@
                     <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>
                  </span>
                  <br/>
-
+                <label><b>Microsoft Teams Id</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="teams Id" [(ngModel)]="addEmployee.teamsUserId"
+                id="employeeTeamsId" name="employeeTeamsId"  #employeeTeamsId="ngModel">
                <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="addEmployee.designation"
                  id="employeeDesgn" name="employeeDesgn" #employeeDesgn="ngModel" (keyup)="validateEmployeeDesignation()"/>
                  <span *ngIf=" employeeDesignationErrorInfo != ''">
@@ -255,6 +256,9 @@
                   <span *ngIf="updateDesignationErrorInfo != ''">
                     <p id="errorMessage">{{updateDesignationErrorInfo}}</p>
                    </span><br/>
+                <label><b>Microsoft Teams Id</b></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="teams Id" [(ngModel)]="existingEmployee.teamsUserId"
+                id="updateTeamsId" name="updateTeamsId"  #updateTeamsId="ngModel">
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">

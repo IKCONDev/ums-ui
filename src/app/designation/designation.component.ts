@@ -134,7 +134,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param departmentId 
    */
   removeDesignation(designationId: number){
-    var isConfirmed = window.confirm('Are you sure, you really want to delete this record?')
+    var isConfirmed = window.confirm('Are you sure, you really want to delete this designation?')
    if(isConfirmed){
     this.designationService.deleteDesignation(designationId).subscribe(
       (response) => {
@@ -267,27 +267,27 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    }
    //delete the selected departments
    if(this.designationIdsToBeDeleted.length>0){
-    var isconfirmed = window.confirm('Are yopu sure, you really want to delete these records ?')
+    var isconfirmed = window.confirm('Are yopu sure, you really want to delete these designations ?')
     if(isconfirmed){
       console.log(this.designationIdsToBeDeleted)
       this.designationService.deleteAllSelectedDesignationsById(this.designationIdsToBeDeleted).subscribe(
         (response => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Records deleted sucessfully')  
+            this.toastr.success('Designations deleted sucessfully')  
             setTimeout(()=>{
               window.location.reload();
             },1000)  
           }else{
-            this.toastr.error('Error while deleting records... Please try again !');
+            this.toastr.error('Error while deleting designations... Please try again !');
           }
         })
       )
     }else{
-      this.toastr.warning('Records not deleted')
+      this.toastr.warning('Designations not deleted')
     }
    }else{
-    this.toastr.error('Please select atleast one record to delete.')
+    this.toastr.error('Please select atleast one designation to delete.')
    }
    
   }
