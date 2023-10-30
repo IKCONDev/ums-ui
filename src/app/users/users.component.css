@@ -194,3 +194,8 @@ td{
 .modal-body{
   margin-left: 35px;
 }
+
+#required{
+  color: red;
+  padding-left: 2px;
+}

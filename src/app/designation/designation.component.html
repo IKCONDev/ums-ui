@@ -110,7 +110,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <label><b>Designation Name</b></label>
+                    <label><b>Designation Name</b><span id="required">*</span></label>
                     <input type="text" class="deptInput form-control" placeholder="designation name"
                     [(ngModel)]="addDesignation.designationName" (keyup)="validateDesignationName()"
                     minlength="5" maxlength="40"/><br/>
@@ -145,7 +145,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <label><b>Designation Name</b></label>
+                    <label><b>Designation Name</b><span id="required">*</span></label>
                     <input type="text" class="deptInput form-control" placeholder="designation name"
                     [(ngModel)]="existingDesignation.designationName" (keyup)="validateUpdatedDesignationName()"
                     minlength="5" maxlength="40"/><br/>

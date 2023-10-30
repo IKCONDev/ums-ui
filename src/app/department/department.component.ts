@@ -147,9 +147,9 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     if(this.addDepartment.departmentName === '' || this.addDepartment.departmentName.trim()==="" || regex.exec(this.addDepartment.departmentName)===null){
       this.departmentNameErrorInfo = 'Department name is required';
     }else if(this.addDepartment.departmentName.length < 3){
-      this.departmentNameErrorInfo = 'department name should have minimum of 3 chars.';
-    }else if(this.addDepartment.departmentName.length>40){
-      this.departmentNameErrorInfo = 'department name should not exceed more than 40 chars';
+      this.departmentNameErrorInfo = 'Department name should have minimum of 3 chars.';
+    }else if(this.addDepartment.departmentName.length>=50){
+      this.departmentNameErrorInfo = 'Department name should not exceed more than 50 chars';
     }else{
       this.isDepartmentNameValid = true;
       this.departmentNameErrorInfo = '';
@@ -167,6 +167,10 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.addDepartment.departmentHead === ''|| this.addDepartment.departmentHead.trim()==="" || regex.exec(this.addDepartment.departmentHead)===null){
       this.departmentHeadErrorInfo = 'Department head is required';
+    }else if(this.addDepartment.departmentHead.length < 3){
+        this.departmentHeadErrorInfo = 'Department head should have minimum of 3 chars.';
+    }else if(this.addDepartment.departmentHead.length>=50){
+        this.departmentHeadErrorInfo = 'Department head should not exceed more than 50 chars'; 
     }else{
       this.isDepartmentHeadValid = true;
       this.departmentHeadErrorInfo = '';
@@ -186,8 +190,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
       this.departmentCodeErrorInfo = 'Department code is required';
     }else if(this.addDepartment.departmentCode.length < 2){
       this.departmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
-    }else if(this.addDepartment.departmentCode.length > 4){
-      this.departmentCodeErrorInfo = 'Department code should not exceed 4 chars.';
+    }else if(this.addDepartment.departmentCode.length >= 4){
+      this.departmentCodeErrorInfo = 'Department code should not exceed more than 4 chars.';
     }
     else{
       this.isDepartmentCodeValid = true;
@@ -208,8 +212,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
       this.departmentLocationErrorInfo = 'Department location is required';
     }else if(this.addDepartment.departmentAddress.length < 3){
       this.departmentLocationErrorInfo = 'Department location should be minimum of 3 chars.';
-    }else if(this.addDepartment.departmentAddress.length > 20){
-      this.departmentLocationErrorInfo = 'Department location should not exceed 20 chars.';
+    }else if(this.addDepartment.departmentAddress.length >= 20){
+      this.departmentLocationErrorInfo = 'Department location should not exceed more than 20 chars.';
     }
     else{
       this.isDepartmentLocationValid = true;
@@ -356,8 +360,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
        this.updatedDepartmentNameErrorInfo = 'Department name is required';
      }else if(this.existingDepartment.departmentName.length < 3){
        this.updatedDepartmentNameErrorInfo = 'department name should have minimum of 3 chars.';
-     }else if(this.existingDepartment.departmentName.length>40){
-       this.updatedDepartmentNameErrorInfo = 'department name should not exceed more than 40 chars';
+     }else if(this.existingDepartment.departmentName.length>=50){
+       this.updatedDepartmentNameErrorInfo = 'department name should not exceed more than 50 chars';
      }else{
        this.isDepartmentNameValid = true;
        this.updatedDepartmentNameErrorInfo = '';
@@ -375,6 +379,10 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.existingDepartment.departmentHead === '' || this.existingDepartment.departmentHead.trim()==="" || regex.exec(this.existingDepartment.departmentHead)===null){
       this.updatedDepartmentHeadErrorInfo = 'Department head is required';
+    }else if(this.addDepartment.departmentHead.length < 3){
+      this.departmentHeadErrorInfo = 'Department head should have minimum of 3 chars.';
+    }else if(this.addDepartment.departmentHead.length>=50){
+      this.departmentHeadErrorInfo = 'Department head should not exceed more than 50 chars'; 
     }else{
       this.isDepartmentHeadValid = true;
       this.updatedDepartmentHeadErrorInfo = '';
@@ -394,8 +402,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updatedDepartmentCodeErrorInfo = 'Department code is required';
     }else if(this.existingDepartment.departmentCode.length < 2){
       this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
-    }else if(this.existingDepartment.departmentCode.length > 4){
-      this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed 4 chars.';
+    }else if(this.existingDepartment.departmentCode.length >=4){
+      this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 4 chars.';
     }
     else{
       this.isDepartmentCodeValid = true;
@@ -416,8 +424,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
        this.updatedDepartmentLocationErrorInfo = 'Department location is required';
      }else if(this.existingDepartment.departmentAddress.length < 3){
        this.updatedDepartmentLocationErrorInfo = 'Department location should be minimum of 3 chars.';
-     }else if(this.existingDepartment.departmentAddress.length > 20){
-       this.updatedDepartmentLocationErrorInfo = 'Department location should not exceed 20 chars.';
+     }else if(this.existingDepartment.departmentAddress.length >= 20){
+       this.updatedDepartmentLocationErrorInfo = 'Department location should not exceed more than 20 chars.';
      }
      else{
        this.isDepartmentLocationValid = true;
