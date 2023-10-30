@@ -150,12 +150,16 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
             setTimeout(() => {
               window.location.reload();
             }, 1000);
-          } else {
-            this.toastr.error("Role not created. Please try again.")
-          }
+          } 
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
+          }else if(error.status === HttpStatusCode.Found){
+            this.toastr.error('Role name '+this.addRoleObj.roleName+' already exists')
+            //close form modal
+            document.getElementById('closeAddModal').click();
+          }else {
+            this.toastr.error("Role not created. Please try again.")
           }
         }
       })
