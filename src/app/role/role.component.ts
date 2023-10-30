@@ -90,9 +90,12 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.addRoleObj.roleName === '' || this.addRoleObj.roleName.trim()==="" || regex.exec(this.addRoleObj.roleName)===null) {
       this.roleNameErrorInfo = 'Role name is required';
-    } else if (this.addRoleObj.roleName.length < 2) {
-      this.roleNameErrorInfo = 'Role name should have min of 2 chars'
-    } else {
+    } else if (this.addRoleObj.roleName.length < 3) {
+      this.roleNameErrorInfo = 'Role name should have min of 3 chars'
+    }else if (this.addRoleObj.roleName.length>=50){
+      this.roleNameErrorInfo = 'Role name should not exceed more than 50 chars'
+    }
+     else {
       this.roleNameErrorInfo = '';
       this.isRoleNameValid = true;
     }
@@ -109,9 +112,11 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.existingRole.roleName === '' || this.existingRole.roleName.trim()==="" || regex.exec(this.existingRole.roleName)===null) {
       this.updatedRoleNameErrorInfo = 'Role name is required';
-    } else if (this.existingRole.roleName.length < 2) {
-      this.updatedRoleNameErrorInfo = 'Role name should have min of 2 chars'
-    } else {
+    } else if (this.existingRole.roleName.length < 3) {
+      this.updatedRoleNameErrorInfo = 'Role name should have min of 3 chars'
+    } else if (this.existingRole.roleName.length>=50){
+      this.updatedRoleNameErrorInfo = 'Role name should not exceed more than 50 chars'
+    }else {
       this.updatedRoleNameErrorInfo = '';
       this.isUpdatedRoleNameValid = true;
     }
