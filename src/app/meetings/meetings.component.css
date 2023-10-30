@@ -99,6 +99,11 @@
     /* 40px */
 }
 
+#required{
+  color: red;
+  padding-left: 2px;
+}
+
 #transcriptBtn {
     border: 0px;
     background-color: white;
