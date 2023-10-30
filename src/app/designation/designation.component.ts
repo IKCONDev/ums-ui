@@ -118,8 +118,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
       this.designationNameErrorInfo = 'Designation name is required';
     }else if(this.addDesignation.designationName.length < 5){
       this.designationNameErrorInfo = 'Designation name should have minimum of 5 chars.';
-    }else if(this.addDesignation.designationName.length > 40){
-      this.designationNameErrorInfo = 'Designation name should not exceed more than 40 chars';
+    }else if(this.addDesignation.designationName.length >= 50){
+      this.designationNameErrorInfo = 'Designation name should not exceed more than 50 chars';
     }else{
       this.isDesignationNameValid = true;
       this.designationNameErrorInfo = '';
@@ -230,8 +230,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
        this.updatedDesignationNameErrorInfo = 'Department name is required';
      }else if(this.existingDesignation.designationName.length < 5){
        this.updatedDesignationNameErrorInfo = 'department name should have minimum of 5 chars.';
-     }else if(this.existingDesignation.designationName.length>40){
-       this.updatedDesignationNameErrorInfo = 'department name should not exceed more than 20 chars';
+     }else if(this.existingDesignation.designationName.length>=50){
+       this.updatedDesignationNameErrorInfo = 'department name should not exceed more than 50 chars';
      }else{
        this.isUpdatedDesignationNameValid = true;
        this.updatedDesignationNameErrorInfo = '';
