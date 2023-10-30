@@ -33,7 +33,8 @@
             <div class="row">
                 <table class="table table-hover" id="myTable">
                     <thead id="thead">
-                        <th>ID</th>
+                        <tr>
+                            <th>ID</th>
                         <!--<th>Name</th>-->
                         <th>Mail ID</th>
                         <th>Role</th>
@@ -41,6 +42,7 @@
                         <th>Account Status</th>
                         <th>Actions</th>
                         <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr class="trbody" *ngFor="let user of userList; let i = index">    
