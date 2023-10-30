@@ -177,10 +177,10 @@
                 </div><br/>
                 <br/>
                 <label><b>Role</b><span id="required">*</span></label>
-                <select class="updateUserInput form-control" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleId"
+                <select class="updateUserInput form-control form-select" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleId"
                 id="updateRole" name="updateRole" #updateRole="ngModel" [class.invalid]="updateRole.invalid && updateRole.touched"
                 (change)="validateuserRole()">
-                    <option>select</option>
+                   <!-- <option value="select">select</option>-->
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                 </select>
                 <div *ngIf=" roleErrorInfo != ''">

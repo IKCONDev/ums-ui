@@ -239,7 +239,7 @@
                 <label><b>Department</b></label>
                 <select  class="addEmployeeInput form-control form-select" placeholder="Department" [(ngModel)]="existingEmployee.departmentId"
                 id="updateDept" name="updateDept" #updateDept="ngModel" (change)="validateUpdateDepartment()">
-                    <option value="0">select</option>
+                    <!--<option value="0">select</option>-->
                     <option *ngFor="let department of departmentList" [value]="department.departmentId">{{department.departmentName}}</option>
                       
                </select>
@@ -250,7 +250,7 @@
                 <label><b>Designation</b></label>
                    <select class="addEmployeeInput form-control form-select" placeholder="designation" id="updateDesgn" name="updateDesgn" #updateDesgn="ngModel"
                    (change)="validateUpdateDesignation()" [(ngModel)]="existingEmployee.empDesignation.id">
-                      <option default value="0">select</option>
+                      <!--<option default value="0">select</option>-->
                       <option *ngFor="let designation of designationList" [value]="designation.id">{{designation.designationName}}</option>
                   </select>
                   <span *ngIf="updateDesignationErrorInfo != ''">
