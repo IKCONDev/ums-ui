@@ -132,6 +132,9 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
         }else if(error.status === HttpStatusCode.Found){
           console.log(error)
           this.toastr.error('Department name '+this.addDepartment.departmentName+ ' already exists.')
+          document.getElementById('closeAddModal').click();
+        }else{
+          this.toastr.error('Error while creating department. Please try again !')
         }
       }
      })
