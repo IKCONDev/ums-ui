@@ -111,10 +111,10 @@
         <div class="card-body">
           <div id="divChart">
           <b>Tasks</b>
-          <ng-select style="float: right; width: 180px;">
-            <ng-option>Week</ng-option>
-            <ng-option>Months</ng-option>
-            <option>Year</option>
+          <ng-select [(ngModel)]="selectedOption"  (change)="onSelectChange()" style="float: right; width: 180px;">
+            <ng-option  value="Week">Week</ng-option>
+            <ng-option value="months">Months</ng-option>
+            
           </ng-select>
             <canvas id="myChart"></canvas>
             
@@ -128,10 +128,9 @@
         <div class="card-body">
           <div id="divChart" >
           <b>Meetings</b>
-          <ng-select style="float: right; width: 180px;">
-            <ng-option>Week</ng-option>
-            <ng-option>Months</ng-option>
-            <option>Year</option>
+          <ng-select [(ngModel)]="selectedOption"  (change)="onSelectChange()" style="float: right; width: 180px;">
+            <ng-option value="Week">Week</ng-option>
+            <ng-option value="months">Months</ng-option>
           </ng-select>
             <canvas id="myChart2"></canvas>
             
