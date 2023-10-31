@@ -218,17 +218,16 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
    * @param user
    */
   updateUser(existingUser : any){
-
-    
+    console.log(existingUser.roleId);
      this.userService.update(existingUser).subscribe(
         response=>{
           var userRecord = response.body;
           if(response.status == HttpStatusCode.Created){
               this.toastr.success("User updated successfully");
               document.getElementById('closeUpdateModal').click();
-              setTimeout(() => {
+              /*setTimeout(() => {
                 window.location.reload();
-               },1000);
+               },1000);*/
           }
           else{
              this.toastr.error("Error occured while updating user");
