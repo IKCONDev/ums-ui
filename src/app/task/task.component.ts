@@ -53,6 +53,13 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
+  //filter properties
+  filter_Email_Organizer: string;
+  filter_StartDate: string;
+  filter_EndDate: string;
+  filter_Taskname: string;
+  filter_Priority: string;
+
 
   private table: any;
 
@@ -626,6 +633,27 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
      }
 
            
+  }
+
+  //filters code
+  /**
+   * close filter modal on click
+   */
+  CloseFilterTaskModal(){
+    document.getElementById('closeModal').click();
+  }
+
+  /**
+   * 
+   * @param taskName 
+   * @param taskPriority 
+   * @param taskStartDate 
+   * @param taskEndDate 
+   * @param taskOrganizer 
+   */
+  filterTaskList(taskName: string,taskPriority: string, taskStartDate: string, taskEndDate: string, taskOrganizer: string){
+    //close filter modal
+    this.CloseFilterTaskModal();
   }
 
 }
