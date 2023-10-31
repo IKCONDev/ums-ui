@@ -1141,7 +1141,7 @@ SendActionItemList = new Array() ;
 momObject : MOMObject;
 resultData : boolean;
 sendMOMEmail(){
-
+ 
   for(var i=0; i<this.actionItemsOfMeeting.length; i++){
 
      if(this.meetingData.meetingId == this.actionItemsOfMeeting[i].meetingId){
@@ -1334,8 +1334,9 @@ sendMOMEmail(){
    isemailforSendMoMEmailValid = false;
    validateMoMEmail(){
       
-    if(this.emailListForsendingMOM == null){
+    if(this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0){
        this.emailListErrorInfo = 'choose the emailId to send Email';
+       console.log("Email List is"+this.emailListForsendingMOM);
        this.isemailforSendMoMEmailValid = false;
     }
     else{
