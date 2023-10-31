@@ -253,10 +253,10 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    * 
    * @param id 
    */
-  deleteRoleById(id: number) {
+  deleteRoleById(id: any) {
     var isConfirmed = window.confirm('Are you sure you want to delete this role ?');
     if (isConfirmed) {
-      this.roleService.deleteRole(id).subscribe({
+      this.roleService.deleteSelectedRoles(id).subscribe({
         next: (response) => {
           if (response.status === HttpStatusCode.Ok) {
             this.toastr.success('Role ' + id + ' deleted successfully')

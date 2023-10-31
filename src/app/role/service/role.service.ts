@@ -67,18 +67,18 @@ export class RoleService {
      * @param id 
      * @returns 
      */
-    deleteRole(id: number){
-        return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/delete/${id}`,{observe:'response',headers: new HttpHeaders({
-            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
-          }
-          )});
-    }
+    // deleteRole(id: number){
+    //     return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/delete/${id}`,{observe:'response',headers: new HttpHeaders({
+    //         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+    //       }
+    //       )});
+    // }
 
     /**
      * 
      */
     deleteSelectedRoles(ids: any[]){
-        return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/all/${ids}`,{observe:'response',headers: new HttpHeaders({
+        return this.http.delete<boolean>(`${this.apiGateWayMicroservicePathURL}/${this.roleMicroservicePathURL}/${ids}`,{observe:'response',headers: new HttpHeaders({
             'Authorization':'Bearer '+localStorage.getItem('jwtToken')
           }
           )});
