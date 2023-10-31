@@ -279,6 +279,9 @@ td{
     color: lightgray;
   }
 
-
+#required{
+  color: red;
+  padding-left: 2px;
+}
 
 
