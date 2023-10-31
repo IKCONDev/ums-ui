@@ -370,7 +370,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateActionItemOwner() {
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
-    if (this.addDetails.actionItemOwner === null) {
+    if (this.addDetails.actionItemOwner === null || this.addDetails.actionItemOwner.length===0) {
       this.actionItemOwnerErrorInfo = 'Owner is required';
       this.isActionItemOwnerValid = false;
     } else {
@@ -917,7 +917,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateUpdateActionItemOwner() {
     //var actionItemOwner = event.target.value;
-    if (this.updatedetails.actionItemOwner === null) {
+    if (this.updatedetails.actionItemOwner === null || this.updatedetails.actionItemOwner.length===0) {
       this.updateActionItemOwnerErrorInfo = 'Owner is required';
       this.isUpdateActionItemOwnerValid = false;
     } else {
