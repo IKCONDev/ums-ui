@@ -159,7 +159,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
             //close form modal
             document.getElementById('closeAddModal').click();
           }else {
-            this.toastr.error("Role not created. Please try again.")
+            this.toastr.error("Error while creating role. Please try again !")
           }
         }
       })

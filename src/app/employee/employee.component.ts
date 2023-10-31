@@ -82,8 +82,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       next: response => {
         this.employeeData = response.body;
         console.log(this.employeeData);
+      },
+      error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
       }
-
     })
   }
 
@@ -136,8 +140,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       console.log(this.addEmployee);
       this.addEmployee.createdBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       this.addEmployee.createdByEmailId = localStorage.getItem('email');
-      this.employeeservice.createEmployee(this.addEmployee).subscribe(
-        response => {
+      this.employeeservice.createEmployee(this.addEmployee).subscribe({
+        next: response => {
           if (response.status == HttpStatusCode.Created) {
             this.createdEmployee = response.body;
             this.toastr.success("Employee created successfully");
@@ -146,8 +150,18 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
               window.location.reload();
             }, 1000)
           }
+        },
+        error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }else if(error.status === HttpStatusCode.Found){
+            this.toastr.error('Employee email ID '+this.addEmployee.email+' already exists');
+            document.getElementById('closeAddModal').click();
+          }else{
+            this.toastr.error('Error while creating employee. please try again !')
+          }
         }
-      );
+    });
     }
 
 
