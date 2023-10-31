@@ -129,6 +129,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
       },error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
+        }else if(error.status === HttpStatusCode.Found){
+          this.toastr.error('Department name already exists.')
         }
       }
      })
