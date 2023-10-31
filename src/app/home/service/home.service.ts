@@ -87,6 +87,15 @@ export class HomeService {
     });
   }
 
+  fetchStatusforWeek(startdate:string,endDate:string){
+    return this.http.get<string>(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/weekTaskCount`+startdate+endDate, {
+      observe: 'response', headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      )
+    });
+  }
+
 
 
 }

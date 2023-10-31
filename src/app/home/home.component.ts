@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { HomeService } from './service/home.service';
 import { outputAst } from '@angular/compiler';
@@ -19,7 +19,7 @@ Chart.register(...registerables);
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit{
 
  title: string = 'Overview';
  organizedMeetingsCount:string = localStorage.getItem('totalMeetingsOrganized');
@@ -35,6 +35,13 @@ export class HomeComponent implements OnInit {
   userRole: '',
   userData: ''
 }
+  selectedOption:string;
+  onSelectChange(){
+    console.log("entered onselect change")
+    if(this.selectedOption==='Week'){
+      this.fetchTaskStatus();
+    }
+  }
   
   //get the latest selected component on page load /refresh
   //selectedOption:string = localStorage.getItem('selectedComponent');
@@ -210,6 +217,23 @@ export class HomeComponent implements OnInit {
       
     });
   }
+  fetchTaskStatus(){
+      console.log("entered the fetch details of task")
+      const currentDate=new Date();
+      const startDate=new Date(currentDate);
+      startDate.setHours(0,0,0,0);
+      startDate.setDate(currentDate.getDate()-currentDate.getDay())
+      const endDate = new Date();
+      endDate.setDate(startDate.getDate()+6);//end of the week
+      endDate.setHours(23,59,59,999);//end of the day
+      console.log(startDate);
+      console.log(endDate);
+
+    }
+
+  
+
+
   createChart2(){
     var myChart = new Chart("myChart2", {
       type: 'bar',
