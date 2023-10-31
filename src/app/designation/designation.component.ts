@@ -3,6 +3,7 @@ import { Designation } from '../model/Designation.model';
 import { DesignationService } from './service/designation.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-designation',
@@ -40,7 +41,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   constructor(private designationService: DesignationService,
-    private toastr: ToastrService){
+    private toastr: ToastrService,
+    private router: Router){
     //get all departments List on component initialization
     this.getAllDesignations();
     
@@ -73,9 +75,6 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
   createdDesignation: Designation;
   createDesignation(){
     let isNameValid = true;
-    let isHeadValid = true;
-    let isCodeValid = true;
-    let isLocationValid = true;
     var flag = 0;
     
     if(this.isDesignationNameValid === false){
@@ -90,8 +89,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     //set createdBy
     this.addDesignation.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     this.addDesignation.createdByEmailId = localStorage.getItem('email');
-    this.designationService.createDesignation(this.addDesignation).subscribe(
-      (response)=> {
+    this.designationService.createDesignation(this.addDesignation).subscribe({
+      next: (response)=> {
         if(response.status === HttpStatusCode.Created){
           this.createdDesignation = response.body;
         this.toastr.success('Department added successfully.')
@@ -100,8 +99,16 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
             window.location.reload();
           },1000)
         }
+      },
+      error: (error) => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }else if(error.status === HttpStatusCode.Found){
+          console.log(error)
+          this.toastr.error('Designation name '+this.addDesignation.designationName+' already exists');
+        }
       }
-    )
+    })
      }
   }
 
