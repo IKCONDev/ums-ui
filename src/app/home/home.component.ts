@@ -5,9 +5,11 @@ import { outputAst } from '@angular/compiler';
 import { SideMenubarComponent } from '../side-menubar/side-menubar.component';
 import { HttpStatusCode } from '@angular/common/http';
 import { HeaderService } from '../header/service/header.service';
-import { error } from 'jquery';
+import { error, type } from 'jquery';
 import { Chart, registerables } from 'chart.js';
 import { Meeting } from '../model/Meeting.model';
+import { NumberValueAccessor } from '@angular/forms';
+import { TaskStatusModel } from '../model/taskStatus.model';
 Chart.register(...registerables);
 
 
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit{
   userData: ''
 }
   selectedOption:string;
+  selectedOption2:string;
   onSelectChange(){
     console.log("entered onselect change")
     if(this.selectedOption==='Week'){
@@ -124,7 +127,7 @@ export class HomeComponent implements OnInit{
     this.getUserAssignedTasksCount();
     this.getUserOrganizedTasksCount();
     this.getUserAttendedMeetingCount();
-    this.createChart();
+    //this.createChart();
     this.createChart2();
     
     
@@ -183,40 +186,7 @@ export class HomeComponent implements OnInit{
     })
   }
   
-  createChart(){
-    var myChart = new Chart("myChart", {
-      type: 'bar',
-      data: {// values on X-Axis
-        labels: ['Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday','Sunday'], 
-	       datasets: [
-          {
-            label: "Asigned Task",
-            data: ['600','576', '572', '679', '92'
-								 ],
-            backgroundColor: 'blue'
-          },
-          {
-            label: "Inprogress Task",
-            data: ['42', '42', '36', '27', '17'],
-            backgroundColor: 'pink'
-          },
-          {
-            label: "Completed Task",
-            data: ['542', '542', '536', '327', '17'],
-            backgroundColor: 'limegreen'
-          }  
-
-        ]
-        
-      },
-      options: {
-        aspectRatio:2.5
-        
-        
-      }
-      
-    });
-  }
+  TotalTasks:any[];
   fetchTaskStatus(){
       console.log("entered the fetch details of task")
       const currentDate=new Date();
@@ -229,20 +199,67 @@ export class HomeComponent implements OnInit{
       console.log(startDate);
       console.log(endDate);
 
-    }
+      this.homeService.fetchStatusforWeek(startDate.toISOString(),endDate.toISOString()).subscribe({
+        next: response =>{
+        this.TotalTasks=response.body;
+        console.log(this.TotalTasks)
+        this.createChart();
+        }
+      })
+      
 
+    }
+   
+
+  createChart(){
+    
+    var myChart = new Chart("myChart", {
+      type: 'bar',
+      data: {// values on X-Axis
+        labels: ['Sunday','Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday',], 
+	       datasets: [
+          {
+            label: "Assigned Task",
+            data: [this.TotalTasks[0][0],this.TotalTasks[0][1],this.TotalTasks[0][2],this.TotalTasks[0][3],
+            this.TotalTasks[0][4],this.TotalTasks[0][5],this.TotalTasks[0][6]],
+            backgroundColor: 'SkyBlue'
+          },
+          {
+            label: "Inprogress Task",
+            data:[this.TotalTasks[1][0],this.TotalTasks[1][1],this.TotalTasks[1][2],this.TotalTasks[1][3],
+            this.TotalTasks[1][4],this.TotalTasks[1][5],this.TotalTasks[1][6]],
+            backgroundColor: 'pink'
+          },
+          {
+            label: "Completed Task",
+            data: [this.TotalTasks[2][0],this.TotalTasks[2][1],this.TotalTasks[2][2],this.TotalTasks[2][3],
+            this.TotalTasks[2][4],this.TotalTasks[2][5],this.TotalTasks[2][6]],
+            backgroundColor: 'limegreen'
+          }  
+
+        ]
+        
+      },
+      options: {
+        aspectRatio:2.5
+      }
+      
+    });
+  
+  }
+  
   
 
 
   createChart2(){
-    var myChart = new Chart("myChart2", {
+    var myChart2 = new Chart("myChart2", {
       type: 'bar',
       data: {// values on X-Axis
         labels: ['Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday','Sunday'], 
 	       datasets: [
           {
-            label: "Asigned Task",
-            data: ['600','576', '572', '679', '92'
+            label: "Assigned Task",
+            data: ['0','600','576', '572', '679', '92','0'
 								 ],
             backgroundColor: 'blue'
           },
