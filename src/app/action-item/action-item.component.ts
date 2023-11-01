@@ -897,6 +897,7 @@ export class ActionItemComponent implements OnInit {
               var data = response.body;
               if(response.status == HttpStatusCode.Ok){
                  this.toastr.success("Task created successfully");
+                 document.getElementById('closeAddModal').click();
                  setTimeout(() => {
                   window.location.reload();
                  },1000);

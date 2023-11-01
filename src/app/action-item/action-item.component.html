@@ -44,7 +44,7 @@
 
             </thead>
             <tbody *ngFor="let actionItem of actionItems, let i = index">
-                <tr *ngIf="actionItem.actionStatus === 'Converted'">
+                <tr *ngIf="actionItem.actionStatus === 'Submitted'">
                    <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
                             value="{{actionItem.actionItemId}}"></td>-->
                     <!--<td>{{actionItem.actionItemId}}</td>-->
@@ -497,7 +497,7 @@
                         style="margin-bottom:3px; margin-top: -5px;">Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger closeButton"
+                    <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton"
                         data-dismiss="modal" (click)="clearErrorMessages(form)"
                         style="margin-bottom:4px; margin-top: -4px;">Close</button>
                 </div>

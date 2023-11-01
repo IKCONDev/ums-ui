@@ -673,3 +673,15 @@ th,td{
   color: #000716;
 }
 
+#dialog {
+  position: absolute;
+   top: 17vh;
+   right: 0px;
+   bottom: 0;
+   left: 350;
+   margin-right: 80px;
+   z-index: 10040;
+   overflow: auto;
+   overflow-y: auto;
+
+}

@@ -54,11 +54,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   //filter properties
-  filter_Email_Organizer: string;
-  filter_StartDate: string;
-  filter_EndDate: string;
-  filter_Taskname: string;
-  filter_Priority: string;
+  filter_Taskname = localStorage.getItem('taskNameFilter');
+  filter_Priority = localStorage.getItem('taskPriorityFilter');
+  filter_StartDate = localStorage.getItem('taskStartDateFilter');
+  filter_EndDate = localStorage.getItem('taskEndDateFilter');
+  filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
 
 
   private table: any;
@@ -106,6 +106,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(this.tabOpened)
     this.getTasks(this.tabOpened);
     this.pastDateTime();
+    console.log(localStorage.getItem('taskNameFilter'));
+    console.log(localStorage.getItem('taskPriorityFilter'));
+    console.log(localStorage.getItem('taskStartDateFilter'));
+    console.log(localStorage.getItem('taskEndDateFilter'));
+    console.log(localStorage.getItem('taskOrganizerFilter'));
   }
 
   /**
@@ -146,7 +151,13 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("AssignedTask").style.borderBottom = 'none';
      // document.getElementById("delete_button").style.display="block";
 
-      this.service.getTaskByUserId(localStorage.getItem('email')).subscribe({
+     //get taskList default without any filters
+      this.service.getTaskByUserId(localStorage.getItem('email'),
+        this.filter_Taskname,
+        this.filter_Priority,
+        this.filter_Email_Organizer,
+        this.filter_StartDate,
+        this.filter_EndDate).subscribe({
         next: (res) => {
         this.task = res.body;
         this.taskCount = res.body.length;
@@ -644,6 +655,17 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
+   * reset filter
+   */
+  resetFilterModal(){
+    localStorage.setItem('taskNameFilter','');
+    localStorage.setItem('taskPriorityFilter','');
+    localStorage.setItem('taskStartDateFilter','');
+    localStorage.setItem('taskEndDateFilter','');
+    localStorage.setItem('taskOrganizerFilter','');
+  }
+
+  /**
    * 
    * @param taskName 
    * @param taskPriority 
@@ -653,6 +675,32 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   filterTaskList(taskName: string,taskPriority: string, taskStartDate: string, taskEndDate: string, taskOrganizer: string){
     //close filter modal
+    localStorage.setItem('taskNameFilter',taskName);
+    localStorage.setItem('taskPriorityFilter',taskPriority);
+    localStorage.setItem('taskStartDateFilter',taskStartDate);
+    localStorage.setItem('taskEndDateFilter',taskEndDate);
+    localStorage.setItem('taskOrganizerFilter',taskOrganizer);
+
+    console.log(localStorage.getItem('taskNameFilter'));
+    console.log(localStorage.getItem('taskPriorityFilter'));
+    console.log(localStorage.getItem('taskStartDateFilter'));
+    console.log(localStorage.getItem('taskEndDateFilter'));
+    console.log(localStorage.getItem('taskOrganizerFilter'));
+    
+    this.filter_Taskname = localStorage.getItem('taskNameFilter');
+    this.filter_Priority = localStorage.getItem('taskPriorityFilter');
+    this.filter_StartDate = localStorage.getItem('taskStartDateFilter');
+    this.filter_EndDate = localStorage.getItem('taskEndDateFilter');
+    this.filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
+
+    if(this.filter_Taskname != '' || this.filter_Priority != '' || this.filter_StartDate
+    || this.filter_EndDate != '' || this.filter_Email_Organizer != ''){
+      this.service.getTaskByUserId(localStorage.getItem('email'),this.filter_Taskname,
+      this.filter_Priority,
+      this.filter_Email_Organizer,
+      this.filter_StartDate,
+      this.filter_EndDate);
+    }
     this.CloseFilterTaskModal();
   }
 
