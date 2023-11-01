@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { TaskStatusModel } from 'src/app/model/taskStatus.model';
 
 @Injectable({
   providedIn: 'root',
@@ -88,8 +89,18 @@ export class HomeService {
   }
 
   fetchStatusforWeek(startdate:string,endDate:string){
-    return this.http.get<string>(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/weekTaskCount`+startdate+endDate, {
-      observe: 'response', headers: new HttpHeaders({
+    return this.http.get<Object[]>(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/weekTaskCount`, {
+      observe: 'response',params:{startdate:startdate,endDate:endDate} ,headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      )
+    });
+  }
+
+  fetchMeetingStatusforWeek(startdate:string,endDate:string){
+   const emailId= localStorage.getItem('email')
+    return this.http.get<Object[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/MeetingsChartData`, {
+      observe: 'response',params:{startdate:startdate,endDate:endDate,userId:emailId} ,headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
       }
       )
