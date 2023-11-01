@@ -189,7 +189,7 @@
                                             <td style="padding: 1.7em;">{{actionItem.startDate}}</td>
                                             <td id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemDescription}}</td>
                                             <td style="padding: 1.7em;">{{actionItem.actionStatus}}</td>
-                                            <td *ngIf="actionItem.actionStatus==='Not Converted'">
+                                            <td *ngIf="actionItem.actionStatus==='Not Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
                                                 <span class="edit-icon"
                                                     (click)="editActionItem(actionItem.actionItemId)"
@@ -205,7 +205,7 @@
                                                     </svg>
                                                 </span>
                                             </td>
-                                            <td *ngIf="actionItem.actionStatus==='Converted'">
+                                            <td *ngIf="actionItem.actionStatus==='Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
                                                 <span class="edit-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -231,7 +231,7 @@
                                                 colspan="2">
                                                 <a style="cursor: pointer; margin-left:-120px;"><button
                                                         class="btn btn-primary submitButton"
-                                                        (click)="convertActionItemToTask(meeting)"
+                                                        (click)="submitActionItems(meeting)"
                                                         [disabled]="disableSubmit">Submit</button></a>
 
                                                 <a style="padding-left:24px ;cursor: pointer;"

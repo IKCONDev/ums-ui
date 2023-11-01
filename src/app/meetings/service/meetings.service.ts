@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Meeting } from 'src/app/model/Meeting.model';
 import { Attendee } from 'src/app/model/Attendee.model';
-import { ActionItems } from 'src/app/model/actionitem.model';
+import { ActionItems } from 'src/app/model/Actionitem.model';
 import { Users } from 'src/app/model/Users.model';
 import { MOMObject } from 'src/app/model/momObject.model';
 
@@ -68,7 +68,7 @@ export class MeetingService {
      * @param meeting 
      * @returns 
      */
-    convertActionitemsToTasks(actionItems: ActionItems[], meeting: Meeting){
+    submitActionItems(actionItems: ActionItems[], meeting: Meeting){
       var meetingActionItems = {
         meeting: meeting,
         actionItems: actionItems

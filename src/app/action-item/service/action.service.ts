@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { ActionItems } from 'src/app/model/actionitem.model';
+import { ActionItems } from 'src/app/model/Actionitem.model';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/model/Task.model';
 
