@@ -44,6 +44,13 @@ export class HomeComponent implements OnInit{
     if(this.selectedOption==='Week'){
       this.fetchTaskStatus();
     }
+    
+  }
+  onSelectChange2(){
+    console.log("entered onselect change")
+    if(this.selectedOption2==='Week'){
+      this.fetchTaskStatus2();
+    }
   }
   
   //get the latest selected component on page load /refresh
@@ -127,8 +134,10 @@ export class HomeComponent implements OnInit{
     this.getUserAssignedTasksCount();
     this.getUserOrganizedTasksCount();
     this.getUserAttendedMeetingCount();
-    //this.createChart();
-    this.createChart2();
+    this.selectedOption="Week";
+    this.selectedOption2="Week";
+    this.onSelectChange();
+    this.onSelectChange2()
     
     
 
@@ -187,6 +196,7 @@ export class HomeComponent implements OnInit{
   }
   
   TotalTasks:any[];
+  TotalMeetingStatus:any[];
   fetchTaskStatus(){
       console.log("entered the fetch details of task")
       const currentDate=new Date();
@@ -203,18 +213,42 @@ export class HomeComponent implements OnInit{
         next: response =>{
         this.TotalTasks=response.body;
         console.log(this.TotalTasks)
+        
         this.createChart();
+        
         }
       })
+
+      
       
 
     }
+    fetchTaskStatus2(){
+      console.log("entered the fetch details of meetings")
+      const currentDate=new Date();
+      const startDate=new Date(currentDate);
+      startDate.setHours(0,0,0,0);
+      startDate.setDate(currentDate.getDate()-currentDate.getDay())
+      const endDate = new Date();
+      endDate.setDate(startDate.getDate()+6);//end of the week
+      endDate.setHours(23,59,59,999);//end of the day
+      console.log(startDate);
+      console.log(endDate);
+    this.homeService.fetchMeetingStatusforWeek(startDate.toISOString(),endDate.toISOString()).subscribe({
+      next:response=>{
+        this.TotalMeetingStatus=response.body;
+        
+        this.createChart2();
+      
+      }
+    })
+  }
    
 
   createChart(){
     
     var myChart = new Chart("myChart", {
-      type: 'bar',
+      type: 'line',
       data: {// values on X-Axis
         labels: ['Sunday','Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday',], 
 	       datasets: [
@@ -222,19 +256,19 @@ export class HomeComponent implements OnInit{
             label: "Assigned Task",
             data: [this.TotalTasks[0][0],this.TotalTasks[0][1],this.TotalTasks[0][2],this.TotalTasks[0][3],
             this.TotalTasks[0][4],this.TotalTasks[0][5],this.TotalTasks[0][6]],
-            backgroundColor: 'SkyBlue'
+            backgroundColor: '#EF7426'
           },
           {
             label: "Inprogress Task",
             data:[this.TotalTasks[1][0],this.TotalTasks[1][1],this.TotalTasks[1][2],this.TotalTasks[1][3],
             this.TotalTasks[1][4],this.TotalTasks[1][5],this.TotalTasks[1][6]],
-            backgroundColor: 'pink'
+            backgroundColor: '#90C853'
           },
           {
             label: "Completed Task",
             data: [this.TotalTasks[2][0],this.TotalTasks[2][1],this.TotalTasks[2][2],this.TotalTasks[2][3],
             this.TotalTasks[2][4],this.TotalTasks[2][5],this.TotalTasks[2][6]],
-            backgroundColor: 'limegreen'
+            backgroundColor: '#2AA3D9'
           }  
 
         ]
@@ -255,25 +289,19 @@ export class HomeComponent implements OnInit{
     var myChart2 = new Chart("myChart2", {
       type: 'bar',
       data: {// values on X-Axis
-        labels: ['Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday','Sunday'], 
+        labels: ['Sunday','Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday'], 
 	       datasets: [
           {
-            label: "Assigned Task",
+            label: "Organised Tasks",
             data: ['0','600','576', '572', '679', '92','0'
 								 ],
             backgroundColor: 'blue'
           },
           {
-            label: "Inprogress Task",
+            label: "Attended Tasks",
             data: ['42', '42', '36', '27', '17'],
             backgroundColor: 'pink'
-          },
-          {
-            label: "Completed Task",
-            data: ['542', '542', '536', '327', '17'],
-            backgroundColor: 'limegreen'
-          }  
-
+          }
         ]
         
       },

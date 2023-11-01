@@ -47,6 +47,10 @@ body {
     min-height: 154px;
    
 }
+.card-body{
+     
+        border-radius: 4px;
+}
 
 
 .divChart
