@@ -49,7 +49,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     status: '',
     actionItemId: 0,
     actionTitle: '',
-    userId: ''
+    emailId: ''
 
   }
 
