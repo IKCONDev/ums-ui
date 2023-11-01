@@ -22,11 +22,10 @@
     padding-top: 10px;
 }
 
-th,td{
-  
-  overflow: hidden; /* Hide overflowing content */
-  text-overflow: ellipsis; /* Show ellipsis for long content */
-}
+/*th,td{
+  overflow: hidden;  
+  text-overflow: ellipsis; 
+}*/
 th{
 
   font-size: 11px;
@@ -91,7 +90,6 @@ label,input,select{
 }
 
 #modal_checkbox{
-  
 
  margin-left: 14px;
  margin-top: 3px;
@@ -130,14 +128,15 @@ tr.detail div {
   /* 40px */
 }
 
-.modal-content{
+/*.modal-content{
   width: 600px;
-  padding-left: 50px;
-}
+  padding-left: 0px;
+}*/
 
-#errorSpan{
+#errorSpan,#error_msg{
   padding-left: 10px;
   color: red;
+  font-size: 11px;
 }
 
 #actionItem-subject{

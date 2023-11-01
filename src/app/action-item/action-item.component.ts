@@ -688,6 +688,218 @@ export class ActionItemComponent implements OnInit {
       }
     )
   }  
+
+  //Tasks
+  update_Task = {
+    taskId : 0,
+    taskTitle: '',
+    taskDescription: '',
+    taskPriority: '',
+    startDate: '',
+    dueDate: '',
+    taskOwner: '',
+    organizer: '',
+    status: '',
+    actionItemId: 0,
+    actionTitle: '',
+    userId: ''
+
+  }
+  isTaskTitleValid  = false;
+  taskTitleErrrorInfo ='';
+  validateTaskTitle() {
+    //var taskTitle = event.target.value;
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim()==="" || regex.exec(this.update_Task.taskTitle)===null) {
+      this.taskTitleErrrorInfo = 'Title is required';
+      this.isTaskTitleValid = false;
+
+    }
+    else if (this.update_Task.taskTitle.length <= 5) {
+      this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters';
+      this.isTaskTitleValid = false;
+    }
+    else if (this.update_Task.taskTitle.length >= 50) {
+      this.taskTitleErrrorInfo = 'Title must not exceed 50 characters';
+      this.isTaskTitleValid = false;
+    }
+    else {
+      this.taskTitleErrrorInfo = '';
+      this.isTaskTitleValid = true;
+    }
+    return this.isTaskTitleValid;
+
+  }
+  taskDescriptionErrorInfo ='';
+  isTaskDescriptionValid = false;
+  validateTaskDescription() {
+    // var taskDescription=event.target.value;
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim()==="" || regex.exec(this.update_Task.taskDescription)===null) {
+      this.taskDescriptionErrorInfo = 'Description is required';
+      this.isTaskDescriptionValid = false;
+    }
+    else if (this.update_Task.taskDescription.length <= 10) {
+      this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
+      this.isTaskDescriptionValid = false;
+    }
+    else if(this.update_Task.taskDescription.length >= 250){
+      this.taskDescriptionErrorInfo = 'Description must not exceed 250 characters';
+      this.isTaskDescriptionValid = false;
+    }
+    else {
+      this.taskDescriptionErrorInfo = '';
+      this.isTaskDescriptionValid = true;
+
+    }
+    return this.isTaskDescriptionValid;
+  }
+  taskPriorityErrorInfo = '';
+  isTaskPriorityValid = false;
+  validateTaskPriority() {
+    //var taskPriority = event.target.value;
+    if (this.update_Task.taskPriority === '') {
+      this.taskPriorityErrorInfo = 'task priority should not be empty';
+      this.isTaskPriorityValid = false;
+    }
+    else if (this.update_Task.taskPriority == 'select') {
+      this.taskPriorityErrorInfo = 'task priority is required';
+      this.isTaskPriorityValid = false;
+    }
+    else {
+      this.taskPriorityErrorInfo = '';
+      this.isTaskPriorityValid = true;
+    }
+    return this.isTaskPriorityValid;
+  }
+  taskStatusErrorInfo = '';
+  isTaskStatusValid = false;
+  validateTaskStatus() {
+    // var taskStatus = event.target.value;
+    if (this.update_Task.status === null) {
+      this.taskStatusErrorInfo = 'Status is required';
+      this.isTaskStatusValid = false;
+
+    }
+    else if(this.update_Task.status === 'Select'){
+      this.taskStatusErrorInfo = 'Status is required';
+      this.isTaskStatusValid = false;
+    }
+    else {
+      this.taskStatusErrorInfo = '';
+      this.isTaskStatusValid = true;
+    }
+    return this.isTaskStatusValid;
+  }
+  taskStartDateErrorInfo = '';
+  isTaskStartDateValid = false;
+  validateTaskStartDate() {
+    //var taskStartDate=event.target.value;
+
+
+    if (this.update_Task.startDate === '') {
+      this.taskStartDateErrorInfo = 'select the start date';
+      this.isTaskStartDateValid = false;
+    }
+    /*else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
+      this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
+      this.isTaskStartDateValid = false;
+    }*/
+    else {
+      this.taskStartDateErrorInfo = '';
+      this.isTaskStartDateValid = true;
+    }
+    return this.isTaskStartDateValid;
+  }
+  taskOwnerErrorInfo = '';
+  isTaskOwnerValid = false;
+  validateTaskOwner() {
+    // var taskOwner = event.target.value;
+
+    if (this.update_Task.taskOwner == '' || this.update_Task.taskOwner === null) {
+
+      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.isTaskOwnerValid = false;
+    }
+    else if (this.update_Task.taskOwner == '') {
+      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.isTaskOwnerValid = false;
+
+    }
+    else {
+      this.taskOwnerErrorInfo = '';
+      this.isTaskOwnerValid = true;
+    }
+    return this.isTaskOwnerValid;
+
+  }
+  taskDueDateErrorInfo = '';
+  isTaskDueDateValid = false;
+  validateTaskDueDate() {
+    // var taskDueDate=event.target.value;
+    if (this.update_Task.dueDate === '') {
+      this.taskDueDateErrorInfo = 'select the due date';
+      this.isTaskDueDateValid = false;
+    }
+    else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
+      this.taskDueDateErrorInfo = 'Date should`nt lessthan startdate';
+      this.isTaskDueDateValid = false;
+    }
+    else {
+      this.taskDueDateErrorInfo = '';
+      this.isTaskDueDateValid = true;
+    }
+    return this.isTaskDueDateValid;
+  }  
+
+  addTask(task: Task){
+
+    let isTitleValid = true;
+    let isDescriptionValid = true;
+    let isOwnerValid =true;
+    let isStatusValid = true;
+    let isStartDateValid = true;
+    let isPriorityValid =true;
+
+    if(!this.isTaskTitleValid){
+      var valid = this.validateTaskTitle();
+      isTitleValid = valid;
+    }
+    if(!this.isTaskDescriptionValid){
+      var valid = this.validateTaskDescription();
+      isDescriptionValid = valid;
+    }
+    if(!this.isTaskPriorityValid){
+      var valid = this.validateTaskPriority();
+      isPriorityValid = valid;
+    }
+    if(!this.isTaskOwnerValid){
+      var valid = this.validateTaskOwner();
+      isOwnerValid = valid;
+    }
+    if(!this.isTaskStartDateValid){
+      var valid = this.validateTaskStartDate();
+      isStartDateValid = valid;
+    }
+    if(!this.isTaskStatusValid){
+      var valid = this.validateTaskStatus();
+      isStatusValid = valid;
+    }
+    if(isTitleValid == true && isDescriptionValid == true && isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
+       && isStatusValid == true){
+
+        this.taskService.createTask(task).subscribe({
+           next : (response)=>{
+              var data = response.body;
+              if(response.status == HttpStatusCode.Ok){
+                 this.toastr.success("task added successfully");
+
+              }
+           }
+        })
+     } 
+  }
+  
 }
 
 

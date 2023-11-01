@@ -95,6 +95,14 @@ export class TaskService{
           )})
          
     }
+    createTask(task:Task){
+        return this.http.post<Task>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/save`,task,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )})
+         
+
+    }
 
     
 }

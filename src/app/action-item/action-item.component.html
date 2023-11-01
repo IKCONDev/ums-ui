@@ -133,6 +133,15 @@
                                         <td>{{element.status}}</td>
                                     </tr>
                                 </tbody>
+                                <tbody>
+                                    <tr style="background-color: white;">
+                                        <td style="text-align: center;color:#007bff" colspan="7">
+                                            <a data-toggle="modal" data-target="#xlModal"
+                                                style="cursor: pointer;padding-left: 50px;" (click)="getActiveUMSUsersEmailIdList()">Add Task</a>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </td>
@@ -326,3 +335,177 @@
         </div>
     </div>
 </div>
+
+<!---Organized modal-->
+<div class="modal fade" id="xlModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="xlModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
+                <h5 class="modal-title" id="xlModalLabel">Add Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearErrorMessages(form)">
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                </button>
+            </div>
+            <form #form="ngForm" method="POST">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label style="margin-left: 30px; font-size: 20px;"><b>Task Title</b><span id="required">*</span></label><br>
+                            <textarea type="text"
+                                style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
+                                placeholder="Enter Title" class="form-control" name="taskTitle" required="true"
+                                [(ngModel)]="update_Task.taskTitle" #taskTitle="ngModel"
+                                [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
+                                minlength="5" maxlength="50"></textarea>
+                            <div *ngIf="taskTitleErrrorInfo !=''">
+                                <span id="errorSpan" style="padding-left: 30px;">{{taskTitleErrrorInfo}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" >
+                        <label style="font-size: 20px; padding-left: 32px;"><b>Description</b><span id="required">*</span></label>
+                        <div class="col-md-6" style="padding-left: 42px; padding-bottom: 20px;" >
+
+                            <div style=" width:530px; height: 250px; background-color: #ecf7fc;">
+                                <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
+                                    <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
+                                        Text</label>-->
+                                </div>
+                                <textarea
+                                    style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
+                                    class="form-control" name="taskDescription" #taskDescription="ngModel"
+                                    [(ngModel)]="update_Task.taskDescription"
+                                    [class.invalid]="taskDescription.invalid && taskDescription.touched"
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..."
+                                    minlength="10" maxlength="250"></textarea>
+                                <div *ngIf="taskDescriptionErrorInfo!=''">
+                                    <span id="errorSpan" style="padding-left: 2px;">{{taskDescriptionErrorInfo}}</span>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4"
+                            style=" width:430px; height: 380px; background-color: #ecf7fc; margin-top: -130px;">
+                            <div class="row" style="background-color: #134E69D9;height: 40px;">
+                                <label id="details-label" style="margin: 5px;">Details</label>
+                            </div>
+                            <div class="row" id="details-section" style="padding-left: 10px; padding-right: 20px; padding-top: 10px;">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><b>Assignee</b><span id="required">*</span> </td>
+                                            <!--<td><span><input type="text"
+                                            [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
+                                        </td>-->
+                                            <td style="padding-left: 10px;">
+                                                <div>
+                                                    <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
+                                                        name="taskOwner" (change)="validateTaskOwner()"
+                                                        style="margin-top: 4px;" [(ngModel)]="update_Task.taskOwner">
+                                                        <ng-option disabled selected value>choose</ng-option>
+                                                        <ng-option [value]="emailId"
+                                                            *ngFor="let emailId of userEmailIdList"> {{emailId}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                
+                                                <div *ngIf="taskOwnerErrorInfo != ''">
+                                                    <span style="padding-top: 20px;"
+                                                        id="error_msg">{{taskOwnerErrorInfo}}</span>
+                                                </div>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Priority</b><span id="required">*</span></td>
+                                            <td style="padding-left: 0px;"><span><select id="taskPriority" class="form-control form-select"
+                                                        [(ngModel)]="update_Task.taskPriority" name="taskPriority"
+                                                        #taskPriority="ngModel"
+                                                        [class.invalid]="taskPriority.invalid && taskPriority.touched"
+                                                        (click)="validateTaskPriority()">
+                                                        <option disabled selected value>select</option>
+                                                        <option>High</option>
+                                                        <option>Medium</option>
+                                                        <option>Low</option>
+                                                    </select></span>
+                                                <div *ngIf="taskPriorityErrorInfo!=''">
+                                                    <span id="errorSpan">{{taskPriorityErrorInfo}}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Start Date & Time</b><span id="required">*</span></td>
+                                            <td><span><input type="datetime-local" class="form-control"
+                                                        name="taskStartDate" [(ngModel)]="update_Task.startDate"
+                                                        #taskStartDate="ngModel" required="true"
+                                                        [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
+                                                        (change)="validateTaskStartDate()"></span>
+                                                <div *ngIf="taskStartDateErrorInfo!=''">
+                                                    <span id="error_msg">{{taskStartDateErrorInfo}}</span>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Due Date & Time</b><span id="required">*</span></td>
+                                            <td><span> <input type="datetime-local" class="form-control"
+                                                        name="taskDueDate" [(ngModel)]="update_Task.dueDate"
+                                                        #taskDueDate="ngModel" required="true"
+                                                        [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
+                                                        (change)="validateTaskDueDate()"></span>
+                                                <div *ngIf="taskDueDateErrorInfo !=''">
+                                                    <span id="error_msg">{{taskDueDateErrorInfo}}</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><b>Status</b><span id="required">*</span></td>
+                                            <td> <span><select value="Yet To Start" class="form-control form-select"
+                                                        name="taskStatus" placeholder="select"
+                                                        #taskStatus="ngModel"
+                                                        [(ngModel)]="update_Task.status" required="true"
+                                                        [class.invalid]="taskStatus.invalid && taskStatus.touched"
+                                                        (click)="validateTaskStatus()">
+                                                       <!--- <option default>Select</option>-->
+                                                        <option>Yet to start</option>
+                                                        <option>Inprogress</option>
+                                                        <option>Completed</option>
+                                                    </select>
+                                                    <div *ngIf="taskStatusErrorInfo !=''">
+                                                        <span id="error_msg">{{taskStatusErrorInfo}}</span>
+                                                    </div>
+                                                </span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer" role="alert"
+                    style="margin-top:-16px;margin-left: 20px; margin-bottom: -11px;">
+                    <button type="submit" class="btn btn-primary saveButton" (click)="addTask(update_Task)"
+                        style="margin-bottom:3px; margin-top: -5px;">Save</button>
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        (click)=" clearErrorMessages(form)">Close</button> -->
+                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger closeButton"
+                        data-dismiss="modal" (click)="clearErrorMessages(form)"
+                        style="margin-bottom:4px; margin-top: -4px;">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+=======
+
+<!-- custom filter modal -->
+>>>>>>> f2d975b0c10270678633ea0e205c7667d8703a3a
