@@ -3,7 +3,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, Output } from '@angular/co
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
-import { ActionItems } from '../model/actionitem.model'; 
+import { ActionItems } from '../model/Actionitem.model'; 
 import { ActionItemComponent } from '../action-item/action-item.component';
 import { ActionService } from '../action-item/service/action.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -77,7 +77,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
-    actionStatus: 'Not Converted',
+    actionStatus: 'Not Submitted',
     startDate: '',
     endDate: ''
 
@@ -740,7 +740,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param meetingId 
    */
   disableSubmit: Boolean = false;
-  convertActionItemToTask(meeting: Meeting) {
+  submitActionItems(meeting: Meeting) {
     console.log(meeting.meetingId)
     //this.meetingData = meeting;
     var table = document.getElementById("myTable" + meeting.meetingId)
@@ -778,9 +778,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     console.log(this.actionItemsToBeSubmitted);
 
-    this.meetingsService.convertActionitemsToTasks(this.actionItemsToBeSubmitted, meeting).subscribe({
+    this.meetingsService.submitActionItems(this.actionItemsToBeSubmitted, meeting).subscribe({
       next:(response) => {
         console.log(response.body)
+        var isActionItemsSubmitted = response.body;
         this.toastr.success('Action items converted to task successfully')
         setTimeout(() => {
           window.location.reload();
@@ -788,6 +789,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       },error: (error)=>{
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl("/session-timeout")
+        }else{
+          this.toastr.error('Error while submitting action items. Please try again !')
         }
       }//error
     })
