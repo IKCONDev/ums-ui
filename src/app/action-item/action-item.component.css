@@ -156,3 +156,8 @@ tr.detail div {
 #filter{
   padding-top: 10px;
 }
+
+#required{
+  padding-left: 2px;
+  color: red;
+}

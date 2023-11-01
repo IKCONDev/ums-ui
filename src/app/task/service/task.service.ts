@@ -18,6 +18,18 @@ export class TaskService{
 
     /**
      * 
+     * @param task 
+     * @returns 
+     */
+    createTask(task: Task){
+        return this.http.post<Task>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/create`,task,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+        )})
+    }
+
+    /**
+     * 
      * @returns 
      */
     getAlltasks(){  
@@ -94,14 +106,6 @@ export class TaskService{
           }
           )})
          
-    }
-    createTask(task:Task){
-        return this.http.post<Task>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/save`,task,{observe:'response',headers: new HttpHeaders({
-            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
-          }
-          )})
-         
-
     }
 
     

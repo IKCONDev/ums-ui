@@ -33,6 +33,7 @@ export class ActionItemComponent implements OnInit {
   task_array: Task[];
   actionItems: ActionItems[];
   userEmailIdList: string[];
+  currentActionItemId: number;
 
   //update action item object
   updatedetails = {
@@ -185,7 +186,8 @@ export class ActionItemComponent implements OnInit {
   /**
    * 
    */
-  ViewTaskDetails() {
+  ViewTaskDetails(actionItemId: number) {
+    this.currentActionItemId = actionItemId;
     console.log("fetching task details");
     this.service.getAlltasks().subscribe({
      next: (response) => {
@@ -690,7 +692,7 @@ export class ActionItemComponent implements OnInit {
   }  
 
   //Tasks
-  update_Task = {
+  add_Task = {
     taskId : 0,
     taskTitle: '',
     taskDescription: '',
@@ -702,7 +704,7 @@ export class ActionItemComponent implements OnInit {
     status: '',
     actionItemId: 0,
     actionTitle: '',
-    userId: ''
+    emailId: ''
 
   }
   isTaskTitleValid  = false;
@@ -710,16 +712,16 @@ export class ActionItemComponent implements OnInit {
   validateTaskTitle() {
     //var taskTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim()==="" || regex.exec(this.update_Task.taskTitle)===null) {
+    if (this.add_Task.taskTitle == "" || this.add_Task.taskTitle.trim()==="" || regex.exec(this.add_Task.taskTitle)===null) {
       this.taskTitleErrrorInfo = 'Title is required';
       this.isTaskTitleValid = false;
 
     }
-    else if (this.update_Task.taskTitle.length <= 5) {
+    else if (this.add_Task.taskTitle.length <= 5) {
       this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters';
       this.isTaskTitleValid = false;
     }
-    else if (this.update_Task.taskTitle.length >= 50) {
+    else if (this.add_Task.taskTitle.length >= 50) {
       this.taskTitleErrrorInfo = 'Title must not exceed 50 characters';
       this.isTaskTitleValid = false;
     }
@@ -735,15 +737,15 @@ export class ActionItemComponent implements OnInit {
   validateTaskDescription() {
     // var taskDescription=event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim()==="" || regex.exec(this.update_Task.taskDescription)===null) {
+    if (this.add_Task.taskDescription === '' || this.add_Task.taskDescription.trim()==="" || regex.exec(this.add_Task.taskDescription)===null) {
       this.taskDescriptionErrorInfo = 'Description is required';
       this.isTaskDescriptionValid = false;
     }
-    else if (this.update_Task.taskDescription.length <= 10) {
+    else if (this.add_Task.taskDescription.length <= 10) {
       this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isTaskDescriptionValid = false;
     }
-    else if(this.update_Task.taskDescription.length >= 250){
+    else if(this.add_Task.taskDescription.length >= 250){
       this.taskDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isTaskDescriptionValid = false;
     }
@@ -758,11 +760,11 @@ export class ActionItemComponent implements OnInit {
   isTaskPriorityValid = false;
   validateTaskPriority() {
     //var taskPriority = event.target.value;
-    if (this.update_Task.taskPriority === '') {
+    if (this.add_Task.taskPriority === '') {
       this.taskPriorityErrorInfo = 'task priority should not be empty';
       this.isTaskPriorityValid = false;
     }
-    else if (this.update_Task.taskPriority == 'select') {
+    else if (this.add_Task.taskPriority == 'select') {
       this.taskPriorityErrorInfo = 'task priority is required';
       this.isTaskPriorityValid = false;
     }
@@ -776,12 +778,12 @@ export class ActionItemComponent implements OnInit {
   isTaskStatusValid = false;
   validateTaskStatus() {
     // var taskStatus = event.target.value;
-    if (this.update_Task.status === null) {
+    if (this.add_Task.status === null) {
       this.taskStatusErrorInfo = 'Status is required';
       this.isTaskStatusValid = false;
 
     }
-    else if(this.update_Task.status === 'Select'){
+    else if(this.add_Task.status === 'Select'){
       this.taskStatusErrorInfo = 'Status is required';
       this.isTaskStatusValid = false;
     }
@@ -797,7 +799,7 @@ export class ActionItemComponent implements OnInit {
     //var taskStartDate=event.target.value;
 
 
-    if (this.update_Task.startDate === '') {
+    if (this.add_Task.startDate === '') {
       this.taskStartDateErrorInfo = 'select the start date';
       this.isTaskStartDateValid = false;
     }
@@ -816,12 +818,12 @@ export class ActionItemComponent implements OnInit {
   validateTaskOwner() {
     // var taskOwner = event.target.value;
 
-    if (this.update_Task.taskOwner == '' || this.update_Task.taskOwner === null) {
+    if (this.add_Task.taskOwner == '' || this.add_Task.taskOwner === null) {
 
       this.taskOwnerErrorInfo = 'task Owner is required';
       this.isTaskOwnerValid = false;
     }
-    else if (this.update_Task.taskOwner == '') {
+    else if (this.add_Task.taskOwner == '') {
       this.taskOwnerErrorInfo = 'task Owner is required';
       this.isTaskOwnerValid = false;
 
@@ -837,11 +839,11 @@ export class ActionItemComponent implements OnInit {
   isTaskDueDateValid = false;
   validateTaskDueDate() {
     // var taskDueDate=event.target.value;
-    if (this.update_Task.dueDate === '') {
+    if (this.add_Task.dueDate === '') {
       this.taskDueDateErrorInfo = 'select the due date';
       this.isTaskDueDateValid = false;
     }
-    else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
+    else if (new Date(this.add_Task.dueDate.toString()) < new Date(this.add_Task.startDate.toString())) {
       this.taskDueDateErrorInfo = 'Date should`nt lessthan startdate';
       this.isTaskDueDateValid = false;
     }
@@ -885,15 +887,19 @@ export class ActionItemComponent implements OnInit {
       var valid = this.validateTaskStatus();
       isStatusValid = valid;
     }
-    if(isTitleValid == true && isDescriptionValid == true && isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
+    if(isTitleValid == true && isDescriptionValid == true && 
+      isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
        && isStatusValid == true){
-
-        this.taskService.createTask(task).subscribe({
+        this.add_Task.emailId = localStorage.getItem('email');
+        this.add_Task.actionItemId = this.currentActionItemId;
+        this.taskService.createTask(this.add_Task).subscribe({
            next : (response)=>{
               var data = response.body;
               if(response.status == HttpStatusCode.Ok){
-                 this.toastr.success("task added successfully");
-
+                 this.toastr.success("Task created successfully");
+                 setTimeout(() => {
+                  window.location.reload();
+                 },1000);
               }
            }
         })
