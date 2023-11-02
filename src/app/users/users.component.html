@@ -133,7 +133,7 @@
                 <select class="adduserInput form-control form-select" placeholder="select" [(ngModel)]="addUserObj.userRoles.at(0).roleId"
                 id="userRole" name="userRole" #userRole="ngModel" [class.invalid]="userRole.invalid && userRole.touched"
                 (change)="validateuserRole()">
-                   <option value="select">select</option>
+                   <option value="">select</option>
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                       
                 </select>
