@@ -538,9 +538,9 @@
     <!--Modal for mom-->
     <div class="modal" id="mommodal" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="padding-left: 10px;" style="width: 100%;">
+            <div class="modal-content" style="width: 100%;">
                 <!--Modal Header-->
-                <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff" *ngIf="meetingData!=null">
+                <div class="modal-header" style="background-color: #134E69D9; padding-left: 11x; color: #ffffff" *ngIf="meetingData!=null">
                     <h4 class="modal-title" style="text-align: center;">Meeting Minutes - {{meetingData.subject}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearErrorMessages(form)">
                         <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
@@ -548,7 +548,7 @@
                 </div>
                 <br>
             <!-- modal body/form -->
-            <form #form="ngForm" id="momform" method="POST">
+            <form #form="ngForm" id="momform" method="POST" style="padding-right: 20px;">
                 <label><b>Superiors</b><span id="required">*</span></label>
 
                 <div style="padding-left: 10px;">
@@ -603,6 +603,14 @@
                         </table>
                     </div>
                 </div>
+                <hr>
+                <label style="margin: 5px;"><b>Discussion Points</b></label>
+                <br/>
+                <br/>
+                <textarea style="width: 750px;height: 100px;min-height: 150px; max-height:220px;background-color: #ecf7fc;"
+                class="form-control" name="discussionpoints" [(ngModel)]="discussionPoints" #discussionpoints="ngModel"
+                placeholder="Enter discussion points !..."
+                minlength="10" maxlength="250"></textarea>
                 <hr>
                 <label for="attendees"><b>Attendees</b></label>
                 <div *ngIf="meetingData!= null">

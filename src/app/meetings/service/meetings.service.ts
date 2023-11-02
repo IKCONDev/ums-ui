@@ -151,13 +151,15 @@ export class MeetingService {
        })
     }
     
-    sendMinutesofMeeting(emailList: String[],meeting: Meeting){
+    sendMinutesofMeeting(emailList: String[],meeting: Meeting,discussionPoints:string){
       console.log("the email List is"+emailList);
       var momObject ={
         meeting: meeting,
-        emailList: emailList
+        emailList: emailList,
+        discussionPoints : discussionPoints
         
       }
+      console.log("discussion points"+discussionPoints);
       return this.http.post<any>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/send-momdata/`,momObject,{observe: 'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
        })

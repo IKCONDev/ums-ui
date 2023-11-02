@@ -5,6 +5,7 @@ export class MOMObject{
 
     meeting : Meeting;
     emailList : String[];
+    discussionPoints : string;
 
 
 }
