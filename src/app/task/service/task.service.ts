@@ -56,12 +56,30 @@ export class TaskService{
      * @param email 
      * @returns 
      */
-    getTaskByUserId(email:string){
-        return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/getall/${email}`,{observe:'response',headers: new HttpHeaders({
-            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
-          }
-          )})
-
+    getTaskByUserId(email:string, filter_TaskName: string, 
+        filter_Priority: string, filter_Email_Organizer: string, 
+        filter_StartDate:string,
+        filter_EndDate: string){
+            if(filter_TaskName != '' || filter_TaskName != null  || 
+            filter_Priority != '' || filter_Priority != null 
+            || filter_StartDate != '' || filter_Priority != null
+            || filter_EndDate != '' || filter_EndDate != null || 
+            filter_Email_Organizer != '' || filter_Email_Organizer != null){
+                console.log('executed')
+                return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/getall/${email}?`+'taskName='+filter_TaskName+'&taskPriority='+filter_Priority
+                +'&taskOrganizer='+filter_Email_Organizer+'&taskStartDate='+filter_StartDate
+                +'&taskEndDate='+filter_EndDate,{
+                    observe:'response',headers: new HttpHeaders({
+                    'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+                  }
+                  )})
+            }else{
+                console.log('executed - else')
+                return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/getall/${email}`,{observe:'response',headers: new HttpHeaders({
+                    'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+                  }
+                  )})
+            }
     }
 
     /**

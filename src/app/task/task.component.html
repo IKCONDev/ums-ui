@@ -551,13 +551,13 @@
 
 <!-- custom advanced filter modal -->
 <div class="modal" id="filterModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" id="dialog">
       <div class="modal-content"> 
         <div class="filters-action-item">
           <div class="filters-parent">
               <div class="filters">Filters</div>
               <img class="cross-icon" alt="" src="../../assets/images/cross.svg" 
-              (click)="CloseFilterTaskModal()" style="cursor: pointer;">
+              id="closeModal" data-dismiss="modal" (click)="CloseFilterTaskModal()" style="cursor: pointer;">
           </div>
           <div class="filter-dd">              
               <div class="meeting-title-dd-parent">
@@ -593,19 +593,19 @@
                 </div>
                   <div class="date-range">
                       <div class="date-parent">
-                          <input type="date" #boxStart [(ngModel)] = "filter_StartDate" />
+                          <input type="datetime-local" #boxStart [(ngModel)] = "filter_StartDate" />
                       </div>
                       <div class="to">To</div>
                       <div class="date-parent">
-                          <input type="date" #boxEnd [(ngModel)] = "filter_EndDate" />
+                          <input type="datetime-local" #boxEnd [(ngModel)] = "filter_EndDate" />
                       </div>
                   </div>
               </div>
           </div>
           <div class="submit-button-parent">
               <button type="button" class="submit-button" (click)="filterTaskList(boxTaskName.value, boxOrg.value, boxPri.value, boxStart.value, boxEnd.value)">Apply</button>
-              <button type="button" class="delete-button" data-dismiss="modal" id="closeModal" 
-                     (click)="CloseFilterTaskModal()">Clear</button>
+              <button type="button" class="delete-button"
+                   (click)="resetFilterModal()"  >Clear</button>
           </div>
       </div>  
       </div>
