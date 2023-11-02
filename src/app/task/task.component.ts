@@ -94,6 +94,15 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   ngOnInit(): void {
 
+    //disable past date times
+    this.min = this.pastDateTime();
+
+    //disable kwyboard movement on startdate
+    const taskStartDate = document.getElementById('taskStartDate');
+    taskStartDate.addEventListener("keydown", function(e){
+      e.preventDefault();
+    })
+
     /* this.service.getAlltaskDetails().subscribe(res=>{
         this.task =res.body;
         this.taskCount = res.body.length;
@@ -105,7 +114,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tabOpened = localStorage.getItem('taskTabOpened')
     console.log(this.tabOpened)
     this.getTasks(this.tabOpened);
-    this.pastDateTime();
     console.log(localStorage.getItem('taskNameFilter'));
     console.log(localStorage.getItem('taskPriorityFilter'));
     console.log(localStorage.getItem('taskStartDateFilter'));
@@ -265,7 +273,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskStatus() {
     // var taskStatus = event.target.value;
-    if (this.update_Task.status === null) {
+    if (this.update_Task.status === null || this.update_Task.status === '') {
       this.taskStatusErrorInfo = 'Status is required';
       this.isTaskStatusValid = false;
 
@@ -316,22 +324,25 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskStartDate() {
     //var taskStartDate=event.target.value;
-
-
     if (this.update_Task.startDate === '') {
-      this.taskStartDateErrorInfo = 'select the start date';
+      this.taskStartDateErrorInfo = 'Select the start date';
       this.isTaskStartDateValid = false;
     }
-    /*else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
-      this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
-      this.isTaskStartDateValid = false;
-    }*/
+    // else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
+    //   this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
+    //   this.isTaskStartDateValid = false;
+    // else if(new Date(this.update_Task.startDate.toString()) < new Date(this.update_Task.startDate.toString())){
+    //   console.log('executed')
+    //   this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
+    //   this.isTaskStartDateValid = false;
+    // }
     else {
       this.taskStartDateErrorInfo = '';
       this.isTaskStartDateValid = true;
     }
     return this.isTaskStartDateValid;
   }
+
 
   taskDueDateErrorInfo = "";
 
@@ -342,11 +353,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskDueDate() {
     // var taskDueDate=event.target.value;
     if (this.update_Task.dueDate === '') {
-      this.taskDueDateErrorInfo = 'select the due date';
+      this.taskDueDateErrorInfo = 'Select the due date';
       this.isTaskDueDateValid = false;
     }
     else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
-      this.taskDueDateErrorInfo = 'Date should`nt lessthan startdate';
+      this.taskDueDateErrorInfo = 'Due date should`nt be less than startdate';
       this.isTaskDueDateValid = false;
     }
     else {
@@ -532,8 +543,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
        console.log(this.istaskDeleted);
        if (this.istaskDeleted) {
          console.log("tasks deleted");
-         window.location.reload();
          this.toastr.success("tasks Deleted");
+         setTimeout(() => {
+          window.location.reload();
+         },1000)
        }
        else {
          console.log("tasks not deleted");
@@ -608,8 +621,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     var year: any = tdate.getFullYear();
     var hours: any = tdate.getHours();
     var minutes: any = tdate.getMinutes();
-    this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
-    console.log(this.min);
+    var  min  = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
+    this.min = min;
+    return min;
+    
   }
   
   /**
@@ -630,6 +645,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         next : (response)=>{
            if(response.status==HttpStatusCode.Ok){
              this.toastr.success("Task Deleted successfully");
+             setTimeout(() => {
+              window.location.reload();
+             },1000)
            }
            else{
              this.toastr.error("Error Occured While deleting Task")
@@ -675,7 +693,14 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param taskEndDate 
    * @param taskOrganizer 
    */
-  filterTaskList(taskName: string,taskPriority: string, taskStartDate: string, taskEndDate: string, taskOrganizer: string){
+  filterTaskList(taskName: string,taskOrganizer: string, taskPriority: string, taskStartDate: string, taskEndDate: string){
+
+    console.log(this.filter_Taskname+"popop")
+    console.log(this.filter_Priority+"popop")
+    console.log(this.filter_Email_Organizer+"popop")
+    console.log(this.filter_StartDate+"popop")
+    console.log(this.filter_EndDate+"popop")
+
     //close filter modal
     localStorage.setItem('taskNameFilter',taskName);
     localStorage.setItem('taskPriorityFilter',taskPriority);
@@ -688,12 +713,28 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('taskStartDateFilter'));
     console.log(localStorage.getItem('taskEndDateFilter'));
     console.log(localStorage.getItem('taskOrganizerFilter'));
+
+     this.filter_Taskname = '';
+     this.filter_Priority = '';
+     this.filter_StartDate = '';
+     this.filter_EndDate = '';
+     this.filter_Email_Organizer = '';
     
-    // this.filter_Taskname = localStorage.getItem('taskNameFilter');
-    // this.filter_Priority = localStorage.getItem('taskPriorityFilter');
-    // this.filter_StartDate = localStorage.getItem('taskStartDateFilter');
-    // this.filter_EndDate = localStorage.getItem('taskEndDateFilter');
-    // this.filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
+     if(localStorage.getItem('taskNameFilter') != ''){
+      this.filter_Taskname = localStorage.getItem('taskNameFilter');
+     }
+     if(localStorage.getItem('taskPriorityFilter' )!=''){
+      this.filter_Priority = localStorage.getItem('taskPriorityFilter');
+     }
+     if(localStorage.getItem('taskStartDateFilter')){
+       this.filter_StartDate = localStorage.getItem('taskStartDateFilter');
+     }
+     if(localStorage.getItem('taskEndDateFilter')){
+      this.filter_EndDate = localStorage.getItem('taskEndDateFilter');
+     }
+     if(localStorage.getItem('taskOrganizerFilter')){
+      this.filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
+     }
 
       console.log(this.filter_Taskname+"--------")
       this.service.getTaskByUserId(localStorage.getItem('email'),this.filter_Taskname,
@@ -709,7 +750,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       })
 
     this.CloseFilterTaskModal();
-    window.location.reload();
+    //window.location.reload();
   }
 
 }

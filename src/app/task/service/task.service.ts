@@ -1,5 +1,5 @@
 import { Injectable,OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Task } from 'src/app/model/Task.model';
 
 @Injectable({
@@ -65,14 +65,23 @@ export class TaskService{
             || filter_StartDate != '' || filter_Priority != null
             || filter_EndDate != '' || filter_EndDate != null || 
             filter_Email_Organizer != '' || filter_Email_Organizer != null){
-                console.log('executed')
-                return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/getall/${email}?`+'taskName='+filter_TaskName+'&taskPriority='+filter_Priority
-                +'&taskOrganizer='+filter_Email_Organizer+'&taskStartDate='+filter_StartDate
-                +'&taskEndDate='+filter_EndDate,{
+                console.log(filter_TaskName)
+                console.log(filter_Priority)
+                console.log(filter_Email_Organizer)
+                console.log(filter_StartDate)
+                console.log(filter_EndDate)
+
+                let params = new HttpParams().set('taskTitle',filter_TaskName)
+                .set('taskPriority',filter_Priority)
+                .set('taskOrganizer',filter_Email_Organizer)
+                .set('taskStartDate',filter_StartDate)
+                .set('taskEndDate', filter_EndDate)
+                
+                return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/getall/${email}`,{
                     observe:'response',headers: new HttpHeaders({
                     'Authorization':'Bearer '+localStorage.getItem('jwtToken')
                   }
-                  )})
+                  ),params:params})
             }else{
                 console.log('executed - else')
                 return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/getall/${email}`,{observe:'response',headers: new HttpHeaders({
