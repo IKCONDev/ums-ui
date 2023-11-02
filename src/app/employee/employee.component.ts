@@ -47,6 +47,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     teamsUserId: '',
     firstName: '',
     lastName: '',
+    gender:'',
     email: '',
     empDesignation: {
       id: 0,
@@ -102,6 +103,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     let isFirstNameValid = true;
     let isLastNameValid = true;
+    let isGenderValid = true;
     let isEmailIdValid = true;
     let isReportingManagerValid = true;
     let isDepartmentValid = true;
@@ -135,7 +137,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       isDesignationValid = valid;
     }
 
-    if (isFirstNameValid == true && isLastNameValid == true && isEmailIdValid == true && isReportingManagerValid == true && isDepartmentValid == true && isDesignationValid == true) {
+    if(!this.isEmployeeGenderValid){
+      var valid = this.validateEmployeeGender();
+      isGenderValid = valid;
+    }
+
+    if (isFirstNameValid == true && isLastNameValid == true && isGenderValid == true
+      && isEmailIdValid == true && isReportingManagerValid == true 
+      && isDepartmentValid == true && isDesignationValid == true) {
 
       console.log(this.addEmployee);
       this.addEmployee.createdBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
@@ -174,6 +183,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     teamsUserId: '',
     firstName: '',
     lastName: '',
+    gender:'',
     email: '',
     empDesignation: {
       id: 0,
@@ -299,6 +309,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     let isFirstNameValid = true;
     let isLastNameValid = true;
+    let isGenderValid = true;
     let isEmailIdValid = true;
     let isReportingManagerValid = true;
     let isDepartmentValid = true;
@@ -313,6 +324,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       var valid = this.validateUpdateLastName();
       isLastNameValid = valid;
     }
+
+    if(!this.isUpdateEmployeeGenderValid){
+      var valid = this.validateUpdateEmployeeGender();
+      isGenderValid = valid;
+    }
+
     if (!this.isUpdateEmailIdValid) {
       var valid = this.validateUpdateEmailId();
       isEmailIdValid = valid;
@@ -332,15 +349,19 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       isDesignationValid = valid;
     }
 
-    if (isEmailIdValid == true && isFirstNameValid == true && isReportingManagerValid == true && isLastNameValid == true && isDepartmentValid == true &&
+    if (isEmailIdValid == true && isFirstNameValid == true && isReportingManagerValid == true
+       && isLastNameValid == true && isDepartmentValid == true && isGenderValid == true &&
       isDesignationValid == true) {
       this.existingEmployee.modifiedBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-      this.employeeservice.updateEmployee(employee).subscribe(
+      this.employeeservice.updateEmployee(this.existingEmployee).subscribe(
         response => {
           var employeerecord = response.body;
           if (response.status == HttpStatusCode.Created) {
             this.toastr.success('Employee '+this.existingEmployee.id+' updated successfully');
             document.getElementById('closeUpdateModal').click();
+            setTimeout(() => {
+              window.location.reload();
+            },1000)
           }
           else {
             this.toastr.error("Error occured while updating employee "+this.existingEmployee.id);
@@ -403,8 +424,20 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     return this.isEmployeeLasttNameValid;
+  }
 
+  employeeGenderErrorInfo = '';
+  isEmployeeGenderValid = false;
 
+  validateEmployeeGender(){
+    if(this.addEmployee.gender === ''){
+      this.isEmployeeGenderValid = false;
+      this.employeeGenderErrorInfo = 'Gender is required';
+    }else{
+      this.isEmployeeGenderValid = true;
+      this.employeeGenderErrorInfo = ''
+    }
+    return this.isEmployeeGenderValid;
   }
 
   employeeEmailIdErrorInfo = "";
@@ -457,7 +490,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addEmployee.empDesignation.id == 0) {
       this.employeeDesignationErrorInfo = "Designation is required"
       this.isEmployeeDesignationtValid = false;
-
     }
     else {
       this.employeeDesignationErrorInfo = "";
@@ -479,7 +511,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.employeeDepartmentErrorInfo = '';
     this.employeeDesignationErrorInfo = '';
     this.employeeReportingManagerErrorInfo = '';
-
+    this.employeeGenderErrorInfo = '';
     
 
   }
@@ -540,6 +572,20 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     return this.isUpdateLastNameValid;
   }
+
+updateGenderErrorInfo = '';
+isUpdateEmployeeGenderValid = false;
+  validateUpdateEmployeeGender(){
+    if(this.existingEmployee.gender === ''){
+      this.isUpdateEmployeeGenderValid = false;
+      this.updateGenderErrorInfo = 'Gender is required';
+    }else{
+      this.isUpdateEmployeeGenderValid = true;
+      this.updateGenderErrorInfo = ''
+    }
+    return this.isUpdateEmployeeGenderValid;
+  }
+
   updateEmailIdErrorInfo = "";
   validateUpdateEmailId() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;

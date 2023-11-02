@@ -71,7 +71,8 @@ export class TaskService{
                 console.log(filter_StartDate)
                 console.log(filter_EndDate)
 
-                let params = new HttpParams().set('taskTitle',filter_TaskName)
+                let params = new HttpParams()
+                .set('taskTitle',filter_TaskName)
                 .set('taskPriority',filter_Priority)
                 .set('taskOrganizer',filter_Email_Organizer)
                 .set('taskStartDate',filter_StartDate)

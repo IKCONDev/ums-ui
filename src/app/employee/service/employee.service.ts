@@ -48,6 +48,7 @@ export class EmployeeService {
      * @returns 
      */
     updateEmployee(employee: any) {
+        console.log(employee)
         return this.http.put<any>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/update`, employee, {
             observe: 'response', headers: new HttpHeaders({
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
