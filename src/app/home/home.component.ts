@@ -232,7 +232,8 @@ export class HomeComponent implements OnInit{
       const endDate = new Date();
       endDate.setDate(startDate.getDate()+6);//end of the week
       endDate.setHours(23,59,59,999);//end of the day
-      console.log(startDate);
+      console.log(startDate.toISOString());
+      console.log(startDate.toString())
       console.log(endDate);
     this.homeService.fetchMeetingStatusforWeek(startDate.toISOString(),endDate.toISOString()).subscribe({
       next:response=>{
@@ -248,27 +249,27 @@ export class HomeComponent implements OnInit{
   createChart(){
     
     var myChart = new Chart("myChart", {
-      type: 'line',
+      type: 'bar',
       data: {// values on X-Axis
-        labels: ['Sunday','Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday',], 
+        labels: ['Sunday','Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday'], 
 	       datasets: [
           {
             label: "Assigned Task",
             data: [this.TotalTasks[0][0],this.TotalTasks[0][1],this.TotalTasks[0][2],this.TotalTasks[0][3],
             this.TotalTasks[0][4],this.TotalTasks[0][5],this.TotalTasks[0][6]],
-            backgroundColor: '#EF7426'
+            backgroundColor: 'red'
           },
           {
             label: "Inprogress Task",
             data:[this.TotalTasks[1][0],this.TotalTasks[1][1],this.TotalTasks[1][2],this.TotalTasks[1][3],
             this.TotalTasks[1][4],this.TotalTasks[1][5],this.TotalTasks[1][6]],
-            backgroundColor: '#90C853'
+            backgroundColor: 'yellow'
           },
           {
             label: "Completed Task",
             data: [this.TotalTasks[2][0],this.TotalTasks[2][1],this.TotalTasks[2][2],this.TotalTasks[2][3],
             this.TotalTasks[2][4],this.TotalTasks[2][5],this.TotalTasks[2][6]],
-            backgroundColor: '#2AA3D9'
+            backgroundColor: 'green'
           }  
 
         ]
@@ -306,9 +307,8 @@ export class HomeComponent implements OnInit{
         
       },
       options: {
-        aspectRatio:2.5
-        
-        
+        aspectRatio:8.5
+              
       }
       
     });
