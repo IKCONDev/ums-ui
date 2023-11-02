@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Task } from '../model/Task.model';
 import { TaskService } from './service/task.service';
 import { Toast, ToastrService } from 'ngx-toastr';
-import { event } from 'jquery';
+import { error, event } from 'jquery';
 import { MeetingService } from '../meetings/service/meetings.service';
 import { NgForm } from '@angular/forms';
 import { HttpStatusCode } from '@angular/common/http';
@@ -663,6 +663,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     localStorage.setItem('taskStartDateFilter','');
     localStorage.setItem('taskEndDateFilter','');
     localStorage.setItem('taskOrganizerFilter','');
+    this.CloseFilterTaskModal();
+    window.location.reload();
   }
 
   /**
@@ -687,21 +689,27 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('taskEndDateFilter'));
     console.log(localStorage.getItem('taskOrganizerFilter'));
     
-    this.filter_Taskname = localStorage.getItem('taskNameFilter');
-    this.filter_Priority = localStorage.getItem('taskPriorityFilter');
-    this.filter_StartDate = localStorage.getItem('taskStartDateFilter');
-    this.filter_EndDate = localStorage.getItem('taskEndDateFilter');
-    this.filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
+    // this.filter_Taskname = localStorage.getItem('taskNameFilter');
+    // this.filter_Priority = localStorage.getItem('taskPriorityFilter');
+    // this.filter_StartDate = localStorage.getItem('taskStartDateFilter');
+    // this.filter_EndDate = localStorage.getItem('taskEndDateFilter');
+    // this.filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
 
-    if(this.filter_Taskname != '' || this.filter_Priority != '' || this.filter_StartDate
-    || this.filter_EndDate != '' || this.filter_Email_Organizer != ''){
+      console.log(this.filter_Taskname+"--------")
       this.service.getTaskByUserId(localStorage.getItem('email'),this.filter_Taskname,
       this.filter_Priority,
       this.filter_Email_Organizer,
       this.filter_StartDate,
-      this.filter_EndDate);
-    }
+      this.filter_EndDate).subscribe({
+        next: response => {
+          console.log(response)
+        },error: error => {
+          console.log(error)
+        }
+      })
+
     this.CloseFilterTaskModal();
+    window.location.reload();
   }
 
 }
