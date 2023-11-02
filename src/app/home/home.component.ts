@@ -235,9 +235,10 @@ export class HomeComponent implements OnInit{
       console.log(startDate.toISOString());
       console.log(startDate.toString())
       console.log(endDate);
-    this.homeService.fetchMeetingStatusforWeek(startDate.toISOString(),endDate.toISOString()).subscribe({
+    this.homeService.fetchMeetingStatusforWeek(startDate.toLocaleDateString(),endDate.toLocaleDateString()).subscribe({
       next:response=>{
         this.TotalMeetingStatus=response.body;
+        console.log(this.TotalMeetingStatus)
         
         this.createChart2();
       
@@ -276,7 +277,8 @@ export class HomeComponent implements OnInit{
         
       },
       options: {
-        aspectRatio:2.5
+        aspectRatio:2.1,
+        
       }
       
     });
@@ -307,7 +309,7 @@ export class HomeComponent implements OnInit{
         
       },
       options: {
-        aspectRatio:8.5
+        aspectRatio:2.1
               
       }
       
