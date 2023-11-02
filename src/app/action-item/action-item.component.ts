@@ -701,7 +701,7 @@ export class ActionItemComponent implements OnInit {
     dueDate: '',
     taskOwner: '',
     organizer: '',
-    status: '',
+    status: 'Yet to start',
     actionItemId: 0,
     actionTitle: '',
     emailId: ''
@@ -778,7 +778,7 @@ export class ActionItemComponent implements OnInit {
   isTaskStatusValid = false;
   validateTaskStatus() {
     // var taskStatus = event.target.value;
-    if (this.add_Task.status === null) {
+    if (this.add_Task.status === '') {
       this.taskStatusErrorInfo = 'Status is required';
       this.isTaskStatusValid = false;
 
@@ -883,13 +883,10 @@ export class ActionItemComponent implements OnInit {
       var valid = this.validateTaskStartDate();
       isStartDateValid = valid;
     }
-    if(!this.isTaskStatusValid){
-      var valid = this.validateTaskStatus();
-      isStatusValid = valid;
-    }
+
     if(isTitleValid == true && isDescriptionValid == true && 
       isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
-       && isStatusValid == true){
+       ){
         this.add_Task.emailId = localStorage.getItem('email');
         this.add_Task.actionItemId = this.currentActionItemId;
         this.taskService.createTask(this.add_Task).subscribe({

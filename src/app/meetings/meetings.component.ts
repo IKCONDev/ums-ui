@@ -1143,6 +1143,7 @@ emailListForsendingMOM : string[];
 SendActionItemList = new Array() ;
 momObject : MOMObject;
 resultData : boolean;
+discussionPoints : string;
 sendMOMEmail(){
  
   for(var i=0; i<this.actionItemsOfMeeting.length; i++){
@@ -1152,9 +1153,10 @@ sendMOMEmail(){
          //console.log("loop executed successfully"+i);
      }
   }
+  console.log("the entered discussion points:"+this.discussionPoints);
   console.log(this.SendActionItemList);
   console.log("entered sendmom email method");
-    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData).subscribe({
+    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData,this.discussionPoints).subscribe({
      next: (response) =>{
      if(response.status == HttpStatusCode.Ok){
         this.toastr.success("Email sent successfully");

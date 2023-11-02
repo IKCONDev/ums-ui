@@ -218,7 +218,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
-                <h5 class="modal-title" id="xlModalLabel">Task</h5>
+                <h5 class="modal-title" id="xlModalLabel">Update Task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                     (click)="clearErrorMessages(form)">
                     <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
@@ -315,7 +315,7 @@
                                         <tr>
                                             <td><b>Start Date & Time</b><span id="required">*</span></td>
                                             <td><span><input type="datetime-local" min="{{min}}" class="form-control"
-                                                        name="taskStartDate" [(ngModel)]="update_Task.startDate"
+                                                id="taskStartDate" name="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
                                                         [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
                                                         (change)="validateTaskStartDate()"></span>
@@ -388,7 +388,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
-                <h5 class="modal-title" id="xlModalLabel">Task</h5>
+                <h5 class="modal-title" id="xlModalLabel">Update Task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
                 </button>
@@ -486,8 +486,8 @@
                                         <tr>
                                             <td><b>Start Date & Time</b></td>
                                             <td><span><input type="datetime-local" min="{{min}}" class="form-control"
-                                                        name="taskStartDate" [(ngModel)]="update_Task.startDate"
-                                                        #taskStartDate="ngModel" required="true"
+                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
+                                                        #taskStartDate="ngModel" required="true" 
                                                         [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
                                                         (click)="validateTaskStartDate()" disabled></span>
                                                 <!--- <div *ngIf="taskStartDateErrorInfo!=''">
@@ -511,15 +511,17 @@
 
                                         <tr>
                                             <td><b>Status</b> <span id="required">*</span></td>
-                                            <td> <span><select value="Yet To Start" class="form-control form-select"
+                                            <td> <span><select value="Yet To Start" class="form-control"
                                                         name="taskStatus" [(ngModel)]="update_Task.status"
                                                         required="true" #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
+                                                        <option disabled selected value>Select</option>
                                                         <option>Yet to start</option>
                                                         <option>Inprogress</option>
                                                         <option>Completed</option>
                                                     </select>
+                                                    
                                                     <div *ngIf="taskStatusErrorInfo != ''">
                                                         <span id="error_msg">{{taskStatusErrorInfo}}</span>
                                                     </div>
@@ -585,9 +587,9 @@
                     <div >Task Priority
                         <select [(ngModel)] = "filter_Priority" #boxPri class="actitem-organizer-filter">
                           <option value="">Select</option>
-                          <option  value="High">High</option>
-                          <option  value="Medium">Medium</option>
-                          <option  value="Low">Low</option>
+                          <option>High</option>
+                          <option>Medium</option>
+                          <option>Low</option>
                       </select>
                     </div>
                 </div>
