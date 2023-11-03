@@ -7,10 +7,10 @@
                 <h3 id="heading">Task List</h3>
             </div>
             <div class="col-sm-2 d-flex">
-                <p id="AssignedTask" (click)="getTasks('AssignedTask')">Assigned Tasks</p>
+                <p id="AssignedTask" (click)="InitailizeJqueryDataTable()" (click)="getTasks('AssignedTask')">Assigned Tasks</p>
             </div>
             <div class="col-sm-2 d-flex">
-                <p (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks
+                <p (click)="InitailizeJqueryDataTable()" (click)="getTasks('OrganizedTask')" id="OrganizedTask" style="padding-right: 10px;">Organized Tasks
                 </p>
             </div>
             <!-- <div class="col-sm-3 d-flex" style="padding-top: 9px; ">
@@ -22,6 +22,8 @@
             <div *ngIf="tabOpened === 'OrganizedTask'" id="deleteBtnDiv" class="col-sm-2">
                <button class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
             </div>
+            <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1">
+             </div>
             <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1 d-flex align-items-end"></div>
             <div class="col-sm-1 d-flex" id="filter" data-toggle="modal" data-target="#filterModal" (click)="getActiveUsersEmailIdList()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
@@ -124,10 +126,10 @@
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
         <div class="row d-flex" *ngIf="assignedTasksCount>0; else noAssignedTasks">
-            <table class="table table-hover" height="40" id="table">
+            <table class="table table-hover" height="40" id="assignedtaskTable">
                 <thead id="thead" style="background-color: #ecf7fc; padding-top: 0px;">
                     <tr>
-                        <th>Task ID</th>
+                    <th>Task ID</th>
                     <th style="width: 150px;">Title</th>
                     <th>Owner</th>
                     <th>Start Date & Time</th>
