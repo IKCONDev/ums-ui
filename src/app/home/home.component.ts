@@ -277,7 +277,7 @@ export class HomeComponent implements OnInit{
         
       },
       options: {
-        aspectRatio:2.1,
+        aspectRatio:1.1,
         
       }
       
@@ -309,7 +309,7 @@ export class HomeComponent implements OnInit{
         
       },
       options: {
-        aspectRatio:2.1
+        aspectRatio:1.1
               
       }
       
