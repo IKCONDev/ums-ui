@@ -306,9 +306,13 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
  }
 
  clearErrorMessages(){
-  $(".modal-body input").val("")
-    this.roleErrorInfo ="";
-    this.useremailIdErrorInfo = ''
+  //$(".modal-body input").val("")
+    this.roleErrorInfo ='';
+    this.useremailIdErrorInfo = '';
+    this.addUserObj.userRoles.at(0).roleId = 0;
+    this.addUserObj.email = '';
+    this.isEmailValid = false;
+    this.isRoleNameValid = false;
  }
 
 

@@ -134,10 +134,13 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.addDesignation.designationName === '' || this.addDesignation.designationName.trim()==="" || regex.exec(this.addDesignation.designationName)===null){
       this.designationNameErrorInfo = 'Designation name is required';
+      this.isDesignationNameValid = false;
     }else if(this.addDesignation.designationName.length < 5){
-      this.designationNameErrorInfo = 'Designation name should have minimum of 5 chars.';
+      this.designationNameErrorInfo = 'Designation name should have minimum of 5 characters.';
+      this.isDesignationNameValid = false;
     }else if(this.addDesignation.designationName.length >= 50){
-      this.designationNameErrorInfo = 'Designation name should not exceed more than 50 chars';
+      this.designationNameErrorInfo = 'Designation name should not exceed more than 50 characters';
+      this.isDesignationNameValid = false;
     }else{
       this.isDesignationNameValid = true;
       this.designationNameErrorInfo = '';
@@ -265,10 +268,13 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
      if(this.existingDesignation.designationName === '' || this.existingDesignation.designationName.trim()==="" || regex.exec(this.existingDesignation.designationName)===null){
        this.updatedDesignationNameErrorInfo = 'Department name is required';
+       this.isUpdatedDesignationNameValid = false;
      }else if(this.existingDesignation.designationName.length < 5){
-       this.updatedDesignationNameErrorInfo = 'department name should have minimum of 5 chars.';
+       this.updatedDesignationNameErrorInfo = 'department name should have minimum of 5 characters.';
+       this.isUpdatedDesignationNameValid = false;
      }else if(this.existingDesignation.designationName.length>=50){
-       this.updatedDesignationNameErrorInfo = 'department name should not exceed more than 50 chars';
+       this.updatedDesignationNameErrorInfo = 'department name should not exceed more than 50 characters';
+       this.isUpdatedDesignationNameValid = false;
      }else{
        this.isUpdatedDesignationNameValid = true;
        this.updatedDesignationNameErrorInfo = '';
@@ -335,9 +341,11 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     * 
     */
    clearErrorMessages(){
-    $(".modal-body input").val("")
+    //$(".modal-body input").val("")
     this.designationNameErrorInfo = '';
     this.updatedDesignationNameErrorInfo = '';
+    this.addDesignation.designationName = ''; 
+    this.isDesignationNameValid = false;
   
   }
 
