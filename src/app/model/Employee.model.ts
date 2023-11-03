@@ -15,6 +15,7 @@ export class Employee{
     empDesignation: Designation;
     department: Department;
     departmentId: number;
+    gender: string;
     createdDateTime: string;
     modifiedDateTime: string;
     createdBy: string;

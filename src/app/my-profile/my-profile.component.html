@@ -67,7 +67,7 @@
                     <div style="padding-left: 15px;" class="full-name"><label>Gender</label></div>
                     <div class="disp-name">
                         <div class="col-6">
-                            <label for="firstName" *ngIf="isDisable==true">Male</label>
+                            <label for="firstName" *ngIf="isDisable==true">{{user.employee.gender}}</label>
                             <input type="text" value="Male" [hidden]="isDisable" readonly="true" class="form-control">
                         </div>
                     </div>

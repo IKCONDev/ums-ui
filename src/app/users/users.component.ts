@@ -288,7 +288,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
  isRoleNameValid = false;
  roleErrorInfo ="";
  validateuserRole(){
-   if(this.addUserObj.userRoles.at(0).roleId >0 ){
+   if(this.addUserObj.userRoles.at(0).roleId ==0 ){
      this.roleErrorInfo = 'Role is required';
      this.isRoleNameValid = false;
    }

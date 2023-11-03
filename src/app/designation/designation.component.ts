@@ -101,7 +101,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (response)=> {
         if(response.status === HttpStatusCode.Created){
           this.createdDesignation = response.body;
-        this.toastr.success('Designaytion added successfully.')
+        this.toastr.success('Designation added successfully.')
         document.getElementById('closeAddModal').click();
           setTimeout(()=>{
             window.location.reload();
