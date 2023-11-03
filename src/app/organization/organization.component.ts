@@ -197,9 +197,7 @@ export class OrganizationComponent implements OnInit {
         this.orgService.saveOrganization(this.org).subscribe({
           next: (response) => {
             this.org = response.body;
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000)
+            this.ngOnInit();
           }, error: error => {
             if (error.status === HttpStatusCode.Unauthorized) {
               this.router.navigateByUrl('/session-timeout')
@@ -212,9 +210,7 @@ export class OrganizationComponent implements OnInit {
         this.orgService.updateOrganization(this.org).subscribe({
           next: (response) => {
             this.org = response.body;
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000)
+            this.ngOnInit();
           }, error: error => {
             if (error.status === HttpStatusCode.Unauthorized) {
               this.router.navigateByUrl('/session-timeout')
