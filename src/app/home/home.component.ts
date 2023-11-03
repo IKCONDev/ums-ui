@@ -237,8 +237,10 @@ export class HomeComponent implements OnInit{
       console.log(endDate);
     this.homeService.fetchMeetingStatusforWeek(startDate.toISOString(),endDate.toISOString()).subscribe({
       next:response=>{
+        console.log(response);
         this.TotalMeetingStatus=response.body;
-        console.log(this.TotalMeetingStatus)
+        console.log(this.TotalMeetingStatus);
+
         
         this.createChart2();
       

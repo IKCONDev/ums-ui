@@ -12,7 +12,8 @@
 }
 
 .container-body {
-    padding-left: 150px;
+    padding-top: 20px;
+    padding-left: 89px;
     position: relative;
     width: 1400px;
     max-height: fit-content;
@@ -134,10 +135,11 @@
 .disp-name {
     position: relative;
     font-size: 14px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 
 }
+
 
 .space {
     min-height: 10px;
@@ -146,6 +148,8 @@
 .full-name-parent {
     position: relative;
     font-size: 16px;
+    
+    
 }
 
 .frame-parent {
@@ -155,10 +159,10 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 24px;
+    gap: 20px;
     text-align: left;
     font-size: 14px;
-    color: #606060;
+    color: black;
     /* font-family: 'General Sans'; */
 }
 
@@ -167,7 +171,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 24px;
+    gap: 20px;
 }
 
 
@@ -183,9 +187,14 @@
     font-size: 14px;
     color: #606060;
     font-family: 'General Sans';
-    padding: 48px;
+   
 }
-
+.card{
+    display: block;
+    height: fit-content;
+    
+   
+}
 .prof-name {
     position: relative;
     line-height: 150%;
@@ -197,7 +206,7 @@
     font-size: 16px;
     line-height: 150%;
     color: #606060;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    
 }
 
 .prfname-parent {
@@ -213,7 +222,7 @@
     color: #202224;
     font-family: 'General Sans';
     margin-left: 200px;
-    margin-top: 65px;
+   
 }
 
 input.form-control:read-only {
