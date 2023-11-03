@@ -464,28 +464,17 @@
                                                 </div>
                                             </td>
                                         </tr>
-
                                         <tr>
-                                            <td><b>Status</b><span id="required">*</span></td>
-                                            <td> <span><select value="Yet To Start" class="form-control form-select"
-                                                        name="taskStatus" placeholder="select"
-                                                        #taskStatus="ngModel"
-                                                        [(ngModel)]="add_Task.status" required="true"
-                                                        [class.invalid]="taskStatus.invalid && taskStatus.touched"
-                                                        (click)="validateTaskStatus()">
-                                                       <!--- <option default>Select</option>-->
-                                                        <option>Yet to start</option>
-                                                        <option>Inprogress</option>
-                                                        <option>Completed</option>
-                                                    </select>
-                                                    <div *ngIf="taskStatusErrorInfo !=''">
-                                                        <span id="error_msg">{{taskStatusErrorInfo}}</span>
-                                                    </div>
-                                                </span></td>
+                                            <td ><b>Status</b><span id="required">*</span></td>
+                                            <td> 
+                                                <span>
+                                                    <input type="text" class="form-control"
+                                                     [value]="add_Task.status" readonly/>
+                                                </span>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>

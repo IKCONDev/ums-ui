@@ -16,6 +16,7 @@ import { Role } from '../model/Role.model';
 export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
 
   private table: any;
+  loggedInUser: string = localStorage.getItem('email');
 
   ngAfterViewInit(): void {
     $(document).ready(() => {

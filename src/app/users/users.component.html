@@ -55,7 +55,7 @@
                             <td>{{user.userRoles[0].roleName}}</td>
                             <td>{{user.active == true? 'Active': 'Inactive'}}</td>
                             <td>{{user.active == true? 'LoginEnabed':'LoginDisabled'}}</td>
-                            <td>
+                            <td *ngIf="user.email != loggedInUser">
                                 <label class="switch" *ngIf="user.active == true">
                                     <input type="checkbox" id="slider{{i}}" checked (change)="checkUserTogglebuttonEnabled(user,i)">
                                     <span class="slider round"></span>
@@ -66,6 +66,12 @@
                                   </label>
 
                                   
+                            </td>
+                            <td *ngIf="user.email === loggedInUser">
+                                <label class="switch" *ngIf="user.active == true">
+                                    <input disabled="true" type="checkbox" id="slider{{i}}" checked (change)="checkUserTogglebuttonEnabled(user,i)">
+                                    <span class="slider round"></span>
+                                  </label>
                             </td>
                             <td>
                                 <span class="edit-icon" data-target="#updateUserModal" data-toggle="modal" (click)="fetchOneUser(user.email)" (click)="getAllRoles()">
