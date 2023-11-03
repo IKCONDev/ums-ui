@@ -39,7 +39,7 @@
                             <input type="checkbox" id="mainCheckBox" class="mainCheckBox"
                                 (click)="checkSubCheckBoxes()" />
                         </th>
-                        <th>ID</th>
+                        <th>Employee ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Gender</th>
@@ -60,7 +60,7 @@
                             <input type="checkbox" value="{{employee.id}}" id="ac-check{{i}}" class="subCheckBox"
                                 (change)="toggleMainCheckBox(i)" />
                         </td>
-                        <td>{{employee.id}}</td>
+                        <td>{{employee.employeeOrgId}}</td>
                         <td>{{employee.firstName}}</td>
                         <td>{{employee.lastName}}</td>
                         <td >{{employee.gender}}</td>

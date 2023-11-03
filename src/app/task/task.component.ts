@@ -750,7 +750,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       })
 
     this.CloseFilterTaskModal();
-    //window.location.reload();
+    window.location.reload();
   }
 
 }

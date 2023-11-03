@@ -17,7 +17,7 @@
             <table class="table table-hover" id="table">
                 <thead id="thead">
                     <tr>
-                        <th>ID</th>
+                        <th>Batch ID</th>
                         <th>Start Date</th>
                         <th>End Time</th>
                         <th>LastSuccessfullExecutionDateTime</th>
@@ -26,7 +26,7 @@
                 </thead>
                 <tbody *ngFor="let item of batchDetails">
                     <tr>
-                        <td>{{item.batchId}}</td>
+                        <td>BD{{item.batchId}}</td>
                         <td>{{item.startDateTime|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{item.endDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>

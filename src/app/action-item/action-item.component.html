@@ -105,7 +105,7 @@
                             </svg>
                         </span>
                     </td>-->
-                    <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)">Show</a></td>
+                    <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)">Show Tasks</a></td>
                 </tr>
                 <tr class="detail">
                     <td colspan="12">
@@ -123,14 +123,14 @@
                                 </thead>
                                 <tbody *ngFor="let element of task_array">
                                     <tr *ngIf="actionItem.actionItemId == element.actionItemId">
-                                        <td>T000{{element.taskId}}</td>
-                                        <td id="actionItem-subject">{{element.taskTitle}}</td>
-                                        <td id="actionItem-subject">{{element.taskDescription}}</td>
-                                        <td>{{element.taskOwner}}</td>
-                                        <td>{{element.startDate|date:'MMM d, y, h:mm a'}}</td>
-                                        <td>{{element.dueDate|date:'MMM d, y, h:mm a'}}</td>
-                                        <td>{{element.taskPriority}}</td>
-                                        <td>{{element.status}}</td>
+                                        <td  class="taskRows" >T000{{element.taskId}}</td>
+                                        <td  class="taskRows"  id="actionItem-subject">{{element.taskTitle}}</td>
+                                        <td  class="taskRows" id="actionItem-subject">{{element.taskDescription}}</td>
+                                        <td  class="taskRows" >{{element.taskOwner}}</td>
+                                        <td  class="taskRows" >{{element.startDate|date:'MMM d, y, h:mm a'}}</td>
+                                        <td  class="taskRows" >{{element.dueDate|date:'MMM d, y, h:mm a'}}</td>
+                                        <td  class="taskRows" >{{element.taskPriority}}</td>
+                                        <td  class="taskRows" >{{element.status}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody>

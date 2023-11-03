@@ -45,8 +45,6 @@
                             <th>Created Date</th>
                             <th>Modified By</th>
                             <th>Modified Date</th>
-                            <th>Created By Email ID</th>
-                            <th>Modified By Email ID</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -56,14 +54,12 @@
                                 <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox" 
                                 value="{{role.roleId}}" (click)="toggleMainCheckBox(i)"/>
                             </td>
-                            <td>{{role.roleId}}</td>
+                            <td>R{{role.roleId}}</td>
                             <td id="role-subject">{{role.roleName}}</td>
                             <td>{{role.createdBy}}</td>
-                            <td>{{role.createdDateTime}}</td>
+                            <td>{{role.createdDateTime|date:'MMM d, y, h:mm a'}}</td>
                             <td>{{role.modifiedBy}}</td>
-                            <td>{{role.modifiedDateTime}}</td>
-                            <td>{{role.createdByEmailId}}</td>
-                            <td>{{role.modifiedByEmailId}}</td>
+                            <td>{{role.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                             <td>
                                 <span id="editIcon" (click)="getRoleById(role.roleId)"
                                 data-toggle="modal" data-target="#updateModal">
