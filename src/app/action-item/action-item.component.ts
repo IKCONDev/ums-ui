@@ -899,6 +899,15 @@ export class ActionItemComponent implements OnInit {
                   window.location.reload();
                  },1000);
               }
+           },error: error => {
+             if(error.status === HttpStatusCode.Unauthorized){
+              this.router.navigateByUrl('/session-timeout');
+             }else if(error.status === HttpStatusCode.ServiceUnavailable){
+              this.router.navigateByUrl('service-unavailable');
+             }
+             else{
+              this.toastr.error('Error while creating task. Please try again !')
+             }
            }
         })
      } 

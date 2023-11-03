@@ -120,7 +120,7 @@
                     <div style="padding-left: 15px;" class="full-name"><label>Designation</label></div>
                     <div class="disp-name">
                         <div class="col-6">
-                            <label for="Designation" *ngIf="isDisable==true">{{user.employee.designation}}</label>
+                            <label for="Designation" *ngIf="isDisable==true">{{user.employee.empDesignation.designationName}}</label>
                             <input type="text" id="Designation" [ngModel]="user.employee.designation"
                                 [hidden]="isDisable" readonly="true" class="form-control">
                         </div>
