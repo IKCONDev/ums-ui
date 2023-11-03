@@ -512,7 +512,22 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.employeeDesignationErrorInfo = '';
     this.employeeReportingManagerErrorInfo = '';
     this.employeeGenderErrorInfo = '';
-    
+
+    this.isEmployeeFirstNameValid=false;
+    this.isEmployeeLasttNameValid=false;
+    this.isEmployeeEmailIdValid=false;
+    this.isEmployeeDepartmentValid=false;
+    this.isEmployeeDesignationtValid=false;
+    this.isEmployeeGenderValid=false;
+    this.isEmployeeReportingManagerValid=false;
+
+    this.addEmployee.firstName = '' ;
+    this.addEmployee.lastName ='';
+    this.addEmployee.gender='';
+    this.addEmployee.email = '';
+    this.addEmployee.reportingManager = '';
+    this.addEmployee.departmentId=0;
+    this.addEmployee.empDesignation.id=0;
 
   }
   clearUpdateErrorMessages(){
