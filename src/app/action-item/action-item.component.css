@@ -162,6 +162,10 @@ tr.detail div {
   color: red;
 }
 
+.taskRows{
+   background-color: #E5EEF1;
+}
+
 #details-label
 {
   position: relative;

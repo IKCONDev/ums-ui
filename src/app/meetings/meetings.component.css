@@ -52,6 +52,11 @@
     background: var(--side-text, #ECF7FC)
 }
 
+.actionItemRows{
+  background:  var(--side-text, #E5EEF1)
+}
+
+
 #tablehead{
     background: var(--side-text, #ECF7FC);
 }

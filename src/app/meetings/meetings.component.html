@@ -48,16 +48,16 @@
             <table class="table table-hover">
                 <thead id="thead">
                     <tr>
-                        <th>Meeting ID</th>
+                        <th id="thead">Meeting ID</th>
                     <!-- <th>Id</th> -->
-                    <th style="width: 200px;">Title</th>
-                    <th>Organizer</th>
-                    <th>Start Date & Time</th>
-                    <th>End Date & Time</th>
-                    <th>Attendees</th>
-                    <th>Transcript</th>
-                    <th>Action Items</th>
-                    <th>Send MOM</th>
+                    <th id="thead" style="width: 200px;">Title</th>
+                    <th id="thead">Organizer</th>
+                    <th id="thead">Start Date & Time</th>
+                    <th id="thead">End Date & Time</th>
+                    <th id="thead">Attendees</th>
+                    <th id="thead">Transcript</th>
+                    <th id="thead">Action Items</th>
+                    <th id="thead">Send MOM</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
@@ -65,7 +65,7 @@
                         <td>M000{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
-                        <td>{{meeting.organizerEmailId}}</td>
+                        <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{meeting.endDateTime+'z'| date:'MMM d, y, h:mm a'}}</td>
                         <td style="padding-left: 22px;">{{meeting.attendees.length}}</td>
@@ -160,7 +160,7 @@
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
                                         <tr *ngIf="actionItem.meetingId === meeting.meetingId">
-                                            <td>
+                                            <td class="actionItemRows">
                                                 <b *ngIf="actionItem.actionStatus == 'Converted' else enableCheck">
                                                     <input type="checkbox" disabled="true" />
                                                 </b>
@@ -181,15 +181,15 @@
                                                 </section>
                                             </td> -->
                                             <!--  -->
-                                            <td style="padding: 1.7em;" >A000{{actionItem.actionItemId}}</td>
-                                            <td id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemTitle}}</td>
-                                            <td style="padding: 1.7em;">
+                                            <td class="actionItemRows" style="padding: 1.7em;" >A000{{actionItem.actionItemId}}</td>
+                                            <td class="actionItemRows" id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemTitle}}</td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">
                                                 <p *ngFor="let owner of actionItem.actionItemOwner" >{{owner}}</p>
                                             </td>
-                                            <td style="padding: 1.7em;">{{actionItem.startDate}}</td>
-                                            <td id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemDescription}}</td>
-                                            <td style="padding: 1.7em;">{{actionItem.actionStatus}}</td>
-                                            <td *ngIf="actionItem.actionStatus==='Not Submitted'">
+                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.startDate |date:'MMM d, y, h:mm a'}}</td>
+                                            <td  class="actionItemRows"id="meeting-subject" style="padding: 1.7em;">{{actionItem.actionItemDescription}}</td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.actionStatus}}</td>
+                                            <td class="actionItemRows" *ngIf="actionItem.actionStatus==='Not Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
                                                 <span class="edit-icon"
                                                     (click)="editActionItem(actionItem.actionItemId)"
@@ -205,7 +205,7 @@
                                                     </svg>
                                                 </span>
                                             </td>
-                                            <td *ngIf="actionItem.actionStatus==='Submitted'">
+                                            <td class="actionItemRows" *ngIf="actionItem.actionStatus==='Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
                                                 <span class="edit-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

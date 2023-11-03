@@ -52,12 +52,12 @@
                             <input id="subCheckBox{{i}}" class="subCheckBox" type="checkbox" value="{{designation.id}}"
                             (click)="toggleMainCheckBox(i)"/>
                         </td>
-                        <td>{{designation.id}}</td>
+                        <td>DESG{{designation.id}}</td>
                         <td>{{designation.designationName}}</td>
                         <td>{{designation.createdBy}}</td>
-                        <td>{{designation.createdDateTime}}</td>
+                        <td>{{designation.createdDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>{{designation.modifiedBy}}</td>
-                        <td>{{designation.modifiedDateTime}}</td>
+                        <td>{{designation.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
                             <span id="editIcon" (click)="fetchOneDesignation(designation.id)"
                             data-toggle="modal" data-target="#updateModal">

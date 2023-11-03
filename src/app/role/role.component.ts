@@ -180,7 +180,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     }
       //if no errors in form, allow to submit
     if(isNameValid){
-      this.existingRole.modifiedBy = localStorage.getItem('firstName');
+      this.existingRole.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     this.existingRole.modifiedByEmailId = localStorage.getItem('email');
     //this.updatedRole.modifiedDateTime = new Date(Date.now)
     this.roleService.updateRole(this.existingRole).subscribe({
