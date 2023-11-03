@@ -235,7 +235,7 @@ export class HomeComponent implements OnInit{
       console.log(startDate.toISOString());
       console.log(startDate.toString())
       console.log(endDate);
-    this.homeService.fetchMeetingStatusforWeek(startDate.toLocaleDateString(),endDate.toLocaleDateString()).subscribe({
+    this.homeService.fetchMeetingStatusforWeek(startDate.toISOString(),endDate.toISOString()).subscribe({
       next:response=>{
         this.TotalMeetingStatus=response.body;
         console.log(this.TotalMeetingStatus)
