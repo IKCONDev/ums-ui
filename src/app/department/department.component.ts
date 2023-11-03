@@ -17,14 +17,16 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   private table: any;
 
   ngAfterViewInit(): void {
-    $(document).ready(() => {
-      this.table = $('#table').DataTable({
-        paging: true,
-        searching: true, // Enable search feature
-        pageLength: 7,
-        // Add other options here as needed
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#table').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
       });
-    });
+    },50)
   }
 
   ngOnDestroy(): void {
@@ -152,10 +154,13 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.addDepartment.departmentName === '' || this.addDepartment.departmentName.trim()==="" || regex.exec(this.addDepartment.departmentName)===null){
       this.departmentNameErrorInfo = 'Department name is required';
+      this.isDepartmentNameValid = false;
     }else if(this.addDepartment.departmentName.length < 3){
-      this.departmentNameErrorInfo = 'Department name should have minimum of 3 chars.';
+      this.departmentNameErrorInfo = 'Department name should have minimum of 3 characters.';
+      this.isDepartmentNameValid = false;
     }else if(this.addDepartment.departmentName.length>=50){
-      this.departmentNameErrorInfo = 'Department name should not exceed more than 50 chars';
+      this.departmentNameErrorInfo = 'Department name should not exceed more than 50 characters';
+      this.isDepartmentNameValid = false;
     }else{
       this.isDepartmentNameValid = true;
       this.departmentNameErrorInfo = '';
@@ -173,10 +178,13 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.addDepartment.departmentHead === ''|| this.addDepartment.departmentHead.trim()==="" || regex.exec(this.addDepartment.departmentHead)===null){
       this.departmentHeadErrorInfo = 'Department head is required';
+      this.isDepartmentHeadValid = false;
     }else if(this.addDepartment.departmentHead.length < 3){
-        this.departmentHeadErrorInfo = 'Department head should have minimum of 3 chars.';
+        this.departmentHeadErrorInfo = 'Department head should have minimum of 3 characters.';
+        this.isDepartmentHeadValid = false;
     }else if(this.addDepartment.departmentHead.length>=50){
-        this.departmentHeadErrorInfo = 'Department head should not exceed more than 50 chars'; 
+        this.departmentHeadErrorInfo = 'Department head should not exceed more than 50 characters';
+        this.isDepartmentHeadValid = false; 
     }else{
       this.isDepartmentHeadValid = true;
       this.departmentHeadErrorInfo = '';
@@ -194,10 +202,13 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.addDepartment.departmentCode === ''|| this.addDepartment.departmentCode.trim()==="" || regex.exec(this.addDepartment.departmentCode)===null){
       this.departmentCodeErrorInfo = 'Department code is required';
+      this.isDepartmentCodeValid = false;
     }else if(this.addDepartment.departmentCode.length < 2){
-      this.departmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
+      this.departmentCodeErrorInfo = 'Department code should be minimum of 2 characters.';
+      this.isDepartmentCodeValid = false;
     }else if(this.addDepartment.departmentCode.length >= 4){
-      this.departmentCodeErrorInfo = 'Department code should not exceed more than 4 chars.';
+      this.departmentCodeErrorInfo = 'Department code should not exceed more than 4 characters.';
+      this.isDepartmentCodeValid = false;
     }
     else{
       this.isDepartmentCodeValid = true;
@@ -216,10 +227,13 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.addDepartment.departmentAddress === ''|| this.addDepartment.departmentAddress.trim()==="" || regex.exec(this.addDepartment.departmentAddress)===null){
       this.departmentLocationErrorInfo = 'Department location is required';
+      this.isDepartmentLocationValid = false;
     }else if(this.addDepartment.departmentAddress.length < 3){
-      this.departmentLocationErrorInfo = 'Department location should be minimum of 3 chars.';
+      this.departmentLocationErrorInfo = 'Department location should be minimum of 3 characters.';
+      this.isDepartmentLocationValid = false;
     }else if(this.addDepartment.departmentAddress.length >= 20){
-      this.departmentLocationErrorInfo = 'Department location should not exceed more than 20 chars.';
+      this.departmentLocationErrorInfo = 'Department location should not exceed more than 20 characters.';
+      this.isDepartmentLocationValid = false;
     }
     else{
       this.isDepartmentLocationValid = true;
@@ -364,15 +378,18 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
      if(this.existingDepartment.departmentName === ''|| this.existingDepartment.departmentName.trim()==="" || regex.exec(this.existingDepartment.departmentName)===null){
        this.updatedDepartmentNameErrorInfo = 'Department name is required';
+       this.isUpdatedDepartmentNameValid = false;
      }else if(this.existingDepartment.departmentName.length < 3){
-       this.updatedDepartmentNameErrorInfo = 'department name should have minimum of 3 chars.';
+       this.updatedDepartmentNameErrorInfo = 'Department name should have minimum of 3 characters.';
+       this.isUpdatedDepartmentNameValid = false;
      }else if(this.existingDepartment.departmentName.length>=50){
-       this.updatedDepartmentNameErrorInfo = 'department name should not exceed more than 50 chars';
+       this.updatedDepartmentNameErrorInfo = 'Department name should not exceed more than 50 characters';
+       this.isUpdatedDepartmentNameValid = false;
      }else{
-       this.isDepartmentNameValid = true;
+       this.isUpdatedDepartmentNameValid = true;
        this.updatedDepartmentNameErrorInfo = '';
      }
-     return this.isDepartmentNameValid;
+     return this.isUpdatedDepartmentNameValid;
    }
 
    /**
@@ -385,15 +402,18 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.existingDepartment.departmentHead === '' || this.existingDepartment.departmentHead.trim()==="" || regex.exec(this.existingDepartment.departmentHead)===null){
       this.updatedDepartmentHeadErrorInfo = 'Department head is required';
-    }else if(this.addDepartment.departmentHead.length < 3){
-      this.departmentHeadErrorInfo = 'Department head should have minimum of 3 chars.';
-    }else if(this.addDepartment.departmentHead.length>=50){
-      this.departmentHeadErrorInfo = 'Department head should not exceed more than 50 chars'; 
+      this.isUpdatedDepartmentHeadValid=false;
+    }else if(this.existingDepartment.departmentHead.length < 3){
+      this.updatedDepartmentHeadErrorInfo = 'Department head should have minimum of 3 characters.';
+      this.isUpdatedDepartmentHeadValid=false;
+    }else if(this.existingDepartment.departmentHead.length>=50){
+      this.updatedDepartmentHeadErrorInfo = 'Department head should not exceed more than 50 characters'; 
+      this.isUpdatedDepartmentHeadValid=false;
     }else{
-      this.isDepartmentHeadValid = true;
+      this.isUpdatedDepartmentHeadValid = true;
       this.updatedDepartmentHeadErrorInfo = '';
     }
-    return this.isDepartmentHeadValid;
+    return this.isUpdatedDepartmentHeadValid;
   }
 
   /**
@@ -406,16 +426,19 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.existingDepartment.departmentCode === '' || this.existingDepartment.departmentCode.trim()==="" || regex.exec(this.existingDepartment.departmentCode)===null){
       this.updatedDepartmentCodeErrorInfo = 'Department code is required';
+      this.isUpdatedDepartmentCodeValid=false;
     }else if(this.existingDepartment.departmentCode.length < 2){
-      this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 2 chars.';
+      this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 2 characters.';
+      this.isUpdatedDepartmentCodeValid=false;
     }else if(this.existingDepartment.departmentCode.length >=4){
-      this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 4 chars.';
+      this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 4 characters.';
+      this.isUpdatedDepartmentCodeValid=false;
     }
     else{
-      this.isDepartmentCodeValid = true;
+      this.isUpdatedDepartmentCodeValid = true;
       this.updatedDepartmentCodeErrorInfo = '';
     }
-    return this.isDepartmentCodeValid;
+    return this.isUpdatedDepartmentCodeValid;
   }
 
   /**
@@ -428,16 +451,19 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
      if(this.existingDepartment.departmentAddress === '' || this.existingDepartment.departmentAddress.trim()==="" || regex.exec(this.existingDepartment.departmentAddress)===null){
        this.updatedDepartmentLocationErrorInfo = 'Department location is required';
+       this.isUpdatedDepartmentLocationValid = false;
      }else if(this.existingDepartment.departmentAddress.length < 3){
-       this.updatedDepartmentLocationErrorInfo = 'Department location should be minimum of 3 chars.';
+       this.updatedDepartmentLocationErrorInfo = 'Department location should be minimum of 3 characters.';
+       this.isUpdatedDepartmentLocationValid = false;
      }else if(this.existingDepartment.departmentAddress.length >= 20){
-       this.updatedDepartmentLocationErrorInfo = 'Department location should not exceed more than 20 chars.';
+       this.updatedDepartmentLocationErrorInfo = 'Department location should not exceed more than 20 characters.';
+       this.isUpdatedDepartmentLocationValid = false;
      }
      else{
-       this.isDepartmentLocationValid = true;
+       this.isUpdatedDepartmentLocationValid = true;
        this.updatedDepartmentLocationErrorInfo = '';
      }
-     return this.isDepartmentLocationValid;
+     return this.isUpdatedDepartmentLocationValid;
    }
 
   checkSubCheckBoxes(){
@@ -452,7 +478,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     * 
     */
    clearErrorMessages(){
-    $(".modal-body input").val("")
+   // $(".modal-body input").val("")
     this.departmentNameErrorInfo = '';
     this.departmentCodeErrorInfo = '';
     this.departmentHeadErrorInfo = '';
@@ -462,6 +488,16 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     this.updatedDepartmentCodeErrorInfo = '';
     this.updatedDepartmentHeadErrorInfo = '';
     this.updatedDepartmentLocationErrorInfo = '';
+
+    this.isDepartmentNameValid = false;
+    this.isDepartmentHeadValid = false; 
+    this.isDepartmentCodeValid = false;
+    this.isDepartmentLocationValid = false;
+
+    this.addDepartment.departmentName = '';
+    this.addDepartment.departmentHead = '';
+    this.addDepartment.departmentCode = '';
+    this.addDepartment.departmentAddress = '';
   }
 
   /*

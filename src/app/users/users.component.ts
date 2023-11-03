@@ -19,14 +19,16 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
   loggedInUser: string = localStorage.getItem('email');
 
   ngAfterViewInit(): void {
-    $(document).ready(() => {
-      this.table = $('#myTable').DataTable({
-        paging: true,
-        searching: true, // Enable search feature
-        pageLength: 7,
-        // Add other options here as needed
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#myTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
       });
-    });
+    },50)
   }
 
   ngOnDestroy(): void {
@@ -114,7 +116,8 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     userRoles: [
       {
         roleId:0,
-        roleName:''
+        roleName:'',
+        roleStatus:'Active'
       }
     ],
     active : false,
@@ -149,6 +152,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
         console.log(role.roleName);
       }
     })
+      this.addUserObj.userRoles[0].roleStatus = 'Active';
       this.userService.createUser(this.addUserObj).subscribe(
         response =>{
          
@@ -304,9 +308,13 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
  }
 
  clearErrorMessages(){
-  $(".modal-body input").val("")
-    this.roleErrorInfo ="";
-    this.useremailIdErrorInfo = ''
+  //$(".modal-body input").val("")
+    this.roleErrorInfo ='';
+    this.useremailIdErrorInfo = '';
+    this.addUserObj.userRoles.at(0).roleId = 0;
+    this.addUserObj.email = '';
+    this.isEmailValid = false;
+    this.isRoleNameValid = false;
  }
 
 

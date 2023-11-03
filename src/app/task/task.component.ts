@@ -63,9 +63,44 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private table: any;
 
+  InitailizeJqueryDataTable(){
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#table').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+  
+      });
+    },50)
+
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#assignedtaskTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },50)
+  }
+
   ngAfterViewInit(): void {
     $(document).ready(() => {
       this.table = $('#table').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 7,
+        // Add other options here as needed
+      });
+
+    });
+
+    $(document).ready(() => {
+      this.table = $('#assignedtaskTable').DataTable({
         paging: true,
         searching: true, // Enable search feature
         pageLength: 7,
@@ -87,7 +122,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param toastr 
    */
   constructor(private service: TaskService, private meetingService: MeetingService, 
-    private toastr: ToastrService, private router: Router) { }
+    private toastr: ToastrService, private router: Router) { 
+    }
 
   /**
    * 
@@ -136,8 +172,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("AssignedTask").style.width = 'fit-content';
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
-     // document.getElementById("delete_button").style.display="none";
-     // document.getElementById("readOnly").style.setProperty("readonly","true");
       this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe({
         next:(response) => {
           console.log(response.body)

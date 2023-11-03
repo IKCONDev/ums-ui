@@ -1,4 +1,4 @@
-  <body>
+<body>
   <!-- <div>
     <app-side-menubar (componentToOpen)="onSelectedOptionChange($event)"></app-side-menubar>
   </div>
@@ -93,48 +93,43 @@
       </div>
       <!-- col-3-end -->
     </div>
+    <br/>
     <!-- row -->
-  </div>
-  &nbsp;
-  <div class="row">
-
-    <div class="col-sm-1"></div>
-    <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <div id="divChart">
-          <b>Tasks</b>
-          <ng-select [(ngModel)]="selectedOption"  (change)="onSelectChange()"  style="float: right; width: 150px;">
-            <ng-option  value="Week">Week</ng-option>
-            <ng-option value="months">Months</ng-option>
-            
-          </ng-select>
-            <canvas id="myChart"></canvas>
-            
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <div id="divChart">
+              <b>Tasks</b>
+              <ng-select [(ngModel)]="selectedOption" (change)="onSelectChange()" style="float: right; width: 150px;">
+                <ng-option value="Week">Week</ng-option>
+                <ng-option value="months">Months</ng-option>
+              </ng-select>
+              <canvas id="myChart"></canvas>
+            </div>
+          </div>
         </div>
-      
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <div id="divChart">
+              <b>Meetings</b>
+              <ng-select [(ngModel)]="selectedOption2" (change)="onSelectChange()" style="float: right; width: 150px;">
+                <ng-option value="Week">Week</ng-option>
+                <ng-option value="months">Months</ng-option>
+              </ng-select>
+              <canvas id="myChart2"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <div id="divChart" >
-          <b>Meetings</b>
-          <ng-select [(ngModel)]="selectedOption2"  (change)="onSelectChange()" style="float: right; width: 150px;">
-            <ng-option value="Week">Week</ng-option>
-            <ng-option value="months">Months</ng-option>
-          </ng-select>
-            <canvas id="myChart2"></canvas>
-            
-        </div>
-      
-        </div>
-      </div>
-    </div>
+    &nbsp;
   </div>
+ 
 
-  </body>
+</body>
 <!-- <div class="navbar">
           <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
           <button (click)="checkDemo()">DEMO</button>
