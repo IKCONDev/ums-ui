@@ -19,14 +19,16 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
   loggedInUser: string = localStorage.getItem('email');
 
   ngAfterViewInit(): void {
-    $(document).ready(() => {
-      this.table = $('#myTable').DataTable({
-        paging: true,
-        searching: true, // Enable search feature
-        pageLength: 7,
-        // Add other options here as needed
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#myTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
       });
-    });
+    },50)
   }
 
   ngOnDestroy(): void {
