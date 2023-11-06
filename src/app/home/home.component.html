@@ -97,11 +97,11 @@
     <!-- row -->
     <div class="row">
       <div class="col-sm-4">
-        <div class="card">
+        <div class="card" style="background-color: #ECF7FC;">
           <div class="card-body">
             <div id="divChart">
               <b>Tasks</b>
-              <ng-select [(ngModel)]="selectedOption" (change)="onSelectChange()" style="float: right; width: 150px;">
+              <ng-select [style.background-color]="'#ECF7FC'" [(ngModel)]="selectedOption" (change)="onSelectChange()" style="float: right; width: 150px;">
                 <ng-option value="Week">Week</ng-option>
                 <ng-option value="months">Months</ng-option>
               </ng-select>
@@ -111,7 +111,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="card">
+        <div class="card" style="background-color: #ECF7FC;">
           <div class="card-body">
             <div id="divChart">
               <b>Meetings</b>

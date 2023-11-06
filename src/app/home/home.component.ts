@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit{
     this.selectedOption="Week";
     this.selectedOption2="Week";
     this.onSelectChange();
-    this.onSelectChange2()
+    this.onSelectChange2();
     
     
 
@@ -196,7 +196,7 @@ export class HomeComponent implements OnInit{
   }
   
   TotalTasks:any[];
-  TotalMeetingStatus:any[];
+  
   fetchTaskStatus(){
       console.log("entered the fetch details of task")
       const currentDate=new Date();
@@ -223,6 +223,7 @@ export class HomeComponent implements OnInit{
       
 
     }
+    TotalMeetingStatus:any[];
     fetchTaskStatus2(){
       console.log("entered the fetch details of meetings")
       const currentDate=new Date();
@@ -235,12 +236,19 @@ export class HomeComponent implements OnInit{
       console.log(startDate.toISOString());
       console.log(startDate.toString())
       console.log(endDate);
+
+
     this.homeService.fetchMeetingStatusforWeek(startDate.toISOString(),endDate.toISOString()).subscribe({
       next:response=>{
         console.log(response);
         this.TotalMeetingStatus=response.body;
-        console.log(this.TotalMeetingStatus);
-
+        console.log(this.TotalMeetingStatus[0]);
+        console.log(this.TotalMeetingStatus[1]);
+        console.log(this.TotalMeetingStatus[2]);
+        console.log(this.TotalMeetingStatus[3]);
+        console.log(this.TotalMeetingStatus[4]);
+        console.log(this.TotalMeetingStatus[5]);
+        console.log(this.TotalMeetingStatus[6]);
         
         this.createChart2();
       
@@ -254,35 +262,69 @@ export class HomeComponent implements OnInit{
     var myChart = new Chart("myChart", {
       type: 'bar',
       data: {// values on X-Axis
-        labels: ['Sunday','Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday'], 
+        labels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'], 
 	       datasets: [
           {
             label: "Assigned Task",
-            data: [this.TotalTasks[0][0],this.TotalTasks[0][1],this.TotalTasks[0][2],this.TotalTasks[0][3],
-            this.TotalTasks[0][4],this.TotalTasks[0][5],this.TotalTasks[0][6]],
-            backgroundColor: 'red'
+            data: this.TotalTasks[0],
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 3,
           },
           {
             label: "Inprogress Task",
-            data:[this.TotalTasks[1][0],this.TotalTasks[1][1],this.TotalTasks[1][2],this.TotalTasks[1][3],
-            this.TotalTasks[1][4],this.TotalTasks[1][5],this.TotalTasks[1][6]],
-            backgroundColor: 'yellow'
-          },
-          {
-            label: "Completed Task",
-            data: [this.TotalTasks[2][0],this.TotalTasks[2][1],this.TotalTasks[2][2],this.TotalTasks[2][3],
-            this.TotalTasks[2][4],this.TotalTasks[2][5],this.TotalTasks[2][6]],
-            backgroundColor: 'green'
-          }  
+            data: this.TotalTasks[1],
+            backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
+          borderColor: 'rgba(255, 206, 86, 1)',
+          borderWidth: 3,
+        },
+        {
+          label: "Completed Task",
+          data: this.TotalTasks[2],
+          backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 3,
+        }
 
         ]
         
       },
       options: {
-        aspectRatio:1.1,
-        
+        aspectRatio: 1.7,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+            },
+          },
+          title: {
+            display: true,
+            text: 'Meeting Status by Day of the Week',
+            font: {
+              size: 14,
+            },
+          },
+        },
       }
-      
     });
   
   }
@@ -294,30 +336,70 @@ export class HomeComponent implements OnInit{
     var myChart2 = new Chart("myChart2", {
       type: 'bar',
       data: {// values on X-Axis
-        labels: ['Sunday','Monday','Tuesday' ,'Wednesday','Thursday','Friday','Saturday'], 
+        labels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'], 
 	       datasets: [
           {
-            label: "Organised Tasks",
-            data: ['0','600','576', '572', '679', '92','0'
-								 ],
+            label: "Organised Meetings",
+            data: this.TotalMeetingStatus[1],
             backgroundColor: 'blue'
           },
           {
-            label: "Attended Tasks",
-            data: ['42', '42', '36', '27', '17'],
+            label: "Attended Meetings",
+            data: this.TotalMeetingStatus[0],
             backgroundColor: 'pink'
           }
         ]
         
       },
       options: {
-        aspectRatio:1.1
-              
+        aspectRatio: 1.7,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+            },
+          },
+          title: {
+            display: true,
+            text: 'Meeting Status by Day of the Week',
+            font: {
+              size: 14,
+            },
+          },
+        },
       }
-      
     });
+     
   }
+}
+
+
+
+
+
+
+
+
   
 
 
-}
+

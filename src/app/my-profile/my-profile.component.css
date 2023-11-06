@@ -61,8 +61,8 @@
   display: flex;
   
  
-  border-radius: 50%;
-  overflow: hidden;
+  background-size: cover;
+   padding-left: 30px;
   height: 150px;
   width: 150px;
 }
@@ -71,7 +71,8 @@
 .profile-pic {
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+   border-radius: 4px;
+    
     background-size: cover;
     object-fit: cover;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
@@ -80,7 +81,7 @@
 .profile-pic:hover{
     cursor: pointer;
     background-size: cover;
-    border-radius: 50%; 
+    border-radius: 4px;
     background-color: #202224;
     /*mask-image: url("src/app/my-profile/camera-1389.svg");
 }

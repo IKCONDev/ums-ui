@@ -33,7 +33,7 @@
         <div class="text-center" style="padding-left: 12px;">
             <div data-toggle="modal" data-target="#profileModal">
                 <div class="header-pic">
-                    <div class="profile-pic" id="profile-icon" *ngIf="userDetails.profilePic != null">
+                    <div class="profile-pic" id="profile-icon" *ngIf="userDetails.profilePic!= null">
                         <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="32px" height="32px"
                             alt="profile pic" />
                     </div>
@@ -64,7 +64,7 @@
 
                         <div class="modal-body">
                             <div class="container">
-                                <div class="profile-pic" *ngIf="userDetails != null">
+                                <div class="profile-pic" *ngIf="userDetails.profilePic != null">
                                     <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px"
                                         height="110px" alt="profile pic" />
                                 </div>
