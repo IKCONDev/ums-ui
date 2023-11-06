@@ -21,14 +21,16 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
   private table: any;
 
   ngAfterViewInit(): void {
-    $(document).ready(() => {
-      this.table = $('#dataTable').DataTable({
-        paging: true,
-        searching: true, // Enable search feature
-        pageLength: 7,
-        // Add other options here as needed
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#dataTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
       });
-    });
+    },50)
   }
 
   ngOnDestroy(): void {
@@ -90,10 +92,13 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.addRoleObj.roleName === '' || this.addRoleObj.roleName.trim()==="" || regex.exec(this.addRoleObj.roleName)===null) {
       this.roleNameErrorInfo = 'Role name is required';
+      this.isRoleNameValid=false;
     } else if (this.addRoleObj.roleName.length < 3) {
-      this.roleNameErrorInfo = 'Role name should have min of 3 chars'
+      this.roleNameErrorInfo = 'Role name should have min of 3 characters'
+      this.isRoleNameValid=false;
     }else if (this.addRoleObj.roleName.length>=50){
-      this.roleNameErrorInfo = 'Role name should not exceed more than 50 chars'
+      this.roleNameErrorInfo = 'Role name should not exceed more than 50 characters'
+      this.isRoleNameValid=false;
     }
      else {
       this.roleNameErrorInfo = '';
@@ -112,10 +117,13 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.existingRole.roleName === '' || this.existingRole.roleName.trim()==="" || regex.exec(this.existingRole.roleName)===null) {
       this.updatedRoleNameErrorInfo = 'Role name is required';
+      this.isUpdatedRoleNameValid = false;
     } else if (this.existingRole.roleName.length < 3) {
-      this.updatedRoleNameErrorInfo = 'Role name should have min of 3 chars'
+      this.updatedRoleNameErrorInfo = 'Role name should have min of 3 characters'
+      this.isUpdatedRoleNameValid = false;
     } else if (this.existingRole.roleName.length>=50){
-      this.updatedRoleNameErrorInfo = 'Role name should not exceed more than 50 chars'
+      this.updatedRoleNameErrorInfo = 'Role name should not exceed more than 50 characters'
+      this.isUpdatedRoleNameValid = false;
     }else {
       this.updatedRoleNameErrorInfo = '';
       this.isUpdatedRoleNameValid = true;
@@ -346,6 +354,8 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
 
     //clear update form error messages
     this.updatedRoleNameErrorInfo = '';
+    
+    this.isRoleNameValid=false;
   }
 
   /**

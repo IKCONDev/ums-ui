@@ -161,7 +161,7 @@
                                     <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
                                         <tr *ngIf="actionItem.meetingId === meeting.meetingId">
                                             <td class="actionItemRows">
-                                                <b *ngIf="actionItem.actionStatus == 'Converted' else enableCheck">
+                                                <b *ngIf="actionItem.actionStatus == 'Submitted' else enableCheck">
                                                     <input type="checkbox" disabled="true" />
                                                 </b>
                                                 <ng-template #enableCheck>

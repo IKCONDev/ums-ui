@@ -5,8 +5,12 @@
     <app-header [title]="title" id="header"></app-header>
 </div>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <div class="container-fluid">
+    
     <div class="container-body">
+        <div class="card" style="padding-top: 20px;">
+           
 
         <div class="row">
            <div class="col-sm-3 container" style="padding-right:240px ;padding-top: 24px;">
@@ -53,7 +57,7 @@
         <div class="row" *ngIf="user != null" style=" margin-left: 25px;">
             <div class="col-6">
                 <div class="full-name-parent">
-                    <div style="padding-left: 15px;" class="full-name"><label>Full Name</label></div>
+                    <b><div style="padding-left: 15px;" class="full-name"><label>Full Name</label></div></b>
                     <div class="disp-name">
                         <div class="col-6">
                             <label for="firstName" *ngIf="isDisable==true">{{ user.employee.firstName |
@@ -63,8 +67,9 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="full-name-parent">
-                    <div style="padding-left: 15px;" class="full-name"><label>Gender</label></div>
+                    <b><div style="padding-left: 15px;" class="full-name"><label>Gender</label></div></b>
                     <div class="disp-name">
                         <div class="col-6">
                             <label for="firstName" *ngIf="isDisable==true">{{user.employee.gender}}</label>
@@ -72,8 +77,9 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="full-name-parent">
-                    <div style="padding-left: 15px;" class="full-name"><label>Role</label></div>
+                   <b> <div style="padding-left: 15px;" class="full-name"><label>Role</label></div> </b>
                     <div class="disp-name">
                         <div class="col-6">
                             <label for="role" *ngIf="isDisable==true">{{user.userRoles[0].roleName}}</label>
@@ -82,8 +88,9 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="full-name-parent">
-                    <div style="padding-left: 15px;" class="full-name"><label>Department</label></div>
+                   <b> <div style="padding-left: 15px;" class="full-name"><label>Department</label></div></b>
                     <div class="disp-name">
                         <div class="col-6">
                             <label for="department"
@@ -94,20 +101,22 @@
                     </div>
                 </div>
             </div>
+            <br>
             <div class="col-6">
                 <div class="full-name-parent">
-                    <div style="padding-left: 15px;" class="full-name"><label>Display Name</label></div>
+                   <b> <div style="padding-left: 15px;" class="full-name"><label>Display Name</label></div></b>
                     <div class="disp-name">
                         <div class="col-6">
-                            <label for="DisplayName" *ngIf="isDisable==true">{{user.employee.firstName |
+                           <label for="DisplayName" *ngIf="isDisable==true">{{user.employee.firstName |
                                 titlecase}}</label>
                             <input type="text" [ngModel]="user.employee.firstName" [hidden]="isDisable" readonly="true"
                                 class="form-control">
                         </div>
                     </div>
                 </div>
+                <br>
                 <div>
-                    <div style="padding-left: 15px;" class="full-name"><label>Date Of Joining</label></div>
+                   <b> <div style="padding-left: 15px;" class="full-name"><label>Date Of Joining</label></div></b>
                     <div class="disp-name">
                         <div class="col-6">
                             <label for="dateOfJoin" *ngIf="isDisable==true">Na</label>
@@ -116,18 +125,20 @@
                         </div>
                     </div>
                 </div>
+                <br>
                 <div>
-                    <div style="padding-left: 15px;" class="full-name"><label>Designation</label></div>
+                    <b><div style="padding-left: 15px;" class="full-name"><label>Designation</label></div></b>
                     <div class="disp-name">
                         <div class="col-6">
-                            <label for="Designation" *ngIf="isDisable==true">{{user.employee.designation}}</label>
+                            <label for="Designation" *ngIf="isDisable==true">{{user.employee.empDesignation.designationName}}</label>
                             <input type="text" id="Designation" [ngModel]="user.employee.designation"
                                 [hidden]="isDisable" readonly="true" class="form-control">
                         </div>
                     </div>
                 </div>
+                <br>
                 <div>
-                    <div style="padding-left: 15px;" class="full-name"><label>Reporting Manager</label></div>
+                   <b><div style="padding-left: 15px;" class="full-name"><label>Reporting Manager</label></div></b> 
                     <div class="disp-name">
                         <div class="col-6">
                             <label for="Reporting Manager" *ngIf="isDisable==true">{{user.employee.reportingManager}}</label>
@@ -137,7 +148,7 @@
                     </div>
                 </div>
                 <br>
-                <div style="padding-left: 15px;" class="full-name">
+                <!-- <div style="padding-left: 15px;" class="full-name">
                     <div class="disp-name">
                         <b *ngIf="isDisable !=true">
                             <button type="submit" class="btn btn-primary" (click)="updateUserInfo()">Save</button>
@@ -145,10 +156,11 @@
                         </b>
                     </div>
                 </div>
-                <div *ngIf="isDisable==true"></div>
+                <div *ngIf="isDisable==true"></div> -->
             </div>
         </div>
 
 
     </div>
+</div>
 </div>
