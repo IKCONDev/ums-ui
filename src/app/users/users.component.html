@@ -15,7 +15,7 @@
                 </div> -->
                 <div id="addBtnDiv" class="col-sm-1 d-flex">
                     <button class="form-control" 
-                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()" (click)="getActiveUMSUsersEmailIdList()"
+                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()" (click)="getAllEmployees()"
                       style="width: 80px;">
                     <p>Add</p></button>
                 </div>
@@ -127,8 +127,8 @@
                 <label><b>Email</b><span id="required">*</span></label>
                 <ng-select [searchable]="true" [clearable]="true" id="userEmail" name="userEmail" #userEmail="ngModel" style="width: 400px;"
                 [(ngModel)]="addUserObj.email" (change)=" validateUserEmailId()">
-                <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
-                    {{emailId}}
+                <ng-option [value]="employee.email" *ngFor="let employee of employeeData">
+                    {{employee.email}}
                 </ng-option>
                </ng-select>
                <!--- <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"

@@ -8,6 +8,8 @@ import { RoleService } from '../role/service/role.service';
 import { Role } from '../model/Role.model';
 import { MeetingService } from '../meetings/service/meetings.service';
 import { Router } from '@angular/router';
+import { EmployeeService } from '../employee/service/employee.service';
+import { Employee } from '../model/Employee.model';
 
 
 @Component({
@@ -43,7 +45,8 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
 
   userList :Users[];
 
-  constructor(private userService:UserService, private toastr : ToastrService, private roleService: RoleService, private meetingsService: MeetingService,private router: Router){}
+  constructor(private userService:UserService, private toastr : ToastrService, private roleService: RoleService, 
+    private meetingsService: MeetingService,private router: Router, private employeeservice:EmployeeService){}
 
   ngOnInit(): void {
 
@@ -337,6 +340,20 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
           this.router.navigateByUrl("/session-timeout")
         }
       }//error
+    })
+  }
+  employeeData: Employee[];
+  getAllEmployees() {
+    this.employeeservice.getAll().subscribe({
+      next: response => {
+        this.employeeData = response.body;
+        console.log(this.employeeData);
+      },
+      error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
     })
   }
 
