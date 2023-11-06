@@ -44,7 +44,7 @@
 
 
 table th{
-    background: var(--side-text, #ECF7FC);;
+    background: var(--side-text, #ECF7FC);
     width: 20px;
     text-align: left;
     font-size: 11px;

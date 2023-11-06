@@ -312,7 +312,7 @@ export class HomeComponent implements OnInit{
             labels: {
               usePointStyle: true,
               font: {
-                size: 12,
+                size: 10,
               },
             },
           },

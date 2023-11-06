@@ -844,7 +844,7 @@ export class ActionItemComponent implements OnInit {
       this.isTaskDueDateValid = false;
     }
     else if (new Date(this.add_Task.dueDate.toString()) < new Date(this.add_Task.startDate.toString())) {
-      this.taskDueDateErrorInfo = 'Date should`nt lessthan startdate';
+      this.taskDueDateErrorInfo = 'Date should`nt be lessthan startdate';
       this.isTaskDueDateValid = false;
     }
     else {
@@ -861,6 +861,7 @@ export class ActionItemComponent implements OnInit {
     let isOwnerValid =true;
     let isStatusValid = true;
     let isStartDateValid = true;
+    let isDueDateValid = true;
     let isPriorityValid =true;
 
     if(!this.isTaskTitleValid){
@@ -883,9 +884,14 @@ export class ActionItemComponent implements OnInit {
       var valid = this.validateTaskStartDate();
       isStartDateValid = valid;
     }
+    if(!this.isTaskDueDateValid){
+      var valid = this.validateTaskDueDate();
+      isDueDateValid = valid;
+    }
 
     if(isTitleValid == true && isDescriptionValid == true && 
       isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
+      && isDueDateValid == true
        ){
         this.add_Task.emailId = localStorage.getItem('email');
         this.add_Task.actionItemId = this.currentActionItemId;

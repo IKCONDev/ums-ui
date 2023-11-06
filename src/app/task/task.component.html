@@ -580,7 +580,7 @@
                   <div class="meeting-title-dd">
                       <div >Organizer
                           <select [(ngModel)] = "filter_Email_Organizer" #boxOrg class="actitem-organizer-filter">
-                            <option value="0">Select</option>
+                            <option value="">Select</option>
                             <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">{{userEmail}}</option>
                         </select>
                       </div>

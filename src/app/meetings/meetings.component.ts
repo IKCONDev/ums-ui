@@ -110,6 +110,30 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
+  InitailizeJqueryDataTable(){
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#assignedTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },50)
+
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#orgTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },50)
+  }
+
   /**
    * 
   */
