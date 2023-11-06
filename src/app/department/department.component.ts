@@ -525,13 +525,17 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    }
    //delete the selected departments
    if(this.departmentIdsToBeDeleted.length>0){
-    var isconfirmed = window.confirm('Are you sure, you really want to delete these departments ?')
+    var isconfirmed = window.confirm('Are you sure, you really want to delete selected departments ?')
     if(isconfirmed){
       this.departmentService.deleteSelectedDepartmentsById(this.departmentIdsToBeDeleted).subscribe({
         next:(response) => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Departments deleted sucessfully')  
+            if(this.departmentIdsToBeDeleted.length > 1){
+              this.toastr.success('Departments deleted sucessfully') 
+            } else{
+              this.toastr.success('Department '+this.departmentIdsToBeDeleted+' is deleted.') 
+            }
             setTimeout(()=>{
               window.location.reload();
             },1000)  

@@ -319,7 +319,11 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         (response => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Designations deleted sucessfully')  
+            if(this.designationIdsToBeDeleted.length > 1){
+              this.toastr.success('Designations deleted sucessfully') 
+            } else{
+              this.toastr.success('Designation '+this.designationIdsToBeDeleted+ ' is deleted sucessfully.') 
+            }
             setTimeout(()=>{
               window.location.reload();
             },1000)  
