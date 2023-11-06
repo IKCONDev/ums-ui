@@ -99,7 +99,7 @@ export class HomeService {
 
   fetchMeetingStatusforWeek(startdate:string,endDate:string){
    const emailId= localStorage.getItem('email')
-    return this.http.get<Object[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/MeetingsChartData`, {
+    return this.http.get<number[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/MeetingsChartData`, {
       observe: 'response',params:{startdate:startdate,endDate:endDate,emailId:emailId} ,headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
       }

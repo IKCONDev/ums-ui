@@ -3,7 +3,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, Output } from '@angular/co
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
-import { ActionItems } from '../model/Actionitem.model'; 
+import { ActionItems } from '../model/Actionitem.model';
 import { ActionItemComponent } from '../action-item/action-item.component';
 import { ActionService } from '../action-item/service/action.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -82,7 +82,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     endDate: ''
 
   }
-  
+
   updatedetails = {
     actionItemId: 0,
     meetingId: 0,
@@ -110,6 +110,30 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
+  InitailizeJqueryDataTable(){
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#assignedTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },50)
+
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#orgTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },50)
+  }
+
   /**
    * 
   */
@@ -125,11 +149,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         var targetrow = $(this).closest('tr').next('.detail');
         if (previousRow && previousRow[0] !== targetrow[0]) {
           previousRow.hide(500).find('div').slideUp('slow');
-          $('.mainCheckBox').prop('checked',false)
+          $('.mainCheckBox').prop('checked', false)
         }
         else if (previousRow && previousRow[0] === targetrow[0]) {
           targetrow.hide(500).find('div').slideUp('slow');
-          $('.mainCheckBox').prop('checked',false)
+          $('.mainCheckBox').prop('checked', false)
           previousRow = null;
           return;
         }
@@ -150,7 +174,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     )
     //set default tab to OrganizedMeetings tab when application is opened
-    localStorage.setItem('tabOpened','OrganizedMeeting');
+    localStorage.setItem('tabOpened', 'OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
     this.getMeetings(this.tabOpened);
@@ -203,7 +227,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateActionTitle(): boolean {
     // var actionItemTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.addDetails.actionItemTitle === ''|| this.addDetails.actionItemTitle.trim()==="" || regex.exec(this.addDetails.actionItemTitle)===null) {
+    if (this.addDetails.actionItemTitle === '' || this.addDetails.actionItemTitle.trim() === "" || regex.exec(this.addDetails.actionItemTitle) === null) {
       this.actionItemTitleErrorInfo = "Title is required";
       this.isActionItemTitleValid = false;
     } else if (this.addDetails.actionItemTitle.length <= 5) {
@@ -226,7 +250,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateActionDescription(): boolean {
     //var actionItemDescription = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim()==="" || regex.exec(this.addDetails.actionItemDescription)===null) {
+    if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim() === "" || regex.exec(this.addDetails.actionItemDescription) === null) {
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
     } else if (this.addDetails.actionItemDescription.length <= 10) {
@@ -336,7 +360,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     //reset the create meeting error messages
     this.meetingSubjectErrorInfo = '';
-    this.meetingStartDateErrorInfo ='';
+    this.meetingStartDateErrorInfo = '';
     this.meetingEndDateErrorInfo = '';
     this.meetingAttendeesErrorInfo = '';
   }
@@ -370,7 +394,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateActionItemOwner() {
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
-    if (this.addDetails.actionItemOwner === null || this.addDetails.actionItemOwner.length===0) {
+    if (this.addDetails.actionItemOwner === null || this.addDetails.actionItemOwner.length === 0) {
       this.actionItemOwnerErrorInfo = 'Owner is required';
       this.isActionItemOwnerValid = false;
     } else {
@@ -448,23 +472,23 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.addDetails.emailId = localStorage.getItem('email');
       this.actionItemService.saveActionItem(this.addDetails).subscribe({
         next: (response) => {
-        this.response = response.body;
-        this.actions_details = response.body;
-        console.log(this.response);
-        if (response.status === HttpStatusCode.Ok) {
-          this.toastr.success('Action item added sucessfully !');
-          document.getElementById('closeAddModal').click();
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000)
-        }
-      },
-      error: (error)=>{
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl("/session-timeout")
-        }
-      }//error
-    });
+          this.response = response.body;
+          this.actions_details = response.body;
+          console.log(this.response);
+          if (response.status === HttpStatusCode.Ok) {
+            this.toastr.success('Action item added sucessfully !');
+            document.getElementById('closeAddModal').click();
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000)
+          }
+        },
+        error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl("/session-timeout")
+          }
+        }//error
+      });
       this.fetchActionItemsOfEvent(this.currentMeetingId);
       //reset the form after submitting
       form.form.reset();
@@ -486,12 +510,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         // this.actionItemsOfEvent = response.body;
         this.actionItemsOfMeeting = response.body;
       }),
-      error: (error)=>{
-        if(error.status === HttpStatusCode.Unauthorized){
+      error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
         }
       }//error
-  })
+    })
   }
 
   /**
@@ -513,7 +537,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("attendedMeeting").style.borderBottom = 'none';
       //get user organized meetings
       this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe({
-        next: (response) =>{
+        next: (response) => {
           this.meetings = response.body;
           this.meetingCount = response.body.length
           localStorage.setItem('meetingCount', this.meetingCount.toString());
@@ -540,8 +564,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           });
         },//next
-        error: (error) =>{
-          if(error.status === HttpStatusCode.Unauthorized){
+        error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl("/session-timeout")
           }
         }//error
@@ -553,19 +577,19 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("organizedMeeting").style.borderBottom = 'none';
       //get user attended meetings
       this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe({
-        next:(response) => {
+        next: (response) => {
           //extract the meetings from response object
           this.attendedMeetings = response.body;
           this.attendedMeetingCount = response.body.length
           localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
           console.log(this.attendedMeetings);
         },//next
-        error: (error)=>{
-          if(error.status === HttpStatusCode.Unauthorized){
+        error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl("/session-timeout")
           }
         }//error
-    })//subscribe
+      })//subscribe
     }
   }
 
@@ -633,27 +657,31 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.toastr.error('No action items selected to delete');
       return;
     }
-    
-    console.log('deleteActionItems()')
-    //subscribe to the response
-    this.meetingsService.deleteActionItemsOfMeeting(actionItemIds, meetingId).subscribe({
-      next: (response) => {
-        this.isMetingActionItemsDeleted = response.body;
-        console.log(this.isMetingActionItemsDeleted);
-        if (this.isMetingActionItemsDeleted) {
-          this.toastr.success('Action items are deleted')
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000)
-        } else {
-          this.toastr.error('Action items were not deleted, try again')
-        }
-      },error: (error)=>{
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl("/session-timeout")
-        }
-      }//error
-  })
+    var isConfirmed = window.confirm('Are you sure, you really want to delete the selected action items ?');
+    if (isConfirmed) {
+      console.log('deleteActionItems()')
+      //subscribe to the response
+      this.meetingsService.deleteActionItemsOfMeeting(actionItemIds, meetingId).subscribe({
+        next: (response) => {
+          this.isMetingActionItemsDeleted = response.body;
+          console.log(this.isMetingActionItemsDeleted);
+          if (this.isMetingActionItemsDeleted) {
+            this.toastr.success('Action items are deleted')
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000)
+          } else {
+            this.toastr.error('Action items were not deleted, try again')
+          }
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl("/session-timeout")
+          }
+        }//error
+      })
+    } else {
+      this.toastr.warning('Action items not deleted.');
+    }
   }
 
 
@@ -710,26 +738,26 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   editActionItem(id: number) {
     this.actionItemService.getActionItemById(id).subscribe({
-      next:(response) => {
-      this.actionItems_new = response.body;
-      console.log(this.actionItems_new);
-      this.updatedetails.actionItemId = this.actionItems_new.actionItemId;
-      this.updatedetails.actionItemDescription = this.actionItems_new.actionItemDescription;
-      this.updatedetails.meetingId = this.actionItems_new.meetingId;
-      this.updatedetails.actionStatus = this.actionItems_new.actionStatus;
-      console.log(this.actionItems_new.actionItemDescription);
-      this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
-      this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
-      this.updatedetails.actionItemOwner = this.actionItems_new.actionItemOwner;
-      this.updatedetails.startDate = this.actionItems_new.startDate;
-      this.updatedetails.endDate = this.actionItems_new.endDate;
+      next: (response) => {
+        this.actionItems_new = response.body;
+        console.log(this.actionItems_new);
+        this.updatedetails.actionItemId = this.actionItems_new.actionItemId;
+        this.updatedetails.actionItemDescription = this.actionItems_new.actionItemDescription;
+        this.updatedetails.meetingId = this.actionItems_new.meetingId;
+        this.updatedetails.actionStatus = this.actionItems_new.actionStatus;
+        console.log(this.actionItems_new.actionItemDescription);
+        this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
+        this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
+        this.updatedetails.actionItemOwner = this.actionItems_new.actionItemOwner;
+        this.updatedetails.startDate = this.actionItems_new.startDate;
+        this.updatedetails.endDate = this.actionItems_new.endDate;
 
-    },error: (error)=>{
-      if(error.status === HttpStatusCode.Unauthorized){
-        this.router.navigateByUrl("/session-timeout")
-      }
-    }//error
-  });
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    });
     console.log("data fetching");
   }
 
@@ -779,17 +807,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(this.actionItemsToBeSubmitted);
 
     this.meetingsService.submitActionItems(this.actionItemsToBeSubmitted, meeting).subscribe({
-      next:(response) => {
+      next: (response) => {
         console.log(response.body)
         var isActionItemsSubmitted = response.body;
         this.toastr.success('Action items converted to task successfully')
         setTimeout(() => {
           window.location.reload();
         }, 1000)
-      },error: (error)=>{
-        if(error.status === HttpStatusCode.Unauthorized){
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
-        }else{
+        } else {
           this.toastr.error('Error while submitting action items. Please try again !')
         }
       }//error
@@ -822,12 +850,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //   console.log(this.userEmailIdList[0]);
     // }});
     this.meetingsService.getActiveUserEmailIdList().subscribe({
-      next:(response) => {
+      next: (response) => {
         this.userEmailIdList = response.body;
         console.log(response.body);
         console.log(this.userEmailIdList);
-      },error: (error)=>{
-        if(error.status === HttpStatusCode.Unauthorized){
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
         }
       }//error
@@ -857,7 +885,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateUpdateActionTitle() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.updatedetails.actionItemTitle === '' || this.updatedetails.actionItemTitle.trim()==="" || regex.exec(this.updatedetails.actionItemTitle)===null) {
+    if (this.updatedetails.actionItemTitle === '' || this.updatedetails.actionItemTitle.trim() === "" || regex.exec(this.updatedetails.actionItemTitle) === null) {
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
     } else if (this.updatedetails.actionItemTitle.length <= 5) {
@@ -879,7 +907,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateUpdateActionDescription() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim()==="" ||  regex.exec(this.updatedetails.actionItemDescription)===null) {
+    if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim() === "" || regex.exec(this.updatedetails.actionItemDescription) === null) {
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
     } else if (this.updatedetails.actionItemDescription.length <= 10) {
@@ -920,7 +948,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateUpdateActionItemOwner() {
     //var actionItemOwner = event.target.value;
-    if (this.updatedetails.actionItemOwner === null || this.updatedetails.actionItemOwner.length===0) {
+    if (this.updatedetails.actionItemOwner === null || this.updatedetails.actionItemOwner.length === 0) {
       this.updateActionItemOwnerErrorInfo = 'Owner is required';
       this.isUpdateActionItemOwnerValid = false;
     } else {
@@ -1015,22 +1043,22 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.id = this.updatedetails.actionItemId;
       console.log(this.updatedetails);
       this.actionItemService.updateActionItem(this.updatedetails).subscribe({
-        next:(response) => {
-        this.data = response.body;
-        console.log(this.data);
-        //var modal = document.getElementById('myModal');
-        //modal.setAttribute('data-dismiss','modal');
-        document.getElementById('closeUpdateModal').click();
-        this.toastr.success('Action item updated successfully');
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000)
-      },error: (error)=>{
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl("/session-timeout")
-        }
-      }//error
-    });
+        next: (response) => {
+          this.data = response.body;
+          console.log(this.data);
+          //var modal = document.getElementById('myModal');
+          //modal.setAttribute('data-dismiss','modal');
+          document.getElementById('closeUpdateModal').click();
+          this.toastr.success('Action item updated successfully');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000)
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl("/session-timeout")
+          }
+        }//error
+      });
 
       //need to change this later
       //window.location.reload();
@@ -1136,41 +1164,41 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingData = meeting;
     console.log(this.meetingData);
   }
- 
 
-/** send Mom Email */
-emailListForsendingMOM : string[];
-SendActionItemList = new Array() ;
-momObject : MOMObject;
-resultData : boolean;
-discussionPoints : string;
-sendMOMEmail(){
- 
-  for(var i=0; i<this.actionItemsOfMeeting.length; i++){
 
-     if(this.meetingData.meetingId == this.actionItemsOfMeeting[i].meetingId){
-         this.SendActionItemList.push(this.actionItemsOfMeeting[i]);
-         //console.log("loop executed successfully"+i);
-     }
-  }
-  console.log("the entered discussion points:"+this.discussionPoints);
-  console.log(this.SendActionItemList);
-  console.log("entered sendmom email method");
-    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM,this.meetingData,this.discussionPoints).subscribe({
-     next: (response) =>{
-     if(response.status == HttpStatusCode.Ok){
-        this.toastr.success("Email sent successfully");
-        document.getElementById('closeSendMoMEmail').click();
+  /** send Mom Email */
+  emailListForsendingMOM: string[];
+  SendActionItemList = new Array();
+  momObject: MOMObject;
+  resultData: boolean;
+  discussionPoints: string;
+  sendMOMEmail() {
+
+    for (var i = 0; i < this.actionItemsOfMeeting.length; i++) {
+
+      if (this.meetingData.meetingId == this.actionItemsOfMeeting[i].meetingId) {
+        this.SendActionItemList.push(this.actionItemsOfMeeting[i]);
+        //console.log("loop executed successfully"+i);
       }
-      else{
-         this.toastr.error("Error occured while sending email, please try again");
-      }
-    },error: (error)=>{
-      if(error.status === HttpStatusCode.Unauthorized){
-        this.router.navigateByUrl("/session-timeout")
-      }
-    }//error
-  })
+    }
+    console.log("the entered discussion points:" + this.discussionPoints);
+    console.log(this.SendActionItemList);
+    console.log("entered sendmom email method");
+    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints).subscribe({
+      next: (response) => {
+        if (response.status == HttpStatusCode.Ok) {
+          this.toastr.success("Email sent successfully");
+          document.getElementById('closeSendMoMEmail').click();
+        }
+        else {
+          this.toastr.error("Error occured while sending email, please try again");
+        }
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    })
   }
 
   addMeeting = {
@@ -1202,46 +1230,46 @@ sendMOMEmail(){
     var isEndDateValid = true;
     var isAttendeesValid = true;
 
-    if(this.isMeetingSubjectValid === false){
+    if (this.isMeetingSubjectValid === false) {
       var valid = this.validateMeetingSubject();
       isSubjectvalid = valid;
     }
-    if(this.isMeetingStartDateValid === false){
+    if (this.isMeetingStartDateValid === false) {
       var valid = this.validateMeetingStartDateTime();
       isStartDateValid = valid;
     }
-    if(this.isMeetingEndDateValid === false){
+    if (this.isMeetingEndDateValid === false) {
       var valid = this.validateMeetingEndDateTime();
       isEndDateValid = valid;
     }
-    if(this.isMeetingAttendeesValid === false){
+    if (this.isMeetingAttendeesValid === false) {
       var valid = this.validateMeetingAttendees();
       isAttendeesValid = valid;
     }
 
-    if(isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid){
+    if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid) {
       //create meeting
-    console.log(this.addMeeting)
-    this.meetingsService.createMeeting(this.addMeeting).subscribe({
-      next: (response) => {
-        if (response.status === HttpStatusCode.Created) {
-          //get the created meeting
-          this.createdMeeting = response.body;
-          console.log(response.body);
-          this.toastr.success('Meeting created successfully');
-          document.getElementById('closeCreateMeetingModal').click();
-          setTimeout(()=>{
-            window.location.reload();
-          },1000);
-        } else {
-          this.toastr.error('Error while creating meeting. Please try again !');
-        }
-      },error: (error)=>{
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl("/session-timeout")
-        }
-      }//error
-    })
+      console.log(this.addMeeting)
+      this.meetingsService.createMeeting(this.addMeeting).subscribe({
+        next: (response) => {
+          if (response.status === HttpStatusCode.Created) {
+            //get the created meeting
+            this.createdMeeting = response.body;
+            console.log(response.body);
+            this.toastr.success('Meeting created successfully');
+            document.getElementById('closeCreateMeetingModal').click();
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else {
+            this.toastr.error('Error while creating meeting. Please try again !');
+          }
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl("/session-timeout")
+          }
+        }//error
+      })
     }
   }
 
@@ -1249,7 +1277,7 @@ sendMOMEmail(){
   isMeetingSubjectValid = false;
   validateMeetingSubject() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.addMeeting.subject === '' || this.addMeeting.subject.trim()==="" || regex.exec(this.addMeeting.subject)===null) {
+    if (this.addMeeting.subject === '' || this.addMeeting.subject.trim() === "" || regex.exec(this.addMeeting.subject) === null) {
       this.meetingSubjectErrorInfo = 'Meeting subject is required';
       this.isMeetingSubjectValid = false;
     } else if (this.addMeeting.subject.length < 4) {
@@ -1320,35 +1348,35 @@ sendMOMEmail(){
    * 
    * @param index 
    */
-   toggleMainCheckbox(index: number){
-    if(!$('#ac-check'+index).is(':checked')){
-      $('.mainCheckBox').prop('checked',false)
+  toggleMainCheckbox(index: number) {
+    if (!$('#ac-check' + index).is(':checked')) {
+      $('.mainCheckBox').prop('checked', false)
     }
-   }
-   //Duration of meeting
-   hoursDiff : any
-   minutesDiff  : any
-   getDuration(meeting : Meeting){
-     var startdate =  new Date(meeting.startDateTime);
-     var endDate = new Date(meeting.endDateTime);
-     this.hoursDiff = (endDate.getHours()-startdate.getHours());
-     this.minutesDiff = (endDate.getMinutes()-startdate.getMinutes());
+  }
+  //Duration of meeting
+  hoursDiff: any
+  minutesDiff: any
+  getDuration(meeting: Meeting) {
+    var startdate = new Date(meeting.startDateTime);
+    var endDate = new Date(meeting.endDateTime);
+    this.hoursDiff = (endDate.getHours() - startdate.getHours());
+    this.minutesDiff = (endDate.getMinutes() - startdate.getMinutes());
 
-   }
-   emailListErrorInfo = '';
-   isemailforSendMoMEmailValid = false;
-   validateMoMEmail(){
-      
-    if(this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0){
-       this.emailListErrorInfo = 'choose the emailId to send Email';
-       console.log("Email List is"+this.emailListForsendingMOM);
-       this.isemailforSendMoMEmailValid = false;
+  }
+  emailListErrorInfo = '';
+  isemailforSendMoMEmailValid = false;
+  validateMoMEmail() {
+
+    if (this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0) {
+      this.emailListErrorInfo = 'choose the emailId to send Email';
+      console.log("Email List is" + this.emailListForsendingMOM);
+      this.isemailforSendMoMEmailValid = false;
     }
-    else{
-       this.emailListErrorInfo =''
-       this.isemailforSendMoMEmailValid = true;
+    else {
+      this.emailListErrorInfo = ''
+      this.isemailforSendMoMEmailValid = true;
     }
-     
-   }
+
+  }
 }
 

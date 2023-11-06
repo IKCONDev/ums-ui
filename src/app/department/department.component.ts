@@ -26,7 +26,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    },50)
+    },70)
   }
 
   ngOnDestroy(): void {
