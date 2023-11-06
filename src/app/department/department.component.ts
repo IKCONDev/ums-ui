@@ -179,7 +179,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     if(this.addDepartment.departmentHead === ''|| this.addDepartment.departmentHead.trim()==="" || regex.exec(this.addDepartment.departmentHead)===null){
       this.departmentHeadErrorInfo = 'Department head is required';
       this.isDepartmentHeadValid = false;
-    }else if(this.addDepartment.departmentHead.length < 3){
+    }else if(this.addDepartment.departmentHead.length <3){
         this.departmentHeadErrorInfo = 'Department head should have minimum of 3 characters.';
         this.isDepartmentHeadValid = false;
     }else if(this.addDepartment.departmentHead.length>=50){
@@ -206,7 +206,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if(this.addDepartment.departmentCode.length < 2){
       this.departmentCodeErrorInfo = 'Department code should be minimum of 2 characters.';
       this.isDepartmentCodeValid = false;
-    }else if(this.addDepartment.departmentCode.length >= 4){
+    }else if(this.addDepartment.departmentCode.length > 4){
       this.departmentCodeErrorInfo = 'Department code should not exceed more than 4 characters.';
       this.isDepartmentCodeValid = false;
     }
@@ -430,7 +430,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if(this.existingDepartment.departmentCode.length < 2){
       this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 2 characters.';
       this.isUpdatedDepartmentCodeValid=false;
-    }else if(this.existingDepartment.departmentCode.length >=4){
+    }else if(this.existingDepartment.departmentCode.length >4){
       this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 4 characters.';
       this.isUpdatedDepartmentCodeValid=false;
     }

@@ -166,9 +166,19 @@
                 </span>
                 <br />
                 <label><b>Reporting Manager</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
+                
+               <!--- <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
                     [(ngModel)]="addEmployee.reportingManager" id="reportingManager" name="reportingManager"
-                    #reportingManager="ngModel" (keyup)="validateEmployeeReportingManager()" />
+                    #reportingManager="ngModel" (keyup)="validateEmployeeReportingManager()" />-->
+                <ng-select [searchable]="true" [clearable]="true" id="reportingManager"
+                    name="reportingManager" style="width: 400px;" (change)="validateEmployeeReportingManager()"
+                    [(ngModel)]="addEmployee.reportingManager" placeholder="choose Reporting Manager">
+                    <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+
+                    <ng-option [value]="employee.email" *ngFor="let employee of employeeData">
+                        {{employee.firstName}} {{employee.lastName}}
+                    </ng-option>
+                </ng-select>
                 <span *ngIf="employeeReportingManagerErrorInfo != ''">
                     <p id="errorMessage">{{ employeeReportingManagerErrorInfo}}</p>
                 </span>
