@@ -173,7 +173,7 @@
                     <p id="errorMessage">{{ employeeReportingManagerErrorInfo}}</p>
                 </span>
                 <br />
-                <label><b>Department</b></label>
+                <label><b>Department</b><span id="required">*</span></label>
                 <select class="form-control" class="addEmployeeInput form-control form-select" placeholder="department"
                     [(ngModel)]="addEmployee.departmentId" id="employeeDept" name="employeeDept" #employeeDept="ngModel"
                     (change)="validateEmployeeDepartment()">
@@ -187,7 +187,7 @@
                 </span>
                 <br />
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
-                <label><b>Designation</b></label>
+                <label><b>Designation</b><span id="required">*</span></label>
                 <select class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
                     name="employeeDesgn" (click)="validateEmployeeDesignation()"
                     [(ngModel)]="addEmployee.empDesignation.id">
@@ -277,7 +277,7 @@
                     <p id="errorMessage">{{ updateReportingManagerErrorInfo}}</p>
                 </span>
                 <br />
-                <label><b>Department</b></label>
+                <label><b>Department</b><span id="required">*</span></label>
                 <select class="addEmployeeInput form-control form-select" placeholder="Department"
                     [(ngModel)]="existingEmployee.departmentId" id="updateDept" name="updateDept" #updateDept="ngModel"
                     (change)="validateUpdateDepartment()">
@@ -290,7 +290,7 @@
                     <p id="errorMessage">{{updateDepartmentErrorInfo}}</p>
                 </span><br />
                 <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId" /><br/>-->
-                <label><b>Designation</b></label>
+                <label><b>Designation</b><span id="required">*</span></label>
                 <select class="addEmployeeInput form-control form-select" placeholder="designation" id="updateDesgn"
                     name="updateDesgn" #updateDesgn="ngModel" (change)="validateUpdateDesignation()"
                     [(ngModel)]="existingEmployee.empDesignation.id">
