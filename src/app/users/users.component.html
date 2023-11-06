@@ -15,7 +15,7 @@
                 </div> -->
                 <div id="addBtnDiv" class="col-sm-1 d-flex">
                     <button class="form-control" 
-                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()"
+                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()" (click)="getActiveUMSUsersEmailIdList()"
                       style="width: 80px;">
                     <p>Add</p></button>
                 </div>
@@ -118,15 +118,22 @@
                 (click)="clearErrorMessages()"><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
-            <div class="modal-body" >
+            <!--<div class="modal-body" >-->
+             <form #form="ngForm" id="formId" method="POST">
                 <!--<label><b>First Name</b></label>
                 <input type="text" class="adduserInput form-control" placeholder="First Name"/><br/>
                 <label><b>Last Name</b></label>
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b><span id="required">*</span></label>
-                <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
+                <ng-select [searchable]="true" [clearable]="true" id="userEmail" name="userEmail" #userEmail="ngModel" style="width: 400px;"
+                [(ngModel)]="addUserObj.email" (change)=" validateUserEmailId()">
+                <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                    {{emailId}}
+                </ng-option>
+               </ng-select>
+               <!--- <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
                 required ="true"  id="usrEmailId" name="usrEmailId" #usrEmailId="ngModel" [class.invalid]="usrEmailId.invalid && usrEmailId.touched"
-                (keyup)=" validateUserEmailId()"/>
+                (keyup)=" validateUserEmailId()"/>-->
                 <div *ngIf="useremailIdErrorInfo != ''">
                     <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br/>
@@ -143,12 +150,13 @@
                 </div>
                  <br/>
                  <!--  <input type="text" class="adduserInput form-control" placeholder="Role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"/>-->
-            </div>
+            <!--</div>-->
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="createUser()">Save</button>
                 <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" id="closeAddModal" (click)="clearErrorMessages()">Close</button>
             </div>
+        </form>
         </div>
     </div>
 </div>
@@ -217,7 +225,7 @@
                   </div> -->
                   <div class="meeting-title-dd">
                     <div class="meeting-title-filter">
-                        <input type ="text" #boxTaskName placeholder="userId" name="userId" />
+                        <input type ="text" #boxTaskName placeholder="User ID" name="userId" />
                         <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                     </div>          					
                 </div>
@@ -228,6 +236,12 @@
                           <option>Active</option>
                           <option>Inactive</option>
                       </select>
+                    </div>
+                    <div  style="padding-top: 15px;">Role
+                        <select #boxPri class="actitem-organizer-filter">
+                            <option value="">select</option>
+                            <option></option>
+                        </select>
                     </div>
                 </div>
                 <!---  <div class="date-range">

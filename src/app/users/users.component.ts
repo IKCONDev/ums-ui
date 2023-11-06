@@ -6,6 +6,8 @@ import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../role/service/role.service';
 import { Role } from '../model/Role.model';
+import { MeetingService } from '../meetings/service/meetings.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -41,7 +43,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
 
   userList :Users[];
 
-  constructor(private userService:UserService, private toastr : ToastrService, private roleService: RoleService){}
+  constructor(private userService:UserService, private toastr : ToastrService, private roleService: RoleService, private meetingsService: MeetingService,private router: Router){}
 
   ngOnInit(): void {
 
@@ -277,8 +279,9 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
  isEmailValid = false;
  useremailIdErrorInfo ="";
  validateUserEmailId(){
-    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
-   if(this.addUserObj.email == ''||emailRegExp.test(this.addUserObj.email)===false){
+   var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
+    //emailRegExp.test(this.addUserObj.email)===false
+   if(this.addUserObj.email == ''){
       this.useremailIdErrorInfo = "Email ID is required";
       this.isEmailValid = false;
    }
@@ -316,6 +319,26 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     this.isEmailValid = false;
     this.isRoleNameValid = false;
  }
+
+ userEmailIdList: string[];
+  /**
+   * get the list of active users
+   */
+  getActiveUMSUsersEmailIdList() {
+    //perform an AJAX call to get list of users
+    var isActive: boolean = true;
+    this.meetingsService.getActiveUserEmailIdList().subscribe({
+      next: (response) => {
+        this.userEmailIdList = response.body;
+        console.log(response.body);
+        console.log(this.userEmailIdList);
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    })
+  }
 
 
 }
