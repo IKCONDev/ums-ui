@@ -123,6 +123,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   constructor(private service: TaskService, private meetingService: MeetingService, 
     private toastr: ToastrService, private router: Router) { 
+      
     }
 
   /**
@@ -187,6 +188,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
     else {
+      //this.resetFilterModal();
       document.getElementById("OrganizedTask").style.borderBottom = '2px solid white';
       document.getElementById("OrganizedTask").style.width = 'fit-content';
       document.getElementById("OrganizedTask").style.paddingBottom = '2px';
