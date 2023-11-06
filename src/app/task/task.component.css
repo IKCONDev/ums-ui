@@ -49,6 +49,11 @@ table th{
     text-align: left;
     font-size: 11px;
   }
+
+  table tbody tr td {
+    padding-left: 18px;
+  }
+
 th,td{
     
     overflow: hidden; /* Hide overflowing content */

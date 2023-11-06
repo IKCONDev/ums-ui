@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class SideMenubarComponent {
 
+  loggedInUserRole = localStorage.getItem('userRole');
   activate='';
   isMenuActive:boolean = false;
   overviewActive:string;
@@ -24,6 +25,7 @@ export class SideMenubarComponent {
    * 
    */
   ngOninit(){
+    
   }
 
   /**
