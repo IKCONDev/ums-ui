@@ -41,14 +41,14 @@ export class HomeComponent implements OnInit{
   selectedOption2:string;
   onSelectChange(){
     console.log("entered onselect change")
-    if(this.selectedOption==='Week'){
+    if(this.selectedOption==='Week'||this.selectedOption==='months'){
       this.fetchTaskStatus();
     }
     
   }
   onSelectChange2(){
     console.log("entered onselect change")
-    if(this.selectedOption2==='Week'){
+    if(this.selectedOption2==='Week'||this.selectedOption2==='months'){
       this.fetchTaskStatus2();
     }
   }
@@ -198,6 +198,7 @@ export class HomeComponent implements OnInit{
   TotalTasks:any[];
   
   fetchTaskStatus(){
+    if(this.selectedOption==='Week'){
       console.log("entered the fetch details of task")
       const currentDate=new Date();
       const startDate=new Date(currentDate);
@@ -213,11 +214,22 @@ export class HomeComponent implements OnInit{
         next: response =>{
         this.TotalTasks=response.body;
         console.log(this.TotalTasks)
-        
-        this.createChart();
-        
+        this.createChart(); 
         }
       })
+    }
+    else if(this.selectedOption==='months'){
+        const startDate=new Date();
+        const endDate=new Date();
+
+        startDate.setFullYear(2023,0,1);
+        startDate.setHours(0,0);
+        startDate.setMilliseconds(0)
+        endDate.setFullYear(2023,11,31);
+        console.log(startDate);
+        this.createChart();
+
+    }
 
       
       
@@ -225,6 +237,7 @@ export class HomeComponent implements OnInit{
     }
     TotalMeetingStatus:any[];
     fetchTaskStatus2(){
+
       console.log("entered the fetch details of meetings")
       const currentDate=new Date();
       const startDate=new Date(currentDate);
@@ -256,13 +269,13 @@ export class HomeComponent implements OnInit{
     })
   }
    
-
+  myChart=null;
   createChart(){
-    
-    var myChart = new Chart("myChart", {
+    if(this.selectedOption==='Week'){
+     this.myChart = new Chart("myChart", {
       type: 'bar',
       data: {// values on X-Axis
-        labels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'], 
+        xLabels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'],
 	       datasets: [
           {
             label: "Assigned Task",
@@ -309,16 +322,20 @@ export class HomeComponent implements OnInit{
           legend: {
             display: true,
             position: 'top',
+            align:'center',
             labels: {
               usePointStyle: true,
               font: {
-                size: 10,
+                size: 12,
               },
+              padding: 16,
+              pointStyle:'rectRounded',
+          
             },
           },
           title: {
             display: true,
-            text: 'Meeting Status by Day of the Week',
+            text: 'Task Status of current Week',
             font: {
               size: 14,
             },
@@ -326,28 +343,35 @@ export class HomeComponent implements OnInit{
         },
       }
     });
-  
-  }
-  
-  
-
-
-  createChart2(){
-    var myChart2 = new Chart("myChart2", {
+  }else if(this.selectedOption==='months'){
+    myChart.destroy();
+    var myChart = new Chart("myChart", {
       type: 'bar',
       data: {// values on X-Axis
-        labels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'], 
+        xLabels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'],
 	       datasets: [
           {
-            label: "Organised Meetings",
-            data: this.TotalMeetingStatus[1],
-            backgroundColor: 'blue'
+            label: "Assigned Task",
+            data: this.TotalTasks[0],
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 3,
           },
           {
-            label: "Attended Meetings",
-            data: this.TotalMeetingStatus[0],
-            backgroundColor: 'pink'
-          }
+            label: "Inprogress Task",
+            data: this.TotalTasks[1],
+            backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
+          borderColor: 'rgba(255, 206, 86, 1)',
+          borderWidth: 3,
+        },
+        {
+          label: "Completed Task",
+          data: this.TotalTasks[2],
+          backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 3,
+        }
+
         ]
         
       },
@@ -371,16 +395,20 @@ export class HomeComponent implements OnInit{
           legend: {
             display: true,
             position: 'top',
+            align:'center',
             labels: {
               usePointStyle: true,
               font: {
                 size: 12,
               },
+              padding: 16,
+              pointStyle:'rectRounded',
+          
             },
           },
           title: {
             display: true,
-            text: 'Meeting Status by Day of the Week',
+            text: 'Task Status of current Week',
             font: {
               size: 14,
             },
@@ -388,9 +416,91 @@ export class HomeComponent implements OnInit{
         },
       }
     });
-     
   }
-}
+  
+  
+  }
+  
+  
+
+
+  createChart2() {
+    if (this.selectedOption2 === 'Week') {
+      var dayColors = ['red', 'blue', 'green', 'pink', 'purple', 'orange', 'lightgreen'];
+      var myChart2 = new Chart("myChart2", {
+        type: 'pie',
+        data: {
+          labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          datasets: [
+            {
+              label: "Organised Meetings",
+              data: this.TotalMeetingStatus[1],
+              backgroundColor: dayColors,
+              borderWidth: 2,
+            },
+            {
+              label: "Attended Meetings",
+              data: this.TotalMeetingStatus[0],
+              backgroundColor: dayColors,
+              borderWidth: 2,
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 1.7,
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'right',
+              align:'end',
+              labels: {
+                usePointStyle: true,
+                font: {
+                  size: 12,
+                },
+                padding: 16,
+                pointStyle:'rectRounded',
+            
+              },
+            },
+            title: {
+              display: true,
+              text: 'Meeting Status of Current Week',
+              align: 'start',
+              font: {
+                size: 14,
+              },
+            },
+          },
+          elements: {
+            arc: {
+              borderRadius:3,
+              borderWidth: 2,
+              borderAlign:'inner' // Set the border width for pie chart segments
+            },
+          },
+        }
+      });
+    } else if (this.selectedOption2 === 'months') {
+      myChart2.clear();
+
+    }
+  }
+  
+  }
+  
+  
+  
+  
+
 
 
 

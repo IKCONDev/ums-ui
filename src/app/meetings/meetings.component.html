@@ -559,10 +559,10 @@
                     </button>
                 </div>
                 <br>
+            <!-- modal body/form -->
+            <form #form="ngForm" id="momform" method="POST" style="padding-right: 20px;">
+                <label><b>Add recipients</b><span id="required">*</span></label>
                 <!-- modal body/form -->
-                <form #form="ngForm" id="momform" method="POST" style="padding-right: 20px;">
-                    <label><b>Superiors</b><span id="required">*</span></label>
-
                     <div style="padding-left: 10px;">
                         <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM" #sendMOM="ngModel"
                             [multiple]="true" style="width: 400px;" [(ngModel)]="emailListForsendingMOM "

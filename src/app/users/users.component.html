@@ -15,12 +15,12 @@
                 </div> -->
                 <div id="addBtnDiv" class="col-sm-1 d-flex">
                     <button class="form-control" 
-                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()"
+                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()" (click)="getActiveUMSUsersEmailIdList()"
                       style="width: 80px;">
                     <p>Add</p></button>
                 </div>
                 <div class="col-sm-1 d-flex"  style="padding-top: 10px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" data-toggle="modal" data-target="#filterModal">
                         <path
                             d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
                             fill="#E5EEF1" />
@@ -118,15 +118,22 @@
                 (click)="clearErrorMessages()"><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
-            <div class="modal-body" >
+            <!--<div class="modal-body" >-->
+             <form #form="ngForm" id="formId" method="POST">
                 <!--<label><b>First Name</b></label>
                 <input type="text" class="adduserInput form-control" placeholder="First Name"/><br/>
                 <label><b>Last Name</b></label>
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b><span id="required">*</span></label>
-                <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
+                <ng-select [searchable]="true" [clearable]="true" id="userEmail" name="userEmail" #userEmail="ngModel" style="width: 400px;"
+                [(ngModel)]="addUserObj.email" (change)=" validateUserEmailId()">
+                <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                    {{emailId}}
+                </ng-option>
+               </ng-select>
+               <!--- <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
                 required ="true"  id="usrEmailId" name="usrEmailId" #usrEmailId="ngModel" [class.invalid]="usrEmailId.invalid && usrEmailId.touched"
-                (keyup)=" validateUserEmailId()"/>
+                (keyup)=" validateUserEmailId()"/>-->
                 <div *ngIf="useremailIdErrorInfo != ''">
                     <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br/>
@@ -143,12 +150,13 @@
                 </div>
                  <br/>
                  <!--  <input type="text" class="adduserInput form-control" placeholder="Role" [(ngModel)]="addUserObj.userRoles.at(0).roleName"/>-->
-            </div>
+            <!--</div>-->
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="createUser()">Save</button>
                 <button type="button" class="btn btn-outline-danger closeButton" data-dismiss="modal" id="closeAddModal" (click)="clearErrorMessages()">Close</button>
             </div>
+        </form>
         </div>
     </div>
 </div>
@@ -197,3 +205,61 @@
     </div>
 </div>
 
+<!-- custom advanced filter modal -->
+<div class="modal" id="filterModal">
+    <div class="modal-dialog" id="dialog">
+      <div class="modal-content"> 
+        <div class="filters-user">
+          <div class="filters-parent">
+              <div class="filters">Filters</div>
+              <img class="cross-icon" alt="" src="../../assets/images/cross.svg" 
+              id="closeModal" data-dismiss="modal" style="cursor: pointer;">
+          </div>
+          <div class="filter-dd">              
+              <div class="meeting-title-dd-parent">
+                  <!-- <div class="meeting-title-dd">
+                      <div class="meeting-title-filter">
+                          <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
+                          <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
+                      </div>          					
+                  </div> -->
+                  <div class="meeting-title-dd">
+                    <div class="meeting-title-filter">
+                        <input type ="text" #boxTaskName placeholder="User ID" name="userId" />
+                        <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
+                    </div>          					
+                </div>
+                  <div class="meeting-title-dd">
+                    <div >User Status
+                        <select #boxPri class="actitem-organizer-filter">
+                          <option value="">Select</option>
+                          <option>Active</option>
+                          <option>Inactive</option>
+                      </select>
+                    </div>
+                    <div  style="padding-top: 15px;">Role
+                        <select #boxPri class="actitem-organizer-filter">
+                            <option value="">select</option>
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+                <!---  <div class="date-range">
+                      <div class="date-parent">
+                          <input type="datetime-local" />
+                      </div>
+                      <div class="to">To</div>
+                      <div class="date-parent">
+                          <input type="datetime-local" #boxEnd />
+                      </div>
+                  </div>-->
+              </div>
+          </div>
+          <div class="submit-button-parent">
+              <button type="button" class="submit-button" >Apply</button>
+              <button type="button" class="delete-button" >Clear</button>
+          </div>
+      </div>  
+      </div>
+    </div>
+</div>
