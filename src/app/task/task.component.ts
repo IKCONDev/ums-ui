@@ -576,8 +576,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
        this.istaskDeleted = res.body;
        console.log(this.istaskDeleted);
        if (this.istaskDeleted) {
-         console.log("tasks deleted");
-         this.toastr.success("tasks Deleted");
+         if(taskIds.length > 1){
+          this.toastr.success("tasks Deleted");
+         }else{
+          this.toastr.success('task ' +taskIds+ 'is Deleted');
+         }
          setTimeout(() => {
           window.location.reload();
          },1000)

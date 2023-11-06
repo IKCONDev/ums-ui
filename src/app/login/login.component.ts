@@ -293,6 +293,7 @@ getTokenPopup(request) {
           localStorage.setItem('userId', this.loginInfo.userId);
           localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
           localStorage.setItem('jwtExpiry',this.loginInfo.jwtExpiry)
+          console.log(localStorage.getItem('userRole'))
           let navigationExtras: NavigationExtras = {
             state: {
               loginInfo: this.loginInfo

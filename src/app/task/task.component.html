@@ -47,7 +47,7 @@
                     <th style="width: 150px;">Title</th>
                     <th>Assignees</th>
                     <th>Start Date & Time</th>
-                    <th>Due Date & Time</th>
+                    <th>End Date & Time</th>
                     <th>Priority</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -111,8 +111,8 @@
                         <th>Title</th>
                         <th>ActionItem</th>
                         <th>Assignees</th>
-                        <th>Start Date</th>
-                        <th>Due Date</th>
+                        <th>Start Date & Time</th>
+                        <th>End Date & Time</th>
                         <th>Priority</th>
                         <th>Status</th>
                         <th></th>
@@ -133,7 +133,7 @@
                     <th style="width: 150px;">Title</th>
                     <th>Owner</th>
                     <th>Start Date & Time</th>
-                    <th>Due Date & Time</th>
+                    <th>End Date & Time</th>
                     <th style="padding-left:6px;">Priority</th>
                     <th>Status</th>
                     <th></th>
@@ -324,11 +324,10 @@
                                                 <div *ngIf="taskStartDateErrorInfo!=''">
                                                     <span id="error_msg">{{taskStartDateErrorInfo}}</span>
                                                 </div>
-
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>Due Date & Time</b><span id="required">*</span></td>
+                                            <td><b>End Date & Time</b><span id="required">*</span></td>
                                             <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
@@ -499,7 +498,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>Due Date & Time</b></td>
+                                            <td><b>End Date & Time</b></td>
                                             <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"

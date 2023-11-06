@@ -321,7 +321,11 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         next: (response) => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
-            this.toastr.success('Roles deleted sucessfully')  
+            if(this.roleIdsToBeDeleted.length > 1){
+              this.toastr.success('Roles deleted sucessfully.')  
+            }else{
+              this.toastr.success('Role '+this.roleIdsToBeDeleted+' is deleted.')
+            }
             setTimeout(()=>{
               window.location.reload();
             },1000)  
