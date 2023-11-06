@@ -1188,21 +1188,26 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log("the entered discussion points:" + this.discussionPoints);
     console.log(this.SendActionItemList);
     console.log("entered sendmom email method");
-    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints).subscribe({
-      next: (response) => {
-        if (response.status == HttpStatusCode.Ok) {
-          this.toastr.success("Email sent successfully");
-          document.getElementById('closeSendMoMEmail').click();
-        }
-        else {
-          this.toastr.error("Error occured while sending email, please try again");
-        }
-      }, error: (error) => {
-        if (error.status === HttpStatusCode.Unauthorized) {
-          this.router.navigateByUrl("/session-timeout")
-        }
-      }//error
-    })
+    var isEmailvalid = true; 
+    var valid = this.validateMoMEmail();
+    isEmailvalid = valid;
+    if(isEmailvalid){
+      this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints).subscribe({
+        next: (response) => {
+          if (response.status == HttpStatusCode.Ok) {
+            this.toastr.success("Email sent successfully");
+            document.getElementById('closeSendMoMEmail').click();
+          }
+          else {
+            this.toastr.error("Error occured while sending email, please try again");
+          }
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl("/session-timeout")
+          }
+        }//error
+      })
+    }
   }
 
   addMeeting = {
@@ -1371,7 +1376,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   isemailforSendMoMEmailValid = false;
   validateMoMEmail() {
 
-    if (this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0) {
+    if (this.emailListForsendingMOM === null  || this.emailListForsendingMOM.length === 0) {
       this.emailListErrorInfo = 'choose the emailId to send Email';
       console.log("Email List is" + this.emailListForsendingMOM);
       this.isemailforSendMoMEmailValid = false;
@@ -1380,7 +1385,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.emailListErrorInfo = ''
       this.isemailforSendMoMEmailValid = true;
     }
-
+    return this.isemailforSendMoMEmailValid;
   }
 }
 
