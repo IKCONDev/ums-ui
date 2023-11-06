@@ -130,7 +130,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    */
   ngOnInit(): void {
-
+    
     //disable past date times
     this.min = this.pastDateTime();
 

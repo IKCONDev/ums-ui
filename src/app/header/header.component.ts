@@ -99,6 +99,7 @@ export class HeaderComponent {
    // localStorage.setItem('tabOpened','OrganizedMeeting');
     this.toastr.success('Hope you had a great experience','Logged out success')
    // window.localStorage.clear ();
+     window.localStorage.clear();
     this.router.navigateByUrl('/login');
   }
 }
