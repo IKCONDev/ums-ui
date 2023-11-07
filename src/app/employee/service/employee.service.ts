@@ -108,6 +108,16 @@ export class EmployeeService {
             )
         });
     }
+   
+    getAllEmployeeStatus(){
+        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/getemployee-status`, {
+            observe: 'response', headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+            )
+        });
+        
+    }
 
 }
 
