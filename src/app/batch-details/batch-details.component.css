@@ -27,6 +27,7 @@
 
 #thead {
     background: var(--side-text, #ECF7FC);
+    font-size: 12px;
 }
 
 #tablehead{

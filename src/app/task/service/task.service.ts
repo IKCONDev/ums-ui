@@ -60,17 +60,15 @@ export class TaskService{
         filter_Priority: string, filter_Email_Organizer: string, 
         filter_StartDate:string,
         filter_EndDate: string){
-            if(filter_TaskName != '' || filter_TaskName != null  || 
-            filter_Priority != '' || filter_Priority != null 
-            || filter_StartDate != '' || filter_Priority != null
-            || filter_EndDate != '' || filter_EndDate != null || 
-            filter_Email_Organizer != '' || filter_Email_Organizer != null){
-                console.log(filter_TaskName)
-                console.log(filter_Priority)
-                console.log(filter_Email_Organizer)
-                console.log(filter_StartDate)
-                console.log(filter_EndDate)
+            if (
+                (filter_TaskName !== '' && filter_TaskName !== 'null') ||
+                (filter_Priority !== '' && filter_Priority !== 'null') ||
+                (filter_StartDate !== '' && filter_StartDate !== 'null') ||
+                (filter_EndDate !== '' && filter_EndDate !== 'null') ||
+                (filter_Email_Organizer !== '' && filter_Email_Organizer !== 'null')
+              ) {
 
+                //prepare request parameters
                 let params = new HttpParams()
                 .set('taskTitle',filter_TaskName)
                 .set('taskPriority',filter_Priority)
