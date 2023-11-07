@@ -136,7 +136,7 @@
                 </div>
 
                 <!-- orgAddress -->
-                <h5>Address details</h5>
+                <h5>Address details<span id="required">*</span></h5>
                 <p *ngIf="org.orgAddress === null&& isDisable == false || org.orgAddress === ''  && isDisable == false">-</p>
                 <label *ngIf="org.orgAddress !== null && isDisable==false">{{org.orgAddress}}</label>
                 <div>
@@ -227,7 +227,7 @@
                     <div class="col-sm-3">
                         <label>Country</label>
                     </div>
-                    <div *ngIf="org.orgCountry === null&& isDisable == false|| org.orgCountry=== null&& isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgCountry === null&& isDisable == false|| org.orgCountry=== '' && isDisable == false" class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
