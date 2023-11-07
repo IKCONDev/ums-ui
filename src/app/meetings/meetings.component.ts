@@ -121,7 +121,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * 
    */
-  InitailizeJqueryDataTable(){
+  InitailizeJqueryDataTable() {
     setTimeout(() => {
       $(document).ready(() => {
         this.table = $('#assignedTable').DataTable({
@@ -131,7 +131,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    },100)
+    }, 100)
 
     setTimeout(() => {
       $(document).ready(() => {
@@ -142,7 +142,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    },50)
+    }, 50)
   }
 
   /**
@@ -185,10 +185,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     )
 
-    if(this.selectedReporteeOrganizedMeeting === 'null'){
+    if (this.selectedReporteeOrganizedMeeting === 'null') {
       this.selectedReporteeOrganizedMeeting = localStorage.getItem('email');
     }
-    if(this.selectedReporteeAssignedMeeting === 'null'){
+    if (this.selectedReporteeAssignedMeeting === 'null') {
       this.selectedReporteeAssignedMeeting = localStorage.getItem('email');
     }
 
@@ -203,7 +203,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.pastDateTime();
 
     //get reportees data of logged in user
-    this.getEmployeeReportees();
+    if(this.loggedInUserRole === 'ADMIN'){
+      this.getAllEmployees();
+    }else{
+      this.getEmployeeReportees();
+    }
 
     //initialize jquery datatable meetings table
     this.InitailizeJqueryDataTable();
@@ -561,7 +565,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("organizedMeeting").style.paddingBottom = '2px';
       document.getElementById("attendedMeeting").style.borderBottom = 'none';
       //get user organized meetings
-      if(this.selectedReporteeOrganizedMeeting != '' && this.selectedReporteeOrganizedMeeting != null){
+      if (this.selectedReporteeOrganizedMeeting != '' && this.selectedReporteeOrganizedMeeting != null) {
         this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting).subscribe({
           next: (response) => {
             this.meetings = response.body;
@@ -573,10 +577,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 //enable the transcript icon, if transcript is not available for the meeting
                 meeting.isTranscriptDisabled = false;
                 console.log('transcript found for the meeting')
-  
+
                 //store the count of transcripts available for the meeting
                 this.transcriptsCount = meeting.meetingTranscripts.length;
-  
+
                 //iterate through transcripts of the meeting and merge it into a single transcript
                 meeting.meetingTranscripts.forEach(transcript => {
                   //split the transcript data properly to display to the user 
@@ -596,7 +600,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           }//error
         })//subscribe
-      }else{
+      } else {
         this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe({
           next: (response) => {
             this.meetings = response.body;
@@ -608,10 +612,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 //enable the transcript icon, if transcript is not available for the meeting
                 meeting.isTranscriptDisabled = false;
                 console.log('transcript found for the meeting')
-  
+
                 //store the count of transcripts available for the meeting
                 this.transcriptsCount = meeting.meetingTranscripts.length;
-  
+
                 //iterate through transcripts of the meeting and merge it into a single transcript
                 meeting.meetingTranscripts.forEach(transcript => {
                   //split the transcript data properly to display to the user 
@@ -633,46 +637,46 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         })//subscribe
       }
     } else {
-      if(this.selectedReporteeAssignedMeeting != '' && this.selectedReporteeAssignedMeeting != null){
+      if (this.selectedReporteeAssignedMeeting != '' && this.selectedReporteeAssignedMeeting != null) {
         document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
-      document.getElementById("attendedMeeting").style.paddingBottom = '2px';
-      document.getElementById("attendedMeeting").style.width = 'fit-content';
-      document.getElementById("organizedMeeting").style.borderBottom = 'none';
-      //get user attended meetings
-      this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting).subscribe({
-        next: (response) => {
-          //extract the meetings from response object
-          this.attendedMeetings = response.body;
-          this.attendedMeetingCount = response.body.length
-          localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
-          console.log(this.attendedMeetings);
-        },//next
-        error: (error) => {
-          if (error.status === HttpStatusCode.Unauthorized) {
-            this.router.navigateByUrl("/session-timeout")
-          }
-        }//error
-      })//subscribe
-      }else{
+        document.getElementById("attendedMeeting").style.paddingBottom = '2px';
+        document.getElementById("attendedMeeting").style.width = 'fit-content';
+        document.getElementById("organizedMeeting").style.borderBottom = 'none';
+        //get user attended meetings
+        this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting).subscribe({
+          next: (response) => {
+            //extract the meetings from response object
+            this.attendedMeetings = response.body;
+            this.attendedMeetingCount = response.body.length
+            localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
+            console.log(this.attendedMeetings);
+          },//next
+          error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl("/session-timeout")
+            }
+          }//error
+        })//subscribe
+      } else {
         document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
-      document.getElementById("attendedMeeting").style.paddingBottom = '2px';
-      document.getElementById("attendedMeeting").style.width = 'fit-content';
-      document.getElementById("organizedMeeting").style.borderBottom = 'none';
-      //get user attended meetings
-      this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe({
-        next: (response) => {
-          //extract the meetings from response object
-          this.attendedMeetings = response.body;
-          this.attendedMeetingCount = response.body.length
-          localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
-          console.log(this.attendedMeetings);
-        },//next
-        error: (error) => {
-          if (error.status === HttpStatusCode.Unauthorized) {
-            this.router.navigateByUrl("/session-timeout")
-          }
-        }//error
-      })//subscribe
+        document.getElementById("attendedMeeting").style.paddingBottom = '2px';
+        document.getElementById("attendedMeeting").style.width = 'fit-content';
+        document.getElementById("organizedMeeting").style.borderBottom = 'none';
+        //get user attended meetings
+        this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe({
+          next: (response) => {
+            //extract the meetings from response object
+            this.attendedMeetings = response.body;
+            this.attendedMeetingCount = response.body.length
+            localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
+            console.log(this.attendedMeetings);
+          },//next
+          error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl("/session-timeout")
+            }
+          }//error
+        })//subscribe
       }
     }
   }
@@ -750,10 +754,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.isMetingActionItemsDeleted = response.body;
           console.log(this.isMetingActionItemsDeleted);
           if (this.isMetingActionItemsDeleted) {
-            if(actionItemIds.length > 1){
+            if (actionItemIds.length > 1) {
               this.toastr.success('Action items are deleted')
-            }else{
-              this.toastr.success('Action item '+actionItemIds+' is deleted')
+            } else {
+              this.toastr.success('Action item ' + actionItemIds + ' is deleted')
             }
             setTimeout(() => {
               window.location.reload();
@@ -1272,10 +1276,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log("the entered discussion points:" + this.discussionPoints);
     console.log(this.SendActionItemList);
     console.log("entered sendmom email method");
-    var isEmailvalid = true; 
+    var isEmailvalid = true;
     var valid = this.validateMoMEmail();
     isEmailvalid = valid;
-    if(isEmailvalid){
+    if (isEmailvalid) {
       this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
@@ -1460,7 +1464,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   isemailforSendMoMEmailValid = false;
   validateMoMEmail() {
 
-    if (this.emailListForsendingMOM === null  || this.emailListForsendingMOM.length === 0) {
+    if (this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0) {
       this.emailListErrorInfo = 'choose the emailId to send Email';
       console.log("Email List is" + this.emailListForsendingMOM);
       this.isemailforSendMoMEmailValid = false;
@@ -1473,10 +1477,22 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * 
+   * if Role is not Admin and have reportees excute this method
    */
-  getEmployeeReportees(){
+  getEmployeeReportees() {
     this.employeeService.getReporteesDataOfEmployee(this.loggedInUser).subscribe({
+      next: response => {
+        this.reporteeList = response.body;
+        this.reporteeCount = response.body.length;
+      }
+    })
+  }
+
+  /**
+   * if Role is Admin then get all employees
+   */
+  getAllEmployees(){
+    this.employeeService.getAll().subscribe({
       next: response => {
         this.reporteeList = response.body;
         this.reporteeCount = response.body.length;
@@ -1487,12 +1503,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * 
    */
-  storeReporteeDataOfOrganizedMeeting(){
+  storeReporteeDataOfOrganizedMeeting() {
     localStorage.setItem('selectedReporteeOrganizedMeeting', this.selectedReporteeOrganizedMeeting);
     console.log(this.selectedReporteeOrganizedMeeting);
     this.selectedReporteeOrganizedMeeting = localStorage.getItem('selectedReporteeOrganizedMeeting')
     console.log(this.selectedReporteeOrganizedMeeting)
-   // this.getTasks('OrganizedTask')
+    // this.getTasks('OrganizedTask')
     // setTimeout(() => {
     //   window.location.reload();
     // },70)
@@ -1502,12 +1518,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * 
    */
-  storeReporteeDataOfAssignedMeeting(){
+  storeReporteeDataOfAssignedMeeting() {
     localStorage.setItem('selectedReporteeAssignedMeeting', this.selectedReporteeAssignedMeeting);
     console.log(this.selectedReporteeAssignedMeeting);
     this.selectedReporteeAssignedMeeting = localStorage.getItem('selectedReporteeAssignedMeeting')
     console.log(this.selectedReporteeAssignedMeeting)
-   // this.getTasks('OrganizedTask')
+    // this.getTasks('OrganizedTask')
     // setTimeout(() => {
     //   window.location.reload();
     // },70)

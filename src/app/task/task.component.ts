@@ -172,8 +172,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('taskEndDateFilter'));
     console.log(localStorage.getItem('taskOrganizerFilter'));
 
-    //get employee reportees on initailization of component
-    this.getEmployeeReportees();
+     //get reportees data of logged in user
+     if(this.loggedInUserRole === 'ADMIN'){
+      this.getAllEmployees();
+    }else{
+      this.getEmployeeReportees();
+    }
 
     //set default as loggedin user for whom tasks should be retrived when login
     //  localStorage.setItem('selectedReportee', localStorage.getItem('email'));
@@ -874,6 +878,18 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.toastr.error('Error while fetching reportees data')
         }
+      }
+    })
+  }
+
+  /**
+   * if Role is Admin then get all employees
+   */
+  getAllEmployees(){
+    this.employeeService.getAll().subscribe({
+      next: response => {
+        this.reporteeList = response.body;
+        this.reporteeCount = response.body.length;
       }
     })
   }

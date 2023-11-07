@@ -144,8 +144,13 @@ export class ActionItemComponent implements OnInit {
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
       console.log(this.selectedReporteeOrganizedActionItem)
     }
-    //get employee reportees
-    this.getEmployeeReportees();
+    
+    //get reportees data of logged in user
+    if(this.loggedInUserRole === 'ADMIN'){
+      this.getAllEmployees();
+    }else{
+      this.getEmployeeReportees();
+    }
 
     //disable past dates  
     this.pastDateTime();
@@ -976,6 +981,18 @@ export class ActionItemComponent implements OnInit {
     var minutes: any = tdate.getMinutes();
     this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
     console.log(this.min);
+  }
+
+  /**
+   * if Role is Admin then get all employees
+   */
+  getAllEmployees(){
+    this.employeeService.getAll().subscribe({
+      next: response => {
+        this.reporteeList = response.body;
+        this.reporteeCount = response.body.length;
+      }
+    })
   }
 
   /**
