@@ -48,6 +48,7 @@ export class TwofactorAuthenticationComponent {
    * 
    */
   constructOtp() {
+    this.typeError=true;
     console.log(this.email)
     this.twofactorAuthService.generateTfOtpForUser(this.email,'TwoFactorAuth').subscribe(
       (response) => {
@@ -56,6 +57,7 @@ export class TwofactorAuthenticationComponent {
         if (this.result > 0) {
           console.log('an otp has been sent to your e-mail ' + this.result);
           this.toastr.success("OTP has been sent to your email");
+          
           let navigationExtras: NavigationExtras = {
             state: {
               email: this.email

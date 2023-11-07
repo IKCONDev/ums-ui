@@ -113,6 +113,7 @@ export class ForgotPasswordEmailVerificationComponent {
    * 
    */
   constructOtp() {
+    this.isError=true;
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
         this.result = response;
