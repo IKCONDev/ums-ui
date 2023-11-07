@@ -41,16 +41,21 @@ export class HomeComponent implements OnInit{
   selectedOption2:string;
   onSelectChange(){
     console.log("entered onselect change")
-    if(this.selectedOption==='Week'||this.selectedOption==='months'){
+    if(this.selectedOption==='Week'){
+      this.fetchTaskStatus();
+    }else if(this.selectedOption==='months'){
       this.fetchTaskStatus();
     }
     
   }
   onSelectChange2(){
     console.log("entered onselect change")
-    if(this.selectedOption2==='Week'||this.selectedOption2==='months'){
+    if(this.selectedOption2==='Week'){
+      this.fetchTaskStatus2();
+    }else if(this.selectedOption2==='months'){
       this.fetchTaskStatus2();
     }
+    
   }
   
   //get the latest selected component on page load /refresh
@@ -134,8 +139,13 @@ export class HomeComponent implements OnInit{
     this.getUserAssignedTasksCount();
     this.getUserOrganizedTasksCount();
     this.getUserAttendedMeetingCount();
-    this.selectedOption="Week";
-    this.selectedOption2="Week";
+    if(this.selectedOption!='months'){
+   this.selectedOption="Week";
+    }
+    if(this.selectedOption2!='months'){
+      this.selectedOption2="Week";
+       }
+    
     this.onSelectChange();
     this.onSelectChange2();
     
@@ -196,9 +206,13 @@ export class HomeComponent implements OnInit{
   }
   
   TotalTasks:any[];
+  TotalTasksForYear:any[];
   
   fetchTaskStatus(){
     if(this.selectedOption==='Week'){
+      if(this.myChart!=null){
+      this.myChart.destroy();
+      }
       console.log("entered the fetch details of task")
       const currentDate=new Date();
       const startDate=new Date(currentDate);
@@ -219,25 +233,35 @@ export class HomeComponent implements OnInit{
       })
     }
     else if(this.selectedOption==='months'){
+      if(this.myChart!=null){
+        this.myChart.destroy();
+        }
         const startDate=new Date();
         const endDate=new Date();
-
         startDate.setFullYear(2023,0,1);
-        startDate.setHours(0,0);
-        startDate.setMilliseconds(0)
+        startDate.setHours(0,0,0,0);
         endDate.setFullYear(2023,11,31);
+        endDate.setHours(23,59,59,999);
         console.log(startDate);
-        this.createChart();
-
+        this.homeService.fetchTaskStatusForYear(startDate.toISOString(),endDate.toISOString()).subscribe({
+          next: response =>{
+            console.log("entered the else if of fetchTask for year")
+            this.TotalTasksForYear=response.body;
+            console.log(this.TotalTasksForYear)
+            this.createChart(); 
+            }
+          })
+        
     }
-
-      
-      
 
     }
     TotalMeetingStatus:any[];
+    TotalMeetingStatusForYear:any[];
     fetchTaskStatus2(){
-
+      if(this.myChart2!=null){
+        this.myChart2.destroy();
+        }
+      if(this.selectedOption2==='Week'){
       console.log("entered the fetch details of meetings")
       const currentDate=new Date();
       const startDate=new Date(currentDate);
@@ -255,18 +279,36 @@ export class HomeComponent implements OnInit{
       next:response=>{
         console.log(response);
         this.TotalMeetingStatus=response.body;
-        console.log(this.TotalMeetingStatus[0]);
-        console.log(this.TotalMeetingStatus[1]);
-        console.log(this.TotalMeetingStatus[2]);
-        console.log(this.TotalMeetingStatus[3]);
-        console.log(this.TotalMeetingStatus[4]);
-        console.log(this.TotalMeetingStatus[5]);
-        console.log(this.TotalMeetingStatus[6]);
-        
         this.createChart2();
       
       }
     })
+  }else if(this.selectedOption2==='months'){
+    if(this.myChart2!=null){
+      this.myChart2.destroy();
+      }
+    const startDate=new Date();
+    const endDate=new Date();
+
+    startDate.setFullYear(2023,0,1);
+    startDate.setHours(0,0,0,0);
+    
+    endDate.setFullYear(2023,11,31);
+    endDate.setHours(23,59,59,999);
+    console.log(startDate+" "+endDate);
+    this.homeService.fetchMeetingStatusForYear(startDate.toISOString(),endDate.toISOString()).subscribe({
+      next: response =>{
+        console.log("entered the else if of fetchmeetings fo year")
+        this.TotalMeetingStatusForYear=response.body;
+        console.log(this.TotalMeetingStatusForYear)
+        this.createChart2(); 
+        }
+      })
+    
+
+}
+
+    
   }
    
   myChart=null;
@@ -314,7 +356,7 @@ export class HomeComponent implements OnInit{
           y: {
             display: true,
             grid: {
-              display: false,
+              display: true,
             },
           },
         },
@@ -344,11 +386,10 @@ export class HomeComponent implements OnInit{
       }
     });
   }else if(this.selectedOption==='months'){
-    myChart.destroy();
-    var myChart = new Chart("myChart", {
+     this.myChart = new Chart("myChart", {
       type: 'bar',
       data: {// values on X-Axis
-        xLabels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'],
+        xLabels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 	       datasets: [
           {
             label: "Assigned Task",
@@ -416,18 +457,16 @@ export class HomeComponent implements OnInit{
         },
       }
     });
-  }
+  
+}
   
   
   }
-  
-  
-
-
+  myChart2=null
   createChart2() {
     if (this.selectedOption2 === 'Week') {
       var dayColors = ['red', 'blue', 'green', 'pink', 'purple', 'orange', 'lightgreen'];
-      var myChart2 = new Chart("myChart2", {
+      this.myChart2 = new Chart("myChart2", {
         type: 'pie',
         data: {
           labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -436,13 +475,15 @@ export class HomeComponent implements OnInit{
               label: "Organised Meetings",
               data: this.TotalMeetingStatus[1],
               backgroundColor: dayColors,
-              borderWidth: 2,
+              
+              borderWidth: 1.5,
             },
             {
               label: "Attended Meetings",
               data: this.TotalMeetingStatus[0],
               backgroundColor: dayColors,
-              borderWidth: 2,
+              
+              borderWidth: 1.5,
             }
           ]
         },
@@ -489,8 +530,71 @@ export class HomeComponent implements OnInit{
           },
         }
       });
-    } else if (this.selectedOption2 === 'months') {
-      myChart2.clear();
+    }  if (this.selectedOption2 === 'months') {
+      this.myChart2 = new Chart("myChart2", {
+        type: 'pie',
+        data: {
+          labels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+          datasets: [
+            {
+              label: "Organised Meetings",
+              data: this.TotalMeetingStatusForYear[1],
+              backgroundColor: dayColors,
+              
+              borderWidth: 1.5,
+            },
+            {
+              label: "Attended Meetings",
+              data: this.TotalMeetingStatusForYear[0],
+              backgroundColor: dayColors,
+              
+              borderWidth: 1.5,
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 1.7,
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'right',
+              align:'end',
+              labels: {
+                usePointStyle: true,
+                font: {
+                  size: 12,
+                },
+                padding: 16,
+                pointStyle:'rectRounded',
+            
+              },
+            },
+            title: {
+              display: true,
+              text: 'Meeting Status of Current Week',
+              align: 'start',
+              font: {
+                size: 14,
+              },
+            },
+          },
+          elements: {
+            arc: {
+              borderRadius:3,
+              borderWidth: 2,
+              borderAlign:'inner' // Set the border width for pie chart segments
+            },
+          },
+        }
+      });
 
     }
   }
