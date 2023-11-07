@@ -100,5 +100,14 @@ export class EmployeeService {
         });
     }
 
+    getReporteesDataOfEmployee(emailId: string){
+        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/${emailId}/reportees`, {
+            observe: 'response', headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+            )
+        });
+    }
+
 }
 

@@ -8,6 +8,8 @@ import { MeetingService } from '../meetings/service/meetings.service';
 import { NgForm } from '@angular/forms';
 import { HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { EmployeeService } from '../employee/service/employee.service';
+import { Employee } from '../model/Employee.model';
 
 @Component({
   selector: 'app-task',
@@ -24,6 +26,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   organizedTasks: Task[];
   assignedTasks: Task[];
   assignedTasksCount = 0;
+  reporteeList: Employee[];
+  reporteesCount: number = 0;
+  selectedReportee: string;
 
 
   isTaskTitleValid = false;
@@ -122,7 +127,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param toastr 
    */
   constructor(private service: TaskService, private meetingService: MeetingService, 
-    private toastr: ToastrService, private router: Router) { 
+    private toastr: ToastrService, private router: Router, private employeeService: EmployeeService) { 
       
     }
 
@@ -790,6 +795,27 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.CloseFilterTaskModal();
     window.location.reload();
+  }
+
+  /**
+   * get the reportees data of employee
+   */
+  getEmployeeReportees(){
+    this.employeeService.getReporteesDataOfEmployee(localStorage.getItem('email')).subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.reporteeList = response.body;
+          this.reporteesCount = response.body.length;
+        }
+      },
+      error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }else{
+          this.toastr.error('Error while fetching reportees data')
+        }
+      }
+    })
   }
 
 }
