@@ -76,4 +76,6 @@ input::-webkit-inner-spin-button {
 #required{
     color: red;
     padding-left: 3px;
-  }
+    font-size: 19px;
+    padding-right: 4px;
+}
