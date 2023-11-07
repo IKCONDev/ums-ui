@@ -148,10 +148,10 @@
                 <br />
                 <label><b>Gender</b><span id="required">*</span></label><br/>
                 <input type="radio"
-                    [(ngModel)]="addEmployee.gender" id="genderMale" name="gender"
+                    [(ngModel)]="addEmployee.gender" id="genderMale" name="gender1"
                     (change)="validateEmployeeGender()" value="Male"/>Male
                 <input type="radio"
-                    [(ngModel)]="addEmployee.gender" id="genderFemale" name="gender"
+                    [(ngModel)]="addEmployee.gender" id="genderFemale" name="gender2"
                     (change)="validateEmployeeGender()" value="Female"/>Female
                 <span *ngIf="employeeGenderErrorInfo != ''">
                     <p id="errorMessage">{{employeeGenderErrorInfo}}</p>
