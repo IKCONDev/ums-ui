@@ -113,7 +113,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label><b>Role Name</b><span id="required">*</span></label>
-                    <input type="text" class="deptInput form-control" placeholder="role name"
+                    <input type="text" class="deptInput form-control" placeholder="Role name"
                     [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()" minlength="3" maxlength="50"/><br/>
                     <span id="errorInfo" *ngIf="roleNameErrorInfo != ''">{{roleNameErrorInfo}}</span>
                 </div>
