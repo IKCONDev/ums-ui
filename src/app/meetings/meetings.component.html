@@ -300,8 +300,8 @@
                         <td>M000{{meeting.meetingId}}</td>
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime|date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -590,7 +590,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Date & Time :</b></td>
-                                        <td>{{meetingData. startDateTime|date:'MMM d, y, h:mm a'}}</td>
+                                        <td>{{meetingData. startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Duration : </b></td>
