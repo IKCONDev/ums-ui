@@ -144,7 +144,7 @@ export class ActionItemComponent implements OnInit {
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
       console.log(this.selectedReporteeOrganizedActionItem)
     }
-    
+
     //get reportees data of logged in user
     if(this.loggedInUserRole === 'ADMIN'){
       this.getAllEmployees();
