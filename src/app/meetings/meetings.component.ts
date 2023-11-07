@@ -814,7 +814,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (response) => {
         console.log(response.body)
         var isActionItemsSubmitted = response.body;
-        this.toastr.success('Action items converted to task successfully')
+        this.toastr.success('Action items submitted successfully')
         setTimeout(() => {
           window.location.reload();
         }, 1000)
