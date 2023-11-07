@@ -27,7 +27,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   assignedTasks: Task[];
   assignedTasksCount = 0;
   reporteeList: Employee[];
-  reporteesCount: number = 0;
+  reporteeCount: number = 0;
   selectedReporteeOrganized: string = localStorage.getItem('selectedReporteeOrganized');
   loggedInUserRole = localStorage.getItem('userRole');
   selectedReporteeAssigned: string = localStorage.getItem('selectedReporteeAssigned');
@@ -865,7 +865,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       next: response => {
         if (response.status === HttpStatusCode.Ok) {
           this.reporteeList = response.body;
-          this.reporteesCount = response.body.length;
+          this.reporteeCount = response.body.length;
         }
       },
       error: error => {
@@ -901,10 +901,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(this.selectedReporteeAssigned);
     this.selectedReporteeAssigned = localStorage.getItem('selectedReporteeAssigned')
     console.log(this.selectedReporteeAssigned)
-   // this.getTasks('OrganizedTask')
-    // setTimeout(() => {
-    //   window.location.reload();
-    // },70)
     window.location.reload();
   }
 
