@@ -283,10 +283,19 @@
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br />
                 <label><b>Reporting Manager</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
+                <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
                     [(ngModel)]="existingEmployee.reportingManager" id="updateReportingManager"
                     name="updateReportingManager" #updateReportingManager="ngModel"
-                    (keyup)="validateUpdateReportingManager()" />
+                    (keyup)="validateUpdateReportingManager()" /> -->
+                <ng-select [searchable]="true" [clearable]="true" id="updateReportingManager"
+                    name="updateReportingManager" style="width: 400px;" (change)="validateUpdateReportingManager()"
+                    [(ngModel)]="existingEmployee.reportingManager" placeholder="choose Reporting Manager">
+                    <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+
+                    <ng-option [value]="employee.email" *ngFor="let employee of employeeData">
+                        {{employee.firstName}} {{employee.lastName}}
+                    </ng-option>
+                </ng-select>
                 <span *ngIf="updateReportingManagerErrorInfo != ''">
                     <p id="errorMessage">{{ updateReportingManagerErrorInfo}}</p>
                 </span>

@@ -28,7 +28,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   assignedTasksCount = 0;
   reporteeList: Employee[];
   reporteesCount: number = 0;
-  selectedReportee: string;
+  selectedReportee: string = localStorage.getItem('selectedReportee');
+  loggedInUserRole = localStorage.getItem('userRole');
 
 
   isTaskTitleValid = false;
@@ -68,7 +69,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private table: any;
 
-  InitailizeJqueryDataTable(){
+  InitailizeJqueryDataTable() {
     setTimeout(() => {
       $(document).ready(() => {
         this.table = $('#table').DataTable({
@@ -77,9 +78,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           pageLength: 7,
           // Add other options here as needed
         });
-  
+
       });
-    },50)
+    }, 50)
 
     setTimeout(() => {
       $(document).ready(() => {
@@ -90,7 +91,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    },50)
+    }, 50)
   }
 
   ngAfterViewInit(): void {
@@ -126,22 +127,22 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param meetingService 
    * @param toastr 
    */
-  constructor(private service: TaskService, private meetingService: MeetingService, 
-    private toastr: ToastrService, private router: Router, private employeeService: EmployeeService) { 
-      
-    }
+  constructor(private service: TaskService, private meetingService: MeetingService,
+    private toastr: ToastrService, private router: Router, private employeeService: EmployeeService) {
+
+  }
 
   /**
    * 
    */
   ngOnInit(): void {
-    
+
     //disable past date times
     this.min = this.pastDateTime();
 
     //disable kwyboard movement on startdate
     const taskStartDate = document.getElementById('taskStartDate');
-    taskStartDate.addEventListener("keydown", function(e){
+    taskStartDate.addEventListener("keydown", function (e) {
       e.preventDefault();
     })
 
@@ -151,8 +152,13 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(this.task);
      });*/
 
+     if(this.selectedReportee === 'null'){
+      this.selectedReportee = localStorage.getItem('email');
+    }
+    console.log(this.selectedReportee)
+
     //set default tab to Organized Task when application is opened
-    localStorage.setItem('taskTabOpened','OrganizedTask');
+    localStorage.setItem('taskTabOpened', 'OrganizedTask');
     this.tabOpened = localStorage.getItem('taskTabOpened')
     console.log(this.tabOpened)
     this.getTasks(this.tabOpened);
@@ -161,6 +167,13 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('taskStartDateFilter'));
     console.log(localStorage.getItem('taskEndDateFilter'));
     console.log(localStorage.getItem('taskOrganizerFilter'));
+
+    //get employee reportees on initailization of component
+    this.getEmployeeReportees();
+
+    //set default as loggedin user for whom tasks should be retrived when login
+    //  localStorage.setItem('selectedReportee', localStorage.getItem('email'));
+    //console.log(this.selectedReportee)
   }
 
   /**
@@ -168,6 +181,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param tabOpened 
    */
   getTasks(tabOpened: string) {
+
+    //check logged in user role
+    //if (this.loggedInUserRole != 'ADMIN') {
     console.log(tabOpened)
     localStorage.setItem('taskTabOpened', tabOpened);
     this.tabOpened = localStorage.getItem('taskTabOpened')
@@ -179,46 +195,70 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
       this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe({
-        next:(response) => {
+        next: (response) => {
           console.log(response.body)
           //extract the meetings from response object
           this.assignedTasks = response.body;
           this.assignedTasksCount = response.body.length
           localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
-        },error: (error) => {
-          if(error.status === HttpStatusCode.Unauthorized){
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout');
           }
         }
       });
     }
     else {
-      //this.resetFilterModal();
       document.getElementById("OrganizedTask").style.borderBottom = '2px solid white';
       document.getElementById("OrganizedTask").style.width = 'fit-content';
       document.getElementById("OrganizedTask").style.paddingBottom = '2px';
       document.getElementById("AssignedTask").style.borderBottom = 'none';
-     // document.getElementById("delete_button").style.display="block";
 
-     //get taskList default without any filters
-      this.service.getTaskByUserId(localStorage.getItem('email'),
+      console.log(this.selectedReportee)
+      //get taskList default without any filters
+      if(this.selectedReportee != '' && this.selectedReportee != null){
+        console.log('executed selected repportee')
+        this.service.getTaskByUserId(this.selectedReportee,
         this.filter_Taskname,
         this.filter_Priority,
         this.filter_Email_Organizer,
         this.filter_StartDate,
         this.filter_EndDate).subscribe({
-        next: (res) => {
-        this.task = res.body;
-        this.taskCount = res.body.length;
-        console.log(this.task);
-      },error: (error) => {
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout');
-        }
+          next: (res) => {
+            this.task = res.body;
+            this.taskCount = res.body.length;
+            console.log(this.task);
+          }, error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl('/session-timeout');
+            }
+          }
+          
+        });
+        //this.InitailizeJqueryDataTable();
+      }else{
+        console.log('executed default repportee')
+        this.service.getTaskByUserId(localStorage.getItem('email'),
+        this.filter_Taskname,
+        this.filter_Priority,
+        this.filter_Email_Organizer,
+        this.filter_StartDate,
+        this.filter_EndDate).subscribe({
+          next: (res) => {
+            this.task = res.body;
+            this.taskCount = res.body.length;
+            console.log(this.task);
+          }, error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl('/session-timeout');
+            }
+          }
+        });
+        //this.InitailizeJqueryDataTable();
       }
-    });
+      
     }
-
+    
   }
 
   //validate Task Title
@@ -231,7 +271,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskTitle() {
     //var taskTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim()==="" || regex.exec(this.update_Task.taskTitle)===null) {
+    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim() === "" || regex.exec(this.update_Task.taskTitle) === null) {
       this.taskTitleErrrorInfo = 'Title is required';
       this.isTaskTitleValid = false;
 
@@ -261,7 +301,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskDescription() {
     // var taskDescription=event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim()==="" || regex.exec(this.update_Task.taskDescription)===null) {
+    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim() === "" || regex.exec(this.update_Task.taskDescription) === null) {
       this.taskDescriptionErrorInfo = 'Description is required';
       this.isTaskDescriptionValid = false;
     }
@@ -269,7 +309,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isTaskDescriptionValid = false;
     }
-    else if(this.update_Task.taskDescription.length >= 250){
+    else if (this.update_Task.taskDescription.length >= 250) {
       this.taskDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isTaskDescriptionValid = false;
     }
@@ -319,7 +359,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isTaskStatusValid = false;
 
     }
-    else if(this.update_Task.status === 'Select'){
+    else if (this.update_Task.status === 'Select') {
       this.taskStatusErrorInfo = 'Status is required';
       this.isTaskStatusValid = false;
     }
@@ -470,23 +510,23 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStartDateValid === true &&
       isDueDateValid === true && isStatusValid === true) {
       this.service.updateTask(this.update_Task).subscribe({
-        next:(response) => {
-        this.response = response.body;
-        //this.data = response.body;
-        if (response.status === HttpStatusCode.Ok) {
-          this.toastr.success('task updated Successfully');
-          document.getElementById('closeUpdateModal').click();
-          document.getElementById('closeAssignedUpdateModal').click();
-          setTimeout(()=>{
-            window.location.reload();
-          },1000)
+        next: (response) => {
+          this.response = response.body;
+          //this.data = response.body;
+          if (response.status === HttpStatusCode.Ok) {
+            this.toastr.success('task updated Successfully');
+            document.getElementById('closeUpdateModal').click();
+            document.getElementById('closeAssignedUpdateModal').click();
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000)
+          }
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl('/session-timeout');
+          }
         }
-      },error: (error) => {
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout');
-        }
-      }
-    });
+      });
     }
   }
 
@@ -544,13 +584,13 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * 
    */
-    checkSubCheckBoxes(){
-      if($('#mainCheckBox').is(':checked')){
-        $('.subCheckBox').prop('checked', true);
-      }else{
-        $('.subCheckBox').prop('checked', false);
-      }
-   }
+  checkSubCheckBoxes() {
+    if ($('#mainCheckBox').is(':checked')) {
+      $('.subCheckBox').prop('checked', true);
+    } else {
+      $('.subCheckBox').prop('checked', false);
+    }
+  }
 
   //Delete the tasks
   istaskDeleted: boolean = false;
@@ -563,52 +603,52 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   tasksTobeDeleted = [];
   deleteTasks(taskIds: any[]) {
     //initialize to empty array on clikck from second time
-   var isconfirmed = window.confirm("Are you sure, you really want to delete these records?")
-   if(isconfirmed){
+    var isconfirmed = window.confirm("Are you sure, you really want to delete these records?")
+    if (isconfirmed) {
 
-    this.tasksTobeDeleted = [];
-    var subCheckBoxes = document.getElementsByClassName('subCheckBox') as HTMLCollectionOf<HTMLInputElement>;
-    for(var i=0; i<subCheckBoxes.length; i++){
-     if(subCheckBoxes[i].checked){
-       this.tasksTobeDeleted.push(subCheckBoxes[i].value);
-       console.log(this.tasksTobeDeleted);
-     }
+      this.tasksTobeDeleted = [];
+      var subCheckBoxes = document.getElementsByClassName('subCheckBox') as HTMLCollectionOf<HTMLInputElement>;
+      for (var i = 0; i < subCheckBoxes.length; i++) {
+        if (subCheckBoxes[i].checked) {
+          this.tasksTobeDeleted.push(subCheckBoxes[i].value);
+          console.log(this.tasksTobeDeleted);
+        }
+      }
+      if (taskIds.length < 1) {
+        this.toastr.error('No tasks selected to delete')
+        return;
+      }
+      this.service.deleteAllTasksByTaskIds(this.tasksTobeDeleted).subscribe({
+        next: (res) => {
+          this.istaskDeleted = res.body;
+          console.log(this.istaskDeleted);
+          if (this.istaskDeleted) {
+            if (taskIds.length > 1) {
+              this.toastr.success("Tasks Deleted");
+            } else {
+              this.toastr.success('Task T00' + taskIds + 'is Deleted');
+            }
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000)
+          }
+          else {
+            console.log("tasks not deleted");
+            this.toastr.error("Action Items are not deleted try again");
+          }
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl('/session-timeout');
+          }
+        }
+      });
+
     }
-     if (taskIds.length < 1) {
-       this.toastr.error('No tasks selected to delete')
-       return;
-     }
-     this.service.deleteAllTasksByTaskIds(this.tasksTobeDeleted).subscribe({
-       next:(res) => {
-       this.istaskDeleted = res.body;
-       console.log(this.istaskDeleted);
-       if (this.istaskDeleted) {
-         if(taskIds.length > 1){
-          this.toastr.success("Tasks Deleted");
-         }else{
-          this.toastr.success('Task T00' +taskIds+ 'is Deleted');
-         }
-         setTimeout(() => {
-          window.location.reload();
-         },1000)
-       }
-       else {
-         console.log("tasks not deleted");
-         this.toastr.error("Action Items are not deleted try again");
-       }
-     },error: (error) => {
-       if(error.status === HttpStatusCode.Unauthorized){
-         this.router.navigateByUrl('/session-timeout');
-       }
-     }
-   });
-
-   }
-   else{
+    else {
       this.toastr.warning("No tasks deleted");
-        
-   }
-   
+
+    }
+
 
   }
   checkAllCheckBoxes(event: any) {
@@ -637,14 +677,14 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   getActiveUsersEmailIdList() {
     this.meetingService.getActiveUserEmailIdList().subscribe({
       next: (response) => {
-      this.userEmailIdList = response.body;
-      console.log(this.userEmailIdList);
-    },error: (error) => {
-      if(error.status === HttpStatusCode.Unauthorized){
-        this.router.navigateByUrl('/session-timeout');
+        this.userEmailIdList = response.body;
+        console.log(this.userEmailIdList);
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout');
+        }
       }
-    }
-  });
+    });
   }
 
   min: any = "";
@@ -665,66 +705,66 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     var year: any = tdate.getFullYear();
     var hours: any = tdate.getHours();
     var minutes: any = tdate.getMinutes();
-    var  min  = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
+    var min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
     this.min = min;
     return min;
-    
+
   }
-  
+
   /**
    * 
    */
-  toggleMainCheckBox(index : number){
-    if(!$('#subCheckBox'+index).is(':checked')){
-      $('#mainCheckBox').prop('checked',false);
+  toggleMainCheckBox(index: number) {
+    if (!$('#subCheckBox' + index).is(':checked')) {
+      $('#mainCheckBox').prop('checked', false);
     }
 
   }
-   
-  deleteTaskById(id:number){
+
+  deleteTaskById(id: number) {
     var isconfirmed = window.confirm("Are you sure, you want to really delete the record");
-     if(isconfirmed){
+    if (isconfirmed) {
 
       this.service.deleteTaskById(id).subscribe({
-        next : (response)=>{
-           if(response.status==HttpStatusCode.Ok){
-             this.toastr.success("Task Deleted successfully");
-             setTimeout(() => {
+        next: (response) => {
+          if (response.status == HttpStatusCode.Ok) {
+            this.toastr.success("Task Deleted successfully");
+            setTimeout(() => {
               window.location.reload();
-             },1000)
-           }
-           else{
-             this.toastr.error("Error Occured While deleting Task")
+            }, 1000)
+          }
+          else {
+            this.toastr.error("Error Occured While deleting Task")
           }
         }
-     })
+      })
 
-     }
-     else{
-      this.toastr.warning("Task T00"+id+" is not Deleted");
+    }
+    else {
+      this.toastr.warning("Task T00" + id + " is not Deleted");
 
-     }
+    }
 
-           
+
   }
 
   //filters code
   /**
    * close filter modal on click
    */
-  CloseFilterTaskModal(){
+  CloseFilterTaskModal() {
     document.getElementById('closeModal').click();
   }
 
   /**
    * reset filter
    */
-  resetFilterModal(){
-    localStorage.setItem('taskNameFilter','');
-    localStorage.setItem('taskPriorityFilter','');
-    localStorage.setItem('taskStartDateFilter','');
-    localStorage.setItem('taskEndDateFilter','');
-    localStorage.setItem('taskOrganizerFilter','');
+  resetFilterModal() {
+    localStorage.setItem('taskNameFilter', '');
+    localStorage.setItem('taskPriorityFilter', '');
+    localStorage.setItem('taskStartDateFilter', '');
+    localStorage.setItem('taskEndDateFilter', '');
+    localStorage.setItem('taskOrganizerFilter', '');
     this.CloseFilterTaskModal();
     window.location.reload();
   }
@@ -737,20 +777,20 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param taskEndDate 
    * @param taskOrganizer 
    */
-  filterTaskList(taskName: string,taskOrganizer: string, taskPriority: string, taskStartDate: string, taskEndDate: string){
+  filterTaskList(taskName: string, taskOrganizer: string, taskPriority: string, taskStartDate: string, taskEndDate: string) {
 
-    console.log(this.filter_Taskname+"popop")
-    console.log(this.filter_Priority+"popop")
-    console.log(this.filter_Email_Organizer+"popop")
-    console.log(this.filter_StartDate+"popop")
-    console.log(this.filter_EndDate+"popop")
+    console.log(this.filter_Taskname + "popop")
+    console.log(this.filter_Priority + "popop")
+    console.log(this.filter_Email_Organizer + "popop")
+    console.log(this.filter_StartDate + "popop")
+    console.log(this.filter_EndDate + "popop")
 
     //close filter modal
-    localStorage.setItem('taskNameFilter',taskName);
-    localStorage.setItem('taskPriorityFilter',taskPriority);
-    localStorage.setItem('taskStartDateFilter',taskStartDate);
-    localStorage.setItem('taskEndDateFilter',taskEndDate);
-    localStorage.setItem('taskOrganizerFilter',taskOrganizer);
+    localStorage.setItem('taskNameFilter', taskName);
+    localStorage.setItem('taskPriorityFilter', taskPriority);
+    localStorage.setItem('taskStartDateFilter', taskStartDate);
+    localStorage.setItem('taskEndDateFilter', taskEndDate);
+    localStorage.setItem('taskOrganizerFilter', taskOrganizer);
 
     console.log(localStorage.getItem('taskNameFilter'));
     console.log(localStorage.getItem('taskPriorityFilter'));
@@ -758,37 +798,37 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('taskEndDateFilter'));
     console.log(localStorage.getItem('taskOrganizerFilter'));
 
-     this.filter_Taskname = '';
-     this.filter_Priority = '';
-     this.filter_StartDate = '';
-     this.filter_EndDate = '';
-     this.filter_Email_Organizer = '';
-    
-     if(localStorage.getItem('taskNameFilter') != ''){
-      this.filter_Taskname = localStorage.getItem('taskNameFilter');
-     }
-     if(localStorage.getItem('taskPriorityFilter' )!=''){
-      this.filter_Priority = localStorage.getItem('taskPriorityFilter');
-     }
-     if(localStorage.getItem('taskStartDateFilter')){
-       this.filter_StartDate = localStorage.getItem('taskStartDateFilter');
-     }
-     if(localStorage.getItem('taskEndDateFilter')){
-      this.filter_EndDate = localStorage.getItem('taskEndDateFilter');
-     }
-     if(localStorage.getItem('taskOrganizerFilter')){
-      this.filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
-     }
+    this.filter_Taskname = '';
+    this.filter_Priority = '';
+    this.filter_StartDate = '';
+    this.filter_EndDate = '';
+    this.filter_Email_Organizer = '';
 
-      console.log(this.filter_Taskname+"--------")
-      this.service.getTaskByUserId(localStorage.getItem('email'),this.filter_Taskname,
+    if (localStorage.getItem('taskNameFilter') != '') {
+      this.filter_Taskname = localStorage.getItem('taskNameFilter');
+    }
+    if (localStorage.getItem('taskPriorityFilter') != '') {
+      this.filter_Priority = localStorage.getItem('taskPriorityFilter');
+    }
+    if (localStorage.getItem('taskStartDateFilter')) {
+      this.filter_StartDate = localStorage.getItem('taskStartDateFilter');
+    }
+    if (localStorage.getItem('taskEndDateFilter')) {
+      this.filter_EndDate = localStorage.getItem('taskEndDateFilter');
+    }
+    if (localStorage.getItem('taskOrganizerFilter')) {
+      this.filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
+    }
+
+    console.log(this.filter_Taskname + "--------")
+    this.service.getTaskByUserId(localStorage.getItem('email'), this.filter_Taskname,
       this.filter_Priority,
       this.filter_Email_Organizer,
       this.filter_StartDate,
       this.filter_EndDate).subscribe({
         next: response => {
           console.log(response)
-        },error: error => {
+        }, error: error => {
           console.log(error)
         }
       })
@@ -800,22 +840,37 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * get the reportees data of employee
    */
-  getEmployeeReportees(){
+  getEmployeeReportees() {
     this.employeeService.getReporteesDataOfEmployee(localStorage.getItem('email')).subscribe({
       next: response => {
-        if(response.status === HttpStatusCode.Ok){
+        if (response.status === HttpStatusCode.Ok) {
           this.reporteeList = response.body;
           this.reporteesCount = response.body.length;
         }
       },
       error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
+        if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl('/session-timeout');
-        }else{
+        } else {
           this.toastr.error('Error while fetching reportees data')
         }
       }
     })
+  }
+
+  /**
+   * 
+   */
+  storeReporteeData() {
+    localStorage.setItem('selectedReportee', this.selectedReportee);
+    console.log(this.selectedReportee);
+    this.selectedReportee = localStorage.getItem('selectedReportee')
+    console.log(this.selectedReportee)
+   // this.getTasks('OrganizedTask')
+    // setTimeout(() => {
+    //   window.location.reload();
+    // },70)
+    window.location.reload();
   }
 
 }

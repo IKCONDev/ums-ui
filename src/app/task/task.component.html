@@ -34,17 +34,19 @@
         </div>
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedTask'">
-        <div class="col-sm-2 d-flex" style="padding-top: 9px; ">
+        <!-- reportee dropdown -->
+        <div *ngIf="loggedInUserRole !== 'ADMIN'" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee"
             name="reportee" style="width: 400px;"
-            [(ngModel)]="selectedReportee" placeholder="choose reportee">
+            [(ngModel)]="selectedReportee" placeholder="choose reportee" (change)="storeReporteeData()">
             <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
             <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                {{reportee.firstName}} {{reportee.lastName}}
+                {{reportee.email}}
             </ng-option>
         </ng-select>
-        </div>
+        </div><br/>
+        <!-- reportee dropdown end -->
         <div calss="row d-flex" *ngIf="taskCount > 0 ; else noMeetings">
             <table id="table"  class="table table-hover">
                 <thead style="background-color: #ecf7fc;">
