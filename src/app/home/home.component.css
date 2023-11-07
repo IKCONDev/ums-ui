@@ -55,3 +55,11 @@ body {
     padding-left: 4px;
 }
 
+span svg{
+    padding-left: 10px;
+
+}
+.cardbody{
+    height: 335px
+}
+
