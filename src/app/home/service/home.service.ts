@@ -89,8 +89,9 @@ export class HomeService {
   }
 
   fetchStatusforWeek(startdate:string,endDate:string){
+    const emailId= localStorage.getItem('email')
     return this.http.get<Object[]>(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/weekTaskCount`, {
-      observe: 'response',params:{startdate:startdate,endDate:endDate} ,headers: new HttpHeaders({
+      observe: 'response',params:{startdate:startdate,endDate:endDate,emailId:emailId} ,headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
       }
       )

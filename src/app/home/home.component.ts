@@ -430,8 +430,6 @@ export class HomeComponent implements OnInit{
             display: true,
             grid: {
               display: true,
-              
-
             },
           },
         },
@@ -509,7 +507,7 @@ export class HomeComponent implements OnInit{
               labels: {
                 usePointStyle: true,
                 font: {
-                  size: 12,
+                  size: 14,
                 },
                 padding: 16,
                 pointStyle:'rectRounded',
@@ -581,14 +579,14 @@ export class HomeComponent implements OnInit{
                 font: {
                   size: 12,
                 },
-                padding: 14,
+                padding: 16,
                 pointStyle:'rectRounded',
             
               },
             },
             title: {
               display: true,
-              text: 'Meeting Status of Current Week',
+              text: 'Meeting Status of Current Year',
               align: 'start',
               font: {
                 size: 14,
