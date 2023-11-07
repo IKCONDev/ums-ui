@@ -282,6 +282,10 @@
                 <span *ngIf="updateEmailIdErrorInfo != ''">
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br />
+                <label><b>Employee ID</b><span id="required">*</span></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
+                id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="existingEmployee.employeeOrgId"/>
+                <br/>
                 <label><b>Reporting Manager</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
                     [(ngModel)]="existingEmployee.reportingManager" id="updateReportingManager"
