@@ -356,7 +356,19 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
       }
     })
   }
-
+employeeWithStatus :Employee[]
+getAllEmployeesWithStatus(){
+   this.employeeservice.getAllEmployeeStatus().subscribe({
+      next : response =>{
+         this.employeeWithStatus = response.body;
+      },
+      error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+   })
+}
 
 }
 

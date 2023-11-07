@@ -15,7 +15,7 @@
                 </div> -->
                 <div id="addBtnDiv" class="col-sm-1 d-flex">
                     <button class="form-control" 
-                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()" (click)="getAllEmployees()"
+                       id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()" (click)="getAllEmployeesWithStatus()"
                       style="width: 80px;">
                     <p>Add</p></button>
                 </div>
@@ -125,12 +125,14 @@
                 <label><b>Last Name</b></label>
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b><span id="required">*</span></label>
+                <div>
                 <ng-select [searchable]="true" [clearable]="true" id="userEmail" name="userEmail" #userEmail="ngModel" style="width: 400px;"
                 [(ngModel)]="addUserObj.email" (change)=" validateUserEmailId()">
-                <ng-option [value]="employee.email" *ngFor="let employee of employeeData">
-                    {{employee.email}}
+                <ng-option [value]="employee.email" *ngFor="let employee of employeeWithStatus">
+                   {{employee.email}}
                 </ng-option>
                </ng-select>
+               </div>
                <!--- <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
                 required ="true"  id="usrEmailId" name="usrEmailId" #usrEmailId="ngModel" [class.invalid]="usrEmailId.invalid && usrEmailId.touched"
                 (keyup)=" validateUserEmailId()"/>-->

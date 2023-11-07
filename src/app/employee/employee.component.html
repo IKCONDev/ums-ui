@@ -266,10 +266,10 @@
                 <label><b>Gender</b><span id="required">*</span></label><br/>
                 <input type="radio"
                     [(ngModel)]="existingEmployee.gender" id="genderMaleUpdate" name="gender"
-                    (click)="validateUpdateEmployeeGender()" value="male"/>Male
+                    (click)="validateUpdateEmployeeGender()" value="Male"/>Male
                 <input type="radio"
                     [(ngModel)]="existingEmployee.gender" id="genderFemaleUpdate" name="gender"
-                    (click)="validateUpdateEmployeeGender()" value="female"/>Female
+                    (click)="validateUpdateEmployeeGender()" value="Female"/>Female
                 <span *ngIf="updateGenderErrorInfo != ''">
                     <p id="errorMessage">{{updateGenderErrorInfo}}</p>
                 </span>
@@ -282,6 +282,10 @@
                 <span *ngIf="updateEmailIdErrorInfo != ''">
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br />
+                <label><b>Employee ID</b><span id="required">*</span></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
+                id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="existingEmployee.employeeOrgId"/>
+                <br/>
                 <label><b>Reporting Manager</b><span id="required">*</span></label>
                 <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
                     [(ngModel)]="existingEmployee.reportingManager" id="updateReportingManager"

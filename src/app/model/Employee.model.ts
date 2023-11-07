@@ -23,4 +23,5 @@ export class Employee{
     createdByEmailId: string;
     modifiedByEmailId: string;
     departmentName: string;
+    isUser: boolean;
 }
