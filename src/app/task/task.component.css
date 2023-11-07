@@ -44,16 +44,11 @@
 
 
 table th{
-    background: var(--side-text, #ECF7FC);
+    background: var(--side-text, #ECF7FC);;
     width: 20px;
     text-align: left;
     font-size: 11px;
   }
-
-  table tbody tr td {
-    padding-left: 18px;
-  }
-
 th,td{
     
     overflow: hidden; /* Hide overflowing content */
@@ -146,7 +141,7 @@ th,td{
  #details-section{
   display: flex;
   padding-top: 3px;
-  padding-left: 20px;
+  padding-left: 10px;
   padding-right: 10px;
 
  }
@@ -192,8 +187,6 @@ th,td{
    width: 315px;
    height: 35px;
    font-size: 14px;
-   
-   
 }
 
 #required{

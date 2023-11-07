@@ -50,7 +50,7 @@
                             <td>{{user.email}}</td>
                             <td>{{user.userRoles[0].roleName}}</td>
                             <td>{{user.active == true? 'Active': 'Inactive'}}</td>
-                            <td>{{user.active == true? 'LoginEnabed':'LoginDisabled'}}</td>
+                            <td>{{user.active == true? 'Login Enabled':'Login Disabled'}}</td>
                             <td *ngIf="user.email != loggedInUser">
                                 <label class="switch" *ngIf="user.active == true">
                                     <input type="checkbox" id="slider{{i}}" checked (change)="checkUserTogglebuttonEnabled(user,i)">
