@@ -28,8 +28,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   assignedTasksCount = 0;
   reporteeList: Employee[];
   reporteesCount: number = 0;
-  selectedReportee: string = localStorage.getItem('selectedReportee');
+  selectedReporteeOrganized: string = localStorage.getItem('selectedReporteeOrganized');
   loggedInUserRole = localStorage.getItem('userRole');
+  selectedReporteeAssigned: string = localStorage.getItem('selectedReporteeAssigned');
 
 
   isTaskTitleValid = false;
@@ -152,13 +153,16 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(this.task);
      });*/
 
-     if(this.selectedReportee === 'null'){
-      this.selectedReportee = localStorage.getItem('email');
+     if(this.selectedReporteeOrganized === 'null'){
+      this.selectedReporteeOrganized = localStorage.getItem('email');
     }
-    console.log(this.selectedReportee)
+    if(this.selectedReporteeAssigned === 'null'){
+      this.selectedReporteeAssigned = localStorage.getItem('email');
+    }
+    console.log(this.selectedReporteeOrganized)
 
     //set default tab to Organized Task when application is opened
-    localStorage.setItem('taskTabOpened', 'OrganizedTask');
+    //localStorage.setItem('taskTabOpened', 'OrganizedTask');
     this.tabOpened = localStorage.getItem('taskTabOpened')
     console.log(this.tabOpened)
     this.getTasks(this.tabOpened);
@@ -194,19 +198,35 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("AssignedTask").style.width = 'fit-content';
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
-      this.service.getAssignedTasksOfUser((localStorage.getItem('email'))).subscribe({
-        next: (response) => {
-          console.log(response.body)
-          //extract the meetings from response object
-          this.assignedTasks = response.body;
-          this.assignedTasksCount = response.body.length
-          localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
-        }, error: (error) => {
-          if (error.status === HttpStatusCode.Unauthorized) {
-            this.router.navigateByUrl('/session-timeout');
+      if(this.selectedReporteeAssigned != '' && this.selectedReporteeAssigned != null){
+        this.service.getAssignedTasksOfUser(this.selectedReporteeAssigned).subscribe({
+          next: (response) => {
+            console.log(response.body)
+            //extract the meetings from response object
+            this.assignedTasks = response.body;
+            this.assignedTasksCount = response.body.length
+            localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+          }, error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl('/session-timeout');
+            }
           }
-        }
-      });
+        });
+      }else{
+        this.service.getAssignedTasksOfUser(localStorage.getItem('email')).subscribe({
+          next: (response) => {
+            console.log(response.body)
+            //extract the meetings from response object
+            this.assignedTasks = response.body;
+            this.assignedTasksCount = response.body.length
+            localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+          }, error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl('/session-timeout');
+            }
+          }
+        });
+      }
     }
     else {
       document.getElementById("OrganizedTask").style.borderBottom = '2px solid white';
@@ -214,11 +234,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("OrganizedTask").style.paddingBottom = '2px';
       document.getElementById("AssignedTask").style.borderBottom = 'none';
 
-      console.log(this.selectedReportee)
+      console.log(this.selectedReporteeOrganized)
       //get taskList default without any filters
-      if(this.selectedReportee != '' && this.selectedReportee != null){
+      if(this.selectedReporteeOrganized != '' && this.selectedReporteeOrganized != null){
         console.log('executed selected repportee')
-        this.service.getTaskByUserId(this.selectedReportee,
+        this.service.getTaskByUserId(this.selectedReporteeOrganized,
         this.filter_Taskname,
         this.filter_Priority,
         this.filter_Email_Organizer,
@@ -861,11 +881,26 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * 
    */
-  storeReporteeData() {
-    localStorage.setItem('selectedReportee', this.selectedReportee);
-    console.log(this.selectedReportee);
-    this.selectedReportee = localStorage.getItem('selectedReportee')
-    console.log(this.selectedReportee)
+  storeReporteeDataOfOrganizedTask() {
+    localStorage.setItem('selectedReporteeOrganized', this.selectedReporteeOrganized);
+    console.log(this.selectedReporteeOrganized);
+    this.selectedReporteeOrganized = localStorage.getItem('selectedReporteeOrganized')
+    console.log(this.selectedReporteeOrganized)
+   // this.getTasks('OrganizedTask')
+    // setTimeout(() => {
+    //   window.location.reload();
+    // },70)
+    window.location.reload();
+  }
+
+   /**
+   * 
+   */
+   storeReporteeDataOfAssignedTask() {
+    localStorage.setItem('selectedReporteeAssigned', this.selectedReporteeAssigned);
+    console.log(this.selectedReporteeAssigned);
+    this.selectedReporteeAssigned = localStorage.getItem('selectedReporteeAssigned')
+    console.log(this.selectedReporteeAssigned)
    // this.getTasks('OrganizedTask')
     // setTimeout(() => {
     //   window.location.reload();

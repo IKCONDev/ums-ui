@@ -14,6 +14,8 @@ import { Users } from '../model/Users.model';
 import { count, max } from 'rxjs';
 import { JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
+import { EmployeeService } from '../employee/service/employee.service';
+import { Employee } from '../model/Employee.model';
 
 
 @Component({
@@ -53,6 +55,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   actionItemsToBeSubmittedIds = [];
   isEventActionItemsSubmitted;
   actionItemsToBeSubmitted = [];
+
+  loggedInUser: string = localStorage.getItem('email');
+  loggedInUserRole: string = localStorage.getItem('userRole')
+  reporteeList: Employee[];
+  reporteeCount: number = 0;
+  selectedReporteeOrganizedMeeting: string = localStorage.getItem('selectedReporteeOrganizedMeeting');
+  selectedReporteeAssignedMeeting: string = localStorage.getItem('selectedReporteeAssignedMeeting');
 
   //errorinformation properties
   actionItemTitleErrorInfo: string = '';
@@ -105,8 +114,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param toastr 
    */
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
-    private router: Router, private toastr: ToastrService) {
-    //this is jquery code that will slide the action items rows when show more action items link is clicked
+    private router: Router, private toastr: ToastrService, private employeeService: EmployeeService) {
 
   }
 
@@ -173,8 +181,16 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(response.body)
       })
     )
+
+    if(this.selectedReporteeOrganizedMeeting === 'null'){
+      this.selectedReporteeOrganizedMeeting = localStorage.getItem('email');
+    }
+    if(this.selectedReporteeAssignedMeeting === 'null'){
+      this.selectedReporteeAssignedMeeting = localStorage.getItem('email');
+    }
+
     //set default tab to OrganizedMeetings tab when application is opened
-    localStorage.setItem('tabOpened', 'OrganizedMeeting');
+    //localStorage.setItem('tabOpened', 'OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
     this.getMeetings(this.tabOpened);
@@ -182,6 +198,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //disable actionItem btn default
     this.isActionItemSaveButtonDisabled = true;
     this.pastDateTime();
+
+    //get reportees data of logged in user
+    this.getEmployeeReportees();
   }
 
   /**
@@ -536,33 +555,91 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("organizedMeeting").style.paddingBottom = '2px';
       document.getElementById("attendedMeeting").style.borderBottom = 'none';
       //get user organized meetings
-      this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe({
-        next: (response) => {
-          this.meetings = response.body;
-          this.meetingCount = response.body.length
-          localStorage.setItem('meetingCount', this.meetingCount.toString());
-          console.log(this.meetings);
-          this.meetings.forEach(meeting => {
-            if (meeting.meetingTranscripts.length > 0) {
-              //enable the transcript icon, if transcript is not available for the meeting
-              meeting.isTranscriptDisabled = false;
-              console.log('transcript found for the meeting')
-
-              //store the count of transcripts available for the meeting
-              this.transcriptsCount = meeting.meetingTranscripts.length;
-
-              //iterate through transcripts of the meeting and merge it into a single transcript
-              meeting.meetingTranscripts.forEach(transcript => {
-                //split the transcript data properly to display to the user 
-                //get all transcripts of the meeting and display it as single transcript
-                meeting.transcriptData = transcript.transcriptContent.split('\n');
-                console.log(meeting.transcriptData)
-              })
-            } else {
-              //disable the transcript icon, if transcript is not available for the meeting
-              meeting.isTranscriptDisabled = true;
+      if(this.selectedReporteeOrganizedMeeting != '' && this.selectedReporteeOrganizedMeeting != null){
+        this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting).subscribe({
+          next: (response) => {
+            this.meetings = response.body;
+            this.meetingCount = response.body.length
+            localStorage.setItem('meetingCount', this.meetingCount.toString());
+            console.log(this.meetings);
+            this.meetings.forEach(meeting => {
+              if (meeting.meetingTranscripts.length > 0) {
+                //enable the transcript icon, if transcript is not available for the meeting
+                meeting.isTranscriptDisabled = false;
+                console.log('transcript found for the meeting')
+  
+                //store the count of transcripts available for the meeting
+                this.transcriptsCount = meeting.meetingTranscripts.length;
+  
+                //iterate through transcripts of the meeting and merge it into a single transcript
+                meeting.meetingTranscripts.forEach(transcript => {
+                  //split the transcript data properly to display to the user 
+                  //get all transcripts of the meeting and display it as single transcript
+                  meeting.transcriptData = transcript.transcriptContent.split('\n');
+                  console.log(meeting.transcriptData)
+                })
+              } else {
+                //disable the transcript icon, if transcript is not available for the meeting
+                meeting.isTranscriptDisabled = true;
+              }
+            });
+          },//next
+          error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl("/session-timeout")
             }
-          });
+          }//error
+        })//subscribe
+      }else{
+        this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe({
+          next: (response) => {
+            this.meetings = response.body;
+            this.meetingCount = response.body.length
+            localStorage.setItem('meetingCount', this.meetingCount.toString());
+            console.log(this.meetings);
+            this.meetings.forEach(meeting => {
+              if (meeting.meetingTranscripts.length > 0) {
+                //enable the transcript icon, if transcript is not available for the meeting
+                meeting.isTranscriptDisabled = false;
+                console.log('transcript found for the meeting')
+  
+                //store the count of transcripts available for the meeting
+                this.transcriptsCount = meeting.meetingTranscripts.length;
+  
+                //iterate through transcripts of the meeting and merge it into a single transcript
+                meeting.meetingTranscripts.forEach(transcript => {
+                  //split the transcript data properly to display to the user 
+                  //get all transcripts of the meeting and display it as single transcript
+                  meeting.transcriptData = transcript.transcriptContent.split('\n');
+                  console.log(meeting.transcriptData)
+                })
+              } else {
+                //disable the transcript icon, if transcript is not available for the meeting
+                meeting.isTranscriptDisabled = true;
+              }
+            });
+          },//next
+          error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl("/session-timeout")
+            }
+          }//error
+        })//subscribe
+      }
+    } else {
+      if(this.selectedReporteeAssignedMeeting != '' && this.selectedReporteeAssignedMeeting != null){
+        document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
+      document.getElementById("attendedMeeting").style.paddingBottom = '2px';
+      document.getElementById("attendedMeeting").style.width = 'fit-content';
+      document.getElementById("organizedMeeting").style.borderBottom = 'none';
+      //get user attended meetings
+      this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting).subscribe({
+        next: (response) => {
+          //extract the meetings from response object
+          this.attendedMeetings = response.body;
+          this.attendedMeetingCount = response.body.length
+          localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
+          console.log(this.attendedMeetings);
         },//next
         error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -570,8 +647,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         }//error
       })//subscribe
-    } else {
-      document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
+      }else{
+        document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
       document.getElementById("attendedMeeting").style.paddingBottom = '2px';
       document.getElementById("attendedMeeting").style.width = 'fit-content';
       document.getElementById("organizedMeeting").style.borderBottom = 'none';
@@ -590,6 +667,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         }//error
       })//subscribe
+      }
     }
   }
 
@@ -1387,5 +1465,48 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     return this.isemailforSendMoMEmailValid;
   }
+
+  /**
+   * 
+   */
+  getEmployeeReportees(){
+    this.employeeService.getReporteesDataOfEmployee(this.loggedInUser).subscribe({
+      next: response => {
+        this.reporteeList = response.body;
+        this.reporteeCount = response.body.length;
+      }
+    })
+  }
+
+  /**
+   * 
+   */
+  storeReporteeDataOfOrganizedMeeting(){
+    localStorage.setItem('selectedReporteeOrganizedMeeting', this.selectedReporteeOrganizedMeeting);
+    console.log(this.selectedReporteeOrganizedMeeting);
+    this.selectedReporteeOrganizedMeeting = localStorage.getItem('selectedReporteeOrganizedMeeting')
+    console.log(this.selectedReporteeOrganizedMeeting)
+   // this.getTasks('OrganizedTask')
+    // setTimeout(() => {
+    //   window.location.reload();
+    // },70)
+    window.location.reload();
+  }
+
+  /**
+   * 
+   */
+  storeReporteeDataOfAssignedMeeting(){
+    localStorage.setItem('selectedReporteeAssignedMeeting', this.selectedReporteeAssignedMeeting);
+    console.log(this.selectedReporteeAssignedMeeting);
+    this.selectedReporteeAssignedMeeting = localStorage.getItem('selectedReporteeAssignedMeeting')
+    console.log(this.selectedReporteeAssignedMeeting)
+   // this.getTasks('OrganizedTask')
+    // setTimeout(() => {
+    //   window.location.reload();
+    // },70)
+    window.location.reload();
+  }
+
 }
 
