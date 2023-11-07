@@ -46,9 +46,22 @@
         <!-- row -->
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedMeeting'">
+        <!-- reportee dropdown -->
+        <div *ngIf="loggedInUserRole !== 'ADMIN' && reporteeCount > 0" style="padding-top: 9px; ">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee"
+            name="reportee" style="width: 400px;"
+            [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedMeeting()">
+            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
+            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                {{reportee.email}}
+            </ng-option>
+        </ng-select>
+        </div><br/>
+        <!-- reportee dropdown end -->
         <div class="row d-flex">
-            <table id="orgTable" class="table table-hover">
+            <!-- id="orgTable" -->
+            <table  class="table table-hover">
                 <thead id="thead">
                     <tr>
                         <th id="thead">Meeting ID</th>
@@ -284,6 +297,19 @@
     </div>
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AttendedMeeting'">
+        <!-- reportee dropdown -->
+        <div *ngIf="loggedInUserRole !== 'ADMIN' && reporteeCount > 0" style="padding-top: 9px; ">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee"
+            name="reportee" style="width: 400px;"
+            [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee" (change)="storeReporteeDataOfAssignedMeeting()">
+            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+
+            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                {{reportee.email}}
+            </ng-option>
+        </ng-select>
+        </div><br/>
+        <!-- reportee dropdown end -->
         <div class="row" *ngIf="attendedMeetingCount>0; else noMeetings">
             <table id="assignedTable" class="table table-hover" height="40">
                 <thead id="thead">

@@ -243,6 +243,7 @@ export class HomeComponent implements OnInit{
         endDate.setFullYear(2023,11,31);
         endDate.setHours(23,59,59,999);
         console.log(startDate);
+        console.log(endDate);
         this.homeService.fetchTaskStatusForYear(startDate.toISOString(),endDate.toISOString()).subscribe({
           next: response =>{
             console.log("entered the else if of fetchTask for year")
@@ -393,21 +394,21 @@ export class HomeComponent implements OnInit{
 	       datasets: [
           {
             label: "Assigned Task",
-            data: this.TotalTasks[0],
+            data: this.TotalTasksForYear[0],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
           },
           {
             label: "Inprogress Task",
-            data: this.TotalTasks[1],
+            data: this.TotalTasksForYear[1],
             backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
           borderColor: 'rgba(255, 206, 86, 1)',
           borderWidth: 3,
         },
         {
           label: "Completed Task",
-          data: this.TotalTasks[2],
+          data: this.TotalTasksForYear[2],
           backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 3,
@@ -428,7 +429,7 @@ export class HomeComponent implements OnInit{
           y: {
             display: true,
             grid: {
-              display: false,
+              display: true,
             },
           },
         },
@@ -465,7 +466,8 @@ export class HomeComponent implements OnInit{
   myChart2=null
   createChart2() {
     if (this.selectedOption2 === 'Week') {
-      var dayColors = ['red', 'blue', 'green', 'pink', 'purple', 'orange', 'lightgreen'];
+      var dayColors = ['mistyrose', 'lightsteelblue', 'palegreen', 'lightcoral', 'thistle', 'lightsalmon', 'mediumseagreen'];
+
       this.myChart2 = new Chart("myChart2", {
         type: 'pie',
         data: {
@@ -505,7 +507,7 @@ export class HomeComponent implements OnInit{
               labels: {
                 usePointStyle: true,
                 font: {
-                  size: 12,
+                  size: 14,
                 },
                 padding: 16,
                 pointStyle:'rectRounded',
@@ -531,6 +533,11 @@ export class HomeComponent implements OnInit{
         }
       });
     }  if (this.selectedOption2 === 'months') {
+      var mildColors = [
+        'lavender', 'lightcyan', 'lightcoral', 'lightseagreen', 'lightpink', 'lightslategray',
+        'mistyrose', 'lightgoldenrodyellow', 'lightseashell', 'lightblue', 'lightgreen', 'lightsteelblue'
+      ];
+      
       this.myChart2 = new Chart("myChart2", {
         type: 'pie',
         data: {
@@ -539,14 +546,14 @@ export class HomeComponent implements OnInit{
             {
               label: "Organised Meetings",
               data: this.TotalMeetingStatusForYear[1],
-              backgroundColor: dayColors,
+              backgroundColor: mildColors,
               
               borderWidth: 1.5,
             },
             {
               label: "Attended Meetings",
               data: this.TotalMeetingStatusForYear[0],
-              backgroundColor: dayColors,
+              backgroundColor: mildColors,
               
               borderWidth: 1.5,
             }
@@ -579,7 +586,7 @@ export class HomeComponent implements OnInit{
             },
             title: {
               display: true,
-              text: 'Meeting Status of Current Week',
+              text: 'Meeting Status of Current Year',
               align: 'start',
               font: {
                 size: 14,
@@ -595,11 +602,9 @@ export class HomeComponent implements OnInit{
           },
         }
       });
-
     }
   }
-  
-  }
+}
   
   
   
