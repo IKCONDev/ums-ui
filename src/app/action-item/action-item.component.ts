@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 import { MeetingService } from '../meetings/service/meetings.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Employee } from '../model/Employee.model';
+import { EmployeeService } from '../employee/service/employee.service';
 
 @Component({
   selector: 'app-action-item',
@@ -34,6 +36,11 @@ export class ActionItemComponent implements OnInit {
   actionItems: ActionItems[];
   userEmailIdList: string[];
   currentActionItemId: number;
+  reporteeList: Employee[];
+  reporteeCount: number = 0;
+  selectedReporteeOrganizedActionItem: string = localStorage.getItem('selectedReporteeOrganizedActionItem');
+  loggedInUserRole = localStorage.getItem('userRole');
+  loggedInUser = localStorage.getItem('email');
 
   //update action item object
   updatedetails = {
@@ -79,11 +86,11 @@ export class ActionItemComponent implements OnInit {
 
   //update object error alidation properties
   updateActionItemTitleErrorInfo: string = '';
-  updateActionItemDescErrorInfo:string = '';
-  updateActionItemPriorityErrorInfo:string = '';
-  updateActionItemOwnerErrorInfo:string = '';
-  updateActionItemStartDateErrorInfo:string = '';
-  updateActionItemEndDateErrorInfo:string = '';
+  updateActionItemDescErrorInfo: string = '';
+  updateActionItemPriorityErrorInfo: string = '';
+  updateActionItemOwnerErrorInfo: string = '';
+  updateActionItemStartDateErrorInfo: string = '';
+  updateActionItemEndDateErrorInfo: string = '';
   isUpdateActionItemTitleValid = false;
   isUpdateActionItemDescValid = false;
   isUpdateActionItemPriorityValid = false;
@@ -100,28 +107,28 @@ export class ActionItemComponent implements OnInit {
    * @param meetingsService 
    */
   constructor(private service: ActionService, private taskService: TaskService, private toastr: ToastrService,
-    private meetingsService: MeetingService, private router: Router) {
+    private meetingsService: MeetingService, private router: Router, private employeeService: EmployeeService) {
 
-      //show action items slider control code
-      $(function () {
-        console.log('function one called');
-        var previousRow;
-       //  var targetrow=null;
-        $('table').on('click', 'a.showmore', function () {
-          console.log('function two called');
-         // e.preventDefault();
-          //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
-          var targetrow = $(this).closest('tr').next('.detail');   
-          if(previousRow && previousRow[0]!==targetrow[0]){
-            previousRow.hide(500).find('div').slideUp('slow');
-          }
-          else if(previousRow && previousRow[0]===targetrow[0]){
-          targetrow.hide(500).find('div').slideUp('slow');       
-            previousRow=null;
-            return;
-          }
+    //show action items slider control code
+    $(function () {
+      console.log('function one called');
+      var previousRow;
+      //  var targetrow=null;
+      $('table').on('click', 'a.showmore', function () {
+        console.log('function two called');
+        // e.preventDefault();
+        //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
+        var targetrow = $(this).closest('tr').next('.detail');
+        if (previousRow && previousRow[0] !== targetrow[0]) {
+          previousRow.hide(500).find('div').slideUp('slow');
+        }
+        else if (previousRow && previousRow[0] === targetrow[0]) {
+          targetrow.hide(500).find('div').slideUp('slow');
+          previousRow = null;
+          return;
+        }
         targetrow.show(1000).find('div').slideDown('slow');
-        previousRow=targetrow;
+        previousRow = targetrow;
       });
     });
 
@@ -131,20 +138,55 @@ export class ActionItemComponent implements OnInit {
    * 
    */
   ngOnInit(): void {
-    console.log("logged in userId is: " + localStorage.getItem('email'));
-    this.service.getUserActionItemsByUserId(localStorage.getItem('email')).subscribe({
-      next:(res) => {
-      this.actionItems = res.body;
-      console.log(res.body);
-      this.actionItemCount = res.body.length;
-    },error: (error) =>{
-      if(error.status === HttpStatusCode.Unauthorized){
-        this.router.navigateByUrl('/session-timeout')
-      }
+    //get action items of user
+    this.getActionItemsOfUser();
+    if (this.selectedReporteeOrganizedActionItem === 'null') {
+      this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
+      console.log(this.selectedReporteeOrganizedActionItem)
     }
-  });
-  this.pastDateTime();
-  };
+
+    //get reportees data of logged in user
+    if(this.loggedInUserRole === 'ADMIN'){
+      this.getAllEmployees();
+    }else{
+      this.getEmployeeReportees();
+    }
+
+    //disable past dates  
+    this.pastDateTime();
+  }
+
+
+  /**
+   * Get action items of logged in user
+   */
+  getActionItemsOfUser() {
+    if(this.selectedReporteeOrganizedActionItem != '' && this.selectedReporteeOrganizedActionItem != 'null'){
+      this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
+        next: (response) => {
+          this.actionItems = response.body;
+          console.log(this.actionItems+"--sele")
+          this.actionItemCount = response.body.length;
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl('/session-timeout')
+          }
+        }
+      });
+    }else{
+      this.service.getUserActionItemsByUserId(this.loggedInUser).subscribe({
+        next: (response) => {
+          this.actionItems = response.body;
+          console.log(this.actionItems+"def")
+          this.actionItemCount = response.body.length;
+        }, error: (error) => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl('/session-timeout')
+          }
+        }
+      });
+    }
+  }
 
   /**
    * currently this feature is disabled
@@ -167,8 +209,8 @@ export class ActionItemComponent implements OnInit {
     });
     console.log("data fetching");
   }
- 
-  
+
+
   /**
    * currently this feature is disabled
    * @param event 
@@ -183,7 +225,7 @@ export class ActionItemComponent implements OnInit {
       console.log(this.data);
     });
   }
- 
+
   /**
    * 
    */
@@ -191,15 +233,15 @@ export class ActionItemComponent implements OnInit {
     this.currentActionItemId = actionItemId;
     console.log("fetching task details");
     this.service.getAlltasks().subscribe({
-     next: (response) => {
-      this.task_array = response.body;
-      console.log(this.task_array);
-    },error: (error) =>{
-      if(error.status === HttpStatusCode.Unauthorized){
-        this.router.navigateByUrl('/session-timeout')
+      next: (response) => {
+        this.task_array = response.body;
+        console.log(this.task_array);
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
-    }
-  });
+    });
     console.log("request success");
 
   }
@@ -300,7 +342,7 @@ export class ActionItemComponent implements OnInit {
     console.log(actionItemsToBeDeleted);
     this.deleteActionItems(actionItemsToBeDeleted);
   }
-  
+
   /**
    * currently this feature is disabled
    * @param actionItemList 
@@ -323,7 +365,7 @@ export class ActionItemComponent implements OnInit {
   }
 
 
-  
+
   /**
    * currently this feature is disabled
    * @param id 
@@ -501,23 +543,23 @@ export class ActionItemComponent implements OnInit {
     return this.isActionItemEndDateValid;
   }
 
- 
+
 
   /**
    * currently this feature is disabled
    * @returns 
    */
-  validateUpdateActionTitle(){
-    if(this.updatedetails.actionItemTitle === ''){
+  validateUpdateActionTitle() {
+    if (this.updatedetails.actionItemTitle === '') {
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
-    }else if(this.updatedetails.actionItemTitle.length < 5){
+    } else if (this.updatedetails.actionItemTitle.length < 5) {
       this.updateActionItemTitleErrorInfo = 'Title should be manimum of 5 chars';
       this.isUpdateActionItemTitleValid = false;
-    }else if(this.updatedetails.actionItemTitle.length>500){
+    } else if (this.updatedetails.actionItemTitle.length > 500) {
       this.updateActionItemTitleErrorInfo = 'Title should not exceed 500 chars';
       this.isUpdateActionItemTitleValid = false;
-    }else{
+    } else {
       this.updateActionItemTitleErrorInfo = '';
       this.isUpdateActionItemTitleValid = true;
     }
@@ -528,17 +570,17 @@ export class ActionItemComponent implements OnInit {
    * currently this feature is disabled
    * @returns 
    */
-  validateUpdateActionDescription(){
-    if(this.updatedetails.actionItemDescription === ''){
+  validateUpdateActionDescription() {
+    if (this.updatedetails.actionItemDescription === '') {
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
-    }else if(this.updatedetails.actionItemDescription.length < 5){
+    } else if (this.updatedetails.actionItemDescription.length < 5) {
       this.updateActionItemDescErrorInfo = 'Description should be manimum of 10 chars';
       this.isUpdateActionItemDescValid = false;
-    }else if(this.updatedetails.actionItemDescription.length>500){
+    } else if (this.updatedetails.actionItemDescription.length > 500) {
       this.updateActionItemDescErrorInfo = 'Description should not exceed 1000 chars';
       this.isUpdateActionItemDescValid = false;
-    }else{
+    } else {
       this.updateActionItemDescErrorInfo = '';
       this.isUpdateActionItemDescValid = true;
     }
@@ -549,15 +591,15 @@ export class ActionItemComponent implements OnInit {
    * currently this feature is disabled
    * @returns 
    */
-  validateUpdateActionPriority(){
+  validateUpdateActionPriority() {
     //var actionItemPriority = event.target.value;
-    if(this.updatedetails.actionPriority === ''){
-      this.updateActionItemPriorityErrorInfo = "Priority is required";
-     this.isUpdateActionItemPriorityValid = false;
-    }else if(this.updatedetails.actionPriority === 'select'){
+    if (this.updatedetails.actionPriority === '') {
       this.updateActionItemPriorityErrorInfo = "Priority is required";
       this.isUpdateActionItemPriorityValid = false;
-    }else{
+    } else if (this.updatedetails.actionPriority === 'select') {
+      this.updateActionItemPriorityErrorInfo = "Priority is required";
+      this.isUpdateActionItemPriorityValid = false;
+    } else {
       this.updateActionItemPriorityErrorInfo = '';
       this.isUpdateActionItemPriorityValid = true;
     }
@@ -568,12 +610,12 @@ export class ActionItemComponent implements OnInit {
    * currently this feature is disabled
    * @returns 
    */
-  validateUpdateActionItemOwner(){
+  validateUpdateActionItemOwner() {
     //var actionItemOwner = event.target.value;
-    if(this.updatedetails.actionItemOwner === null){
+    if (this.updatedetails.actionItemOwner === null) {
       this.updateActionItemOwnerErrorInfo = 'Owner is required';
       this.isUpdateActionItemOwnerValid = false;
-    }else{
+    } else {
       this.updateActionItemOwnerErrorInfo = '';
       this.isUpdateActionItemOwnerValid = true;
     }
@@ -584,93 +626,93 @@ export class ActionItemComponent implements OnInit {
    * currently this feature is disabled
    * @returns 
    */
-  validateUpdateActionStartDate(){
+  validateUpdateActionStartDate() {
     //var actionItemStartDate = event.target.value;
-    if(this.updatedetails.startDate === ''){
+    if (this.updatedetails.startDate === '') {
       this.updateActionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isUpdateActionItemStartDateValid = false;
-    }else if(new Date(this.updatedetails.startDate.toString()) < new Date(Date.now())){
+    } else if (new Date(this.updatedetails.startDate.toString()) < new Date(Date.now())) {
       this.updateActionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
       this.isUpdateActionItemStartDateValid = false;
-    }else{
+    } else {
       this.updateActionItemStartDateErrorInfo = '';
       this.isUpdateActionItemStartDateValid = true;
     }
     return this.isUpdateActionItemStartDateValid;
   }
 
-   /**
-    * currently this feature is disabled
-    * @returns 
-    */
-   validateUpdateActionEndDate(){
-    // var actionItemEndDate = event.target.value;
-     //console.log(actionItemEndDate);
-     if(this.updatedetails.endDate === ''){
-       this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank'
-       this.isUpdateActionItemEndDateValid = false;
-     }else if(new Date(this.updatedetails.endDate) < new Date(this.addDetails.startDate.toString())){
-       this.updateActionItemEndDateErrorInfo = 'End date cannot be less than start date.'
-       this.isUpdateActionItemEndDateValid = false;
-     }else{
-       this.updateActionItemEndDateErrorInfo = '';
-       this.isUpdateActionItemEndDateValid = true;
-     }
-     return this.isUpdateActionItemEndDateValid;
-   }
-
-    /**
+  /**
    * currently this feature is disabled
-   * @param meeting 
+   * @returns 
    */
+  validateUpdateActionEndDate() {
+    // var actionItemEndDate = event.target.value;
+    //console.log(actionItemEndDate);
+    if (this.updatedetails.endDate === '') {
+      this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank'
+      this.isUpdateActionItemEndDateValid = false;
+    } else if (new Date(this.updatedetails.endDate) < new Date(this.addDetails.startDate.toString())) {
+      this.updateActionItemEndDateErrorInfo = 'End date cannot be less than start date.'
+      this.isUpdateActionItemEndDateValid = false;
+    } else {
+      this.updateActionItemEndDateErrorInfo = '';
+      this.isUpdateActionItemEndDateValid = true;
+    }
+    return this.isUpdateActionItemEndDateValid;
+  }
+
+  /**
+ * currently this feature is disabled
+ * @param meeting 
+ */
   updateActionItem(form: NgForm) {
     let isTitlevalid = true;
-   let isDescriptionValid = true;
-   let isPriorityValid = true;
-   let isOwnervalid = true;
-   let isEndDateValid = true;
-   let isStartDateValid = true;
-    if(this.isUpdateActionItemTitleValid===false){
-        var valid = this.validateUpdateActionTitle();
-        console.log(valid)
-        isTitlevalid = valid;
+    let isDescriptionValid = true;
+    let isPriorityValid = true;
+    let isOwnervalid = true;
+    let isEndDateValid = true;
+    let isStartDateValid = true;
+    if (this.isUpdateActionItemTitleValid === false) {
+      var valid = this.validateUpdateActionTitle();
+      console.log(valid)
+      isTitlevalid = valid;
     }
-    if(this.isUpdateActionItemDescValid===false){
+    if (this.isUpdateActionItemDescValid === false) {
       var valid = this.validateUpdateActionDescription();
       console.log(valid)
       isDescriptionValid = valid;
     }
-    if(!this.isUpdateActionItemPriorityValid){
+    if (!this.isUpdateActionItemPriorityValid) {
       var valid = this.validateUpdateActionPriority();
       isPriorityValid = valid;
     }
-    if(!this.isUpdateActionItemOwnerValid){
+    if (!this.isUpdateActionItemOwnerValid) {
       var valid = this.validateUpdateActionItemOwner();
       isOwnervalid = valid;
     }
-    if(!this.isUpdateActionItemStartDateValid){
+    if (!this.isUpdateActionItemStartDateValid) {
       var valid = this.validateUpdateActionStartDate();
       isStartDateValid = valid;
     }
-    if(!this.isUpdateActionItemEndDateValid){
+    if (!this.isUpdateActionItemEndDateValid) {
       var valid = this.validateUpdateActionEndDate();
       isEndDateValid = valid;
     }
-    console.log(isTitlevalid+''+isDescriptionValid+''+isEndDateValid+''+isStartDateValid+''+isPriorityValid+''+isOwnervalid)
-    if(isTitlevalid === true && isDescriptionValid === true
-      && isPriorityValid === true && isOwnervalid==true && isStartDateValid===true
+    console.log(isTitlevalid + '' + isDescriptionValid + '' + isEndDateValid + '' + isStartDateValid + '' + isPriorityValid + '' + isOwnervalid)
+    if (isTitlevalid === true && isDescriptionValid === true
+      && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
-    this.id = this.updatedetails.actionItemId;
-    console.log(this.updatedetails);
-    this.service.updateActionItem(this.updatedetails).subscribe(response => {
-      this.data = response.body;
-      console.log(this.data);
-    });
-    this.toastr.success('Action item updated successfully');
-    //need to change this later
-    //window.location.reload();
+      this.id = this.updatedetails.actionItemId;
+      console.log(this.updatedetails);
+      this.service.updateActionItem(this.updatedetails).subscribe(response => {
+        this.data = response.body;
+        console.log(this.data);
+      });
+      this.toastr.success('Action item updated successfully');
+      //need to change this later
+      //window.location.reload();
+    }
   }
-}
 
   /**
    * currently this feature is disabled
@@ -690,11 +732,11 @@ export class ActionItemComponent implements OnInit {
         console.log(this.userEmailIdList);
       }
     )
-  }  
+  }
 
   //Tasks
   add_Task = {
-    taskId : 0,
+    taskId: 0,
     taskTitle: '',
     taskDescription: '',
     taskPriority: '',
@@ -708,12 +750,12 @@ export class ActionItemComponent implements OnInit {
     emailId: ''
 
   }
-  isTaskTitleValid  = false;
-  taskTitleErrrorInfo ='';
+  isTaskTitleValid = false;
+  taskTitleErrrorInfo = '';
   validateTaskTitle() {
     //var taskTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.add_Task.taskTitle == "" || this.add_Task.taskTitle.trim()==="" || regex.exec(this.add_Task.taskTitle)===null) {
+    if (this.add_Task.taskTitle == "" || this.add_Task.taskTitle.trim() === "" || regex.exec(this.add_Task.taskTitle) === null) {
       this.taskTitleErrrorInfo = 'Title is required';
       this.isTaskTitleValid = false;
 
@@ -733,12 +775,12 @@ export class ActionItemComponent implements OnInit {
     return this.isTaskTitleValid;
 
   }
-  taskDescriptionErrorInfo ='';
+  taskDescriptionErrorInfo = '';
   isTaskDescriptionValid = false;
   validateTaskDescription() {
     // var taskDescription=event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.add_Task.taskDescription === '' || this.add_Task.taskDescription.trim()==="" || regex.exec(this.add_Task.taskDescription)===null) {
+    if (this.add_Task.taskDescription === '' || this.add_Task.taskDescription.trim() === "" || regex.exec(this.add_Task.taskDescription) === null) {
       this.taskDescriptionErrorInfo = 'Description is required';
       this.isTaskDescriptionValid = false;
     }
@@ -746,7 +788,7 @@ export class ActionItemComponent implements OnInit {
       this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isTaskDescriptionValid = false;
     }
-    else if(this.add_Task.taskDescription.length >= 250){
+    else if (this.add_Task.taskDescription.length >= 250) {
       this.taskDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isTaskDescriptionValid = false;
     }
@@ -784,7 +826,7 @@ export class ActionItemComponent implements OnInit {
       this.isTaskStatusValid = false;
 
     }
-    else if(this.add_Task.status === 'Select'){
+    else if (this.add_Task.status === 'Select') {
       this.taskStatusErrorInfo = 'Status is required';
       this.isTaskStatusValid = false;
     }
@@ -853,76 +895,76 @@ export class ActionItemComponent implements OnInit {
       this.isTaskDueDateValid = true;
     }
     return this.isTaskDueDateValid;
-  }  
+  }
 
-  addTask(task: Task){
+  addTask(task: Task) {
 
     let isTitleValid = true;
     let isDescriptionValid = true;
-    let isOwnerValid =true;
+    let isOwnerValid = true;
     let isStatusValid = true;
     let isStartDateValid = true;
     let isDueDateValid = true;
-    let isPriorityValid =true;
+    let isPriorityValid = true;
 
-    if(!this.isTaskTitleValid){
+    if (!this.isTaskTitleValid) {
       var valid = this.validateTaskTitle();
       isTitleValid = valid;
     }
-    if(!this.isTaskDescriptionValid){
+    if (!this.isTaskDescriptionValid) {
       var valid = this.validateTaskDescription();
       isDescriptionValid = valid;
     }
-    if(!this.isTaskPriorityValid){
+    if (!this.isTaskPriorityValid) {
       var valid = this.validateTaskPriority();
       isPriorityValid = valid;
     }
-    if(!this.isTaskOwnerValid){
+    if (!this.isTaskOwnerValid) {
       var valid = this.validateTaskOwner();
       isOwnerValid = valid;
     }
-    if(!this.isTaskStartDateValid){
+    if (!this.isTaskStartDateValid) {
       var valid = this.validateTaskStartDate();
       isStartDateValid = valid;
     }
-    if(!this.isTaskDueDateValid){
+    if (!this.isTaskDueDateValid) {
       var valid = this.validateTaskDueDate();
       isDueDateValid = valid;
     }
 
-    if(isTitleValid == true && isDescriptionValid == true && 
+    if (isTitleValid == true && isDescriptionValid == true &&
       isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
       && isDueDateValid == true
-       ){
-        this.add_Task.emailId = localStorage.getItem('email');
-        this.add_Task.actionItemId = this.currentActionItemId;
-        this.taskService.createTask(this.add_Task).subscribe({
-           next : (response)=>{
-              var data = response.body;
-              if(response.status == HttpStatusCode.Ok){
-                 this.toastr.success("Task created successfully");
-                 document.getElementById('closeAddModal').click();
-                 setTimeout(() => {
-                  window.location.reload();
-                 },1000);
-              }
-           },error: error => {
-             if(error.status === HttpStatusCode.Unauthorized){
-              this.router.navigateByUrl('/session-timeout');
-             }else if(error.status === HttpStatusCode.ServiceUnavailable){
-              this.router.navigateByUrl('service-unavailable');
-             }
-             else{
-              this.toastr.error('Error while creating task. Please try again !')
-             }
-           }
-        })
-     } 
+    ) {
+      this.add_Task.emailId = localStorage.getItem('email');
+      this.add_Task.actionItemId = this.currentActionItemId;
+      this.taskService.createTask(this.add_Task).subscribe({
+        next: (response) => {
+          var data = response.body;
+          if (response.status == HttpStatusCode.Ok) {
+            this.toastr.success("Task created successfully");
+            document.getElementById('closeAddModal').click();
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        }, error: error => {
+          if (error.status === HttpStatusCode.Unauthorized) {
+            this.router.navigateByUrl('/session-timeout');
+          } else if (error.status === HttpStatusCode.ServiceUnavailable) {
+            this.router.navigateByUrl('service-unavailable');
+          }
+          else {
+            this.toastr.error('Error while creating task. Please try again !')
+          }
+        }
+      })
+    }
   }
   min: any = "";
 
   /**
-   * 
+   * disable past date time
    */
   pastDateTime() {
     var tdate: any = new Date();
@@ -939,6 +981,50 @@ export class ActionItemComponent implements OnInit {
     var minutes: any = tdate.getMinutes();
     this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
     console.log(this.min);
+  }
+
+  /**
+   * if Role is Admin then get all employees
+   */
+  getAllEmployees(){
+    this.employeeService.getAll().subscribe({
+      next: response => {
+        this.reporteeList = response.body;
+        this.reporteeCount = response.body.length;
+      }
+    })
+  }
+
+  /**
+   * get the reportees data of employee
+   */
+  getEmployeeReportees() {
+    this.employeeService.getReporteesDataOfEmployee(localStorage.getItem('email')).subscribe({
+      next: response => {
+        if (response.status === HttpStatusCode.Ok) {
+          this.reporteeList = response.body;
+          this.reporteeCount = response.body.length;
+        }
+      },
+      error: error => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout');
+        } else {
+          this.toastr.error('Error while fetching reportees data')
+        }
+      }
+    })
+  }
+
+  /**
+   * store selected reportee in localstorage
+   */
+  storeReporteeDataOfOrganizedActionItems(){
+    localStorage.setItem('selectedReporteeOrganizedActionItem', this.selectedReporteeOrganizedActionItem);
+    console.log(this.selectedReporteeOrganizedActionItem);
+    this.selectedReporteeOrganizedActionItem = localStorage.getItem('selectedReporteeOrganizedActionItem')
+    console.log(this.selectedReporteeOrganizedActionItem)
+    window.location.reload();
   }
 
 }

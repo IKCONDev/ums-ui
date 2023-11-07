@@ -35,7 +35,20 @@
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedTask'">
         <!-- reportee dropdown -->
-        <div *ngIf="loggedInUserRole !== 'ADMIN'" style="padding-top: 9px; ">
+        <div *ngIf="loggedInUserRole !== 'ADMIN' && reporteeCount > 0" style="padding-top: 9px; ">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee"
+            name="reportee" style="width: 400px;"
+            [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedTask()">
+            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+
+            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                {{reportee.email}}
+            </ng-option>
+        </ng-select>
+        </div>
+        <!-- reportee dropdown end -->
+        <!-- reportee dropdown -->
+        <div *ngIf="loggedInUserRole === 'ADMIN' && reporteeCount > 0" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee"
             name="reportee" style="width: 400px;"
             [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedTask()">
@@ -137,7 +150,7 @@
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
         <!-- reportee dropdown -->
-        <div *ngIf="loggedInUserRole !== 'ADMIN'" style="padding-top: 9px; ">
+        <div *ngIf="loggedInUserRole !== 'ADMIN'  && reporteeCount > 0" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee"
             name="reportee" style="width: 400px;"
             [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee" (change)="storeReporteeDataOfAssignedTask()">
@@ -147,7 +160,19 @@
                 {{reportee.email}}
             </ng-option>
         </ng-select>
-        </div><br/>
+        </div>
+        <div *ngIf="loggedInUserRole === 'ADMIN'  && reporteeCount > 0" style="padding-top: 9px; ">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee"
+            name="reportee" style="width: 400px;"
+            [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee" (change)="storeReporteeDataOfAssignedTask()">
+            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+
+            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                {{reportee.email}}
+            </ng-option>
+        </ng-select>
+        </div>
+        <br/>
         <!-- reportee dropdown end -->
         <div class="row d-flex" *ngIf="assignedTasksCount>0; else noAssignedTasks">
             <table class="table table-hover" height="40" id="assignedtaskTable">

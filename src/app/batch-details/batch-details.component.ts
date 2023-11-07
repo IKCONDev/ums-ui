@@ -11,6 +11,10 @@ import { BatchDetailsService } from './service/batch-details.service';
 export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
 
 
+  
+  batchDetails:BatchDetails[];
+  batchRecordsCount: number = 0;
+   @Output() title:string='Batch Details';
   private table: any;
 
   ngAfterViewInit(): void {
@@ -31,10 +35,6 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
       this.table.destroy();
     }
   }
-
-  batchDetails:BatchDetails[];
-  batchRecordsCount: number = 0;
-   @Output() title:string='Batch Details';
 
    /**
     * 

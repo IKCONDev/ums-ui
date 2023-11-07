@@ -116,7 +116,6 @@ tr.detail div {
 }
 
 #no-meetings {
-
   text-align: center;
   padding-top: 180px;
   color: #000;
@@ -175,4 +174,10 @@ tr.detail div {
   font-family: 'General Sans';
   color: #f9fcff;
   text-align: left;
+}
+
+#headDiv{
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 12px;
 }
