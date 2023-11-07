@@ -118,6 +118,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
+  /**
+   * 
+   */
   InitailizeJqueryDataTable(){
     setTimeout(() => {
       $(document).ready(() => {
@@ -128,7 +131,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    },50)
+    },100)
 
     setTimeout(() => {
       $(document).ready(() => {
@@ -201,6 +204,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     //get reportees data of logged in user
     this.getEmployeeReportees();
+
+    //initialize jquery datatable meetings table
+    this.InitailizeJqueryDataTable();
   }
 
   /**

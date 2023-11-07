@@ -28,143 +28,159 @@
             </div>
         </div>
     </div>
-    <div class="row" style="margin: 10px;">
-        <table class="table table-hover" id="myTable" style="margin: 0px;">
-            <thead class="header" style="background-color: #ecf7fc;">
-               <!---<th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>-->
-                <th>Action Item ID</th>
-                <th style="width: 170px;">Title</th>
-                <th>Owner</th>
-                <th>Start Date & Time</th>
-                <th>End Date & Time</th>
-                <th>Status</th>
-                <!--<th>Actions</th>-->
-                <th>Tasks</th>
-                <!-- <th></th> -->
+    <div class="card-body">
+         <!-- reportee dropdown -->
+         <div *ngIf="loggedInUserRole !== 'ADMIN'  && reporteeCount > 0" id="headDiv">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee"
+            name="reportee" style="width: 400px;"
+            [(ngModel)]="selectedReporteeOrganizedActionItem" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedActionItems()">
+            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-            </thead>
-            <tbody *ngFor="let actionItem of actionItems, let i = index">
-                <tr *ngIf="actionItem.actionStatus === 'Submitted'">
-                   <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
-                            value="{{actionItem.actionItemId}}"></td>-->
-                    <!--<td>{{actionItem.actionItemId}}</td>-->
-                    <td>A000{{actionItem.actionItemId}}</td>
-                    <td id="actionItem-subject">{{actionItem.actionItemTitle}}</td>
-                    <td>
-                        <p *ngFor="let owner of actionItem.actionItemOwner">{{owner}}</p>
-                    </td>
-                    <td>{{actionItem.startDate|date:'MMM d, y, h:mm a'}}</td>
-                    <td>{{actionItem.endDate|date:'MMM d, y, h:mm a'}}</td>
-                    <td>{{actionItem.actionStatus}}</td>
-                    <!-- edit btn -->
-                    <!--<td><button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                        <!-- <span *ngIf="actionItem.actionStatus==='NotConverted'" class="edit-icon" 
-                        (click)="editData(actionItem.actionItemId)"
-                        (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
-                            data-target="#myModal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none">
-                                <g id="edit">
-                                    <path id="Vector"
-                                        d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                        fill="#5590AA" />
-                                </g>
-                            </svg>
-                        </span> -->
-                        <!-- <span *ngIf="actionItem.actionStatus==='Converted'" aria-disabled="true" class="edit-icon"
-                            data-toggle="modal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none">
-                                <g id="edit">
-                                    <path id="Vector"
-                                        d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                        fill="#D3D3D3" />
-                                </g>
-                            </svg>
-                        </span> -->
-                    
-                    <!-- delete btn -
-                        <span class="delete-icon" style="padding-top:px;padding-left: 20px;" (click)="deleteData(actionItem.actionItemId)"
-                            data-toggle="modal" data-target="#myModal_del">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
-                                viewBox="0 0 482.428 482.429" xml:space="preserve">
-                                <g>
-                                    <g>
-                                        <path
-                                            d="M381.163,57.799h-75.094C302.323,25.316,274.686,0,241.214,0c-33.471,0-61.104,25.315-64.85,57.799h-75.098    c-30.39,0-55.111,24.728-55.111,55.117v2.828c0,23.223,14.46,43.1,34.83,51.199v260.369c0,30.39,24.724,55.117,55.112,55.117    h210.236c30.389,0,55.111-24.729,55.111-55.117V166.944c20.369-8.1,34.83-27.977,34.83-51.199v-2.828    C436.274,82.527,411.551,57.799,381.163,57.799z M241.214,26.139c19.037,0,34.927,13.645,38.443,31.66h-76.879    C206.293,39.783,222.184,26.139,241.214,26.139z M375.305,427.312c0,15.978-13,28.979-28.973,28.979H136.096    c-15.973,0-28.973-13.002-28.973-28.979V170.861h268.182V427.312z M410.135,115.744c0,15.978-13,28.979-28.973,28.979H101.266    c-15.973,0-28.973-13.001-28.973-28.979v-2.828c0-15.978,13-28.979,28.973-28.979h279.897c15.973,0,28.973,13.001,28.973,28.979    V115.744z" />
-                                        <path
-                                            d="M171.144,422.863c7.218,0,13.069-5.853,13.069-13.068V262.641c0-7.216-5.852-13.07-13.069-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C158.074,417.012,163.926,422.863,171.144,422.863z" />
-                                        <path
-                                            d="M241.214,422.863c7.218,0,13.07-5.853,13.07-13.068V262.641c0-7.216-5.854-13.07-13.07-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C228.145,417.012,233.996,422.863,241.214,422.863z" />
-                                        <path
-                                            d="M311.284,422.863c7.217,0,13.068-5.853,13.068-13.068V262.641c0-7.216-5.852-13.07-13.068-13.07    c-7.219,0-13.07,5.854-13.07,13.07v147.154C298.213,417.012,304.067,422.863,311.284,422.863z" />
-                                    </g>
-                                </g>
-                            </svg>
-                        </span>
-                    </td>-->
-                    <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)">Show Tasks</a></td>
-                </tr>
-                <tr class="detail">
-                    <td colspan="12">
-                        <div>
-                            <table class="table table-hover">
-                                <thead>
-                                    <th id="tablehead">Task ID</th>
-                                    <th id="tablehead" style="width: 170px;">Task Title</th>
-                                    <th id="tablehead" style="width: 170px;">Task Description</th>
-                                    <th id="tablehead">Assignees</th>
-                                    <th id="tablehead">Start Date & Time</th>
-                                    <th id="tablehead">End Date & Time</th>
-                                    <th id="tablehead">Priority</th>
-                                    <th id="tablehead">Status</th>
-                                </thead>
-                                <tbody *ngFor="let element of task_array">
-                                    <tr *ngIf="actionItem.actionItemId == element.actionItemId">
-                                        <td  class="taskRows" >T000{{element.taskId}}</td>
-                                        <td  class="taskRows"  id="actionItem-subject">{{element.taskTitle}}</td>
-                                        <td  class="taskRows" id="actionItem-subject">{{element.taskDescription}}</td>
-                                        <td  class="taskRows" >{{element.taskOwner}}</td>
-                                        <td  class="taskRows" >{{element.startDate|date:'MMM d, y, h:mm a'}}</td>
-                                        <td  class="taskRows" >{{element.dueDate|date:'MMM d, y, h:mm a'}}</td>
-                                        <td  class="taskRows" >{{element.taskPriority}}</td>
-                                        <td  class="taskRows" >{{element.status}}</td>
-                                    </tr>
-                                </tbody>
-                                <tbody>
-                                    <tr style="background-color: white;">
-                                        <td style="text-align: center;color:#007bff" colspan="7">
-                                            <a data-toggle="modal" data-target="#xlModal"
-                                                style="cursor: pointer;padding-left: 50px;" (click)="getActiveUMSUsersEmailIdList()">Add Task</a>
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-
-        </table>
-    </div>
-    <div>
-        <ng-template #noMeetings>
-            <table class="table table-hover">
-                <thead id="thead">
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Organizer</th>
-                    <th>StartDate & Time</th>
-                    <th>EndDate & Time</th>
+            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                {{reportee.email}}
+            </ng-option>
+        </ng-select>
+        </div>
+        <!-- reportee dropdown end -->
+        <div class="row d-flex" style="margin: 10px;">
+            <table class="table table-hover" id="myTable" style="margin: 0px;">
+                <thead class="header" style="background-color: #ecf7fc;">
+                   <!---<th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>-->
+                    <th>Action Item ID</th>
+                    <th style="width: 170px;">Title</th>
+                    <th>Owner</th>
+                    <th>Start Date & Time</th>
+                    <th>End Date & Time</th>
+                    <th>Status</th>
+                    <!--<th>Actions</th>-->
+                    <th>Tasks</th>
+                    <!-- <th></th> -->
+    
                 </thead>
+                <tbody *ngFor="let actionItem of actionItems, let i = index">
+                    <tr *ngIf="actionItem.actionStatus === 'Submitted'">
+                       <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
+                                value="{{actionItem.actionItemId}}"></td>-->
+                        <!--<td>{{actionItem.actionItemId}}</td>-->
+                        <td>A000{{actionItem.actionItemId}}</td>
+                        <td id="actionItem-subject">{{actionItem.actionItemTitle}}</td>
+                        <td>
+                            <p *ngFor="let owner of actionItem.actionItemOwner">{{owner}}</p>
+                        </td>
+                        <td>{{actionItem.startDate|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{actionItem.endDate|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{actionItem.actionStatus}}</td>
+                        <!-- edit btn -->
+                        <!--<td><button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
+                            <!-- <span *ngIf="actionItem.actionStatus==='NotConverted'" class="edit-icon" 
+                            (click)="editData(actionItem.actionItemId)"
+                            (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
+                                data-target="#myModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <g id="edit">
+                                        <path id="Vector"
+                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                            fill="#5590AA" />
+                                    </g>
+                                </svg>
+                            </span> -->
+                            <!-- <span *ngIf="actionItem.actionStatus==='Converted'" aria-disabled="true" class="edit-icon"
+                                data-toggle="modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <g id="edit">
+                                        <path id="Vector"
+                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
+                                            fill="#D3D3D3" />
+                                    </g>
+                                </svg>
+                            </span> -->
+                        
+                        <!-- delete btn -
+                            <span class="delete-icon" style="padding-top:px;padding-left: 20px;" (click)="deleteData(actionItem.actionItemId)"
+                                data-toggle="modal" data-target="#myModal_del">
+    
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
+                                    viewBox="0 0 482.428 482.429" xml:space="preserve">
+                                    <g>
+                                        <g>
+                                            <path
+                                                d="M381.163,57.799h-75.094C302.323,25.316,274.686,0,241.214,0c-33.471,0-61.104,25.315-64.85,57.799h-75.098    c-30.39,0-55.111,24.728-55.111,55.117v2.828c0,23.223,14.46,43.1,34.83,51.199v260.369c0,30.39,24.724,55.117,55.112,55.117    h210.236c30.389,0,55.111-24.729,55.111-55.117V166.944c20.369-8.1,34.83-27.977,34.83-51.199v-2.828    C436.274,82.527,411.551,57.799,381.163,57.799z M241.214,26.139c19.037,0,34.927,13.645,38.443,31.66h-76.879    C206.293,39.783,222.184,26.139,241.214,26.139z M375.305,427.312c0,15.978-13,28.979-28.973,28.979H136.096    c-15.973,0-28.973-13.002-28.973-28.979V170.861h268.182V427.312z M410.135,115.744c0,15.978-13,28.979-28.973,28.979H101.266    c-15.973,0-28.973-13.001-28.973-28.979v-2.828c0-15.978,13-28.979,28.973-28.979h279.897c15.973,0,28.973,13.001,28.973,28.979    V115.744z" />
+                                            <path
+                                                d="M171.144,422.863c7.218,0,13.069-5.853,13.069-13.068V262.641c0-7.216-5.852-13.07-13.069-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C158.074,417.012,163.926,422.863,171.144,422.863z" />
+                                            <path
+                                                d="M241.214,422.863c7.218,0,13.07-5.853,13.07-13.068V262.641c0-7.216-5.854-13.07-13.07-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C228.145,417.012,233.996,422.863,241.214,422.863z" />
+                                            <path
+                                                d="M311.284,422.863c7.217,0,13.068-5.853,13.068-13.068V262.641c0-7.216-5.852-13.07-13.068-13.07    c-7.219,0-13.07,5.854-13.07,13.07v147.154C298.213,417.012,304.067,422.863,311.284,422.863z" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>
+                        </td>-->
+                        <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)">Show Tasks</a></td>
+                    </tr>
+                    <tr class="detail">
+                        <td colspan="12">
+                            <div>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <th id="tablehead">Task ID</th>
+                                        <th id="tablehead" style="width: 170px;">Task Title</th>
+                                        <th id="tablehead" style="width: 170px;">Task Description</th>
+                                        <th id="tablehead">Assignees</th>
+                                        <th id="tablehead">Start Date & Time</th>
+                                        <th id="tablehead">End Date & Time</th>
+                                        <th id="tablehead">Priority</th>
+                                        <th id="tablehead">Status</th>
+                                    </thead>
+                                    <tbody *ngFor="let element of task_array">
+                                        <tr *ngIf="actionItem.actionItemId == element.actionItemId">
+                                            <td  class="taskRows" >T000{{element.taskId}}</td>
+                                            <td  class="taskRows"  id="actionItem-subject">{{element.taskTitle}}</td>
+                                            <td  class="taskRows" id="actionItem-subject">{{element.taskDescription}}</td>
+                                            <td  class="taskRows" >{{element.taskOwner}}</td>
+                                            <td  class="taskRows" >{{element.startDate|date:'MMM d, y, h:mm a'}}</td>
+                                            <td  class="taskRows" >{{element.dueDate|date:'MMM d, y, h:mm a'}}</td>
+                                            <td  class="taskRows" >{{element.taskPriority}}</td>
+                                            <td  class="taskRows" >{{element.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr style="background-color: white;">
+                                            <td style="text-align: center;color:#007bff" colspan="7">
+                                                <a data-toggle="modal" data-target="#xlModal"
+                                                    style="cursor: pointer;padding-left: 50px;" (click)="getActiveUMSUsersEmailIdList()">Add Task</a>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+    
             </table>
-            <p id="no-meetings">No Action Items Yet ! </p>
-        </ng-template>
+        </div>
+        <div>
+            <ng-template #noMeetings>
+                <table class="table table-hover">
+                    <thead id="thead">
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Organizer</th>
+                        <th>StartDate & Time</th>
+                        <th>EndDate & Time</th>
+                    </thead>
+                </table>
+                <p id="no-meetings">No Action Items Yet ! </p>
+            </ng-template>
+        </div>
     </div>
-</div>
+    </div>
+    
 <!--Modal for update-->
 <div class="modal" id="myModal">
     <div class="modal-dialog">
