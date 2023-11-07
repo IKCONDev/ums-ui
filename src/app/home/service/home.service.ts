@@ -107,6 +107,28 @@ export class HomeService {
     });
   }
 
+  fetchMeetingStatusForYear(startdate:string,endDate:string){
+    const emailId= localStorage.getItem('email')
+     return this.http.get<number[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/MeetingsChartDataForYear`, {
+       observe: 'response',params:{startdate:startdate,endDate:endDate,emailId:emailId} ,headers: new HttpHeaders({
+         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+       }
+       )
+     });
+    }
+
+    fetchTaskStatusForYear(startdate:string,endDate:string){
+      const emailId= localStorage.getItem('email')
+       return this.http.get<number[]>(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/TaskCountForYear`, {
+         observe: 'response',params:{startdate:startdate,endDate:endDate,emailId:emailId} ,headers: new HttpHeaders({
+           'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+         }
+         )
+       });
+      }
+
+    
+
 
 
 }

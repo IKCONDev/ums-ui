@@ -579,9 +579,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
        console.log(this.istaskDeleted);
        if (this.istaskDeleted) {
          if(taskIds.length > 1){
-          this.toastr.success("tasks Deleted");
+          this.toastr.success("Tasks Deleted");
          }else{
-          this.toastr.success('task ' +taskIds+ 'is Deleted');
+          this.toastr.success('Task T00' +taskIds+ 'is Deleted');
          }
          setTimeout(() => {
           window.location.reload();
@@ -589,7 +589,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
        }
        else {
          console.log("tasks not deleted");
-         this.toastr.error("action Items are not deleted try again");
+         this.toastr.error("Action Items are not deleted try again");
        }
      },error: (error) => {
        if(error.status === HttpStatusCode.Unauthorized){
@@ -696,7 +696,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
      }
      else{
-      this.toastr.warning("Task "+id+" is not Deleted");
+      this.toastr.warning("Task T00"+id+" is not Deleted");
 
      }
 

@@ -143,6 +143,7 @@ export class ActionItemComponent implements OnInit {
       }
     }
   });
+  this.pastDateTime();
   };
 
   /**
@@ -800,7 +801,7 @@ export class ActionItemComponent implements OnInit {
 
 
     if (this.add_Task.startDate === '') {
-      this.taskStartDateErrorInfo = 'select the start date';
+      this.taskStartDateErrorInfo = 'Select the start date';
       this.isTaskStartDateValid = false;
     }
     /*else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
@@ -820,11 +821,11 @@ export class ActionItemComponent implements OnInit {
 
     if (this.add_Task.taskOwner == '' || this.add_Task.taskOwner === null) {
 
-      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.taskOwnerErrorInfo = 'Task Owner is required';
       this.isTaskOwnerValid = false;
     }
     else if (this.add_Task.taskOwner == '') {
-      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.taskOwnerErrorInfo = 'Task Owner is required';
       this.isTaskOwnerValid = false;
 
     }
@@ -840,11 +841,11 @@ export class ActionItemComponent implements OnInit {
   validateTaskDueDate() {
     // var taskDueDate=event.target.value;
     if (this.add_Task.dueDate === '') {
-      this.taskDueDateErrorInfo = 'select the due date';
+      this.taskDueDateErrorInfo = 'Select the due date';
       this.isTaskDueDateValid = false;
     }
     else if (new Date(this.add_Task.dueDate.toString()) < new Date(this.add_Task.startDate.toString())) {
-      this.taskDueDateErrorInfo = 'Date should`nt be lessthan startdate';
+      this.taskDueDateErrorInfo = 'Date should`nt be less than startdate';
       this.isTaskDueDateValid = false;
     }
     else {
@@ -918,7 +919,28 @@ export class ActionItemComponent implements OnInit {
         })
      } 
   }
-  
+  min: any = "";
+
+  /**
+   * 
+   */
+  pastDateTime() {
+    var tdate: any = new Date();
+    var date: any = tdate.getDate();
+    if (date < 10) {
+      date = "0" + date;
+    }
+    var month: any = tdate.getMonth() + 1;
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var year: any = tdate.getFullYear();
+    var hours: any = tdate.getHours();
+    var minutes: any = tdate.getMinutes();
+    this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
+    console.log(this.min);
+  }
+
 }
 
 
