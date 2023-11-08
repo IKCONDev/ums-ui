@@ -146,6 +146,10 @@
                     <p id="errorMessage">{{employeeLastNameErrorInfo}}</p>
                 </span>
                 <br />
+                <label><b>Employee ID</b><span id="required">*</span></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
+                id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="addEmployee.employeeOrgId"/>
+                <br/>
                 <label><b>Gender</b><span id="required">*</span></label><br/>
                 <input type="radio"
                     [(ngModel)]="addEmployee.gender" id="genderMale" name="gender1"
@@ -165,9 +169,9 @@
                     <p id="errorMessage">{{ employeeEmailIdErrorInfo}}</p>
                 </span>
                 <br />
-                <label><b>Employee ID</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
-                id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="addEmployee.employeeOrgId"/>
+                <label><b>Date of Joining</b><span id="required">*</span></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Date of Joining"
+                id="joiningDate" name="joiningDate" #joiningDate="ngModel"    [(ngModel)]="addEmployee.joiningDate" />
                 <br/>
                 <label><b>Reporting Manager</b><span id="required">*</span></label>
                 

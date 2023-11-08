@@ -192,8 +192,8 @@
                    <!-- <option value="select">select</option>-->
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                 </select>
-                <div *ngIf=" roleErrorInfo != ''">
-                    <span id="errorMessage">{{roleErrorInfo }}</span>
+                <div *ngIf=" isUpdateRoleNameErrorInfo != ''">
+                    <span id="errorMessage">{{isUpdateRoleNameErrorInfo }}</span>
                 </div><br/>
                <!---<input type="text" class="updateUserInput form-control" placeholder="Role" [(ngModel)]="existingUserObj.userRoles.at(0).roleName"/>-->
             </div>
