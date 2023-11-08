@@ -573,7 +573,7 @@ export class HomeComponent implements OnInit{
             legend: {
               display: true,
               position: 'right',
-              align:'end',
+              align:'center',
               labels: {
                 usePointStyle: true,
                 font: {
