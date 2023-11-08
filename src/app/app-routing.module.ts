@@ -24,6 +24,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { SessionTimeoutComponent } from './session-timeout/session-timeout.component';
 import { ServiceUnavailableComponent } from './service-unavailable/service-unavailable.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HelpcenterComponent } from './helpcenter/helpcenter.component';
 
 
 /**
@@ -53,6 +54,7 @@ const routes: Routes = [
   {path: 'employee',component:EmployeeComponent},
   {path: 'session-timeout', component: SessionTimeoutComponent},
   {path: 'service-unavailable', component:ServiceUnavailableComponent},
+  {path :'help',component:HelpcenterComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},
