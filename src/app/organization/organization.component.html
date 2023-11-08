@@ -143,7 +143,7 @@
 
                 <!-- orgAddress -->
                 <h5>Address details<span id="required" [hidden]="isDisable==false">*</span></h5>
-                <p *ngIf="org.orgAddress === null&& isDisable == false || org.orgAddress === ''  && isDisable == false">-</p>
+                <b *ngIf="org.orgAddress === null&& isDisable == false || org.orgAddress === ''  && isDisable == false">-</b>
                 <label *ngIf="org.orgAddress !== null && isDisable==false">{{org.orgAddress}}</label>
                 <div>
                     <span *ngIf="updatedOrgAddressErrorInfo!= ''">

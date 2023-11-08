@@ -459,7 +459,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   employeeReportingManagerErrorInfo = "";
   validateEmployeeReportingManager() {
 
-    if (this.addEmployee.reportingManager == '') {
+    if (this.addEmployee.reportingManager == '' || this.addEmployee.reportingManager===null) {
       this.employeeReportingManagerErrorInfo = "Reporting Manager is required";
       this.isEmployeeReportingManagerValid = false;
     }
