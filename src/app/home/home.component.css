@@ -51,6 +51,7 @@ body {
     border-radius: 4px;
 }
 
+
 #cardRow{
     padding-left: 4px;
 }
@@ -60,6 +61,7 @@ span svg{
 
 }
 .cardbody{
-    height: 335px
+    min-height: 335px;
+
 }
 

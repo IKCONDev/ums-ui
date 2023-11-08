@@ -145,7 +145,7 @@ export class ForgotPasswordResetComponent {
           this.toastr.success("Success","Reset Password");
           this.router.navigateByUrl("/");
          }else if(this.passwordUpdateStatus===0){
-          this.toastr.warning("Error","Password cannot be the same as previous two password");
+          this.toastr.warning("New password must not match previous 3 passwords");
          }
         }
       )
