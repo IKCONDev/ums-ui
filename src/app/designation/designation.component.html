@@ -53,10 +53,10 @@
                             (click)="toggleMainCheckBox(i)"/>
                         </td>
                         <td>DESG{{designation.id}}</td>
-                        <td>{{designation.designationName}}</td>
-                        <td>{{designation.createdBy}}</td>
+                        <td>{{designation.designationName | titlecase}}</td>
+                        <td>{{designation.createdBy | titlecase}}</td>
                         <td>{{designation.createdDateTime |date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{designation.modifiedBy}}</td>
+                        <td>{{designation.modifiedBy | titlecase}}</td>
                         <td>{{designation.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
                             <span id="editIcon" (click)="fetchOneDesignation(designation.id)"

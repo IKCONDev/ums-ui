@@ -55,10 +55,10 @@
                                 value="{{role.roleId}}" (click)="toggleMainCheckBox(i)"/>
                             </td>
                             <td>R{{role.roleId}}</td>
-                            <td id="role-subject">{{role.roleName}}</td>
-                            <td>{{role.createdBy}}</td>
+                            <td id="role-subject">{{role.roleName | uppercase}}</td>
+                            <td>{{role.createdBy | titlecase}}</td>
                             <td>{{role.createdDateTime|date:'MMM d, y, h:mm a'}}</td>
-                            <td>{{role.modifiedBy}}</td>
+                            <td>{{role.modifiedBy | titlecase}}</td>
                             <td>{{role.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                             <td>
                                 <span id="editIcon" (click)="getRoleById(role.roleId)"

@@ -61,16 +61,16 @@
                                 (change)="toggleMainCheckBox(i)" />
                         </td>
                         <td>{{employee.employeeOrgId}}</td>
-                        <td>{{employee.firstName}}</td>
-                        <td>{{employee.lastName}}</td>
+                        <td>{{employee.firstName | titlecase}}</td>
+                        <td>{{employee.lastName | titlecase}}</td>
                         <td >{{employee.gender}}</td>
                         <td>{{employee.email}}</td>
-                        <td>{{employee.reportingManager}}</td>
-                        <td>{{employee.departmentName}}</td>
-                        <td>{{employee.empDesignation.designationName}}</td>
+                        <td>{{employee.reportingManager | titlecase}}</td>
+                        <td>{{employee.departmentName | titlecase}}</td>
+                        <td>{{employee.empDesignation.designationName | titlecase}}</td>
                         <td>{{employee.createdDateTime |date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{employee.modifiedBy}}</td>
-                        <td>{{employee.createdBy}}</td>
+                        <td>{{employee.modifiedBy | titlecase}}</td>
+                        <td>{{employee.createdBy | titlecase}}</td>
                         <td>{{employee.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <!-- <td>{{employee.createdByEmailId}}</td> -->
                         <td>
