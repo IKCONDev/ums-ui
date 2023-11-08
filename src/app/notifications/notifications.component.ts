@@ -4,6 +4,7 @@ import { error } from 'jquery';
 import { HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Notification } from '../model/Notification.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-notifications',
@@ -12,7 +13,7 @@ import { Notification } from '../model/Notification.model';
 })
 export class NotificationsComponent implements OnInit {
 
-  notificationList: Notification[];
+  notificationList: Observable<Notification[]>;
   notificationCount = 0;
 
   constructor(private notificationService: NotificationService,
@@ -32,8 +33,12 @@ export class NotificationsComponent implements OnInit {
     this.notificationService.getTopTenNotificationsByUserId(localStorage.getItem('email')).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
-          this.notificationList = response.body
-          this.notificationCount = this.notificationList.length;
+          this.notificationList = new Observable(observer => {
+            setInterval(() => {
+              observer.next(response.body);
+            },1000)
+          })
+          this.notificationCount = response.body.length;
           console.log(this.notificationCount);
           //for each notification set time ago
           // this.notificationList.forEach(notification => {
@@ -55,17 +60,20 @@ export class NotificationsComponent implements OnInit {
    * 
    */
   updateNotificationStatus(notification: Notification){
-    this.notificationService.updateNotification(notification).subscribe({
-      next: response => {
-        if(response.status === HttpStatusCode.PartialContent){
-          console.log(response.body)
+    if(notification.status === 'Unread'){
+      this.notificationService.updateNotification(notification).subscribe({
+        next: response => {
+          if(response.status === HttpStatusCode.PartialContent){
+            console.log(response.body)
+          }
+        },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }
         }
-      },error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout');
-        }
-      }
-    })
+      })
+    }
+    
   }
 
 }

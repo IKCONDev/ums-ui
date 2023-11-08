@@ -22,6 +22,10 @@
     cursor: pointer;
 }
 
+#notificationCard:hover{
+    background-color: aliceblue;
+}
+
 #userImage{
     padding-top: 6px;
 }
