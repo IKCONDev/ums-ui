@@ -111,7 +111,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label><b>Designation Name</b><span id="required">*</span></label>
-                    <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Designation name"
+                    <input type="text" style="text-transform: capitalize" class="deptInput form-control" placeholder="Designation name"
                     [(ngModel)]="addDesignation.designationName" (keyup)="validateDesignationName()"
                     minlength="5" maxlength="50"/><br/>
                     <span *ngIf="designationNameErrorInfo != ''">

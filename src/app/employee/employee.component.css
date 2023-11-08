@@ -108,3 +108,6 @@ td{
     color: red;
     padding-left: 2px;
 }
+#employeeId::placeholder{
+    text-transform: initial;
+}
