@@ -524,6 +524,10 @@ numberValidation(event: KeyboardEvent) {
       event.preventDefault();
   }
 }
+onFileChanged(event){
+  
+}
+
 
 }
 

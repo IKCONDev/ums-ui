@@ -111,7 +111,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label><b>Designation Name</b><span id="required">*</span></label>
-                    <input type="text" class="deptInput form-control" placeholder="designation name"
+                    <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Designation name"
                     [(ngModel)]="addDesignation.designationName" (keyup)="validateDesignationName()"
                     minlength="5" maxlength="50"/><br/>
                     <span *ngIf="designationNameErrorInfo != ''">
@@ -146,7 +146,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label><b>Designation Name</b><span id="required">*</span></label>
-                    <input type="text" class="deptInput form-control" placeholder="designation name"
+                    <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="designation name"
                     [(ngModel)]="existingDesignation.designationName" (keyup)="validateUpdatedDesignationName()"
                     minlength="5" maxlength="50"/><br/>
                     <span *ngIf="updatedDesignationNameErrorInfo != ''">

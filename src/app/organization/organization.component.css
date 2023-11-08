@@ -79,3 +79,19 @@ input::-webkit-inner-spin-button {
     font-size: 19px;
     padding-right: 4px;
 }
+input[type='file'] {
+    color: transparent;
+
+}
+#file-input{
+    display: none;
+    
+}
+
+
+#file-input-label {
+    font-size: 1.3em;
+    padding: 10px 15px;
+    border: 1px solid black;
+    border-radius: 4%;
+}

@@ -148,7 +148,11 @@
                 <br />
                 <label><b>Employee ID</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
-                id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="addEmployee.employeeOrgId"/>
+                id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="addEmployee.employeeOrgId"
+                (keyup)=" validateEmployeeID()"/>
+                <span *ngIf="isEmployeeIDErrorInfo != ''">
+                    <p id="errorMessage">{{isEmployeeIDErrorInfo}}</p>
+                </span>
                 <br/>
                 <label><b>Gender</b><span id="required">*</span></label><br/>
                 <input type="radio"
@@ -160,7 +164,7 @@
                 <span *ngIf="employeeGenderErrorInfo != ''">
                     <p id="errorMessage">{{employeeGenderErrorInfo}}</p>
                 </span>
-                <br /><br />
+                <br />
                 <label><b>Email</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Email"
                     [(ngModel)]="addEmployee.email" id="employeeEmail" name="employeeEmail" #employeeEmail="ngModel"
@@ -171,7 +175,11 @@
                 <br />
                 <label><b>Date of Joining</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Date of Joining"
-                id="joiningDate" name="joiningDate" #joiningDate="ngModel"    [(ngModel)]="addEmployee.joiningDate" />
+                id="joiningDate" name="joiningDate" #joiningDate="ngModel"    [(ngModel)]="addEmployee.dateOfJoining"
+                (keyup)="validateEmployeeDateofJoining()"/>
+                <span *ngIf=" isEmployeeDateofJoinErrorInfo != ''">
+                    <p id="errorMessage">{{ isEmployeeDateofJoinErrorInfo}}</p>
+                </span>
                 <br/>
                 <label><b>Reporting Manager</b><span id="required">*</span></label>
                 
@@ -267,6 +275,14 @@
                 <span *ngIf="updateLastNameErrorInfo != ''">
                     <p id="errorMessage">{{updateLastNameErrorInfo}}</p>
                 </span><br />
+                <label><b>Employee ID</b><span id="required">*</span></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
+                id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="existingEmployee.employeeOrgId"
+                (keyup)="validateUpdateEmployeeID()"/>
+                <span *ngIf="isUpdateEmployeeIDErrorInfo != ''">
+                    <p id="errorMessage">{{isUpdateEmployeeIDErrorInfo}}</p>
+                </span>
+                <br/>
                 <label><b>Gender</b><span id="required">*</span></label><br/>
                 <input type="radio"
                     [(ngModel)]="existingEmployee.gender" id="genderMaleUpdate" name="gender"
@@ -286,9 +302,13 @@
                 <span *ngIf="updateEmailIdErrorInfo != ''">
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br />
-                <label><b>Employee ID</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
-                id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="existingEmployee.employeeOrgId"/>
+                <label><b>Date of Joining</b><span id="required">*</span></label>
+                <input type="text" class="addEmployeeInput form-control" placeholder="Date of Joining"
+                id="joiningDate" name="joiningDate" #joiningDate="ngModel" [(ngModel)]="existingEmployee.dateOfJoining" 
+                (keyup)="validateUpdateDateofJoining()"/>
+                <span *ngIf="isUpdateDateofJoinErrorInfo != ''">
+                    <p id="errorMessage">{{isUpdateDateofJoinErrorInfo}}</p>
+                </span>
                 <br/>
                 <label><b>Reporting Manager</b><span id="required">*</span></label>
                 <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
