@@ -89,14 +89,15 @@
 
 /* ----- MODAL STYLE ----- */
 .modal-content {
-  border-radius: 0;
+  
   border: none;
   color: black;
 }
 
 .modal-header {
   border-bottom-color: #EEEEEE;
-  background-color: #FAFAFA;
+  background-color: #134E69D9;
+  color: #EEEEEE;
 }
 
 /* user profile */
@@ -267,5 +268,10 @@
   border-radius: 50%;
   margin: 2px;
 }
+
+.close{
+  color: white;
+}
+
 
 

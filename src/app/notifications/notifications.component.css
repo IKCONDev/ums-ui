@@ -25,3 +25,10 @@
 #userImage{
     padding-top: 6px;
 }
+
+#dateTimeAgo{
+    font-size: 8px;
+    text-align: start;
+    padding-left: 80px;
+    padding-top: 10px;
+}
