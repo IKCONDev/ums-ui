@@ -181,15 +181,14 @@
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b><span id="required">*</span></label>
                 <input type="text" class="updateUserInput form-control" placeholder="Email" readonly="true" [(ngModel)]="existingUserObj.email"
-                id="updateEmail" name="updateEmail" #updateEmail="ngModel" [class.invalid]="updateEmail.invalid && updateEmail.touched"
-                (change)="validateUserEmailId()"/>
-                <div *ngIf="useremailIdErrorInfo != ''">
+                id="updateEmail" name="updateEmail" #updateEmail="ngModel" [class.invalid]="updateEmail.invalid && updateEmail.touched">
+               <!--- <div *ngIf="useremailIdErrorInfo != ''">
                     <span id="errorMessage">{{useremailIdErrorInfo}}</span>
-                </div><br/>
+                </div><br/>-->
                 <label><b>Role</b><span id="required">*</span></label>
                 <select class="updateUserInput form-control form-select" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleId"
                 id="updateRole" name="updateRole" #updateRole="ngModel" [class.invalid]="updateRole.invalid && updateRole.touched"
-                (change)="validateuserRole()">
+                (change)="validateUpdateUserRole()">
                    <!-- <option value="select">select</option>-->
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
                 </select>

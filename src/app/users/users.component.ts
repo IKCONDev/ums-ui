@@ -228,23 +228,34 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
    * @param user
    */
   updateUser(existingUser : any){
-    console.log(existingUser.roleId);
-     this.userService.update(existingUser).subscribe(
-        response=>{
-          var userRecord = response.body;
-          if(response.status == HttpStatusCode.Created){
-              this.toastr.success("User updated successfully");
-              document.getElementById('closeUpdateModal').click();
-              /*setTimeout(() => {
-                window.location.reload();
-               },1000);*/
-          }
-          else{
-             this.toastr.error("Error occured while updating user");
-          }
-        }
-     )
     
+    let isEmailIdValid = true;
+    let isRoleValid = true;
+    if(!this.isUpdateRoleNameValid){
+      var valid = this.validateUpdateUserRole();
+      isRoleValid = valid;
+    }
+    if(isRoleValid == true){
+
+      console.log(existingUser.roleId);
+      this.userService.update(existingUser).subscribe(
+         response=>{
+           var userRecord = response.body;
+           if(response.status == HttpStatusCode.Created){
+               this.toastr.success("User updated successfully");
+               document.getElementById('closeUpdateModal').click();
+               /*setTimeout(() => {
+                 window.location.reload();
+                },1000);*/
+           }
+           else{
+              this.toastr.error("Error occured while updating user");
+           }
+         }
+      )
+
+    }
+  
   }
 
   /**
@@ -368,6 +379,19 @@ getAllEmployeesWithStatus(){
         }
       }
    })
+}
+isUpdateRoleNameErrorInfo ='';
+isUpdateRoleNameValid = false;
+validateUpdateUserRole(){
+   if(this.existingUserObj.userRoles.at(0).roleId ==0){
+     this.isUpdateRoleNameErrorInfo = 'Role is required';
+     this.isUpdateRoleNameValid = false;
+   }
+   else{
+    this.isUpdateRoleNameErrorInfo = '';
+    this.isUpdateRoleNameValid = true;
+   }
+   return this.isUpdateRoleNameValid;
 }
 
 }
