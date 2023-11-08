@@ -516,7 +516,7 @@ export class HomeComponent implements OnInit{
             },
             title: {
               display: true,
-              text: 'Meeting Status of Current Week',
+              text: '   Meeting Status of Current Week',
               align: 'start',
               font: {
                 size: 14,
@@ -573,7 +573,7 @@ export class HomeComponent implements OnInit{
             legend: {
               display: true,
               position: 'right',
-              align:'center',
+              align:'end',
               labels: {
                 usePointStyle: true,
                 font: {
@@ -586,7 +586,7 @@ export class HomeComponent implements OnInit{
             },
             title: {
               display: true,
-              text: 'Meeting Status of Current Year',
+              text: '   Meeting Status of Current Year',
               align: 'start',
               font: {
                 size: 14,

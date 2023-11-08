@@ -3,11 +3,11 @@
         flex-direction: row;
     }
 }
-
+ 
 p{
     font-size: 15px;
 }
-
+ 
 .container-fluid {
     display: flex;
     padding-left: 80px;
@@ -16,27 +16,28 @@ p{
 .card-header{
     background-color:#134E69D9;
     color: white;
+    border-radius: 5px;
 }
-
+ 
 body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-
+ 
 }
-
+ 
 #homepage-body {
     padding-left: 100px;
     padding-top: 10px;
-    
+   
 }
-
+ 
 /* .container-fluid{
-    
+   
 } */
-
+ 
 .container-fluid{
-
+ 
     display: block;
     padding: 20px 15px 10px 120px;
     cursor: pointer;
@@ -54,18 +55,17 @@ body {
 .card-body{
     border-radius: 4px;
 }
-
-
+ 
+ 
 #cardRow{
     padding-left: 4px;
 }
-
+ 
 span svg{
     padding-left: 10px;
-
+ 
 }
 .cardbody{
     min-height: 335px;
-
+ 
 }
-
