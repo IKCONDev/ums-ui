@@ -320,6 +320,10 @@ getTokenPopup(request) {
           localStorage.setItem('userId', this.loginInfo.userId);
           localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
           localStorage.setItem('jwtExpiry',this.loginInfo.jwtExpiry)
+          //set default tabs for meetings
+          localStorage.setItem('tabOpened', 'OrganizedMeeting');
+          //set default tabs for tasks
+          localStorage.setItem('taskTabOpened', 'OrganizedTask');
           let navigationExtras: NavigationExtras = {
             state: {
               loginInfo: this.loginInfo
