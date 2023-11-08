@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class NotificationsComponent implements OnInit {
 
-  notificationList: Observable<Notification[]>;
+  notificationList: Notification[];
   notificationCount = 0;
 
   constructor(private notificationService: NotificationService,
@@ -33,11 +33,7 @@ export class NotificationsComponent implements OnInit {
     this.notificationService.getTopTenNotificationsByUserId(localStorage.getItem('email')).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
-          this.notificationList = new Observable(observer => {
-            setInterval(() => {
-              observer.next(response.body);
-            },1000)
-          })
+          this.notificationList = response.body;
           this.notificationCount = response.body.length;
           console.log(this.notificationCount);
           //for each notification set time ago
