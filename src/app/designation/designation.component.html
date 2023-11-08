@@ -53,10 +53,10 @@
                             (click)="toggleMainCheckBox(i)"/>
                         </td>
                         <td>DESG{{designation.id}}</td>
-                        <td>{{designation.designationName}}</td>
-                        <td>{{designation.createdBy}}</td>
+                        <td>{{designation.designationName | titlecase}}</td>
+                        <td>{{designation.createdBy | titlecase}}</td>
                         <td>{{designation.createdDateTime |date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{designation.modifiedBy}}</td>
+                        <td>{{designation.modifiedBy | titlecase}}</td>
                         <td>{{designation.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
                             <span id="editIcon" (click)="fetchOneDesignation(designation.id)"
@@ -111,7 +111,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label><b>Designation Name</b><span id="required">*</span></label>
-                    <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Designation name"
+                    <input type="text" style="text-transform: capitalize" class="deptInput form-control" placeholder="Designation name"
                     [(ngModel)]="addDesignation.designationName" (keyup)="validateDesignationName()"
                     minlength="5" maxlength="50"/><br/>
                     <span *ngIf="designationNameErrorInfo != ''">

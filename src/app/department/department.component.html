@@ -57,13 +57,13 @@
                                 value="{{department.departmentId}}" (click)="toggleMainCheckBox(i)" />
                         </td>
                         <td>DEPT{{department.departmentId}}</td>
-                        <td>{{department.departmentName}}</td>
-                        <td>{{department.departmentCode}}</td>
-                        <td>{{department.departmentHead}}</td>
-                        <td>{{department.departmentAddress}}</td>
-                        <td>{{department.createdBy}}</td>
+                        <td>{{department.departmentName | titlecase}}</td>
+                        <td>{{department.departmentCode | uppercase}}</td>
+                        <td>{{department.departmentHead | titlecase}}</td>
+                        <td>{{department.departmentAddress | titlecase}}</td>
+                        <td>{{department.createdBy | titlecase}}</td>
                         <td>{{department.createdDateTime |date:'MMM d, y, h:mm a' }}</td>
-                        <td>{{department.modifiedBy}}</td>
+                        <td>{{department.modifiedBy | titlecase}}</td>
                         <td>{{department.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
                             <span id="editIcon" (click)="fetchOneDepartment(department.departmentId)"
@@ -135,7 +135,7 @@
                 </span>
                 <!--  -->
                 <label><b>Department Code</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: uppercase;" class="deptInput form-control" placeholder="Department code"
+                <input type="text"  id="departmentCode" style="text-transform: uppercase;" class="deptInput form-control" placeholder="Department Code"
                     [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode()" minlength="2"
                     maxlength="4" /><br />
                 <span *ngIf="departmentCodeErrorInfo != ''">
@@ -180,7 +180,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Department Name</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="department name"
+                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department name"
                     [(ngModel)]="existingDepartment.departmentName" (keyup)="validateUpdatedDepartmentName()"
                     minlength="3" maxlength="50" /><br />
                 <span *ngIf="updatedDepartmentNameErrorInfo != ''">
@@ -188,14 +188,14 @@
                 </span>
                 <!--   -->
                 <label><b>Department Head</b><span id="required">*</span></label>
-                <input type="search" style="text-transform: capitalize;" class="deptInput form-control" placeholder="department head"
+                <input type="search" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department head"
                     [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateUpdatedDepartmentHead()" minlength="3" maxlength="50"/><br />
                 <span *ngIf="updatedDepartmentHeadErrorInfo != ''">
                     <p id="errorMessage">{{updatedDepartmentHeadErrorInfo}}</p>
                 </span>
                 <!--  -->
                 <label><b>Department Code</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: uppercase;" class="deptInput form-control" placeholder="department code"
+                <input type="text" id="departmentCode" style="text-transform: uppercase;" class="deptInput form-control" placeholder="Department Code"
                     [(ngModel)]="existingDepartment.departmentCode" (keyup)="validateUpdatedDepartmentCode()"
                     minlength="2" maxlength="4" /><br />
                 <span *ngIf="updatedDepartmentCodeErrorInfo != ''">
@@ -203,7 +203,7 @@
                 </span>
                 <!--  -->
                 <label><b>Department Location</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="department location"
+                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department location"
                     [(ngModel)]="existingDepartment.departmentAddress" (keyup)="validateUpdatedDepartmentLocation()"
                     minlength="3" maxlength="20" />
                 <span *ngIf="updatedDepartmentLocationErrorInfo != ''">

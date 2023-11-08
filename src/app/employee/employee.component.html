@@ -61,16 +61,16 @@
                                 (change)="toggleMainCheckBox(i)" />
                         </td>
                         <td>{{employee.employeeOrgId}}</td>
-                        <td>{{employee.firstName}}</td>
-                        <td>{{employee.lastName}}</td>
+                        <td>{{employee.firstName | titlecase}}</td>
+                        <td>{{employee.lastName | titlecase}}</td>
                         <td >{{employee.gender}}</td>
                         <td>{{employee.email}}</td>
-                        <td>{{employee.reportingManager}}</td>
-                        <td>{{employee.departmentName}}</td>
-                        <td>{{employee.empDesignation.designationName}}</td>
+                        <td>{{employee.reportingManager | titlecase}}</td>
+                        <td>{{employee.departmentName | titlecase}}</td>
+                        <td>{{employee.empDesignation.designationName | titlecase}}</td>
                         <td>{{employee.createdDateTime |date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{employee.modifiedBy}}</td>
-                        <td>{{employee.createdBy}}</td>
+                        <td>{{employee.modifiedBy | titlecase}}</td>
+                        <td>{{employee.createdBy | titlecase}}</td>
                         <td>{{employee.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <!-- <td>{{employee.createdByEmailId}}</td> -->
                         <td>
@@ -129,7 +129,7 @@
             <div class="modal-body">
 
                 <label><b>First Name</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="First Name"
+                <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="First Name"
                     [(ngModel)]="addEmployee.firstName" id="firstName" name="firstName" required="true"
                     #firstName="ngModel" maxlength="50" [class.invalid]="firstName.invalid && firstName.touched"
                     (keyup)="validateEmployeeFirstName()">
@@ -138,7 +138,7 @@
                 </span>
                 <br />
                 <label><b>Last Name</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"
+                <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="Last Name"
                     [(ngModel)]="addEmployee.lastName" id="lastName" name="lastName" required="true" #lastName="ngModel"
                     maxlength="50" (keyup)="validateEmployeeLastName()"
                     [class.invalid]="lastName.invalid && lastName.touched" />
@@ -147,7 +147,7 @@
                 </span>
                 <br />
                 <label><b>Employee ID</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
+                <input type="text"  style="text-transform: uppercase;" class="addEmployeeInput form-control" placeholder="Employee ID" 
                 id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="addEmployee.employeeOrgId"
                 (keyup)=" validateEmployeeID()"/>
                 <span *ngIf="isEmployeeIDErrorInfo != ''">
@@ -260,7 +260,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>First Name</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="First Name"
+                <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="First Name"
                     [(ngModel)]="existingEmployee.firstName" id="updateFirstName" name="updateFirstName" required="true"
                     #updateFirstName="ngModel" [class.invalid]="updateFirstName.invalid && updateFirstName.touched"
                     (keyup)="validateUpdateFirstName()">
@@ -268,7 +268,7 @@
                     <p id="errorMessage">{{updateFirstNameErrorInfo}}</p>
                 </span><br />
                 <label><b>Last Name</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Last Name"
+                <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="Last Name"
                     [(ngModel)]="existingEmployee.lastName" id="updateLastName" name="updateLastName" required="true"
                     #updateLastName="ngModel" (keyup)="validateUpdateLastName()"
                     [class.invalid]="updateLastName.invalid && updateLastName.touched" />
@@ -276,7 +276,7 @@
                     <p id="errorMessage">{{updateLastNameErrorInfo}}</p>
                 </span><br />
                 <label><b>Employee ID</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Employee Id" 
+                <input type="text" style="text-transform: uppercase;" class="addEmployeeInput form-control" placeholder="Employee ID" 
                 id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="existingEmployee.employeeOrgId"
                 (keyup)="validateUpdateEmployeeID()"/>
                 <span *ngIf="isUpdateEmployeeIDErrorInfo != ''">

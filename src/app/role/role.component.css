@@ -151,3 +151,6 @@ table td{
     color: red;
     padding-left: 2px;
 }
+#roleName::placeholder{
+    text-transform: initial;
+}
