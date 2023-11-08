@@ -180,7 +180,7 @@
                 <label><b>Last Name</b></label>
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b><span id="required">*</span></label>
-                <input type="text" class="updateUserInput form-control" placeholder="Email" [(ngModel)]="existingUserObj.email"
+                <input type="text" class="updateUserInput form-control" placeholder="Email" readonly="true" [(ngModel)]="existingUserObj.email"
                 id="updateEmail" name="updateEmail" #updateEmail="ngModel" [class.invalid]="updateEmail.invalid && updateEmail.touched"
                 (change)="validateUserEmailId()"/>
                 <div *ngIf="useremailIdErrorInfo != ''">
