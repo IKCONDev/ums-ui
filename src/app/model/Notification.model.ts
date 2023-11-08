@@ -4,4 +4,5 @@ export interface Notification{
     emailId: string;
     notificationTo: string;
     moduleType: string;
+    status: string;
 }
