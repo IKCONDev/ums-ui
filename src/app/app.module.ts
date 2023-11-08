@@ -42,6 +42,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ServiceUnavailableComponent } from './service-unavailable/service-unavailable.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 //import  '../../fonts/general-sans/css/general-sans.css';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     SessionTimeoutComponent, 
     PageNotFoundComponent, 
     ServiceUnavailableComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    DateAgoPipe
   ],
   imports: [
     BrowserModule,
