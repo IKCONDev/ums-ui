@@ -64,7 +64,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     modifiedBy: '',
     createdByEmailId: '',
     modifiedByEmailId: '',
-    joiningDate :''
+    dateOfJoining :''
   }
 
   employeeData: Employee[];
@@ -111,6 +111,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     let isReportingManagerValid = true;
     let isDepartmentValid = true;
     let isDesignationValid = true;
+    let isDateofJoining = true;
+    let isEmployeeID = true;
 
     if (!this.isEmployeeFirstNameValid) {
 
@@ -144,10 +146,19 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       var valid = this.validateEmployeeGender();
       isGenderValid = valid;
     }
+    if(!this.isEmployeeDateofJoinValid){
+      var valid = this.validateEmployeeDateofJoining();
+      isDateofJoining = valid;
+    }
+    if(!this.isEmployeeIDValid){
+      var valid = this.validateEmployeeID();
+      isEmployeeID = valid;
+    }
+
 
     if (isFirstNameValid == true && isLastNameValid == true && isGenderValid == true
       && isEmailIdValid == true && isReportingManagerValid == true 
-      && isDepartmentValid == true && isDesignationValid == true) {
+      && isDepartmentValid == true && isDesignationValid == true && isEmployeeID == true && isDateofJoining == true) {
 
       console.log(this.addEmployee);
       this.addEmployee.createdBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
@@ -201,6 +212,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     modifiedBy: '',
     createdByEmailId: '',
     modifiedByEmailId: '',
+    dateOfJoining:''
   }
 
   /**
@@ -317,6 +329,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     let isReportingManagerValid = true;
     let isDepartmentValid = true;
     let isDesignationValid = true;
+    let isEmployeeIDValid = true;
+    let isDateofJoiningValid = true;
 
     if (!this.isUpdateFirstNameValid) {
 
@@ -351,10 +365,18 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       var valid = this.validateUpdateDesignation();
       isDesignationValid = valid;
     }
+    if(!this.isUpdateEmployeeIDValid){
+      var valid = this.validateUpdateEmployeeID();
+      isEmployeeIDValid = valid;
+    }
+    if(!this.isUpdateDateofJoin){
+      var valid = this.validateUpdateDateofJoining();
+      isDateofJoiningValid = valid;
+    }
 
     if (isEmailIdValid == true && isFirstNameValid == true && isReportingManagerValid == true
        && isLastNameValid == true && isDepartmentValid == true && isGenderValid == true &&
-      isDesignationValid == true) {
+      isDesignationValid == true && isDateofJoiningValid == true && isEmployeeIDValid == true) {
       this.existingEmployee.modifiedBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       this.employeeservice.updateEmployee(this.existingEmployee).subscribe(
         response => {
@@ -515,6 +537,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.employeeDesignationErrorInfo = '';
     this.employeeReportingManagerErrorInfo = '';
     this.employeeGenderErrorInfo = '';
+    this.isEmployeeDateofJoinErrorInfo ='';
+    this.isEmployeeIDErrorInfo = '';
 
     this.isEmployeeFirstNameValid=false;
     this.isEmployeeLasttNameValid=false;
@@ -523,6 +547,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isEmployeeDesignationtValid=false;
     this.isEmployeeGenderValid=false;
     this.isEmployeeReportingManagerValid=false;
+  
 
     this.addEmployee.firstName = '' ;
     this.addEmployee.lastName ='';
@@ -531,6 +556,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.addEmployee.reportingManager = '';
     this.addEmployee.departmentId=0;
     this.addEmployee.empDesignation.id=0;
+    this.addEmployee.dateOfJoining ='';
+    this.addEmployee.employeeOrgId = '';
 
   }
   clearUpdateErrorMessages(){
@@ -540,6 +567,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.updateReportingManagerErrorInfo = '';
     this.updateDepartmentErrorInfo = "";
     this.updateDesignationErrorInfo = "";
+    this.isUpdateDateofJoinErrorInfo = "";
+    this.isUpdateEmployeeIDErrorInfo = "";
 
   }
   /**
@@ -752,5 +781,66 @@ isUpdateEmployeeGenderValid = false;
       $('.mainCheckBox').prop('checked', false);
     }
   }
+  isEmployeeIDValid = false;
+  isEmployeeIDErrorInfo = '';
+  validateEmployeeID(){
+    if(this.addEmployee.employeeOrgId == ''){
+      this.isEmployeeIDValid = false;
+      this.isEmployeeIDErrorInfo = 'Employee ID is required';
+    }
+    else{
+      this.isEmployeeIDValid = true;
+      this.isEmployeeIDErrorInfo = '';
+    }
+    return this.isEmployeeIDValid;
+
+  }
+  isEmployeeDateofJoinValid = false;
+  isEmployeeDateofJoinErrorInfo = '';
+  validateEmployeeDateofJoining(){
+
+    if(this.addEmployee.dateOfJoining == '' || this.addEmployee.dateOfJoining == null){
+      this.isEmployeeDateofJoinValid = false;
+      this.isEmployeeDateofJoinErrorInfo = 'Date of Joining is required';
+    }
+    else{
+      this.isEmployeeDateofJoinValid = true;
+      this.isEmployeeDateofJoinErrorInfo = '';
+    }
+    return this.isEmployeeDateofJoinValid;
+
+  }
+  isUpdateEmployeeIDValid = false;
+  isUpdateEmployeeIDErrorInfo = '';
+  validateUpdateEmployeeID(){
+  
+    if(this.existingEmployee.employeeOrgId == ''){
+      this.isUpdateEmployeeIDValid = false;
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required';
+    }
+    else{
+      this.isUpdateEmployeeIDValid = true;
+      this.isUpdateEmployeeIDErrorInfo = '';
+    }
+    return this.isUpdateEmployeeIDValid;
+
+
+  }
+  isUpdateDateofJoin = false;
+  isUpdateDateofJoinErrorInfo = '';
+  validateUpdateDateofJoining(){
+
+    if(this.existingEmployee.dateOfJoining == '' || this.existingEmployee.dateOfJoining == null){
+      this.isUpdateDateofJoin = false;
+      this.isUpdateDateofJoinErrorInfo = 'Date of Joining is required';
+    }
+    else{
+      this.isUpdateDateofJoin = true;
+      this.isUpdateDateofJoinErrorInfo = '';
+    }
+    return this.isUpdateDateofJoin;
+    
+  }
+
 
 }
