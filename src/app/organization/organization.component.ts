@@ -373,12 +373,12 @@ export class OrganizationComponent implements OnInit {
   validateOrgAddress() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.org.orgAddress === ''|| this.org.orgAddress.trim() ==="" ||  regex.exec(this.org.orgAddress)===null || this.org.orgAddress===null) {
-      this.updatedOrgAddressErrorInfo = 'Address is required';
+      this.updatedOrgAddressErrorInfo = 'Organization address is required';
       this.isUpdateOrgAddressValid = false;
     }
     else if (this.org.orgAddress.length < 30) {
       this.isUpdateOrgAddressValid = false;
-      this.updatedOrgAddressErrorInfo = 'Organisation Address should have minimum of 30 chars';
+      this.updatedOrgAddressErrorInfo = 'Organisation address should have minimum of 30 chars';
     }
     else if (this.org.orgAddress.length > 300) {
       this.isUpdateOrgAddressValid = false;

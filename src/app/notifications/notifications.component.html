@@ -5,7 +5,7 @@
     <div >
         <ng-template #notifications>
             <div *ngFor="let notification of notificationList">
-                <div class="row" id="notification-card" (click)="updateNotificationStatus()">
+                <div class="row" id="notification-card" (click)="updateNotificationStatus(notification)">
                     <div class="col-3" id="userImage">
                         <svg xmlns="http://www.w3.org/2000/svg" width="53" height="53" viewBox="0 0 73 72" fill="none">
                             <circle cx="36.835" cy="36" r="36" fill="#F6FBFD"/>
@@ -15,6 +15,7 @@
                     <div class="col-7" id="message">{{notification.message}}</div>
                     <div class="col-2"  id="statusUnread" *ngIf="notification.status === 'Unread'">{{notification.status}}</div>
                     <div class="col-2"  id="statusRead" *ngIf="notification.status === 'Read'">{{notification.status}}</div>
+                    <div id="dateTimeAgo">{{notification.createdDateTime | dateAgo}}</div>
                 </div>
                 <hr/>
             </div>
