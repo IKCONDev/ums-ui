@@ -41,4 +41,11 @@ export class NotificationsComponent {
     });
   }
 
+  /**
+   * 
+   */
+  updateNotificationStatus(){
+
+  }
+
 }

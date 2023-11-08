@@ -5,7 +5,7 @@
     <div >
         <ng-template #notifications>
             <div *ngFor="let notification of notificationList">
-                <div class="row" id="notification-card">
+                <div class="row" id="notification-card" (click)="updateNotificationStatus()">
                     <div class="col-3" id="userImage">
                         <svg xmlns="http://www.w3.org/2000/svg" width="53" height="53" viewBox="0 0 73 72" fill="none">
                             <circle cx="36.835" cy="36" r="36" fill="#F6FBFD"/>
