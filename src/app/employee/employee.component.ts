@@ -64,6 +64,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     modifiedBy: '',
     createdByEmailId: '',
     modifiedByEmailId: '',
+    joiningDate :''
   }
 
   employeeData: Employee[];
