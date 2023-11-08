@@ -1,0 +1,27 @@
+#message{
+    font-size: 12px;
+    text-align: start;
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+#statusUnread{
+    font-size: 10px;
+    padding-top: 48px;
+    color: black;
+}
+
+
+#statusRead{
+    font-size: 10px;
+    padding-top: 48px;
+    color: lightgray;
+}
+
+#notification-card{
+    cursor: pointer;
+}
+
+#userImage{
+    padding-top: 6px;
+}
