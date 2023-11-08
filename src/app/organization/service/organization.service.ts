@@ -63,5 +63,15 @@ export class OrganizationService {
             )
         });
     }
-
+    updateOrgPic(email:string,orgPic:any){
+    const userdata = new FormData();
+     userdata.append('email',email);
+     userdata.append('orgPic',orgPic)
+     return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganisationUrl}`, userdata, {
+        observe: 'response', headers: new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+        }
+        )
+    });
+    }
 }
