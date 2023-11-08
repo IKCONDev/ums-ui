@@ -77,7 +77,7 @@ input::-webkit-inner-spin-button {
     color: red;
     padding-left: 3px;
     font-size: 19px;
-    padding-right: 4px;
+    padding-right: 2px;
 }
 input[type='file'] {
     color: transparent;

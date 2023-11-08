@@ -127,6 +127,10 @@ table td{
     padding-left: 2px;
 }
 
+#departmentCode::placeholder{
+    text-transform: initial;
+}
+
 /*common properties end*/
 
 

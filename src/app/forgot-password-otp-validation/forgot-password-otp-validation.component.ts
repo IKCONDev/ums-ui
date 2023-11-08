@@ -174,7 +174,7 @@ export class ForgotPasswordOtpValidationComponent {
       if(this.result === 1){
         console.log('valid otp - navigate to reset password page')
         this.isValidOtp = true;
-        this.OtpResponseMessage ="valid Otp";
+        this.OtpResponseMessage ="valid OTP";
 
         let navigationExtras: NavigationExtras = {
           state: {
@@ -184,7 +184,7 @@ export class ForgotPasswordOtpValidationComponent {
         this.router.navigateByUrl("/reset-password", navigationExtras)
       }else{
         console.log(' invalid otp please enter a valid one or request for resend otp')
-        this.OtpResponseMessage ="Invalid otp";
+        this.OtpResponseMessage ="Invalid OTP";
         this.verifyButtonDisabled=true;
         let navigationExtras: NavigationExtras = {
           state: {
