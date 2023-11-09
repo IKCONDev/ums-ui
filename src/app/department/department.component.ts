@@ -209,8 +209,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if(this.addDepartment.departmentCode.length < 2){
       this.departmentCodeErrorInfo = 'Department code should be minimum of 2 characters.';
       this.isDepartmentCodeValid = false;
-    }else if(this.addDepartment.departmentCode.length > 4){
-      this.departmentCodeErrorInfo = 'Department code should not exceed more than 4 characters.';
+    }else if(this.addDepartment.departmentCode.length > 10){
+      this.departmentCodeErrorInfo = 'Department code should not exceed more than 10 characters.';
       this.isDepartmentCodeValid = false;
     }
     else{
@@ -433,8 +433,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if(this.existingDepartment.departmentCode.length < 1){
       this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 1 characters.';
       this.isUpdatedDepartmentCodeValid=false;
-    }else if(this.existingDepartment.departmentCode.length >4){
-      this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 4 characters.';
+    }else if(this.existingDepartment.departmentCode.length >10){
+      this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 10 characters.';
       this.isUpdatedDepartmentCodeValid=false;
     }
     else{
