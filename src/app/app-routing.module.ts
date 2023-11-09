@@ -25,6 +25,7 @@ import { SessionTimeoutComponent } from './session-timeout/session-timeout.compo
 import { ServiceUnavailableComponent } from './service-unavailable/service-unavailable.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HelpcenterComponent } from './helpcenter/helpcenter.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 
 /**
@@ -55,6 +56,7 @@ const routes: Routes = [
   {path: 'session-timeout', component: SessionTimeoutComponent},
   {path: 'service-unavailable', component:ServiceUnavailableComponent},
   {path :'help',component:HelpcenterComponent},
+  {path:'unauthorized', component: UnauthorizedComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},

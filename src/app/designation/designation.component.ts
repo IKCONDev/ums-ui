@@ -13,6 +13,7 @@ import { error } from 'jquery';
 })
 export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  loggedInUserRole = localStorage.getItem('userRole');
   @Output() title:string='Designations';
   designationList: Designation[];
   addDesignation = {
@@ -55,7 +56,9 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    * ngOnInit() executes on component initialization everytime
    */
   ngOnInit(): void {
-      
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER ADMIN'){
+      this.router.navigateByUrl('/unauthorized');
+    }
   }
 
 

@@ -28,8 +28,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   assignedTasksCount = 0;
   reporteeList: Employee[];
   reporteeCount: number = 0;
-  selectedReporteeOrganized: string = localStorage.getItem('selectedReporteeOrganized');
+
+  loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole');
+  selectedReporteeOrganized: string = localStorage.getItem('selectedReporteeOrganized');
   selectedReporteeAssigned: string = localStorage.getItem('selectedReporteeAssigned');
 
 
@@ -153,10 +155,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(this.task);
      });*/
 
-     if(this.selectedReporteeOrganized === 'null'){
+     if(this.selectedReporteeOrganized === ''){
       this.selectedReporteeOrganized = localStorage.getItem('email');
     }
-    if(this.selectedReporteeAssigned === 'null'){
+    if(this.selectedReporteeAssigned === ''){
       this.selectedReporteeAssigned = localStorage.getItem('email');
     }
     console.log(this.selectedReporteeOrganized)
@@ -202,7 +204,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("AssignedTask").style.width = 'fit-content';
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
-      if(this.selectedReporteeAssigned != '' && this.selectedReporteeAssigned != null){
+      if(this.selectedReporteeAssigned != ''){
         this.service.getAssignedTasksOfUser(this.selectedReporteeAssigned).subscribe({
           next: (response) => {
             console.log(response.body)
@@ -217,7 +219,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         });
       }else{
-        this.service.getAssignedTasksOfUser(localStorage.getItem('email')).subscribe({
+        this.service.getAssignedTasksOfUser(this.loggedInUser).subscribe({
           next: (response) => {
             console.log(response.body)
             //extract the meetings from response object
@@ -901,21 +903,30 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     localStorage.setItem('selectedReporteeOrganized', this.selectedReporteeOrganized);
     console.log(this.selectedReporteeOrganized);
     this.selectedReporteeOrganized = localStorage.getItem('selectedReporteeOrganized')
+    if(this.selectedReporteeOrganized === 'null'){
+      localStorage.setItem('selectedReporteeOrganized',this.loggedInUser)
+      this.selectedReporteeOrganized = localStorage.getItem('selectedReporteeOrganized');
+    }
     console.log(this.selectedReporteeOrganized)
-   // this.getTasks('OrganizedTask')
-    // setTimeout(() => {
-    //   window.location.reload();
-    // },70)
     window.location.reload();
   }
 
    /**
    * 
    */
-   storeReporteeDataOfAssignedTask() {
+
+
+   /**
+   * store selected reportee in localstorage
+   */
+   storeReporteeDataOfAssignedTask(){
     localStorage.setItem('selectedReporteeAssigned', this.selectedReporteeAssigned);
     console.log(this.selectedReporteeAssigned);
     this.selectedReporteeAssigned = localStorage.getItem('selectedReporteeAssigned')
+    if(this.selectedReporteeAssigned === 'null'){
+      localStorage.setItem('selectedReporteeAssigned',this.loggedInUser)
+      this.selectedReporteeAssigned = localStorage.getItem('selectedReporteeAssigned');
+    }
     console.log(this.selectedReporteeAssigned)
     window.location.reload();
   }

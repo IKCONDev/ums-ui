@@ -15,25 +15,7 @@ import { Router } from '@angular/router';
 export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private table: any;
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 7,
-          // Add other options here as needed
-        });
-      });
-    },70)
-  }
-
-  ngOnDestroy(): void {
-    if (this.table) {
-      this.table.destroy();
-    }
-  }
+  loggedInUserRole = localStorage.getItem('userRole');
 
   @Output() title:string='Departments';
   departmentList: Department[];
@@ -58,7 +40,28 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    * ngOnInit() executes on component initialization everytime
    */
   ngOnInit(): void {
-      
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER ADMIN'){
+      this.router.navigateByUrl('/unauthorized');
+    }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#table').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },70)
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
   }
 
 

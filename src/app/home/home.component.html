@@ -100,12 +100,12 @@
         <div class="card">
           <div class="card-header">
             <b>Tasks</b>
-            <ng-select [(ngModel)]="selectedOption" (change)="onSelectChange()" style="float: right; width: 150px;">
-              <ng-option value="Week">Week</ng-option>
-              <ng-option value="months">Months</ng-option>
-            </ng-select>
           </div>
               <div class="chart">
+                <ng-select [(ngModel)]="selectedOption" (change)="onSelectChange()" style="float: right; width: 150px;">
+                  <ng-option value="Week">Week</ng-option>
+                  <ng-option value="months">Months</ng-option>
+                </ng-select>
               <canvas id="myChart"></canvas>
             </div>     
       </div>
@@ -115,13 +115,12 @@
           
            <div class="card-header">
               <b>Meetings</b>
-              <ng-select id="select" [(ngModel)]="selectedOption2" (change)="onSelectChange2()" style="float: right; width: 150px;">
-                <ng-option value="Week">Week</ng-option>
-                <ng-option value="months">Months</ng-option>
-              </ng-select>
             </div>
-           
               <div class="chart">
+                <ng-select id="select" [(ngModel)]="selectedOption2" (change)="onSelectChange2()" style="float: right; width: 150px;">
+                  <ng-option value="Week">Week</ng-option>
+                  <ng-option value="months">Months</ng-option>
+                </ng-select>
                 <canvas id="myChart2"></canvas>
               </div>
             
