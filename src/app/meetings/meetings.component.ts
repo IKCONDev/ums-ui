@@ -393,6 +393,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingStartDateErrorInfo = '';
     this.meetingEndDateErrorInfo = '';
     this.meetingAttendeesErrorInfo = '';
+
+    //reset the SendMOM 
+    this.isemailforSendMoMEmailValid = false;
+    this.emailListErrorInfo = '';
   }
 
   /**
@@ -1277,10 +1281,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log("the entered discussion points:" + this.discussionPoints);
     console.log(this.SendActionItemList);
     console.log("entered sendmom email method");
-    var isEmailvalid = true;
-    var valid = this.validateMoMEmail();
-    isEmailvalid = valid;
-    if (isEmailvalid) {
+    let isEmailvalid = true;
+
+    if(!this.isemailforSendMoMEmailValid){
+      var valid = this.validateMoMEmail();
+      isEmailvalid = valid;
+
+    }
+    if (isEmailvalid == true) {
       this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
@@ -1467,12 +1475,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0) {
       this.emailListErrorInfo = 'choose the emailId to send Email';
-      console.log("Email List is" + this.emailListForsendingMOM);
       this.isemailforSendMoMEmailValid = false;
+      console.log("Email List is" + this.emailListForsendingMOM);
+     
     }
     else {
-      this.emailListErrorInfo = ''
       this.isemailforSendMoMEmailValid = true;
+      this.emailListErrorInfo = '';
     }
     return this.isemailforSendMoMEmailValid;
   }
