@@ -329,21 +329,38 @@
                                             <!--<td><span><input type="text"
                                             [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
                                         </td>-->
+                                            <!-- <td>
+                                                <div>
+                                                    <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
+                                                        name="taskOwner" (change)="validateTaskOwner()"
+                                                        style="margin-top: 4px;" [(ngModel)]="update_Task.taskOwner">
+                                                        <ng-option disabled selected value>choose</ng-option>
+                                                        <ng-option [value]="emailId"
+                                                            *ngFor="let emailId of userEmailIdList"> {{emailId}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                  <div *ngIf="taskOwnerErrorInfo != ''">
+                                                    <span style="padding-top: 20px;"
+                                                        id="error_msg">{{taskOwnerErrorInfo}}</span>
+                                                   </div>
+                                            </div>
+                                            </td> -->
                                             <td>
                                                 <div>
                                                     <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
                                                         style="margin-top: 4px;" [(ngModel)]="update_Task.taskOwner">
-                                                        <!--<ng-option disabled selected value>choose</ng-option>-->
+                                                        <ng-option disabled selected value>choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
                                                         </ng-option>
                                                     </ng-select>
-                                                </div>
+                                                
                                                 <div *ngIf="taskOwnerErrorInfo != ''">
                                                     <span style="padding-top: 20px;"
                                                         id="error_msg">{{taskOwnerErrorInfo}}</span>
                                                 </div>
+                                            </div>
                                             </td>
                                         </tr>
                                         <tr>
