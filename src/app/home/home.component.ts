@@ -23,6 +23,7 @@ Chart.register(...registerables);
 
 export class HomeComponent implements OnInit{
 
+ loggedInUserRole = localStorage.getItem('userRole');
  title: string = 'Overview';
  organizedMeetingsCount:string = localStorage.getItem('totalMeetingsOrganized');
  attendedMeetingsCount: string = localStorage.getItem('attenedMeetingsCount');
