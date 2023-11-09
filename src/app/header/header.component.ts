@@ -43,7 +43,7 @@ export class HeaderComponent {
       this.userDetails.twoFactorAuthentication = savedState === 'active';
     }
     },1000)
-    
+    console.log('header')
   }
 
   currentState: string = localStorage.getItem('sliderState');
@@ -79,8 +79,11 @@ export class HeaderComponent {
       response=>{
         this.userDetails= response.body
         console.log(this.userDetails)
+        console.log(this.userDetails.userRoles[0].roleName)
+        localStorage.setItem('userRole',this.userDetails.userRoles[0].roleName);
       }
     )
+   // console.log(this.userDetails.userRoles[0].roleName)
   }
 
   /**
