@@ -16,6 +16,7 @@ export class OrganizationComponent implements OnInit {
   @Output() title: string = 'Organization';
   org: Organization;
   isDisable: boolean = false;
+  loggedInUserRole = localStorage.getItem('userRole');
 
   //error validation properties
   updatedOrgNameErrorInfo: string = '';
@@ -55,6 +56,11 @@ export class OrganizationComponent implements OnInit {
      * 
      */
   ngOnInit(): void {
+
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER ADMIN'){
+      this.router.navigateByUrl('/unauthorized')
+    }
+
     this.getOrganization();
   }
 
