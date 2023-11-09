@@ -53,7 +53,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
 
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER ADMIN'){
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized')
     }
 

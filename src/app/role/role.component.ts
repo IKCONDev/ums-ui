@@ -62,7 +62,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
 
   ngOnInit(): void {
 
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER ADMIN'){
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized')
     }
 
@@ -79,7 +79,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
           // Add other options here as needed
         });
       });
-    },50)
+    },100)
   }
 
   ngOnDestroy(): void {

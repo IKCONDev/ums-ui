@@ -40,7 +40,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    * ngOnInit() executes on component initialization everytime
    */
   ngOnInit(): void {
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER ADMIN'){
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized');
     }
   }

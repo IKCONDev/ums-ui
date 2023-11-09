@@ -61,7 +61,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
     */
    ngOnInit(): void {
 
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER ADMIN'){
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized');
     }
       
@@ -70,6 +70,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
           this.batchDetails = res.body;
           this.batchRecordsCount = this.batchDetails.length;
      });
+     this.initializeJqueryDataTable();
    }
 }
 
