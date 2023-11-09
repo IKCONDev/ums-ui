@@ -44,9 +44,9 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
      */
   ngOnInit(): void {
 
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
-      this.router.navigateByUrl('/unauthorized')
-    }
+    // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+    //   this.router.navigateByUrl('/unauthorized')
+    // }
 
     this.getAllUsers();
   }
@@ -274,9 +274,9 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
            if(response.status == HttpStatusCode.Created){
                this.toastr.success("User updated successfully");
                document.getElementById('closeUpdateModal').click();
-               /*setTimeout(() => {
+               setTimeout(() => {
                  window.location.reload();
-                },1000);*/
+                },1000);
            }
            else{
               this.toastr.error("Error occured while updating user");
