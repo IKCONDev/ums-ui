@@ -140,7 +140,7 @@ export class ActionItemComponent implements OnInit {
   ngOnInit(): void {
     //get action items of user
     this.getActionItemsOfUser();
-    if (this.selectedReporteeOrganizedActionItem === 'null') {
+    if (this.selectedReporteeOrganizedActionItem === '') {
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
       console.log(this.selectedReporteeOrganizedActionItem)
     }
@@ -161,7 +161,7 @@ export class ActionItemComponent implements OnInit {
    * Get action items of logged in user
    */
   getActionItemsOfUser() {
-    if(this.selectedReporteeOrganizedActionItem != '' && this.selectedReporteeOrganizedActionItem != 'null'){
+    if(this.selectedReporteeOrganizedActionItem != ''){
       this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
         next: (response) => {
           this.actionItems = response.body;
@@ -1023,6 +1023,10 @@ export class ActionItemComponent implements OnInit {
     localStorage.setItem('selectedReporteeOrganizedActionItem', this.selectedReporteeOrganizedActionItem);
     console.log(this.selectedReporteeOrganizedActionItem);
     this.selectedReporteeOrganizedActionItem = localStorage.getItem('selectedReporteeOrganizedActionItem')
+    if(this.selectedReporteeOrganizedActionItem === 'null'){
+      localStorage.setItem('selectedReporteeOrganizedActionItem',this.loggedInUser)
+      this.selectedReporteeOrganizedActionItem = localStorage.getItem('selectedReporteeOrganizedActionItem');
+    }
     console.log(this.selectedReporteeOrganizedActionItem)
     window.location.reload();
   }

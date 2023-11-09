@@ -178,6 +178,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * executes when the component is initialized or loaded first time
    */
   ngOnInit(): void {
+    console.log(this.selectedReporteeOrganizedMeeting)
     //generate action items for user meetings automatically upon component initialization
     this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
       (response => {
@@ -185,10 +186,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     )
 
-    if (this.selectedReporteeOrganizedMeeting === 'null') {
+    if (this.selectedReporteeOrganizedMeeting === '') {
       this.selectedReporteeOrganizedMeeting = localStorage.getItem('email');
     }
-    if (this.selectedReporteeAssignedMeeting === 'null') {
+    if (this.selectedReporteeAssignedMeeting === '') {
       this.selectedReporteeAssignedMeeting = localStorage.getItem('email');
     }
 
@@ -565,7 +566,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("organizedMeeting").style.paddingBottom = '2px';
       document.getElementById("attendedMeeting").style.borderBottom = 'none';
       //get user organized meetings
-      if (this.selectedReporteeOrganizedMeeting != '' && this.selectedReporteeOrganizedMeeting != null) {
+      if (this.selectedReporteeOrganizedMeeting != '') {
         this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting).subscribe({
           next: (response) => {
             this.meetings = response.body;
@@ -637,7 +638,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         })//subscribe
       }
     } else {
-      if (this.selectedReporteeAssignedMeeting != '' && this.selectedReporteeAssignedMeeting != null) {
+      if (this.selectedReporteeAssignedMeeting != '') {
         document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
         document.getElementById("attendedMeeting").style.paddingBottom = '2px';
         document.getElementById("attendedMeeting").style.width = 'fit-content';
@@ -1501,32 +1502,32 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * 
+   * store selected reportee in localstorage
    */
-  storeReporteeDataOfOrganizedMeeting() {
+  storeReporteeDataOfOrganizedMeeting(){
     localStorage.setItem('selectedReporteeOrganizedMeeting', this.selectedReporteeOrganizedMeeting);
     console.log(this.selectedReporteeOrganizedMeeting);
     this.selectedReporteeOrganizedMeeting = localStorage.getItem('selectedReporteeOrganizedMeeting')
+    if(this.selectedReporteeOrganizedMeeting === 'null'){
+      localStorage.setItem('selectedReporteeOrganizedMeeting',this.loggedInUser)
+      this.selectedReporteeOrganizedMeeting = localStorage.getItem('selectedReporteeOrganizedMeeting');
+    }
     console.log(this.selectedReporteeOrganizedMeeting)
-    // this.getTasks('OrganizedTask')
-    // setTimeout(() => {
-    //   window.location.reload();
-    // },70)
     window.location.reload();
   }
 
-  /**
-   * 
+   /**
+   * store selected reportee in localstorage
    */
-  storeReporteeDataOfAssignedMeeting() {
+   storeReporteeDataOfAssignedMeeting(){
     localStorage.setItem('selectedReporteeAssignedMeeting', this.selectedReporteeAssignedMeeting);
     console.log(this.selectedReporteeAssignedMeeting);
     this.selectedReporteeAssignedMeeting = localStorage.getItem('selectedReporteeAssignedMeeting')
+    if(this.selectedReporteeAssignedMeeting === 'null'){
+      localStorage.setItem('selectedReporteeAssignedMeeting',this.loggedInUser)
+      this.selectedReporteeAssignedMeeting = localStorage.getItem('selectedReporteeAssignedMeeting');
+    }
     console.log(this.selectedReporteeAssignedMeeting)
-    // this.getTasks('OrganizedTask')
-    // setTimeout(() => {
-    //   window.location.reload();
-    // },70)
     window.location.reload();
   }
 
