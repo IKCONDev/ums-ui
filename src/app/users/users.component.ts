@@ -76,7 +76,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },50)
+    },100)
   }
 
   ngOnDestroy(): void {
