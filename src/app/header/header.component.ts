@@ -102,4 +102,8 @@ export class HeaderComponent {
      window.localStorage.clear();
     this.router.navigateByUrl('/login');
   }
+
+  refreshPage(){
+    window.location.reload();
+  }
 }

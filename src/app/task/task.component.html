@@ -35,7 +35,7 @@
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedTask'">
         <!-- reportee dropdown -->
-        <div *ngIf="loggedInUserRole !== 'ADMIN' && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee"
             name="reportee" style="width: 400px;"
             [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedTask()">
@@ -48,7 +48,7 @@
         </div>
         <!-- reportee dropdown end -->
         <!-- reportee dropdown -->
-        <div *ngIf="loggedInUserRole === 'ADMIN' && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee"
             name="reportee" style="width: 400px;"
             [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedTask()">
@@ -150,7 +150,7 @@
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
         <!-- reportee dropdown -->
-        <div *ngIf="loggedInUserRole !== 'ADMIN'  && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee"
             name="reportee" style="width: 400px;"
             [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee" (change)="storeReporteeDataOfAssignedTask()">
@@ -161,7 +161,7 @@
             </ng-option>
         </ng-select>
         </div>
-        <div *ngIf="loggedInUserRole === 'ADMIN'  && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee"
             name="reportee" style="width: 400px;"
             [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee" (change)="storeReporteeDataOfAssignedTask()">
@@ -317,7 +317,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:400px; height: 380px; background-color: #ecf7fc;margin-top:-140px">
+                            style=" width:430px; height: 380px; background-color: #ecf7fc;margin-top:-140px">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="padding-top: 5px;">Details</label>
                             </div>
@@ -502,7 +502,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:400px; height: 380px; background-color: #ecf7fc;margin-top:-140px">
+                            style=" width:430px; height: 380px; background-color: #ecf7fc;margin-top:-140px">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="padding-top: 5px;">Details</label>
                             </div>
