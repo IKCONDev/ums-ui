@@ -11,10 +11,15 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-3">
-                <label for="file-input">
-                    <img  class="company-pic" [src]="'data:image/png/jpg/jpeg;base64,'+org.organizationImage" width="210px" height="210px"/>
+                <label for="file-input" class="image-container">
+                    <img [src]="'data:image/png/jpg/jpeg;base64,'+org.organizationImage" width="210px" height="210px" class="image-preview" />
+                    <div class="upload-text">Upload Organization Image</div>
                 </label>
                 <input id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)" />
+                <label *ngIf="org.organizationImage===null" for="file-input" class="image-container">
+                    <img src="" class="image-preview" />
+                    <div class="upload-text">Upload Organization Image</div>
+                </label>
                 
                 <br />
                 <!-- orgName -->
