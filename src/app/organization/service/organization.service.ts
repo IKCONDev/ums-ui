@@ -11,6 +11,7 @@ export class OrganizationService {
     private adminMicroserviceOrganizationPathUrl = 'org';
     private saveOrganisationUrl = '/save';
     private updateOrganisationUrl = '/update';
+    private saveOrganizationPic='/saveOrgPic'
 
     /**
      * 
@@ -63,11 +64,10 @@ export class OrganizationService {
             )
         });
     }
-    updateOrgPic(email:string,orgPic:any){
+    saveOrgPic(orgPic:any){
     const userdata = new FormData();
-     userdata.append('email',email);
      userdata.append('orgPic',orgPic)
-     return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganisationUrl}`, userdata, {
+     return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganizationPic}`, userdata, {
         observe: 'response', headers: new HttpHeaders({
             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
         }
