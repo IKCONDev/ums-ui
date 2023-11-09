@@ -47,3 +47,7 @@
     line-height: 100%;
     /* 40px */
 }
+
+table tr td{
+    font-size: 12px;
+}

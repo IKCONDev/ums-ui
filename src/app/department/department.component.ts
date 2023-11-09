@@ -15,25 +15,7 @@ import { Router } from '@angular/router';
 export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private table: any;
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 7,
-          // Add other options here as needed
-        });
-      });
-    },70)
-  }
-
-  ngOnDestroy(): void {
-    if (this.table) {
-      this.table.destroy();
-    }
-  }
+  loggedInUserRole = localStorage.getItem('userRole');
 
   @Output() title:string='Departments';
   departmentList: Department[];
@@ -58,7 +40,28 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    * ngOnInit() executes on component initialization everytime
    */
   ngOnInit(): void {
-      
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+      this.router.navigateByUrl('/unauthorized');
+    }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#table').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },70)
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
   }
 
 
@@ -427,8 +430,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     if(this.existingDepartment.departmentCode === '' || this.existingDepartment.departmentCode.trim()==="" || regex.exec(this.existingDepartment.departmentCode)===null){
       this.updatedDepartmentCodeErrorInfo = 'Department code is required';
       this.isUpdatedDepartmentCodeValid=false;
-    }else if(this.existingDepartment.departmentCode.length < 2){
-      this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 2 characters.';
+    }else if(this.existingDepartment.departmentCode.length < 1){
+      this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 1 characters.';
       this.isUpdatedDepartmentCodeValid=false;
     }else if(this.existingDepartment.departmentCode.length >4){
       this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 4 characters.';

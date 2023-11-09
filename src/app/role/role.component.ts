@@ -19,25 +19,7 @@ import { Router } from '@angular/router';
 export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
 
   private table: any;
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#dataTable').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 7,
-          // Add other options here as needed
-        });
-      });
-    },50)
-  }
-
-  ngOnDestroy(): void {
-    if (this.table) {
-      this.table.destroy();
-    }
-  }
+  loggedInUserRole = localStorage.getItem('userRole')
 
   roleList: any[];
   @Output() title: string = 'Roles';
@@ -79,7 +61,31 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
   }
 
   ngOnInit(): void {
+
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+      this.router.navigateByUrl('/unauthorized')
+    }
+
     this.getRoleList();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#dataTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },100)
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
   }
 
   roleNameErrorInfo: string = ''

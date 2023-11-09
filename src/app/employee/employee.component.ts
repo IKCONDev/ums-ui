@@ -17,33 +17,12 @@ import { Designation } from '../model/Designation.model';
 })
 export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  loggedInUserRole = localStorage.getItem('userRole');
   @Output() title: string = 'Employees';
 
   private table: any;
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 7,
-          // Add other options here as needed
-        });
-      });
-    },50)
-  }
-
-  ngOnDestroy(): void {
-    if (this.table) {
-      this.table.destroy();
-    }
-  }
-
-
-
   addEmployee = {
-
     id: 0,
     employeeOrgId: '',
     teamsUserId: '',
@@ -71,10 +50,36 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private employeeservice: EmployeeService, private toastr: ToastrService,
     private departmentservice: DepartmentService, private router: Router, private designationService: DesignationService) { }
+
   ngOnInit(): void {
+
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+      this.router.navigateByUrl('/unauthorized')
+    }
+
     this.getAllEmployees();
     this.getAllDepartments();
   }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#table').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          // Add other options here as needed
+        });
+      });
+    },50)
+  }
+
+  ngOnDestroy(): void {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
+
 
   /**
    *  get all employees in DB

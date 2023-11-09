@@ -21,6 +21,50 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
 
   private table: any;
   loggedInUser: string = localStorage.getItem('email');
+  loggedInUserRole = localStorage.getItem('userRole');
+  @Output() title:string='Users';
+
+  userList :Users[];
+  userDetails: any;
+
+  /**
+   * 
+   * @param userService 
+   * @param toastr 
+   * @param roleService 
+   * @param meetingsService 
+   * @param router 
+   * @param employeeservice 
+   */
+  constructor(private userService:UserService, private toastr : ToastrService, private roleService: RoleService, 
+    private meetingsService: MeetingService,private router: Router, private employeeservice:EmployeeService){}
+
+    /**
+     * 
+     */
+  ngOnInit(): void {
+
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+      this.router.navigateByUrl('/unauthorized')
+    }
+
+    this.getAllUsers();
+  }
+
+  /**
+   * 
+   */
+  getAllUsers(){
+
+    this.userService.getAll().subscribe(
+      response=>{
+        
+        this.userList = response.body;
+        console.log(this.userList);
+
+    });
+
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -41,31 +85,6 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     }
   }
 
-  @Output() title:string='Users';
-
-  userList :Users[];
-
-  constructor(private userService:UserService, private toastr : ToastrService, private roleService: RoleService, 
-    private meetingsService: MeetingService,private router: Router, private employeeservice:EmployeeService){}
-
-  ngOnInit(): void {
-
-    this.getAllUsers();
-  }
-  getAllUsers(){
-
-    this.userService.getAll().subscribe(
-      response=>{
-        
-        this.userList = response.body;
-        console.log(this.userList);
-
-    });
-
-  }
-
-
-  userDetails: any;
   checkToggleButton(user : Users, i :number){
     
     var table = document.getElementById("myTable")

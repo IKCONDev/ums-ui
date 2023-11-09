@@ -16,6 +16,7 @@ export class OrganizationComponent implements OnInit {
   @Output() title: string = 'Organization';
   org: Organization;
   isDisable: boolean = false;
+  loggedInUserRole = localStorage.getItem('userRole');
 
   //error validation properties
   updatedOrgNameErrorInfo: string = '';
@@ -55,6 +56,11 @@ export class OrganizationComponent implements OnInit {
      * 
      */
   ngOnInit(): void {
+
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+      this.router.navigateByUrl('/unauthorized')
+    }
+
     this.getOrganization();
   }
 
@@ -524,9 +530,32 @@ numberValidation(event: KeyboardEvent) {
       event.preventDefault();
   }
 }
-onFileChanged(event){
-  
-}
+selectedOrgPic:Blob;
+onFileChanged(event:any){
+  console.log("entered the onfilechanged")
+  this.selectedOrgPic = event.target.files[0];
+      console.log(localStorage.getItem('email'));
+      this.orgService.saveOrgPic(this.selectedOrgPic).subscribe(
+        (response) => {
+          if (response.status === HttpStatusCode.Ok) {
+            this.selectedOrgPic = response.body.organizationImage;
+            this.org.organizationImage=this.selectedOrgPic;
+            console.log(this.org.organizationImage)
+            this.toast.success('Profile pic uploaded succesfully');
+            
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else if (response.status === HttpStatusCode.Unauthorized) {
+            //TODO: SHOW UNAUTHORIZED PAGE
+          }
+          else if(response.status===HttpStatusCode.NoContent){
+            this.toast.error('Please select a valid image file')
+          }
+          
+        }
+      )
+    } 
 
 
 }

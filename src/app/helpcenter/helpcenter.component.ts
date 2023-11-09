@@ -6,6 +6,6 @@ import { Component,Output } from '@angular/core';
   styleUrls: ['./helpcenter.component.css']
 })
 export class HelpcenterComponent {
-  @Output() title: string = 'help';
+  @Output() title: string = 'Help';
 
 }

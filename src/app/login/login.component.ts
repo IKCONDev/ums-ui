@@ -297,6 +297,14 @@ getTokenPopup(request) {
           localStorage.setItem('tabOpened', 'OrganizedMeeting');
           //set default tabs for tasks
           localStorage.setItem('taskTabOpened', 'OrganizedTask');
+
+          //set default values for reportees data
+          localStorage.setItem('selectedReporteeOrganizedActionItem','');
+          localStorage.setItem('selectedReporteeOrganizedMeeting','');
+          localStorage.setItem('selectedReporteeAssignedMeeting','');
+          localStorage.setItem('selectedReporteeOrganized','');
+          localStorage.setItem('selectedReporteeAssigned','');
+
           console.log(localStorage.getItem('userRole'))
           let navigationExtras: NavigationExtras = {
             state: {
@@ -324,6 +332,14 @@ getTokenPopup(request) {
           localStorage.setItem('tabOpened', 'OrganizedMeeting');
           //set default tabs for tasks
           localStorage.setItem('taskTabOpened', 'OrganizedTask');
+
+           //set default values for reportees data
+           localStorage.setItem('selectedReporteeOrganizedActionItem','');
+           localStorage.setItem('selectedReporteeOrganizedMeeting','');
+           localStorage.setItem('selectedReporteeAssignedMeeting','');
+           localStorage.setItem('selectedReporteeOrganized','');
+           localStorage.setItem('selectedReporteeAssigned','');
+           
           let navigationExtras: NavigationExtras = {
             state: {
               loginInfo: this.loginInfo

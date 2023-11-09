@@ -20,5 +20,5 @@ export class Organization{
 	modifiedBy : string;
     createdByEmailId : string;
 	 modifiedByEmailId : string;
-	 orgPic:Blob;
+	 organizationImage:Blob;
 }

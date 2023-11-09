@@ -44,6 +44,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 //import  '../../fonts/general-sans/css/general-sans.css';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { HelpcenterComponent } from './helpcenter/helpcenter.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { HelpcenterComponent } from './helpcenter/helpcenter.component';
     ServiceUnavailableComponent,
     NotificationsComponent,
     DateAgoPipe,
-    HelpcenterComponent
+    HelpcenterComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,

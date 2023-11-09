@@ -56,6 +56,10 @@ th,td{
     text-overflow: ellipsis; /* Show ellipsis for long content */
     font-size: 11px;
   }
+
+  table tr td{
+    padding-left: 18px;
+  }
  
   /*.input{
      margin: 10px;
