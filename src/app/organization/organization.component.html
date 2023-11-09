@@ -11,8 +11,9 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-3">
+                <span *ngIf="org.organizationImage!=null">
                 <label for="file-input" class="image-container">
-                    <img [src]="'data:image/png/jpg/jpeg;base64,'+org.organizationImage" width="210px" height="210px" class="image-preview" />
+                    <img *ngIf="org.organizationImage!=null" [src]="'data:image/png/jpg/jpeg;base64,'+org.organizationImage" width="210px" height="210px" class="image-preview" />
                     <div class="upload-text"><svg width="88" height="88" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_313_1241)">
                         <path d="M23.9996 30.3996C27.5342 30.3996 30.3996 27.5342 30.3996 23.9996C30.3996 20.465 27.5342 17.5996 23.9996 17.5996C20.465 17.5996 17.5996 20.465 17.5996 23.9996C17.5996 27.5342 20.465 30.3996 23.9996 30.3996Z" fill="black"/>
@@ -26,8 +27,10 @@
                         </svg>
                         </div>
                 </label>
+            </span>
                 <input id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)" />
-                <label *ngIf="org.organizationImage===null" for="file-input" class="image-container">
+                <span *ngIf="org.organizationImage===null">
+                <label  for="file-input" class="image-container">
                     <img src="" class="image-preview" />
                     <div class="upload-text"><svg width="88" height="88" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_313_1241)">
@@ -42,6 +45,7 @@
                         </svg>
                         </div>
                 </label>
+            </span>
                 
                 <br />
                 <!-- orgName -->
