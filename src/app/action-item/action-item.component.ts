@@ -146,7 +146,7 @@ export class ActionItemComponent implements OnInit {
     }
 
     //get reportees data of logged in user
-    if(this.loggedInUserRole === 'ADMIN'){
+    if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
       this.getAllEmployees();
     }else{
       this.getEmployeeReportees();

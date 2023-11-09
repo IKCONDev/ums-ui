@@ -48,7 +48,7 @@
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedMeeting'">
         <!-- reportee dropdown -->
-        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole != 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
                 [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
@@ -59,7 +59,7 @@
                 </ng-option>
             </ng-select>
         </div>
-        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole === 'SUPER_ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
                 [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
@@ -390,7 +390,7 @@
                 <form #form="ngForm" id="formId" method="POST">
                     <!-- title -->
                     <label><b>Action Item Title<span id="required">*</span></b></label>
-                    <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
+                    <input type="text" class="form-control" style="width: 400px;padding-top: 10px;" placeholder="Enter title !..."
                         [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
                         id="actionItemTitle" minlength="5" maxlength="50" #actionItemTitle="ngModel"
                         [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
@@ -402,7 +402,7 @@
                     <!-- description -->
                     <label><b>Action Item Description</b><span id="required">*</span></label>
                     <div style="padding-left: 10px; margin-top:10px;">
-                        <textarea type="text" rows="3" cols="3" class="form-control"
+                        <textarea type="text" rows="3" cols="3" class="form-control" placeholder="Enter description !..."
                             style="width:400px;max-height:200px" [(ngModel)]="addDetails.actionItemDescription"
                             required="true" name="actionItemDescription" #actionItemDescription="ngModel" minlength="10"
                             maxlength="250" id="actionItemDescription"
