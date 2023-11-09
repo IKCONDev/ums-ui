@@ -430,8 +430,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     if(this.existingDepartment.departmentCode === '' || this.existingDepartment.departmentCode.trim()==="" || regex.exec(this.existingDepartment.departmentCode)===null){
       this.updatedDepartmentCodeErrorInfo = 'Department code is required';
       this.isUpdatedDepartmentCodeValid=false;
-    }else if(this.existingDepartment.departmentCode.length < 2){
-      this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 2 characters.';
+    }else if(this.existingDepartment.departmentCode.length < 1){
+      this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 1 characters.';
       this.isUpdatedDepartmentCodeValid=false;
     }else if(this.existingDepartment.departmentCode.length >4){
       this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 4 characters.';

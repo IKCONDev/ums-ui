@@ -95,3 +95,33 @@ input[type='file'] {
     border: 1px solid black;
     border-radius: 4%;
 }
+.image-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.image-preview {
+    width: 210px;
+    height: 210px;
+}
+
+.upload-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;  /* Customize the text color */
+    font-size: 16px;  /* Customize the font size */
+    display: none;
+}
+
+.image-container:hover .upload-text {
+    display: block;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.image-container:hover .image-preview {
+    filter: blur(3px); /* Apply blur on hover */
+}
