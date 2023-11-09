@@ -175,7 +175,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('taskOrganizerFilter'));
 
      //get reportees data of logged in user
-     if(this.loggedInUserRole === 'ADMIN'){
+     if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
       this.getAllEmployees();
     }else{
       this.getEmployeeReportees();
