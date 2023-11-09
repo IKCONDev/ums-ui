@@ -86,7 +86,6 @@ export class ForgotPasswordEmailVerificationComponent {
           console.log("the result is:" + this.value);
           if (this.value == 1) {
             console.log("Entered email id is a valid one");
-            this.verificationResponse = "";
             this.isError=false;
             this.verificationResponse = "Valid Email Id";
           }else {
@@ -113,7 +112,7 @@ export class ForgotPasswordEmailVerificationComponent {
    * 
    */
   constructOtp() {
-    this.isError=true;
+    this.isError=false;
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
         this.result = response;

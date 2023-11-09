@@ -136,8 +136,8 @@
                 <!--  -->
                 <label><b>Department Code</b><span id="required">*</span></label>
                 <input type="text"  id="departmentCode" style="text-transform: uppercase;" class="deptInput form-control" placeholder="Department Code"
-                    [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode()" minlength="2"
-                    maxlength="4" /><br />
+                    [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode()" minlength="1"
+                    maxlength="10" /><br />
                 <span *ngIf="departmentCodeErrorInfo != ''">
                     <p id="errorMessage">{{departmentCodeErrorInfo}}</p>
                 </span>
@@ -197,7 +197,7 @@
                 <label><b>Department Code</b><span id="required">*</span></label>
                 <input type="text" id="departmentCode" style="text-transform: uppercase;" class="deptInput form-control" placeholder="Department Code"
                     [(ngModel)]="existingDepartment.departmentCode" (keyup)="validateUpdatedDepartmentCode()"
-                    minlength="2" maxlength="4" /><br />
+                    minlength="1" maxlength="10" /><br />
                 <span *ngIf="updatedDepartmentCodeErrorInfo != ''">
                     <p id="errorMessage">{{updatedDepartmentCodeErrorInfo}}</p>
                 </span>
