@@ -45,9 +45,9 @@
     padding-left: 48px;
 }
 
-#file-input{
+#file-input {
     display: none;
-    
+
 }
 
 
@@ -57,32 +57,30 @@
     border: 1px solid black;
     border-radius: 4%;
 }
+
 .container {
-  display: flex;
-  
- 
-  background-size: cover;
-   padding-left: 30px;
-  height: 150px;
-  width: 150px;
+    display: flex;
+    background-size: cover;
+    padding-left: 30px;
+    height: 150px;
+    width: 150px;
 }
 
 
 .profile-pic {
     justify-content: center;
     align-items: center;
-   border-radius: 4px;
-    
+    border-radius: 4px;
     background-size: cover;
     object-fit: cover;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-    
+
 }
-.profile-pic:hover{
+
+.profile-pic:hover {
     cursor: pointer;
     background-size: cover;
     border-radius: 4px;
-    background-color: #202224;
     /*mask-image: url("src/app/my-profile/camera-1389.svg");
 }
 
@@ -149,8 +147,8 @@
 .full-name-parent {
     position: relative;
     font-size: 16px;
-    
-    
+
+
 }
 
 .frame-parent {
@@ -188,14 +186,16 @@
     font-size: 14px;
     color: #606060;
     font-family: 'General Sans';
-   
+
 }
-.card{
+
+.card {
     display: block;
     height: fit-content;
-    
-   
+
+
 }
+
 .prof-name {
     position: relative;
     line-height: 150%;
@@ -207,7 +207,7 @@
     font-size: 16px;
     line-height: 150%;
     color: #606060;
-    
+
 }
 
 .prfname-parent {
@@ -223,7 +223,7 @@
     color: #202224;
     font-family: 'General Sans';
     margin-left: 200px;
-   
+
 }
 
 input.form-control:read-only {
@@ -233,5 +233,38 @@ input.form-control:read-only {
 
 input[type='file'] {
     color: transparent;
+}
 
+.image-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.image-preview {
+    width: 210px;
+    height: 210px;
+}
+
+.upload-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    /* Customize the text color */
+    font-size: 16px;
+    /* Customize the font size */
+    display: none;
+}
+
+.image-container:hover .upload-text {
+    display: block;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.image-container:hover .profile-pic {
+    filter: blur(2px);
+    /* Apply blur on hover */
 }
