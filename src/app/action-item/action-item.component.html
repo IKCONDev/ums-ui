@@ -386,7 +386,7 @@
                             <label style="margin-left: 30px; font-size: 20px;"><b>Task Title</b><span id="required">*</span></label><br>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
-                                placeholder="Enter Title" class="form-control" name="taskTitle" required="true"
+                                placeholder="Enter title !..." class="form-control" name="taskTitle" required="true"
                                 [(ngModel)]="add_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
                                 minlength="5" maxlength="50"></textarea>
