@@ -222,11 +222,11 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
         console.log(this.existingUserObj.email);
       }
     )
-    this.roles.filter(role =>{
-      if(this.existingUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
-         this.existingUserObj.userRoles[0].roleName = role.roleName;
-      }
-   })
+  //   this.roles.filter(role =>{
+  //     if(this.existingUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
+  //        this.existingUserObj.userRoles[0].roleName = role.roleName;
+  //     }
+  //  })
   }
 
   /**
@@ -246,8 +246,8 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
    * 
    * @param user
    */
-  updateUser(existingUser : any){
-    
+  updateUser(existinguser: any){
+    console.log(existinguser)
     let isEmailIdValid = true;
     let isRoleValid = true;
     if(!this.isUpdateRoleNameValid){
@@ -255,9 +255,20 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
       isRoleValid = valid;
     }
     if(isRoleValid == true){
-
-      console.log(existingUser.roleId);
-      this.userService.update(existingUser).subscribe(
+      console.log(this.existingUserObj)
+      console.log(this.existingUserObj.userRoles[0].roleId);
+      this.roles.forEach(role =>{
+        console.log('loop ---' +role.roleId+"--- "+role.roleName)
+        //get role name of the role id and attach to existing user
+       if(role.roleId == this.existingUserObj.userRoles[0].roleId){
+        this.existingUserObj.userRoles[0].roleName = role.roleName;
+        console.log(role.roleName)
+        }
+      })
+      console.log(this.existingUserObj.userRoles[0].roleId)
+      console.log(this.existingUserObj.userRoles[0].roleName)
+      console.log(this.existingUserObj)
+      this.userService.update(this.existingUserObj).subscribe(
          response=>{
            var userRecord = response.body;
            if(response.status == HttpStatusCode.Created){

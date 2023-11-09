@@ -28,6 +28,8 @@ export class TwofactorOtpValidationComponent {
     private toastr: ToastrService) {
 
       this.email = this.router.getCurrentNavigation().extras.state['email']
+
+      this.startTimer();
   }
 
 
@@ -43,6 +45,56 @@ export class TwofactorOtpValidationComponent {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  time: number = 120; // 120 seconds = 2 minutes
+  display: string;
+  interval;
+
+  /**
+   * Start the countdown timer
+   */
+  startTimer() {
+    this.interval = setInterval(() => {
+      if (this.time > 0) {
+        this.time--;
+        this.display = this.transform(this.time);
+      } else {
+        clearInterval(this.interval);
+      }
+    }, 1000);
+    this.display = this.transform(this.time);
+  }
+
+  /**
+   * Transform the seconds into a formatted time string (mm:ss)
+   * @param value - Time in seconds
+   * @returns Formatted time string (mm:ss)
+   */
+  transform(value: number): string {
+    const minutes: number = Math.floor(value / 60);
+    const seconds: number = value - minutes * 60;
+    const formattedMinutes: string = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds: string = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return formattedMinutes + ':' + formattedSeconds;
+  }
+
+  /**
+   * Pause the timer
+   */
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+  /**
+   * Reset the timer back to 2 minutes (02:00)
+   */
+  resetTimer() {
+    this.pauseTimer();
+    this.time = 120;
+    this.display = this.transform(this.time);
+  }
+
+
   //perform placeholder changing on to the border of textbox
   setupOtpInputPlaceholder(): void {
     const emailInput = this.elementRef.nativeElement.querySelector('#otp');
@@ -82,6 +134,8 @@ export class TwofactorOtpValidationComponent {
         if(this.result > 0){
           console.log('otp has been re-sent to your e-mail '+this.result);
           this.toastr.success("OTP has been sent to your email");
+          this.resetTimer();
+          this.startTimer();
           let navigationExtras: NavigationExtras = {
             state: {
               email: this.email

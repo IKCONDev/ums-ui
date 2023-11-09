@@ -186,7 +186,7 @@
                     <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br/>-->
                 <label><b>Role</b><span id="required">*</span></label>
-                <select class="updateUserInput form-control form-select" placeholder="role" [(ngModel)]="existingUserObj.userRoles.at(0).roleId"
+                <select class="updateUserInput form-control form-select" placeholder="role" [(ngModel)]="existingUserObj.userRoles[0].roleId"
                 id="updateRole" name="updateRole" #updateRole="ngModel" [class.invalid]="updateRole.invalid && updateRole.touched"
                 (change)="validateUpdateUserRole()">
                    <!-- <option value="select">select</option>-->
