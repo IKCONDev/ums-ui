@@ -40,9 +40,9 @@ export class ForgotPasswordOtpValidationComponent {
 
     this.startTimer();
 
-    setTimeout(() => {
-      this.resetTimer();
-    }, 120000);
+    // setTimeout(() => {
+    //   this.resetTimer();
+    // }, 120000);
   }
 
 
