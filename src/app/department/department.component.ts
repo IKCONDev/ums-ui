@@ -52,6 +52,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 7,
+          order: [[1,'asc']]
           // Add other options here as needed
         });
       });

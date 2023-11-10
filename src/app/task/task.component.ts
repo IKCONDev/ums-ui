@@ -86,11 +86,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 7,
+          order: [[1,'asc']]
           // Add other options here as needed
         });
 
       });
-    }, 50)
+    }, 70)
 
     setTimeout(() => {
       $(document).ready(() => {
@@ -98,10 +99,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 7,
+          order: [[1,'asc']]
           // Add other options here as needed
         });
       });
-    }, 50)
+    }, 70)
   }
 
   ngAfterViewInit(): void {
@@ -110,6 +112,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         paging: true,
         searching: true, // Enable search feature
         pageLength: 7,
+        order: [[1,'asc']]
         // Add other options here as needed
       });
 
@@ -120,6 +123,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         paging: true,
         searching: true, // Enable search feature
         pageLength: 7,
+        order: [[1,'asc']]
         // Add other options here as needed
       });
     });
