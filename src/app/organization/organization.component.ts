@@ -557,6 +557,12 @@ onFileChanged(event:any){
       )
     } 
 
+    viewCountryCode(){
+      var selectedCountry = $('#country-dropdown option:selected');
+      var countryCode = selectedCountry.data('code');
+      $('#dial-code-input').val(countryCode);
+
+    }
 
 }
 
