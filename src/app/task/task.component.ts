@@ -62,12 +62,19 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-  //filter properties
+  //filter organized task properties
   filter_Taskname = localStorage.getItem('taskNameFilter');
   filter_Priority = localStorage.getItem('taskPriorityFilter');
   filter_StartDate = localStorage.getItem('taskStartDateFilter');
   filter_EndDate = localStorage.getItem('taskEndDateFilter');
   filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
+
+  //filter assigned task properties
+  assignedTaskTitleFilter = localStorage.getItem('assignedTaskTitleFilter');
+  assignedTaskPriorityFilter = localStorage.getItem('assignedTaskPriorityFilter');
+  assignedTaskStartDateFilter = localStorage.getItem('assignedTaskStartDateFilter');
+  assignedTaskEndDateFilter = localStorage.getItem('assignedTaskEndDateFilter');
+  assignedTaskOrganizerFilter = localStorage.getItem('assignedTaskOrganizerFilter');
 
 
   private table: any;
@@ -803,7 +810,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param taskEndDate 
    * @param taskOrganizer 
    */
-  filterTaskList(taskName: string, taskOrganizer: string, taskPriority: string, taskStartDate: string, taskEndDate: string) {
+  filterOrganizedTaskList(taskName: string, taskOrganizer: string, taskPriority: string, taskStartDate: string, taskEndDate: string) {
 
     console.log(this.filter_Taskname + "popop")
     console.log(this.filter_Priority + "popop")
@@ -852,6 +859,74 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.filter_Email_Organizer,
       this.filter_StartDate,
       this.filter_EndDate).subscribe({
+        next: response => {
+          console.log(response)
+        }, error: error => {
+          console.log(error)
+        }
+      })
+
+    this.CloseFilterTaskModal();
+    window.location.reload();
+  }
+
+  /**
+   * 
+   * @param taskName 
+   * @param taskPriority 
+   * @param taskStartDate 
+   * @param taskEndDate 
+   * @param taskOrganizer 
+   */
+  filterAssignedTaskList(taskName: string, taskOrganizer: string, taskPriority: string, taskStartDate: string, taskEndDate: string) {
+
+    console.log(this.assignedTaskTitleFilter + "popop")
+    console.log(this.assignedTaskPriorityFilter + "popop")
+    console.log(this.assignedTaskOrganizerFilter + "popop")
+    console.log(this.assignedTaskStartDateFilter + "popop")
+    console.log(this.assignedTaskEndDateFilter + "popop")
+
+    //close filter modal
+    localStorage.setItem('assignedTaskTitleFilter', taskName);
+    localStorage.setItem('assignedTaskPriorityFilter', taskPriority);
+    localStorage.setItem('assignedTaskStartDateFilter', taskStartDate);
+    localStorage.setItem('assignedTaskEndDateFilter', taskEndDate);
+    localStorage.setItem('assignedTaskOrganizerFilter', taskOrganizer);
+
+    console.log(localStorage.getItem('assignedTaskTitleFilter'));
+    console.log(localStorage.getItem('assignedTaskPriorityFilter'));
+    console.log(localStorage.getItem('assignedTaskStartDateFilter'));
+    console.log(localStorage.getItem('assignedTaskEndDateFilter'));
+    console.log(localStorage.getItem('assignedTaskOrganizerFilter'));
+
+    this.assignedTaskTitleFilter = '';
+    this.assignedTaskPriorityFilter = '';
+    this.assignedTaskOrganizerFilter = '';
+    this.assignedTaskStartDateFilter = '';
+    this.assignedTaskEndDateFilter = '';
+
+    if (localStorage.getItem('assignedTaskTitleFilter') != '') {
+      this.filter_Taskname = localStorage.getItem('assignedTaskTitleFilter');
+    }
+    if (localStorage.getItem('assignedTaskPriorityFilter') != '') {
+      this.filter_Priority = localStorage.getItem('assignedTaskPriorityFilter');
+    }
+    if (localStorage.getItem('assignedTaskStartDateFilter')) {
+      this.filter_StartDate = localStorage.getItem('assignedTaskStartDateFilter');
+    }
+    if (localStorage.getItem('assignedTaskEndDateFilter')) {
+      this.filter_EndDate = localStorage.getItem('assignedTaskEndDateFilter');
+    }
+    if (localStorage.getItem('assignedTaskOrganizerFilter')) {
+      this.filter_Email_Organizer = localStorage.getItem('assignedTaskOrganizerFilter');
+    }
+
+    console.log(this.filter_Taskname + "--------")
+    this.service.getTaskByUserId(localStorage.getItem('email'), this.assignedTaskTitleFilter,
+      this.assignedTaskPriorityFilter,
+      this.assignedTaskOrganizerFilter,
+      this.assignedTaskStartDateFilter,
+      this.assignedTaskEndDateFilter).subscribe({
         next: response => {
           console.log(response)
         }, error: error => {
