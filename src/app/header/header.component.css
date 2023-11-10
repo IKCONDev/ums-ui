@@ -21,12 +21,13 @@
 }
 
 #notification-icon{
-  display: flex;
+  
   width: 36px;
   height: 36px;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
+  
+ 
 }
 
 #notification-icon:hover{
@@ -271,6 +272,29 @@
 .close{
   color: white;
 }
+
+.icon .notify {
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative; 
+}
+
+div.circle-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  
+  border-radius: 50%;
+  width: 20px;
+  background-color: red;
+  color: white;
+  font-size: 12px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 
 
 

@@ -109,4 +109,7 @@ export class HeaderComponent {
   refreshPage(){
     window.location.reload();
   }
+  notificationCount(){
+    
+  }
 }
