@@ -74,7 +74,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   assignedTaskPriorityFilter = localStorage.getItem('assignedTaskPriorityFilter');
   assignedTaskStartDateFilter = localStorage.getItem('assignedTaskStartDateFilter');
   assignedTaskEndDateFilter = localStorage.getItem('assignedTaskEndDateFilter');
-  assignedTaskOrganizerFilter = localStorage.getItem('assignedTaskOrganizerFilter');
+ // assignedTaskOrganizerFilter = this.selectedReporteeAssigned
 
 
   private table: any;
@@ -212,7 +212,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
       if(this.selectedReporteeAssigned != ''){
-        this.service.getAssignedTasksOfUser(this.selectedReporteeAssigned).subscribe({
+        this.service.getAssignedTasksOfUser(this.selectedReporteeAssigned,
+          this.assignedTaskTitleFilter,
+          this.assignedTaskPriorityFilter,
+         // this.assignedTaskOrganizerFilter,
+          this.assignedTaskStartDateFilter,
+          this.assignedTaskEndDateFilter).subscribe({
           next: (response) => {
             console.log(response.body)
             //extract the meetings from response object
@@ -226,7 +231,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         });
       }else{
-        this.service.getAssignedTasksOfUser(this.loggedInUser).subscribe({
+        this.service.getAssignedTasksOfUser(this.loggedInUser,
+          this.assignedTaskTitleFilter,
+          this.assignedTaskPriorityFilter,
+          //this.assignedTaskOrganizerFilter,
+          this.assignedTaskStartDateFilter,
+          this.assignedTaskEndDateFilter).subscribe({
           next: (response) => {
             console.log(response.body)
             //extract the meetings from response object
@@ -798,6 +808,18 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     localStorage.setItem('taskStartDateFilter', '');
     localStorage.setItem('taskEndDateFilter', '');
     localStorage.setItem('taskOrganizerFilter', '');
+    
+    this.CloseFilterTaskModal();
+    window.location.reload();
+  }
+
+  resetAssignedFilterModal(){
+    localStorage.setItem('assignedTaskTitleFilter', '');
+    localStorage.setItem('assignedTaskPriorityFilter', '');
+    localStorage.setItem('assignedTaskStartDateFilter', '');
+    localStorage.setItem('assignedTaskEndDateFilter', '');
+    localStorage.setItem('assignedTaskOrganizerFilter', '');
+
     this.CloseFilterTaskModal();
     window.location.reload();
   }
@@ -878,11 +900,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param taskEndDate 
    * @param taskOrganizer 
    */
-  filterAssignedTaskList(taskName: string, taskOrganizer: string, taskPriority: string, taskStartDate: string, taskEndDate: string) {
+  filterAssignedTaskList(taskName: string, taskPriority: string, taskStartDate: string, taskEndDate: string) {
 
+    console.log(taskName)
     console.log(this.assignedTaskTitleFilter + "popop")
     console.log(this.assignedTaskPriorityFilter + "popop")
-    console.log(this.assignedTaskOrganizerFilter + "popop")
+    //console.log(this.assignedTaskOrganizerFilter + "popop")
     console.log(this.assignedTaskStartDateFilter + "popop")
     console.log(this.assignedTaskEndDateFilter + "popop")
 
@@ -891,7 +914,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     localStorage.setItem('assignedTaskPriorityFilter', taskPriority);
     localStorage.setItem('assignedTaskStartDateFilter', taskStartDate);
     localStorage.setItem('assignedTaskEndDateFilter', taskEndDate);
-    localStorage.setItem('assignedTaskOrganizerFilter', taskOrganizer);
+    //localStorage.setItem('assignedTaskOrganizerFilter', taskOrganizer);
 
     console.log(localStorage.getItem('assignedTaskTitleFilter'));
     console.log(localStorage.getItem('assignedTaskPriorityFilter'));
@@ -901,30 +924,30 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.assignedTaskTitleFilter = '';
     this.assignedTaskPriorityFilter = '';
-    this.assignedTaskOrganizerFilter = '';
+   // this.assignedTaskOrganizerFilter = '';
     this.assignedTaskStartDateFilter = '';
     this.assignedTaskEndDateFilter = '';
 
     if (localStorage.getItem('assignedTaskTitleFilter') != '') {
-      this.filter_Taskname = localStorage.getItem('assignedTaskTitleFilter');
+      this.assignedTaskTitleFilter = localStorage.getItem('assignedTaskTitleFilter');
     }
     if (localStorage.getItem('assignedTaskPriorityFilter') != '') {
-      this.filter_Priority = localStorage.getItem('assignedTaskPriorityFilter');
+      this.assignedTaskPriorityFilter = localStorage.getItem('assignedTaskPriorityFilter');
     }
     if (localStorage.getItem('assignedTaskStartDateFilter')) {
-      this.filter_StartDate = localStorage.getItem('assignedTaskStartDateFilter');
+      this.assignedTaskStartDateFilter = localStorage.getItem('assignedTaskStartDateFilter');
     }
     if (localStorage.getItem('assignedTaskEndDateFilter')) {
-      this.filter_EndDate = localStorage.getItem('assignedTaskEndDateFilter');
+      this.assignedTaskEndDateFilter = localStorage.getItem('assignedTaskEndDateFilter');
     }
-    if (localStorage.getItem('assignedTaskOrganizerFilter')) {
-      this.filter_Email_Organizer = localStorage.getItem('assignedTaskOrganizerFilter');
-    }
+    // if (localStorage.getItem('assignedTaskOrganizerFilter')) {
+    //   this.assignedTaskOrganizerFilter = localStorage.getItem('assignedTaskOrganizerFilter');
+    // }
 
-    console.log(this.filter_Taskname + "--------")
-    this.service.getTaskByUserId(localStorage.getItem('email'), this.assignedTaskTitleFilter,
+    console.log(this.assignedTaskTitleFilter + "--------")
+    this.service.getAssignedTasksOfUser(localStorage.getItem('email'), this.assignedTaskTitleFilter,
       this.assignedTaskPriorityFilter,
-      this.assignedTaskOrganizerFilter,
+      //this.assignedTaskOrganizerFilter,
       this.assignedTaskStartDateFilter,
       this.assignedTaskEndDateFilter).subscribe({
         next: response => {

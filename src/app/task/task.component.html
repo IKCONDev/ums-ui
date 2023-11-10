@@ -706,21 +706,19 @@
                   </div> -->
                   <div class="meeting-title-dd">
                     <div class="meeting-title-filter">
-                        <input type ="text" [(ngModel)]="assignedTaskTitleFilter" #boxTaskName placeholder="Task title" name="taskName" />
+                        <input type ="text" [(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle placeholder="Task title" name="taskName" />
                         <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                     </div>          					
                 </div>
-                  <div class="meeting-title-dd">
-                      <div >Organizer
-                          <select [(ngModel)] = "assignedTaskOrganizerFilter" #boxOrg class="actitem-organizer-filter">
-                            <option value="">Select</option>
-                            <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">{{userEmail}}</option>
-                        </select>
+                  <!-- <div class="meeting-title-dd">
+                      <div >Assignee
+                          <input readonly="true" type="text" [(ngModel)] = "assignedTaskOrganizerFilter" #boxAssignedOrg class="actitem-organizer-filter"
+                           />
                       </div>
-                  </div>
+                  </div> -->
                   <div class="meeting-title-dd">
                     <div >Task Priority
-                        <select [(ngModel)] = "assignedTaskPriorityFilter" #boxPri class="actitem-organizer-filter">
+                        <select [(ngModel)] = "assignedTaskPriorityFilter" #boxAssignedPri class="actitem-organizer-filter">
                           <option value="">Select</option>
                           <option>High</option>
                           <option>Medium</option>
@@ -730,18 +728,18 @@
                 </div>
                   <div class="date-range">
                       <div class="date-parent">
-                          <input type="datetime-local" #boxStart [(ngModel)] = "assignedTaskStartDateFilter" />
+                          <input type="datetime-local" #boxAssignedStart [(ngModel)] = "assignedTaskStartDateFilter" />
                       </div>
                       <div class="to">To</div>
                       <div class="date-parent">
-                          <input type="datetime-local" #boxEnd [(ngModel)] = "assignedTaskEndDateFilter" />
+                          <input type="datetime-local" #boxAssignedEnd [(ngModel)] = "assignedTaskEndDateFilter" />
                       </div>
                   </div>
               </div>
           </div>
           <div class="submit-button-parent">
-              <button type="button" class="submit-button" (click)="filterAssignedTaskList(boxTaskName.value, boxOrg.value, boxPri.value, boxStart.value, boxEnd.value)">Apply</button>
-              <button type="button" class="delete-button" (click)="resetFilterModal()"  >Clear</button>
+              <button type="button" class="submit-button" (click)="filterAssignedTaskList(boxAssignedTaskTitle.value, boxAssignedPri.value, boxAssignedStart.value, boxAssignedEnd.value)">Apply</button>
+              <button type="button" class="delete-button" (click)="resetAssignedFilterModal()"  >Clear</button>
           </div>
       </div>  
       </div>
