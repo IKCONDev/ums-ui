@@ -142,7 +142,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 50)
+    }, 100)
   }
 
   /**
@@ -503,7 +503,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       && isEndDateValid === true) {
       console.log(this.addDetails);
       this.addDetails.meetingId = this.currentMeetingId;
-      this.addDetails.emailId = localStorage.getItem('email');
+      this.addDetails.emailId = this.selectedReporteeOrganizedMeeting != null ? this.selectedReporteeOrganizedMeeting : this.loggedInUser;
       this.actionItemService.saveActionItem(this.addDetails).subscribe({
         next: (response) => {
           this.response = response.body;
@@ -1310,13 +1310,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   addMeeting = {
     meetingId: 0,
     subject: '',
-    organizerName: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
-    organizerEmailId: localStorage.getItem('email'),
+    //organizerName: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
+    organizerEmailId: this.selectedReporteeOrganizedMeeting != ''?this.selectedReporteeOrganizedMeeting:this.loggedInUser,
     startDateTime: '',
     endDateTime: '',
     attendees: [],
     //actionItems: 
-    emailId: localStorage.getItem('email'),
+    emailId: this.selectedReporteeOrganizedMeeting,
     attendeeCount: 0,
     createdBy: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
     createByEmailId: localStorage.getItem('email'),

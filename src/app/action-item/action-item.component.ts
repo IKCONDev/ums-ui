@@ -936,7 +936,7 @@ export class ActionItemComponent implements OnInit {
       isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
       && isDueDateValid == true
     ) {
-      this.add_Task.emailId = localStorage.getItem('email');
+      this.add_Task.emailId = this.selectedReporteeOrganizedActionItem != null ? this.selectedReporteeOrganizedActionItem : this.loggedInUser;
       this.add_Task.actionItemId = this.currentActionItemId;
       this.taskService.createTask(this.add_Task).subscribe({
         next: (response) => {
