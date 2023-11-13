@@ -68,7 +68,7 @@ export class ReportComponent implements OnInit {
         
       },
       options: {
-        aspectRatio: 1.7,
+        aspectRatio: 2,
         scales: {
           x: {
             display: true,
