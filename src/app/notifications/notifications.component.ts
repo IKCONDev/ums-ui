@@ -5,6 +5,9 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Notification } from '../model/Notification.model';
 import { Observable } from 'rxjs';
+import { Users } from '../model/Users.model';
+import { HeaderService } from '../header/service/header.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-notifications',
@@ -15,13 +18,16 @@ export class NotificationsComponent implements OnInit {
 
   notificationList: Notification[];
   notificationCount = 0;
+  userDetails : Users;
 
   constructor(private notificationService: NotificationService,
-    private router: Router){
+    private router: Router, private headerService : HeaderService,private sanitizer: DomSanitizer){
       this.getNotificationsOfUser();
+      this.getAssignedUserProfile('Bharat@ikcontech.com')
   }
 
   ngOnInit(): void {
+    this.getNotificationsOfUser();
     
   }
 
@@ -34,6 +40,7 @@ export class NotificationsComponent implements OnInit {
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.notificationList = response.body;
+          console.log(this.notificationList);
           this.notificationCount = response.body.length;
           console.log(this.notificationCount);
           //for each notification set time ago
@@ -71,5 +78,27 @@ export class NotificationsComponent implements OnInit {
     }
     
   }
+  getAssignedUserProfile(email : string){
+    this.headerService.fetchUserProfile(email).subscribe({
+      next : response =>{
+        this.userDetails = response.body;
+      }
+
+    })
+
+  }
+  getProfilePicUrl(profilePic: Blob): string {
+     try {
+      //Assuming profilePic is a valid Base64 string
+      return 'data:image/png/jpg/jpeg;base64,' + profilePic;
+     } catch (error) {
+       console.error('Error creating profile pic URL:', error);
+          return ''; // or a default URL
+     }
+  }
+  // // getProfilePicUrl(profilePic: Blob): SafeUrl {
+  //   const imageUrl = 'data:image/png;base64,' + profilePic;
+  //   return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  // }
 
 }
