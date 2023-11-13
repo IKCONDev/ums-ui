@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient , HttpHeaders,HttpResponse} from "@angular/common/http";
 import { BatchDetails } from "src/app/model/BatchDetails.model";
+import { Task } from "src/app/model/Task.model";
 
 @Injectable({
     providedIn : 'root'
@@ -13,11 +14,17 @@ export class ReportService{
      private teamsbatchProcessMicroserviceURL="teams";
      private getAllBatchDetailsURL="batch-details";
 
+     private reportMicroservicePathUrl = "reports";
+
      /**
       * 
       * @returns 
       */
      getAllBatchProcessDetails(){
          return this.http.get<BatchDetails[]>(`${this.gateWayURL}/${this.teamsbatchProcessMicroserviceURL}/${this.getAllBatchDetailsURL}`,{observe:'response'})   
+     }
+
+     getAllTasksReport(){
+        return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/all`,{observe:'response'});
      }
 }
