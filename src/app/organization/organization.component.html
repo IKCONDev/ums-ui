@@ -213,55 +213,6 @@
                     </div>
                 </div>
                 <br />
-                <!-- orgContactDetails -->
-                <h5>Contact Details</h5>
-                <div class="row">
-                    <!-- orgEmailId -->
-                    <div class="col-sm-3"><label>Email ID</label></div>
-                    <div *ngIf="org.orgEmailId === null&& isDisable == false || org.orgEmailId === ''  && isDisable == false" class="col-sm-1">
-                        <p>-</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <div *ngIf="org.orgEmailId != null" id="adjustTextBox">
-                            <label *ngIf="isDisable==false">{{org.orgEmailId}}</label>
-                        </div>
-                        <div>
-                            <input type="text" placeholder="Enter Company Email ID" *ngIf="isDisable==true" [(ngModel)]="org.orgEmailId"
-                                class="form-control" (keyup)="validateCompanyEmail()" >
-                                <span *ngIf="updatedCompanyEmailErrorInfo!= ''">
-                                    <p id="errorMessage">{{updatedCompanyEmailErrorInfo}}</p>
-                                </span>
-
-                        </div>
-                        <div *ngIf="isDisable==true">
-                            &nbsp;
-                        </div>
-                    </div>
-                </div>
-
-                <!-- orgContact -->
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label>Phone</label>
-                    </div>
-                    <div *ngIf="org.orgContactNumber === null&& isDisable == false || org.orgContactNumber === ''  && isDisable == false" class="col-sm-1">
-                        <p>-</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <div *ngIf="org.orgContactNumber != null" id="adjustTextBox">
-                            <label *ngIf="isDisable==false">{{org.orgContactNumber}}</label>
-                        </div>
-                        <div style="display: flex;">
-                            <input type="text" style="width: 55px;font-size: 15px;border-radius: 5px;margin-right: 3px;height: 36px;margin-top: 1px;" id="dial-code-input"  *ngIf="isDisable==true" readonly>
-                            <input type="text" placeholder="Enter Company Contact Number" *ngIf="isDisable==true" [(ngModel)]="org.orgContactNumber"
-                                class="form-control" (keyup)="validateOrgContactNumber()" (keydown)="numberValidation($event)" minlength="10" maxlength="18">
-                                <span *ngIf="updatedOrgContactNumberErrorInfo!= ''">
-                                    <p id="errorMessage">{{updatedOrgContactNumberErrorInfo}}</p>
-                                </span>
-                        </div>
-                    </div>
-                </div>
-                <br />
                 <!-- orgLocality details  -->
                 <h5>Locality Details</h5>
                 <div class="row">
@@ -523,8 +474,8 @@
                                 <option value="Wallis and Futana Islands" data-code="+681">Wallis and Futuna Islands</option>
                                 <option value="Western Sahara" data-code="+212">Western Sahara</option>
                                 <option value="Yemen" data-code="+967">Yemen</option>
-                                <option value="Zambia" data-code="260">Zambia</option>
-                                <option value="Zimbabwe" data-code="263">Zimbabwe</option>
+                                <option value="Zambia" data-code="+260">Zambia</option>
+                                <option value="Zimbabwe" data-code="+263">Zimbabwe</option>
                             </select>
                             <!-- <mat-select-country></mat-select-country> -->
                         </div>
@@ -559,7 +510,58 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                <br />
+
+                <!-- orgContactDetails -->
+                <h5>Contact Details</h5>
+                <div class="row">
+                    <!-- orgEmailId -->
+                    <div class="col-sm-3"><label>Email ID</label></div>
+                    <div *ngIf="org.orgEmailId === null&& isDisable == false || org.orgEmailId === ''  && isDisable == false" class="col-sm-1">
+                        <p>-</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <div *ngIf="org.orgEmailId != null" id="adjustTextBox">
+                            <label *ngIf="isDisable==false">{{org.orgEmailId}}</label>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Enter Company Email ID" *ngIf="isDisable==true" [(ngModel)]="org.orgEmailId"
+                                class="form-control" (keyup)="validateCompanyEmail()" >
+                                <span *ngIf="updatedCompanyEmailErrorInfo!= ''">
+                                    <p id="errorMessage">{{updatedCompanyEmailErrorInfo}}</p>
+                                </span>
+
+                        </div>
+                        <div *ngIf="isDisable==true">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+
+                <!-- orgContact -->
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Phone</label>
+                    </div>
+                    <div *ngIf="org.orgContactNumber === null&& isDisable == false || org.orgContactNumber === ''  && isDisable == false" class="col-sm-1">
+                        <p>-</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <div *ngIf="org.orgContactNumber != null" id="adjustTextBox">
+                            <label *ngIf="isDisable==false">{{org.orgContactNumber}}</label>
+                        </div>
+                        <div style="display: flex;">
+                            <input type="text" class="form-control" id="dial-code-input"  *ngIf="isDisable==true" readonly>
+                            <input type="text" placeholder="Enter Company Contact Number" *ngIf="isDisable==true" [(ngModel)]="org.orgContactNumber"
+                                class="form-control" (keyup)="validateOrgContactNumber()" (keydown)="numberValidation($event)" minlength="10" maxlength="18">
+                        </div>
+                        <span *ngIf="updatedOrgContactNumberErrorInfo!= ''">
+                            <p id="errorMessage">{{updatedOrgContactNumberErrorInfo}}</p>
+                        </span>
+                    </div>
+                </div>
+            </div>    
+                <br />
             <div class="col-sm-2">
                 <!-- edit icon -->
                 <div style="text-align: end;">

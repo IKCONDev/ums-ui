@@ -12,5 +12,6 @@ export interface Task{
     actionItemId:number;
     actionTitle:string;
     emailId:string;
+    departmentId: number;
     
  }

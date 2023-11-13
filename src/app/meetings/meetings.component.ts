@@ -16,6 +16,7 @@ import { JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
 import { EmployeeService } from '../employee/service/employee.service';
 import { Employee } from '../model/Employee.model';
+import { HeaderService } from '../header/service/header.service';
 
 
 @Component({
@@ -114,7 +115,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param toastr 
    */
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
-    private router: Router, private toastr: ToastrService, private employeeService: EmployeeService) {
+    private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
+    private headerService: HeaderService) {
 
   }
 
@@ -177,11 +179,20 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  selectedReporteeName: string ='';
   /**
    * executes when the component is initialized or loaded first time
    */
   ngOnInit(): void {
-    console.log(this.selectedReporteeOrganizedMeeting)
+    //get user data on switch reportee or user
+    this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting:this.loggedInUser).subscribe({
+      next: response => {
+        this.selectedReporteeName = response.body.employee.firstName +' '+ response.body.employee.lastName;
+        console.log(this.selectedReporteeName)
+        this.addMeeting.organizerName = this.selectedReporteeName;
+        console.log(this.selectedReporteeName)
+      }
+    });
     //generate action items for user meetings automatically upon component initialization
     this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
       (response => {
@@ -1316,7 +1327,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   addMeeting = {
     meetingId: 0,
     subject: '',
-    //organizerName: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
+    organizerName: '',
     organizerEmailId: this.selectedReporteeOrganizedMeeting != ''?this.selectedReporteeOrganizedMeeting:this.loggedInUser,
     startDateTime: '',
     endDateTime: '',

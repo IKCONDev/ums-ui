@@ -10,6 +10,8 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../employee/service/employee.service';
 import { Employee } from '../model/Employee.model';
+import { HeaderService } from '../header/service/header.service';
+import { Users } from '../model/Users.model';
 
 @Component({
   selector: 'app-task',
@@ -33,7 +35,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   loggedInUserRole = localStorage.getItem('userRole');
   selectedReporteeOrganized: string = localStorage.getItem('selectedReporteeOrganized');
   selectedReporteeAssigned: string = localStorage.getItem('selectedReporteeAssigned');
-
+  selectedUserDepartmentIdOrganized: number = 0;
+  selectedUserDetailsOrganized : Users;
 
   isTaskTitleValid = false;
   isTaskDescriptionValid = false;
@@ -42,7 +45,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   isTaskStartDateValid = false;
   isTaskDueDateValid = false;
   isTaskStatusValid = false;
-
   isSaveButtonDisabled = true;
 
 
@@ -58,7 +60,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     status: '',
     actionItemId: 0,
     actionTitle: '',
-    emailId: ''
+    emailId: '',
+    departmentId: 0
 
   }
 
@@ -142,7 +145,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param toastr 
    */
   constructor(private service: TaskService, private meetingService: MeetingService,
-    private toastr: ToastrService, private router: Router, private employeeService: EmployeeService) {
+    private toastr: ToastrService, private router: Router, private employeeService: EmployeeService,
+    private headerService: HeaderService) {
 
   }
 
@@ -172,6 +176,31 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     if(this.selectedReporteeAssigned === ''){
       this.selectedReporteeAssigned = localStorage.getItem('email');
     }
+
+    //get user details of selected organized user
+    this.headerService.fetchUserProfile(this.selectedReporteeOrganized).subscribe({
+      next: response => {
+        this.selectedUserDetailsOrganized = response.body;
+        this.selectedUserDepartmentIdOrganized = response.body.employee.departmentId;
+        console.log(this.selectedUserDepartmentIdOrganized)
+      }
+    });
+
+    this.selectedUserDepartmentIdOrganized = parseInt(localStorage.getItem('selectedUserDepartmentId'));
+    console.log(this.selectedUserDepartmentIdOrganized)
+    console.log(this.selectedReporteeOrganized)
+
+    //get user details of selected assigned user
+    this.headerService.fetchUserProfile(this.selectedReporteeAssigned).subscribe({
+      next: response => {
+        this.selectedUserDetailsOrganized = response.body;
+        this.selectedUserDepartmentIdOrganized = response.body.employee.departmentId;
+        console.log(this.selectedUserDepartmentIdOrganized)
+      }
+    });
+
+    this.selectedUserDepartmentIdOrganized = parseInt(localStorage.getItem('selectedUserDepartmentId'));
+    console.log(this.selectedUserDepartmentIdOrganized)
     console.log(this.selectedReporteeOrganized)
 
     //set default tab to Organized Task when application is opened
@@ -179,11 +208,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tabOpened = localStorage.getItem('taskTabOpened')
     console.log(this.tabOpened)
     this.getTasks(this.tabOpened);
-    console.log(localStorage.getItem('taskNameFilter'));
-    console.log(localStorage.getItem('taskPriorityFilter'));
-    console.log(localStorage.getItem('taskStartDateFilter'));
-    console.log(localStorage.getItem('taskEndDateFilter'));
-    console.log(localStorage.getItem('taskOrganizerFilter'));
 
      //get reportees data of logged in user
      if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){

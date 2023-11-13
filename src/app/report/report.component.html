@@ -4,45 +4,35 @@
 <div>
     <app-header [title]="title"></app-header>
 </div>
-<!--<div class="container-fluid">
-    <div class="card-header">
-        
-            <div class="row">
-               <div class="col-sm-4">
-                 <h2 id="heading">Batch Processing</h2>
-               </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks</b>
+                </div>
+                <div class="chart">
+                    <canvas id="taskListChart"></canvas>
+                </div>
             </div>
-        
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <table class="table table-hover">
-                <thead id="thead">
-                    <th>ID</th>
-                    <th>Start Date</th>
-                    <th>End Time</th>
-                    <th>Status</th>
-                    <th>LastSuccessfullExecutionDateTime</th>
-                </thead>
-                <tbody *ngFor="let item of batchDetails">
-                    <tr>
-                      <td>{{item.batchId}}</td>
-                      <td>{{item.startDateTime}}</td>
-                      <td>{{item.endDateTime}}</td>
-                      <td>{{item.status}}</td>
-                      <td>
-                       {{item.lastSuccessfullExecutionDateTime}}
-                      </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
-
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks By Department</b>
+                </div>
+                <div class="chart">
+                    <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 150px;" placeholder="choose"
+                    (change)="chooseDepartment($event)">
+                        <ng-option *ngFor="let department of departmentList" value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
+                    </ng-select>
+                    <canvas id="taskListByDepartmentChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
-     
 </div>
--->
-<div style="text-align: center;">
+<!-- <div style="text-align: center;">
     <p style="padding-top: 250px; font-size: 50px; padding-left: 40px;" >This page is under implementation</p>
 
-</div>
+</div> -->

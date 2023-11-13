@@ -10,6 +10,8 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Employee } from '../model/Employee.model';
 import { EmployeeService } from '../employee/service/employee.service';
+import { Users } from '../model/Users.model';
+import { HeaderService } from '../header/service/header.service';
 
 @Component({
   selector: 'app-action-item',
@@ -41,19 +43,22 @@ export class ActionItemComponent implements OnInit {
   selectedReporteeOrganizedActionItem: string = localStorage.getItem('selectedReporteeOrganizedActionItem');
   loggedInUserRole = localStorage.getItem('userRole');
   loggedInUser = localStorage.getItem('email');
+  selectedUserdepartmentId: number = 0;
+  selectedUserDetails: Users;
 
   //update action item object
   updatedetails = {
     actionItemId: 0,
     meetingId: 0,
     emailId: '',
+    departmentId: 0,
     actionItemOwner: [],
     actionItemTitle: '',
     actionItemDescription: '',
     actionPriority: '',
     actionStatus: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
   }
 
   //add action item object
@@ -61,6 +66,7 @@ export class ActionItemComponent implements OnInit {
     actionItemId: 0,
     meetingId: 0,
     emailId: '',
+    departmentId:0,
     actionItemOwner: [],
     actionItemTitle: '',
     actionItemDescription: '',
@@ -107,7 +113,8 @@ export class ActionItemComponent implements OnInit {
    * @param meetingsService 
    */
   constructor(private service: ActionService, private taskService: TaskService, private toastr: ToastrService,
-    private meetingsService: MeetingService, private router: Router, private employeeService: EmployeeService) {
+    private meetingsService: MeetingService, private router: Router, private employeeService: EmployeeService,
+    private headerService: HeaderService) {
 
     //show action items slider control code
     $(function () {
@@ -144,6 +151,14 @@ export class ActionItemComponent implements OnInit {
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
       console.log(this.selectedReporteeOrganizedActionItem)
     }
+
+    this.headerService.fetchUserProfile(this.selectedReporteeOrganizedActionItem).subscribe({
+      next: response => {
+        this.selectedUserDetails = response.body;
+        this.selectedUserdepartmentId = response.body.employee.departmentId;
+        console.log(this.selectedUserdepartmentId);
+      }
+    })
 
     //get reportees data of logged in user
     if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
@@ -747,7 +762,8 @@ export class ActionItemComponent implements OnInit {
     status: 'Yet to start',
     actionItemId: 0,
     actionTitle: '',
-    emailId: ''
+    emailId: '',
+    departmentId:0
 
   }
   isTaskTitleValid = false;
@@ -938,6 +954,7 @@ export class ActionItemComponent implements OnInit {
     ) {
       this.add_Task.emailId = this.selectedReporteeOrganizedActionItem != null ? this.selectedReporteeOrganizedActionItem : this.loggedInUser;
       this.add_Task.actionItemId = this.currentActionItemId;
+      this.add_Task.departmentId = this.selectedUserdepartmentId;
       this.taskService.createTask(this.add_Task).subscribe({
         next: (response) => {
           var data = response.body;
