@@ -185,15 +185,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   ngOnInit(): void {
     //get user data on switch reportee or user
-    this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting).subscribe({
+    this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting:this.loggedInUser).subscribe({
       next: response => {
         this.selectedReporteeName = response.body.employee.firstName +' '+ response.body.employee.lastName;
+        console.log(this.selectedReporteeName)
         this.addMeeting.organizerName = this.selectedReporteeName;
         console.log(this.selectedReporteeName)
       }
     });
-
-    console.log(this.selectedReporteeOrganizedMeeting)
     //generate action items for user meetings automatically upon component initialization
     this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
       (response => {

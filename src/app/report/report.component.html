@@ -5,11 +5,30 @@
     <app-header [title]="title"></app-header>
 </div>
 <div class="container-fluid">
-    <div class="col-sm-6">
-        <div class="card">
-            <!-- <div class="card-header"> -->
-                <canvas id="taskListChart"></canvas>
-            <!-- </div> -->
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks</b>
+                </div>
+                <div class="chart">
+                    <canvas id="taskListChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks By Department</b>
+                </div>
+                <div class="chart">
+                    <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 150px;" placeholder="choose"
+                    (change)="chooseDepartment($event)">
+                        <ng-option *ngFor="let department of departmentList" value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
+                    </ng-select>
+                    <canvas id="taskListByDepartmentChart"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>
