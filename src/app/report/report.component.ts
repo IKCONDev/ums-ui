@@ -199,7 +199,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByDepartment(this.selectedDepartment);
     setTimeout(() => {
       this.createTaskListByDepartmentChart();
-    }, 100)
+    }, 700)
 
   }
 
@@ -288,7 +288,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskOwner(this.selectedTaskOwner);
     setTimeout(() => {
       this.createTaskListByTaskOwnerChart();
-    }, 100)
+    }, 700)
   }
 
   createTaskListByTaskOwnerChart() {
@@ -368,7 +368,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskSeverity(this.selectedTaskSeverity);
     setTimeout(() => {
       this.createTaskListByTaskSeverityChart();
-    }, 200)
+    }, 700)
   }
 
   createTaskListByTaskSeverityChart() {
@@ -447,7 +447,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskStatus(this.selectedTaskStatus);
     setTimeout(() => {
       this.createTaskListByTaskStatusChart();
-    }, 200)
+    }, 700)
   }
 
   createTaskListByTaskStatusChart() {
@@ -591,6 +591,4 @@ export class ReportComponent implements OnInit {
       }
     });
   }
-
-
 }
