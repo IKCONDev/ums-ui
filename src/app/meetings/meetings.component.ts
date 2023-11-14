@@ -1595,10 +1595,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         next: response => {
           this.meetings = response.body;
           this.meetingCount = response.body.length;
+          this.closeFilterModal();
+          window.location.reload();
         }
       });
-      this.closeFilterModal();
-      window.location.reload();
       
 
   }
