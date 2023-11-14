@@ -34,7 +34,7 @@
                     data-target="#createModal" (click)="getActiveUMSUsersEmailIdList()">
                 </i>
             </div>
-            <div *ngIf="tabOpened === 'AttendedMeeting'" class="col-sm-1 d-flex" id="filter">
+            <div *ngIf="tabOpened === 'AttendedMeeting'" class="col-sm-2 d-flex" id="attendedFilter">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                         <path
                             d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
@@ -42,7 +42,7 @@
                     </svg>
                 
             </div>
-            <div *ngIf="tabOpened === 'OrganizedMeeting'" class="col-sm-1 d-flex" id="filter">
+            <div *ngIf="tabOpened === 'OrganizedMeeting'" class="col-sm-1 d-flex" id="filter" data-toggle="modal" data-target="#organizedFilterModal">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
@@ -351,11 +351,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
-                        <td>M000{{meeting.meetingId}}</td>
-                        <td id="meeting-subject">{{meeting.subject}}</td>
-                        <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td id="cell">M000{{meeting.meetingId}}</td>
+                        <td id="cell">{{meeting.subject}}</td>
+                        <td id="cell">{{meeting.organizerName}}</td>
+                        <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td id="cell">{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -798,4 +798,52 @@
         </div>
     </div>
 
-    <!-- custom filter modal -->
+    <!-- custom advanced organized filter modal -->
+<div class="modal" id="organizedFilterModal">
+    <div class="modal-dialog" id="dialog">
+      <div class="modal-content"> 
+        <div class="filters-action-item">
+          <div class="filters-parent">
+              <div class="filters">Filters</div>
+              <img class="cross-icon" alt="" src="../../assets/images/cross.svg" 
+              id="orgFilterModal" data-dismiss="modal" style="cursor: pointer;">
+          </div>
+          <div class="filter-dd">              
+              <div class="meeting-title-dd-parent">
+                  <!-- <div class="meeting-title-dd">
+                      <div class="meeting-title-filter">
+                          <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
+                          <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
+                      </div>          					
+                  </div> -->
+                  <div class="meeting-title-dd">
+                    <div class="meeting-title-filter">
+                        <input type ="text" [(ngModel)]="organizedMeetingTitleFilter" #boxOrganizedMeetingTitle placeholder="Meeting title" name="meeting-title-filter" />
+                        <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
+                    </div>          					
+                </div>
+                  <!-- <div class="meeting-title-dd">
+                      <div >Assignee
+                          <input readonly="true" type="text" [(ngModel)] = "assignedTaskOrganizerFilter" #boxAssignedOrg class="actitem-organizer-filter"
+                           />
+                      </div>
+                  </div> -->
+                  <div class="date-range">
+                      <div class="date-parent">
+                          <input type="datetime-local" #boxOrganizedStartdate [(ngModel)] = "organizedMeetingStartDateFilter" />
+                      </div>
+                      <div class="to">To</div>
+                      <div class="date-parent">
+                          <input type="datetime-local" #boxOrganizedEndDate [(ngModel)] = "organizedMeetingEndDateFilter"/>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="submit-button-parent">
+              <button type="button" class="submit-button" (click)="filterOrganizedMeetingList(boxOrganizedMeetingTitle.value, boxOrganizedStartdate.value, boxOrganizedEndDate.value)">Apply</button>
+              <button type="button" class="delete-button"  (click)="resetOrganizedMeetingsFilter()">Clear</button>
+          </div>
+      </div>  
+      </div>
+    </div>
+</div>
