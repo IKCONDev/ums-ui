@@ -87,11 +87,11 @@ export class ForgotPasswordEmailVerificationComponent {
           if (this.value == 1) {
             console.log("Entered email id is a valid one");
             this.isError=false;
-            this.verificationResponse = "Valid Email ID";
+            this.verificationResponse = "";
           }else {
             console.log("Entered email address is not a registred email address");
             this.isError = true;
-            this.verificationResponse = "Incorrect Email ID";
+            this.verificationResponse = "Enter valid credentials";
           }
         },
         (error: any) => {

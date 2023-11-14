@@ -76,6 +76,12 @@ export class ActionItemComponent implements OnInit {
     endDate: ''
   }
 
+  actionItemNameFilter = localStorage.getItem('ActionItemNameFilter');
+  actionItemOwnerFilter = localStorage.getItem('ActionItemOwnerFilter');
+  actionItemStartDateFilter = localStorage.getItem('ActionItemStartDateFilter');
+  actionItemEndDateFilter = localStorage.getItem('ActionItemEndDateFilter');
+
+
   //add object error validation properties
   actionItemTitleErrorInfo: string = '';
   actionItemOwnerErrorInfo: string = '';
@@ -1046,6 +1052,54 @@ export class ActionItemComponent implements OnInit {
     }
     console.log(this.selectedReporteeOrganizedActionItem)
     window.location.reload();
+  }
+  /**
+   * close filter modal on click
+   */
+  CloseFilterActionItemModal() {
+    document.getElementById('closeModal').click();
+  }
+
+  /**
+   * reset filter
+   */
+  resetFilterModal() {
+    localStorage.setItem('ActionItemNameFilter', '');
+    localStorage.setItem('ActionItemStartDateFilter', '');
+    localStorage.setItem('ActionItemEndDateFilter', '');
+    localStorage.setItem('ActionItemOrganizerFilter', '');
+    
+    this.CloseFilterActionItemModal();
+    window.location.reload();
+  }
+
+
+  /**
+   * 
+   * @param ActionItemName 
+   * @param ActionItemStartDate 
+   * @param ActionItemEndDate 
+   */
+  filterActionItemList(actionItemTitle: string, actionItemOwner:string, actionItemStartDate: string, actionItemEndDate: string, ) {
+    this.actionItemNameFilter=actionItemTitle;
+    this.actionItemOwnerFilter=actionItemOwner;
+    this.actionItemStartDateFilter=actionItemStartDate;
+    this.actionItemEndDateFilter=actionItemEndDate;
+    
+    localStorage.setItem("actionItemNameFilter",actionItemTitle);
+    localStorage.setItem("actionItemOwnerFilter",actionItemOwner);
+    localStorage.setItem("actionItemStartDateFilter",actionItemStartDate);
+    localStorage.setItem("actionItemEndDateFilter",actionItemEndDate);
+
+    this.service.getActionItemByUserId(this.selectedReporteeOrganizedActionItem,actionItemTitle,actionItemOwner,actionItemStartDate,actionItemEndDate)
+    .subscribe({
+      next: response => {
+        this.actionItems = response.body;
+        this.actionItemCount = response.body.length;
+        this.CloseFilterActionItemModal();
+        window.location.reload();
+      }
+    })
   }
 
 }
