@@ -9,5 +9,5 @@ export interface Notification{
     status: string;
     createdDateTime: string;
     timeAgoDateTime: TimeAgo;
-    profilePic: Blob;
+    profilepic: Blob
 }

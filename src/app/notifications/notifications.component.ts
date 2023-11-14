@@ -43,6 +43,11 @@ export class NotificationsComponent implements OnInit {
           console.log(this.notificationList);
           this.notificationCount = response.body.length;
           console.log(this.notificationCount);
+          // this.notificationList.forEach(notification => {
+          //    console.log(notification.profilepic)
+      
+          //    });
+
           //for each notification set time ago
           // this.notificationList.forEach(notification => {
           //   notification.timeAgoDateTime = new TimeAgo('en-US')
