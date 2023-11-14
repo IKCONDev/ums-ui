@@ -677,7 +677,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         document.getElementById("attendedMeeting").style.width = 'fit-content';
         document.getElementById("organizedMeeting").style.borderBottom = 'none';
         //get user attended meetings
-        this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting).subscribe({
+        this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting,this.attendedMeetingTitleFilter,
+          this.attendedMeetingStartDateFilter,this.attendedMeetingEndDateFilter).subscribe({
           next: (response) => {
             //extract the meetings from response object
             this.attendedMeetings = response.body;
@@ -697,7 +698,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         document.getElementById("attendedMeeting").style.width = 'fit-content';
         document.getElementById("organizedMeeting").style.borderBottom = 'none';
         //get user attended meetings
-        this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe({
+        this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email')),this.attendedMeetingTitleFilter,
+        this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
           next: (response) => {
             //extract the meetings from response object
             this.attendedMeetings = response.body;
@@ -1595,22 +1597,58 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.meetingCount = response.body.length;
         }
       });
-      this.closeOrgFilterModal();
+      this.closeFilterModal();
       window.location.reload();
       
 
   }
 
-  closeOrgFilterModal(){
-    document.getElementById('orgFilterModal').click();
+  closeFilterModal(){
+    document.getElementById('filterModal').click();
   }
 
   resetOrganizedMeetingsFilter(){
     localStorage.setItem('organizedMeetingTitleFilter','');
     localStorage.setItem('organizedMeetingStartDateFilter','');
     localStorage.setItem('organizedMeetingEndDateFilter','');
-    this.closeOrgFilterModal();
+    this.closeFilterModal();
     window.location.reload();
+  }
+
+  resetAttendedMeetingsFilter(){
+    localStorage.setItem('attendedMeetingTitleFilter','');
+    localStorage.setItem('attendedMeetingStartDateFilter','');
+    localStorage.setItem('attendedMeetingEndDateFilter','');
+    this.closeFilterModal();
+    window.location.reload();
+  }
+
+  /**
+   * 
+   * @param meetingTitle 
+   * @param meetingStartDateTime 
+   * @param meetingEndDateTime 
+   */
+  filterAttendedMeetingList(meetingTitle, meetingStartDateTime, meetingEndDateTime){
+    this.attendedMeetingTitleFilter = meetingTitle;
+    this.attendedMeetingStartDateFilter = meetingStartDateTime;
+    this.attendedMeetingEndDateFilter = meetingEndDateTime;
+
+    localStorage.setItem('attendedMeetingTitleFilter',meetingTitle);
+    localStorage.setItem('attendedMeetingStartDateFilter',meetingStartDateTime);
+    localStorage.setItem('attendedMeetingEndDateFilter', meetingEndDateTime);
+
+    this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting,
+      this.attendedMeetingTitleFilter, this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
+        next: response => {
+          if(response.status === HttpStatusCode.Ok){
+            this.attendedMeetings = response.body;
+            this.attendedMeetingCount = response.body.length;
+          }
+        }
+      })
+      this.closeFilterModal();
+      window.location.reload();
   }
 
 }

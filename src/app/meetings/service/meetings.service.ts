@@ -63,11 +63,23 @@ export class MeetingService {
      * @param emailId 
      * @returns 
      */
-    getUserAttendedMeetingsByUserId(emailId: string){
+    getUserAttendedMeetingsByUserId(emailId: string, meetingTitle: string, meetingStartDateTime: string, meetingEndDateTime: string){
+      if(meetingTitle === '' && meetingStartDateTime === '' && meetingEndDateTime === ''){
+        return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/attended/`+emailId, {observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        )})
+      }else{
+        var params = new HttpParams()
+        .set('meetingTitle',meetingTitle)
+        .set('startDateTime',meetingStartDateTime)
+        .set('endDateTime',meetingEndDateTime);
+      }
       return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/attended/`+emailId, {observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
       }
-      )})
+      ),params:params
+    })
     }
 
     /*
