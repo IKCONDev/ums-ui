@@ -585,7 +585,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           this.response = response.body;
           //this.data = response.body;
           if (response.status === HttpStatusCode.Ok) {
-            this.toastr.success('task updated Successfully');
+            this.toastr.success('Task updated successfully');
             document.getElementById('closeUpdateModal').click();
             document.getElementById('closeAssignedUpdateModal').click();
             setTimeout(() => {
@@ -697,7 +697,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             if (taskIds.length > 1) {
               this.toastr.success("Tasks deleted");
             } else {
-              this.toastr.success('Task T00' + taskIds + 'is deleted');
+              this.toastr.success('Task T000' + taskIds + 'is deleted');
             }
             setTimeout(() => {
               window.location.reload();
@@ -812,7 +812,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
     else {
-      this.toastr.warning("Task T00" + id + " is not Deleted");
+      this.toastr.warning("Task T000" + id + " is not Deleted");
 
     }
 
