@@ -176,7 +176,7 @@
                 </span>
                 <br />
                 <label><b>Date of Joining</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Date of Joining"
+                <input type="text" type="date" class="form-control"  class="addEmployeeInput form-control" placeholder="Date of Joining"
                 id="joiningDate" name="joiningDate" #joiningDate="ngModel"    [(ngModel)]="addEmployee.dateOfJoining"
                 (keyup)="validateEmployeeDateofJoining()"/>
                 <span *ngIf=" isEmployeeDateofJoinErrorInfo != ''">
@@ -305,7 +305,7 @@
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br />
                 <label><b>Date of Joining</b><span id="required">*</span></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="Date of Joining"
+                <input type="text" type="date" class="form-control" class="addEmployeeInput form-control" placeholder="Date of Joining"
                 id="joiningDate" name="joiningDate" #joiningDate="ngModel" [(ngModel)]="existingEmployee.dateOfJoining" 
                 (keyup)="validateUpdateDateofJoining()"/>
                 <span *ngIf="isUpdateDateofJoinErrorInfo != ''">
