@@ -27,7 +27,7 @@ export class ReportComponent implements OnInit {
   selectedTaskStatus: string = 'Yet to start';
 
   taskList: Task[];
-  taskListCount = 0;
+  taskListCount :any[]= [];
   taskListChart = null;
 
   taskListByDepartmentCount = 0;
@@ -111,10 +111,20 @@ export class ReportComponent implements OnInit {
   }
 
   getTasks() {
-    this.reportservice.findAllTasks().subscribe({
+    const startDate=new Date();
+        const endDate=new Date();
+        //add dynamic year
+        startDate.setFullYear(new Date().getFullYear(),0,1);
+        startDate.setHours(0,0,0,0);
+        endDate.setFullYear(new Date().getFullYear(),11,31);
+        endDate.setHours(23,59,59,999);
+        console.log(startDate);
+        console.log(endDate);
+      this.reportservice.findAllTasks(startDate.toISOString(),endDate.toISOString()).subscribe({
       next: response => {
-        console.log(response.body)
-        this.taskListCount = response.body.length;
+        console.log(response)
+        this.taskListCount = response.body;
+        console.log(this.taskListCount)
         if(this.taskListChart != null){
           this.taskListChart.destroy();
         }
@@ -127,20 +137,20 @@ export class ReportComponent implements OnInit {
     this.taskListChart = new Chart("taskListChart", {
       type: 'bar',
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
-        datasets: [
+        xLabels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+	       datasets: [
           {
-            label: "Total Tasks",
-            data: [this.taskListCount],
-            backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
-            borderColor: 'rgba(75, 192, 192, 1)', // Dark green border
+            label: "Assigned Task",
+            data: this.taskListCount,
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+            borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
           },
         ]
-
+        
       },
       options: {
-        aspectRatio: 1.71,
+        aspectRatio: 1.7,
         scales: {
           x: {
             display: true,
@@ -159,20 +169,21 @@ export class ReportComponent implements OnInit {
           legend: {
             display: true,
             position: 'top',
-            align: 'center',
+            align:'center',
             labels: {
               usePointStyle: true,
               font: {
                 size: 12,
               },
               padding: 16,
-              pointStyle: 'rectRounded',
-
+              pointStyle:'rectRounded',
+          
             },
           },
           title: {
             display: true,
-            text: 'Total task list of all users',
+            text: 'Task Status of current Year',
+            align:'start',
             font: {
               size: 14,
             },
@@ -180,7 +191,8 @@ export class ReportComponent implements OnInit {
         },
       }
     });
-  }
+  
+}
 
   getTasksByDepartment(selectedDepartment: number) {
     this.reportservice.findAllTasksByDepartment(this.selectedDepartment).subscribe({
@@ -199,7 +211,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByDepartment(this.selectedDepartment);
     setTimeout(() => {
       this.createTaskListByDepartmentChart();
-    }, 700)
+    }, 100)
 
   }
 
@@ -288,7 +300,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskOwner(this.selectedTaskOwner);
     setTimeout(() => {
       this.createTaskListByTaskOwnerChart();
-    }, 700)
+    }, 100)
   }
 
   createTaskListByTaskOwnerChart() {
@@ -368,7 +380,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskSeverity(this.selectedTaskSeverity);
     setTimeout(() => {
       this.createTaskListByTaskSeverityChart();
-    }, 700)
+    }, 200)
   }
 
   createTaskListByTaskSeverityChart() {
@@ -447,7 +459,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskStatus(this.selectedTaskStatus);
     setTimeout(() => {
       this.createTaskListByTaskStatusChart();
-    }, 700)
+    }, 200)
   }
 
   createTaskListByTaskStatusChart() {
@@ -591,4 +603,6 @@ export class ReportComponent implements OnInit {
       }
     });
   }
+
+
 }
