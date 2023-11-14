@@ -12,6 +12,7 @@
                     <b>Tasks</b>
                 </div>
                 <div class="chart">
+                    <div style="padding-top: 6px;"></div>
                     <canvas id="taskListChart"></canvas>
                 </div>
             </div>
@@ -77,6 +78,19 @@
                         <ng-option value="Completed">Completed</ng-option>
                     </ng-select>
                     <canvas id="taskListByTaskStatusChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Aged Tasks</b>
+                </div>
+                <div class="chart">
+                    <div style="padding-top: 12px;"></div>
+                    <!-- <button (click)="getAgedTasks()">Save</button> -->
+                    <canvas id="taskListByAge"></canvas>
                 </div>
             </div>
         </div>

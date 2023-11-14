@@ -149,10 +149,6 @@ export class HomeComponent implements OnInit{
     
     this.onSelectChange();
     this.onSelectChange2();
-    
-    
-
-  
   }
 
   /*
@@ -239,9 +235,10 @@ export class HomeComponent implements OnInit{
         }
         const startDate=new Date();
         const endDate=new Date();
-        startDate.setFullYear(2023,0,1);
+        //add dynamic year
+        startDate.setFullYear(new Date().getFullYear(),0,1);
         startDate.setHours(0,0,0,0);
-        endDate.setFullYear(2023,11,31);
+        endDate.setFullYear(new Date().getFullYear(),11,31);
         endDate.setHours(23,59,59,999);
         console.log(startDate);
         console.log(endDate);
