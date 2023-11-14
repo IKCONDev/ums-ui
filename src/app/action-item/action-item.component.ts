@@ -76,10 +76,10 @@ export class ActionItemComponent implements OnInit {
     endDate: ''
   }
 
-  actionItemNameFilter = localStorage.getItem('ActionItemNameFilter');
-  actionItemOwnerFilter = localStorage.getItem('ActionItemOwnerFilter');
-  actionItemStartDateFilter = localStorage.getItem('ActionItemStartDateFilter');
-  actionItemEndDateFilter = localStorage.getItem('ActionItemEndDateFilter');
+  actionItemNameFilter = localStorage.getItem('actionItemNameFilter');
+  actionItemOwnerFilter = localStorage.getItem('actionItemOwnerFilter');
+  actionItemStartDateFilter = localStorage.getItem('actionItemStartDateFilter');
+  actionItemEndDateFilter = localStorage.getItem('actionItemEndDateFilter');
 
 
   //add object error validation properties
@@ -151,6 +151,7 @@ export class ActionItemComponent implements OnInit {
    * 
    */
   ngOnInit(): void {
+    this.getActiveUMSUsersEmailIdList();
     //get action items of user
     this.getActionItemsOfUser();
     if (this.selectedReporteeOrganizedActionItem === '') {
@@ -1064,10 +1065,10 @@ export class ActionItemComponent implements OnInit {
    * reset filter
    */
   resetFilterModal() {
-    localStorage.setItem('ActionItemNameFilter', '');
-    localStorage.setItem('ActionItemStartDateFilter', '');
-    localStorage.setItem('ActionItemEndDateFilter', '');
-    localStorage.setItem('ActionItemOrganizerFilter', '');
+    localStorage.setItem('actionItemNameFilter', '');
+    localStorage.setItem('actionItemStartDateFilter', '');
+    localStorage.setItem('actionItemEndDateFilter', '');
+    localStorage.setItem('actionItemOrganizerFilter', '');
     
     this.CloseFilterActionItemModal();
     window.location.reload();
@@ -1085,6 +1086,8 @@ export class ActionItemComponent implements OnInit {
     this.actionItemOwnerFilter=actionItemOwner;
     this.actionItemStartDateFilter=actionItemStartDate;
     this.actionItemEndDateFilter=actionItemEndDate;
+
+    console.log(actionItemTitle)
     
     localStorage.setItem("actionItemNameFilter",actionItemTitle);
     localStorage.setItem("actionItemOwnerFilter",actionItemOwner);

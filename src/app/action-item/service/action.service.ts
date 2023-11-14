@@ -145,31 +145,30 @@ export class ActionService {
     actionItemStartDateFilter: string,
     actionItemEndDateFilter: string) {
     if
-      (actionItemNameFilter !== '' ||
-      actionItemOwnerFilter !== '' ||
-      actionItemStartDateFilter !== '' || 
-      actionItemEndDateFilter !== '') {
+      (actionItemNameFilter === '' && actionItemOwnerFilter === "" && actionItemStartDateFilter === '' &&
+      actionItemEndDateFilter === '') {
 
-      let params = new HttpParams()
-        .set('actionItemTitle', actionItemNameFilter)
-        .set('actionItemOwner', actionItemOwnerFilter)
-        .set('actionItemStartDate', actionItemStartDateFilter)
-        .set('actionItemEndDate', actionItemEndDateFilter)
-
-      return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`, {
-        observe: 'response', headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-        }
-        ),params:params
-      })
+        return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`, {
+          observe: 'response', headers: new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+          }
+          )
+        })
+        
     } else {
       console.log('executed - else')
-      return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`, {
-        observe: 'response', headers: new HttpHeaders({
-          'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-        }
-        )
-      })
+      let params = new HttpParams()
+      .set('actionItemTitle', actionItemNameFilter)
+      .set('actionItemOwner', actionItemOwnerFilter)
+      .set('actionItemStartDate', actionItemStartDateFilter)
+      .set('actionItemEndDate', actionItemEndDateFilter)
+
+    return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`, {
+      observe: 'response', headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      ),params:params
+    })
     }
   }
 }
