@@ -27,7 +27,7 @@ export class ReportComponent implements OnInit {
   selectedTaskStatus: string = 'Yet to start';
 
   taskList: Task[];
-  taskListCount = 0;
+  taskListCount :any[]= [];
   taskListChart = null;
 
   taskListByDepartmentCount = 0;
@@ -45,6 +45,11 @@ export class ReportComponent implements OnInit {
   taskListByTaskStatusCount = 0;
   taskListByTaskStatus: Task[];
   taskListByTaskStatusChart = null;
+
+  agedTaskListCount= 0;
+  agedTaskList: Task[];
+  agedTaskListChart = null;
+  
 
   loggedInUser = localStorage.getItem('email');
 
@@ -71,20 +76,18 @@ export class ReportComponent implements OnInit {
         })
       });
 
-    //show task List report
-    this.getTasks();
-
-    //get depts
-    this.getDepartments();
-
     //get active users list
     this.getActiveUsersList();
     this.selectedTaskOwner = this.loggedInUser;
 
+    this.getTasks();
+    this.getDepartments();
     this.chooseUser();
     this.chooseStatus();
     this.chooseSeverity();
     this.chooseDepartment();
+    this.getAgedTasks();
+    console.log('finished')
     
   }
 
@@ -108,10 +111,20 @@ export class ReportComponent implements OnInit {
   }
 
   getTasks() {
-    this.reportservice.findAllTasks().subscribe({
+    const startDate=new Date();
+        const endDate=new Date();
+        //add dynamic year
+        startDate.setFullYear(new Date().getFullYear(),0,1);
+        startDate.setHours(0,0,0,0);
+        endDate.setFullYear(new Date().getFullYear(),11,31);
+        endDate.setHours(23,59,59,999);
+        console.log(startDate);
+        console.log(endDate);
+      this.reportservice.findAllTasks(startDate.toISOString(),endDate.toISOString()).subscribe({
       next: response => {
-        console.log(response.body)
-        this.taskListCount = response.body.length;
+        console.log(response)
+        this.taskListCount = response.body;
+        console.log(this.taskListCount)
         if(this.taskListChart != null){
           this.taskListChart.destroy();
         }
@@ -124,20 +137,20 @@ export class ReportComponent implements OnInit {
     this.taskListChart = new Chart("taskListChart", {
       type: 'bar',
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
-        datasets: [
+        xLabels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+	       datasets: [
           {
-            label: "Total Tasks",
-            data: [this.taskListCount],
-            backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
-            borderColor: 'rgba(75, 192, 192, 1)', // Dark green border
+            label: "Assigned Task",
+            data: this.taskListCount,
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+            borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
           },
         ]
-
+        
       },
       options: {
-        aspectRatio: 1.71,
+        aspectRatio: 1.7,
         scales: {
           x: {
             display: true,
@@ -156,20 +169,21 @@ export class ReportComponent implements OnInit {
           legend: {
             display: true,
             position: 'top',
-            align: 'center',
+            align:'center',
             labels: {
               usePointStyle: true,
               font: {
                 size: 12,
               },
               padding: 16,
-              pointStyle: 'rectRounded',
-
+              pointStyle:'rectRounded',
+          
             },
           },
           title: {
             display: true,
-            text: 'Total task list of all users',
+            text: 'Task Status of current Year',
+            align:'start',
             font: {
               size: 14,
             },
@@ -177,7 +191,8 @@ export class ReportComponent implements OnInit {
         },
       }
     });
-  }
+  
+}
 
   getTasksByDepartment(selectedDepartment: number) {
     this.reportservice.findAllTasksByDepartment(this.selectedDepartment).subscribe({
@@ -290,7 +305,7 @@ export class ReportComponent implements OnInit {
 
   createTaskListByTaskOwnerChart() {
     this.taskListByTaskOwnerChart = new Chart("taskListByTaskOwnerChart", {
-      type: 'bar',
+      type: 'polarArea',
       data: {// values on X-Axis
         xLabels: ['Total tasks'],
         datasets: [
@@ -449,7 +464,7 @@ export class ReportComponent implements OnInit {
 
   createTaskListByTaskStatusChart() {
     this.taskListByTaskStatusChart = new Chart("taskListByTaskStatusChart", {
-      type: 'line',
+      type: 'bar',
       data: {// values on X-Axis
         xLabels: ['Total tasks'],
         datasets: [
@@ -463,6 +478,15 @@ export class ReportComponent implements OnInit {
         ]
       },
       options: {
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'easeOutExpo',
+            from: 1,
+            to: 0,
+            loop: true
+          }
+        },
         aspectRatio: 2,
         scales: {
           x: {
@@ -505,5 +529,80 @@ export class ReportComponent implements OnInit {
       }
     });
   }
+
+  
+  getAgedTasks(){
+    var currentLocalDateTime = new Date();
+    var isoFormattedDate = currentLocalDateTime.toISOString();
+    this.reportservice.findAllAgedTasks(isoFormattedDate).subscribe({
+      next: response => {
+        this.agedTaskList = response.body;
+        this.agedTaskListCount = response.body.length;
+        console.log(response.body)
+        this.createAgedTaskListChart();
+      }
+    })
+  }
+
+  //AGED TASK CHART
+  createAgedTaskListChart() {
+    this.agedTaskListChart = new Chart("taskListByAge", {
+      type: 'doughnut',
+      data: {// values on X-Axis
+        xLabels: ['Total tasks'],
+        datasets: [
+          {
+            label: "Aged Tasks",
+            data: [this.agedTaskListCount],
+            backgroundColor: 'rgba(198, 59, 24, 0.8)', // Yellow
+            borderColor: 'rgba(198, 59, 24, 1)',
+            borderWidth: 3,
+          },
+        ]
+      },
+      options: {
+        aspectRatio: 1.77,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            beginAtZero: false,
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total task list by age',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
 
 }

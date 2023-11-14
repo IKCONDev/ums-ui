@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Meeting } from 'src/app/model/Meeting.model';
 import { Attendee } from 'src/app/model/Attendee.model';
@@ -37,11 +37,25 @@ export class MeetingService {
      * @param emailId,
      * @returns 
      */
-    getUserOraganizedMeetingsByUserId(emailId: string){
-      return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/`+emailId, {observe:'response',headers: new HttpHeaders({
-        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+    getUserOraganizedMeetingsByUserId(emailId: string, meetingTitleFilter: string, meetingStartDateFilter: string, meetingEndDateFilter: string ){
+      console.log('executed if')
+      if(meetingTitleFilter === '' && meetingStartDateFilter === '' && meetingEndDateFilter === ''){
+        return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/`+emailId, {observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        )});
+      }else{
+        console.log('executed else')
+        var params = new HttpParams()
+        .set('meetingTitle',meetingTitleFilter)
+        .set('startDate',meetingStartDateFilter)
+        .set('endDate',meetingEndDateFilter);
+        return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/`+emailId, {observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        ),params:params
+      });
       }
-      )});
     }
 
     /**
@@ -49,11 +63,23 @@ export class MeetingService {
      * @param emailId 
      * @returns 
      */
-    getUserAttendedMeetingsByUserId(emailId: string){
+    getUserAttendedMeetingsByUserId(emailId: string, meetingTitle: string, meetingStartDateTime: string, meetingEndDateTime: string){
+      if(meetingTitle === '' && meetingStartDateTime === '' && meetingEndDateTime === ''){
+        return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/attended/`+emailId, {observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        )})
+      }else{
+        var params = new HttpParams()
+        .set('meetingTitle',meetingTitle)
+        .set('startDateTime',meetingStartDateTime)
+        .set('endDateTime',meetingEndDateTime);
+      }
       return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/attended/`+emailId, {observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
       }
-      )})
+      ),params:params
+    })
     }
 
     /*

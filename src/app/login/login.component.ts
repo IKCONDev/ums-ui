@@ -305,6 +305,25 @@ getTokenPopup(request) {
           localStorage.setItem('selectedReporteeOrganized','');
           localStorage.setItem('selectedReporteeAssigned','');
 
+          //set default values for organized meeting filters
+          localStorage.setItem('organizedMeetingTitleFilter','');
+          localStorage.setItem('organizedMeetingOganizerFilter','');
+          localStorage.setItem('organizedMeetingStartDateFilter','');
+          localStorage.setItem('organizedMeetingEndDateFilter','');
+
+          //set default values for attended filters
+          localStorage.setItem('attendedMeetingTitleFilter','');
+          localStorage.setItem('attendedMeetingOganizerFilter','');
+          localStorage.setItem('attendedMeetingStartDateFilter','');
+          localStorage.setItem('attendedMeetingEndDateFilter','');
+
+
+          //set default values for action item filters
+          localStorage.setItem("actionItemNameFilter",'');
+          localStorage.setItem("actionItemOwnerFilter",'');
+          localStorage.setItem("actionItemStartDateFilter",'');
+          localStorage.setItem("actionItemEndDateFilter",'');
+
           console.log(localStorage.getItem('userRole'))
           let navigationExtras: NavigationExtras = {
             state: {
@@ -339,6 +358,23 @@ getTokenPopup(request) {
            localStorage.setItem('selectedReporteeAssignedMeeting','');
            localStorage.setItem('selectedReporteeOrganized','');
            localStorage.setItem('selectedReporteeAssigned','');
+
+           //set default values for filters
+           localStorage.setItem('organizedMeetingTitleFilter','');
+           localStorage.setItem('organizedMeetingOganizerFilter','');
+           localStorage.setItem('organizedMeetingStartDateFilter','');
+           localStorage.setItem('organizedMeetingEndDateFilter','');
+
+           //set default values for attended filters
+          localStorage.setItem('attendedMeetingTitleFilter','');
+          localStorage.setItem('attendedMeetingOganizerFilter','');
+          localStorage.setItem('attendedMeetingStartDateFilter','');
+          localStorage.setItem('attendedMeetingEndDateFilter','');
+
+          localStorage.setItem("actionItemNameFilter",'');
+          localStorage.setItem("actionItemOwnerFilter",'');
+          localStorage.setItem("actionItemStartDateFilter",'');
+          localStorage.setItem("actionItemEndDateFilter",'');
            
           let navigationExtras: NavigationExtras = {
             state: {

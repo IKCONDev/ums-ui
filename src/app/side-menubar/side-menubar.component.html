@@ -71,7 +71,8 @@
         </a>
       </li>
 
-      <li class="nav-item" id="reportActive">
+      <li *ngIf="loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN' || 
+                 loggedInUserRole == 'MANAGER' || loggedInUserRole === 'DEPARTMENT_HEAD'" class="nav-item" id="reportActive">
         <a class="nav-link" [ngClass]="{'active-link':isActive('/reports')}" routerLink="/reports">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

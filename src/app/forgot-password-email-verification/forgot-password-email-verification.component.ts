@@ -111,8 +111,10 @@ export class ForgotPasswordEmailVerificationComponent {
   /**
    * 
    */
+  disableGetOtp:boolean=false;
   constructOtp() {
-    this.isError=false;
+    this.disableGetOtp=true;
+    this.isError=false;  
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
         this.result = response;
@@ -127,6 +129,7 @@ export class ForgotPasswordEmailVerificationComponent {
           }
           this.router.navigate(['/verify-otp'], navigationExtras);
         } else {
+          this.disableGetOtp=false;
           console.log('couldnt generate otp please try again or check your email address')
           this.router.navigateByUrl("/verify-email");
         }

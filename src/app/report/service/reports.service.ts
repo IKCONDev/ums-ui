@@ -24,8 +24,8 @@ export class ReportService{
          return this.http.get<BatchDetails[]>(`${this.gateWayURL}/${this.teamsbatchProcessMicroserviceURL}/${this.getAllBatchDetailsURL}`,{observe:'response'})   
      }
 
-     findAllTasks(){
-        return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/all`,{observe:'response'});
+     findAllTasks(startdate:string,endDate:string){
+        return this.http.get<number[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/all`,{observe:'response',params:{startdate:startdate,endDate:endDate}});
      }
 
      findAllTasksByDepartment(departmentId: number){
@@ -54,6 +54,13 @@ export class ReportService{
         let params = new HttpParams()
         .set('taskStatus', taskStatus);
         return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/status`,{observe:'response',params:params});
+    }
+
+    findAllAgedTasks(currentDateTime: string){
+        // //prepare request parameters
+        let params = new HttpParams()
+        .set('dateTime', currentDateTime);
+        return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/aged`,{observe:'response',params:params});
     }
 
      

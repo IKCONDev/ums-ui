@@ -104,8 +104,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     actionStatus: '',
     startDate: '',
     endDate: ''
-
   }
+
+  organizedMeetingTitleFilter: string = localStorage.getItem('organizedMeetingTitleFilter');
+  organizedMeetingOganizerFilter: string = localStorage.getItem('organizedMeetingOganizerFilter');
+  organizedMeetingStartDateFilter: string = localStorage.getItem('organizedMeetingStartDateFilter');
+  organizedMeetingEndDateFilter: string = localStorage.getItem('organizedMeetingEndDateFilter');
+
+  attendedMeetingTitleFilter: string = localStorage.getItem('attendedMeetingTitleFilter');
+  attendedMeetingOganizerFilter: string = localStorage.getItem('attendedMeetingOganizerFilter');
+  attendedMeetingStartDateFilter: string = localStorage.getItem('attendedMeetingStartDateFilter');
+  attendedMeetingEndDateFilter: string = localStorage.getItem('attendedMeetingEndDateFilter');
 
   /**
    * executes when the component loaded first time
@@ -117,7 +126,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
     private headerService: HeaderService) {
-
+      console.log(this.organizedMeetingTitleFilter+"-----------empty");
+      console.log(this.attendedMeetingTitleFilter+"------------empty")
   }
 
   /**
@@ -588,7 +598,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       document.getElementById("attendedMeeting").style.borderBottom = 'none';
       //get user organized meetings
       if (this.selectedReporteeOrganizedMeeting != '') {
-        this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting).subscribe({
+        this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting,this.organizedMeetingTitleFilter,
+          this.organizedMeetingStartDateFilter, this.organizedMeetingEndDateFilter).subscribe({
           next: (response) => {
             this.meetings = response.body;
             this.meetingCount = response.body.length
@@ -623,7 +634,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           }//error
         })//subscribe
       } else {
-        this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email')).subscribe({
+        this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email'),this.organizedMeetingTitleFilter,
+        this.organizedMeetingStartDateFilter, this.organizedMeetingEndDateFilter).subscribe({
           next: (response) => {
             this.meetings = response.body;
             this.meetingCount = response.body.length
@@ -665,7 +677,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         document.getElementById("attendedMeeting").style.width = 'fit-content';
         document.getElementById("organizedMeeting").style.borderBottom = 'none';
         //get user attended meetings
-        this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting).subscribe({
+        this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting,this.attendedMeetingTitleFilter,
+          this.attendedMeetingStartDateFilter,this.attendedMeetingEndDateFilter).subscribe({
           next: (response) => {
             //extract the meetings from response object
             this.attendedMeetings = response.body;
@@ -685,7 +698,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         document.getElementById("attendedMeeting").style.width = 'fit-content';
         document.getElementById("organizedMeeting").style.borderBottom = 'none';
         //get user attended meetings
-        this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email'))).subscribe({
+        this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email')),this.attendedMeetingTitleFilter,
+        this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
           next: (response) => {
             //extract the meetings from response object
             this.attendedMeetings = response.body;
@@ -1555,6 +1569,86 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     console.log(this.selectedReporteeAssignedMeeting)
     window.location.reload();
+  }
+
+  /**
+   * 
+   * @param meetingTitle 
+   * @param startDate 
+   * @param endDate 
+   */
+  filterOrganizedMeetingList(meetingTitle: string, startDate: string, endDate: string){
+    console.log(meetingTitle+" "+startDate+" "+endDate);
+
+    this.organizedMeetingTitleFilter = meetingTitle;
+    this.organizedMeetingStartDateFilter = startDate;
+    this.organizedMeetingEndDateFilter = endDate;
+
+    localStorage.setItem('organizedMeetingTitleFilter',meetingTitle);
+    localStorage.setItem('organizedMeetingStartDateFilter',startDate);
+    localStorage.setItem('organizedMeetingEndDateFilter',endDate);
+
+    this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting,
+      this.organizedMeetingTitleFilter,
+      this.organizedMeetingStartDateFilter,
+      this.organizedMeetingEndDateFilter).subscribe({
+        next: response => {
+          this.meetings = response.body;
+          this.meetingCount = response.body.length;
+        }
+      });
+      this.closeFilterModal();
+      window.location.reload();
+      
+
+  }
+
+  closeFilterModal(){
+    document.getElementById('filterModal').click();
+  }
+
+  resetOrganizedMeetingsFilter(){
+    localStorage.setItem('organizedMeetingTitleFilter','');
+    localStorage.setItem('organizedMeetingStartDateFilter','');
+    localStorage.setItem('organizedMeetingEndDateFilter','');
+    this.closeFilterModal();
+    window.location.reload();
+  }
+
+  resetAttendedMeetingsFilter(){
+    localStorage.setItem('attendedMeetingTitleFilter','');
+    localStorage.setItem('attendedMeetingStartDateFilter','');
+    localStorage.setItem('attendedMeetingEndDateFilter','');
+    this.closeFilterModal();
+    window.location.reload();
+  }
+
+  /**
+   * 
+   * @param meetingTitle 
+   * @param meetingStartDateTime 
+   * @param meetingEndDateTime 
+   */
+  filterAttendedMeetingList(meetingTitle, meetingStartDateTime, meetingEndDateTime){
+    this.attendedMeetingTitleFilter = meetingTitle;
+    this.attendedMeetingStartDateFilter = meetingStartDateTime;
+    this.attendedMeetingEndDateFilter = meetingEndDateTime;
+
+    localStorage.setItem('attendedMeetingTitleFilter',meetingTitle);
+    localStorage.setItem('attendedMeetingStartDateFilter',meetingStartDateTime);
+    localStorage.setItem('attendedMeetingEndDateFilter', meetingEndDateTime);
+
+    this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting,
+      this.attendedMeetingTitleFilter, this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
+        next: response => {
+          if(response.status === HttpStatusCode.Ok){
+            this.attendedMeetings = response.body;
+            this.attendedMeetingCount = response.body.length;
+          }
+        }
+      })
+      this.closeFilterModal();
+      window.location.reload();
   }
 
 }
