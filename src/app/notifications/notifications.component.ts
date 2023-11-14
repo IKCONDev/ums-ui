@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { Users } from '../model/Users.model';
 import { HeaderService } from '../header/service/header.service';
 //import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -21,7 +21,7 @@ export class NotificationsComponent implements OnInit {
   userDetails : Users;
 
   constructor(private notificationService: NotificationService,
-    private router: Router, private headerService : HeaderService){
+    private router: Router, private headerService : HeaderService, private cdr :ChangeDetectorRef){
       this.getNotificationsOfUser();
       this.getAssignedUserProfile('Bharat@ikcontech.com')
   }
@@ -34,7 +34,7 @@ export class NotificationsComponent implements OnInit {
   /**
    * 
    */
-  /*getNotificationsOfUser(){
+  getNotificationsOfUser(){
       //get top 10 notifications of user
     this.notificationService.getTopTenNotificationsByUserId(localStorage.getItem('email')).subscribe({
       next: response => {
@@ -43,9 +43,6 @@ export class NotificationsComponent implements OnInit {
           console.log(this.notificationList);
           this.notificationCount = response.body.length;
           console.log(this.notificationCount);
-          this.notificationList.forEach(notification =>{
-             console.log(notification.profilePic);
-          })
           //for each notification set time ago
           // this.notificationList.forEach(notification => {
           //   notification.timeAgoDateTime = new TimeAgo('en-US')
@@ -60,7 +57,7 @@ export class NotificationsComponent implements OnInit {
         }
       }
     });
-  }*/
+  }
 
   /**
    * 
@@ -99,57 +96,5 @@ export class NotificationsComponent implements OnInit {
           return ''; // or a default URL
      }
   }
-  // // getProfilePicUrl(profilePic: Blob): SafeUrl {
-  //   const imageUrl = 'data:image/png;base64,' + profilePic;
-  //   return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  // }
  
-
-  createBlobFromImageBytes(imageBytes: Uint8Array): Blob {
-    // Create a Blob from the byte array
-    return new Blob([imageBytes], { type: 'image/jpg' }); // Adjust the 'image/png' type as needed
-  }
-  
-  // ...
-  
-  getNotificationsOfUser() {
-    this.notificationService.getTopTenNotificationsByUserId(localStorage.getItem('email')).subscribe({
-      next: response => {
-        if (response.status === HttpStatusCode.Ok) {
-          // Assuming the response body is an array of notifications
-          const responseNotifications: any[] = response.body;
-  
-          // Create an empty array to store the final Notification objects
-          this.notificationList = [];
-  
-          // Iterate over the response body and create Notification objects
-          responseNotifications.forEach(responseNotification => {
-            const notification: any = {
-              // ... (other properties)
-  
-              // Assuming profilePic is a byte array in the response
-              profilePic: this.createBlobFromImageBytes(responseNotification.profilePic),
-            };
-  
-            // Add the created Notification object to the notificationList
-            this.notificationList.push(notification);
-          });
-  
-          // Update notificationCount
-          this.notificationCount = this.notificationList.length;
-  
-          console.log(this.notificationList);
-          console.log(this.notificationCount);
-        }
-      },
-      error: error => {
-        if (error.status === HttpStatusCode.Unauthorized) {
-          // Navigate to session timeout
-          this.router.navigateByUrl('/session-timeout');
-        }
-      }
-    });
-  }
-  
-
 }
