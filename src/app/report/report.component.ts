@@ -8,6 +8,7 @@ import { Department } from '../model/Department.model';
 import { Task } from '../model/Task.model';
 import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
+import { MeetingService } from '../meetings/service/meetings.service';
 
 @Component({
   selector: 'app-report',
@@ -16,101 +17,127 @@ import { Users } from '../model/Users.model';
 })
 export class ReportComponent implements OnInit {
 
-  batchDetails:BatchDetails[];
-   @Output() title:string='Reports'
-   departmentList: Department[];
-   selectedDepartment: number = 1;
+  batchDetails: BatchDetails[];
+  @Output() title: string = 'Reports'
+  departmentList: Department[];
+  umsUsersList: string[];
+  selectedDepartment: number = 1;
+  selectedTaskOwner: string;
+  selectedTaskSeverity: string = 'High';
+  selectedTaskStatus: string = 'Yet to start';
 
-   taskList : Task[];
-   taskListCount = 0;
-   taskListChart=null;
+  taskList: Task[];
+  taskListCount = 0;
+  taskListChart = null;
 
-   taskListByDepartmentCount = 0;
-   taskListByDepartment: Task[];
-   taskListByDepartmentChart = null;
+  taskListByDepartmentCount = 0;
+  taskListByDepartment: Task[];
+  taskListByDepartmentChart = null;
 
-   loggedInUser = localStorage.getItem('email');
+  taskListByTaskOwnerCount = 0;
+  taskListByTaskOwner: Task[];
+  taskListByTaskOwnerChart = null;
 
-   /**
-    * 
-    * @param reportservice 
-    */
-   constructor (private reportservice:ReportService, 
-                private departmentService: DepartmentService,
-                private headerService: HeaderService){}
+  taskListByTaskSeverityCount = 0;
+  taskListByTaskSeverity: Task[];
+  taskListByTaskSeverityChart = null;
 
-   /**
-    * 
-    */
-   ngOnInit(): void {
+  taskListByTaskStatusCount = 0;
+  taskListByTaskStatus: Task[];
+  taskListByTaskStatusChart = null;
 
+  loggedInUser = localStorage.getItem('email');
+
+  /**
+   * 
+   * @param reportservice 
+   */
+  constructor(private reportservice: ReportService,
+    private departmentService: DepartmentService,
+    private headerService: HeaderService,
+    private meetingService: MeetingService) { }
+
+  /**
+   * 
+   */
+  ngOnInit(): void {
+    //get batch process details
+    this.reportservice.getAllBatchProcessDetails().subscribe(
+      res => {
+        this.batchDetails = res.body;
+        console.log(this.batchDetails);
+        this.batchDetails.filter(batchDetail => {
+
+        })
+      });
+
+    //show task List report
+    this.getTasks();
+
+    //get depts
+    this.getDepartments();
+
+    //get active users list
+    this.getActiveUsersList();
+    this.selectedTaskOwner = this.loggedInUser;
+
+    this.chooseUser();
+    this.chooseStatus();
+    this.chooseSeverity();
+    this.chooseDepartment();
+    
+  }
+
+  getDepartments(){
     this.departmentService.getDepartmentList().subscribe({
       next: response => {
         this.departmentList = response.body;
         console.log(this.departmentList)
       }
     })
+  }
 
-    //get batch process details
-      this.reportservice.getAllBatchProcessDetails().subscribe(
-         res=>{
-          this.batchDetails = res.body;
-          console.log(this.batchDetails);
-             this.batchDetails.filter(batchDetail => {
-             
-           })
-     });
-
-     //show task List report
-     this.getTasks();
-     setTimeout(()=> {
-      this.createTaskListChart(this.taskListCount);
-     },200)
-
-     //show task List by department report
-     this.getTasksByDepartment(this.selectedDepartment);
-    setTimeout(() => {
-      this.createTaskListByDepartmentChart();
-    },200)
-   }
-
-   userDetaiils: Users
-   getLoggedInUserDetails(loggedInUser: string){
+  userDetaiils: Users
+  getLoggedInUserDetails(loggedInUser: string) {
     this.headerService.fetchUserProfile(loggedInUser).subscribe({
       next: response => {
         this.userDetaiils = response.body;
         this.selectedDepartment = response.body.employee.department;
       }
     })
-   }
+  }
 
-   getTasks(){
+  getTasks() {
     this.reportservice.findAllTasks().subscribe({
       next: response => {
         console.log(response.body)
         this.taskListCount = response.body.length;
+        if(this.taskListChart != null){
+          this.taskListChart.destroy();
+        }
+        this.createTaskListChart();
       }
     })
-   }
+  }
 
-  createTaskListChart(taskListCount: number){
-     this.taskListChart = new Chart("taskListChart", {
+  createTaskListChart() {
+    this.taskListChart = new Chart("taskListChart", {
       type: 'bar',
       data: {// values on X-Axis
         xLabels: ['Total tasks'],
-	       datasets: [
+        datasets: [
           {
-            label: "Total Task",
+            label: "Total Tasks",
             data: [this.taskListCount],
-            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
+            borderColor: 'rgba(75, 192, 192, 1)', // Dark green border
             borderWidth: 3,
           },
         ]
-        
+
       },
       options: {
-        aspectRatio: 1.77,
+        aspectRatio: 1.71,
         scales: {
           x: {
             display: true,
@@ -129,15 +156,15 @@ export class ReportComponent implements OnInit {
           legend: {
             display: true,
             position: 'top',
-            align:'center',
+            align: 'center',
             labels: {
               usePointStyle: true,
               font: {
                 size: 12,
               },
               padding: 16,
-              pointStyle:'rectRounded',
-          
+              pointStyle: 'rectRounded',
+
             },
           },
           title: {
@@ -152,7 +179,7 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  getTasksByDepartment(selectedDepartment: number){
+  getTasksByDepartment(selectedDepartment: number) {
     this.reportservice.findAllTasksByDepartment(this.selectedDepartment).subscribe({
       next: response => {
         this.taskListByDepartment = response.body;
@@ -162,74 +189,321 @@ export class ReportComponent implements OnInit {
     })
   }
 
-  chooseDepartment(event: any){
-    if(this.taskListByDepartmentChart != null){
+  chooseDepartment() {
+    if (this.taskListByDepartmentChart != null) {
       this.taskListByDepartmentChart.destroy();
     }
     this.getTasksByDepartment(this.selectedDepartment);
     setTimeout(() => {
       this.createTaskListByDepartmentChart();
-    },100)
-    
+    }, 100)
+
   }
 
-  createTaskListByDepartmentChart(){
+  createTaskListByDepartmentChart() {
     this.taskListByDepartmentChart = new Chart("taskListByDepartmentChart", {
-     type: 'bar',
-     data: {// values on X-Axis
-       xLabels: ['Total tasks'],
+      type: 'doughnut',
+      data: {// values on X-Axis
+        xLabels: ['Total tasks'],
         datasets: [
-         {
-           label: "Total Task",
-           data: [this.taskListByDepartmentCount],
-           backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-           borderColor: 'rgba(255, 99, 132, 1)',
-           borderWidth: 3,
-         },
-       ]
-       
-     },
-     options: {
-       aspectRatio: 2,
-       scales: {
-         x: {
-           display: true,
-           grid: {
-             display: false,
-           },
-         },
-         y: {
-           display: true,
-           grid: {
-             display: true,
-           },
-         },
-       },
-       plugins: {
-         legend: {
-           display: true,
-           position: 'top',
-           align:'center',
-           labels: {
-             usePointStyle: true,
-             font: {
-               size: 12,
-             },
-             padding: 16,
-             pointStyle:'rectRounded',
-         
-           },
-         },
-         title: {
-           display: true,
-           text: 'Total task list for a department',
-           font: {
-             size: 14,
-           },
-         },
-       },
-     }
-   });
- }
+          {
+            label: "Total Tasks of a department",
+            data: [this.taskListByDepartmentCount],
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 3,
+          },
+        ]
+
+      },
+      options: {
+        aspectRatio: 2,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total task list for a department',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
+  getTasksByTaskOwner(selectedTaskOwner: string) {
+    this.reportservice.findAllTasksByTaskOwner(selectedTaskOwner).subscribe({
+      next: response => {
+        this.taskListByTaskOwner = response.body;
+        console.log(this.taskListByTaskOwner)
+        this.taskListByTaskOwnerCount = response.body.length;
+      }
+    });
+  }
+
+  getActiveUsersList() {
+    this.meetingService.getActiveUserEmailIdList().subscribe({
+      next: response => {
+        this.umsUsersList = response.body;
+        console.log(this.umsUsersList)
+      }
+    })
+  }
+
+  chooseUser() {
+    if (this.taskListByTaskOwnerChart != null) {
+      this.taskListByTaskOwnerChart.destroy();
+    }
+    this.getTasksByTaskOwner(this.selectedTaskOwner);
+    setTimeout(() => {
+      this.createTaskListByTaskOwnerChart();
+    }, 100)
+  }
+
+  createTaskListByTaskOwnerChart() {
+    this.taskListByTaskOwnerChart = new Chart("taskListByTaskOwnerChart", {
+      type: 'bar',
+      data: {// values on X-Axis
+        xLabels: ['Total tasks'],
+        datasets: [
+          {
+            label: "Total Task of a task owner",
+            data: [this.taskListByTaskOwnerCount],
+            backgroundColor: 'rgba(0, 201 , 255, 0.8)', // Red
+            borderColor: 'rgba(0, 201, 255, 1)',
+            borderWidth: 3,
+          },
+        ]
+
+      },
+      options: {
+        aspectRatio: 2,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total task list for a task  owner',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
+  getTasksByTaskSeverity(severity: string) {
+    this.reportservice.findAllTasksByTaskSeverity(severity).subscribe({
+      next: response => {
+        this.taskListByTaskSeverity = response.body;
+        this.taskListByTaskSeverityCount = response.body.length;
+        console.log(this.taskListByTaskSeverityCount)
+      }
+    })
+  }
+
+  chooseSeverity() {
+    if (this.taskListByTaskSeverityChart != null) {
+      this.taskListByTaskSeverityChart.destroy();
+    }
+    console.log(this.selectedTaskSeverity)
+    this.getTasksByTaskSeverity(this.selectedTaskSeverity);
+    setTimeout(() => {
+      this.createTaskListByTaskSeverityChart();
+    }, 200)
+  }
+
+  createTaskListByTaskSeverityChart() {
+    this.taskListByTaskSeverityChart = new Chart("taskListByTaskSeverityChart", {
+      type: 'pie',
+      data: {// values on X-Axis
+        xLabels: ['Total tasks'],
+        datasets: [
+          {
+            label: "Total Tasks by severity level",
+            data: [this.taskListByTaskSeverityCount],
+            backgroundColor: 'rgba(245, 40, 145, 0.8)', // Red
+            borderColor: 'rgba(245, 40, 145, 1)',
+            borderWidth: 3,
+          },
+        ]
+      },
+      options: {
+        aspectRatio: 2,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total task list by severity',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
+  getTasksByTaskStatus(taskStatus: string) {
+    this.reportservice.findAllTasksByTaskStatus(taskStatus).subscribe({
+      next: response => {
+        this.taskListByTaskStatus = response.body;
+        this.taskListByTaskStatusCount = response.body.length;
+        console.log(this.taskListByTaskStatus)
+        console.log(this.taskListByTaskStatusCount)
+      }
+    })
+  }
+
+  chooseStatus() {
+    if (this.taskListByTaskStatusChart != null) {
+      this.taskListByTaskStatusChart.destroy();
+    }
+    this.getTasksByTaskStatus(this.selectedTaskStatus);
+    setTimeout(() => {
+      this.createTaskListByTaskStatusChart();
+    }, 200)
+  }
+
+  createTaskListByTaskStatusChart() {
+    this.taskListByTaskStatusChart = new Chart("taskListByTaskStatusChart", {
+      type: 'line',
+      data: {// values on X-Axis
+        xLabels: ['Total tasks'],
+        datasets: [
+          {
+            label: "Total Tasks by status",
+            data: [this.taskListByTaskStatusCount],
+            backgroundColor: 'rgba(216, 175, 53, 0.8)', // Yellow
+            borderColor: 'rgba(216, 175, 53, 1)',
+            borderWidth: 3,
+          },
+        ]
+      },
+      options: {
+        aspectRatio: 2,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            beginAtZero: false,
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total task list by status',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
 
 }

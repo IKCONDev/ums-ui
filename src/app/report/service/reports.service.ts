@@ -35,5 +35,26 @@ export class ReportService{
         return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/dept`,{observe:'response',params:params});
      }
 
+     findAllTasksByTaskOwner(taskOwner: string){
+         //prepare request parameters
+         let params = new HttpParams()
+         .set('taskOwner', taskOwner);
+         return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/owner`,{observe:'response',params:params});
+     }
+
+     findAllTasksByTaskSeverity(severity: string){
+        //prepare request parameters
+        let params = new HttpParams()
+        .set('serverityLevel', severity);
+        return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/severity`,{observe:'response',params:params});
+    }
+
+    findAllTasksByTaskStatus(taskStatus: string){
+        //prepare request parameters
+        let params = new HttpParams()
+        .set('taskStatus', taskStatus);
+        return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/status`,{observe:'response',params:params});
+    }
+
      
 }

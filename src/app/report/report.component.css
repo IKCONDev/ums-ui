@@ -4,6 +4,7 @@
     padding-top: 10px;
     padding-left:120px;
     padding-right: 32px;
+    padding-bottom: 20px;
   }
 
 .card-header{
@@ -31,4 +32,8 @@
 
 #tablehead{
     background: var(--side-text, #ECF7FC);
+}
+
+b{
+    color: white;
 }
