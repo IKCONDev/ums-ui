@@ -47,7 +47,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
     //   this.router.navigateByUrl('/unauthorized')
     // }
-
+    this.getAllEmployeesWithStatus();
     this.getAllUsers();
   }
 
@@ -403,6 +403,7 @@ getAllEmployeesWithStatus(){
    this.employeeservice.getAllEmployeeStatus().subscribe({
       next : response =>{
          this.employeeWithStatus = response.body;
+         console.log( this.employeeWithStatus)
       },
       error: error => {
         if(error.status === HttpStatusCode.Unauthorized){

@@ -194,6 +194,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * executes when the component is initialized or loaded first time
    */
   ngOnInit(): void {
+
+    this.getActiveUMSAttendeesEmailIdList();
     //get user data on switch reportee or user
     this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting:this.loggedInUser).subscribe({
       next: response => {
@@ -966,6 +968,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   userEmailIdList: string[];
+  userEmailIdListForAttendees: string[];
   /**
    * get the list of active users
    */
@@ -980,8 +983,35 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingsService.getActiveUserEmailIdList().subscribe({
       next: (response) => {
         this.userEmailIdList = response.body;
-        console.log(response.body);
-        console.log(this.userEmailIdList);
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl("/session-timeout")
+        }
+      }//error
+    })
+  }
+
+  /**
+   * get the list of active users
+   */
+  getActiveUMSAttendeesEmailIdList() {
+    //perform an AJAX call to get list of users
+    var isActive: boolean = true;
+    // $.ajax({url:"http://localhost:8012/users/getEmail-list/", success: function(result){
+    //   this.userEmailIdList = result;
+    //   console.log(result);
+    //   console.log(this.userEmailIdList[0]);
+    // }});
+    let i = 0;
+    this.meetingsService.getActiveUserEmailIdList().subscribe({
+      next: (response) => {
+        this.userEmailIdListForAttendees = response.body;
+        this.userEmailIdListForAttendees.map(email => {
+          if(email === this.selectedReporteeOrganizedMeeting){
+             this.userEmailIdListForAttendees.splice(i,1);
+          }
+          i++;
+        })
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")

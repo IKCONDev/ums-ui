@@ -43,10 +43,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     modifiedBy: '',
     createdByEmailId: '',
     modifiedByEmailId: '',
-    dateOfJoining :''
+    dateOfJoining :'',
   }
 
   employeeData: Employee[];
+  reportingManagerName: string;
 
   constructor(private employeeservice: EmployeeService, private toastr: ToastrService,
     private departmentservice: DepartmentService, private router: Router, private designationService: DesignationService) { }
@@ -59,6 +60,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.getAllEmployees();
     this.getAllDepartments();
+
   }
 
   ngAfterViewInit(): void {
@@ -291,7 +293,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-
+  
   /**
    * remove employee
    */

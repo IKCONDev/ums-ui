@@ -25,4 +25,5 @@ export class Employee{
     departmentName: string;
     isUser: boolean;
     dateOfJoining:string;
+    reportingManagerName: string;
 }

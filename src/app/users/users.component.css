@@ -74,6 +74,11 @@ table tbody tr td{
   color: #2AA3D9;
 }
 
+#userEmail{
+  border: 1px solid #2AA3D9;
+  border-radius: 5px;
+}
+
 #errorMessage{
   color: red;
   font-size: 12px;

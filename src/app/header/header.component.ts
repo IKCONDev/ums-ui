@@ -5,6 +5,8 @@ import { error } from 'jquery';
 import { Employee } from '../model/Employee.model';
 import { Users } from '../model/Users.model';
 import { ToastrService } from 'ngx-toastr';
+import { EmployeeService } from '../employee/service/employee.service';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +20,7 @@ export class HeaderComponent {
   authStatusUpdated: number;
   //user/employee profile property
   userDetails: Users;
+  reportingManagerName: string;
 
   /**
    * 
@@ -25,7 +28,7 @@ export class HeaderComponent {
    * @param router 
    */
   constructor(private headerService: HeaderService, private router: Router, 
-    private toastr: ToastrService){
+    private toastr: ToastrService, private employeeService: EmployeeService){
 
   }
 
@@ -67,6 +70,22 @@ export class HeaderComponent {
     )
   }
 
+  /**
+   * 
+   * @param emailId 
+   */
+  getEmployee(emailId: string){
+    this.employeeService.getEmployee(emailId).subscribe({
+      next: reponse => {
+        this.reportingManagerName = reponse.body.firstName+" "+reponse.body.lastName;
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+    })
+  }
+
 
   //already we have user profile details after login in localstorage or cookie session object, 
   //still if we want to get the data freshly, get it from DB again
@@ -81,6 +100,8 @@ export class HeaderComponent {
         console.log(this.userDetails)
         console.log(this.userDetails.userRoles[0].roleName)
         localStorage.setItem('userRole',this.userDetails.userRoles[0].roleName);
+        //get reporting manager of employee
+        this.getEmployee(this.userDetails.employee.reportingManager);
       }
     )
    // console.log(this.userDetails.userRoles[0].roleName)

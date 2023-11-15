@@ -761,7 +761,7 @@
                             [selectableGroup]="true" name="meetingAttendees" style="width: 411px;padding-left: 10px;"
                             [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()"
                             placeholder="choose attendees">
-                            <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
+                            <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdListForAttendees">
                                 {{emailId}}
                             </ng-option>
                         </ng-select>
