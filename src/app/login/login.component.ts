@@ -393,6 +393,8 @@ getTokenPopup(request) {
         }else if(error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('UserInactiveException')){
           //dont even generate a jwt token for inactive user.
           this.toastr.error('Provided user account is inactive','Account Disabled')
+        }else if(error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('LoginAttemptsExceededException')){
+          this.toastr.error('Account locked due to 3 continuous failed attempts');
         }
       }
    })

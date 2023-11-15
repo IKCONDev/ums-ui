@@ -129,6 +129,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     }
     else{
        user.active = true;
+       user.loginAttempts = 0;
        this.userService.update(user).subscribe(res =>{
         this.userDetails = res.body;
      })
