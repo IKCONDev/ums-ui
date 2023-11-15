@@ -23,7 +23,7 @@
                     <b>Tasks By Department</b>
                 </div>
                 <div class="chart">
-                    <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 150px;" placeholder="choose"
+                    <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;" placeholder="choose"
                     (change)="chooseDepartment()">
                         <ng-option *ngFor="let department of departmentList" value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                     </ng-select>

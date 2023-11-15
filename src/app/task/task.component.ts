@@ -12,6 +12,7 @@ import { EmployeeService } from '../employee/service/employee.service';
 import { Employee } from '../model/Employee.model';
 import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
+import { NotificationService } from '../notifications/service/notification.service';
 
 @Component({
   selector: 'app-task',
@@ -146,14 +147,24 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   constructor(private service: TaskService, private meetingService: MeetingService,
     private toastr: ToastrService, private router: Router, private employeeService: EmployeeService,
-    private headerService: HeaderService) {
+    private headerService: HeaderService, private notificationService: NotificationService) {
 
   }
 
+  
+ @Output() notificationCount: number
   /**
    * 
    */
   ngOnInit(): void {
+
+    //get noti count
+    this.notificationService.getTopTenNotificationsByUserId(this.loggedInUser).subscribe({
+      next: response => {
+       localStorage.setItem('notificationCount',response.body.length.toString()); 
+       this.notificationCount = parseInt(localStorage.getItem('notificationCount'));
+      }
+    })
 
     //disable past date times
     this.min = this.pastDateTime();

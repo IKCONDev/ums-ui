@@ -42,6 +42,7 @@ export class NotificationsComponent implements OnInit {
           this.notificationList = response.body;
           console.log(this.notificationList);
           this.notificationCount = response.body.length;
+          localStorage.setItem('notificationCount',this.notificationCount.toString())
           console.log(this.notificationCount);
           // this.notificationList.forEach(notification => {
           //    console.log(notification.profilepic)
