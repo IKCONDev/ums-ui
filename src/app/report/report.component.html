@@ -37,7 +37,7 @@
                     <b>Tasks By Task Owner</b>
                 </div>
                 <div class="chart">
-                    <ng-select id="select" [(ngModel)]="selectedTaskOwner" style="float: right; width: 150px;" placeholder="choose"
+                    <ng-select id="select" [(ngModel)]="selectedTaskOwner" style="float: right; width: 250px;" placeholder="choose"
                     (change)="chooseUser()">
                         <ng-option *ngFor="let user of umsUsersList" value="{{user}}">{{user}}</ng-option>
                     </ng-select>
