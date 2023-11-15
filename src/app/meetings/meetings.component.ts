@@ -1377,7 +1377,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     endDateTime: '',
     attendees: [],
     //actionItems: 
-    emailId: this.selectedReporteeOrganizedMeeting,
+    emailId: this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting: this.loggedInUser,
     attendeeCount: 0,
     createdBy: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
     createByEmailId: localStorage.getItem('email'),

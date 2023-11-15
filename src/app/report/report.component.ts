@@ -142,7 +142,9 @@ export class ReportComponent implements OnInit {
         if(this.taskListChart != null){
           this.taskListChart.destroy();
         }
-        this.createTaskListChart();
+        setTimeout(() => {
+          this.createTaskListChart();
+        },200)
       }
     })
   }
@@ -226,7 +228,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByDepartment(this.selectedDepartment !=0 ? this.selectedDepartment : this.defaultDepartment);
     setTimeout(() => {
       this.createTaskListByDepartmentChart();
-    }, 200)
+    }, 500)
 
   }
 
@@ -315,7 +317,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskOwner(this.selectedTaskOwner);
     setTimeout(() => {
       this.createTaskListByTaskOwnerChart();
-    }, 100)
+    }, 500)
   }
 
   createTaskListByTaskOwnerChart() {
@@ -395,7 +397,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskSeverity(this.selectedTaskSeverity);
     setTimeout(() => {
       this.createTaskListByTaskSeverityChart();
-    }, 200)
+    }, 500)
   }
 
   createTaskListByTaskSeverityChart() {
@@ -474,7 +476,7 @@ export class ReportComponent implements OnInit {
     this.getTasksByTaskStatus(this.selectedTaskStatus);
     setTimeout(() => {
       this.createTaskListByTaskStatusChart();
-    }, 200)
+    }, 500)
   }
 
   createTaskListByTaskStatusChart() {
@@ -554,7 +556,9 @@ export class ReportComponent implements OnInit {
         this.agedTaskList = response.body;
         this.agedTaskListCount = response.body.length;
         console.log(response.body)
-        this.createAgedTaskListChart();
+        setTimeout(() => {
+          this.createAgedTaskListChart();
+        },300)
       }
     })
   }

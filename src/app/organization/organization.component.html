@@ -228,7 +228,7 @@
                         </div>
                         <div>
                             <select *ngIf="isDisable==true" [(ngModel)]="org.orgCountry" id="country-dropdown" (change)="viewCountryCode()"
-                             class="form-control" (keyup)="validateOrgCountry()"
+                             class="form-select" (keyup)="validateOrgCountry()"
                                 placeholder="choose Country">
                                 <span *ngIf="updatedOrgCountryErrorInfo!= ''">
                                     <p id="errorMessage">{{updatedOrgCountryErrorInfo}}</p>
@@ -290,7 +290,7 @@
                                 <option value="Curacao" data-code="+599">Curacao</option>
                                 <option value="Cyprus" data-code="+357">Cyprus</option>
                                 <option value="Czech Republic" data-code="+420">Czech Republic</option>
-                                <option value="Democratic Republic of Congo" data-code="243">Democratic Republic of Congo</option> 
+                                <option value="Democratic Republic of Congo" data-code="+243">Democratic Republic of Congo</option> 
                                 <option value="Denmark" data-code="+45">Denmark</option>
                                 <option value="Djibouti" data-code="+253">Djibouti</option>
                                 <option value="Dominica" data-code="+1-767">Dominica</option>
@@ -498,7 +498,7 @@
                         <div>
                             <!-- <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone"
                                 class="form-control" placeholder="Enter TimeZone"> -->
-                            <select *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone" class="form-control"
+                            <select *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone" class="form-select"
                             placeholder = "choose time zone">
                                 <option value="Indian Standard Time">Indian Standard Time (IST)</option>
                                 <option value="Universal Coordinated Time">Universal Coordinated Time (UTC)</option>

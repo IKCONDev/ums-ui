@@ -10,5 +10,6 @@ export interface Users{
 	 employee: Employee;
 	 profilePic: Blob;
 	 active: boolean;
+	 loginAttempts: number;
 
 }
