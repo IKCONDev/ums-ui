@@ -21,7 +21,7 @@ export class ReportComponent implements OnInit {
   @Output() title: string = 'Reports'
   departmentList: Department[];
   umsUsersList: string[];
-  selectedDepartment: number = 1;
+  selectedDepartment: number;
   selectedTaskOwner: string;
   selectedTaskSeverity: string = 'High';
   selectedTaskStatus: string = 'Yet to start';
@@ -49,6 +49,8 @@ export class ReportComponent implements OnInit {
   agedTaskListCount= 0;
   agedTaskList: Task[];
   agedTaskListChart = null;
+
+  defaultDepartment: number;
   
 
   loggedInUser = localStorage.getItem('email');
@@ -76,17 +78,29 @@ export class ReportComponent implements OnInit {
         })
       });
 
+    this.getLoggedInUserDetails(this.loggedInUser);
     //get active users list
     this.getActiveUsersList();
-    this.selectedTaskOwner = this.loggedInUser;
-
-    this.getTasks();
     this.getDepartments();
-    this.chooseUser();
-    this.chooseStatus();
-    this.chooseSeverity();
-    this.chooseDepartment();
-    this.getAgedTasks();
+    this.selectedTaskOwner = this.loggedInUser;
+    if(this.taskListChart === null){
+      this.getTasks();
+    }
+    if(this.taskListByTaskOwnerChart === null){
+      this.chooseUser();
+    }
+    if(this.taskListByTaskStatusChart === null){
+      this.chooseStatus();
+    }
+    if(this.taskListByTaskSeverityChart === null){
+      this.chooseSeverity();
+    }
+    if(this.agedTaskListChart === null){
+      this.getAgedTasks();
+    }
+    //if(this.taskListByDepartmentChart === null){
+      this.chooseDepartment();
+    //}
     console.log('finished')
     
   }
@@ -105,7 +119,7 @@ export class ReportComponent implements OnInit {
     this.headerService.fetchUserProfile(loggedInUser).subscribe({
       next: response => {
         this.userDetaiils = response.body;
-        this.selectedDepartment = response.body.employee.department;
+        this.defaultDepartment = response.body.employee.department.departmentId;
       }
     })
   }
@@ -195,7 +209,7 @@ export class ReportComponent implements OnInit {
 }
 
   getTasksByDepartment(selectedDepartment: number) {
-    this.reportservice.findAllTasksByDepartment(this.selectedDepartment).subscribe({
+    this.reportservice.findAllTasksByDepartment(selectedDepartment).subscribe({
       next: response => {
         this.taskListByDepartment = response.body;
         this.taskListByDepartmentCount = response.body.length;
@@ -205,13 +219,14 @@ export class ReportComponent implements OnInit {
   }
 
   chooseDepartment() {
+    console.log(this.selectedDepartment)
     if (this.taskListByDepartmentChart != null) {
       this.taskListByDepartmentChart.destroy();
     }
-    this.getTasksByDepartment(this.selectedDepartment);
+    this.getTasksByDepartment(this.selectedDepartment !=0 ? this.selectedDepartment : this.defaultDepartment);
     setTimeout(() => {
       this.createTaskListByDepartmentChart();
-    }, 100)
+    }, 200)
 
   }
 
