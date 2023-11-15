@@ -83,7 +83,24 @@ export class EmployeeService {
             }
             )
         });
+    }
 
+    getEmployee(employeeEmailId: String) {
+        return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/${employeeEmailId}`, {
+            observe: 'response', headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+            )
+        });
+    }
+
+    getUserStatusEmployees(isUser: boolean){
+        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/getemployee-status/${isUser}`, {
+            observe: 'response', headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+            )
+        });
     }
 
     /**
@@ -110,7 +127,8 @@ export class EmployeeService {
     }
    
     getAllEmployeeStatus(){
-        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/getemployee-status`, {
+        let isUser = false;
+        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/getemployee-status/${isUser}`, {
             observe: 'response', headers: new HttpHeaders({
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             }

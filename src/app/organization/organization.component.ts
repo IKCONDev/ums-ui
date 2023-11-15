@@ -17,6 +17,7 @@ export class OrganizationComponent implements OnInit {
   org: Organization;
   isDisable: boolean = false;
   loggedInUserRole = localStorage.getItem('userRole');
+  countryCode:string = localStorage.getItem('countryCode');
 
   //error validation properties
   updatedOrgNameErrorInfo: string = '';
@@ -211,6 +212,7 @@ export class OrganizationComponent implements OnInit {
       && isOrgContactPersonEmailValid === true && isOrgSuperAdminEmailValid === true && isCompanyEmailValid === true) {
       this.isDisable = false;
       console.log(isOrgFunctionValid)
+      localStorage.setItem('countryCode',this.countryCode)
       if (this.org.orgId === null) {
         this.orgService.saveOrganization(this.org).subscribe({
           next: (response) => {
@@ -224,6 +226,7 @@ export class OrganizationComponent implements OnInit {
         })
       }
       else if (this.org.orgId != 0) {
+        localStorage.setItem('countryCode',this.countryCode)
         console.log('update')
         this.orgService.updateOrganization(this.org).subscribe({
           next: (response) => {

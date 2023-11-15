@@ -5,6 +5,8 @@ import { OnInit } from '@angular/core';
 import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { EmployeeService } from '../employee/service/employee.service';
+import { Employee } from '../model/Employee.model';
 
 
 @Component({
@@ -30,7 +32,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   updateDepartment: Department;
 
   constructor(private departmentService: DepartmentService,
-    private toastr: ToastrService, private router: Router){
+    private toastr: ToastrService, private router: Router, 
+    private employeeService: EmployeeService){
     //get all departments List on component initialization
     this.getAllDepartments();
     
@@ -40,9 +43,22 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    * ngOnInit() executes on component initialization everytime
    */
   ngOnInit(): void {
+    this.getUserStatusEmployees(true);
     if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized');
     }
+  }
+
+  employeesAsUser: Employee[];
+  getUserStatusEmployees(isUser: boolean){
+    this.employeeService.getUserStatusEmployees(isUser).subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.employeesAsUser = response.body;
+          console.log(this.employeesAsUser)
+        }
+      }
+    })
   }
 
   ngAfterViewInit(): void {

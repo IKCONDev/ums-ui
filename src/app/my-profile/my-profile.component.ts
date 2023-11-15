@@ -4,6 +4,8 @@ import { Users } from '../model/Users.model';
 import { data, error, event } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
+import { EmployeeService } from '../employee/service/employee.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-panle',
@@ -18,13 +20,15 @@ export class MyProfileComponent {
   title = 'My Profile'
   user: Users
   selectedUserProfilePic: Blob;
+  reportingManagerName: string;
 
   /**
    * 
    * @param profileService 
    * @param toastr 
    */
-  constructor(private profileService: MyProfileService, private toastr: ToastrService) {
+  constructor(private profileService: MyProfileService, private toastr: ToastrService,
+    private employeeService: EmployeeService, private router: Router) {
 
   }
 
@@ -35,6 +39,22 @@ export class MyProfileComponent {
     this.fetchUserProfile();
   }
 
+   /**
+   * 
+   * @param emailId 
+   */
+   getEmployee(emailId: string){
+    this.employeeService.getEmployee(emailId).subscribe({
+      next: reponse => {
+        this.reportingManagerName = reponse.body.firstName+" "+reponse.body.lastName;
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+    })
+  }
+
   /**
    * 
    */
@@ -43,6 +63,8 @@ export class MyProfileComponent {
       (response) => {
         this.user = response.body;
         console.log(this.user);
+        //get reporting manager of employee
+        this.getEmployee(this.user.employee.reportingManager);
       }
     )
   }
