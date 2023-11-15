@@ -183,13 +183,13 @@
                     <p id="errorMessage">{{ isEmployeeDateofJoinErrorInfo}}</p>
                 </span>
                 <br/>
-                <label><b>Reporting Manager</b><span id="required">*</span></label>
+                <label><b>Reporting Manager</b></label>
                 
                <!--- <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
                     [(ngModel)]="addEmployee.reportingManager" id="reportingManager" name="reportingManager"
                     #reportingManager="ngModel" (keyup)="validateEmployeeReportingManager()" />-->
                 <ng-select [searchable]="true" [clearable]="true" id="reportingManager"
-                    name="reportingManager" style="width: 400px;" (change)="validateEmployeeReportingManager()"
+                    name="reportingManager" style="width: 400px;" 
                     [(ngModel)]="addEmployee.reportingManager" placeholder="choose Reporting Manager">
                     <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -197,9 +197,10 @@
                         {{employee.firstName}} {{employee.lastName}}
                     </ng-option>
                 </ng-select>
+                <!---
                 <span *ngIf="employeeReportingManagerErrorInfo != ''">
                     <p id="errorMessage">{{ employeeReportingManagerErrorInfo}}</p>
-                </span>
+                </span>-->
                 <br />
                 <label><b>Department</b><span id="required">*</span></label>
                 <select class="form-control" class="addEmployeeInput form-control form-select" placeholder="department"
@@ -312,13 +313,13 @@
                     <p id="errorMessage">{{isUpdateDateofJoinErrorInfo}}</p>
                 </span>
                 <br/>
-                <label><b>Reporting Manager</b><span id="required">*</span></label>
+                <label><b>Reporting Manager</b></label>
                 <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Reporting Manager"
                     [(ngModel)]="existingEmployee.reportingManager" id="updateReportingManager"
                     name="updateReportingManager" #updateReportingManager="ngModel"
                     (keyup)="validateUpdateReportingManager()" /> -->
                 <ng-select [searchable]="true" [clearable]="true" id="updateReportingManager"
-                    name="updateReportingManager" style="width: 400px;" (change)="validateUpdateReportingManager()"
+                    name="updateReportingManager" style="width: 400px;"
                     [(ngModel)]="existingEmployee.reportingManager" placeholder="choose Reporting Manager">
                     <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -326,9 +327,10 @@
                         {{employee.firstName}} {{employee.lastName}}
                     </ng-option>
                 </ng-select>
+                <!--
                 <span *ngIf="updateReportingManagerErrorInfo != ''">
                     <p id="errorMessage">{{ updateReportingManagerErrorInfo}}</p>
-                </span>
+                </span>-->
                 <br />
                 <label><b>Department</b><span id="required">*</span></label>
                 <select class="addEmployeeInput form-control form-select" placeholder="Department"

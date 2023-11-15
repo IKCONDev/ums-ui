@@ -134,10 +134,10 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       isEmailIdValid = valid;
 
     }
-    if (!this.isEmployeeReportingManagerValid) {
-      var valid = this.validateEmployeeReportingManager();
-      isReportingManagerValid = valid;
-    }
+    //if (!this.isEmployeeReportingManagerValid) {
+    //  var valid = this.validateEmployeeReportingManager();
+    //  isReportingManagerValid = valid;
+    //}
     if (!this.isEmployeeDepartmentValid) {
       var valid = this.validateEmployeeDepartment();
       isDepartmentValid = valid;
@@ -168,7 +168,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
       console.log(this.addEmployee);
       this.addEmployee.createdBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-      this.addEmployee.createdByEmailId = localStorage.getItem('email');
+      this.addEmployee.createdByEmailId = localStorage.getItem('email').toLowerCase();
       this.employeeservice.createEmployee(this.addEmployee).subscribe({
         next: response => {
           if (response.status == HttpStatusCode.Created) {
@@ -358,10 +358,10 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       isEmailIdValid = valid;
 
     }
-    if (!this.isUpdateReportingManagerValid) {
-      var valid = this.validateUpdateReportingManager();
-      isReportingManagerValid = valid;
-    }
+    //if (!this.isUpdateReportingManagerValid) {
+    //  var valid = this.validateUpdateReportingManager();
+    //  isReportingManagerValid = valid;
+    //}
     if (!this.isUpdateDepartmentValid) {
       var valid = this.validateUpdateDepartment();
       isDepartmentValid = valid;
@@ -486,18 +486,18 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   employeeReportingManagerErrorInfo = "";
-  validateEmployeeReportingManager() {
+  //validateEmployeeReportingManager() {
 
-    if (this.addEmployee.reportingManager == '' || this.addEmployee.reportingManager===null) {
-      this.employeeReportingManagerErrorInfo = "Reporting Manager is required";
-      this.isEmployeeReportingManagerValid = false;
-    }
-    else {
-      this.employeeReportingManagerErrorInfo = "";
-      this.isEmployeeReportingManagerValid = true;
-    }
-    return this.isEmployeeReportingManagerValid;
-  }
+   // if (this.addEmployee.reportingManager == '' || this.addEmployee.reportingManager===null) {
+   //   this.employeeReportingManagerErrorInfo = "Reporting Manager is required";
+  //    this.isEmployeeReportingManagerValid = false;
+   // }
+   // else {
+   //   this.employeeReportingManagerErrorInfo = "";
+    //  this.isEmployeeReportingManagerValid = true;
+   // }
+   // return this.isEmployeeReportingManagerValid;
+  //}
 
   employeeDepartmentErrorInfo = "";
   validateEmployeeDepartment() {
@@ -658,19 +658,19 @@ isUpdateEmployeeGenderValid = false;
 
   }
   updateReportingManagerErrorInfo = "";
-  validateUpdateReportingManager() {
+//  validateUpdateReportingManager() {
 
-    if (this.existingEmployee.reportingManager === '') {
-      this.updateReportingManagerErrorInfo = "Reporting Manager is required";
-      this.isUpdateReportingManagerValid = false;
-    }
-    else {
-      this.updateReportingManagerErrorInfo = "";
-      this.isUpdateReportingManagerValid = true;
+//    if (this.existingEmployee.reportingManager === '') {
+//      this.updateReportingManagerErrorInfo = "Reporting Manager is required";
+ //     this.isUpdateReportingManagerValid = false;
+//    }
+  //  else {
+  //    this.updateReportingManagerErrorInfo = "";
+   //   this.isUpdateReportingManagerValid = true;
 
-    }
-    return this.isUpdateReportingManagerValid;
-  }
+   // }
+  //  return this.isUpdateReportingManagerValid;
+//  }
   updateDepartmentErrorInfo = "";
   validateUpdateDepartment() {
     if (this.existingEmployee.departmentId <= 0) {
