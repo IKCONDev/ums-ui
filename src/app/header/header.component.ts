@@ -1,4 +1,4 @@
-import { Component ,Output, Input } from '@angular/core';
+import { Component ,Output, Input, SimpleChanges, OnChanges } from '@angular/core';
 import {Router} from '@angular/router';
 import { HeaderService } from './service/header.service';
 import { error } from 'jquery';
@@ -7,6 +7,7 @@ import { Users } from '../model/Users.model';
 import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from '../employee/service/employee.service';
 import { HttpStatusCode } from '@angular/common/http';
+import { NotificationService } from '../notifications/service/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,14 @@ import { HttpStatusCode } from '@angular/common/http';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnChanges {
 
   @Input() title: string;
   authStatusUpdated: number;
   //user/employee profile property
   userDetails: Users;
   reportingManagerName: string;
+  @Input() unreadNotificationCount = parseInt(localStorage.getItem('notificationCount'));
 
   /**
    * 
@@ -28,8 +30,12 @@ export class HeaderComponent {
    * @param router 
    */
   constructor(private headerService: HeaderService, private router: Router, 
-    private toastr: ToastrService, private employeeService: EmployeeService){
+    private toastr: ToastrService, private employeeService: EmployeeService,private notificationService: NotificationService){
 
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    localStorage.setItem('notificationCount',this.unreadNotificationCount.toString());
   }
 
   /**
@@ -130,7 +136,9 @@ export class HeaderComponent {
   refreshPage(){
     window.location.reload();
   }
-  notificationCount(){
-    
-  }
+  
+  // notificationCount(){
+  // this.notificationService.getAllNotificationsCountByUserId(localStorage.getItem('email'));
+   
+  // }
 }
