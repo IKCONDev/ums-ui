@@ -154,7 +154,7 @@ export class ReportComponent implements OnInit {
         xLabels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 	       datasets: [
           {
-            label: "Assigned Task",
+            label: "Total Tasks",
             data: this.taskListCount,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
@@ -197,7 +197,7 @@ export class ReportComponent implements OnInit {
           title: {
             display: true,
             text: 'Task Status of current Year',
-            align:'start',
+            align:'center',
             font: {
               size: 14,
             },
