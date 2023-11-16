@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class MyProfileComponent {
 
-  fileSize: number = 4194304; //1MB
+  fileSize: number = 2000000; //2MB
   retriveResponse: any;
   isDisable: boolean = true;
   title = 'My Profile'
@@ -98,7 +98,7 @@ export class MyProfileComponent {
         }
       )
     } else {
-      this.toastr.error('File size is greater than 4 MB')
+      this.toastr.error('File size is greater than 2 MB')
     }
 
   }
