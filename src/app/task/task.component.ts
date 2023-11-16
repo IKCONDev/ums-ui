@@ -517,10 +517,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.taskDueDateErrorInfo = 'Select the due date';
       this.isTaskDueDateValid = false;
     }
-    else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
-      this.taskDueDateErrorInfo = 'Date should`nt be less than startdate';
-      this.isTaskDueDateValid = false;
-    }
+    // else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
+    //   this.taskDueDateErrorInfo = 'Date should`nt be less than startdate';
+    //   this.isTaskDueDateValid = false;
+    // }
     else {
       this.taskDueDateErrorInfo = '';
       this.isTaskDueDateValid = true;
