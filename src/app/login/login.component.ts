@@ -267,6 +267,7 @@ getTokenPopup(request) {
    */
   login() {
     console.log('submitted')
+    if(localStorage.getItem('jwtToken')===null || localStorage.getItem('jwtToken')===""){
     this.loginService.logUserIfValid(this.user).subscribe({
       next: response => {
         this.loginInfo.token = response.headers.get('token')
@@ -397,7 +398,10 @@ getTokenPopup(request) {
           this.toastr.error('Account locked due to 3 continuous failed attempts');
         }
       }
-   })
+    })
+    }else{
+      this.toastr.error('Session is already existed in browser');
+  }
   }
 
   /**
