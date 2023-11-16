@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-session-timeout',
   templateUrl: './session-timeout.component.html',
   styleUrls: ['./session-timeout.component.css']
 })
-export class SessionTimeoutComponent {
+export class SessionTimeoutComponent implements OnInit {
+  
+  ngOnInit(): void {
+    window.localStorage.clear();
+  }
 
 }

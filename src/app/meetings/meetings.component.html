@@ -229,9 +229,9 @@
                                             <td class="actionItemRows" id="meeting-subject" style="padding: 1.7em;">
                                                 {{actionItem.actionItemDescription}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.startDate
-                                                |date:'MMM d, y, h:mm a'}}</td>
+                                                |date:'MMM d, y'}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.endDate
-                                                |date:'MMM d, y, h:mm a'}}</td>
+                                                |date:'MMM d, y'}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.actionPriority}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">
                                                 {{actionItem.actionStatus}}</td>
@@ -468,8 +468,8 @@
                     </div>
                     <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                     <!-- start date -->
-                    <label><b>Start Date & Time</b><span id="required">*</span></label>
-                    <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
+                    <label><b>Planned Start Date</b><span id="required">*</span></label>
+                    <input type="date" min="{{min}}" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" name="startDate"
                         #startDate="ngModel" [class.invalid]="startDate.invalid && startDate.touched"
                         (change)="validateActionStartDate()">
@@ -477,8 +477,8 @@
                         <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                     </div>
                     <!-- end date -->
-                    <label><b>End Date & Time</b><span id="required">*</span></label>
-                    <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
+                    <label><b>Planned End Date</b><span id="required">*</span></label>
+                    <input type="date" min="{{min}}" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" name="endDate"
                         #endDate="ngModel" [class.invalid]="endDate.invalid && endDate.touched"
                         (change)="validateActionEndDate()">
@@ -577,8 +577,8 @@
                     </div>
                     <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
                     <!-- start date -->
-                    <label><b>Start Date & Time</b><span id="required">*</span></label>
-                    <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
+                    <label><b>Planned Start Date</b><span id="required">*</span></label>
+                    <input type="date" class="form-control" min="{{min}}" style="width:400px;"
                         [(ngModel)]="updatedetails.startDate" required="true" id="uAcItemStartDate"
                         name="uAcItemStartDate" #uAcItemStartDate="ngModel"
                         [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
@@ -587,8 +587,8 @@
                         <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
                     </div>
                     <!-- end date -->
-                    <label><b>End Date & Time</b><span id="required">*</span></label>
-                    <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
+                    <label><b>Planned End Date</b><span id="required">*</span></label>
+                    <input type="datetime" class="form-control" min="{{min}}" style="width:400px;"
                         [(ngModel)]="updatedetails.endDate" required="true" id="uAcItemEndDate" name="uAcItemEndDate"
                         #uAcItemEndDate="ngModel" [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"
                         (change)="validateUpdateActionEndDate()">

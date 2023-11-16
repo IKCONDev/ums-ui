@@ -56,6 +56,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     taskPriority: '',
     startDate: '',
     dueDate: '',
+    plannedStartDate:'',
+    plannedEndDate:'',
     taskOwner: '',
     organizer: '',
     status: '',
@@ -491,11 +493,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.taskStartDateErrorInfo = 'Select the start date';
       this.isTaskStartDateValid = false;
     }
-    // else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
-    //   this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
-    //   this.isTaskStartDateValid = false;
-    // else if(new Date(this.update_Task.startDate.toString()) < new Date(this.update_Task.startDate.toString())){
-    //   console.log('executed')
+    // else if (new Date(this.update_Task.startDate) < Date.now().toString()) {
     //   this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
     //   this.isTaskStartDateValid = false;
     // }
@@ -520,7 +518,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isTaskDueDateValid = false;
     }
     else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
-      this.taskDueDateErrorInfo = 'Due date should`nt be less than startdate';
+      this.taskDueDateErrorInfo = 'Date should`nt be less than startdate';
       this.isTaskDueDateValid = false;
     }
     else {

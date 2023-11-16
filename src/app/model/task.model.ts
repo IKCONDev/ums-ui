@@ -6,6 +6,8 @@ export interface Task{
     taskPriority:string;
     startDate:string;
     dueDate:string;
+    plannedStartDate: string;
+    plannedEndDate: string;
     taskOwner:string;
     organizer:string;
     status:string;

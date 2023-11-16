@@ -505,6 +505,24 @@ export class ActionItemComponent implements OnInit {
     // this.actionItemStartDateErrorInfo = '';
     // this.actionItemEndDateErrorInfo = '';
     form.form.reset();
+
+    this.add_Task.taskTitle = '';
+    this.add_Task.taskDescription = '';
+    this.add_Task.taskOwner = '';
+    this.add_Task.startDate = '';
+    this.add_Task.dueDate = '';
+
+    this.isTaskTitleValid = false;
+    this.isTaskDescriptionValid = false;
+    this.isTaskOwnerValid = false;
+    this.isTaskStartDateValid = false;
+    this.isTaskDueDateValid = false;
+
+    this.taskTitleErrrorInfo = '';
+    this.taskDescriptionErrorInfo = '';
+    this.taskOwnerErrorInfo = '';
+    this.taskStartDateErrorInfo = '';
+    this.taskDueDateErrorInfo = '';
   }
 
   /**
@@ -756,13 +774,19 @@ export class ActionItemComponent implements OnInit {
     )
   }
 
+  currentActionItemPriority: string = localStorage.getItem('currentActionItemPriority');
+  currentActionItemPlannedStartDate:string = localStorage.getItem('currentActionItemPlannedStartDate');
+  currentActionItemPlannedEndDate:string = localStorage.getItem('currentActionItemPlannedEndDate');
+
   //Tasks
   add_Task = {
     taskId: 0,
     taskTitle: '',
     taskDescription: '',
-    taskPriority: '',
+    taskPriority: this.currentActionItemPriority,
     startDate: '',
+    plannedStartDate: localStorage.getItem('currentActionItemPlannedStartDate'),
+    plannedEndDate: localStorage.getItem('currentActionItemPlannedEndDate'),
     dueDate: '',
     taskOwner: '',
     organizer: '',
@@ -822,24 +846,24 @@ export class ActionItemComponent implements OnInit {
     }
     return this.isTaskDescriptionValid;
   }
-  taskPriorityErrorInfo = '';
-  isTaskPriorityValid = false;
-  validateTaskPriority() {
-    //var taskPriority = event.target.value;
-    if (this.add_Task.taskPriority === '') {
-      this.taskPriorityErrorInfo = 'task priority should not be empty';
-      this.isTaskPriorityValid = false;
-    }
-    else if (this.add_Task.taskPriority == 'select') {
-      this.taskPriorityErrorInfo = 'task priority is required';
-      this.isTaskPriorityValid = false;
-    }
-    else {
-      this.taskPriorityErrorInfo = '';
-      this.isTaskPriorityValid = true;
-    }
-    return this.isTaskPriorityValid;
-  }
+  // taskPriorityErrorInfo = '';
+  // isTaskPriorityValid = false;
+  // validateTaskPriority() {
+  //   //var taskPriority = event.target.value;
+  //   if (this.add_Task.taskPriority === '') {
+  //     this.taskPriorityErrorInfo = 'task priority should not be empty';
+  //     this.isTaskPriorityValid = false;
+  //   }
+  //   else if (this.add_Task.taskPriority == 'select') {
+  //     this.taskPriorityErrorInfo = 'task priority is required';
+  //     this.isTaskPriorityValid = false;
+  //   }
+  //   else {
+  //     this.taskPriorityErrorInfo = '';
+  //     this.isTaskPriorityValid = true;
+  //   }
+  //   return this.isTaskPriorityValid;
+  // }
   taskStatusErrorInfo = '';
   isTaskStatusValid = false;
   validateTaskStatus() {
@@ -909,7 +933,7 @@ export class ActionItemComponent implements OnInit {
       this.taskDueDateErrorInfo = 'Select the due date';
       this.isTaskDueDateValid = false;
     }
-    else if (new Date(this.add_Task.dueDate.toString()) < new Date(this.add_Task.startDate.toString())) {
+    else if (Date.parse(this.add_Task.dueDate) < Date.parse(this.add_Task.startDate)) {
       this.taskDueDateErrorInfo = 'Date should`nt be less than startdate';
       this.isTaskDueDateValid = false;
     }
@@ -938,22 +962,22 @@ export class ActionItemComponent implements OnInit {
       var valid = this.validateTaskDescription();
       isDescriptionValid = valid;
     }
-    if (!this.isTaskPriorityValid) {
-      var valid = this.validateTaskPriority();
-      isPriorityValid = valid;
-    }
+    // if (!this.isTaskPriorityValid) {
+    //   var valid = this.validateTaskPriority();
+    //   isPriorityValid = valid;
+    // }
     if (!this.isTaskOwnerValid) {
       var valid = this.validateTaskOwner();
       isOwnerValid = valid;
     }
-    if (!this.isTaskStartDateValid) {
-      var valid = this.validateTaskStartDate();
-      isStartDateValid = valid;
-    }
-    if (!this.isTaskDueDateValid) {
-      var valid = this.validateTaskDueDate();
-      isDueDateValid = valid;
-    }
+    // if (!this.isTaskStartDateValid) {
+    //   var valid = this.validateTaskStartDate();
+    //   isStartDateValid = valid;
+    // }
+    // if (!this.isTaskDueDateValid) {
+    //   var valid = this.validateTaskDueDate();
+    //   isDueDateValid = valid;
+    // }
 
     if (isTitleValid == true && isDescriptionValid == true &&
       isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
@@ -1103,6 +1127,16 @@ export class ActionItemComponent implements OnInit {
         window.location.reload();
       }
     })
+  }
+
+  getCurrentActionItemDetails(actionItem: ActionItems){
+    localStorage.setItem('currentActionItemPriority',actionItem.actionPriority)
+    this.currentActionItemPriority = localStorage.getItem('currentActionItemPriority');
+    localStorage.setItem('currentActionItemPlannedStartDate',actionItem.startDate);
+    this.currentActionItemPlannedStartDate = localStorage.getItem('currentActionItemPlannedStartDate');
+    localStorage.setItem('currentActionItemPlannedEndDate',actionItem.endDate);
+    this.currentActionItemPlannedEndDate = localStorage.getItem('currentActionItemPlannedEndDate');
+    console.log(localStorage.getItem('currentActionItemPlannedEndDate'))
   }
 
 }

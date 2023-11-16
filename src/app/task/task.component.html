@@ -7,30 +7,33 @@
                 <h3 id="heading">Task List</h3>
             </div>
             <div class="col-sm-2 d-flex">
-                <p id="AssignedTask" (click)="InitailizeJqueryDataTable()" (click)="getTasks('AssignedTask')">Assigned Tasks</p>
+                <p id="AssignedTask" (click)="InitailizeJqueryDataTable()" (click)="getTasks('AssignedTask')">Assigned
+                    Tasks</p>
             </div>
             <div class="col-sm-2 d-flex">
-                <p (click)="InitailizeJqueryDataTable()" (click)="getTasks('OrganizedTask')" 
-                id="OrganizedTask" style="padding-right: 10px;">Organized Tasks
+                <p (click)="InitailizeJqueryDataTable()" (click)="getTasks('OrganizedTask')" id="OrganizedTask"
+                    style="padding-right: 10px;">Organized Tasks
                 </p>
             </div>
             <!--<div class="col-sm-1" style="padding-top: 17px;"><button id="add_button"type="btn btn-primary" (click)="addTask()"
                     data-toggle="modal" data-target="#myModal_add">Add</button></div>-->
             <div class="col-sm-3"></div>
             <div *ngIf="tabOpened === 'OrganizedTask'" id="deleteBtnDiv" class="col-sm-2">
-               <button class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
+                <button class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
             </div>
             <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1">
-             </div>
+            </div>
             <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1 d-flex align-items-end"></div>
-            <div *ngIf="tabOpened === 'OrganizedTask'" class="col-sm-1 d-flex" id="filter" data-toggle="modal" data-target="#filterModal" (click)="getActiveUsersEmailIdList()">
+            <div *ngIf="tabOpened === 'OrganizedTask'" class="col-sm-1 d-flex" id="filter" data-toggle="modal"
+                data-target="#filterModal" (click)="getActiveUsersEmailIdList()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
                         fill="#E5EEF1" />
                 </svg>
             </div>
-            <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1 d-flex" id="filter" data-toggle="modal" data-target="#assignedFilterModal" (click)="getActiveUsersEmailIdList()">
+            <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1 d-flex" id="filter" data-toggle="modal"
+                data-target="#assignedFilterModal" (click)="getActiveUsersEmailIdList()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
@@ -41,59 +44,61 @@
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedTask'">
         <!-- reportee dropdown -->
-        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
-            <ng-select [searchable]="true" [clearable]="true" id="reportee"
-            name="reportee" style="width: 400px;"
-            [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedTask()">
-            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
+            style="padding-top: 9px; ">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
+                [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee"
+                (change)="storeReporteeDataOfOrganizedTask()">
+                <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                {{reportee.email}}
-            </ng-option>
-        </ng-select>
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                    {{reportee.email}}
+                </ng-option>
+            </ng-select>
         </div>
         <!-- reportee dropdown end -->
         <!-- reportee dropdown -->
-        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
-            <ng-select [searchable]="true" [clearable]="true" id="reportee"
-            name="reportee" style="width: 400px;"
-            [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedTask()">
-            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0"
+            style="padding-top: 9px; ">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
+                [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee"
+                (change)="storeReporteeDataOfOrganizedTask()">
+                <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                {{reportee.email}}
-            </ng-option>
-        </ng-select>
-        </div><br/>
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                    {{reportee.email}}
+                </ng-option>
+            </ng-select>
+        </div><br />
         <!-- reportee dropdown end -->
         <div calss="row d-flex" *ngIf="taskCount > 0 ; else noMeetings">
-            <table id="table"  class="table table-hover">
+            <table id="table" class="table table-hover">
                 <thead style="background-color: #ecf7fc;">
                     <tr>
-                        <th><input type="checkbox" class="mainCheckBox" id="mainCheckBox"
-                            style="margin: 0px;" (change)="checkSubCheckBoxes()">
-                    </th>
-                    <th>Task ID</th>
-                    <th style="width: 150px;">Title</th>
-                    <th>Assignees</th>
-                    <th>Start Date & Time</th>
-                    <th>End Date & Time</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                        <th><input type="checkbox" class="mainCheckBox" id="mainCheckBox" style="margin: 0px;"
+                                (change)="checkSubCheckBoxes()">
+                        </th>
+                        <th>Task ID</th>
+                        <th style="width: 150px;">Title</th>
+                        <th>Assignee</th>
+                        <th>Planned Start Date</th>
+                        <th>Planned End Date</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="trbody" *ngFor="let item of task; let i = index">
-                        <td><input type="checkbox" value="{{item.taskId}}"
-                                class="subCheckBox" id="subCheckBox{{i}}" (change)="toggleMainCheckBox(i)">
+                        <td><input type="checkbox" value="{{item.taskId}}" class="subCheckBox" id="subCheckBox{{i}}"
+                                (change)="toggleMainCheckBox(i)">
                         </td>
                         <!--- <td>{{item.taskId}}</td>-->
                         <td>T000{{item.taskId}}</td>
                         <td id="task-subject">{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
-                        <td>{{item.startDate|date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{item.dueDate|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{item.plannedStartDate|date:'MMM d, y'}}</td>
+                        <td>{{item.plannedEndDate|date:'MMM d, y'}}</td>
                         <td>{{item.taskPriority}}</td>
                         <td>{{item.status}}</td>
                         <td>
@@ -109,23 +114,23 @@
                                 </svg>
                             </span>
                             &nbsp;
-                            <span id="trashIcon"  (click)="deleteTaskById(item.taskId)">
+                            <span id="trashIcon" (click)="deleteTaskById(item.taskId)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
-                                viewBox="0 0 482.428 482.429" xml:space="preserve">
-                                <g>
+                                    fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
+                                    viewBox="0 0 482.428 482.429" xml:space="preserve">
                                     <g>
-                                        <path
-                                            d="M381.163,57.799h-75.094C302.323,25.316,274.686,0,241.214,0c-33.471,0-61.104,25.315-64.85,57.799h-75.098    c-30.39,0-55.111,24.728-55.111,55.117v2.828c0,23.223,14.46,43.1,34.83,51.199v260.369c0,30.39,24.724,55.117,55.112,55.117    h210.236c30.389,0,55.111-24.729,55.111-55.117V166.944c20.369-8.1,34.83-27.977,34.83-51.199v-2.828    C436.274,82.527,411.551,57.799,381.163,57.799z M241.214,26.139c19.037,0,34.927,13.645,38.443,31.66h-76.879    C206.293,39.783,222.184,26.139,241.214,26.139z M375.305,427.312c0,15.978-13,28.979-28.973,28.979H136.096    c-15.973,0-28.973-13.002-28.973-28.979V170.861h268.182V427.312z M410.135,115.744c0,15.978-13,28.979-28.973,28.979H101.266    c-15.973,0-28.973-13.001-28.973-28.979v-2.828c0-15.978,13-28.979,28.973-28.979h279.897c15.973,0,28.973,13.001,28.973,28.979    V115.744z" />
-                                        <path
-                                            d="M171.144,422.863c7.218,0,13.069-5.853,13.069-13.068V262.641c0-7.216-5.852-13.07-13.069-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C158.074,417.012,163.926,422.863,171.144,422.863z" />
-                                        <path
-                                            d="M241.214,422.863c7.218,0,13.07-5.853,13.07-13.068V262.641c0-7.216-5.854-13.07-13.07-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C228.145,417.012,233.996,422.863,241.214,422.863z" />
-                                        <path
-                                            d="M311.284,422.863c7.217,0,13.068-5.853,13.068-13.068V262.641c0-7.216-5.852-13.07-13.068-13.07    c-7.219,0-13.07,5.854-13.07,13.07v147.154C298.213,417.012,304.067,422.863,311.284,422.863z" />
+                                        <g>
+                                            <path
+                                                d="M381.163,57.799h-75.094C302.323,25.316,274.686,0,241.214,0c-33.471,0-61.104,25.315-64.85,57.799h-75.098    c-30.39,0-55.111,24.728-55.111,55.117v2.828c0,23.223,14.46,43.1,34.83,51.199v260.369c0,30.39,24.724,55.117,55.112,55.117    h210.236c30.389,0,55.111-24.729,55.111-55.117V166.944c20.369-8.1,34.83-27.977,34.83-51.199v-2.828    C436.274,82.527,411.551,57.799,381.163,57.799z M241.214,26.139c19.037,0,34.927,13.645,38.443,31.66h-76.879    C206.293,39.783,222.184,26.139,241.214,26.139z M375.305,427.312c0,15.978-13,28.979-28.973,28.979H136.096    c-15.973,0-28.973-13.002-28.973-28.979V170.861h268.182V427.312z M410.135,115.744c0,15.978-13,28.979-28.973,28.979H101.266    c-15.973,0-28.973-13.001-28.973-28.979v-2.828c0-15.978,13-28.979,28.973-28.979h279.897c15.973,0,28.973,13.001,28.973,28.979    V115.744z" />
+                                            <path
+                                                d="M171.144,422.863c7.218,0,13.069-5.853,13.069-13.068V262.641c0-7.216-5.852-13.07-13.069-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C158.074,417.012,163.926,422.863,171.144,422.863z" />
+                                            <path
+                                                d="M241.214,422.863c7.218,0,13.07-5.853,13.07-13.068V262.641c0-7.216-5.854-13.07-13.07-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C228.145,417.012,233.996,422.863,241.214,422.863z" />
+                                            <path
+                                                d="M311.284,422.863c7.217,0,13.068-5.853,13.068-13.068V262.641c0-7.216-5.852-13.07-13.068-13.07    c-7.219,0-13.07,5.854-13.07,13.07v147.154C298.213,417.012,304.067,422.863,311.284,422.863z" />
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
+                                </svg>
                             </span>
                         </td>
                     </tr>
@@ -140,9 +145,9 @@
                         <th>UID</th>
                         <th>Title</th>
                         <th>ActionItem</th>
-                        <th>Assignees</th>
-                        <th>Start Date & Time</th>
-                        <th>End Date & Time</th>
+                        <th>Owner</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
                         <th>Priority</th>
                         <th>Status</th>
                         <th></th>
@@ -156,42 +161,44 @@
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AssignedTask'">
         <!-- reportee dropdown -->
-        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
-            <ng-select [searchable]="true" [clearable]="true" id="reportee"
-            name="reportee" style="width: 400px;"
-            [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee" (change)="storeReporteeDataOfAssignedTask()">
-            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
+            style="padding-top: 9px; ">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
+                [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee"
+                (change)="storeReporteeDataOfAssignedTask()">
+                <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                {{reportee.email}}
-            </ng-option>
-        </ng-select>
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                    {{reportee.email}}
+                </ng-option>
+            </ng-select>
         </div>
-        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
-            <ng-select [searchable]="true" [clearable]="true" id="reportee"
-            name="reportee" style="width: 400px;"
-            [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee" (change)="storeReporteeDataOfAssignedTask()">
-            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0"
+            style="padding-top: 9px; ">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
+                [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee"
+                (change)="storeReporteeDataOfAssignedTask()">
+                <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                {{reportee.email}}
-            </ng-option>
-        </ng-select>
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                    {{reportee.email}}
+                </ng-option>
+            </ng-select>
         </div>
-        <br/>
+        <br />
         <!-- reportee dropdown end -->
         <div class="row d-flex" *ngIf="assignedTasksCount>0; else noAssignedTasks">
             <table class="table table-hover" height="40" id="assignedtaskTable">
                 <thead id="thead" style="background-color: #ecf7fc; padding-top: 0px;">
                     <tr>
-                    <th>Task ID</th>
-                    <th style="width: 150px;">Title</th>
-                    <th>Owner</th>
-                    <th>Start Date & Time</th>
-                    <th>End Date & Time</th>
-                    <th style="padding-left:6px;">Priority</th>
-                    <th>Status</th>
-                    <th></th>
+                        <th>Task ID</th>
+                        <th style="width: 150px;">Title</th>
+                        <th>Owner</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th style="padding-left:6px;">Priority</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -199,8 +206,8 @@
                         <td>T000{{task.taskId}}</td>
                         <td id="task-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
-                        <td>{{task.startDate|date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{task.dueDate|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{task.startDate|date:'MMM d, y'}}</td>
+                        <td>{{task.dueDate|date:'MMM d, y'}}</td>
                         <td>{{task.taskPriority}}</td>
                         <td>{{task.status}}</td>
                         <td>
@@ -286,10 +293,12 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="col-md-12" style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
+                            <div class="col-md-12"
+                                style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
                                 <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                     Text</label>-->
-                                <label style="padding-top: 4px; font-size: 20px;"><b id="title-label">Task Title</b><span id="required">*</span></label>
+                                <label style="padding-top: 4px; font-size: 20px;"><b id="title-label">Task
+                                        Title</b><span id="required">*</span></label>
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
@@ -310,7 +319,8 @@
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
-                                    <label style="padding-top: 4px;font-size: 20px;"><b id="description-label">Description</b><span id="required">*</span></label>
+                                    <label style="padding-top: 4px;font-size: 20px;"><b
+                                            id="description-label">Description</b><span id="required">*</span></label>
                                 </div>
                                 <textarea
                                     style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
@@ -364,16 +374,17 @@
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
                                                         </ng-option>
                                                     </ng-select>
-                                                
-                                                <div *ngIf="taskOwnerErrorInfo != ''">
-                                                    <span style="padding-top: 20px;"
-                                                        id="error_msg">{{taskOwnerErrorInfo}}</span>
+
+                                                    <div *ngIf="taskOwnerErrorInfo != ''">
+                                                        <span style="padding-top: 20px;"
+                                                            id="error_msg">{{taskOwnerErrorInfo}}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><label for="prority"><b>Priority</b><span id="required">*</span></label></td>
+                                            <td><label for="prority"><b>Priority</b><span id="required">*</span></label>
+                                            </td>
                                             <td><span><select id="priority" class="form-control form-select"
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
@@ -390,39 +401,52 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>Start Date & Time</b><span id="required">*</span></td>
-                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
-                                                id="taskStartDate" name="taskStartDate" [(ngModel)]="update_Task.startDate"
-                                                        #taskStartDate="ngModel" required="true"
+                                            <td><b>Planned Start Date</b><span id="required">*</span></td>
+                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                                        id="taskStartDate" name="taskStartDate"
+                                                        [(ngModel)]="update_Task.plannedStartDate" #taskStartDate="ngModel"
+                                                        required="true"
                                                         [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
-                                                        (change)="validateTaskStartDate()"></span>
-                                                <div *ngIf="taskStartDateErrorInfo!=''">
+                                                         disabled="true"></span>
+                                                <!-- <div *ngIf="taskStartDateErrorInfo!=''">
                                                     <span id="error_msg">{{taskStartDateErrorInfo}}</span>
-                                                </div>
+                                                </div> -->
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>End Date & Time</b><span id="required">*</span></td>
-                                            <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
-                                                        name="taskDueDate" [(ngModel)]="update_Task.dueDate"
+                                            <td><b>Planned End Date</b><span id="required">*</span></td>
+                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                                        name="taskDueDate" [(ngModel)]="update_Task.plannedEndDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
-                                                        (change)="validateTaskDueDate()"></span>
-                                                <div *ngIf="taskDueDateErrorInfo !=''">
+                                                         disabled="true"></span>
+                                                <!-- <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
-                                                </div>
+                                                </div> -->
                                             </td>
                                         </tr>
-
+                                        <!-- <tr>
+                                            <td><b>Planned Start Date</b></td>
+                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                                        name="taskPlannedStartDate" [(ngModel)]="update_Task.plannedStartDate"
+                                                        disabled></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Planned Due Date</b></td>
+                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                                        name="taskPlannedEndDate" [(ngModel)]="update_Task.plannedEndDate"
+                                                        disabled></span>
+                                            </td>
+                                        </tr> -->
                                         <tr>
                                             <td><b>Status</b><span id="required">*</span></td>
                                             <td> <span><select value="Yet To Start" class="form-control form-select"
-                                                        name="taskStatus" placeholder="select"
-                                                        #taskStatus="ngModel"
+                                                        name="taskStatus" placeholder="select" #taskStatus="ngModel"
                                                         [(ngModel)]="update_Task.status" required="true"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
-                                                       <!--- <option default>Select</option>-->
+                                                        <!--- <option default>Select</option>-->
                                                         <option>Yet to start</option>
                                                         <option>Inprogress</option>
                                                         <option>Completed</option>
@@ -474,10 +498,12 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="col-md-12" style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
+                            <div class="col-md-12"
+                                style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
                                 <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                     Text</label>-->
-                                <label style="padding-top: 4px; font-size: 20px;"><b id="title-label">Task Title</b><span id="required">*</span></label>
+                                <label style="padding-top: 4px; font-size: 20px;"><b id="title-label">Task
+                                        Title</b><span id="required">*</span></label>
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;min-height: 55px;max-height: 55px;background-color: #ecf7fc;"
@@ -498,7 +524,8 @@
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
-                                    <label style="padding-top: 4px;font-size: 20px;"><b id="description-label">Description</b><span id="required">*</span></label>
+                                    <label style="padding-top: 4px;font-size: 20px;"><b
+                                            id="description-label">Description</b><span id="required">*</span></label>
                                 </div>
                                 <textarea
                                     style="width: 530px; min-height:220px;max-height:220px;background-color:#ecf7fc;"
@@ -514,7 +541,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:430px; height: 380px; background-color: #ecf7fc;margin-top:-115px">
+                            style=" width:430px; height: 440px; background-color: #ecf7fc;margin-top:-115px">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="padding-top: 5px;">Details</label>
                             </div>
@@ -538,7 +565,6 @@
                                                         </ng-option>
                                                     </ng-select>
                                                 </div>
-                                                <br>
                                                 <div *ngIf="taskOwnerErrorInfo != ''">
                                                     <span style="padding-top: 20px;"
                                                         id="error_msg">{{taskOwnerErrorInfo}}</span>
@@ -563,29 +589,42 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>Start Date & Time</b></td>
-                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
-                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
-                                                        #taskStartDate="ngModel" required="true" 
-                                                        [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
-                                                        (click)="validateTaskStartDate()" disabled></span>
-                                                <!--- <div *ngIf="taskStartDateErrorInfo!=''">
-                                                    <span id="error_msg">{{taskStartDateErrorInfo}}</span>
-                                                </div>-->
+                                            <td><b>Planned Start Date</b></td>
+                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                                        name="taskPlannedStartDate" [(ngModel)]="update_Task.plannedStartDate"
+                                                        #taskPlannedStartDate="ngModel" required="true" disabled></span>
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>End Date & Time</b></td>
-                                            <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
+                                            <td><b>Planned End Date</b></td>
+                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                                        name="taskPlannedEndDate" [(ngModel)]="update_Task.plannedEndDate"
+                                                        #taskPlannedEndDate="ngModel" required="true" disabled></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Actual Start Date</b><span id="required">*</span></td>
+                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                                        name="taskStartDate" [(ngModel)]="update_Task.startDate"
+                                                        #taskStartDate="ngModel" required="true"
+                                                        (click)="validateTaskStartDate()"></span>
+                                                        <span *ngIf="taskStartDateErrorInfo!=''"
+                                                        id="error_msg">{{taskStartDateErrorInfo}}</span>
+                                            </td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <td><b>Actual End Date</b><span id="required">*</span></td>
+                                            <td><span> <input type="date" min="{{min}}" class="form-control"
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
-                                                        (click)="validateTaskDueDate()" disabled></span>
-                                                <!---  <div *ngIf="taskDueDateErrorInfo !=''">
-                                                    <span id="error_msg">{{taskDueDateErrorInfo}}</span>
-                                                </div>-->
+                                                        (click)="validateTaskDueDate()"></span>
+                                                        <span  *ngIf="taskDueDateErrorInfo!=''" id="error_msg">{{taskDueDateErrorInfo}}</span>
                                             </td>
+                                            
+
                                         </tr>
 
                                         <tr>
@@ -600,7 +639,7 @@
                                                         <option>Inprogress</option>
                                                         <option>Completed</option>
                                                     </select>
-                                                    
+
                                                     <div *ngIf="taskStatusErrorInfo != ''">
                                                         <span id="error_msg">{{taskStatusErrorInfo}}</span>
                                                     </div>
@@ -633,121 +672,128 @@
 <!-- custom advanced organized filter modal -->
 <div class="modal" id="filterModal">
     <div class="modal-dialog" id="dialog">
-      <div class="modal-content"> 
-        <div class="filters-action-item">
-          <div class="filters-parent">
-              <div class="filters">Filters</div>
-              <img class="cross-icon" alt="" src="../../assets/images/cross.svg" 
-              id="closeModal" data-dismiss="modal" (click)="CloseFilterTaskModal()" style="cursor: pointer;">
-          </div>
-          <div class="filter-dd">              
-              <div class="meeting-title-dd-parent">
-                  <!-- <div class="meeting-title-dd">
+        <div class="modal-content">
+            <div class="filters-action-item">
+                <div class="filters-parent">
+                    <div class="filters">Filters</div>
+                    <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
+                        data-dismiss="modal" (click)="CloseFilterTaskModal()" style="cursor: pointer;">
+                </div>
+                <div class="filter-dd">
+                    <div class="meeting-title-dd-parent">
+                        <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
                           <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                       </div>          					
                   </div> -->
-                  <div class="meeting-title-dd">
-                    <div class="meeting-title-filter">
-                        <input type ="text" [(ngModel)]="filter_Taskname" #boxTaskName placeholder="Task title" name="taskName" />
-                        <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
-                    </div>          					
-                </div>
-                  <div class="meeting-title-dd">
-                      <div >Organizer
-                          <select [(ngModel)] = "filter_Email_Organizer" #boxOrg class="actitem-organizer-filter">
-                            <option value="">Select</option>
-                            <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">{{userEmail}}</option>
-                        </select>
-                      </div>
-                  </div>
-                  <div class="meeting-title-dd">
-                    <div >Task Priority
-                        <select [(ngModel)] = "filter_Priority" #boxPri class="actitem-organizer-filter">
-                          <option value="">Select</option>
-                          <option>High</option>
-                          <option>Medium</option>
-                          <option>Low</option>
-                      </select>
+                        <div class="meeting-title-dd">
+                            <div class="meeting-title-filter">
+                                <input type="text" [(ngModel)]="filter_Taskname" #boxTaskName placeholder="Task title"
+                                    name="taskName" />
+                                <img class="search-icon" alt="" src="../../assets/images/search.svg">
+                            </div>
+                        </div>
+                        <div class="meeting-title-dd">
+                            <div>Organizer
+                                <select [(ngModel)]="filter_Email_Organizer" #boxOrg class="actitem-organizer-filter">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">
+                                        {{userEmail}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="meeting-title-dd">
+                            <div>Task Priority
+                                <select [(ngModel)]="filter_Priority" #boxPri class="actitem-organizer-filter">
+                                    <option value="">Select</option>
+                                    <option>High</option>
+                                    <option>Medium</option>
+                                    <option>Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="date-range">
+                            <div class="date-parent">
+                                <input type="datetime-local" #boxStart [(ngModel)]="filter_StartDate" />
+                            </div>
+                            <div class="to">To</div>
+                            <div class="date-parent">
+                                <input type="datetime-local" #boxEnd [(ngModel)]="filter_EndDate" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                  <div class="date-range">
-                      <div class="date-parent">
-                          <input type="datetime-local" #boxStart [(ngModel)] = "filter_StartDate" />
-                      </div>
-                      <div class="to">To</div>
-                      <div class="date-parent">
-                          <input type="datetime-local" #boxEnd [(ngModel)] = "filter_EndDate" />
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="submit-button-parent">
-              <button type="button" class="submit-button" (click)="filterOrganizedTaskList(boxTaskName.value, boxOrg.value, boxPri.value, boxStart.value, boxEnd.value)">Apply</button>
-              <button type="button" class="delete-button" (click)="resetFilterModal()"  >Clear</button>
-          </div>
-      </div>  
-      </div>
+                <div class="submit-button-parent">
+                    <button type="button" class="submit-button"
+                        (click)="filterOrganizedTaskList(boxTaskName.value, boxOrg.value, boxPri.value, boxStart.value, boxEnd.value)">Apply</button>
+                    <button type="button" class="delete-button" (click)="resetFilterModal()">Clear</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <!-- custom advanced assigned filter modal -->
 <div class="modal" id="assignedFilterModal">
     <div class="modal-dialog" id="dialog">
-      <div class="modal-content"> 
-        <div class="filters-action-item">
-          <div class="filters-parent">
-              <div class="filters">Filters</div>
-              <img class="cross-icon" alt="" src="../../assets/images/cross.svg" 
-              id="closeModal" data-dismiss="modal" (click)="CloseFilterTaskModal()" style="cursor: pointer;">
-          </div>
-          <div class="filter-dd">              
-              <div class="meeting-title-dd-parent">
-                  <!-- <div class="meeting-title-dd">
+        <div class="modal-content">
+            <div class="filters-action-item">
+                <div class="filters-parent">
+                    <div class="filters">Filters</div>
+                    <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
+                        data-dismiss="modal" (click)="CloseFilterTaskModal()" style="cursor: pointer;">
+                </div>
+                <div class="filter-dd">
+                    <div class="meeting-title-dd-parent">
+                        <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
                           <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                       </div>          					
                   </div> -->
-                  <div class="meeting-title-dd">
-                    <div class="meeting-title-filter">
-                        <input type ="text" [(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle placeholder="Task title" name="taskName" />
-                        <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
-                    </div>          					
-                </div>
-                  <!-- <div class="meeting-title-dd">
+                        <div class="meeting-title-dd">
+                            <div class="meeting-title-filter">
+                                <input type="text" [(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle
+                                    placeholder="Task title" name="taskName" />
+                                <img class="search-icon" alt="" src="../../assets/images/search.svg">
+                            </div>
+                        </div>
+                        <!-- <div class="meeting-title-dd">
                       <div >Assignee
                           <input readonly="true" type="text" [(ngModel)] = "assignedTaskOrganizerFilter" #boxAssignedOrg class="actitem-organizer-filter"
                            />
                       </div>
                   </div> -->
-                  <div class="meeting-title-dd">
-                    <div >Task Priority
-                        <select [(ngModel)] = "assignedTaskPriorityFilter" #boxAssignedPri class="actitem-organizer-filter">
-                          <option value="">Select</option>
-                          <option>High</option>
-                          <option>Medium</option>
-                          <option>Low</option>
-                      </select>
+                        <div class="meeting-title-dd">
+                            <div>Task Priority
+                                <select [(ngModel)]="assignedTaskPriorityFilter" #boxAssignedPri
+                                    class="actitem-organizer-filter">
+                                    <option value="">Select</option>
+                                    <option>High</option>
+                                    <option>Medium</option>
+                                    <option>Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="date-range">
+                            <div class="date-parent">
+                                <input type="datetime-local" #boxAssignedStart
+                                    [(ngModel)]="assignedTaskStartDateFilter" />
+                            </div>
+                            <div class="to">To</div>
+                            <div class="date-parent">
+                                <input type="datetime-local" #boxAssignedEnd [(ngModel)]="assignedTaskEndDateFilter" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                  <div class="date-range">
-                      <div class="date-parent">
-                          <input type="datetime-local" #boxAssignedStart [(ngModel)] = "assignedTaskStartDateFilter" />
-                      </div>
-                      <div class="to">To</div>
-                      <div class="date-parent">
-                          <input type="datetime-local" #boxAssignedEnd [(ngModel)] = "assignedTaskEndDateFilter" />
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="submit-button-parent">
-              <button type="button" class="submit-button" (click)="filterAssignedTaskList(boxAssignedTaskTitle.value, boxAssignedPri.value, boxAssignedStart.value, boxAssignedEnd.value)">Apply</button>
-              <button type="button" class="delete-button" (click)="resetAssignedFilterModal()"  >Clear</button>
-          </div>
-      </div>  
-      </div>
+                <div class="submit-button-parent">
+                    <button type="button" class="submit-button"
+                        (click)="filterAssignedTaskList(boxAssignedTaskTitle.value, boxAssignedPri.value, boxAssignedStart.value, boxAssignedEnd.value)">Apply</button>
+                    <button type="button" class="delete-button" (click)="resetAssignedFilterModal()">Clear</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
