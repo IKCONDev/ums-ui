@@ -783,7 +783,7 @@ export class ActionItemComponent implements OnInit {
     taskId: 0,
     taskTitle: '',
     taskDescription: '',
-    taskPriority: this.currentActionItemPriority,
+    taskPriority: localStorage.getItem('currentActionItemPriority'),
     startDate: '',
     plannedStartDate: localStorage.getItem('currentActionItemPlannedStartDate'),
     plannedEndDate: localStorage.getItem('currentActionItemPlannedEndDate'),
