@@ -213,15 +213,13 @@ export class HomeComponent implements OnInit{
       console.log("entered the fetch details of task")
       const currentDate=new Date();
       const startDate=new Date(currentDate);
-      startDate.setHours(0,0,0,0);
       startDate.setDate(currentDate.getDate()-currentDate.getDay())
       const endDate = new Date();
       endDate.setDate(startDate.getDate()+6);//end of the week
-      endDate.setHours(23,59,59,999);//end of the day
       console.log(startDate);
       console.log(endDate);
 
-      this.homeService.fetchStatusforWeek(startDate.toISOString(),endDate.toISOString()).subscribe({
+      this.homeService.fetchStatusforWeek(startDate.toLocaleDateString(),endDate.toLocaleDateString()).subscribe({
         next: response =>{
         this.TotalTasks=response.body;
         console.log(this.TotalTasks)
@@ -237,12 +235,10 @@ export class HomeComponent implements OnInit{
         const endDate=new Date();
         //add dynamic year
         startDate.setFullYear(new Date().getFullYear(),0,1);
-        startDate.setHours(0,0,0,0);
         endDate.setFullYear(new Date().getFullYear(),11,31);
-        endDate.setHours(23,59,59,999);
         console.log(startDate);
         console.log(endDate);
-        this.homeService.fetchTaskStatusForYear(startDate.toISOString(),endDate.toISOString()).subscribe({
+        this.homeService.fetchTaskStatusForYear(startDate.toLocaleDateString(),endDate.toLocaleDateString()).subscribe({
           next: response =>{
             console.log("entered the else if of fetchTask for year")
             this.TotalTasksForYear=response.body;

@@ -45,6 +45,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { HelpcenterComponent } from './helpcenter/helpcenter.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 
 @NgModule({
@@ -92,6 +93,10 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     BrowserAnimationsModule,
     NgSelectModule,
     ReactiveFormsModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderHttpModule.forRoot({
+      showForeground:true,
+    }),
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy,}],
   bootstrap: [AppComponent]
