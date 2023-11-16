@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class OrganizationComponent implements OnInit {
 
   @Output() title: string = 'Organization';
+  fileSize: number = 2000000; //2MB
   org: Organization;
   isDisable: boolean = false;
   loggedInUserRole = localStorage.getItem('userRole');
@@ -537,6 +538,7 @@ selectedOrgPic:Blob;
 onFileChanged(event:any){
   console.log("entered the onfilechanged")
   this.selectedOrgPic = event.target.files[0];
+  if (this.selectedOrgPic.size < this.fileSize) {
       console.log(localStorage.getItem('email'));
       this.orgService.saveOrgPic(this.selectedOrgPic).subscribe(
         (response) => {
@@ -558,7 +560,11 @@ onFileChanged(event:any){
           
         }
       )
-    } 
+    } else {
+      this.toast.error('File size is greater than 2 MB')
+    }
+  }
+
 
     viewCountryCode(){
       var selectedCountry = $('#country-dropdown option:selected');
