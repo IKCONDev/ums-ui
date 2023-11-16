@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit{
 
  loggedInUserRole = localStorage.getItem('userRole');
  title: string = 'Overview';
- organizedMeetingsCount:string = localStorage.getItem('totalMeetingsOrganized');
- attendedMeetingsCount: string = localStorage.getItem('attenedMeetingsCount');
+ organizedMeetingsCount:string; 
+ attendedMeetingsCount: string;
  actionItemsCount: number = 0;
  organizedTasksCount: number = 0;
  assignedTasksCount: number = 0;
@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit{
       next:(response)=>{
         this.organizedMeetingsCount = response.body.toString();
         console.log(this.organizedMeetingsCount)
-        localStorage.setItem('totalMeetingsOrganized',response.body.toString())
+       // localStorage.setItem('totalMeetingsOrganized',response.body.toString())
       },error: (error) =>{
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
@@ -121,7 +121,7 @@ export class HomeComponent implements OnInit{
       next: (response)=>{
         this.attendedMeetingsCount = response.body.toString();
         console.log(this.attendedMeetingsCount);
-        localStorage.setItem('attenedMeetingsCount',response.body.toString());
+        //localStorage.setItem('attenedMeetingsCount',response.body.toString());
       },error: (error) =>{
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')

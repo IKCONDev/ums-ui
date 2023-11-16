@@ -62,8 +62,9 @@
                     <th>Action Item ID</th>
                     <th style="width: 170px;">Title</th>
                     <th>Owner</th>
-                    <th>Start Date & Time</th>
-                    <th>End Date & Time</th>
+                    <th>Planned Start Date</th>
+                    <th>Planned End Date</th>
+                    <th>Priority</th>
                     <th>Status</th>
                     <!--<th>Actions</th>-->
                     <th>Tasks</th>
@@ -82,6 +83,7 @@
                         </td>
                         <td>{{actionItem.startDate|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{actionItem.endDate|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{actionItem.actionPriority}}</td>
                         <td>{{actionItem.actionStatus}}</td>
                         <!-- edit btn -->
                         <!--<td><button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->

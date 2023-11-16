@@ -186,8 +186,10 @@
                                             <th id="tablehead" style="padding: 1.4em;">Action Item ID</th>
                                             <th id="tablehead" style="width: 170px;padding: 1.4em;">Action Item</th>
                                             <th id="tablehead" style="padding: 1.4em;">Owner</th>
-                                            <th id="tablehead" style="padding: 1.4em;">Start Date & Time</th>
                                             <th id="tablehead" style="width: 170px;padding: 1.4em;">Description</th>
+                                            <th id="tablehead" style="padding: 1.4em;">Planned Start Date</th>
+                                            <th id="tablehead" style="padding: 1.4em;">Planned End Date</th>
+                                            <th id="tablehead" style="padding: 1.4em;">Priority</th>
                                             <th id="tablehead" style="padding: 1.4em;">Status</th>
                                             <th id="tablehead" style="padding: 1.4em;">Actions</th>
                                         </tr>
@@ -222,10 +224,13 @@
                                             <td class="actionItemRows" style="padding: 1.7em;">
                                                 <p *ngFor="let owner of actionItem.actionItemOwner">{{owner}}</p>
                                             </td>
-                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.startDate
-                                                |date:'MMM d, y, h:mm a'}}</td>
                                             <td class="actionItemRows" id="meeting-subject" style="padding: 1.7em;">
                                                 {{actionItem.actionItemDescription}}</td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.startDate
+                                                |date:'MMM d, y, h:mm a'}}</td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.endDate
+                                                |date:'MMM d, y, h:mm a'}}</td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.actionPriority}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">
                                                 {{actionItem.actionStatus}}</td>
                                             <td class="actionItemRows"
@@ -262,9 +267,10 @@
                                     </tbody>
                                     <tbody>
                                         <tr style="background-color: white;">
+                                            <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                             <td style="text-align: center;color:#007bff" colspan="7">
                                                 <a data-toggle="modal" data-target="#myModal_add"
-                                                    style="cursor: pointer;padding-left: 50px; "
+                                                    style="cursor: pointer;padding-left: 70px; "
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                             </td>
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}"
@@ -278,6 +284,7 @@
                                                     (click)="checkCheckboxes(meeting.meetingId)"><button
                                                         class="btn btn-outline-danger deleteButton">Delete</button></a>
                                             </td>
+                                            <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                         </tr>
                                     </tbody>
