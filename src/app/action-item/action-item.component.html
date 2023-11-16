@@ -385,7 +385,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label style="margin-left: 30px; font-size: 20px;"><b>Task Title</b><span id="required">*</span></label><br>
+                            <div class="col-md-12" style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
+                                <label style=" font-size: 20px;margin: 5px;margin-left: -3px;"><b id="title-label">Task Title</b><span id="required">*</span></label>
+                            </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
                                 placeholder="Enter title !..." class="form-control" name="taskTitle" required="true"
@@ -399,14 +401,13 @@
 
                     </div>
 
-                    <div class="row" >
-                        <label style="font-size: 20px; padding-left: 32px;"><b>Description</b><span id="required">*</span></label>
-                        <div class="col-md-6" style="padding-left: 42px; padding-bottom: 20px;" >
-
+                    <div class="row" style="margin: 20px;">
+                        <div class="col-md-6">
                             <div style=" width:530px; height: 250px; background-color: #ecf7fc;">
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
+                                    <label style="font-size: 20px;margin:5px;margin-left: -3px;"><b id="description-label">Description</b><span id="required">*</span></label>
                                 </div>
                                 <textarea
                                     style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
@@ -423,7 +424,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:430px; height: 380px; background-color: #ecf7fc; margin-top: -130px;">
+                            style=" width:430px; height: 380px; background-color: #ecf7fc; margin-top: -115px;">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="margin: 5px;">Details</label>
                             </div>

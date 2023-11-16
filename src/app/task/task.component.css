@@ -167,14 +167,25 @@ td {
   color: red;
 }
 
+#title-label{
+  position: relative;
+  line-height: 150%;
+  color: #f9fcff;
+
+}
+#description-label{
+  position: relative;
+  line-height: 150%;
+  color: #f9fcff;
+
+}
+
 #details-label {
   position: relative;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 150%;
-  font-weight: 600;
-  font-family: 'General Sans';
+  font-weight:bold;
   color: #f9fcff;
-  text-align: left;
 }
 
 .saveButton:hover {
