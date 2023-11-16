@@ -694,7 +694,9 @@
             </div> -->
                     <div *ngFor="let action of actionItemsOfMeeting; let i=index">
                         <div *ngIf="meetingData!= null && meetingData.meetingId == action.meetingId">
-                            <label>{{i+1}}. {{action.actionItemTitle}}</label>
+                            <ul>
+                                <li>{{action.actionItemTitle}}</li>
+                            </ul>
                         </div>
                     </div>
                     <!--footer-->
