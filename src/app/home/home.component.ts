@@ -315,7 +315,7 @@ export class HomeComponent implements OnInit{
         xLabels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'],
 	       datasets: [
           {
-            label: "Assigned Task",
+            label: "Total Tasks",
             data: this.TotalTasks[0],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
@@ -394,7 +394,7 @@ export class HomeComponent implements OnInit{
         xLabels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 	       datasets: [
           {
-            label: "Assigned Task",
+            label: "Total Tasks",
             data: this.TotalTasksForYear[0],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
