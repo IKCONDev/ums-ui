@@ -518,7 +518,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isTaskDueDateValid = false;
     }
     // else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
-    //   this.taskDueDateErrorInfo = 'Date should`nt be less than startdate';
+    //   this.taskDueDateErrorInfo = 'Due date should`nt be less than startdate';
     //   this.isTaskDueDateValid = false;
     // }
     else {

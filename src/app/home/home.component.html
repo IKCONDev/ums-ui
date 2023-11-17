@@ -12,7 +12,7 @@
     <app-side-menubar></app-side-menubar>
   </div>
   <div>
-    <app-header [title]="title" id="header"></app-header>
+    <app-header [title]="title" [unreadNotificationCount]="notificationCount" id="header"></app-header>
   </div>
 
   <div class="container-fluid">
@@ -123,8 +123,6 @@
             </ng-select>
             <canvas id="myChart2"></canvas>
           </div>
-
-
         </div>
       </div>
 

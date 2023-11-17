@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Inject, Output, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { LoginService } from './service/login.service';
@@ -338,7 +338,7 @@ getTokenPopup(request) {
               //'user_token': localStorage.getItem('jwtToken')
             //}
           })
-          this.getNotificationCount(this.loginInfo.email);
+          //this.getNotificationCount(this.loginInfo.email);
           console.log(navigationExtras + ' extras')
         }else if(response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true'){
           this.errorInfo = ''
@@ -386,7 +386,7 @@ getTokenPopup(request) {
             }
           }
           this.router.navigate(['two-step'], navigationExtras);
-          this.getNotificationCount(this.loginInfo.email);
+          //this.getNotificationCount(this.loginInfo.email);
           console.log(navigationExtras + ' extras')
         }
       },error: error => {
@@ -484,20 +484,6 @@ getTokenPopup(request) {
     }
   }
 
-  /**
-   * 
-   * @param email 
-   */
-  getNotificationCount(email: string){
-    let notificationCount = 0;
-    this.notificationService.findNotificationCount(email).subscribe({
-      next: response => {
-        notificationCount = response.body;
-        localStorage.setItem('notificationCount', notificationCount.toString());
-        console.log(localStorage.getItem('notificationCount'));
-      }
-    })
-  }
 
   /**
    * executes when the component is destroyed/uninitialized

@@ -12,6 +12,7 @@ import { Employee } from '../model/Employee.model';
 import { EmployeeService } from '../employee/service/employee.service';
 import { Users } from '../model/Users.model';
 import { HeaderService } from '../header/service/header.service';
+import { NotificationService } from '../notifications/service/notification.service';
 
 @Component({
   selector: 'app-action-item',
@@ -120,7 +121,7 @@ export class ActionItemComponent implements OnInit {
    */
   constructor(private service: ActionService, private taskService: TaskService, private toastr: ToastrService,
     private meetingsService: MeetingService, private router: Router, private employeeService: EmployeeService,
-    private headerService: HeaderService) {
+    private headerService: HeaderService, private notificationService: NotificationService) {
 
     //show action items slider control code
     $(function () {
@@ -150,7 +151,16 @@ export class ActionItemComponent implements OnInit {
   /**
    * 
    */
+  @Output() notificationCount: number = 0;
   ngOnInit(): void {
+     //get noti count
+     this.notificationService.getTopTenNotificationsByUserId(this.loggedInUser).subscribe({
+      next: response => {
+       localStorage.setItem('notificationCount',response.body.length.toString()); 
+       this.notificationCount = parseInt(localStorage.getItem('notificationCount'));
+      }
+    })
+
     this.getActiveUMSUsersEmailIdList();
     //get action items of user
     this.getActionItemsOfUser();
