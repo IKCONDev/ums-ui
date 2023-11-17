@@ -6,6 +6,7 @@ import { NavigationExtras } from '@angular/router';
 import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { InteractionRequiredAuthError, LogLevel, PublicClientApplication } from '@azure/msal-browser'; 
+import { NotificationService } from '../notifications/service/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ import { InteractionRequiredAuthError, LogLevel, PublicClientApplication } from 
 export class LoginComponent {
 
   constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
-    @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService) { 
+    @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService,
+    private notificationService: NotificationService) { 
      this.myMSALObj = new PublicClientApplication(this.msalConfig);
      
   }
@@ -336,6 +338,7 @@ getTokenPopup(request) {
               //'user_token': localStorage.getItem('jwtToken')
             //}
           })
+          this.getNotificationCount(this.loginInfo.email);
           console.log(navigationExtras + ' extras')
         }else if(response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true'){
           this.errorInfo = ''
@@ -376,13 +379,14 @@ getTokenPopup(request) {
           localStorage.setItem("actionItemOwnerFilter",'');
           localStorage.setItem("actionItemStartDateFilter",'');
           localStorage.setItem("actionItemEndDateFilter",'');
-           
+          
           let navigationExtras: NavigationExtras = {
             state: {
               loginInfo: this.loginInfo
             }
           }
-          this.router.navigate(['two-step'], navigationExtras)
+          this.router.navigate(['two-step'], navigationExtras);
+          this.getNotificationCount(this.loginInfo.email);
           console.log(navigationExtras + ' extras')
         }
       },error: error => {
@@ -478,6 +482,21 @@ getTokenPopup(request) {
       this.eyeIcon.classList.remove('fa-eye');
       this.eyeIcon.classList.add('fa-eye-slash')
     }
+  }
+
+  /**
+   * 
+   * @param email 
+   */
+  getNotificationCount(email: string){
+    let notificationCount = 0;
+    this.notificationService.findNotificationCount(email).subscribe({
+      next: response => {
+        notificationCount = response.body;
+        localStorage.setItem('notificationCount', notificationCount.toString());
+        console.log(localStorage.getItem('notificationCount'));
+      }
+    })
   }
 
   /**

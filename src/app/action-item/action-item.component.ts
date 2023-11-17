@@ -1131,11 +1131,12 @@ export class ActionItemComponent implements OnInit {
 
   getCurrentActionItemDetails(actionItem: ActionItems){
     localStorage.setItem('currentActionItemPriority',actionItem.actionPriority)
-    this.currentActionItemPriority = localStorage.getItem('currentActionItemPriority');
+    this.add_Task.taskPriority = localStorage.getItem('currentActionItemPriority');
+    console.log(localStorage.getItem('currentActionItemPriority'));
     localStorage.setItem('currentActionItemPlannedStartDate',actionItem.startDate);
-    this.currentActionItemPlannedStartDate = localStorage.getItem('currentActionItemPlannedStartDate');
+    this.add_Task.plannedStartDate = localStorage.getItem('currentActionItemPlannedStartDate');
     localStorage.setItem('currentActionItemPlannedEndDate',actionItem.endDate);
-    this.currentActionItemPlannedEndDate = localStorage.getItem('currentActionItemPlannedEndDate');
+    this.add_Task.plannedEndDate = localStorage.getItem('currentActionItemPlannedEndDate');
     console.log(localStorage.getItem('currentActionItemPlannedEndDate'))
   }
 

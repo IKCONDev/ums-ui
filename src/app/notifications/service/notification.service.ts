@@ -34,4 +34,9 @@ export class NotificationService{
         {observe:'response'});
     }
 
+    findNotificationCount(email: string){
+        return this.http.get<number>(`${this.apiGatewayUrl}/${this.notificationMicroservicePathUrl}/count/${email}`,
+        {observe:'response'});
+    }
+
 }
