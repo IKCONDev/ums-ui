@@ -589,24 +589,49 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStartDateValid === true &&
       isDueDateValid === true && isStatusValid === true) {
-      this.service.updateTask(this.update_Task).subscribe({
-        next: (response) => {
-          this.response = response.body;
-          //this.data = response.body;
-          if (response.status === HttpStatusCode.Ok) {
-            this.toastr.success('Task updated successfully');
-            document.getElementById('closeUpdateModal').click();
-            document.getElementById('closeAssignedUpdateModal').click();
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000)
-          }
-        }, error: (error) => {
-          if (error.status === HttpStatusCode.Unauthorized) {
-            this.router.navigateByUrl('/session-timeout');
-          }
+      if(this.update_Task.dueDate < this.update_Task.plannedEndDate && this.update_Task.status === 'Completed' && this.update_Task.dueDate != null){
+        var isConfirmed = window.confirm('This task is being completed before the planned end date, Are you sure you want to proceed ?');
+        if(isConfirmed){
+          this.service.updateTask(this.update_Task).subscribe({
+            next: (response) => {
+              this.response = response.body;
+              //this.data = response.body;
+              if (response.status === HttpStatusCode.Ok) {
+                this.toastr.success('Task updated successfully');
+                document.getElementById('closeUpdateModal').click();
+                document.getElementById('closeAssignedUpdateModal').click();
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000)
+              }
+            }, error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl('/session-timeout');
+              }
+            }
+          });
         }
-      });
+      }else{
+        this.service.updateTask(this.update_Task).subscribe({
+          next: (response) => {
+            this.response = response.body;
+            //this.data = response.body;
+            if (response.status === HttpStatusCode.Ok) {
+              this.toastr.success('Task updated successfully');
+              document.getElementById('closeUpdateModal').click();
+              document.getElementById('closeAssignedUpdateModal').click();
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000)
+            }
+          }, error: (error) => {
+            if (error.status === HttpStatusCode.Unauthorized) {
+              this.router.navigateByUrl('/session-timeout');
+            }
+          }
+        });
+      }
+      
     }
   }
 
