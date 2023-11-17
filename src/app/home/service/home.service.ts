@@ -89,6 +89,7 @@ export class HomeService {
   }
 
   fetchStatusforWeek(startdate:string,endDate:string){
+    console.log(startdate)
     const emailId= localStorage.getItem('email')
     return this.http.get<Object[]>(`${this.gatewayUrl}/${this.tasksMicroservicePathUrl}/weekTaskCount`, {
       observe: 'response',params:{startdate:startdate,endDate:endDate,emailId:emailId} ,headers: new HttpHeaders({

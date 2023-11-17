@@ -88,7 +88,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    *  get all employees in DB
    */
 
-  departmentList: Department[]
+  departmentList: Department[] = [];
   getAllEmployees() {
     this.employeeservice.getAll().subscribe({
       next: response => {
