@@ -33,7 +33,7 @@
                     <!-- col -->
                     <br />
                     <div class="col-sm-6" style="text-align: end;padding-right: 40px;">
-                        <p style="color: red;"><label style="color: black;">OTP Expires In:</label> {{display}}</p> 
+                        <p *ngIf="display !='00:00'" style="color: red;"><label style="color: black;">OTP Expires In:</label> {{display}}</p> 
                     </div>
                     <div class="row justify-content-center my-2">
                         <div id="emailDiv" class="col-sm-9">
@@ -50,7 +50,7 @@
                             <div class="col-sm-12" style="text-align: end">
                                 <span  style="font-size: 15px; padding-right: 190px;" [ngStyle]="{'color': isValidOtp? 'green':'red'}">{{OtpResponseMessage}}</span>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a style="padding-right: 65px;" (click)="resendOtp()" id="resendOtpLink">Resend OTP</a>
+                                <a *ngIf="display ==='00:00'" style="padding-right: 66px;" (click)="resendOtp()" id="resendOtpLink">Resend OTP</a>
                            </div>
                     </div>
                     <br />
