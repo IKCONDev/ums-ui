@@ -549,9 +549,16 @@ export class ReportComponent implements OnInit {
 
   
   getAgedTasks(){
-    var currentLocalDateTime = new Date();
-    var isoFormattedDate = currentLocalDateTime.toISOString();
-    this.reportservice.findAllAgedTasks(isoFormattedDate).subscribe({
+    var currentDate = new Date();
+    // Extract the date part without the time
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1; // Months are zero-based
+    var day = currentDate.getDate();
+
+   // Format the date as a string (optional)
+    var formattedDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+    console.log(formattedDate)
+    this.reportservice.findAllAgedTasks(formattedDate).subscribe({
       next: response => {
         this.agedTaskList = response.body;
         this.agedTaskListCount = response.body.length;
