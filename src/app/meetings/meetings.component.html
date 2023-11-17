@@ -152,10 +152,10 @@
                             </button>-->
                             <span data-toggle="modal" data-target="#mommodal"
                                 (click)="fetchUserOrganizedMeetings(meeting)" (click)="getActiveUMSUsersEmailIdList()"
-                                (click)="fetchActionItemsOfEvent(meeting.meetingId)" (click)="getDuration(meeting)">
+                                (click)="fetchActionItemsOfEvent(meeting.meetingId)" (click)="getDuration(meeting)" (click)="getAllAttendeeNamesByEmailId(meeting.attendees)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
                                     fill="none">
-                                    <g id="email{{meeting.meetingId}}" clip-path="url(#clip0_3359_93964)">
+                                    <g id="email" clip-path="url(#clip0_3359_93964)">
                                         <path id="Vector"
                                             d="M15.25 3.88281H3.75C2.95937 3.88281 2.31969 4.55781 2.31969 5.38281L2.3125 14.3828C2.3125 15.2078 2.95937 15.8828 3.75 15.8828H15.25C16.0406 15.8828 16.6875 15.2078 16.6875 14.3828V5.38281C16.6875 4.55781 16.0406 3.88281 15.25 3.88281ZM14.9625 7.07031L9.88094 10.3853C9.65094 10.5353 9.34906 10.5353 9.11906 10.3853L4.0375 7.07031C3.85781 6.95031 3.75 6.74781 3.75 6.53031C3.75 6.02781 4.27469 5.72781 4.68438 5.99031L9.5 9.13281L14.3156 5.99031C14.7253 5.72781 15.25 6.02781 15.25 6.53031C15.25 6.74781 15.1422 6.95031 14.9625 7.07031Z"
                                             fill="#606060" />
@@ -186,29 +186,25 @@
                                             <th id="tablehead" style="padding: 1.4em;">Action Item ID</th>
                                             <th id="tablehead" style="width: 170px;padding: 1.4em;">Action Item</th>
                                             <th id="tablehead" style="padding: 1.4em;">Owner</th>
+                                            <th id="tablehead" style="padding: 1.4em;">Start Date & Time</th>
                                             <th id="tablehead" style="width: 170px;padding: 1.4em;">Description</th>
-                                            <th id="tablehead" style="padding: 1.4em;">Planned Start Date</th>
-                                            <th id="tablehead" style="padding: 1.4em;">Planned End Date</th>
-                                            <th id="tablehead" style="padding: 1.4em;">Priority</th>
                                             <th id="tablehead" style="padding: 1.4em;">Status</th>
                                             <th id="tablehead" style="padding: 1.4em;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
-                                        <tr *ngIf="actionItem.meetingId === meeting.meetingId;">
-                                            <ng-container>
-                                                <td class="actionItemRows">
-                                                    <b *ngIf="actionItem.actionStatus == 'Submitted' else enableCheck">
-                                                        <input type="checkbox" disabled="true" />
-                                                    </b>
-                                                    <ng-template #enableCheck>
-                                                        <input type="checkbox" id="ac-check{{i}}" class="ac-check"
-                                                            value="{{actionItem.actionItemId}}"
-                                                            (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)"
-                                                            (change)="toggleMainCheckbox(i)" />
-                                                    </ng-template>
-                                                </td>
-                                            </ng-container>
+                                        <tr *ngIf="actionItem.meetingId === meeting.meetingId">
+                                            <td class="actionItemRows">
+                                                <b *ngIf="actionItem.actionStatus == 'Submitted' else enableCheck">
+                                                    <input type="checkbox" disabled="true" />
+                                                </b>
+                                                <ng-template #enableCheck>
+                                                    <input type="checkbox" id="ac-check{{i}}" class="ac-check"
+                                                        value="{{actionItem.actionItemId}}"
+                                                        (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)"
+                                                        (change)="toggleMainCheckbox(i)" />
+                                                </ng-template>
+                                            </td>
                                             <!--  -->
                                             <!-- <td>
                                                 <section>
@@ -226,13 +222,10 @@
                                             <td class="actionItemRows" style="padding: 1.7em;">
                                                 <p *ngFor="let owner of actionItem.actionItemOwner">{{owner}}</p>
                                             </td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.startDate
+                                                |date:'MMM d, y, h:mm a'}}</td>
                                             <td class="actionItemRows" id="meeting-subject" style="padding: 1.7em;">
                                                 {{actionItem.actionItemDescription}}</td>
-                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.startDate
-                                                |date:'MMM d, y'}}</td>
-                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.endDate
-                                                |date:'MMM d, y'}}</td>
-                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.actionPriority}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">
                                                 {{actionItem.actionStatus}}</td>
                                             <td class="actionItemRows"
@@ -269,16 +262,13 @@
                                     </tbody>
                                     <tbody>
                                         <tr style="background-color: white;">
-                                            <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                             <td style="text-align: center;color:#007bff" colspan="7">
                                                 <a data-toggle="modal" data-target="#myModal_add"
                                                     style="cursor: pointer;padding-left: 50px; "
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                             </td>
-                                            <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
-                                            <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                             <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}"
-                                               >
+                                                colspan="2">
                                                 <a style="cursor: pointer; margin-left:-120px;"><button
                                                         class="btn btn-primary submitButton"
                                                         (click)="submitActionItems(meeting)"
@@ -288,6 +278,7 @@
                                                     (click)="checkCheckboxes(meeting.meetingId)"><button
                                                         class="btn btn-outline-danger deleteButton">Delete</button></a>
                                             </td>
+                                            <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -468,8 +459,8 @@
                     </div>
                     <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                     <!-- start date -->
-                    <label><b>Planned Start Date</b><span id="required">*</span></label>
-                    <input type="date" min="{{min}}" class="form-control" style="width:400px;"
+                    <label><b>Start Date & Time</b><span id="required">*</span></label>
+                    <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" name="startDate"
                         #startDate="ngModel" [class.invalid]="startDate.invalid && startDate.touched"
                         (change)="validateActionStartDate()">
@@ -477,8 +468,8 @@
                         <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                     </div>
                     <!-- end date -->
-                    <label><b>Planned End Date</b><span id="required">*</span></label>
-                    <input type="date" min="{{min}}" class="form-control" style="width:400px;"
+                    <label><b>End Date & Time</b><span id="required">*</span></label>
+                    <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" name="endDate"
                         #endDate="ngModel" [class.invalid]="endDate.invalid && endDate.touched"
                         (change)="validateActionEndDate()">
@@ -577,8 +568,8 @@
                     </div>
                     <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
                     <!-- start date -->
-                    <label><b>Planned Start Date</b><span id="required">*</span></label>
-                    <input type="date" class="form-control" min="{{min}}" style="width:400px;"
+                    <label><b>Start Date & Time</b><span id="required">*</span></label>
+                    <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
                         [(ngModel)]="updatedetails.startDate" required="true" id="uAcItemStartDate"
                         name="uAcItemStartDate" #uAcItemStartDate="ngModel"
                         [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
@@ -587,8 +578,8 @@
                         <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
                     </div>
                     <!-- end date -->
-                    <label><b>Planned End Date</b><span id="required">*</span></label>
-                    <input type="datetime" class="form-control" min="{{min}}" style="width:400px;"
+                    <label><b>End Date & Time</b><span id="required">*</span></label>
+                    <input type="datetime-local" class="form-control" min="{{min}}" style="width:400px;"
                         [(ngModel)]="updatedetails.endDate" required="true" id="uAcItemEndDate" name="uAcItemEndDate"
                         #uAcItemEndDate="ngModel" [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"
                         (change)="validateUpdateActionEndDate()">
@@ -691,8 +682,11 @@
                     <hr>
                     <label for="attendees"><b>Attendees</b></label>
                     <div *ngIf="meetingData!= null">
-                        <div *ngFor="let attendees of meetingData.attendees">
-                            <label>{{attendees.email}}</label>
+                        <div *ngFor="let attendees of attendeeEmployeeName">
+                            <ul>
+                                <li>{{attendees.firstName}} {{attendees.lastName}}</li>
+                            </ul>
+                            
                         </div>
                     </div>
                     <hr>

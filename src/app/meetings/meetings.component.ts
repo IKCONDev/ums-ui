@@ -1359,12 +1359,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             this.toastr.success("Email sent successfully");
             document.getElementById('closeSendMoMEmail').click();
           }
-          else {
-            this.toastr.error("Error occured while sending email, please try again");
-          }
+          
+          
+
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl("/session-timeout")
+          }else{
+            this.toastr.error("Error occured while sending email, please try again");
           }
         }//error
       })
@@ -1701,6 +1703,33 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }) 
   }
+  attendeeEmailList :string[];
+  attendeeEmployeeName : Employee[];
+// Define a function to retrieve attendee names by email IDs
+getAllAttendeeNamesByEmailId(meetingAttendees: any[]) {
+  const attendeeEmailList: string[] = [];
+
+  // Extract email addresses from meetingAttendees
+  meetingAttendees.forEach(attendee => {
+    attendeeEmailList.push(attendee.email);
+  });
+  //attendeeEmailList.push('dhanush.akunuri@ikcontech.com')
+  //attendeeEmailList.push('dhanush.akunuri@ikcontech.com')
+  console.log(attendeeEmailList);
+  // Call the service to get employee names based on email IDs
+  this.employeeService.getAllEmployeesByAttendeeEmailId(attendeeEmailList).subscribe({
+    next: (response) => {
+      this.attendeeEmployeeName = response.body;
+      console.log(this.attendeeEmployeeName);
+      // Perform further actions with retrieved attendee names if needed
+    },
+    error: (err) => {
+      console.error('Error occurred while fetching attendee names:', err);
+      // Handle error as per your application's requirements
+    }
+  });
+}
+
 
 }
 

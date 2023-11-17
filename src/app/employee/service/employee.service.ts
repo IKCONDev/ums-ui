@@ -136,6 +136,15 @@ export class EmployeeService {
         });
         
     }
+    getAllEmployeesByAttendeeEmailId(emailIds: string[]){
+        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/attendees/${emailIds}`, {
+            observe: 'response', headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+            )
+        });
+        
+    }
 
 }
 
