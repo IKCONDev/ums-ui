@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { HomeService } from './service/home.service';
 import { outputAst } from '@angular/compiler';
@@ -10,6 +10,7 @@ import { Chart, registerables } from 'chart.js';
 import { Meeting } from '../model/Meeting.model';
 import { NumberValueAccessor } from '@angular/forms';
 import { TaskStatusModel } from '../model/taskStatus.model';
+import { NotificationService } from '../notifications/service/notification.service';
 Chart.register(...registerables);
 
 
@@ -23,6 +24,7 @@ Chart.register(...registerables);
 
 export class HomeComponent implements OnInit{
 
+  loggedInUser = localStorage.getItem('email');
  loggedInUserRole = localStorage.getItem('userRole');
  title: string = 'Overview';
  organizedMeetingsCount:string; 
@@ -68,7 +70,8 @@ export class HomeComponent implements OnInit{
    * @param router 
    * @param homeService 
    */
-  constructor(private router: Router, private homeService:HomeService,private headerService: HeaderService
+  constructor(private router: Router, private homeService:HomeService,private headerService: HeaderService,
+    private notificationService: NotificationService
     ){
     let loginInfo = {
       firstName: '',
@@ -134,6 +137,8 @@ export class HomeComponent implements OnInit{
    * 
    */
   ngOnInit(): void {
+    //get noti count
+    this.getNotificationCount(this.loggedInUser);
     //get all counts and display in home/overview poge
     this.getUserorganizedMeetingCount();
     this.getUserOrganizedActionItemsCount();
@@ -612,6 +617,22 @@ export class HomeComponent implements OnInit{
         }
       });
     }
+  }
+
+   /**
+   * 
+   * @param email 
+   */
+  @Output() notificationCount: number= 0 ;
+   getNotificationCount(email: string){
+   // let notificationCount = 0;
+    this.notificationService.findNotificationCount(email).subscribe({
+      next: response => {
+        this.notificationCount = response.body;
+        localStorage.setItem('notificationCount', this.notificationCount.toString());
+        console.log(localStorage.getItem('notificationCount'));
+      }
+    })
   }
 }
   
