@@ -322,15 +322,22 @@ export class HomeComponent implements OnInit{
             borderWidth: 3,
           },
           {
-            label: "Inprogress Task",
+            label: "Yet To Start Task",
             data: this.TotalTasks[1],
+            backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
+            borderColor: 'rgba(255, 148, 112, 1)',
+            borderWidth: 3,
+          },
+          {
+            label: "Inprogress Task",
+            data: this.TotalTasks[2],
             backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
           borderColor: 'rgba(255, 206, 86, 1)',
           borderWidth: 3,
         },
         {
           label: "Completed Task",
-          data: this.TotalTasks[2],
+          data: this.TotalTasks[3],
           backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 3,
@@ -394,15 +401,22 @@ export class HomeComponent implements OnInit{
             borderWidth: 3,
           },
           {
-            label: "Inprogress Task",
+            label: "Yet To Start Task",
             data: this.TotalTasksForYear[1],
+            backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
+            borderColor: 'rgba(255, 148, 112, 1)',
+            borderWidth: 3,
+          },
+          {
+            label: "Inprogress Task",
+            data: this.TotalTasksForYear[2],
             backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
           borderColor: 'rgba(255, 206, 86, 1)',
           borderWidth: 3,
         },
         {
           label: "Completed Task",
-          data: this.TotalTasksForYear[2],
+          data: this.TotalTasksForYear[3],
           backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 3,
