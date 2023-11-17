@@ -407,7 +407,7 @@ getTokenPopup(request) {
       }
     })
     }else{
-      this.toastr.error('This session already running in another tab, To continue please navigate to the already opened UMS tab.');
+      this.toastr.error('Another session is already running, please navigate to the already opened UMS application tab');
   }
   }
 
