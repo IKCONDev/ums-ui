@@ -35,6 +35,7 @@ export class HeaderComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges){
+    if(this.unreadNotificationCount != null)
     localStorage.setItem('notificationCount',this.unreadNotificationCount.toString());
   }
 

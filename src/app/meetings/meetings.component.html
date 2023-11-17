@@ -459,8 +459,8 @@
                     </div>
                     <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                     <!-- start date -->
-                    <label><b>Start Date & Time</b><span id="required">*</span></label>
-                    <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
+                    <label><b>Planned Start Date</b><span id="required">*</span></label>
+                    <input type="date" min="{{min}}" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.startDate" required="true" id="actionItemStartDate" name="startDate"
                         #startDate="ngModel" [class.invalid]="startDate.invalid && startDate.touched"
                         (change)="validateActionStartDate()">
@@ -468,8 +468,8 @@
                         <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                     </div>
                     <!-- end date -->
-                    <label><b>End Date & Time</b><span id="required">*</span></label>
-                    <input type="datetime-local" min="{{min}}" class="form-control" style="width:400px;"
+                    <label><b>Planned End Date</b><span id="required">*</span></label>
+                    <input type="date" min="{{min}}" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.endDate" required="true" id="actionItemEndDate" name="endDate"
                         #endDate="ngModel" [class.invalid]="endDate.invalid && endDate.touched"
                         (change)="validateActionEndDate()">
@@ -742,7 +742,7 @@
                         </div>
                         <!-- start date time -->
                         <label><b>Start Date & Time</b><span id="required">*</span></label>
-                        <input type="datetime-local" class="form-control" min="{{min}}"
+                        <input type="datetime-local" class="form-control" 
                             [(ngModel)]="addMeeting.startDateTime" style="width: 400px;"
                             (change)="validateMeetingStartDateTime()" id="meetingStartDate" name="meetingStartDate" />
                         <div>
@@ -752,7 +752,7 @@
                         </div>
                         <!-- end date time -->
                         <label><b>End Date & Time</b><span id="required">*</span></label>
-                        <input type="datetime-local" class="form-control" min="{{min}}"
+                        <input type="datetime-local" class="form-control" 
                             [(ngModel)]="addMeeting.endDateTime" style="width: 400px;"
                             (change)="validateMeetingEndDateTime()" id="meetingEndDate" name="meetingEndDate" />
                         <div>

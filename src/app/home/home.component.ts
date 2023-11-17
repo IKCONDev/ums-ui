@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { HomeService } from './service/home.service';
 import { outputAst } from '@angular/compiler';
@@ -10,6 +10,7 @@ import { Chart, registerables } from 'chart.js';
 import { Meeting } from '../model/Meeting.model';
 import { NumberValueAccessor } from '@angular/forms';
 import { TaskStatusModel } from '../model/taskStatus.model';
+import { NotificationService } from '../notifications/service/notification.service';
 Chart.register(...registerables);
 
 
@@ -23,6 +24,7 @@ Chart.register(...registerables);
 
 export class HomeComponent implements OnInit{
 
+  loggedInUser = localStorage.getItem('email');
  loggedInUserRole = localStorage.getItem('userRole');
  title: string = 'Overview';
  organizedMeetingsCount:string; 
@@ -68,7 +70,8 @@ export class HomeComponent implements OnInit{
    * @param router 
    * @param homeService 
    */
-  constructor(private router: Router, private homeService:HomeService,private headerService: HeaderService
+  constructor(private router: Router, private homeService:HomeService,private headerService: HeaderService,
+    private notificationService: NotificationService
     ){
     let loginInfo = {
       firstName: '',
@@ -134,6 +137,8 @@ export class HomeComponent implements OnInit{
    * 
    */
   ngOnInit(): void {
+    //get noti count
+    this.getNotificationCount(this.loggedInUser);
     //get all counts and display in home/overview poge
     this.getUserorganizedMeetingCount();
     this.getUserOrganizedActionItemsCount();
@@ -315,22 +320,29 @@ export class HomeComponent implements OnInit{
         xLabels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'],
 	       datasets: [
           {
-            label: "Assigned Task",
+            label: "Total Tasks",
             data: this.TotalTasks[0],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
           },
           {
-            label: "Inprogress Task",
+            label: "Yet To Start Task",
             data: this.TotalTasks[1],
+            backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
+            borderColor: 'rgba(255, 148, 112, 1)',
+            borderWidth: 3,
+          },
+          {
+            label: "Inprogress Task",
+            data: this.TotalTasks[2],
             backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
           borderColor: 'rgba(255, 206, 86, 1)',
           borderWidth: 3,
         },
         {
           label: "Completed Task",
-          data: this.TotalTasks[2],
+          data: this.TotalTasks[3],
           backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 3,
@@ -387,22 +399,29 @@ export class HomeComponent implements OnInit{
         xLabels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 	       datasets: [
           {
-            label: "Assigned Task",
+            label: "Total Tasks",
             data: this.TotalTasksForYear[0],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
           },
           {
-            label: "Inprogress Task",
+            label: "Yet To Start Task",
             data: this.TotalTasksForYear[1],
+            backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
+            borderColor: 'rgba(255, 148, 112, 1)',
+            borderWidth: 3,
+          },
+          {
+            label: "Inprogress Task",
+            data: this.TotalTasksForYear[2],
             backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
           borderColor: 'rgba(255, 206, 86, 1)',
           borderWidth: 3,
         },
         {
           label: "Completed Task",
-          data: this.TotalTasksForYear[2],
+          data: this.TotalTasksForYear[3],
           backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 3,
@@ -598,6 +617,22 @@ export class HomeComponent implements OnInit{
         }
       });
     }
+  }
+
+   /**
+   * 
+   * @param email 
+   */
+  @Output() notificationCount: number= 0 ;
+   getNotificationCount(email: string){
+   // let notificationCount = 0;
+    this.notificationService.findNotificationCount(email).subscribe({
+      next: response => {
+        this.notificationCount = response.body;
+        localStorage.setItem('notificationCount', this.notificationCount.toString());
+        console.log(localStorage.getItem('notificationCount'));
+      }
+    })
   }
 }
   

@@ -94,9 +94,9 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
     NgSelectModule,
     ReactiveFormsModule,
     NgxUiLoaderModule,
-    NgxUiLoaderHttpModule.forRoot({
-      showForeground:true,
-    }),
+    // NgxUiLoaderHttpModule.forRoot({
+    //   showForeground:true,
+    // }),
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy,}],
   bootstrap: [AppComponent]

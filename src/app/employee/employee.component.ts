@@ -88,7 +88,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    *  get all employees in DB
    */
 
-  departmentList: Department[]
+  departmentList: Department[] = [];
   getAllEmployees() {
     this.employeeservice.getAll().subscribe({
       next: response => {
@@ -446,7 +446,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.employeeLastNameErrorInfo = "Last Name is required";
       this.isEmployeeLasttNameValid = false;
     }
-    else if (this.addEmployee.lastName.length > 5) {
+    else if (this.addEmployee.lastName.length > 1) {
       this.employeeLastNameErrorInfo = "";
       this.isEmployeeLasttNameValid = true;
 
@@ -617,7 +617,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
     }
-    else if (this.existingEmployee.lastName.length < 5) {
+    else if (this.existingEmployee.lastName.length < 1) {
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
     }

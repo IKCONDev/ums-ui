@@ -2,7 +2,7 @@
     <app-side-menubar></app-side-menubar>
 </div>
 <div>
-    <app-header [title]="title" id="header"></app-header>
+    <app-header [title]="title" [unreadNotificationCount]="notificationCount" id="header"></app-header>
 </div>
 
 <div class="container-fluid">
@@ -384,7 +384,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="width: 560px;">
                             <div class="col-md-12" style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
                                 <label style=" font-size: 20px;margin: 5px;margin-left: -3px;"><b id="title-label">Task Title</b><span id="required">*</span></label>
                             </div>
@@ -424,7 +424,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:430px; height: 380px; background-color: #ecf7fc; margin-top: -115px;">
+                            style=" width:430px; height: 380px; background-color: #ecf7fc; margin-top: -115px; margin-left: 11px;">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="margin: 5px;">Details</label>
                             </div>
