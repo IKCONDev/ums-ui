@@ -20,6 +20,9 @@ export class LoginComponent {
     @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService,
     private notificationService: NotificationService) { 
      this.myMSALObj = new PublicClientApplication(this.msalConfig);
+     window.onbeforeunload= () =>{
+      localStorage.clear();
+     }
      
   }
 
@@ -404,7 +407,7 @@ getTokenPopup(request) {
       }
     })
     }else{
-      this.toastr.error('Session is already existed in browser');
+      this.toastr.error('This session already running in another tab, To continue please navigate to the already opened UMS tab.');
   }
   }
 
