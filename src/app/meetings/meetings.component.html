@@ -34,15 +34,17 @@
                     data-target="#createModal" (click)="getActiveUMSUsersEmailIdList()">
                 </i>
             </div>
-            <div *ngIf="tabOpened === 'AttendedMeeting'" class="col-sm-2 d-flex" id="attendedFilter" data-toggle="modal" data-target="#attendedFilterModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
-                            fill="#E5EEF1" />
-                    </svg>
-                
+            <div *ngIf="tabOpened === 'AttendedMeeting'" class="col-sm-2 d-flex" id="attendedFilter" data-toggle="modal"
+                data-target="#attendedFilterModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
+                        fill="#E5EEF1" />
+                </svg>
+
             </div>
-            <div *ngIf="tabOpened === 'OrganizedMeeting'" class="col-sm-1 d-flex" id="filter" data-toggle="modal" data-target="#organizedFilterModal">
+            <div *ngIf="tabOpened === 'OrganizedMeeting'" class="col-sm-1 d-flex" id="filter" data-toggle="modal"
+                data-target="#organizedFilterModal">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z"
@@ -54,7 +56,8 @@
     </div>
     <div class="card-body" *ngIf="tabOpened === 'OrganizedMeeting'">
         <!-- reportee dropdown -->
-        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
+            style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
                 [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
@@ -65,7 +68,8 @@
                 </ng-option>
             </ng-select>
         </div>
-        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0"
+            style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
                 [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
@@ -150,11 +154,10 @@
                             <!--<button type="submit"  data-toggle="modal" data-target="#mommodal">send
 
                             </button>-->
-                            <span id="email{{meeting.meetingId}}"  data-toggle="modal" data-target="#mommodal"
+                            <span id="email{{meeting.meetingId}}" data-toggle="modal" data-target="#mommodal"
                                 (click)="fetchUserOrganizedMeetings(meeting)" (click)="getActiveUMSUsersEmailIdList()"
-                                (click)="fetchActionItemsOfEvent(meeting.meetingId)" (click)="getDuration(meeting)" 
-                                (click)="getAllAttendeeNamesByEmailId(meeting.attendees)"
-                                >
+                                (click)="fetchActionItemsOfEvent(meeting.meetingId)" (click)="getDuration(meeting)"
+                                (click)="getAllAttendeeNamesByEmailId(meeting.attendees)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
                                     fill="none">
                                     <g id="email{{meeting.meetingId}}" clip-path="url(#clip0_3359_93964)">
@@ -234,7 +237,8 @@
                                                 |date:'MMM d, y'}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.endDate
                                                 |date:'MMM d, y'}}</td>
-                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.actionPriority}}</td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">
+                                                {{actionItem.actionPriority}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">
                                                 {{actionItem.actionStatus}}</td>
                                             <td class="actionItemRows"
@@ -279,8 +283,7 @@
                                             </td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
-                                            <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}"
-                                               >
+                                            <td style="display: none;" id="submitAndDelete{{meeting.meetingId}}">
                                                 <a style="cursor: pointer; margin-left:-120px;"><button
                                                         class="btn btn-primary submitButton"
                                                         (click)="submitActionItems(meeting)"
@@ -327,7 +330,8 @@
     <!-- ngif -->
     <div class="card-body" *ngIf="tabOpened === 'AttendedMeeting'">
         <!-- reportee dropdown -->
-        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole != 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole != 'SUPER_ADMIN') && reporteeCount > 0"
+            style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
                 [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
@@ -338,7 +342,8 @@
                 </ng-option>
             </ng-select>
         </div>
-        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0" style="padding-top: 9px; ">
+        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0"
+            style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
                 [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
@@ -407,10 +412,10 @@
                 <form #form="ngForm" id="formId" method="POST">
                     <!-- title -->
                     <label><b>Action Item Title<span id="required">*</span></b></label>
-                    <input type="text" class="form-control" style="width: 400px;padding-top: 10px;" placeholder="Enter title !..."
-                        [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
-                        id="actionItemTitle" minlength="5" maxlength="50" #actionItemTitle="ngModel"
-                        [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
+                    <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
+                        placeholder="Enter title !..." [(ngModel)]="addDetails.actionItemTitle" required="true"
+                        name="actionItemTitle" id="actionItemTitle" minlength="5" maxlength="50"
+                        #actionItemTitle="ngModel" [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
                         (keyup)="validateActionTitle()">
                     <div *ngIf="actionItemTitleErrorInfo != ''">
                         <span id="errorSpan">{{actionItemTitleErrorInfo}}</span>
@@ -419,10 +424,10 @@
                     <!-- description -->
                     <label><b>Action Item Description</b><span id="required">*</span></label>
                     <div style="padding-left: 10px; margin-top:10px;">
-                        <textarea type="text" rows="3" cols="3" class="form-control" placeholder="Enter description !..."
-                            style="width:400px;max-height:200px" [(ngModel)]="addDetails.actionItemDescription"
-                            required="true" name="actionItemDescription" #actionItemDescription="ngModel" minlength="10"
-                            maxlength="250" id="actionItemDescription"
+                        <textarea type="text" rows="3" cols="3" class="form-control"
+                            placeholder="Enter description !..." style="width:400px;max-height:200px"
+                            [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
+                            #actionItemDescription="ngModel" minlength="10" maxlength="250" id="actionItemDescription"
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
                             (keyup)="validateActionDescription()"></textarea>
                     </div>
@@ -709,9 +714,8 @@
                         <div *ngIf="meetingData!= null && meetingData.meetingId == action.meetingId">
                             <ul id="actionItem{{meetingData.meetingId}}">
                                 <li id="actionItem{{i}}">{{action.actionItemTitle}}</li>
-                            <ul>
-                                <li>{{action.actionItemTitle}}</li>
-                            </ul>
+                                    <li>{{action.actionItemTitle}}</li>
+                             </ul>
                         </div>
                     </div>
                     <!--footer-->
@@ -816,102 +820,113 @@
     </div>
 
     <!-- custom advanced organized filter modal -->
-<div class="modal" id="organizedFilterModal">
-    <div class="modal-dialog" id="dialog">
-      <div class="modal-content"> 
-        <div class="filters-action-item">
-          <div class="filters-parent">
-              <div class="filters">Filters</div>
-              <img class="cross-icon" alt="" src="../../assets/images/cross.svg" 
-              id="filterModal" data-dismiss="modal" style="cursor: pointer;">
-          </div>
-          <div class="filter-dd">              
-              <div class="meeting-title-dd-parent">
-                  <!-- <div class="meeting-title-dd">
+    <div class="modal" id="organizedFilterModal">
+        <div class="modal-dialog" id="dialog">
+            <div class="modal-content">
+                <div class="filters-action-item">
+                    <div class="filters-parent">
+                        <div class="filters">Filters</div>
+                        <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="filterModal"
+                            data-dismiss="modal" style="cursor: pointer;">
+                    </div>
+                    <div class="filter-dd">
+                        <div class="meeting-title-dd-parent">
+                            <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
                           <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                       </div>          					
                   </div> -->
-                  <div class="meeting-title-dd">
-                    <div class="meeting-title-filter">
-                        <input type ="text" [(ngModel)]="organizedMeetingTitleFilter" #boxOrganizedMeetingTitle placeholder="Meeting title" name="meeting-title-filter" />
-                        <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
-                    </div>          					
-                </div>
-                  <!-- <div class="meeting-title-dd">
+                            <div class="meeting-title-dd">
+                                <div class="meeting-title-filter">
+                                    <input type="text" [(ngModel)]="organizedMeetingTitleFilter"
+                                        #boxOrganizedMeetingTitle placeholder="Meeting title"
+                                        name="meeting-title-filter" />
+                                    <img class="search-icon" alt="" src="../../assets/images/search.svg">
+                                </div>
+                            </div>
+                            <!-- <div class="meeting-title-dd">
                       <div >Assignee
                           <input readonly="true" type="text" [(ngModel)] = "assignedTaskOrganizerFilter" #boxAssignedOrg class="actitem-organizer-filter"
                            />
                       </div>
                   </div> -->
-                  <div class="date-range">
-                      <div class="date-parent">
-                          <input type="datetime-local" #boxOrganizedStartdate [(ngModel)] = "organizedMeetingStartDateFilter" />
-                      </div>
-                      <div class="to">To</div>
-                      <div class="date-parent">
-                          <input type="datetime-local" #boxOrganizedEndDate [(ngModel)] = "organizedMeetingEndDateFilter"/>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="submit-button-parent">
-              <button type="button" class="submit-button" (click)="filterOrganizedMeetingList(boxOrganizedMeetingTitle.value, boxOrganizedStartdate.value, boxOrganizedEndDate.value)">Apply</button>
-              <button type="button" class="delete-button"  (click)="resetOrganizedMeetingsFilter()">Clear</button>
-          </div>
-      </div>  
-      </div>
+                            <div class="date-range">
+                                <div class="date-parent">
+                                    <input type="datetime-local" #boxOrganizedStartdate
+                                        [(ngModel)]="organizedMeetingStartDateFilter" />
+                                </div>
+                                <div class="to">To</div>
+                                <div class="date-parent">
+                                    <input type="datetime-local" #boxOrganizedEndDate
+                                        [(ngModel)]="organizedMeetingEndDateFilter" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-button-parent">
+                        <button type="button" class="submit-button"
+                            (click)="filterOrganizedMeetingList(boxOrganizedMeetingTitle.value, boxOrganizedStartdate.value, boxOrganizedEndDate.value)">Apply</button>
+                        <button type="button" class="delete-button"
+                            (click)="resetOrganizedMeetingsFilter()">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
 
-   <!-- custom advanced organized filter modal -->
-   <div class="modal" id="attendedFilterModal">
-    <div class="modal-dialog" id="dialog">
-      <div class="modal-content"> 
-        <div class="filters-action-item">
-          <div class="filters-parent">
-              <div class="filters">Filters</div>
-              <img class="cross-icon" alt="" src="../../assets/images/cross.svg" 
-              id="filterModal" data-dismiss="modal" style="cursor: pointer;">
-          </div>
-          <div class="filter-dd">              
-              <div class="meeting-title-dd-parent">
-                  <!-- <div class="meeting-title-dd">
+    <!-- custom advanced organized filter modal -->
+    <div class="modal" id="attendedFilterModal">
+        <div class="modal-dialog" id="dialog">
+            <div class="modal-content">
+                <div class="filters-action-item">
+                    <div class="filters-parent">
+                        <div class="filters">Filters</div>
+                        <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="filterModal"
+                            data-dismiss="modal" style="cursor: pointer;">
+                    </div>
+                    <div class="filter-dd">
+                        <div class="meeting-title-dd-parent">
+                            <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
                           <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                       </div>          					
                   </div> -->
-                  <div class="meeting-title-dd">
-                    <div class="meeting-title-filter">
-                        <input type ="text" [(ngModel)]="attendedMeetingTitleFilter" #boxAttendedMeetingTitle placeholder="Meeting title" name="meeting-title-filter" />
-                        <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
-                    </div>          					
-                </div>
-                  <!-- <div class="meeting-title-dd">
+                            <div class="meeting-title-dd">
+                                <div class="meeting-title-filter">
+                                    <input type="text" [(ngModel)]="attendedMeetingTitleFilter" #boxAttendedMeetingTitle
+                                        placeholder="Meeting title" name="meeting-title-filter" />
+                                    <img class="search-icon" alt="" src="../../assets/images/search.svg">
+                                </div>
+                            </div>
+                            <!-- <div class="meeting-title-dd">
                       <div >Assignee
                           <input readonly="true" type="text" [(ngModel)] = "assignedTaskOrganizerFilter" #boxAssignedOrg class="actitem-organizer-filter"
                            />
                       </div>
                   </div> -->
-                  <div class="date-range">
-                      <div class="date-parent">
-                          <input type="datetime-local" #boxAttendedStartdate [(ngModel)] = "attendedMeetingStartDateFilter" />
-                      </div>
-                      <div class="to">To</div>
-                      <div class="date-parent">
-                          <input type="datetime-local" #boxAttendedEndDate [(ngModel)] = "attendedMeetingEndDateFilter"/>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="submit-button-parent">
-              <button type="button" class="submit-button" (click)="filterAttendedMeetingList(boxAttendedMeetingTitle.value, boxAttendedStartdate.value, boxAttendedEndDate.value)">Apply</button>
-              <button type="button" class="delete-button"  (click)="resetAttendedMeetingsFilter()">Clear</button>
-          </div>
-      </div>  
-      </div>
+                            <div class="date-range">
+                                <div class="date-parent">
+                                    <input type="datetime-local" #boxAttendedStartdate
+                                        [(ngModel)]="attendedMeetingStartDateFilter" />
+                                </div>
+                                <div class="to">To</div>
+                                <div class="date-parent">
+                                    <input type="datetime-local" #boxAttendedEndDate
+                                        [(ngModel)]="attendedMeetingEndDateFilter" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-button-parent">
+                        <button type="button" class="submit-button"
+                            (click)="filterAttendedMeetingList(boxAttendedMeetingTitle.value, boxAttendedStartdate.value, boxAttendedEndDate.value)">Apply</button>
+                        <button type="button" class="delete-button"
+                            (click)="resetAttendedMeetingsFilter()">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
