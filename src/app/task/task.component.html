@@ -715,11 +715,11 @@
                         </div>
                         <div class="date-range">
                             <div class="date-parent">
-                                <input type="datetime-local" #boxStart [(ngModel)]="filter_StartDate" />
+                                <input type="date" #boxStart [(ngModel)]="filter_StartDate" />
                             </div>
                             <div class="to">To</div>
                             <div class="date-parent">
-                                <input type="datetime-local" #boxEnd [(ngModel)]="filter_EndDate" />
+                                <input type="date" #boxEnd [(ngModel)]="filter_EndDate" />
                             </div>
                         </div>
                     </div>
@@ -778,12 +778,12 @@
                         </div>
                         <div class="date-range">
                             <div class="date-parent">
-                                <input type="datetime-local" #boxAssignedStart
+                                <input type="date" #boxAssignedStart
                                     [(ngModel)]="assignedTaskStartDateFilter" />
                             </div>
                             <div class="to">To</div>
                             <div class="date-parent">
-                                <input type="datetime-local" #boxAssignedEnd [(ngModel)]="assignedTaskEndDateFilter" />
+                                <input type="date" #boxAssignedEnd [(ngModel)]="assignedTaskEndDateFilter" />
                             </div>
                         </div>
                     </div>

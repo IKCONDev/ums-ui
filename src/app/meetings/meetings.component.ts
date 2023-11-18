@@ -1773,18 +1773,19 @@ updatedreceiptientsList: string[] = [];
 getAddReceiptientsForMOMEmail(meetingAttendees: Attendee[]) {
   this.meetingsService.getActiveUserEmailIdList().subscribe({
     next: (response) => {
-      this.userEmailIdList = response.body;
+      this.receiptientsList = response.body;
+      console.log(this.receiptientsList);
       this.updatedreceiptientsList = [];
       meetingAttendees.forEach(attendee => {
         // Check  attendee's email is not in the user email list
-        if (!this.userEmailIdList.includes(attendee.email)) {
+        if (!this.receiptientsList.includes(attendee.email)) {
           this.updatedreceiptientsList.push(attendee.email);
         }  
         else {
           //attendee's email is present, remove it from userEmailIdList
-          const index = this.userEmailIdList.indexOf(attendee.email);
+          const index = this.receiptientsList.indexOf(attendee.email);
           if (index > -1) {
-            this.userEmailIdList.splice(index, 1);
+            this.receiptientsList.splice(index, 1);
           }
         }
 
