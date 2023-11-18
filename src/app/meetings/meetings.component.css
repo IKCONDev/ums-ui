@@ -841,6 +841,10 @@ table th{
   color: #000716;
 }
 
+svg:hover{
+  cursor: pointer;
+}
+
 #dialog {
   position: absolute;
   top: 17vh;

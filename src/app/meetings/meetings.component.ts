@@ -237,6 +237,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     //initialize jquery datatable meetings table
     this.InitailizeJqueryDataTable();
+
+    this.enableOrDisableSendMOM();
+
   }
 
   /**
@@ -578,6 +581,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }//error
     })
+
   }
 
   /**
@@ -1708,24 +1712,60 @@ getAllAttendeeNamesByEmailId(meetingAttendees: any[]) {
       // Handle error as per your application's requirements
     }
   });
-  setTimeout(() => {
-    this.enableOrDisableSendMOM();
-  },100)
 }
 
 isDisabled = false;
 actionItemsErrorMessage = '';
-enableOrDisableSendMOM(){
-  var element = document.getElementById('actionItem'+0);
-  console.log(element)
-  if(element === null){
-    this.isDisabled = true;
-    this.actionItemsErrorMessage = "Please add action items to send MOM.";
-  }  else{
-    this.isDisabled = false;
-    this.actionItemsErrorMessage = "";
+actionItemList: ActionItems[];
+meetingList: Meeting[];
+//newActionItemList: ActionItems[] = [];
+enableOrDisableSendMOM() {
+  this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, '', '', '').subscribe({
+    next: response => {
+      this.meetingList = response.body;
+      this.meetingList.forEach(meeting => {
+        var newActionItemList = [];
+        this.actionItemService.getAllActionItems().subscribe({
+          next: response => {
+            this.actionItemList = response.body;
+            for (var i = 0; i < this.actionItemList.length; i++) {
+              var actionItem = this.actionItemList[i];
+              if (meeting.meetingId === actionItem.meetingId) {
+                newActionItemList.push(actionItem);
+                break;
+              }
+            }
+            if (newActionItemList.length === 0) {
+              this.disableMomButton(meeting.meetingId);
+            }
+          },
+          error: error => {
+            console.error('Error fetching action items:', error);
+          }
+        });
+      });
+    },
+    error: error => {
+      console.error('Error fetching meetings:', error);
+    }
+  });
+}
+
+disableMomButton(meetingId: number) {
+  var momBTN = document.getElementById('email' + meetingId);
+  if (momBTN) {
+    momBTN.style.pointerEvents = 'none';
+    momBTN.style.fill = 'lightgrey';
+    momBTN.style.cursor = 'pointer'
+    momBTN.title = 'This button is disabled because there are no action items.'; 
+    var svgPath = momBTN.querySelector('svg path') as HTMLInputElement;
+    if (svgPath) {
+      svgPath.style.fill = 'lightgrey';
+      svgPath.setAttribute('title', 'This button is disabled because there are no action items.');    
+    }
   }
 }
+
 
 
 }
