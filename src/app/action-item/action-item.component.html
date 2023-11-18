@@ -588,18 +588,18 @@
         
                   <div class="date-range">
                       <div class="date-parent">
-                          <input type="datetime-local" #boxStart [(ngModel)] = "actionItemStartDateFilter" />
+                          <input type="date" #boxStart [(ngModel)] = "actionItemStartDateFilter" />
                       </div>
                       <div class="to">To</div>
                       <div class="date-parent">
-                          <input type="datetime-local" #boxEnd [(ngModel)] = "actionItemEndDateFilter" />
+                          <input type="date" #boxEnd [(ngModel)] = "actionItemEndDateFilter" />
                       </div>
                   </div>
               </div>
           </div>
           <div class="submit-button-parent">
               <button type="button" class="submit-button" (click)="filterActionItemList(boxTitle.value, boxOwner.value, boxStart.value, boxEnd.value)">Apply</button>
-              <button type="button" class="delete-button" (click)="resetFilterModal()"  >Clear</button>
+              <button type="button" class="delete-button" (click)="resetFilterModal()" >Clear</button>
           </div>
       </div>  
       </div>

@@ -1102,7 +1102,7 @@ export class ActionItemComponent implements OnInit {
     localStorage.setItem('actionItemNameFilter', '');
     localStorage.setItem('actionItemStartDateFilter', '');
     localStorage.setItem('actionItemEndDateFilter', '');
-    localStorage.setItem('actionItemOrganizerFilter', '');
+    localStorage.setItem('actionItemOwnerFilter', '');
     
     this.CloseFilterActionItemModal();
     window.location.reload();
