@@ -23,7 +23,7 @@ export class NotificationsComponent implements OnInit {
   constructor(private notificationService: NotificationService,
     private router: Router, private headerService : HeaderService, private cdr :ChangeDetectorRef){
       this.getNotificationsOfUser();
-      this.getAssignedUserProfile('Bharat@ikcontech.com')
+     // this.getAssignedUserProfile('Bharat@ikcontech.com')
   }
 
   ngOnInit(): void {

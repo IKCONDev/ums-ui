@@ -20,9 +20,9 @@ export class LoginComponent {
     @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService,
     private notificationService: NotificationService) { 
      this.myMSALObj = new PublicClientApplication(this.msalConfig);
-     window.onbeforeunload= () =>{
-      localStorage.clear();
-     }
+    //  window.onbeforeunload= () =>{
+    //   localStorage.clear();
+    //  }
      
   }
 

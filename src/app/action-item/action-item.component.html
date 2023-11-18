@@ -467,7 +467,7 @@
                                                         <option>Medium</option>
                                                         <option>Low</option>
                                                     </select> -->
-                                                <input type="text" id="taskPriority" class="form-control" [(ngModel)]="currentActionItemPriority"
+                                                <input type="text" id="taskPriority" class="form-control" [(ngModel)]="add_Task.taskPriority"
                                                 name="taskPriority" #taskPriority="ngModel" readonly/>
                                                 </span>
                                                 <!-- <div *ngIf="taskPriorityErrorInfo!=''">
@@ -506,7 +506,7 @@
                                             <td><b>Planned Start Date</b></td>
                                             <td><span> <input type="date" class="form-control" min="{{min}}"
                                                 id="taskPlannedStartDate"
-                                                 name="taskPlannedStartDate" [(ngModel)]="currentActionItemPlannedStartDate"
+                                                 name="taskPlannedStartDate" [(ngModel)]="add_Task.plannedStartDate"
                                                  #taskPlannedStartDate="ngModel" required="true"
                                                  [class.invalid]="taskPlannedStartDate.invalid && taskPlannedStartDate.touched"
                                                  (change)="validateTaskDueDate()" disabled></span>
@@ -516,7 +516,7 @@
                                             <td><b>Planned End Date</b></td>
                                             <td><span> <input type="date" class="form-control" min="{{min}}"
                                                 id="taskPlannedDueDate"
-                                                 name="taskPlannedDueDate" [(ngModel)]="currentActionItemPlannedEndDate"
+                                                 name="taskPlannedDueDate" [(ngModel)]="add_Task.plannedEndDate"
                                                  #taskPlannedDueDate="ngModel" required="true"
                                                  [class.invalid]="taskPlannedDueDate.invalid && taskPlannedDueDate.touched"
                                                  (change)="validateTaskDueDate()" disabled></span>
