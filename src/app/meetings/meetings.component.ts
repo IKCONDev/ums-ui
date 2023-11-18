@@ -985,7 +985,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // }});
     this.meetingsService.getActiveUserEmailIdList().subscribe({
       next: (response) => {
+        let i=0;
         this.userEmailIdList = response.body;
+        
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
@@ -1726,6 +1728,36 @@ getAllAttendeeNamesByEmailId(meetingAttendees: any[]) {
     error: (err) => {
       console.error('Error occurred while fetching attendee names:', err);
       // Handle error as per your application's requirements
+    }
+  });
+}
+receiptientsList: string[] = [];
+updatedreceiptientsList: string[] = [];
+
+getAddReceiptientsForMOMEmail(meetingAttendees: Attendee[]) {
+  this.meetingsService.getActiveUserEmailIdList().subscribe({
+    next: (response) => {
+      this.userEmailIdList = response.body;
+      this.updatedreceiptientsList = [];
+      meetingAttendees.forEach(attendee => {
+        // Check  attendee's email is not in the user email list
+        if (!this.userEmailIdList.includes(attendee.email)) {
+          this.updatedreceiptientsList.push(attendee.email);
+        }  
+        else {
+          //attendee's email is present, remove it from userEmailIdList
+          const index = this.userEmailIdList.indexOf(attendee.email);
+          if (index > -1) {
+            this.userEmailIdList.splice(index, 1);
+          }
+        }
+
+      });
+    },
+    error: (error) => {
+      if (error.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl("/session-timeout");
+      }
     }
   });
 }
