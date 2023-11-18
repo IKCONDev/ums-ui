@@ -985,7 +985,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // }});
     this.meetingsService.getActiveUserEmailIdList().subscribe({
       next: (response) => {
+        let i=0;
         this.userEmailIdList = response.body;
+        
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
@@ -1353,7 +1355,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
     if (isEmailvalid == true) {
-      this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints).subscribe({
+      this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints,this.hoursDiff,this.minutesDiff).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
             this.toastr.success("Email sent successfully");
@@ -1764,6 +1766,36 @@ disableMomButton(meetingId: number) {
       svgPath.setAttribute('title', 'This button is disabled because there are no action items.');    
     }
   }
+}
+receiptientsList: string[] = [];
+updatedreceiptientsList: string[] = [];
+
+getAddReceiptientsForMOMEmail(meetingAttendees: Attendee[]) {
+  this.meetingsService.getActiveUserEmailIdList().subscribe({
+    next: (response) => {
+      this.userEmailIdList = response.body;
+      this.updatedreceiptientsList = [];
+      meetingAttendees.forEach(attendee => {
+        // Check  attendee's email is not in the user email list
+        if (!this.userEmailIdList.includes(attendee.email)) {
+          this.updatedreceiptientsList.push(attendee.email);
+        }  
+        else {
+          //attendee's email is present, remove it from userEmailIdList
+          const index = this.userEmailIdList.indexOf(attendee.email);
+          if (index > -1) {
+            this.userEmailIdList.splice(index, 1);
+          }
+        }
+
+      });
+    },
+    error: (error) => {
+      if (error.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl("/session-timeout");
+      }
+    }
+  });
 }
 
 

@@ -6,6 +6,7 @@ export class MOMObject{
     meeting : Meeting;
     emailList : String[];
     discussionPoints : string;
-
+    hoursDiff : string;
+    minutesDiff : string;
 
 }
