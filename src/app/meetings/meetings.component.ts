@@ -1351,7 +1351,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
     if (isEmailvalid == true) {
-      this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints).subscribe({
+      this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints,this.hoursDiff,this.minutesDiff).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
             this.toastr.success("Email sent successfully");

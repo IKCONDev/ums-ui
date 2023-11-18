@@ -177,12 +177,14 @@ export class MeetingService {
        })
     }
     
-    sendMinutesofMeeting(emailList: String[],meeting: Meeting,discussionPoints:string){
+    sendMinutesofMeeting(emailList: String[],meeting: Meeting,discussionPoints:string,hoursDiff:string,minutesDiff:string){
       console.log("the email List is"+emailList);
       var momObject ={
         meeting: meeting,
         emailList: emailList,
-        discussionPoints : discussionPoints
+        discussionPoints : discussionPoints,
+        hoursDiff : hoursDiff,
+        minutesDiff :minutesDiff
         
       }
       console.log("discussion points"+discussionPoints);
