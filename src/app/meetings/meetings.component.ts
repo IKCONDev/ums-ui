@@ -31,7 +31,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   eventId: number;
 
   //global varibales
-  meetings: Meeting[]= [];
+  meetings: Meeting[];
   meetingCount: number = 0;
   attendedMeetings: Meeting[];
   attendedMeetingCount: number = 0;
@@ -223,10 +223,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
     this.getMeetings(this.tabOpened);
-
-    setTimeout(() => {
-      this.enableOrDisableMOMEmailButton();
-    },1000)
 
     //disable actionItem btn default
     this.isActionItemSaveButtonDisabled = true;
@@ -1686,23 +1682,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       window.location.reload();
   }
 
-  /**
-   * 
-   */
-  enableOrDisableMOMEmailButton(){
-    this.meetings.map(meeting => {
-      var table = document.getElementById('myTable'+meeting.meetingId);
-      console.log('myTable'+meeting.meetingId)
-      var cells = table.getElementsByTagName('td');
-      console.log(cells)
-      if(cells.length > 0){
-        console.log(true)
-        console.log('email'+meeting.meetingId)
-        var momBTN = $('#email'+meeting.meetingId)
-        momBTN.attr("disabled","disabled")
-      }
-    }) 
-  }
+
   attendeeEmailList :string[];
   attendeeEmployeeName : Employee[];
 // Define a function to retrieve attendee names by email IDs
@@ -1728,6 +1708,23 @@ getAllAttendeeNamesByEmailId(meetingAttendees: any[]) {
       // Handle error as per your application's requirements
     }
   });
+  setTimeout(() => {
+    this.enableOrDisableSendMOM();
+  },100)
+}
+
+isDisabled = false;
+actionItemsErrorMessage = '';
+enableOrDisableSendMOM(){
+  var element = document.getElementById('actionItem'+0);
+  console.log(element)
+  if(element === null){
+    this.isDisabled = true;
+    this.actionItemsErrorMessage = "Please add action items to send MOM.";
+  }  else{
+    this.isDisabled = false;
+    this.actionItemsErrorMessage = "";
+  }
 }
 
 
