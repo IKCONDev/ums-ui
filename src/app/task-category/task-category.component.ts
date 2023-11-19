@@ -28,6 +28,9 @@ export class TaskCategoryComponent implements OnInit {
     private router: Router){}
 
   ngOnInit(): void {
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+      this.router.navigateByUrl('/unauthorized');
+    }
     this.getTaskcategories()
   }
 
@@ -43,6 +46,14 @@ export class TaskCategoryComponent implements OnInit {
         });
       });
     },70)
+  }
+
+  createOrUpdateTaskCategory(){
+    if(this.taskCategory.taskCategoryId === 0){
+      this.createTaskCategory(this.taskCategory);
+    }else{
+      this.updateTaskCategory(this.taskCategory)
+    }
   }
 
 
@@ -132,7 +143,7 @@ export class TaskCategoryComponent implements OnInit {
     })
   }
 
-  updateTaskCategory(){
+  updateTaskCategory(taskCategory: TaskCategory){
     let isTitleValid = true;
     let isDescriptionValid = true;
     
@@ -167,7 +178,8 @@ export class TaskCategoryComponent implements OnInit {
   }
 
 
-  createTaskCategory(){
+  createTaskCategory(taskCategory: TaskCategory){
+    console.log(taskCategory.taskCategoryId)
     console.log('true')
     let isTitleValid = true;
     let isDescriptionValid = true;
@@ -194,7 +206,10 @@ export class TaskCategoryComponent implements OnInit {
         },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
-          }else {
+          }else if(error.status === HttpStatusCode.Found){
+            this.toastrService.error("Task category '"+taskCategory.taskCategoryTitle+"' already exists");
+          }
+          else {
             this.toastrService.error('Error while creating the task category. Please try again !')
           }
         }

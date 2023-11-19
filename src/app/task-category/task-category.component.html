@@ -55,8 +55,8 @@
                                 value="{{category.taskCategoryId}}" (click)="toggleMainCheckBox(i)" />
                         </td>
                         <td>TC{{category.taskCategoryId}}</td>
-                        <td>{{category.taskCategoryTitle | titlecase}}</td>
-                        <td>{{category.taskCategoryDescription | uppercase}}</td>
+                        <td>{{category.taskCategoryTitle}}</td>
+                        <td>{{category.taskCategoryDescription}}</td>
                         <td>{{category.createdBy | titlecase}}</td>
                         <td>{{category.createdDateTime |date:'MMM d, y, h:mm a' }}</td>
                         <td>{{category.modifiedBy | titlecase}}</td>
@@ -135,7 +135,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer" role="alert">
-                <button type="submit" class="btn btn-primary saveButton" (click)="createTaskCategory()">Save</button>
+                <button type="submit" class="btn btn-primary saveButton" (click)="createOrUpdateTaskCategory()">Save</button>
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
                 <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton" data-dismiss="modal"
@@ -145,48 +145,5 @@
     </div>
 </div>
 
-<!-- update category modal -->
-<div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
-    aria-labelledby="xlModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header" id="modalHeader">
-                <h5 class="modal-title" id="xlModalLabel">Update Task category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
-                        (click)="clearErrorMessages()">&times;</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <label><b>Task Category Name</b><span id="required">*</span></label>
-                <input id="categoryName" type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Category name"
-                    [(ngModel)]="taskCategory.taskCategoryTitle" (keyup)="validateTaskCategoryTitle()" minlength="3"
-                    maxlength="50" /><br />
-                <span *ngIf="categoryTitleErrorInfo != ''">
-                    <p id="errorMessage">{{categoryTitleErrorInfo}}</p>
-                </span>
-                <!--   -->
-                <label><b>Task Category Description</b><span id="required">*</span></label><br/>
-                <textarea id="categoryDesc" class="form-control" placeholder="Category description"
-                    [(ngModel)]="taskCategory.taskCategoryDescription" (keyup)="validateTaskCategoryDescription()"  minlength="5" maxlength="100"
-                    rows="5" cols="10" style="text-transform: capitalize;width: 400px;">
-                </textarea><br />
-                <span *ngIf="categoryDescErrorInfo != ''">
-                    <p id="errorMessage">{{categoryDescErrorInfo}}</p>
-                </span>
-                <!--  -->
-            </div>
-            <!-- Modal footer -->
-            <div class="modal-footer" role="alert">
-                <button type="submit" class="btn btn-primary saveButton" (click)="createTaskCategory()">Save</button>
-                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        (click)=" clearErrorMessages(form)">Close</button> -->
-                <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton" data-dismiss="modal"
-                    (click)="clearErrorMessages()">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 

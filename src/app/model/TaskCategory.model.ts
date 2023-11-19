@@ -1,5 +1,5 @@
 export class TaskCategory{
-    taskCategoryId: number;
+    taskCategoryId: number = 0;
     taskCategoryTitle: string = '';
     taskCategoryDescription: string = '';
     taskCategoryStatus: string
