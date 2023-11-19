@@ -13,6 +13,7 @@ import { EmployeeService } from '../employee/service/employee.service';
 import { Users } from '../model/Users.model';
 import { HeaderService } from '../header/service/header.service';
 import { NotificationService } from '../notifications/service/notification.service';
+import { TaskCategory } from '../model/TaskCategory.model';
 
 @Component({
   selector: 'app-action-item',
@@ -46,6 +47,7 @@ export class ActionItemComponent implements OnInit {
   loggedInUser = localStorage.getItem('email');
   selectedUserdepartmentId: number = 0;
   selectedUserDetails: Users;
+  taskCategoryList: TaskCategory[];
 
   //update action item object
   updatedetails = {
@@ -183,6 +185,9 @@ export class ActionItemComponent implements OnInit {
     }else{
       this.getEmployeeReportees();
     }
+
+    //get taskCategories
+    this.getTaskcategories();
 
     //disable past dates  
     this.pastDateTime();
@@ -804,9 +809,16 @@ export class ActionItemComponent implements OnInit {
     actionItemId: 0,
     actionTitle: '',
     emailId: '',
-    departmentId:0
-
+    departmentId:0,
+    taskCategoryId: 0,
+    taskCategory: {
+      taskCategoryId: 0,
+      taskCategoryTitle: '',
+      taskCategoryDescription: '',
+      taskCategoryStatus: ''
+    },
   }
+
   isTaskTitleValid = false;
   taskTitleErrrorInfo = '';
   validateTaskTitle() {
@@ -893,12 +905,24 @@ export class ActionItemComponent implements OnInit {
     }
     return this.isTaskStatusValid;
   }
+
+  taskCategoryErrorInfo = '';
+  isTaskCategoryValid = false;
+validateTaskCategory(){
+  if(this.add_Task.taskCategoryId === 0){
+    this.taskCategoryErrorInfo = 'select a task category';
+    this.isTaskCategoryValid = false;
+  }else {
+    this.taskCategoryErrorInfo = '';
+    this.isTaskCategoryValid = true;
+  }
+  return this.isTaskCategoryValid;
+}
+
   taskStartDateErrorInfo = '';
   isTaskStartDateValid = false;
   validateTaskStartDate() {
     //var taskStartDate=event.target.value;
-
-
     if (this.add_Task.startDate === '') {
       this.taskStartDateErrorInfo = 'Select the start date';
       this.isTaskStartDateValid = false;
@@ -954,8 +978,8 @@ export class ActionItemComponent implements OnInit {
     return this.isTaskDueDateValid;
   }
 
-  addTask(task: Task) {
-
+  addTask(task: any) {
+    console.log(this.add_Task.taskCategoryId)
     let isTitleValid = true;
     let isDescriptionValid = true;
     let isOwnerValid = true;
@@ -963,6 +987,7 @@ export class ActionItemComponent implements OnInit {
     let isStartDateValid = true;
     let isDueDateValid = true;
     let isPriorityValid = true;
+    let isCategoryValid = true;
 
     if (!this.isTaskTitleValid) {
       var valid = this.validateTaskTitle();
@@ -980,6 +1005,10 @@ export class ActionItemComponent implements OnInit {
       var valid = this.validateTaskOwner();
       isOwnerValid = valid;
     }
+    if(!this.isTaskCategoryValid){
+      var valid = this.validateTaskCategory();
+      isCategoryValid = valid;
+    }
     // if (!this.isTaskStartDateValid) {
     //   var valid = this.validateTaskStartDate();
     //   isStartDateValid = valid;
@@ -991,11 +1020,12 @@ export class ActionItemComponent implements OnInit {
 
     if (isTitleValid == true && isDescriptionValid == true &&
       isOwnerValid == true && isPriorityValid == true && isStartDateValid == true
-      && isDueDateValid == true
+      && isDueDateValid == true && isCategoryValid == true
     ) {
       this.add_Task.emailId = this.selectedReporteeOrganizedActionItem != null ? this.selectedReporteeOrganizedActionItem : this.loggedInUser;
       this.add_Task.actionItemId = this.currentActionItemId;
       this.add_Task.departmentId = this.selectedUserdepartmentId;
+      this.add_Task.taskCategory.taskCategoryId = this.add_Task.taskCategoryId
       this.taskService.createTask(this.add_Task).subscribe({
         next: (response) => {
           var data = response.body;
@@ -1148,6 +1178,15 @@ export class ActionItemComponent implements OnInit {
     localStorage.setItem('currentActionItemPlannedEndDate',actionItem.endDate);
     this.add_Task.plannedEndDate = localStorage.getItem('currentActionItemPlannedEndDate');
     console.log(localStorage.getItem('currentActionItemPlannedEndDate'))
+  }
+
+  getTaskcategories(){
+    this.taskService.findTaskCategories().subscribe({
+      next: response => {
+        this.taskCategoryList = response.body;
+        console.log(response.body)
+      }
+    })
   }
 
 }

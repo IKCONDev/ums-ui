@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Task } from 'src/app/model/Task.model';
+import { TaskCategory } from 'src/app/model/TaskCategory.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class TaskService {
    * @param task 
    * @returns 
    */
-  createTask(task: Task) {
+  createTask(task: any) {
     return this.http.post<Task>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/create`, task, {
       observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -104,7 +105,7 @@ export class TaskService {
    * @param task 
    * @returns 
    */
-  updateTask(task: Task) {
+  updateTask(task: any) {
     return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/update/${task.taskId}`, task, {
       observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -178,6 +179,14 @@ export class TaskService {
         )
       })
 
+    }
+
+    findTaskCategories(){
+      return this.http.get<TaskCategory[]>(`${this.gatewayMicroservicePathUrl}/taskCategory/all`,{observe: 'response', headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      )
+    })
     }
 
 

@@ -144,7 +144,8 @@
                                         <th id="tablehead">Task ID</th>
                                         <th id="tablehead" style="width: 170px;">Task Title</th>
                                         <th id="tablehead" style="width: 170px;">Task Description</th>
-                                        <th id="tablehead">Assignees</th>
+                                        <th id="tablehead">Assignee</th>
+                                        <th id="tablehead">Task Category</th>
                                         <th id="tablehead">Planned Start Date</th>
                                         <th id="tablehead">Planned End Date</th>
                                         <th id="tablehead">Priority</th>
@@ -156,6 +157,7 @@
                                             <td  class="taskRows"  id="actionItem-subject">{{element.taskTitle}}</td>
                                             <td  class="taskRows" id="actionItem-subject">{{element.taskDescription}}</td>
                                             <td  class="taskRows" >{{element.taskOwner}}</td>
+                                            <td  class="taskRows" >{{element.taskCategory.taskCategoryTitle}}</td>
                                             <td  class="taskRows" >{{element.plannedStartDate|date:'MMM d, y'}}</td>
                                             <td  class="taskRows" >{{element.plannedEndDate|date:'MMM d, y'}}</td>
                                             <td  class="taskRows" >{{element.taskPriority}}</td>
@@ -437,7 +439,7 @@
                                             [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
                                         </td>-->
                                             <td style="padding-left: 10px;">
-                                                <div>
+                                                <span>
                                                     <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
                                                         style="margin-top: 4px;" [(ngModel)]="add_Task.taskOwner">
@@ -446,12 +448,23 @@
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
                                                         </ng-option>
                                                     </ng-select>
-                                                
-                                                <div *ngIf="taskOwnerErrorInfo != ''">
-                                                    <span style="padding-top: 20px;"
-                                                        id="error_msg">{{taskOwnerErrorInfo}}</span>
-                                                </div>
-                                            </div>
+                                                    <span *ngIf="taskOwnerErrorInfo != ''" style="padding-top: 20px;"
+                                                        id="error_msg">{{taskOwnerErrorInfo}}
+                                                    </span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Category</b></td>
+                                            <td  style="padding-left: 0px;">
+                                                <span>
+                                                    <select id="taskCategory" class="form-control-sm" style="width: 300px;" [(ngModel)]="add_Task.taskCategoryId"
+                                                    name="taskCategory" #taskCategory="ngModel" (change)="validateTaskCategory()">
+                                                    <option default="true" selected="true" value="null">select</option>
+                                                      <option *ngFor="let taskCategory of taskCategoryList" value="{{taskCategory.taskCategoryId}}">{{taskCategory.taskCategoryTitle}}</option>
+                                                    </select>
+                                                    <span id="error_msg">{{taskCategoryErrorInfo}}</span>
+                                                    </span>
                                             </td>
                                         </tr>
                                         <tr>

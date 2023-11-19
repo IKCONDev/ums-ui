@@ -81,6 +81,7 @@
                         <th>Task ID</th>
                         <th style="width: 150px;">Title</th>
                         <th>Assignee</th>
+                        <th>Task Category</th>
                         <th>Planned Start Date</th>
                         <th>Planned End Date</th>
                         <th>Priority</th>
@@ -97,6 +98,7 @@
                         <td>T000{{item.taskId}}</td>
                         <td id="task-subject">{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
+                        <td>{{item.taskCategory.taskCategoryTitle}}</td>
                         <td>{{item.plannedStartDate|date:'MMM d, y'}}</td>
                         <td>{{item.plannedEndDate|date:'MMM d, y'}}</td>
                         <td>{{item.taskPriority}}</td>
@@ -146,6 +148,7 @@
                         <th>Title</th>
                         <th>ActionItem</th>
                         <th>Owner</th>
+                        <th>Task Category</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Priority</th>
@@ -194,6 +197,7 @@
                         <th>Task ID</th>
                         <th style="width: 150px;">Title</th>
                         <th>Owner</th>
+                        <th>Task Category</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th style="padding-left:6px;">Priority</th>
@@ -206,6 +210,7 @@
                         <td>T000{{task.taskId}}</td>
                         <td id="task-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
+                        <td>{{task.taskCategory.taskCategoryTitle}}</td>
                         <td>{{task.startDate|date:'MMM d, y'}}</td>
                         <td>{{task.dueDate|date:'MMM d, y'}}</td>
                         <td>{{task.taskPriority}}</td>
@@ -233,7 +238,8 @@
                     <thead id="thead">
                         <th>Id</th>
                         <th>Title</th>
-                        <th>Organizer</th>
+                        <th>Owner</th>
+                        <th>Task Category</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
                     </thead>
@@ -380,6 +386,19 @@
                                                             id="error_msg">{{taskOwnerErrorInfo}}</span>
                                                     </div>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Category</b></td>
+                                            <td  style="padding-left: 20px;">
+                                                <span>
+                                                    <select id="taskCategory" class="form-control-sm" style="width: 300px;" [(ngModel)]="update_Task.taskCategory.taskCategoryId"
+                                                    name="taskCategory" #taskCategory="ngModel" (change)="validateTaskCategory()">
+                                                    <!-- <option default="true" selected="true" value="null">select</option> -->
+                                                      <option *ngFor="let taskCategory of taskCategoryList" value="{{taskCategory.taskCategoryId}}">{{taskCategory.taskCategoryTitle}}</option>
+                                                    </select>
+                                                </span>
+                                                <span>{{taskCategoryErrorInfo}}</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -541,7 +560,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:430px; height: 440px; background-color: #ecf7fc;margin-top:-115px;margin-left: 11px;">
+                            style=" width:430px; height: 480px; background-color: #ecf7fc;margin-top:-115px;margin-left: 11px;">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="padding-top: 5px;">Details</label>
                             </div>
@@ -572,6 +591,16 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td><b>Category</b></td>
+                                            <td  style="padding-left: 20px;">
+                                                <span>
+                                                    <input type="text" disabled="true" id="taskCategory" class="form-control" style="width: 300px;" [(ngModel)]="update_Task.taskCategory.taskCategoryTitle"
+                                                    name="taskCategory" #taskCategory="ngModel"/>
+                                                    <!-- <option default="true" selected="true" value="null">select</option> -->
+                                                    </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><label for="prority"><b>Priority</b></label></td>
                                             <td><span><select id="priority" class="form-control"
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
@@ -593,7 +622,6 @@
                                             <td><span><input type="date" min="{{min}}" class="form-control"
                                                         name="taskPlannedStartDate" [(ngModel)]="update_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true" disabled></span>
-
                                             </td>
                                         </tr>
                                         <tr>
@@ -612,7 +640,6 @@
                                                         <span *ngIf="taskStartDateErrorInfo!=''"
                                                         id="error_msg">{{taskStartDateErrorInfo}}</span>
                                             </td>
-                                           
                                         </tr>
                                         <tr>
                                             <td><b>Actual End Date</b><span id="required">*</span></td>
@@ -622,11 +649,8 @@
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
                                                         (click)="validateTaskDueDate()"></span>
                                                         <span  *ngIf="taskDueDateErrorInfo!=''" id="error_msg">{{taskDueDateErrorInfo}}</span>
-                                            </td>
-                                            
-
+                                            </td>                                          
                                         </tr>
-
                                         <tr>
                                             <td><b>Status</b> <span id="required">*</span></td>
                                             <td> <span><select value="Yet To Start" class="form-control"

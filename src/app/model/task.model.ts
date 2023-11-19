@@ -1,3 +1,5 @@
+import { TaskCategory } from "./TaskCategory.model";
+
 export interface Task{
 
     taskId:number;
@@ -15,5 +17,6 @@ export interface Task{
     actionTitle:string;
     emailId:string;
     departmentId: number;
-    
+    taskCategoryId: number;
+    taskCategory: TaskCategory;
  }

@@ -13,6 +13,7 @@ import { Employee } from '../model/Employee.model';
 import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
 import { NotificationService } from '../notifications/service/notification.service';
+import { TaskCategory } from '../model/TaskCategory.model';
 
 @Component({
   selector: 'app-task',
@@ -64,8 +65,14 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     actionItemId: 0,
     actionTitle: '',
     emailId: '',
-    departmentId: 0
-
+    departmentId: 0,
+    taskCategoryId: 0,
+    taskCategory: {
+      taskCategoryId: 0,
+      taskCategoryTitle: '',
+      taskCategoryDescription: '',
+      taskCategoryStatus: ''
+    },
   }
 
   //filter organized task properties
@@ -113,26 +120,28 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    $(document).ready(() => {
-      this.table = $('#table').DataTable({
-        paging: true,
-        searching: true, // Enable search feature
-        pageLength: 7,
-        order: [[1,'asc']]
-        // Add other options here as needed
+    setTimeout(()=> {
+      $(document).ready(() => {
+        this.table = $('#table').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          order: [[1,'asc']]
+          // Add other options here as needed
+        });
+  
       });
-
-    });
-
-    $(document).ready(() => {
-      this.table = $('#assignedtaskTable').DataTable({
-        paging: true,
-        searching: true, // Enable search feature
-        pageLength: 7,
-        order: [[1,'asc']]
-        // Add other options here as needed
+  
+      $(document).ready(() => {
+        this.table = $('#assignedtaskTable').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          order: [[1,'asc']]
+          // Add other options here as needed
+        });
       });
-    });
+    },500)
   }
 
   ngOnDestroy(): void {
@@ -228,6 +237,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     }else{
       this.getEmployeeReportees();
     }
+
+    this.getTaskcategories();
 
     //set default as loggedin user for whom tasks should be retrived when login
     //  localStorage.setItem('selectedReportee', localStorage.getItem('email'));
@@ -404,6 +415,19 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     return this.isTaskDescriptionValid;
   }
+
+  taskCategoryErrorInfo = '';
+  isTaskCategoryValid = false;
+validateTaskCategory(){
+  if(this.update_Task.taskCategoryId === 0){
+    this.taskCategoryErrorInfo = 'select a task category';
+    this.isTaskCategoryValid = false;
+  }else {
+    this.taskCategoryErrorInfo = '';
+    this.isTaskCategoryValid = true;
+  }
+  return this.isTaskCategoryValid;
+}
 
   //validating Task Priority
   taskPriorityErrorInfo = "";
@@ -592,6 +616,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       if(this.update_Task.dueDate < this.update_Task.plannedEndDate && this.update_Task.status === 'Completed' && this.update_Task.dueDate != null){
         var isConfirmed = window.confirm('This task is being completed before the planned end date, Are you sure you want to proceed ?');
         if(isConfirmed){
+          console.log(this.update_Task.taskCategoryId);
+          console.log(this.update_Task.taskCategory.taskCategoryId)
+          //this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
           this.service.updateTask(this.update_Task).subscribe({
             next: (response) => {
               this.response = response.body;
@@ -612,6 +639,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         }
       }else{
+        console.log(this.update_Task.taskCategoryId);
+        console.log(this.update_Task.taskCategory.taskCategoryId)
+       // this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
         this.service.updateTask(this.update_Task).subscribe({
           next: (response) => {
             this.response = response.body;
@@ -1089,6 +1119,16 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     console.log(this.selectedReporteeAssigned)
     window.location.reload();
+  }
+
+  taskCategoryList: TaskCategory[];
+  getTaskcategories(){
+    this.service.findTaskCategories().subscribe({
+      next: response => {
+        this.taskCategoryList = response.body;
+        console.log(response.body)
+      }
+    })
   }
 
 }
