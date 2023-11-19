@@ -513,14 +513,14 @@ validateTaskCategory(){
    */
   validateTaskStartDate() {
     //var taskStartDate=event.target.value;
-    if (this.update_Task.startDate === '') {
+    if ( this.update_Task.startDate === null) {
       this.taskStartDateErrorInfo = 'Select the start date';
       this.isTaskStartDateValid = false;
     }
-    // else if (new Date(this.update_Task.startDate) < Date.now().toString()) {
-    //   this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
-    //   this.isTaskStartDateValid = false;
-    // }
+    else if (new Date(this.update_Task.startDate).toString() < Date.now().toString()) {
+      this.taskStartDateErrorInfo = 'Start date cannot be previous date.'
+      this.isTaskStartDateValid = false;
+    }
     else {
       this.taskStartDateErrorInfo = '';
       this.isTaskStartDateValid = true;
@@ -541,10 +541,10 @@ validateTaskCategory(){
       this.taskDueDateErrorInfo = 'Select the due date';
       this.isTaskDueDateValid = false;
     }
-    // else if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
-    //   this.taskDueDateErrorInfo = 'Due date should`nt be less than startdate';
-    //   this.isTaskDueDateValid = false;
-    // }
+    if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
+      this.taskDueDateErrorInfo = 'Due date should`nt be less than startdate';
+      this.isTaskDueDateValid = false;
+    }
     else {
       this.taskDueDateErrorInfo = '';
       this.isTaskDueDateValid = true;
@@ -580,11 +580,25 @@ validateTaskCategory(){
    * @param form 
    */
   updateTaskDetails(form: NgForm) {
+    var currentDate = new Date();
+      var year = currentDate.getFullYear();
+      var month = currentDate.getMonth() + 1; 
+       var day = currentDate.getDate();
+       var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+       console.log(formattedStartDate)
+    if(this.update_Task.status === 'Completed'){
+       this.update_Task.dueDate = formattedStartDate;
+    }
+    if(this.update_Task.status === 'Inprogress'){
+       this.update_Task.startDate = formattedStartDate;
+    }
+    console.log(this.update_Task.startDate)
+    console.log(this.update_Task.dueDate)
     let isTitleValid = true;
     let isDescriptionValid = true;
     let isPriorityValid = true;
-    let isStartDateValid = true;
-    let isDueDateValid = true;
+    // let isStartDateValid = true;
+    // let isDueDateValid = true;
     let isStatusValid = true;
     if (this.isTaskTitleValid === false) {
       var valid = this.validateTaskTitle();
@@ -599,20 +613,19 @@ validateTaskCategory(){
       var valid = this.validateTaskPriority();
       isPriorityValid = valid;
     }
-    if (!this.isTaskStartDateValid) {
-      var valid = this.validateTaskStartDate();
-      isStartDateValid = valid;
-    }
-    if (!this.isTaskDueDateValid) {
-      var valid = this.validateTaskDueDate();
-      isDueDateValid = valid;
-    }
+    // if (!this.isTaskStartDateValid) {
+    //   var valid = this.validateTaskStartDate();
+    //   isStartDateValid = valid;
+    // }
+    // if (!this.isTaskDueDateValid) {
+    //   var valid = this.validateTaskDueDate();
+    //   isDueDateValid = valid;
+    // }
     if (!this.isTaskStatusValid) {
       var valid = this.validateTaskStatus();
       isStatusValid = valid;
     }
-    if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStartDateValid === true &&
-      isDueDateValid === true && isStatusValid === true) {
+    if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStatusValid === true) {
       if(this.update_Task.dueDate < this.update_Task.plannedEndDate && this.update_Task.status === 'Completed' && this.update_Task.dueDate != null){
         var isConfirmed = window.confirm('This task is being completed before the planned end date, Are you sure you want to proceed ?');
         if(isConfirmed){
@@ -639,8 +652,7 @@ validateTaskCategory(){
           });
         }
       }else{
-        console.log(this.update_Task.taskCategoryId);
-        console.log(this.update_Task.taskCategory.taskCategoryId)
+        console.log(this.update_Task.startDate)
        // this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
         this.service.updateTask(this.update_Task).subscribe({
           next: (response) => {

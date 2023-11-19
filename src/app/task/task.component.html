@@ -296,7 +296,7 @@
             </div>
             <form #form="ngForm" method="POST">
                 <!-- Modal body -->
-                <div class="modal-body">
+                <div class="modal-body" style="height: 520px;">
                     <div class="row">
                         <div class="col-md-6" style="width: 560px;">
                             <div class="col-md-12"
@@ -390,12 +390,17 @@
                                         </tr>
                                         <tr>
                                             <td><b>Category</b></td>
-                                            <td  style="padding-left: 20px;">
+                                            <td style="padding-left: 20px;">
                                                 <span>
-                                                    <select id="taskCategory" class="form-control-sm" style="width: 300px;" [(ngModel)]="update_Task.taskCategory.taskCategoryId"
-                                                    name="taskCategory" #taskCategory="ngModel" (change)="validateTaskCategory()">
-                                                    <!-- <option default="true" selected="true" value="null">select</option> -->
-                                                      <option *ngFor="let taskCategory of taskCategoryList" value="{{taskCategory.taskCategoryId}}">{{taskCategory.taskCategoryTitle}}</option>
+                                                    <select id="taskCategory" class="form-control-sm"
+                                                        style="width: 300px;"
+                                                        [(ngModel)]="update_Task.taskCategory.taskCategoryId"
+                                                        name="taskCategory" #taskCategory="ngModel"
+                                                        (change)="validateTaskCategory()">
+                                                        <!-- <option default="true" selected="true" value="null">select</option> -->
+                                                        <option *ngFor="let taskCategory of taskCategoryList"
+                                                            value="{{taskCategory.taskCategoryId}}">
+                                                            {{taskCategory.taskCategoryTitle}}</option>
                                                     </select>
                                                 </span>
                                                 <span>{{taskCategoryErrorInfo}}</span>
@@ -423,10 +428,8 @@
                                             <td><b>Planned Start Date</b><span id="required">*</span></td>
                                             <td><span><input type="date" min="{{min}}" class="form-control"
                                                         id="taskStartDate" name="taskStartDate"
-                                                        [(ngModel)]="update_Task.plannedStartDate" #taskStartDate="ngModel"
-                                                        required="true"
-                                                        [class.invalid]="taskStartDate.invalid && taskStartDate.touched"
-                                                         disabled="true"></span>
+                                                        [(ngModel)]="update_Task.plannedStartDate"
+                                                        disabled="true"></span>
                                                 <!-- <div *ngIf="taskStartDateErrorInfo!=''">
                                                     <span id="error_msg">{{taskStartDateErrorInfo}}</span>
                                                 </div> -->
@@ -434,14 +437,32 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b><span id="required">*</span></td>
-                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                            <td><span> <input type="date" class="form-control"
                                                         name="taskDueDate" [(ngModel)]="update_Task.plannedEndDate"
-                                                        #taskDueDate="ngModel" required="true"
-                                                        [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
-                                                         disabled="true"></span>
+                                                        disabled="true"></span>
                                                 <!-- <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
                                                 </div> -->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Actual Start Date</b></td>
+                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                                        name="taskActualStartDate" [(ngModel)]="update_Task.startDate"
+                                                         required="true"
+                                                        (change)="validateTaskStartDate()" disabled="true" ></span>
+                                                <span *ngIf="taskStartDateErrorInfo!=''"
+                                                    id="error_msg">{{taskStartDateErrorInfo}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Actual End Date</b></td>
+                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                                        name="taskActualEndDate" [(ngModel)]="update_Task.dueDate"
+                                                         required="true"
+                                                        (change)="validateTaskDueDate()" disabled="true"></span>
+                                                <span *ngIf="taskDueDateErrorInfo!=''"
+                                                    id="error_msg">{{taskDueDateErrorInfo}}</span>
                                             </td>
                                         </tr>
                                         <!-- <tr>
@@ -592,12 +613,14 @@
                                         </tr>
                                         <tr>
                                             <td><b>Category</b></td>
-                                            <td  style="padding-left: 20px;">
+                                            <td style="padding-left: 20px;">
                                                 <span>
-                                                    <input type="text" disabled="true" id="taskCategory" class="form-control" style="width: 300px;" [(ngModel)]="update_Task.taskCategory.taskCategoryTitle"
-                                                    name="taskCategory" #taskCategory="ngModel"/>
+                                                    <input type="text" disabled="true" id="taskCategory"
+                                                        class="form-control" style="width: 300px;"
+                                                        [(ngModel)]="update_Task.taskCategory.taskCategoryTitle"
+                                                        name="taskCategory" #taskCategory="ngModel" />
                                                     <!-- <option default="true" selected="true" value="null">select</option> -->
-                                                    </span>
+                                                </span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -620,14 +643,16 @@
                                         <tr>
                                             <td><b>Planned Start Date</b></td>
                                             <td><span><input type="date" min="{{min}}" class="form-control"
-                                                        name="taskPlannedStartDate" [(ngModel)]="update_Task.plannedStartDate"
+                                                        name="taskPlannedStartDate"
+                                                        [(ngModel)]="update_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true" disabled></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b></td>
                                             <td><span><input type="date" min="{{min}}" class="form-control"
-                                                        name="taskPlannedEndDate" [(ngModel)]="update_Task.plannedEndDate"
+                                                        name="taskPlannedEndDate"
+                                                        [(ngModel)]="update_Task.plannedEndDate"
                                                         #taskPlannedEndDate="ngModel" required="true" disabled></span>
                                             </td>
                                         </tr>
@@ -636,9 +661,9 @@
                                             <td><span><input type="date" min="{{min}}" class="form-control"
                                                         name="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
-                                                        (click)="validateTaskStartDate()"></span>
-                                                        <span *ngIf="taskStartDateErrorInfo!=''"
-                                                        id="error_msg">{{taskStartDateErrorInfo}}</span>
+                                                        (change)="validateTaskStartDate()" disabled="true"></span>
+                                                <span *ngIf="taskStartDateErrorInfo!=''"
+                                                    id="error_msg">{{taskStartDateErrorInfo}}</span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -647,9 +672,10 @@
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
-                                                        (click)="validateTaskDueDate()"></span>
-                                                        <span  *ngIf="taskDueDateErrorInfo!=''" id="error_msg">{{taskDueDateErrorInfo}}</span>
-                                            </td>                                          
+                                                        (change)="validateTaskDueDate()"  disabled="true"></span>
+                                                <span *ngIf="taskDueDateErrorInfo!=''"
+                                                    id="error_msg">{{taskDueDateErrorInfo}}</span>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><b>Status</b> <span id="required">*</span></td>
@@ -667,7 +693,7 @@
                                                     <div *ngIf="taskStatusErrorInfo != ''">
                                                         <span id="error_msg">{{taskStatusErrorInfo}}</span>
                                                     </div>
-                                                </span></td>
+                                             </span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -802,8 +828,7 @@
                         </div>
                         <div class="date-range">
                             <div class="date-parent">
-                                <input type="date" #boxAssignedStart
-                                    [(ngModel)]="assignedTaskStartDateFilter" />
+                                <input type="date" #boxAssignedStart [(ngModel)]="assignedTaskStartDateFilter" />
                             </div>
                             <div class="to">To</div>
                             <div class="date-parent">
