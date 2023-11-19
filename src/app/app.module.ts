@@ -46,6 +46,7 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { HelpcenterComponent } from './helpcenter/helpcenter.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { TaskCategoryComponent } from './task-category/task-category.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
     NotificationsComponent,
     DateAgoPipe,
     HelpcenterComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    TaskCategoryComponent
   ],
   imports: [
     BrowserModule,

@@ -460,7 +460,7 @@
                                                 <span>
                                                     <select id="taskCategory" class="form-control-sm" style="width: 300px;" [(ngModel)]="add_Task.taskCategoryId"
                                                     name="taskCategory" #taskCategory="ngModel" (change)="validateTaskCategory()">
-                                                    <option default="true" selected="true" value="null">select</option>
+                                                    <option default="true" selected="true" value="0">select</option>
                                                       <option *ngFor="let taskCategory of taskCategoryList" value="{{taskCategory.taskCategoryId}}">{{taskCategory.taskCategoryTitle}}</option>
                                                     </select>
                                                     <span id="error_msg">{{taskCategoryErrorInfo}}</span>
