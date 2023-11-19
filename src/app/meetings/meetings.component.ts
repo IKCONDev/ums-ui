@@ -639,8 +639,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           }//error
         })//subscribe
       } else {
+        const startDateFilter = this.organizedMeetingStartDateFilter ? new Date(this.organizedMeetingStartDateFilter).toISOString() : null;
+        const endDateFilter = this.organizedMeetingEndDateFilter ? new Date(this.organizedMeetingEndDateFilter).toISOString() : null;
         this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email'),this.organizedMeetingTitleFilter,
-        this.organizedMeetingStartDateFilter, this.organizedMeetingEndDateFilter).subscribe({
+        startDateFilter,endDateFilter).subscribe({
           next: (response) => {
             this.meetings = response.body;
             this.meetingCount = response.body.length
