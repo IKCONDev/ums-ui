@@ -48,6 +48,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { TaskCategoryComponent } from './task-category/task-category.component';
 import { PermissionComponent } from './permission/permission.component';
+import { ReportSettingsComponent } from './report-settings/report-settings.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { PermissionComponent } from './permission/permission.component';
     HelpcenterComponent,
     UnauthorizedComponent,
     TaskCategoryComponent,
-    PermissionComponent
+    PermissionComponent,
+    ReportSettingsComponent
   ],
   imports: [
     BrowserModule,

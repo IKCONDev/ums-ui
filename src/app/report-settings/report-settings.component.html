@@ -1,0 +1,57 @@
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title"></app-header>
+</div>
+<div class="container-fluid">
+    <div class="card-header">
+        <div class="row">
+            <div id="generalDiv" class="col-sm-2">
+                <h4><b>General</b></h4>
+                <a routerLink="/batch-report">BatchProcessing Report</a><br/>
+            </div>
+            <div class="col-sm-2">
+                <h4><b>Meetings</b></h4>
+                <a routerLink="">By Department</a><br />
+                <a routerLink="">By Employees</a><br />
+            </div>
+            <div class="col-sm-3">
+                <h4><b>Action Items</b></h4>
+                <a routerLink="">Departments</a><br />
+                <a>Employees</a><br />
+                <a>Severity</a><br />
+                <a>Priority</a><br />
+            </div>
+            <div class="col-sm-3">
+                <h4><b>Task Items</b></h4>
+                <a>Departments</a><br/>
+                <a>Employees</a><br/>
+                <a>Severity</a><br/>
+                <a>Status(priority)</a><br/>
+                <a>%Age Completion</a><br/>
+                <a>Aged</a>
+            </div>
+        </div>
+        <br /><br/>
+        
+        <div class="row">
+            <div id="automationDiv" class="col-sm-3">
+                <h4><b>Task Category</b></h4>
+                <a>Organizational</a><br/>
+                <a>External</a><br/>
+                <a>Risk</a><br/>
+                <a>Technical</a><br/>
+                <a>Project Management</a>
+            </div>
+           <!--- <div class="col-sm-3">
+                <h4><b>Developer Space</b></h4>
+                <a>Web Forms</a><br/>
+                <a>UMS API</a><br/>
+                <a>Connections</a><br/>
+            </div>-->
+        </div>
+    </div>
+    <div class="card-body"></div>
+    <div class="card-footer"></div>
+</div>
