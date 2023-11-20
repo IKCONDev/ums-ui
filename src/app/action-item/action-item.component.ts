@@ -1163,10 +1163,11 @@ validateTaskCategory(){
       next: response => {
         this.actionItems = response.body;
         this.actionItemCount = response.body.length;
-        this.CloseFilterActionItemModal();
-        window.location.reload();
+       
       }
     })
+    this.CloseFilterActionItemModal();
+   //window.location.reload();
   }
 
   getCurrentActionItemDetails(actionItem: ActionItems){
