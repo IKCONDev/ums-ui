@@ -66,7 +66,7 @@ export class TaskCategoryComponent implements OnInit {
     })
   }
 
-  taskcategoriesToBeDeleted
+  taskcategoriesToBeDeleted: any[];
   removeAllSelectedTaskCategories(){
     //initialize to empty array on clikck from second time
     this.taskcategoriesToBeDeleted = [];
@@ -87,7 +87,7 @@ export class TaskCategoryComponent implements OnInit {
             if(this.taskcategoriesToBeDeleted.length > 1){
               this.toastrService.success('Task categories deleted sucessfully') 
             } else{
-              this.toastrService.success('Task categories '+this.taskcategoriesToBeDeleted+' is deleted.') 
+              this.toastrService.success('Task categories '+this.taskcategoriesToBeDeleted+' are deleted.') 
             }
             setTimeout(()=>{
               window.location.reload();
@@ -156,12 +156,12 @@ export class TaskCategoryComponent implements OnInit {
      isDescriptionValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true){
-      this.taskCategory.modifiedByEmailId = this.loggedInUser;
-      this.taskCategory.modifiedBy = this.loggedInUserFullName;
-      this.taskCategoryService.updateTaskCategory(this.taskCategory).subscribe({
+      taskCategory.modifiedByEmailId = this.loggedInUser;
+      taskCategory.modifiedBy = this.loggedInUserFullName;
+      this.taskCategoryService.updateTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
-            this.toastrService.success('Task category '+this.taskCategory.taskCategoryTitle+' updated successfully');
+            this.toastrService.success('Task category '+taskCategory.taskCategoryTitle+' updated successfully');
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -193,12 +193,12 @@ export class TaskCategoryComponent implements OnInit {
      isDescriptionValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true){
-      this.taskCategory.createdByEmailId = this.loggedInUser;
-      this.taskCategory.createdBy = this.loggedInUserFullName;
-      this.taskCategoryService.createTaskCategory(this.taskCategory).subscribe({
+      taskCategory.createdByEmailId = this.loggedInUser;
+      taskCategory.createdBy = this.loggedInUserFullName;
+      this.taskCategoryService.createTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
-            this.toastrService.success('Task category '+this.taskCategory.taskCategoryTitle+' created successfully');
+            this.toastrService.success('Task category '+taskCategory.taskCategoryTitle+' created successfully');
             setTimeout(() => {
               window.location.reload();
             },1000)
