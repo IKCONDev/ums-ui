@@ -47,6 +47,7 @@ import { HelpcenterComponent } from './helpcenter/helpcenter.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { TaskCategoryComponent } from './task-category/task-category.component';
+import { PermissionComponent } from './permission/permission.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { TaskCategoryComponent } from './task-category/task-category.component';
     DateAgoPipe,
     HelpcenterComponent,
     UnauthorizedComponent,
-    TaskCategoryComponent
+    TaskCategoryComponent,
+    PermissionComponent
   ],
   imports: [
     BrowserModule,

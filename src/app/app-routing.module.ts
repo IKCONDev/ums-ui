@@ -27,6 +27,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HelpcenterComponent } from './helpcenter/helpcenter.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { TaskCategoryComponent } from './task-category/task-category.component';
+import { PermissionComponent } from './permission/permission.component';
 
 
 /**
@@ -59,10 +60,12 @@ const routes: Routes = [
   {path: 'help',component:HelpcenterComponent},
   {path: 'task-category', component: TaskCategoryComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},
+  {path: 'permission', component: PermissionComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},
   {path: '',redirectTo:'/login', pathMatch: 'full'}
+  
 ];
 
 @NgModule({
