@@ -56,7 +56,7 @@
                             <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox"
                                 value="{{department.departmentId}}" (click)="toggleMainCheckBox(i)" />
                         </td>
-                        <td>DEPT{{department.departmentId}}</td>
+                        <td>{{department.departmentId}}</td>
                         <td>{{department.departmentName | titlecase}}</td>
                         <td>{{department.departmentCode | uppercase}}</td>
                         <td>{{department.departmentHead | titlecase}}</td>

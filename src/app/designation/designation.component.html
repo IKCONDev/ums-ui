@@ -52,7 +52,7 @@
                             <input id="subCheckBox{{i}}" class="subCheckBox" type="checkbox" value="{{designation.id}}"
                             (click)="toggleMainCheckBox(i)"/>
                         </td>
-                        <td>DESG{{designation.id}}</td>
+                        <td>{{designation.id}}</td>
                         <td>{{designation.designationName | titlecase}}</td>
                         <td>{{designation.createdBy | titlecase}}</td>
                         <td>{{designation.createdDateTime |date:'MMM d, y, h:mm a'}}</td>
