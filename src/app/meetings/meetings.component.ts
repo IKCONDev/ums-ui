@@ -435,12 +435,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param event 
    */
   validateActionStartDate() {
-    //var actionItemStartDate = event.target.value;
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
     console.log(this.actionItemStartDate);
     if (this.addDetails.startDate === '') {
       this.actionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isActionItemStartDateValid = false;
-    } else if (new Date(this.addDetails.startDate.toString()) < new Date(Date.now())) {
+    } else if (new Date(this.addDetails.startDate) < currentDate) {
       this.actionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
       this.isActionItemStartDateValid = false;
     } else {
