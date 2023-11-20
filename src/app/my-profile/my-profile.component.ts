@@ -21,6 +21,7 @@ export class MyProfileComponent {
   user: Users
   selectedUserProfilePic: Blob;
   reportingManagerName: string;
+  isHovered:boolean=false;
 
   /**
    * 
@@ -138,7 +139,18 @@ export class MyProfileComponent {
    */
   cancel() {
     this.isDisable = true;
+    this.profileService
   }
 
+  deleteImage(){
+    console.log("deleted");
+    this.profileService.deleteProfilePic().subscribe({
+      next: (response) => {
+          this.toastr.success('Profile pic deleted successfully');
+      }, error: (error) => {
+        this.toastr.error('Error while deleting profile pic');
+      }
+    })
+  }
 }
 

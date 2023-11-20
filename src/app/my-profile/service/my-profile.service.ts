@@ -26,6 +26,7 @@ export class MyProfileService{
     userProfilepathUrl ='/profile-pic';
     updateProfilepathUrl='/update';
     finalUrl=this.gatewayMicroservicepathUrl+this.usersMicroservicePathUrl+this.userProfilepathUrl;
+    finalUrlForDeletingPic=this.gatewayMicroservicepathUrl+this.usersMicroservicePathUrl+"/deleteProfilePic";
     finalUrlForUpdating=this.gatewayMicroservicepathUrl+this.employeesMicroservicePathUrl
     +this.updateProfilepathUrl;
     
@@ -80,5 +81,17 @@ export class MyProfileService{
         return null;
     }
   }
+  emailId:string=null;
+  deleteProfilePic(){
+    this.emailId=localStorage.getItem('email')
+  return this.http.delete<any>(this.finalUrlForDeletingPic ,{
+    params: { email: this.emailId },
+    headers: new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+    }),
+    observe: 'response'
+  }
+);
+}
 
 }
