@@ -18,7 +18,7 @@ export class PermissionService {
   private gatewayMicroservicePathUrl = "http://localhost:8012";
   private permissionMicroservicePathUrl = "permission";
 
-  findAllPermissions(){
+  getAllPermissions(){
     return this.http.get<Permission[]>(`${this.gatewayMicroservicePathUrl}/${this.permissionMicroservicePathUrl}/all`,{observe: 'response', headers: new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
     }

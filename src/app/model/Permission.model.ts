@@ -1,8 +1,8 @@
 export class Permission{
 
-	permissionId: number;
-    permissionValue: string;
-    permissionDescription: string;
+	permissionId: number = 0;
+    permissionValue: string ='';
+    permissionDescription: string ='';
     createdDateTime: string;
     modifiedDateTime: string;
     createdBy: string;
