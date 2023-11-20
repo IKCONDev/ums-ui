@@ -108,6 +108,12 @@ async initializeMSAL() {
  * asyncNOnInit - executes whenever the component is initialized
  */
 async ngOnInit() {
+  //check if user is logged in
+  if(localStorage.getItem('jwtToken') != '' || localStorage.getItem('jwtToken') != null){
+    this.router.navigateByUrl('/home')
+    //this.toastr.warning('You are already logged in. Please logout to login again')
+  }
+
   console.log(this.router.url);
   this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
   this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
