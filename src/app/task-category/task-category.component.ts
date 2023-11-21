@@ -45,7 +45,7 @@ export class TaskCategoryComponent implements OnInit {
           // Add other options here as needed
         });
       });
-    },70)
+    },200)
   }
 
   createOrUpdateTaskCategory(){
@@ -117,7 +117,7 @@ export class TaskCategoryComponent implements OnInit {
       this.taskCategoryService.deleteSelectedTaskCategories(categoryIds).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Ok){
-            this.toastrService.success('Task category '+categoryId+' deleted successfully');
+            this.toastrService.success('Task category '+categoryId+' deleted successfully.');
             setTimeout(() => {
               window.location.reload();
             })
@@ -130,6 +130,8 @@ export class TaskCategoryComponent implements OnInit {
           }
         }
       })
+    }else{
+      this.toastrService.warning('Task category nor deleted.')
     }
   }
 
@@ -161,6 +163,7 @@ export class TaskCategoryComponent implements OnInit {
       this.taskCategoryService.updateTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
+            this.closeModal();
             this.toastrService.success('Task category '+taskCategory.taskCategoryTitle+' updated successfully');
             setTimeout(() => {
               window.location.reload();
@@ -175,6 +178,10 @@ export class TaskCategoryComponent implements OnInit {
         }
       })
     }
+  }
+
+  closeModal(){
+    document.getElementById('closeModal').click();
   }
 
 
@@ -198,6 +205,7 @@ export class TaskCategoryComponent implements OnInit {
       this.taskCategoryService.createTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
+            this.closeModal();
             this.toastrService.success('Task category '+taskCategory.taskCategoryTitle+' created successfully');
             setTimeout(() => {
               window.location.reload();
