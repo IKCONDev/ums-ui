@@ -1,0 +1,147 @@
+html{
+    -webkit-text-size-adjust: 100%;
+}
+/*common properties*/
+
+.container-fluid{
+    padding-top: 10px;
+    padding-left:120px;
+    padding-right: 32px;
+    padding-bottom: 20px;
+}
+
+.card-header{
+
+    background-color: #134E69D9;
+    padding-left: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+}
+#heading{
+    color: #F6FBFD;
+    padding-top: 8px;
+}
+
+.card-body {
+    padding-top: 10px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+#thead {
+    background: var(--side-text, #ECF7FC);
+}
+
+#tablehead{
+    background: var(--side-text, #ECF7FC);
+}
+
+.input-border{
+    border-radius: 8px;
+    border: 1px solid var(--brand-color-1, #2AA3D9);
+}
+
+#deptHead{
+    width: 400px;
+    border: 1px solid #2AA3D9;
+    border-radius: 5px;
+}
+
+#updateDeptHead{
+    width: 400px;
+    border: 1px solid #2AA3D9;
+    border-radius: 5px;
+}
+
+.modal{
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.05);
+}
+
+#addBtn{
+    border-radius: 4px;
+    background: var(--side-text, #ECF7FC);
+}
+
+#addBtnDiv{
+    padding-top: 8px;
+    padding-left: 15px;
+
+}
+
+#deleteBtn{
+    border-radius: 4px;
+    background: var(--side-text, #ECF7FC);
+}
+
+#deleteBtnDiv{
+    padding-top: 8px;
+    
+}
+
+#searchDiv{
+    padding-top: 8px;
+}
+
+#filter {
+    padding-top: 10px;
+    color: #F6FBFD;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.deptInput{
+    border: 1px solid #2AA3D9;
+    height: 50px;
+    width: 400px;
+}
+
+
+#trashIcon{
+    cursor: pointer;
+}
+
+#editIcon{
+    cursor: pointer;
+}
+
+table th{
+    background: var(--side-text, #ECF7FC);
+    font-size: 11px;
+}
+
+table {
+    font-size: 11px;
+    padding-left: 17px;
+}
+td{
+    font-size: 11px;
+}
+
+#updateHeading{
+    color: #2AA3D9;
+}
+
+.modal-body{
+    margin-left: 35px;
+}
+
+#modalHeader{
+    background-color: #134E69D9; 
+    color: #ecf7fc;
+}
+
+#errorMessage{
+    color: red;
+    font-size: 12px;
+}
+
+#required{
+    color: red;
+    padding-left: 2px;
+}
+
+#departmentCode::placeholder{
+    text-transform: initial;
+}
