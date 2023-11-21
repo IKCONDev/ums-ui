@@ -147,6 +147,7 @@ export class MyProfileComponent {
     this.profileService.deleteProfilePic().subscribe({
       next: (response) => {
           this.toastr.success('Profile pic deleted successfully');
+          window.location.reload();
       }, error: (error) => {
         this.toastr.error('Error while deleting profile pic');
       }

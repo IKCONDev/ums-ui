@@ -14,7 +14,8 @@
 
         <div class="row">
            <div class="col-sm-2 container" style="padding-top: 24px;">
-            <label for="file-input" class="image-container" (mouseover)="isHovered = true" (mouseout)="isHovered = false" *ngIf="user != null">
+            <span *ngIf="user != null">
+            <label *ngIf="user.profilePic!=null" for="file-input" class="image-container" (mouseover)="isHovered = true" (mouseout)="isHovered = false" >
                 <img [src]="'data:image/png/jpg/jpeg;base64,'+user.profilePic" width="110px" height="110px" class="profile-pic" />
                 <div class="upload-text"><svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_313_1241)">
@@ -35,9 +36,10 @@
                         </svg>
                     </div>
             </label>
+        </span>
             <input id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)" />
             <span *ngIf="user != null">
-                <label *ngIf="user.profilePic==null" for="file-input" class="profile-pic">
+                <label *ngIf="user.profilePic==null" class="image-container profile-pic" for="file-input" >
                 
                     <div class="upload-text"><svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_313_1241)">
@@ -52,6 +54,7 @@
                         </svg>
                         </div>
                 </label>
+               
             </span>
             
         </div>
