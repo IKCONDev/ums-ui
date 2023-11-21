@@ -218,6 +218,7 @@ table th{
 #momform{
    width: 100%;
    padding-left: 20px;
+   
 }
 
   #errorSpan{
@@ -294,6 +295,7 @@ table th{
   table.sendMOMEmail td,table.sendMOMEmail2 td {
      font-size: 15px;
      padding-left: 7px;
+     color: black;
   }
 
   #createBtnDiv{
