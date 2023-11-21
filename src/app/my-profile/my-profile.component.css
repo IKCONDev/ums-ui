@@ -272,9 +272,10 @@ input[type='file'] {
     cursor: pointer;
     display: none;
     padding: 5px;
-    background-color: rgb(221, 30, 30);
-    border-radius: 50%;
-    border: 1px solid #ccc;
+    /* background-color: rgb(221, 30, 30); */
+    /* border-radius: 50%; */
+    /* border: 1px solid #ccc; */
+    color: red;
     font-size: 14px;
     z-index: 1;
 }

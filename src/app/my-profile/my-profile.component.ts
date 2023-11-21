@@ -142,7 +142,8 @@ export class MyProfileComponent {
     this.profileService
   }
 
-  deleteImage(){
+  deleteImage(event:Event){
+    event.stopPropagation();
     console.log("deleted");
     this.profileService.deleteProfilePic().subscribe({
       next: (response) => {
