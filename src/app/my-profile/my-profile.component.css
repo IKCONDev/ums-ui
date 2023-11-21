@@ -276,9 +276,10 @@ input[type='file'] {
     border-radius: 50%;
     border: 1px solid #ccc;
     font-size: 14px;
-    z-index: 1; /* Ensure the delete icon is above the image */
+    z-index: 1;
 }
 
 .image-container:hover .delete-icon {
     display: block;
+    
 }
