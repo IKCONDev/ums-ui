@@ -792,9 +792,16 @@ isUpdateEmployeeGenderValid = false;
   isEmployeeIDValid = false;
   isEmployeeIDErrorInfo = '';
   validateEmployeeID(){
-    if(this.addEmployee.employeeOrgId == ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null){
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID is required';
+    }else if(this.addEmployee.employeeOrgId.length < 4){
+      this.isEmployeeIDValid = false;
+      this.isEmployeeIDErrorInfo = 'Employee ID should have min of 4 characters';
+    }else if(this.addEmployee.employeeOrgId.length  > 20){
+      this.isEmployeeIDValid = false;
+      this.isEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
     }
     else{
       this.isEmployeeIDValid = true;
@@ -821,10 +828,16 @@ isUpdateEmployeeGenderValid = false;
   isUpdateEmployeeIDValid = false;
   isUpdateEmployeeIDErrorInfo = '';
   validateUpdateEmployeeID(){
-  
-    if(this.existingEmployee.employeeOrgId == ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null){
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required';
+    }else if(this.existingEmployee.employeeOrgId.length < 4){
+      this.isUpdateEmployeeIDValid = false;
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 4 characters';
+    }else if(this.existingEmployee.employeeOrgId.length  > 20){
+      this.isUpdateEmployeeIDValid = false;
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
     }
     else{
       this.isUpdateEmployeeIDValid = true;
