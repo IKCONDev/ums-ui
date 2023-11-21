@@ -34,6 +34,9 @@ export class PermissionComponent implements OnInit{
     if(this.addPermission.permissionId === 0){
       this.createPermission(this.addPermission);
     }
+    else{
+      this.updatePermission(this.addPermission)
+    }
   }
 
   createPermission(permission:Permission){
@@ -57,5 +60,35 @@ export class PermissionComponent implements OnInit{
         }
       })
     }
+    updatePermission(permission: Permission){
+      
+        this.permissionService.updatePermission(permission).subscribe({
+          next: response => {
+            if(response.status === HttpStatusCode.Created){
+              this.toastrService.success('Permission updated successfully');
+              setTimeout(() => {
+                window.location.reload();
+              },1000)
+            }
+          },error: error => {
+            if(error.status === HttpStatusCode.Unauthorized){
+              this.router.navigateByUrl('/session-timeout');
+            }else {
+              this.toastrService.error('Error while creating the task category. Please try again !')
+            }
+          }
+        })
+    }
+    
+    getpermissonById(permissionId: number){
+      this.permissionService.findPermissionById(permissionId).subscribe({
+        next: response => {
+          if(response.status === HttpStatusCode.Ok){
+            this.addPermission = response.body;
+          }
+        }
+      })
+    }
+  
 }
 
