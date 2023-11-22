@@ -378,6 +378,9 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
       $('#mainCheckBox').prop('checked',false);
       //$('#mainCheckBox').css
     }
+    const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
+    console.log(anyUnchecked);
+    $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
 
 
