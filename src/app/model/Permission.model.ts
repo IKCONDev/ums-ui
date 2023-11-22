@@ -3,8 +3,8 @@ export class Permission{
 	permissionId: number = 0;
     permissionValue: string ='';
     permissionDescription: string ='';
-    createdDateTime: string;
-    modifiedDateTime: string;
+    createdDateTime: Date;
+    modifiedDateTime: Date;
     createdBy: string;
 	modifiedBy: string;
 	createdByEmailId: string;

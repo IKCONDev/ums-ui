@@ -431,6 +431,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isEmployeeFirstNameValid = false;
 
     }
+    else if (this.addEmployee.firstName.length >= 30) {
+      this.employeeFirstNameErrorInfo = "First Name max length is 30";
+      this.isEmployeeFirstNameValid = false;
+
+    }
     else {
       this.employeeFirstNameErrorInfo = "";
       this.isEmployeeFirstNameValid = true;
@@ -445,6 +450,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addEmployee.lastName == '' || this.addEmployee.lastName.trim() === "" || regex.exec(this.addEmployee.lastName) === null) {
       this.employeeLastNameErrorInfo = "Last Name is required";
       this.isEmployeeLasttNameValid = false;
+    }
+    else if (this.addEmployee.lastName.length >= 30) {
+      this.employeeLastNameErrorInfo = "Last Name max length is 30";
+      this.isEmployeeFirstNameValid = false;
+
     }
     else if (this.addEmployee.lastName.length > 1) {
       this.employeeLastNameErrorInfo = "";

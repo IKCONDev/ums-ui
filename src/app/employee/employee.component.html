@@ -133,7 +133,7 @@
                 <label><b>First Name</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="First Name"
                     [(ngModel)]="addEmployee.firstName" id="firstName" name="firstName" required="true"
-                    #firstName="ngModel" maxlength="50" [class.invalid]="firstName.invalid && firstName.touched"
+                    #firstName="ngModel" maxlength="30" [class.invalid]="firstName.invalid && firstName.touched"
                     (keyup)="validateEmployeeFirstName()">
                 <span *ngIf="employeeFirstNameErrorInfo != ''">
                     <p id="errorMessage">{{employeeFirstNameErrorInfo}}</p>
@@ -142,7 +142,7 @@
                 <label><b>Last Name</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="Last Name"
                     [(ngModel)]="addEmployee.lastName" id="lastName" name="lastName" required="true" #lastName="ngModel"
-                    maxlength="50" (keyup)="validateEmployeeLastName()"
+                    maxlength="30" (keyup)="validateEmployeeLastName()"
                     [class.invalid]="lastName.invalid && lastName.touched" />
                 <span *ngIf="employeeLastNameErrorInfo != ''">
                     <p id="errorMessage">{{employeeLastNameErrorInfo}}</p>
