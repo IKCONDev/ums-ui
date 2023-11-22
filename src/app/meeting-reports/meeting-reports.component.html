@@ -1,8 +1,52 @@
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title"></app-header>
+</div>
 <div class="container-fluid">
     <div *ngIf="reportType === 'department'">
         <b>Department Reports</b>
     </div>
     <div *ngIf="reportType === 'employee'">
-        <b>Employee Reports</b>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b>Tasks</b>
+                    </div>
+                    <div class="chart">
+                        <div style="padding-top: 6px;"></div>
+                        <ng-select id="select" [(ngModel)]="selectedEmployee" style="float: right; width: 250px;"
+                            placeholder="choose" (change)="chooseEmployee()">
+                            <ng-option *ngFor="let employee of employeeListAsUser"
+                                value="{{employee.email}}">{{employee.firstName}} {{employee.lastName}}</ng-option>
+                        </ng-select>
+                        <canvas id="organizedmeetingListChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Organizer</th>
+                    <th>Start Date Time</th>
+                    <th>End Date Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let meeting of organizedMeetingList">
+                    <td>{{meeting.meetingId}}</td>
+                    <td>{{meeting.subject}}</td>
+                    <td>{{meeting.organizerName}}</td>
+                    <td>{{meeting.startDateTime}}</td>
+                    <td>{{meeting.endDateTime}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
