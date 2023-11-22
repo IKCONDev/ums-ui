@@ -48,6 +48,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   employeeData: Employee[];
   reportingManagerName: string;
+  isComponentLoading:boolean=false;
+  isEmployeeDataText:boolean=false;
 
   constructor(private employeeservice: EmployeeService, private toastr: ToastrService,
     private departmentservice: DepartmentService, private router: Router, private designationService: DesignationService) { }
@@ -90,9 +92,15 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   departmentList: Department[] = [];
   getAllEmployees() {
+    this.isEmployeeDataText=true;
+    this.isComponentLoading=true;
     this.employeeservice.getAll().subscribe({
       next: response => {
         this.employeeData = response.body;
+        setTimeout(()=>{
+          this.isEmployeeDataText=false;
+          this.isComponentLoading=false;
+        },400)
         console.log(this.employeeData);
       },
       error: error => {

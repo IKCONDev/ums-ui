@@ -5,6 +5,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { error } from 'jquery';
+import { flatMap } from 'rxjs';
 
 @Component({
   selector: 'app-task-category',
@@ -23,6 +24,9 @@ export class TaskCategoryComponent implements OnInit {
   loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
 
   taskCategoryList: TaskCategory[];
+
+  isComponentLoading:boolean=false;
+  isTaskCategoryDataText:boolean=false;
 
   constructor(private taskCategoryService: TaskCategoryService, private toastrService: ToastrService,
     private router: Router){}
@@ -58,9 +62,15 @@ export class TaskCategoryComponent implements OnInit {
 
 
   getTaskcategories(){
+    this.isComponentLoading=true;
+    this.isTaskCategoryDataText=true;
     this.taskCategoryService.findTaskCategories().subscribe({
       next: response => {
         this.taskCategoryList = response.body;
+        setTimeout(()=>{
+          this.isComponentLoading=false;
+          this.isTaskCategoryDataText=false;
+        },400)
         console.log(response.body)
       }
     })

@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body" *ngIf="isBatchDetailsText===false">
         <div *ngIf="batchRecordsCount > 0; else noBatchRecords" class="row">
             <table class="table table-hover" id="table">
                 <thead id="thead">
@@ -50,8 +50,16 @@
                     </tr>
                 </thead>
             </table>
-             <p id="no-records">No Batch Reports Yet ! </p>
+             <p id="no-records" *ngIf="displayText===false">No Batch Reports Yet ! </p>
         </ng-template>
     </div>
 
 </div>
+<div style="text-align: center;padding-top:230px;color: #134E69D9;">
+    <span *ngIf="isComponentLoading===true">
+        <div class="spinner-border" style="width: 4rem; height: 4rem;animation-duration: 1s;" role="status">
+            <span class="sr-only">Loading...</span>
+            <div style="position: fixed;padding-top: 16px;padding-left: 8px;"><h5>UMS</h5></div>
+        </div>
+    </span>    
+</div> 

@@ -50,6 +50,9 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     modifiedDateTime: '',
   }
 
+  isComponentLoading:boolean=false;
+  isRoleDataText:boolean=false;
+
   /**
    * 
    * @param roleService 
@@ -250,10 +253,16 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    * get all roles
    */
   getRoleList() {
+    this.isRoleDataText=true;
+    this.isComponentLoading=true;
     this.roleService.getAllRoles().subscribe({
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           this.roleList = response.body;
+          setTimeout(()=>{
+            this.isRoleDataText=false;
+            this.isComponentLoading=false;
+          },400)
           console.log(response.body)
         }
       },error: error =>{
