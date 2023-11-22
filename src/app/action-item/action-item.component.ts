@@ -113,8 +113,8 @@ export class ActionItemComponent implements OnInit {
   isUpdateActionItemStartDateValid = false;
   isUpdateActionItemEndDateValid = false;
 
-  isLoading:boolean;
-  isMinorLoading:boolean;
+  isComponentLoading:boolean;
+  displayText:boolean;
   isActionItemLoading:boolean;
   /**
    * 
@@ -167,9 +167,9 @@ export class ActionItemComponent implements OnInit {
 
     this.getActiveUMSUsersEmailIdList();
     //get action items of user
-    this.isLoading=true;
-    this.isMinorLoading=true;
-    this.isActionItemLoading=true;
+    this.isComponentLoading=false;
+    this.displayText=false;
+    this.isActionItemLoading=false;
     this.getActionItemsOfUser();
     if (this.selectedReporteeOrganizedActionItem === '') {
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
@@ -203,6 +203,9 @@ export class ActionItemComponent implements OnInit {
    * Get action items of logged in user
    */
   getActionItemsOfUser() {
+    this.isComponentLoading=true;
+    this.displayText=true;
+    this.isActionItemLoading=true;
     if(this.selectedReporteeOrganizedActionItem != ''){
       this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
         next: (response) => {
@@ -210,12 +213,15 @@ export class ActionItemComponent implements OnInit {
           console.log(this.actionItems+"--sele")
           this.actionItemCount = response.body.length;
           if(this.actionItemCount===0){
-            this.isLoading=false;
-            this.isMinorLoading=false;
+            setTimeout(()=>{
+              this.isComponentLoading=false;
+              this.displayText=false;
+            },400)
           }else{
-            this.isLoading=false;
-            this.isActionItemLoading=false;
-
+            setTimeout(() => {
+              this.isComponentLoading=false;
+              this.isActionItemLoading=false;
+            }, 400);
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -230,12 +236,15 @@ export class ActionItemComponent implements OnInit {
           console.log(this.actionItems+"def")
           this.actionItemCount = response.body.length;
           if(this.actionItemCount===0){
-            this.isLoading=false;
-            this.isMinorLoading=false;
+            setTimeout(()=>{
+              this.isComponentLoading=false;
+              this.displayText=false;
+            },400)
           }else{
-            this.isLoading=false;
-            this.isActionItemLoading=false;
-
+            setTimeout(() => {
+              this.isComponentLoading=false;
+              this.isActionItemLoading=false;
+            },400);
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {

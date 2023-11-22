@@ -116,7 +116,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   attendedMeetingStartDateFilter: string = localStorage.getItem('attendedMeetingStartDateFilter');
   attendedMeetingEndDateFilter: string = localStorage.getItem('attendedMeetingEndDateFilter');
 
-  isLoading:boolean;
+  isComponentLoading:boolean;
   displayText:boolean;
   isOrganizedMeetingDataLoading:boolean;
   isAttendedMeetingDataLoading:boolean;
@@ -228,7 +228,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //localStorage.setItem('tabOpened', 'OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
-    this.isLoading=false;
+    this.isComponentLoading=false;
     this.displayText=false;
     this.isOrganizedMeetingDataLoading=false;
     this.isAttendedMeetingDataLoading=false;
@@ -596,7 +596,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param tabOpened 
    */
   getMeetings(tabOpened: string) {
-    this.isLoading=true;
+    this.isComponentLoading=true;
     this.displayText=true;
     this.isOrganizedMeetingDataLoading=true;
     this.isAttendedMeetingDataLoading=true;
@@ -621,14 +621,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             this.meetingCount = response.body.length
             if(this.meetingCount===0){
               setTimeout(() => {
-                this.isLoading=false;
+                this.isComponentLoading=false;
                 this.displayText=false;
-              },300)
+              },400)
             }else{
               setTimeout(() => {
-                this.isLoading=false;
+                this.isComponentLoading=false;
                 this.isOrganizedMeetingDataLoading=false;
-              },300)
+              },400)
             }
             localStorage.setItem('meetingCount', this.meetingCount.toString());
             console.log(this.meetings);
@@ -714,14 +714,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             this.attendedMeetingCount = response.body.length;
             if(this.attendedMeetingCount===0){
               setTimeout(() => {
-                this.isLoading=false;
+                this.isComponentLoading=false;
                 this.displayText=false;
-              },300)
+              },400)
             }else{
               setTimeout(()=> {
-                this.isLoading=false;
+                this.isComponentLoading=false;
                  this.isAttendedMeetingDataLoading=false;
-              },300)
+              },400)
             }
             localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
             console.log(this.attendedMeetings);
