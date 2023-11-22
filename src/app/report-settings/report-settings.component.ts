@@ -15,10 +15,10 @@ export class ReportSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
 
-  setReportType(reportType: string){
+  setMeetingReportType(reportType: string){
     this.reportType = reportType;
     this.router.navigate(['/meeting-report'],{queryParams:{reportType:reportType}})
   }
