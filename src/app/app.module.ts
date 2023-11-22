@@ -50,6 +50,7 @@ import { TaskCategoryComponent } from './task-category/task-category.component';
 import { PermissionComponent } from './permission/permission.component';
 import { ReportSettingsComponent } from './report-settings/report-settings.component';
 import { AppMenuItemsComponent } from './app-menu-item/app-menu-item.component';
+import { EmployeeReportsComponent } from './employee-reports/employee-reports.component';
 
 
 @NgModule({
@@ -90,7 +91,8 @@ import { AppMenuItemsComponent } from './app-menu-item/app-menu-item.component';
     TaskCategoryComponent,
     PermissionComponent,
     ReportSettingsComponent,
-    AppMenuItemsComponent
+    AppMenuItemsComponent,
+    EmployeeReportsComponent
   ],
   imports: [
     BrowserModule,
