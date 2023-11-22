@@ -16,10 +16,10 @@
                     <p>Add</p>
                 </button>
             </div>
-            <div id="deleteBtnDiv" class="col-sm-2 d-flex">
+            <!-- <div id="deleteBtnDiv" class="col-sm-2 d-flex">
                 <button type="submit" class=" form-control" id="deleteBtn" name="deleteBtn"
                 style="width: 80px;" >Delete</button>
-             </div>
+             </div> -->
             <!-- <div class="col-sm-1 d-flex" id="filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                     <path
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body" *ngIf="isPermissionDataText===false">
         <div class="row">
             <table id="table" class="table table-hover">
                 <thead id="thead">
@@ -73,7 +73,7 @@
                                 &nbsp;
                             </span>
                             <span id="trashIcon">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" (click)="removePermission(permission.permissionId)"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                     viewBox="0 0 482.428 482.429" xml:space="preserve">
                                     <g>
@@ -104,27 +104,36 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header" id="modalHeader">
-                <h5 class="modal-title" id="xlModalLabel">Add Permission</h5>
+                <h5 class="modal-title" id="xlModalLabel">Permission</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;" (click)="clearErrorMessages()">&times;</span>
                 </button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Permission Value</b><span id="required"></span></label>
                 <input id="categoryName" type="text"  class="deptInput form-control" placeholder="permission value" minlength="3"
-                [(ngModel)]="addPermission.permissionValue"
-                    maxlength="50" /><br />
+                [(ngModel)]="addPermission.permissionValue" (keyup)="validatePermissionValue()"
+                    maxlength="50" />
+                <span *ngIf="permissionValueErrorInfo != ''">
+                        <p id="errorMessage">{{permissionValueErrorInfo}}</p>
+                 </span>
+                <br />
+
                 <!--   -->
                 <label><b>Permission Description</b><span id="required"></span></label><br/>
                 <textarea id="categoryDesc" class="form-control" placeholder="permission description" [(ngModel)]="addPermission.permissionDescription"
-                     minlength="5" maxlength="50"
+                     minlength="5" maxlength="50" (keyup)="validatePermissionDescription()"
                     rows="2" cols="5" style="text-transform: capitalize;width: 400px;">
-                </textarea><br />
-                <label><b>Permission Status</b><span id="required"></span></label><br/>
+                </textarea>
+                <span *ngIf="permissionDescriptionErrorInfo != ''">
+                    <p id="errorMessage">{{permissionDescriptionErrorInfo}}</p>
+                </span>
+                <br />
+                <!-- <label><b>Permission Status</b><span id="required"></span></label><br/>
                 <input id="categoryName" type="text"  class="deptInput form-control" placeholder="permission Status" minlength="3"
                 [(ngModel)]="addPermission.permissionStatus"
-                    maxlength="50" /><br />
+                    maxlength="50" /><br /> -->
                 <!--   -->
             </div>
             <!-- Modal footer -->
@@ -132,8 +141,16 @@
                 <button type="submit" class="btn btn-primary saveButton" (click)="createOrUpdateTaskCategory()">Save</button>
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
-                <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton" data-dismiss="modal">Close</button>
+                <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton" data-dismiss="modal" (click)="clearErrorMessages()">Close</button>
             </div>
         </div>
     </div>
 </div>
+<div style="text-align: center;padding-top:200px;color: #134E69D9;">
+    <span *ngIf="isComponentLoading===true">
+        <div class="spinner-border" style="width: 4rem; height: 4rem;animation-duration: 1s;" role="status">
+            <span class="sr-only">Loading...</span>
+            <div style="position: fixed;padding-top: 16px;padding-left: 8px;"><h5>UMS</h5></div>
+        </div>
+    </span>    
+</div> 

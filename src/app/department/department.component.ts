@@ -30,6 +30,9 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     createdByEmailId: ''
   }
   updateDepartment: Department;
+  
+  isComponentLoading:boolean=false;
+  isDepartmentDataText:boolean=false;
 
   constructor(private departmentService: DepartmentService,
     private toastr: ToastrService, private router: Router, 
@@ -86,9 +89,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    * get list of all departments from Database and display to admin in UI
    */
   getAllDepartments(){
+    this.isComponentLoading=true;
+    this.isDepartmentDataText=true;
     this.departmentService.getDepartmentList().subscribe({
       next: (response)=>{
         this.departmentList = response.body;
+        setTimeout(()=>{
+          this.isComponentLoading=false;
+          this.isDepartmentDataText=false;
+        },400)
         console.log(this.departmentList)
       },error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){

@@ -156,7 +156,7 @@
                         <th></th>
                     </thead>
                 </table>
-                <p id="no-meetings" *ngIf="isMinorLoading===false">No Tasks Organized Yet ! </p>
+                <p id="no-meetings" *ngIf="displayText===false">No Tasks Organized Yet ! </p>
             </ng-template>
         </div>
         <!--  -->
@@ -244,7 +244,7 @@
                         <th>End Date & Time</th>
                     </thead>
                 </table>
-                <p id="no-meetings" *ngIf="isMinorLoading===false">No Tasks Assigned Yet!</p>
+                <p id="no-meetings" *ngIf="displayText===false">No Tasks Assigned Yet!</p>
             </ng-template>
         </div>
     </div>
@@ -846,10 +846,11 @@
         </div>
     </div>
 </div>
-<div style="text-align: center;padding-top:160px;">
-    <span *ngIf="isLoading===true">
-        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+<div style="text-align: center;padding-top:120px;color: #134E69D9;">
+    <span *ngIf="isComponentLoading===true">
+        <div class="spinner-border" style="width: 4rem; height: 4rem;animation-duration:1s" role="status">
             <span class="sr-only">Loading...</span>
+            <div style="position: fixed;padding-top: 16px;padding-left: 8px;"><h5>UMS</h5></div>
         </div>
     </span>    
 </div>   

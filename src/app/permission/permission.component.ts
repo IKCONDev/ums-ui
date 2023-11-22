@@ -22,14 +22,22 @@ export class PermissionComponent implements OnInit{
     throw new Error('Method not implemented.');
   }
   
+  isPermissionDataText:boolean=false;
+  isComponentLoading:boolean=false;
   constructor (private permissionService :PermissionService, private router:Router, private toastrService:ToastrService){
 
   }
   permissionsList :Permission[];
   getAllPermissions(){
+    this.isComponentLoading=true;
+    this.isPermissionDataText=true;
     this.permissionService.getAllPermissions().subscribe({
       next: response => {
         this.permissionsList = response.body;
+        setTimeout(()=>{
+          this.isComponentLoading=false;
+          this.isPermissionDataText=false;
+        },400)
         console.log(response.body)
       }
     })
@@ -59,6 +67,19 @@ export class PermissionComponent implements OnInit{
 
   createPermission(permission:Permission){
     console.log(permission.permissionId)
+    let isPermissionValueValid = true;
+    let isPermissionDescriptionValid = true;
+    if(!this.isPermissionValueValid){
+      var valid = this.validatePermissionValue();
+      isPermissionValueValid = valid;
+    }
+    if(!this.isPermissionDescriptionValid){
+      var valid = this.validatePermissionDescription();
+      isPermissionDescriptionValid = valid;
+
+    }
+    if(isPermissionValueValid === true && isPermissionDescriptionValid === true){
+
       permission.createdByEmailId = this.loggedInUser;
       permission.createdBy = this.loggedInUserFullName;
       this.permissionService.createPermission(permission).subscribe({
@@ -74,12 +95,29 @@ export class PermissionComponent implements OnInit{
             this.router.navigateByUrl('/session-timeout');
           }
           else {
-            this.toastrService.error('Error while creating the task category. Please try again !')
+            this.toastrService.error('Error while creating permission. Please try again !')
           }
         }
       })
+
+    }
+      
     }
     updatePermission(permission: Permission){
+
+      let isPermissionValueValid = true;
+      let isPermissionDescriptionValid = true;
+      if(!this.isPermissionValueValid){
+        var valid = this.validatePermissionValue();
+        isPermissionValueValid = valid;
+      }
+      if(!this.isPermissionDescriptionValid){
+        var valid = this.validatePermissionDescription();
+        isPermissionDescriptionValid = valid;
+  
+      }
+      if(isPermissionValueValid === true && isPermissionDescriptionValid === true){
+
         permission.modifiedByEmailId = this.loggedInUser;
         permission.modifiedBy = this.loggedInUserFullName;
         this.permissionService.updatePermission(permission).subscribe({
@@ -98,6 +136,10 @@ export class PermissionComponent implements OnInit{
             }
           }
         })
+
+
+      }  
+       
     }
     
     getpermissonById(permissionId: number){
@@ -109,20 +151,34 @@ export class PermissionComponent implements OnInit{
         }
       })
     }
+
+    permissionValueErrorInfo:string =''
+    isPermissionValueValid:boolean = false;
+    validatePermissionValue(){
+      const regex = /^\S.*[a-zA-Z\s]*$/;
+      if(this.addPermission.permissionValue ==''){
+        this.permissionValueErrorInfo = 'Permission Value is required';
+        this.isPermissionValueValid = false;
+      }else{
+        this.isPermissionValueValid = true;
+        this.permissionValueErrorInfo = '';
+      }
+      return this.isPermissionValueValid;
+    }
  
     permissionDescriptionErrorInfo:string =''
     isPermissionDescriptionValid:boolean = false;
-    validateTaskCategoryDescription(){
+    validatePermissionDescription(){
       const regex = /^\S.*[a-zA-Z\s]*$/;
       if(this.addPermission.permissionDescription === '' || this.addPermission.permissionDescription.trim()==="" || 
       regex.exec(this.addPermission.permissionDescription)===null){
-        this.permissionDescriptionErrorInfo = 'Task category description is required';
+        this.permissionDescriptionErrorInfo = 'Permission description is required';
         this.isPermissionDescriptionValid = false;
       }else if(this.addPermission.permissionDescription.length < 5){
-        this.permissionDescriptionErrorInfo = 'Task category description should have minimum of 5 characters.';
+        this.permissionDescriptionErrorInfo = 'Permission description should have minimum of 5 characters.';
         this.isPermissionDescriptionValid = false;
       }else if(this.addPermission.permissionDescription.length > 50){
-        this.permissionDescriptionErrorInfo = 'Task category description should not exceed more than 100 characters';
+        this.permissionDescriptionErrorInfo = 'Permission description should not exceed more than 100 characters';
         this.isPermissionDescriptionValid = false;
       }else{
         this.isPermissionDescriptionValid = true;
@@ -130,6 +186,39 @@ export class PermissionComponent implements OnInit{
       }
       return this.isPermissionDescriptionValid;
     }
-     
+
+    
+  clearErrorMessages(){
+    this.addPermission.permissionDescription = '';
+    this.addPermission.permissionValue= '';
+
+    this.isPermissionValueValid = false;
+    this.isPermissionDescriptionValid = false;
+
+    this.permissionDescriptionErrorInfo = '';
+    this.permissionValueErrorInfo = '';
+    
+  }
+  removePermission(permissionId : number){
+    var isconfirmed = window.confirm("Are you sure, you really want to delete selected permission ?")
+    if(isconfirmed){
+       this.permissionService.deleteSelectedPermission(permissionId).subscribe({
+         next: response =>{
+            if(response.status == HttpStatusCode.Ok){
+               this.toastrService.success("permission  deleted successfully");
+            }
+         },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }else {
+            this.toastrService.error('Error while deleting permission, Please try again !')
+          }
+        }
+
+       })
+
+    }
+  }   
+
 }
 
