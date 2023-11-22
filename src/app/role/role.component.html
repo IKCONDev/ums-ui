@@ -54,7 +54,7 @@
                                 <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox" 
                                 value="{{role.roleId}}" (click)="toggleMainCheckBox(i)"/>
                             </td>
-                            <td>R{{role.roleId}}</td>
+                            <td>{{role.roleId}}</td>
                             <td id="role-subject">{{role.roleName | uppercase}}</td>
                             <td>{{role.createdBy | titlecase}}</td>
                             <td>{{role.createdDateTime|date:'MMM d, y, h:mm a'}}</td>
