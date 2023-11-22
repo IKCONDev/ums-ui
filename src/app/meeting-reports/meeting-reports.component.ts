@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as d3 from 'd3';
+// import * as d3 from 'd3';
 import { MeetingReportsService } from './service/meeting-reports.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { Meeting } from '../model/Meeting.model';
