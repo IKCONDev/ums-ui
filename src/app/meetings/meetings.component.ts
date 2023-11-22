@@ -116,6 +116,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   attendedMeetingStartDateFilter: string = localStorage.getItem('attendedMeetingStartDateFilter');
   attendedMeetingEndDateFilter: string = localStorage.getItem('attendedMeetingEndDateFilter');
 
+  isLoading:boolean;
+  isMinorLoading:boolean;
+  isOrganizedDataLoading:boolean;
+  isAttendedDataLoading:boolean;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -222,6 +226,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //localStorage.setItem('tabOpened', 'OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
+    this.isLoading=true;
+    this.isMinorLoading=true;
+    this.isOrganizedDataLoading=true;
+    this.isAttendedDataLoading=true;
     this.getMeetings(this.tabOpened);
 
     //disable actionItem btn default
@@ -609,6 +617,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           next: (response) => {
             this.meetings = response.body;
             this.meetingCount = response.body.length
+            if(this.meetingCount===0){
+              this.isLoading=false;
+              this.isMinorLoading=false;
+            }else{
+              this.isLoading=false;
+              this.isOrganizedDataLoading=false;
+            }
             localStorage.setItem('meetingCount', this.meetingCount.toString());
             console.log(this.meetings);
             this.meetings.forEach(meeting => {
@@ -690,7 +705,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           next: (response) => {
             //extract the meetings from response object
             this.attendedMeetings = response.body;
-            this.attendedMeetingCount = response.body.length
+            this.attendedMeetingCount = response.body.length;
+            if(this.attendedMeetingCount===0){
+              this.isLoading=false;
+              this.isMinorLoading=false;
+            }else{
+              this.isLoading=false;
+              this.isAttendedDataLoading=false;
+            }
             localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
             console.log(this.attendedMeetings);
           },//next

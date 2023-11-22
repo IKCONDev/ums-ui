@@ -149,7 +149,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.table.destroy();
     }
   }
-
+isLoading:boolean;
+isMinorLoading:boolean;
+isOrganizedDataLoading:boolean;
+isAssignedDataLoading:boolean;
   /**
    * 
    * @param service 
@@ -229,6 +232,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     //localStorage.setItem('taskTabOpened', 'OrganizedTask');
     this.tabOpened = localStorage.getItem('taskTabOpened')
     console.log(this.tabOpened)
+    this.isLoading=true;
+    this.isMinorLoading=true;
+    this.isAssignedDataLoading=true;
+    this.isOrganizedDataLoading=true;
     this.getTasks(this.tabOpened);
 
      //get reportees data of logged in user
@@ -275,6 +282,13 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             //extract the meetings from response object
             this.assignedTasks = response.body;
             this.assignedTasksCount = response.body.length
+            if(this.assignedTasksCount===0){
+              this.isLoading=false;
+              this.isMinorLoading=false;
+            }else{
+              this.isLoading=false;
+              this.isAssignedDataLoading=false;
+            }
             localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
           }, error: (error) => {
             if (error.status === HttpStatusCode.Unauthorized) {
@@ -322,6 +336,13 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           next: (res) => {
             this.task = res.body;
             this.taskCount = res.body.length;
+            if(this.taskCount===0){
+              this.isLoading=false;
+              this.isMinorLoading=false;
+            }else{
+              this.isLoading=false;
+              this.isOrganizedDataLoading=false;
+            }
             console.log(this.task);
           }, error: (error) => {
             if (error.status === HttpStatusCode.Unauthorized) {

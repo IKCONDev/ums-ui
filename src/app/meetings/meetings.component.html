@@ -98,7 +98,7 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
-                    <tr>
+                    <tr *ngIf="isOrganizedDataLoading===false">
                         <td>{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
@@ -322,7 +322,7 @@
         </div> -->
         </div>
 
-        <div>
+        <div *ngIf="isMinorLoading===false">
             <p id="no-meetings" *ngIf="meetingCount === 0">No Meetings Organized Yet ! </p>
         </div>
         <!-- ngif -->
@@ -355,7 +355,7 @@
         </div><br />
         <!-- reportee dropdown end -->
         <div class="row" *ngIf="attendedMeetingCount>0; else noMeetings">
-            <table id="assignedTable" class="table table-hover" height="40">
+            <table id="assignedTable" class="table table-hover" height="40" *ngIf="isAttendedDataLoading===false">
                 <thead id="thead">
                     <tr>
                         <th>Meeting ID</th>
@@ -387,7 +387,7 @@
                         <th>End Date & Time</th>
                     </thead>
                 </table>
-                <p id="no-meetings">No Meetings Attended Yet ! </p>
+                <p id="no-meetings" *ngIf="isMinorLoading===false">No Meetings Attended Yet ! </p>
             </ng-template>
         </div>
     </div>
@@ -929,3 +929,11 @@
             </div>
         </div>
     </div>
+
+    <div style="text-align: center;padding-top:160px;">
+        <span *ngIf="isLoading===true">
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </span>    
+    </div>  

@@ -113,7 +113,9 @@ export class ActionItemComponent implements OnInit {
   isUpdateActionItemStartDateValid = false;
   isUpdateActionItemEndDateValid = false;
 
-
+  isLoading:boolean;
+  isMinorLoading:boolean;
+  isActionItemLoading:boolean;
   /**
    * 
    * @param service 
@@ -165,6 +167,9 @@ export class ActionItemComponent implements OnInit {
 
     this.getActiveUMSUsersEmailIdList();
     //get action items of user
+    this.isLoading=true;
+    this.isMinorLoading=true;
+    this.isActionItemLoading=true;
     this.getActionItemsOfUser();
     if (this.selectedReporteeOrganizedActionItem === '') {
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
@@ -204,6 +209,14 @@ export class ActionItemComponent implements OnInit {
           this.actionItems = response.body;
           console.log(this.actionItems+"--sele")
           this.actionItemCount = response.body.length;
+          if(this.actionItemCount===0){
+            this.isLoading=false;
+            this.isMinorLoading=false;
+          }else{
+            this.isLoading=false;
+            this.isActionItemLoading=false;
+
+          }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout')
@@ -216,6 +229,14 @@ export class ActionItemComponent implements OnInit {
           this.actionItems = response.body;
           console.log(this.actionItems+"def")
           this.actionItemCount = response.body.length;
+          if(this.actionItemCount===0){
+            this.isLoading=false;
+            this.isMinorLoading=false;
+          }else{
+            this.isLoading=false;
+            this.isActionItemLoading=false;
+
+          }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout')
