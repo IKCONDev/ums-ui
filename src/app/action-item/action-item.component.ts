@@ -113,7 +113,9 @@ export class ActionItemComponent implements OnInit {
   isUpdateActionItemStartDateValid = false;
   isUpdateActionItemEndDateValid = false;
 
-
+  isComponentLoading:boolean=false;
+  displayText:boolean=false;
+  isActionItemLoading:boolean=false;
   /**
    * 
    * @param service 
@@ -198,12 +200,26 @@ export class ActionItemComponent implements OnInit {
    * Get action items of logged in user
    */
   getActionItemsOfUser() {
+    this.isComponentLoading=true;
+    this.displayText=true;
+    this.isActionItemLoading=true;
     if(this.selectedReporteeOrganizedActionItem != ''){
       this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
         next: (response) => {
           this.actionItems = response.body;
           console.log(this.actionItems+"--sele")
           this.actionItemCount = response.body.length;
+          if(this.actionItemCount===0){
+            setTimeout(()=>{
+              this.isComponentLoading=false;
+              this.displayText=false;
+            },400)
+          }else{
+            setTimeout(() => {
+              this.isComponentLoading=false;
+              this.isActionItemLoading=false;
+            }, 400);
+          }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout')
@@ -216,6 +232,17 @@ export class ActionItemComponent implements OnInit {
           this.actionItems = response.body;
           console.log(this.actionItems+"def")
           this.actionItemCount = response.body.length;
+          if(this.actionItemCount===0){
+            setTimeout(()=>{
+              this.isComponentLoading=false;
+              this.displayText=false;
+            },400)
+          }else{
+            setTimeout(() => {
+              this.isComponentLoading=false;
+              this.isActionItemLoading=false;
+            },400);
+          }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout')

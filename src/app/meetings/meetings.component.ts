@@ -116,6 +116,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   attendedMeetingStartDateFilter: string = localStorage.getItem('attendedMeetingStartDateFilter');
   attendedMeetingEndDateFilter: string = localStorage.getItem('attendedMeetingEndDateFilter');
 
+  isComponentLoading:boolean=false;
+  displayText:boolean=false;
+  isOrganizedMeetingDataLoading:boolean=false;
+  isAttendedMeetingDataLoading:boolean=false;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -190,6 +194,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   selectedReporteeName: string ='';
+  selectedReporteeDepartment: number = 0;
   /**
    * executes when the component is initialized or loaded first time
    */
@@ -199,9 +204,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting:this.loggedInUser).subscribe({
       next: response => {
         this.selectedReporteeName = response.body.employee.firstName +' '+ response.body.employee.lastName;
-        console.log(this.selectedReporteeName)
+        this.selectedReporteeDepartment = response.body.employee.department.departmentId;
         this.addMeeting.organizerName = this.selectedReporteeName;
-        console.log(this.selectedReporteeName)
+        this.addMeeting.departmentId = this.selectedReporteeDepartment;
+        console.log(this.selectedReporteeDepartment)
       }
     });
     //generate action items for user meetings automatically upon component initialization
@@ -556,10 +562,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }//error
       });
       this.fetchActionItemsOfEvent(this.currentMeetingId);
-      //reset the form after submitting
-      form.form.reset();
-      // //need to change this later
-      // window.location.reload();
     }
   }
 
@@ -590,6 +592,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param tabOpened 
    */
   getMeetings(tabOpened: string) {
+    this.isComponentLoading=true;
+    this.displayText=true;
+    this.isOrganizedMeetingDataLoading=true;
+    this.isAttendedMeetingDataLoading=true;
     //re-initailze slider
     this.initializeActionItemsSlider();
     console.log(tabOpened)
@@ -609,6 +615,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           next: (response) => {
             this.meetings = response.body;
             this.meetingCount = response.body.length
+            if(this.meetingCount===0){
+              setTimeout(() => {
+                this.isComponentLoading=false;
+                this.displayText=false;
+              },400)
+            }else{
+              setTimeout(() => {
+                this.isComponentLoading=false;
+                this.isOrganizedMeetingDataLoading=false;
+              },400)
+            }
             localStorage.setItem('meetingCount', this.meetingCount.toString());
             console.log(this.meetings);
             this.meetings.forEach(meeting => {
@@ -690,7 +707,18 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           next: (response) => {
             //extract the meetings from response object
             this.attendedMeetings = response.body;
-            this.attendedMeetingCount = response.body.length
+            this.attendedMeetingCount = response.body.length;
+            if(this.attendedMeetingCount===0){
+              setTimeout(() => {
+                this.isComponentLoading=false;
+                this.displayText=false;
+              },400)
+            }else{
+              setTimeout(()=> {
+                this.isComponentLoading=false;
+                 this.isAttendedMeetingDataLoading=false;
+              },400)
+            }
             localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
             console.log(this.attendedMeetings);
           },//next
@@ -1383,6 +1411,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     subject: '',
     organizerName: '',
     organizerEmailId: this.selectedReporteeOrganizedMeeting != ''?this.selectedReporteeOrganizedMeeting:this.loggedInUser,
+    departmentId: 0,
     startDateTime: '',
     endDateTime: '',
     attendees: [],

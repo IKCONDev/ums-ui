@@ -431,6 +431,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isEmployeeFirstNameValid = false;
 
     }
+    else if (this.addEmployee.firstName.length >= 30) {
+      this.employeeFirstNameErrorInfo = "First Name max length is 30";
+      this.isEmployeeFirstNameValid = false;
+
+    }
     else {
       this.employeeFirstNameErrorInfo = "";
       this.isEmployeeFirstNameValid = true;
@@ -445,6 +450,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addEmployee.lastName == '' || this.addEmployee.lastName.trim() === "" || regex.exec(this.addEmployee.lastName) === null) {
       this.employeeLastNameErrorInfo = "Last Name is required";
       this.isEmployeeLasttNameValid = false;
+    }
+    else if (this.addEmployee.lastName.length >= 30) {
+      this.employeeLastNameErrorInfo = "Last Name max length is 30";
+      this.isEmployeeFirstNameValid = false;
+
     }
     else if (this.addEmployee.lastName.length > 1) {
       this.employeeLastNameErrorInfo = "";
@@ -788,13 +798,24 @@ isUpdateEmployeeGenderValid = false;
     if (!$('#ac-check' + index).is(':checked')) {
       $('.mainCheckBox').prop('checked', false);
     }
+    const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
+    console.log(anyUnchecked);
+    $('#mainCheckBox').prop('checked', !anyUnchecked);
+    
   }
   isEmployeeIDValid = false;
   isEmployeeIDErrorInfo = '';
   validateEmployeeID(){
-    if(this.addEmployee.employeeOrgId == ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null){
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID is required';
+    }else if(this.addEmployee.employeeOrgId.length < 4){
+      this.isEmployeeIDValid = false;
+      this.isEmployeeIDErrorInfo = 'Employee ID should have min of 4 characters';
+    }else if(this.addEmployee.employeeOrgId.length  > 20){
+      this.isEmployeeIDValid = false;
+      this.isEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
     }
     else{
       this.isEmployeeIDValid = true;
@@ -821,10 +842,16 @@ isUpdateEmployeeGenderValid = false;
   isUpdateEmployeeIDValid = false;
   isUpdateEmployeeIDErrorInfo = '';
   validateUpdateEmployeeID(){
-  
-    if(this.existingEmployee.employeeOrgId == ''){
+    const regex = /^\S.*[a-zA-Z\s]*$/;
+    if(this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null){
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required';
+    }else if(this.existingEmployee.employeeOrgId.length < 4){
+      this.isUpdateEmployeeIDValid = false;
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 4 characters';
+    }else if(this.existingEmployee.employeeOrgId.length  > 20){
+      this.isUpdateEmployeeIDValid = false;
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
     }
     else{
       this.isUpdateEmployeeIDValid = true;

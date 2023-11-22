@@ -29,6 +29,8 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { TaskCategoryComponent } from './task-category/task-category.component';
 import { PermissionComponent } from './permission/permission.component';
 import { ReportSettingsComponent } from './report-settings/report-settings.component';
+import { AppMenuItemsComponent } from './app-menu-item/app-menu-item.component';
+import { MeetingReportsComponent } from './meeting-reports/meeting-reports.component';
 
 
 /**
@@ -63,6 +65,8 @@ const routes: Routes = [
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: 'permission', component: PermissionComponent},
   {path :'report-settings',component :ReportSettingsComponent},
+  {path: 'menu-item', component: AppMenuItemsComponent},
+  {path: 'meeting-report', component: MeetingReportsComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},

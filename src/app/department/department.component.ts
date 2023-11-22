@@ -585,6 +585,9 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     if(!$('#subCheckBox'+index).is(':checked')){
       $('#mainCheckBox').prop('checked',false);
     }
+    const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
+    console.log(anyUnchecked);
+    $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
 
 }

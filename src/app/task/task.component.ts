@@ -149,7 +149,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.table.destroy();
     }
   }
-
+isComponentLoading:boolean=false;
+displayText:boolean=false;
+isOrganizedDataLoading:boolean=false;
+isAssignedDataLoading:boolean=false;
   /**
    * 
    * @param service 
@@ -250,6 +253,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param tabOpened 
    */
   getTasks(tabOpened: string) {
+    this.isComponentLoading=true;
+    this.displayText=true;
+    this.isAssignedDataLoading=true;
+    this.isOrganizedDataLoading=true;
 
     //check logged in user role
     //if (this.loggedInUserRole != 'ADMIN') {
@@ -275,6 +282,17 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             //extract the meetings from response object
             this.assignedTasks = response.body;
             this.assignedTasksCount = response.body.length
+            if(this.assignedTasksCount===0){
+              setTimeout(()=>{
+                this.isComponentLoading=false;
+                this.displayText=false;
+              },400)
+            }else{
+              setTimeout(()=>{
+                this.isComponentLoading=false;
+                this.isAssignedDataLoading=false;
+              },400)
+            }
             localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
           }, error: (error) => {
             if (error.status === HttpStatusCode.Unauthorized) {
@@ -322,6 +340,17 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           next: (res) => {
             this.task = res.body;
             this.taskCount = res.body.length;
+            if(this.taskCount===0){
+              setTimeout(()=>{
+                this.isComponentLoading=false;
+                this.displayText=false;
+              },400)
+            }else{
+              setTimeout(()=>{
+                this.isComponentLoading=false;
+                this.isOrganizedDataLoading=false;
+              },400)
+            }
             console.log(this.task);
           }, error: (error) => {
             if (error.status === HttpStatusCode.Unauthorized) {
@@ -734,6 +763,7 @@ validateTaskCategory(){
   checkSubCheckBoxes() {
     if ($('#mainCheckBox').is(':checked')) {
       $('.subCheckBox').prop('checked', true);
+      
     } else {
       $('.subCheckBox').prop('checked', false);
     }
@@ -865,6 +895,8 @@ validateTaskCategory(){
     if (!$('#subCheckBox' + index).is(':checked')) {
       $('#mainCheckBox').prop('checked', false);
     }
+    const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
+    $('#mainCheckBox').prop('checked', !anyUnchecked);
 
   }
 

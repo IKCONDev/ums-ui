@@ -49,6 +49,8 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { TaskCategoryComponent } from './task-category/task-category.component';
 import { PermissionComponent } from './permission/permission.component';
 import { ReportSettingsComponent } from './report-settings/report-settings.component';
+import { AppMenuItemsComponent } from './app-menu-item/app-menu-item.component';
+import { MeetingReportsComponent } from './meeting-reports/meeting-reports.component';
 
 
 @NgModule({
@@ -88,7 +90,9 @@ import { ReportSettingsComponent } from './report-settings/report-settings.compo
     UnauthorizedComponent,
     TaskCategoryComponent,
     PermissionComponent,
-    ReportSettingsComponent
+    ReportSettingsComponent,
+    AppMenuItemsComponent,
+    MeetingReportsComponent,
   ],
   imports: [
     BrowserModule,
