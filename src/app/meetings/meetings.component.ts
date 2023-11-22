@@ -194,6 +194,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   selectedReporteeName: string ='';
+  selectedReporteeDepartment: number = 0;
   /**
    * executes when the component is initialized or loaded first time
    */
@@ -203,9 +204,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting:this.loggedInUser).subscribe({
       next: response => {
         this.selectedReporteeName = response.body.employee.firstName +' '+ response.body.employee.lastName;
-        console.log(this.selectedReporteeName)
+        this.selectedReporteeDepartment = response.body.employee.department.departmentId;
         this.addMeeting.organizerName = this.selectedReporteeName;
-        console.log(this.selectedReporteeName)
+        this.addMeeting.departmentId = this.selectedReporteeDepartment;
+        console.log(this.selectedReporteeDepartment)
       }
     });
     //generate action items for user meetings automatically upon component initialization
@@ -1405,6 +1407,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     subject: '',
     organizerName: '',
     organizerEmailId: this.selectedReporteeOrganizedMeeting != ''?this.selectedReporteeOrganizedMeeting:this.loggedInUser,
+    departmentId: 0,
     startDateTime: '',
     endDateTime: '',
     attendees: [],

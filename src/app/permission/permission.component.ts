@@ -13,6 +13,9 @@ import { ToastrService } from 'ngx-toastr';
 export class PermissionComponent implements OnInit{
   @Output() title = 'Permissions';
   addPermission: Permission = new Permission();
+  loggedInUser = localStorage.getItem('email');
+  loggedInUserRole = localStorage.getItem('userRole')
+  loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
   ngOnInit(): void {
     this.getAllPermissions();
     throw new Error('Method not implemented.');
@@ -34,11 +37,15 @@ export class PermissionComponent implements OnInit{
     if(this.addPermission.permissionId === 0){
       this.createPermission(this.addPermission);
     }
+    else{
+      this.updatePermission(this.addPermission)
+    }
   }
 
   createPermission(permission:Permission){
     console.log(permission.permissionId)
-  
+      permission.createdByEmailId = this.loggedInUser;
+      permission.createdBy = this.loggedInUserFullName;
       this.permissionService.createPermission(permission).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
@@ -57,5 +64,36 @@ export class PermissionComponent implements OnInit{
         }
       })
     }
+    updatePermission(permission: Permission){
+        permission.modifiedByEmailId = this.loggedInUser;
+        permission.modifiedBy = this.loggedInUserFullName;
+        this.permissionService.updatePermission(permission).subscribe({
+          next: response => {
+            if(response.status === HttpStatusCode.PartialContent){
+              this.toastrService.success('Permission updated successfully');
+              setTimeout(() => {
+                window.location.reload();
+              },1000)
+            }
+          },error: error => {
+            if(error.status === HttpStatusCode.Unauthorized){
+              this.router.navigateByUrl('/session-timeout');
+            }else {
+              this.toastrService.error('Error while creating the permission, Please try again !')
+            }
+          }
+        })
+    }
+    
+    getpermissonById(permissionId: number){
+      this.permissionService.findPermissionById(permissionId).subscribe({
+        next: response => {
+          if(response.status === HttpStatusCode.Ok){
+            this.addPermission = response.body;
+          }
+        }
+      })
+    }
+  
 }
 

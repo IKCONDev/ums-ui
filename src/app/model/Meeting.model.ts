@@ -7,6 +7,7 @@ export class Meeting{
     subject: string
     organizerName: string
     organizerEmailId: string
+    departmentId: string
     startDateTime: string
     endDateTime: string
     attendees: Attendee[]

@@ -755,6 +755,7 @@ validateTaskCategory(){
   checkSubCheckBoxes() {
     if ($('#mainCheckBox').is(':checked')) {
       $('.subCheckBox').prop('checked', true);
+      
     } else {
       $('.subCheckBox').prop('checked', false);
     }
@@ -886,6 +887,8 @@ validateTaskCategory(){
     if (!$('#subCheckBox' + index).is(':checked')) {
       $('#mainCheckBox').prop('checked', false);
     }
+    const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
+    $('#mainCheckBox').prop('checked', !anyUnchecked);
 
   }
 
