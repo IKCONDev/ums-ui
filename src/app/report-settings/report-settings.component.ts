@@ -1,4 +1,5 @@
 import { Component, Output, OnInit} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-settings',
@@ -7,8 +8,19 @@ import { Component, Output, OnInit} from '@angular/core';
 })
 export class ReportSettingsComponent implements OnInit {
   @Output() title: string = 'Reports'
+  reportType: string ;
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute){
+
+  }
+
   ngOnInit(): void {
     throw new Error('Method not implemented.');
+  }
+
+  setReportType(reportType: string){
+    this.reportType = reportType;
+    this.router.navigate(['/meeting-report'],{queryParams:{reportType:reportType}})
   }
 
 }
