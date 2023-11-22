@@ -112,7 +112,7 @@ async ngOnInit() {
   // if(localStorage.getItem('jwtToken') != '' || localStorage.getItem('jwtToken') != null){
   //   this.router.navigateByUrl('/home')
   //   //this.toastr.warning('You are already logged in. Please logout to login again')
-  // }
+  // } 
 
   console.log(this.router.url);
   this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
