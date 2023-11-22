@@ -566,10 +566,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }//error
       });
       this.fetchActionItemsOfEvent(this.currentMeetingId);
-      //reset the form after submitting
-      form.form.reset();
-      // //need to change this later
-      // window.location.reload();
     }
   }
 
