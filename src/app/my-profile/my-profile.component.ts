@@ -145,6 +145,8 @@ export class MyProfileComponent {
   deleteImage(event:Event){
     event.stopPropagation();
     console.log("deleted");
+    var isConfirmed = window.confirm('Are you sure you want to delete your profile picture ? ');
+    if(isConfirmed){
     this.profileService.deleteProfilePic().subscribe({
       next: (response) => {
           this.toastr.success('Profile pic deleted successfully');
@@ -154,5 +156,6 @@ export class MyProfileComponent {
       }
     })
   }
+}
 }
 

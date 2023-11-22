@@ -61,7 +61,7 @@
                         <td>{{permission.permissionStatus}}</td>
                         <td>
                             <span id="editIcon" 
-                                data-toggle="modal" data-target="#addModal">
+                                data-toggle="modal" data-target="#addModal" (click)="getpermissonById(permission.permissionId)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
                                     <g id="edit">
@@ -112,7 +112,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Permission Value</b><span id="required"></span></label>
-                <input id="categoryName" type="text"  class="deptInput form-control" placeholder="Category name" minlength="3"
+                <input id="categoryName" type="text"  class="deptInput form-control" placeholder="permission value" minlength="3"
                 [(ngModel)]="addPermission.permissionValue"
                     maxlength="50" /><br />
                 <!--   -->
