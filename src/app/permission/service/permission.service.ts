@@ -50,8 +50,8 @@ export class PermissionService {
     })
   }
 
-  deleteSelectedPermissions(permissionIds: number[]){
-    return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.permissionMicroservicePathUrl}/delete/${permissionIds}`,{observe: 'response', headers: new HttpHeaders({
+  deleteSelectedPermission(permissionId: number){
+    return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.permissionMicroservicePathUrl}/delete/${permissionId}`,{observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
       }
       )

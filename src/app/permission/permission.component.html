@@ -73,7 +73,7 @@
                                 &nbsp;
                             </span>
                             <span id="trashIcon">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" (click)="removePermission(permission.permissionId)"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                     viewBox="0 0 482.428 482.429" xml:space="preserve">
                                     <g>
@@ -119,6 +119,7 @@
                         <p id="errorMessage">{{permissionValueErrorInfo}}</p>
                  </span>
                 <br />
+
                 <!--   -->
                 <label><b>Permission Description</b><span id="required"></span></label><br/>
                 <textarea id="categoryDesc" class="form-control" placeholder="permission description" [(ngModel)]="addPermission.permissionDescription"
