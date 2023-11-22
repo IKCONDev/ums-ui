@@ -136,7 +136,7 @@
                         </td>-->
                         <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)" (click)="getCurrentActionItemDetails(actionItem)">Show Tasks</a></td>
                     </tr>
-                    <tr class="detail">
+                    <tr class="detail"  *ngIf="isActionItemLoading===false">
                         <td colspan="12">
                             <div>
                                 <table class="table table-hover">
@@ -195,7 +195,7 @@
                         <th>EndDate</th>
                     </thead>
                 </table>
-                <p id="no-meetings">No Action Items Yet ! </p>
+                <p id="no-meetings"  *ngIf="isMinorLoading===false">No Action Items Yet ! </p>
             </ng-template>
         </div>
     </div>
@@ -621,3 +621,10 @@
       </div>
     </div>
 </div>
+<div style="text-align: center;padding-top:160px;">
+    <span *ngIf="isLoading===true">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </span>    
+</div> 

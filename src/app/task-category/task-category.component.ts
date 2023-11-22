@@ -287,6 +287,9 @@ export class TaskCategoryComponent implements OnInit {
     if (!$('#subCheckBox' + index).is(':checked')) {
       $('#mainCheckBox').prop('checked', false);
     }
+    const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
+    console.log(anyUnchecked);
+    $('#mainCheckBox').prop('checked', !anyUnchecked);
 
   }
 
