@@ -113,9 +113,9 @@ export class ActionItemComponent implements OnInit {
   isUpdateActionItemStartDateValid = false;
   isUpdateActionItemEndDateValid = false;
 
-  isComponentLoading:boolean;
-  displayText:boolean;
-  isActionItemLoading:boolean;
+  isComponentLoading:boolean=false;
+  displayText:boolean=false;
+  isActionItemLoading:boolean=false;
   /**
    * 
    * @param service 
@@ -167,9 +167,6 @@ export class ActionItemComponent implements OnInit {
 
     this.getActiveUMSUsersEmailIdList();
     //get action items of user
-    this.isComponentLoading=false;
-    this.displayText=false;
-    this.isActionItemLoading=false;
     this.getActionItemsOfUser();
     if (this.selectedReporteeOrganizedActionItem === '') {
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');

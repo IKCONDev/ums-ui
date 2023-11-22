@@ -149,10 +149,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.table.destroy();
     }
   }
-isLoading:boolean;
-isMinorLoading:boolean;
-isOrganizedDataLoading:boolean;
-isAssignedDataLoading:boolean;
+isComponentLoading:boolean=false;
+displayText:boolean=false;
+isOrganizedDataLoading:boolean=false;
+isAssignedDataLoading:boolean=false;
   /**
    * 
    * @param service 
@@ -232,10 +232,6 @@ isAssignedDataLoading:boolean;
     //localStorage.setItem('taskTabOpened', 'OrganizedTask');
     this.tabOpened = localStorage.getItem('taskTabOpened')
     console.log(this.tabOpened)
-    this.isLoading=true;
-    this.isMinorLoading=true;
-    this.isAssignedDataLoading=true;
-    this.isOrganizedDataLoading=true;
     this.getTasks(this.tabOpened);
 
      //get reportees data of logged in user
@@ -257,6 +253,10 @@ isAssignedDataLoading:boolean;
    * @param tabOpened 
    */
   getTasks(tabOpened: string) {
+    this.isComponentLoading=true;
+    this.displayText=true;
+    this.isAssignedDataLoading=true;
+    this.isOrganizedDataLoading=true;
 
     //check logged in user role
     //if (this.loggedInUserRole != 'ADMIN') {
@@ -283,11 +283,15 @@ isAssignedDataLoading:boolean;
             this.assignedTasks = response.body;
             this.assignedTasksCount = response.body.length
             if(this.assignedTasksCount===0){
-              this.isLoading=false;
-              this.isMinorLoading=false;
+              setTimeout(()=>{
+                this.isComponentLoading=false;
+                this.displayText=false;
+              },400)
             }else{
-              this.isLoading=false;
-              this.isAssignedDataLoading=false;
+              setTimeout(()=>{
+                this.isComponentLoading=false;
+                this.isAssignedDataLoading=false;
+              },400)
             }
             localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
           }, error: (error) => {
@@ -337,11 +341,15 @@ isAssignedDataLoading:boolean;
             this.task = res.body;
             this.taskCount = res.body.length;
             if(this.taskCount===0){
-              this.isLoading=false;
-              this.isMinorLoading=false;
+              setTimeout(()=>{
+                this.isComponentLoading=false;
+                this.displayText=false;
+              },400)
             }else{
-              this.isLoading=false;
-              this.isOrganizedDataLoading=false;
+              setTimeout(()=>{
+                this.isComponentLoading=false;
+                this.isOrganizedDataLoading=false;
+              },400)
             }
             console.log(this.task);
           }, error: (error) => {

@@ -72,7 +72,7 @@
     
                 </thead>
                 <tbody *ngFor="let actionItem of actionItems, let i = index">
-                    <tr *ngIf="actionItem.actionStatus === 'Submitted'">
+                    <tr *ngIf="isActionItemLoading===false && actionItem.actionStatus === 'Submitted'" >
                        <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
                                 value="{{actionItem.actionItemId}}"></td>-->
                         <!--<td>{{actionItem.actionItemId}}</td>-->
@@ -136,7 +136,7 @@
                         </td>-->
                         <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)" (click)="getCurrentActionItemDetails(actionItem)">Show Tasks</a></td>
                     </tr>
-                    <tr class="detail"  *ngIf="isActionItemLoading===false">
+                    <tr class="detail">
                         <td colspan="12">
                             <div>
                                 <table class="table table-hover">

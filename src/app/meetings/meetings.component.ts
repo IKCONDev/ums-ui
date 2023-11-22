@@ -116,10 +116,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   attendedMeetingStartDateFilter: string = localStorage.getItem('attendedMeetingStartDateFilter');
   attendedMeetingEndDateFilter: string = localStorage.getItem('attendedMeetingEndDateFilter');
 
-  isComponentLoading:boolean;
-  displayText:boolean;
-  isOrganizedMeetingDataLoading:boolean;
-  isAttendedMeetingDataLoading:boolean;
+  isComponentLoading:boolean=false;
+  displayText:boolean=false;
+  isOrganizedMeetingDataLoading:boolean=false;
+  isAttendedMeetingDataLoading:boolean=false;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -228,10 +228,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //localStorage.setItem('tabOpened', 'OrganizedMeeting');
     this.tabOpened = localStorage.getItem('tabOpened')
     console.log(this.tabOpened)
-    this.isComponentLoading=false;
-    this.displayText=false;
-    this.isOrganizedMeetingDataLoading=false;
-    this.isAttendedMeetingDataLoading=false;
     this.getMeetings(this.tabOpened);
 
     //disable actionItem btn default
