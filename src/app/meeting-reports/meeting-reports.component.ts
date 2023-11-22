@@ -10,6 +10,8 @@ import { EmployeeService } from '../employee/service/employee.service';
 import { UserService } from '../users/service/users.service';
 import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
+import { DepartmentService } from '../department/service/department.service';
+import { Department } from '../model/Department.model';
 
 @Component({
   selector: 'app-meeting-reports',
@@ -20,18 +22,33 @@ export class MeetingReportsComponent implements OnInit {
 
   reportType: string;
   @Output() title = 'Meeting Reports'
-  selectedEmployee: string;
-  employeeListAsUser: Employee[]
+ 
   loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole');
   loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
   loggedInUserObject : Users;
 
+  employeeListAsUser: Employee[];
+  departmentList: Department[];
+
+  selectedEmployee: string;
+  selectedDepartment: number;
+
+  organizedMeetingList :Meeting[];
+  organizedMeetingListCount: number
+  organizedmeetingListChart = null;
+  meetingsByDepartmentList :Meeting[];
+  meetingsByDepartmentListCount: number
+  meetingsByDepartmentListChart  = null;
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
     private meetingReportService: MeetingReportsService,
     private employeeService: EmployeeService,
     private userService: UserService, 
-    private headerService: HeaderService) {
+    private headerService: HeaderService,
+    private departmentService: DepartmentService) {
+
+      //get current router param
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
       console.log(this.reportType)
@@ -44,11 +61,18 @@ export class MeetingReportsComponent implements OnInit {
       next: response => {
         this.loggedInUserObject = response.body;
         this.selectedEmployee = this.loggedInUserObject.email;
-        this.chooseEmployee();
+        this.selectedDepartment = this.loggedInUserObject.employee.department.departmentId;
+        if(this.reportType === 'employee'){
+          this.chooseEmployee();
+        }
+        if(this.reportType === 'department'){
+          this.chooseDepartment();
+        }
       }
     })
     //initial data load
       this.getEmployeeAsUserList();      
+      this.getAllDepartments();
   }
 
   getLoggedInUserDetails(loggedInUser: string){
@@ -69,6 +93,15 @@ export class MeetingReportsComponent implements OnInit {
     })
   }
 
+  getAllDepartments(){
+    this.departmentService.getDepartmentList().subscribe({
+      next: response => {
+        this.departmentList = response.body;
+        console.log(response.body)
+      }
+    })
+  }
+
   chooseEmployee(){
     if(this.organizedmeetingListChart != null){
       this.organizedmeetingListChart.destroy();
@@ -76,14 +109,31 @@ export class MeetingReportsComponent implements OnInit {
     this.getMeetingsByOrganizerReport(this.selectedEmployee);
   }
 
-  organizedMeetingList :Meeting[];
-  organizedMeetingCount: number
+  chooseDepartment(){
+    if(this.meetingsByDepartmentListChart != null){
+      this.meetingsByDepartmentListChart.destroy();
+    }
+    this.getmeetingsByDepartmentReport(this.selectedDepartment);
+  }
+
+  getmeetingsByDepartmentReport(departmentId: number){
+    this.meetingReportService.findMeetingsByDepartmentReport(departmentId).subscribe({
+      next: response => {
+        this.meetingsByDepartmentList = response.body;
+        this.meetingsByDepartmentListCount = response.body.length;
+        setTimeout(() => {
+          this.createMeetingsByDepartmentReportChart();
+        },400)
+      }
+    })
+  }
+
   getMeetingsByOrganizerReport(organizerEmail: string){
     this.meetingReportService.findMeetingsByOrganizerReport(organizerEmail).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.organizedMeetingList = response.body;
-          this.organizedMeetingCount = response.body.length;
+          this.organizedMeetingListCount = response.body.length;
           setTimeout(() => {
             this.createMeetingsByOrganizerReportChart();
           },400)
@@ -92,7 +142,6 @@ export class MeetingReportsComponent implements OnInit {
     })
   }
 
-  organizedmeetingListChart: Chart = null;
   createMeetingsByOrganizerReportChart(){
     this.organizedmeetingListChart = new Chart("organizedmeetingListChart", {
       type: 'bar',
@@ -101,7 +150,7 @@ export class MeetingReportsComponent implements OnInit {
         datasets: [
           {
             label: "Total meetings by organizer",
-            data: [this.organizedMeetingCount],
+            data: [this.organizedMeetingListCount],
             backgroundColor: 'rgba(216, 175, 53, 0.8)', // Yellow
             borderColor: 'rgba(216, 175, 53, 1)',
             borderWidth: 3,
@@ -152,6 +201,74 @@ export class MeetingReportsComponent implements OnInit {
           title: {
             display: true,
             text: 'Total meetings by organizer',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
+  createMeetingsByDepartmentReportChart(){
+    this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
+      type: 'pie',
+      data: {// values on X-Axis
+        xLabels: ['Total Meetings of a department'],
+        datasets: [
+          {
+            label: "Total Meetings of a department",
+            data: [this.meetingsByDepartmentListCount],
+            backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
+            borderColor: 'rgba(197, 14, 71, 1)',
+            borderWidth: 3,
+          },
+        ]
+      },
+      options: {
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'easeOutExpo',
+            from: 1,
+            to: 0,
+            loop: true
+          }
+        },
+        aspectRatio: 2,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            beginAtZero: false,
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total Meetings of a department',
             font: {
               size: 14,
             },

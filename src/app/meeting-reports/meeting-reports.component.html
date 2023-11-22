@@ -6,7 +6,45 @@
 </div>
 <div class="container-fluid">
     <div *ngIf="reportType === 'department'">
-        <b>Department Reports</b>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b>Tasks</b>
+                    </div>
+                    <div class="chart">
+                        <div style="padding-top: 6px;"></div>
+                        <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
+                            placeholder="choose" (change)="chooseDepartment()">
+                            <ng-option *ngFor="let department of departmentList"
+                                value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
+                        </ng-select>
+                        <canvas id="meetingsByDepartmentListChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Organizer</th>
+                    <th>Start Date Time</th>
+                    <th>End Date Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let meeting of meetingsByDepartmentList">
+                    <td>{{meeting.meetingId}}</td>
+                    <td>{{meeting.subject}}</td>
+                    <td>{{meeting.organizerName}}</td>
+                    <td>{{meeting.startDateTime}}</td>
+                    <td>{{meeting.endDateTime}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div *ngIf="reportType === 'employee'">
         <div class="row">
