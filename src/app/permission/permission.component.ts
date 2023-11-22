@@ -22,14 +22,22 @@ export class PermissionComponent implements OnInit{
     throw new Error('Method not implemented.');
   }
   
+  isPermissionDataText:boolean=false;
+  isComponentLoading:boolean=false;
   constructor (private permissionService :PermissionService, private router:Router, private toastrService:ToastrService){
 
   }
   permissionsList :Permission[];
   getAllPermissions(){
+    this.isComponentLoading=true;
+    this.isPermissionDataText=true;
     this.permissionService.getAllPermissions().subscribe({
       next: response => {
         this.permissionsList = response.body;
+        setTimeout(()=>{
+          this.isComponentLoading=false;
+          this.isPermissionDataText=false;
+        },400)
         console.log(response.body)
       }
     })

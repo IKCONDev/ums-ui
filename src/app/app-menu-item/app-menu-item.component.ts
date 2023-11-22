@@ -22,6 +22,8 @@ export class AppMenuItemsComponent {
   loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
 
   menuItemList: MenuItem[];
+  isComponentLoading:boolean=false;
+  isMenuItemDataText:boolean=false;
 
   constructor(private menuItemService: AppMenuItemService, private toastrService: ToastrService,
     private router: Router){}
@@ -57,9 +59,15 @@ export class AppMenuItemsComponent {
 
 
   getMenuItems(){
+    this.isComponentLoading=true;
+    this.isMenuItemDataText=true;
     this.menuItemService.findMenuItems().subscribe({
       next: response => {
         this.menuItemList = response.body;
+        setTimeout(()=>{
+          this.isComponentLoading=false;
+          this.isMenuItemDataText=false;
+        },400)
         console.log(response.body)
       }
     })

@@ -44,6 +44,8 @@ export class OrganizationComponent implements OnInit {
   updatedCompanyEmailErrorInfo: string = '';
   isUpdateCompanyEmailValid: boolean = false;
 
+  isComponentLoading:boolean=false;
+  isorganizationDataText:boolean=false;
   /**
    * 
    * @param orgService 
@@ -71,11 +73,17 @@ export class OrganizationComponent implements OnInit {
    */
   getOrganization() {
     //returns null if no org details are present in DB.
+    this.isComponentLoading=true;
+    this.isorganizationDataText=true;
     this.orgService.getOrganization(10).subscribe({
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           console.log(response.body)
           this.org = response.body;
+          setTimeout(()=>{
+            this.isComponentLoading=false;
+            this.isorganizationDataText=false;
+          },400)
         }
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {

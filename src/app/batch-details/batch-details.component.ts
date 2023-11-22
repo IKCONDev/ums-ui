@@ -51,6 +51,10 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
     }
   }
 
+  isBatchDetailsText:boolean=false;
+  displayText:boolean=false;
+  isComponentLoading:boolean=false;
+
    /**
     * 
     * @param reportservice 
@@ -61,6 +65,9 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
     * 
     */
    ngOnInit(): void {
+          this.displayText=true;
+          this.isComponentLoading=true;
+          this.isBatchDetailsText=true;
 
     if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized');
@@ -70,6 +77,17 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
          res=>{
           this.batchDetails = res.body;
           this.batchRecordsCount = this.batchDetails.length;
+          if(this.batchRecordsCount===0){
+            setTimeout(()=>{
+              this.displayText=false;
+              this.isComponentLoading=false;
+            },400)
+          }else{
+            setTimeout(()=>{
+              this.isComponentLoading=false;
+              this.isBatchDetailsText=false;
+            },400)
+          }
      });
      this.initializeJqueryDataTable();
    }
