@@ -191,6 +191,26 @@ export class PermissionComponent implements OnInit{
     this.permissionValueErrorInfo = '';
     
   }
-     
+  removePermission(permissionId : number){
+    var isconfirmed = window.confirm("Are you sure, you really want to delete selected permission ?")
+    if(isconfirmed){
+       this.permissionService.deleteSelectedPermission(permissionId).subscribe({
+         next: response =>{
+            if(response.status == HttpStatusCode.Ok){
+               this.toastrService.success("permission  deleted successfully");
+            }
+         },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }else {
+            this.toastrService.error('Error while deleting permission, Please try again !')
+          }
+        }
+
+       })
+
+    }
+  }   
+
 }
 
