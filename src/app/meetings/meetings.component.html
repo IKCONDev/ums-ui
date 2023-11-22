@@ -98,7 +98,7 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
-                    <tr *ngIf="isOrganizedDataLoading===false">
+                    <tr *ngIf="isOrganizedMeetingDataLoading===false">
                         <td>{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
@@ -322,7 +322,7 @@
         </div> -->
         </div>
 
-        <div *ngIf="isMinorLoading===false">
+        <div *ngIf="displayText===false">
             <p id="no-meetings" *ngIf="meetingCount === 0">No Meetings Organized Yet ! </p>
         </div>
         <!-- ngif -->
@@ -355,7 +355,7 @@
         </div><br />
         <!-- reportee dropdown end -->
         <div class="row" *ngIf="attendedMeetingCount>0; else noMeetings">
-            <table id="assignedTable" class="table table-hover" height="40" *ngIf="isAttendedDataLoading===false">
+            <table id="assignedTable" class="table table-hover" height="40" *ngIf="isAttendedMeetingDataLoading===false">
                 <thead id="thead">
                     <tr>
                         <th>Meeting ID</th>
@@ -387,7 +387,7 @@
                         <th>End Date & Time</th>
                     </thead>
                 </table>
-                <p id="no-meetings" *ngIf="isMinorLoading===false">No Meetings Attended Yet ! </p>
+                <p id="no-meetings" *ngIf="displayText===false">No Meetings Attended Yet ! </p>
             </ng-template>
         </div>
     </div>
@@ -930,10 +930,11 @@
         </div>
     </div>
 
-    <div style="text-align: center;padding-top:160px;">
+    <div style="text-align: center;padding-top:120px;color: #134E69D9;">
         <span *ngIf="isLoading===true">
-            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <div class="spinner-border" style="width: 4rem; height: 4rem;" role="status">
                 <span class="sr-only">Loading...</span>
+                <div style="position: fixed;padding-top: 14px;padding-left: 8px;"><h5>UMS</h5></div>
             </div>
         </span>    
     </div>  
