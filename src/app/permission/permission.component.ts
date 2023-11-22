@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PermissionComponent implements OnInit{
   @Output() title = 'Permissions';
+  private table: any;
   addPermission: Permission = new Permission();
   loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole')
@@ -33,6 +34,20 @@ export class PermissionComponent implements OnInit{
       }
     })
   }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      $(document).ready(() => {
+        this.table = $('#table').DataTable({
+          paging: true,
+          searching: true, // Enable search feature
+          pageLength: 7,
+          order: [[1,'asc']]
+          // Add other options here as needed
+        });
+      });
+    },200)
+  }
+
   createOrUpdateTaskCategory(){
     if(this.addPermission.permissionId === 0){
       this.createPermission(this.addPermission);
@@ -94,6 +109,27 @@ export class PermissionComponent implements OnInit{
         }
       })
     }
-  
+ 
+    permissionDescriptionErrorInfo:string =''
+    isPermissionDescriptionValid:boolean = false;
+    validateTaskCategoryDescription(){
+      const regex = /^\S.*[a-zA-Z\s]*$/;
+      if(this.addPermission.permissionDescription === '' || this.addPermission.permissionDescription.trim()==="" || 
+      regex.exec(this.addPermission.permissionDescription)===null){
+        this.permissionDescriptionErrorInfo = 'Task category description is required';
+        this.isPermissionDescriptionValid = false;
+      }else if(this.addPermission.permissionDescription.length < 5){
+        this.permissionDescriptionErrorInfo = 'Task category description should have minimum of 5 characters.';
+        this.isPermissionDescriptionValid = false;
+      }else if(this.addPermission.permissionDescription.length > 50){
+        this.permissionDescriptionErrorInfo = 'Task category description should not exceed more than 100 characters';
+        this.isPermissionDescriptionValid = false;
+      }else{
+        this.isPermissionDescriptionValid = true;
+        this.permissionDescriptionErrorInfo = '';
+      }
+      return this.isPermissionDescriptionValid;
+    }
+     
 }
 
