@@ -10,6 +10,7 @@ import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
 import { MeetingService } from '../meetings/service/meetings.service';
 import { TaskReportService } from './service/task-reports.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-report',
@@ -26,6 +27,7 @@ export class TaskReportsComponent implements OnInit {
   selectedTaskOwner: string;
   selectedTaskSeverity: string = 'High';
   selectedTaskStatus: string = 'Yet to start';
+  
 
   taskList: Task[];
   taskListCount :any[]= [];
@@ -61,9 +63,15 @@ export class TaskReportsComponent implements OnInit {
    * @param reportservice 
    */
   constructor(private taskreportsService: TaskReportService,
+    private activatedRoute: ActivatedRoute,
     private departmentService: DepartmentService,
     private headerService: HeaderService,
-    private meetingService: MeetingService) { }
+    private meetingService: MeetingService) { 
+      this.activatedRoute.queryParams.subscribe(param => {
+        this.reportType = param['reportType'];
+        console.log(this.reportType)
+      })
+    }
 
   /**
    * 

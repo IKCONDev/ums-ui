@@ -18,10 +18,10 @@
             </div>
             <div class="col-sm-3">
                 <h4><b>Action Items</b></h4>
-                <a routerLink="">Departments</a><br />
-                <a>Employees</a><br />
-                <a>Severity</a><br />
-                <a>Priority</a><br />
+                <a (click)="setActionItemReportType('departments')">Departments</a><br/>
+                <a (click)="setActionItemReportType('employees')" >Employees</a><br/>
+                <a (click)="setActionItemReportType('severity')">Severity</a><br/>
+                <a (click)="setActionItemReportType('priority')">Priority</a><br/>
             </div>
             <div class="col-sm-3">
                 <h4><b>Task Items</b></h4>
