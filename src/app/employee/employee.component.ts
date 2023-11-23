@@ -196,7 +196,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
             this.toastr.error('Employee email ID '+this.addEmployee.email+' already exists');
             document.getElementById('closeAddModal').click();
           }else if(error.status=== HttpStatusCode.NotAcceptable){
-            this.toastr.error('Employee ID already exists');
+            this.toastr.error('Employee ID already present');
           }
           
           else{
@@ -406,6 +406,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
             setTimeout(() => {
               window.location.reload();
             },1000)
+          }
+          else if(response.status == HttpStatusCode.NotAcceptable){
+            this.toastr.error("Employee ID already present");
           }
           else {
             this.toastr.error("Error occured while updating employee "+this.existingEmployee.id);
