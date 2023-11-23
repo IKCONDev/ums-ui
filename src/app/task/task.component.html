@@ -89,7 +89,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody *ngIf="isOrganizedDataLoading===false">
+                <tbody *ngIf="isOrganizedDataText===false">
                     <tr class="trbody" *ngFor="let item of task; let i = index">
                         <td><input type="checkbox" value="{{item.taskId}}" class="subCheckBox" id="subCheckBox{{i}}"
                                 (change)="toggleMainCheckBox(i)">
@@ -205,7 +205,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody *ngIf="isAssignedDataLoading===false">
+                <tbody *ngIf="isAssignedDataText===false">
                     <tr *ngFor="let task of assignedTasks; let i = index">
                         <td>{{task.taskId}}</td>
                         <td id="task-subject">{{task.taskTitle}}</td>

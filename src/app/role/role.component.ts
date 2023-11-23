@@ -259,10 +259,8 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           this.roleList = response.body;
-          setTimeout(()=>{
             this.isRoleDataText=false;
             this.isComponentLoading=false;
-          },400)
           console.log(response.body)
         }
       },error: error =>{

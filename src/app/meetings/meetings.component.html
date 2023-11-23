@@ -98,7 +98,7 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
-                    <tr *ngIf="isOrganizedMeetingDataLoading===false">
+                    <tr *ngIf="isOrganizedMeetingDataText===false">
                         <td>{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
@@ -361,7 +361,7 @@
         </div><br />
         <!-- reportee dropdown end -->
         <div class="row" *ngIf="attendedMeetingCount>0; else noMeetings">
-            <table id="assignedTable" class="table table-hover" height="40" *ngIf="isAttendedMeetingDataLoading===false">
+            <table id="assignedTable" class="table table-hover" height="40">
                 <thead id="thead">
                     <tr>
                         <th>Meeting ID</th>
@@ -371,7 +371,7 @@
                         <th>End Date & Time</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="isAttendedMeetingDataText===false">
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
                         <td id="cell">{{meeting.meetingId}}</td>
                         <td id="cell">{{meeting.subject}}</td>

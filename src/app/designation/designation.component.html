@@ -46,7 +46,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody  *ngIf="isDesignationDataText===false">
                     <tr class="trbody" *ngFor="let designation of designationList; let i = index;">
                         <td>
                             <input id="subCheckBox{{i}}" class="subCheckBox" type="checkbox" value="{{designation.id}}"

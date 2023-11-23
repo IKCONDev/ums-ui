@@ -408,10 +408,8 @@ getAllEmployeesWithStatus(){
    this.employeeservice.getAllEmployeeStatus().subscribe({
       next : response =>{
          this.employeeWithStatus = response.body;
-         setTimeout(()=>{
           this.isComponentLoading=false;
           this.isUserDataText=false;
-        },400)
          console.log( this.employeeWithStatus)
       },
       error: error => {

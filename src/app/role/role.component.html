@@ -31,7 +31,7 @@
                 </div> -->
             </div>
         </div>
-        <div class="card-body" *ngIf="isRoleDataText===false">
+        <div class="card-body">
             <div class="row">
                 <table id="dataTable" class="table table-hover">
                     <thead id="thead" >
@@ -48,7 +48,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="isRoleDataText===false">
                         <tr class="trbody" *ngFor="let role of roleList; let i=index">
                             <td>
                                 <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox" 

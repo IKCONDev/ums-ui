@@ -32,7 +32,7 @@
                 </div> -->
             </div>
         </div>
-        <div class="card-body" *ngIf="isUserDataText===false">
+        <div class="card-body">
             <div class="row">
                 <table class="table table-hover" id="myTable">
                     <thead id="thead">
@@ -45,7 +45,7 @@
                         <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  *ngIf="isUserDataText===false">
                         <tr class="trbody" *ngFor="let user of userList; let i = index">    
                             <td>{{user.email}}</td>
                             <td>{{user.userRoles[0].roleName | uppercase}}</td>

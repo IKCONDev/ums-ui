@@ -97,10 +97,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.employeeservice.getAll().subscribe({
       next: response => {
         this.employeeData = response.body;
-        setTimeout(()=>{
           this.isEmployeeDataText=false;
           this.isComponentLoading=false;
-        },400)
         console.log(this.employeeData);
       },
       error: error => {

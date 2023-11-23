@@ -118,8 +118,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isComponentLoading:boolean=false;
   displayText:boolean=false;
-  isOrganizedMeetingDataLoading:boolean=false;
-  isAttendedMeetingDataLoading:boolean=false;
+  isOrganizedMeetingDataText:boolean=false;
+  isAttendedMeetingDataText:boolean=false;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -594,8 +594,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   getMeetings(tabOpened: string) {
     this.isComponentLoading=true;
     this.displayText=true;
-    this.isOrganizedMeetingDataLoading=true;
-    this.isAttendedMeetingDataLoading=true;
+    this.isOrganizedMeetingDataText=true;
+    this.isAttendedMeetingDataText=true;
     //re-initailze slider
     this.initializeActionItemsSlider();
     console.log(tabOpened)
@@ -616,15 +616,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             this.meetings = response.body;
             this.meetingCount = response.body.length
             if(this.meetingCount===0){
-              setTimeout(() => {
                 this.isComponentLoading=false;
                 this.displayText=false;
-              },400)
             }else{
-              setTimeout(() => {
                 this.isComponentLoading=false;
-                this.isOrganizedMeetingDataLoading=false;
-              },400)
+                this.isOrganizedMeetingDataText=false;
             }
             localStorage.setItem('meetingCount', this.meetingCount.toString());
             console.log(this.meetings);
@@ -709,15 +705,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             this.attendedMeetings = response.body;
             this.attendedMeetingCount = response.body.length;
             if(this.attendedMeetingCount===0){
-              setTimeout(() => {
                 this.isComponentLoading=false;
                 this.displayText=false;
-              },400)
             }else{
-              setTimeout(()=> {
                 this.isComponentLoading=false;
-                 this.isAttendedMeetingDataLoading=false;
-              },400)
+                 this.isAttendedMeetingDataText=false;
             }
             localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
             console.log(this.attendedMeetings);

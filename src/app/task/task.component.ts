@@ -151,8 +151,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 isComponentLoading:boolean=false;
 displayText:boolean=false;
-isOrganizedDataLoading:boolean=false;
-isAssignedDataLoading:boolean=false;
+isOrganizedDataText:boolean=false;
+isAssignedDataText:boolean=false;
   /**
    * 
    * @param service 
@@ -255,8 +255,8 @@ isAssignedDataLoading:boolean=false;
   getTasks(tabOpened: string) {
     this.isComponentLoading=true;
     this.displayText=true;
-    this.isAssignedDataLoading=true;
-    this.isOrganizedDataLoading=true;
+    this.isAssignedDataText=true;
+    this.isOrganizedDataText=true;
 
     //check logged in user role
     //if (this.loggedInUserRole != 'ADMIN') {
@@ -283,15 +283,11 @@ isAssignedDataLoading:boolean=false;
             this.assignedTasks = response.body;
             this.assignedTasksCount = response.body.length
             if(this.assignedTasksCount===0){
-              setTimeout(()=>{
                 this.isComponentLoading=false;
                 this.displayText=false;
-              },400)
             }else{
-              setTimeout(()=>{
                 this.isComponentLoading=false;
-                this.isAssignedDataLoading=false;
-              },400)
+                this.isAssignedDataText=false;
             }
             localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
           }, error: (error) => {
@@ -341,15 +337,11 @@ isAssignedDataLoading:boolean=false;
             this.task = res.body;
             this.taskCount = res.body.length;
             if(this.taskCount===0){
-              setTimeout(()=>{
                 this.isComponentLoading=false;
                 this.displayText=false;
-              },400)
             }else{
-              setTimeout(()=>{
                 this.isComponentLoading=false;
-                this.isOrganizedDataLoading=false;
-              },400)
+                this.isOrganizedDataText=false;
             }
             console.log(this.task);
           }, error: (error) => {
