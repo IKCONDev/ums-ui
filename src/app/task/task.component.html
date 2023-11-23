@@ -198,6 +198,8 @@
                         <th style="width: 150px;">Title</th>
                         <th>Owner</th>
                         <th>Task Category</th>
+                        <th>Planned Start Date</th>
+                        <th>Planned End Date</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th style="padding-left:6px;">Priority</th>
@@ -211,6 +213,8 @@
                         <td id="task-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
                         <td>{{task.taskCategory.taskCategoryTitle}}</td>
+                        <td>{{task.plannedStartDate|date:'MMM d, y'}}</td>
+                        <td>{{task.plannedEndDate|date:'MMM d, y'}}</td>
                         <td>{{task.startDate|date:'MMM d, y'}}</td>
                         <td>{{task.dueDate|date:'MMM d, y'}}</td>
                         <td>{{task.taskPriority}}</td>
