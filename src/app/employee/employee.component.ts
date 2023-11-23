@@ -194,7 +194,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           }else if(error.status === HttpStatusCode.Found){
             this.toastr.error('Employee email ID '+this.addEmployee.email+' already exists');
             document.getElementById('closeAddModal').click();
-          }else{
+          }else if(error.status=== HttpStatusCode.NotAcceptable){
+            this.toastr.error('Employee ID already exists');
+          }
+          
+          else{
             this.toastr.error('Error while creating employee. please try again !')
           }
         }

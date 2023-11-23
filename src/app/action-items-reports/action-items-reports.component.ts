@@ -1,4 +1,5 @@
 import { Component, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-action-items-reports',
@@ -7,6 +8,14 @@ import { Component, Output } from '@angular/core';
 })
 export class ActionItemsReportsComponent {
   reportType: string;
-  @Output() title = 'Meeting Reports'
+  @Output() title = 'Action Item Reports'
+
+
+  constructor(private activatedRoute:ActivatedRoute){
+    this.activatedRoute.queryParams.subscribe(param => {
+      this.reportType = param['reportType'];
+      console.log(this.reportType)
+    }) 
+  }
   
 }
