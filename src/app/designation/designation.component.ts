@@ -72,13 +72,15 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
   getAllDesignations(){
     this.isComponentLoading=true;
     this.isDesignationDataText=true;
+    setTimeout(()=>{
+      this.isComponentLoading=false;
+      this.isDesignationDataText=false;
+    },200)
     this.designationService.getDesignationList().subscribe({
       next: (response)=>{
         this.designationList = response.body;
-        setTimeout(()=>{
           this.isComponentLoading=false;
           this.isDesignationDataText=false;
-        },400)
         console.log(this.designationList)
       },
       error: (error) => {

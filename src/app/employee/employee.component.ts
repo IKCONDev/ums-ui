@@ -62,6 +62,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.getAllEmployees();
     this.getAllDepartments();
+    this.Date();
 
   }
 
@@ -94,13 +95,15 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   getAllEmployees() {
     this.isEmployeeDataText=true;
     this.isComponentLoading=true;
+    setTimeout(()=>{
+      this.isEmployeeDataText=false;
+      this.isComponentLoading=false;
+    },200)
     this.employeeservice.getAll().subscribe({
       next: response => {
         this.employeeData = response.body;
-        setTimeout(()=>{
           this.isEmployeeDataText=false;
           this.isComponentLoading=false;
-        },400)
         console.log(this.employeeData);
       },
       error: error => {
@@ -196,7 +199,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           }else if(error.status === HttpStatusCode.Found){
             this.toastr.error('Employee email ID '+this.addEmployee.email+' already exists');
             document.getElementById('closeAddModal').click();
-          }else{
+          }else if(error.status=== HttpStatusCode.NotAcceptable){
+            this.toastr.error('Employee ID already present');
+          }
+          
+          else{
             this.toastr.error('Error while creating employee. please try again !')
           }
         }
@@ -404,6 +411,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
               window.location.reload();
             },1000)
           }
+          else if(response.status == HttpStatusCode.NotAcceptable){
+            this.toastr.error("Employee ID already present");
+          }
           else {
             this.toastr.error("Error occured while updating employee "+this.existingEmployee.id);
           }
@@ -434,13 +444,13 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.employeeFirstNameErrorInfo = "First Name is required";
       this.isEmployeeFirstNameValid = false;
     }
-    else if (this.addEmployee.firstName.length < 4) {
-      this.employeeFirstNameErrorInfo = "First Name is required";
+    else if (this.addEmployee.firstName.length <= 4) {
+      this.employeeFirstNameErrorInfo = "First Name should have min of 4 characters";
       this.isEmployeeFirstNameValid = false;
 
     }
     else if (this.addEmployee.firstName.length >= 30) {
-      this.employeeFirstNameErrorInfo = "First Name max length is 30";
+      this.employeeFirstNameErrorInfo = "First Name should not exceed more than 30 characters";
       this.isEmployeeFirstNameValid = false;
 
     }
@@ -460,13 +470,13 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isEmployeeLasttNameValid = false;
     }
     else if (this.addEmployee.lastName.length >= 30) {
-      this.employeeLastNameErrorInfo = "Last Name max length is 30";
+      this.employeeLastNameErrorInfo = "Last Name should not exceed more than 30 characters";
       this.isEmployeeFirstNameValid = false;
 
     }
-    else if (this.addEmployee.lastName.length > 1) {
-      this.employeeLastNameErrorInfo = "";
-      this.isEmployeeLasttNameValid = true;
+    else if (this.addEmployee.lastName.length <= 4) {
+      this.employeeLastNameErrorInfo = "Last Name should have min of 4 characters";
+      this.isEmployeeLasttNameValid = false;
 
     }
     else {
@@ -617,9 +627,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateFirstNameErrorInfo = "First Name is required";
       this.isUpdateFirstNameValid = false;
     }
-    else if (this.existingEmployee.firstName.length < 5) {
-      this.updateFirstNameErrorInfo = "First Name is required";
+    else if (this.existingEmployee.firstName.length <= 4) {
+      this.updateFirstNameErrorInfo = "First Name should have min of 4 characters";
       this.isUpdateFirstNameValid = false;
+    }
+    else if (this.existingEmployee.firstName.length >= 30) {
+      this.updateFirstNameErrorInfo = "First Name should not exceed more than 30 characters";
+      this.isUpdateFirstNameValid = false;
+
     }
     else {
       this.updateFirstNameErrorInfo = "";
@@ -635,9 +650,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
     }
-    else if (this.existingEmployee.lastName.length < 1) {
-      this.updateLastNameErrorInfo = "Last Name is required";
+    else if (this.existingEmployee.lastName.length <= 4) {
+      this.updateLastNameErrorInfo = "Last Name should have min of 4 characters";
       this.isUpdateLastNameValid = false;
+    }
+    else if (this.existingEmployee.lastName.length >= 30) {
+      this.updateLastNameErrorInfo = "First Name should not exceed more than 30 characters";
+      this.isUpdateLastNameValid = false;
+
     }
     else {
       this.updateLastNameErrorInfo = "";
@@ -815,13 +835,14 @@ isUpdateEmployeeGenderValid = false;
   isEmployeeIDErrorInfo = '';
   validateEmployeeID(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null){
+    const regex2=/[a-zA-Z0-9]+/;
+    if(this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null||regex2.exec(this.addEmployee.employeeOrgId) === null){
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID is required';
-    }else if(this.addEmployee.employeeOrgId.length < 4){
+    }else if(this.addEmployee.employeeOrgId.length <= 1){
       this.isEmployeeIDValid = false;
-      this.isEmployeeIDErrorInfo = 'Employee ID should have min of 4 characters';
-    }else if(this.addEmployee.employeeOrgId.length  > 20){
+      this.isEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters';
+    }else if(this.addEmployee.employeeOrgId.length  >= 20){
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
     }
@@ -851,13 +872,14 @@ isUpdateEmployeeGenderValid = false;
   isUpdateEmployeeIDErrorInfo = '';
   validateUpdateEmployeeID(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null){
+    const regex2=/[a-zA-Z0-9]+/;
+    if(this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null||regex2.exec(this.existingEmployee.employeeOrgId) === null){
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required';
-    }else if(this.existingEmployee.employeeOrgId.length < 4){
+    }else if(this.existingEmployee.employeeOrgId.length <= 1){
       this.isUpdateEmployeeIDValid = false;
-      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 4 characters';
-    }else if(this.existingEmployee.employeeOrgId.length  > 20){
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters';
+    }else if(this.existingEmployee.employeeOrgId.length  >= 20){
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
     }
@@ -885,5 +907,20 @@ isUpdateEmployeeGenderValid = false;
     
   }
 
+  Date(){
+      const datePicker = document.getElementById('datePicker');
+      
+      // Calculate the minimum date (30 years ago)
+      const minDate = new Date();
+      minDate.setFullYear(minDate.getFullYear() - 30);
+      
+      // Calculate the maximum date (end of the current year)
+      const maxDate = new Date();
+      maxDate.setMonth(11); // December
+      maxDate.setDate(31); // Last day of the month
+      
+      datePicker.setAttribute('min', minDate.toISOString().split('T')[0]);
+      datePicker.setAttribute('max', maxDate.toISOString().split('T')[0]);
+  }
 
 }

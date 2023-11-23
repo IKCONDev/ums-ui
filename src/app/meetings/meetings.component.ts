@@ -118,8 +118,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isComponentLoading:boolean=false;
   displayText:boolean=false;
-  isOrganizedMeetingDataLoading:boolean=false;
-  isAttendedMeetingDataLoading:boolean=false;
+  isOrganizedMeetingDataText:boolean=false;
+  isAttendedMeetingDataText:boolean=false;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -594,8 +594,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   getMeetings(tabOpened: string) {
     this.isComponentLoading=true;
     this.displayText=true;
-    this.isOrganizedMeetingDataLoading=true;
-    this.isAttendedMeetingDataLoading=true;
+    this.isOrganizedMeetingDataText=true;
+    this.isAttendedMeetingDataText=true;
     //re-initailze slider
     this.initializeActionItemsSlider();
     console.log(tabOpened)
@@ -616,15 +616,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             this.meetings = response.body;
             this.meetingCount = response.body.length
             if(this.meetingCount===0){
-              setTimeout(() => {
                 this.isComponentLoading=false;
                 this.displayText=false;
-              },400)
             }else{
-              setTimeout(() => {
                 this.isComponentLoading=false;
-                this.isOrganizedMeetingDataLoading=false;
-              },400)
+                this.isOrganizedMeetingDataText=false;
             }
             localStorage.setItem('meetingCount', this.meetingCount.toString());
             console.log(this.meetings);
@@ -709,15 +705,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             this.attendedMeetings = response.body;
             this.attendedMeetingCount = response.body.length;
             if(this.attendedMeetingCount===0){
-              setTimeout(() => {
                 this.isComponentLoading=false;
                 this.displayText=false;
-              },400)
             }else{
-              setTimeout(()=> {
                 this.isComponentLoading=false;
-                 this.isAttendedMeetingDataLoading=false;
-              },400)
+                 this.isAttendedMeetingDataText=false;
             }
             localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
             console.log(this.attendedMeetings);
@@ -1329,9 +1321,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       month = "0" + month;
     }
     var year: any = tdate.getFullYear();
-    var hours: any = tdate.getHours();
-    var minutes: any = tdate.getMinutes();
-    this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
+    this.min = year + "-" + month + "-" + date ;
     console.log(this.min);
   }
 
@@ -1508,9 +1498,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.addMeeting.startDateTime === null) {
       this.meetingStartDateErrorInfo = 'Start date time is required';
       this.isMeetingStartDateValid = false;
-    } else if (new Date(this.addMeeting.startDateTime) < new Date(Date.now())) {
-      this.meetingStartDateErrorInfo = 'Start date time cannot be a previous date';
-      this.isMeetingStartDateValid = false;
     } else {
       this.meetingStartDateErrorInfo = '';
       this.isMeetingStartDateValid = true;
@@ -1527,7 +1514,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.addMeeting.endDateTime === null) {
       this.meetingEndDateErrorInfo = 'End date time is required';
       this.isMeetingEndDateValid = false;
-    } else if (new Date(this.addMeeting.endDateTime) < new Date(this.addMeeting.startDateTime)) {
+    } else if ((this.addMeeting.endDateTime) < (this.addMeeting.startDateTime)) {
       this.meetingEndDateErrorInfo = 'End date time cannot be less than start date time';
       this.isMeetingEndDateValid = false;
     } else {

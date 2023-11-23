@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="card-body" *ngIf="isMenuItemDataText===false">
+    <div class="card-body">
         <div class="row">
             <table id="table" class="table table-hover">
                 <thead id="thead">
@@ -49,7 +49,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="isMenuItemDataText===false">
                     <tr class="trbody" id="dataRow" *ngFor="let menuItem of menuItemList;let i = index">
                         <td>
                             <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox"

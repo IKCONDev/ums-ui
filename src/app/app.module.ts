@@ -51,6 +51,8 @@ import { PermissionComponent } from './permission/permission.component';
 import { ReportSettingsComponent } from './report-settings/report-settings.component';
 import { AppMenuItemsComponent } from './app-menu-item/app-menu-item.component';
 import { MeetingReportsComponent } from './meeting-reports/meeting-reports.component';
+import { TaskReportsComponent } from './task-reports/task-reports.component';
+import { ActionItemsReportsComponent } from './action-items-reports/action-items-reports.component';
 
 
 @NgModule({
@@ -93,6 +95,8 @@ import { MeetingReportsComponent } from './meeting-reports/meeting-reports.compo
     ReportSettingsComponent,
     AppMenuItemsComponent,
     MeetingReportsComponent,
+    TaskReportsComponent,
+    ActionItemsReportsComponent,
   ],
   imports: [
     BrowserModule,

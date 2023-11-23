@@ -31,13 +31,15 @@ export class PermissionComponent implements OnInit{
   getAllPermissions(){
     this.isComponentLoading=true;
     this.isPermissionDataText=true;
+    setTimeout(()=>{
+      this.isComponentLoading=false;
+      this.isPermissionDataText=false;
+    },200)
     this.permissionService.getAllPermissions().subscribe({
       next: response => {
         this.permissionsList = response.body;
-        setTimeout(()=>{
           this.isComponentLoading=false;
           this.isPermissionDataText=false;
-        },400)
         console.log(response.body)
       }
     })

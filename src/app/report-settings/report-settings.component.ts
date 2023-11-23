@@ -23,4 +23,14 @@ export class ReportSettingsComponent implements OnInit {
     this.router.navigate(['/meeting-report'],{queryParams:{reportType:reportType}})
   }
 
+  setTaskReportType(reportType: string){
+    this.reportType = reportType;
+    this.router.navigate(['/task-reports'],{queryParams:{reportType:reportType}})
+  }
+
+  setActionItemReportType(reportType: string){
+    this.reportType = reportType;
+    this.router.navigate(['/action-items-reports'],{queryParams:{reportType:reportType}})
+  }
+
 }

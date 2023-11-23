@@ -23,4 +23,13 @@ export class MeetingReportsService {
           }
           ),params:params});
     }
+
+    findMeetingsByDepartmentReport(departmentId: number){
+      var params = new HttpParams()
+        .set('departmentId',departmentId)
+        return this.http.get<Meeting[]>(`${this.apiGatewayPathUrl}/${this.reportMicroservicePathUrl}/meeting/department`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          ),params:params});
+    }
 }

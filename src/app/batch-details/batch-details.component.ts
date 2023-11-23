@@ -81,12 +81,12 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
             setTimeout(()=>{
               this.displayText=false;
               this.isComponentLoading=false;
-            },400)
+            })
           }else{
             setTimeout(()=>{
               this.isComponentLoading=false;
               this.isBatchDetailsText=false;
-            },400)
+            })
           }
      });
      this.initializeJqueryDataTable();
