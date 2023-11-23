@@ -61,6 +61,10 @@ export class AppMenuItemsComponent {
   getMenuItems(){
     this.isComponentLoading=true;
     this.isMenuItemDataText=true;
+    setTimeout(()=>{
+      this.isComponentLoading=false;
+      this.isMenuItemDataText=false;
+    },200)
     this.menuItemService.findMenuItems().subscribe({
       next: response => {
         this.menuItemList = response.body;

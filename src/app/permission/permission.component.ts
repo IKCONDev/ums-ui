@@ -29,8 +29,12 @@ export class PermissionComponent implements OnInit{
   }
   permissionsList :Permission[];
   getAllPermissions(){
-    this.isComponentLoading=false;
-    this.isPermissionDataText=false;
+    this.isComponentLoading=true;
+    this.isPermissionDataText=true;
+    setTimeout(()=>{
+      this.isComponentLoading=false;
+      this.isPermissionDataText=false;
+    },200)
     this.permissionService.getAllPermissions().subscribe({
       next: response => {
         this.permissionsList = response.body;

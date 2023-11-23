@@ -64,6 +64,10 @@ export class TaskCategoryComponent implements OnInit {
   getTaskcategories(){
     this.isComponentLoading=true;
     this.isTaskCategoryDataText=true;
+    setTimeout(()=>{
+      this.isComponentLoading=false;
+      this.isTaskCategoryDataText=false;
+    },200)
     this.taskCategoryService.findTaskCategories().subscribe({
       next: response => {
         this.taskCategoryList = response.body;

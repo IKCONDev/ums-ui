@@ -255,6 +255,10 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
   getRoleList() {
     this.isRoleDataText=true;
     this.isComponentLoading=true;
+    setTimeout(()=>{
+      this.isRoleDataText=false;
+      this.isComponentLoading=false;
+    },200)
     this.roleService.getAllRoles().subscribe({
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {

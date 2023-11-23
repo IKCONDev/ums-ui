@@ -91,6 +91,10 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   getAllDepartments(){
     this.isComponentLoading=true;
     this.isDepartmentDataText=true;
+    setTimeout(()=>{
+      this.isComponentLoading=false;
+      this.isDepartmentDataText=false;
+    },200)
     this.departmentService.getDepartmentList().subscribe({
       next: (response)=>{
         this.departmentList = response.body;
