@@ -1,0 +1,33 @@
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title"></app-header>
+</div>
+<div *ngIf="reportType === 'departments'">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks</b>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <br/>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Organizer</th>
+                <th>Start Date Time</th>
+                <th>End Date Time</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+    </table>
+</div>
