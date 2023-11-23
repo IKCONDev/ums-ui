@@ -34,7 +34,7 @@
         <div class="row d-flex">
             <div class="col-sm-12">
                 <table class="table table-hover" id="table">
-                    <thead id="thead">
+                    <thead id="thead" *ngIf="isEmployeeDataText===false">
                         <tr>
                             <th style="padding-left: 10px;">
                                 <input type="checkbox" id="mainCheckBox" class="mainCheckBox"
@@ -55,7 +55,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="isEmployeeDataText===false && employeeData !=null">
+                    <tbody *ngIf="employeeData !=null">
                         <tr class="trbody" *ngFor="let employee of employeeData; let i=index;">
                             <td style="padding-left: 15x;">
                                 <input type="checkbox" value="{{employee.id}}" id="ac-check{{i}}" class="subCheckBox"
