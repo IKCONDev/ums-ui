@@ -763,7 +763,7 @@
                         </div>
                         <!-- start date time -->
                         <label><b>Start Date & Time</b><span id="required">*</span></label>
-                        <input type="datetime-local" class="form-control" min="{{min}}"
+                        <input type="datetime-local" class="form-control" 
                             [(ngModel)]="addMeeting.startDateTime" style="width: 400px;"
                             (change)="validateMeetingStartDateTime()" id="meetingStartDate" name="meetingStartDate" />
                         <div>
@@ -773,7 +773,7 @@
                         </div>
                         <!-- end date time -->
                         <label><b>End Date & Time</b><span id="required">*</span></label>
-                        <input type="datetime-local" class="form-control" min="{{min}}"
+                        <input type="datetime-local" class="form-control"
                             [(ngModel)]="addMeeting.endDateTime" style="width: 400px;"
                             (change)="validateMeetingEndDateTime()" id="meetingEndDate" name="meetingEndDate" />
                         <div>

@@ -146,7 +146,7 @@
                    <b> <div style="padding-left: 15px;" class="full-name"><label>Display Name</label></div></b>
                     <div class="disp-name">
                         <div class="col-6">
-                           <label for="DisplayName" *ngIf="isDisable==true">{{user.employee.firstName |
+                           <label for="DisplayName" *ngIf="isDisable==true">{{user.employee.firstName + " " + user.employee.lastName |
                                 titlecase}}</label>
                             <input type="text" [ngModel]="user.employee.firstName" [hidden]="isDisable" readonly="true"
                                 class="form-control">

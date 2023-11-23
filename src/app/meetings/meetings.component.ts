@@ -1321,9 +1321,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       month = "0" + month;
     }
     var year: any = tdate.getFullYear();
-    var hours: any = tdate.getHours();
-    var minutes: any = tdate.getMinutes();
-    this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
+    this.min = year + "-" + month + "-" + date ;
     console.log(this.min);
   }
 
@@ -1500,9 +1498,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.addMeeting.startDateTime === null) {
       this.meetingStartDateErrorInfo = 'Start date time is required';
       this.isMeetingStartDateValid = false;
-    } else if (new Date(this.addMeeting.startDateTime) < new Date(Date.now())) {
-      this.meetingStartDateErrorInfo = 'Start date time cannot be a previous date';
-      this.isMeetingStartDateValid = false;
     } else {
       this.meetingStartDateErrorInfo = '';
       this.isMeetingStartDateValid = true;
@@ -1519,7 +1514,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.addMeeting.endDateTime === null) {
       this.meetingEndDateErrorInfo = 'End date time is required';
       this.isMeetingEndDateValid = false;
-    } else if (new Date(this.addMeeting.endDateTime) < new Date(this.addMeeting.startDateTime)) {
+    } else if ((this.addMeeting.endDateTime) < (this.addMeeting.startDateTime)) {
       this.meetingEndDateErrorInfo = 'End date time cannot be less than start date time';
       this.isMeetingEndDateValid = false;
     } else {

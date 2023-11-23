@@ -149,7 +149,7 @@
                 </span>
                 <br />
                 <label><b>Employee ID</b><span id="required">*</span></label>
-                <input type="text"  style="text-transform: uppercase;" class="addEmployeeInput form-control" placeholder="Employee ID" 
+                <input type="text"  style="text-transform: uppercase;" class="addEmployeeInput form-control" placeholder="Employee ID" maxlength="21"
                 id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="addEmployee.employeeOrgId"
                 (keyup)=" validateEmployeeID()"/>
                 <span *ngIf="isEmployeeIDErrorInfo != ''">
@@ -176,8 +176,8 @@
                 </span>
                 <br />
                 <label><b>Date of Joining</b><span id="required">*</span></label>
-                <input type="text" type="date" class="form-control"  class="addEmployeeInput form-control" placeholder="Date of Joining"
-                id="joiningDate" name="joiningDate" #joiningDate="ngModel"    [(ngModel)]="addEmployee.dateOfJoining"
+                <input type="date" class="form-control"  class="addEmployeeInput form-control" placeholder="Date of Joining"
+                id="datePicker" min="" max="" name="joiningDate" #joiningDate="ngModel"    [(ngModel)]="addEmployee.dateOfJoining"
                 (keyup)="validateEmployeeDateofJoining()"/>
                 <span *ngIf=" isEmployeeDateofJoinErrorInfo != ''">
                     <p id="errorMessage">{{ isEmployeeDateofJoinErrorInfo}}</p>
@@ -228,7 +228,7 @@
                     <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>
                 </span>
                 <br />
-                <label><b>Microsoft Teams Id</b></label>
+                <label><b>Microsoft Teams ID</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="teams Id"
                     [(ngModel)]="addEmployee.teamsUserId" id="employeeTeamsId" name="employeeTeamsId"
                     #employeeTeamsId="ngModel">
@@ -279,7 +279,7 @@
                     <p id="errorMessage">{{updateLastNameErrorInfo}}</p>
                 </span><br />
                 <label><b>Employee ID</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: uppercase;" class="addEmployeeInput form-control" placeholder="Employee ID" 
+                <input type="text" style="text-transform: uppercase;" class="addEmployeeInput form-control" placeholder="Employee ID" maxlength="21"
                 id="employeeId" name="employeeId" #employeeId="ngModel" [(ngModel)]="existingEmployee.employeeOrgId"
                 (keyup)="validateUpdateEmployeeID()"/>
                 <span *ngIf="isUpdateEmployeeIDErrorInfo != ''">
@@ -306,8 +306,8 @@
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br />
                 <label><b>Date of Joining</b><span id="required">*</span></label>
-                <input type="text" type="date" class="form-control" class="addEmployeeInput form-control" placeholder="Date of Joining"
-                id="joiningDate" name="joiningDate" #joiningDate="ngModel" [(ngModel)]="existingEmployee.dateOfJoining" 
+                <input  type="date" class="form-control" class="addEmployeeInput form-control" placeholder="Date of Joining"
+                id="datePicker" min="" max="" name="joiningDate" #joiningDate="ngModel" [(ngModel)]="existingEmployee.dateOfJoining" 
                 (keyup)="validateUpdateDateofJoining()"/>
                 <span *ngIf="isUpdateDateofJoinErrorInfo != ''">
                     <p id="errorMessage">{{isUpdateDateofJoinErrorInfo}}</p>
@@ -356,7 +356,7 @@
                 <span *ngIf="updateDesignationErrorInfo != ''">
                     <p id="errorMessage">{{updateDesignationErrorInfo}}</p>
                 </span><br />
-                <label><b>Microsoft Teams Id</b></label>
+                <label><b>Microsoft Teams ID</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="teams Id"
                     [(ngModel)]="existingEmployee.teamsUserId" id="updateTeamsId" name="updateTeamsId"
                     #updateTeamsId="ngModel">

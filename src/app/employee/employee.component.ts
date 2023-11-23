@@ -62,6 +62,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.getAllEmployees();
     this.getAllDepartments();
+    this.Date();
 
   }
 
@@ -817,7 +818,8 @@ isUpdateEmployeeGenderValid = false;
   isEmployeeIDErrorInfo = '';
   validateEmployeeID(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null){
+    const regex2=/[a-zA-Z0-9]+/;
+    if(this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null||regex2.exec(this.addEmployee.employeeOrgId) === null){
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID is required';
     }else if(this.addEmployee.employeeOrgId.length < 4){
@@ -853,7 +855,8 @@ isUpdateEmployeeGenderValid = false;
   isUpdateEmployeeIDErrorInfo = '';
   validateUpdateEmployeeID(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null){
+    const regex2=/[a-zA-Z0-9]+/;
+    if(this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null||regex2.exec(this.existingEmployee.employeeOrgId) === null){
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required';
     }else if(this.existingEmployee.employeeOrgId.length < 4){
@@ -887,5 +890,20 @@ isUpdateEmployeeGenderValid = false;
     
   }
 
+  Date(){
+      const datePicker = document.getElementById('datePicker');
+      
+      // Calculate the minimum date (30 years ago)
+      const minDate = new Date();
+      minDate.setFullYear(minDate.getFullYear() - 30);
+      
+      // Calculate the maximum date (end of the current year)
+      const maxDate = new Date();
+      maxDate.setMonth(11); // December
+      maxDate.setDate(31); // Last day of the month
+      
+      datePicker.setAttribute('min', minDate.toISOString().split('T')[0]);
+      datePicker.setAttribute('max', maxDate.toISOString().split('T')[0]);
+  }
 
 }
