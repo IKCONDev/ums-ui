@@ -97,26 +97,27 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       $(document).ready(() => {
         this.table = $('#table').DataTable({
           paging: true,
-          searching: true, // Enable search feature
+          searching: true,
           pageLength: 7,
-          order: [[1,'asc']]
+          order: [[1, 'asc']],
+          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
         });
-
       });
-    }, 300)
+    }, 300);
 
     setTimeout(() => {
       $(document).ready(() => {
         this.table = $('#assignedtaskTable').DataTable({
           paging: true,
-          searching: true, // Enable search feature
+          searching: true,
           pageLength: 7,
-          order: [[1,'asc']]
+          order: [[1, 'asc']],
+          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
         });
       });
-    }, 300)
+    }, 300);
   }
 
   ngAfterViewInit(): void {
@@ -126,7 +127,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 7,
-          order: [[1,'asc']]
+          order: [[1,'asc']],
+          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ],
           // Add other options here as needed
         });
   
@@ -137,7 +139,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 7,
-          order: [[1,'asc']]
+          order: [[1,'asc']],
+          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ],
           // Add other options here as needed
         });
       });
