@@ -42,7 +42,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },100)
+    },400)
   }
 
   ngOnDestroy(): void {
@@ -78,15 +78,11 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
           this.batchDetails = res.body;
           this.batchRecordsCount = this.batchDetails.length;
           if(this.batchRecordsCount===0){
-            setTimeout(()=>{
               this.displayText=false;
               this.isComponentLoading=false;
-            })
           }else{
-            setTimeout(()=>{
               this.isComponentLoading=false;
               this.isBatchDetailsText=false;
-            })
           }
      });
      this.initializeJqueryDataTable();

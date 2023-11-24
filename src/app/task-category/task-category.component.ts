@@ -49,7 +49,7 @@ export class TaskCategoryComponent implements OnInit {
           // Add other options here as needed
         });
       });
-    },200)
+    },300)
   }
 
   createOrUpdateTaskCategory(){
