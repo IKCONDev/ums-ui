@@ -17,7 +17,7 @@ export class TaskCategoryService {
   private gatewayMicroservicePathUrl = "http://localhost:8012";
   private taskCategoryMicroservicePathUrl = "taskCategory";
 
-  findTaskCategories(){
+  getAllTaskCategories(){
     return this.http.get<TaskCategory[]>(`${this.gatewayMicroservicePathUrl}/${this.taskCategoryMicroservicePathUrl}/all`,{observe: 'response', headers: new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
     }
@@ -41,7 +41,7 @@ export class TaskCategoryService {
     })
   }
 
-  findTaskCatgeoryById(taskCategoryId: number){
+  getTaskCatgeoryById(taskCategoryId: number){
     return this.http.get<TaskCategory>(`${this.gatewayMicroservicePathUrl}/${this.taskCategoryMicroservicePathUrl}/${taskCategoryId}`,{observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
       }

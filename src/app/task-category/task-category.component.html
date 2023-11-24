@@ -63,7 +63,7 @@
                         <td>{{category.modifiedBy | titlecase}}</td>
                         <td>{{category.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
-                            <span id="editIcon" (click)="getTaskCategory(category.taskCategoryId)"
+                            <span id="editIcon" (click)="getTaskCategoryById(category.taskCategoryId)"
                                 data-toggle="modal" data-target="#addModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
