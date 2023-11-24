@@ -944,7 +944,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
           this.actionItemsToBeSubmittedIds.push(checkbox.value)
-          this.disableSubmit = true;
         }
       }
     }
@@ -964,6 +963,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.meetingsService.submitActionItems(this.actionItemsToBeSubmitted, meeting).subscribe({
       next: (response) => {
+        this.disableSubmit = true;
         console.log(response.body)
         var isActionItemsSubmitted = response.body;
         this.toastr.success('Action items submitted successfully')
