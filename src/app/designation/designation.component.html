@@ -29,7 +29,7 @@
             </div> -->
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body" *ngIf="isDesignationDataText===false">
         <div class="row">
             <table id="table" class="table table-hover">
                 <thead id="thead">
@@ -46,7 +46,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody  *ngIf="isDesignationDataText===false">
                     <tr class="trbody" *ngFor="let designation of designationList; let i = index;">
                         <td>
                             <input id="subCheckBox{{i}}" class="subCheckBox" type="checkbox" value="{{designation.id}}"
@@ -166,4 +166,11 @@
         </div>
     </div>
 
-
+<div style="text-align: center;padding-top:200px;color: #134E69D9;">
+    <span *ngIf="isComponentLoading===true">
+        <div class="spinner-border" style="width: 4rem; height: 4rem;animation-duration: 1s;" role="status">
+            <span class="sr-only">Loading...</span>
+            <div style="position: fixed;padding-top: 16px;padding-left: 8px;"><h5>UMS</h5></div>
+        </div>
+    </span>    
+</div> 

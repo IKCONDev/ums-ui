@@ -1,0 +1,111 @@
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title"></app-header>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div *ngIf="reportType==='employees'">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks</b>
+                </div>
+                <div class="chart">
+                    <div style="padding-top: 6px;"></div>
+                    <canvas id="taskListChart"></canvas>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div *ngIf="reportType==='departments'">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks By Department</b>
+                </div>
+                <div class="chart">
+                    <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;" placeholder="choose"
+                    (change)="chooseDepartment()">
+                        <ng-option *ngFor="let department of departmentList" value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
+                    </ng-select>
+                    <canvas id="taskListByDepartmentChart"></canvas>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks By Task Owner</b>
+                </div>
+                <div class="chart">
+                    <ng-select id="select" [(ngModel)]="selectedTaskOwner" style="float: right; width: 250px;" placeholder="choose"
+                    (change)="chooseUser()">
+                        <ng-option *ngFor="let user of umsUsersList" value="{{user}}">{{user}}</ng-option>
+                    </ng-select>
+                    <canvas id="taskListByTaskOwnerChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div *ngIf="reportType==='severity'">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks By Severity</b>
+                </div>
+                <div class="chart">
+                    <ng-select id="select" [(ngModel)]="selectedTaskSeverity" style="float: right; width: 150px;" placeholder="choose"
+                    (change)="chooseSeverity()">
+                        <ng-option value="High">High</ng-option>
+                        <ng-option value="Medium">Medium</ng-option>
+                        <ng-option value="Low">Low</ng-option>
+                    </ng-select>
+                    <canvas id="taskListByTaskSeverityChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--  -->
+        <div *ngIf="reportType==='status'">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Tasks By Status</b>
+                </div>
+                <div class="chart">
+                    <ng-select id="select" [(ngModel)]="selectedTaskStatus" style="float: right; width: 150px;" placeholder="choose"
+                    (change)="chooseStatus()">
+                        <ng-option value="Yet to start">Yet to start</ng-option>
+                        <ng-option value="Inprogress">Inprogress</ng-option>
+                        <ng-option value="Completed">Completed</ng-option>
+                    </ng-select>
+                    <canvas id="taskListByTaskStatusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--  -->
+        <div *ngIf="reportType==='agedtask'">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>Aged Tasks</b>
+                </div>
+                <div class="chart">
+                    <div style="padding-top: 12px;"></div>
+                    <!-- <button (click)="getAgedTasks()">Save</button> -->
+                    <canvas id="taskListByAge"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div style="text-align: center;">
+    <p style="padding-top: 250px; font-size: 50px; padding-left: 40px;" >This page is under implementation</p>
+
+</div> -->

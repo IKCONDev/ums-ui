@@ -27,6 +27,8 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
   userList :Users[];
   userDetails: any;
 
+  isComponentLoading:boolean=false;
+  isUserDataText:boolean=false;
   /**
    * 
    * @param userService 
@@ -401,9 +403,13 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
   }
 employeeWithStatus :Employee[]
 getAllEmployeesWithStatus(){
+  this.isComponentLoading=true;
+  this.isUserDataText=true;
    this.employeeservice.getAllEmployeeStatus().subscribe({
       next : response =>{
          this.employeeWithStatus = response.body;
+          this.isComponentLoading=false;
+          this.isUserDataText=false;
          console.log( this.employeeWithStatus)
       },
       error: error => {

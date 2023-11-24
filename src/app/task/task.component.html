@@ -89,7 +89,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody *ngIf="isOrganizedDataLoading===false">
+                <tbody *ngIf="isOrganizedDataText===false">
                     <tr class="trbody" *ngFor="let item of task; let i = index">
                         <td><input type="checkbox" value="{{item.taskId}}" class="subCheckBox" id="subCheckBox{{i}}"
                                 (change)="toggleMainCheckBox(i)">
@@ -198,6 +198,8 @@
                         <th style="width: 150px;">Title</th>
                         <th>Owner</th>
                         <th>Task Category</th>
+                        <th>Planned Start Date</th>
+                        <th>Planned End Date</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th style="padding-left:6px;">Priority</th>
@@ -205,12 +207,14 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody *ngIf="isAssignedDataLoading===false">
+                <tbody *ngIf="isAssignedDataText===false">
                     <tr *ngFor="let task of assignedTasks; let i = index">
                         <td>{{task.taskId}}</td>
                         <td id="task-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
                         <td>{{task.taskCategory.taskCategoryTitle}}</td>
+                        <td>{{task.plannedStartDate|date:'MMM d, y'}}</td>
+                        <td>{{task.plannedEndDate|date:'MMM d, y'}}</td>
                         <td>{{task.startDate|date:'MMM d, y'}}</td>
                         <td>{{task.dueDate|date:'MMM d, y'}}</td>
                         <td>{{task.taskPriority}}</td>

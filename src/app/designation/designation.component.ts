@@ -45,6 +45,9 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  isComponentLoading:boolean=false;
+  isDesignationDataText:boolean=false;
+
   constructor(private designationService: DesignationService,
     private toastr: ToastrService,
     private router: Router){
@@ -67,9 +70,17 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    * get list of all departments from Database and display to admin in UI
    */
   getAllDesignations(){
+    this.isComponentLoading=true;
+    this.isDesignationDataText=true;
+    setTimeout(()=>{
+      this.isComponentLoading=false;
+      this.isDesignationDataText=false;
+    },200)
     this.designationService.getDesignationList().subscribe({
       next: (response)=>{
         this.designationList = response.body;
+          this.isComponentLoading=false;
+          this.isDesignationDataText=false;
         console.log(this.designationList)
       },
       error: (error) => {
