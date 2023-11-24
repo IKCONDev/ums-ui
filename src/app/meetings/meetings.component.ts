@@ -1368,14 +1368,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log("the entered discussion points:" + this.discussionPoints);
     console.log(this.SendActionItemList);
     console.log("entered sendmom email method");
-    let isEmailvalid = true;
+    // let isEmailvalid = true;
 
-    if(!this.isemailforSendMoMEmailValid){
-      var valid = this.validateMoMEmail();
-      isEmailvalid = valid;
+    // if(!this.isemailforSendMoMEmailValid){
+    //   var valid = this.validateMoMEmail();
+    //   isEmailvalid = valid;
 
-    }
-    if (isEmailvalid == true) {
+    // }
+//  if (isEmailvalid == true) {
       this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints,this.hoursDiff,this.minutesDiff).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
@@ -1394,7 +1394,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }//error
       })
     }
-  }
+  
 
   addMeeting = {
     meetingId: 0,
