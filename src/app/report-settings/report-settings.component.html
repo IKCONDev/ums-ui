@@ -37,11 +37,16 @@
         <div class="row">
             <div id="automationDiv" class="col-sm-3">
                 <h4><b>Task Category</b></h4>
-                <a>Organizational</a><br/>
+
+                <div *ngFor = "let taskCategory of taskCategoriesList">
+                    <a>{{taskCategory.taskCategoryTitle}}</a>
+                </div> 
+
+                <!-- <a>Organizational</a><br/>
                 <a>External</a><br/>
                 <a>Risk</a><br/>
                 <a>Technical</a><br/>
-                <a>Project Management</a>
+                <a>Project Management</a> -->
             </div>
            <!--- <div class="col-sm-3">
                 <h4><b>Developer Space</b></h4>

@@ -1,5 +1,7 @@
 import { Component, Output, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TaskCategory } from '../model/TaskCategory.model';
+import { TaskCategoryService } from '../task-category/service/task-category.service';
 
 @Component({
   selector: 'app-report-settings',
@@ -9,13 +11,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ReportSettingsComponent implements OnInit {
   @Output() title: string = 'Reports'
   reportType: string ;
+  taskCategoriesList: TaskCategory [];
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute){
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private tastCategory: TaskCategoryService){
 
   }
 
   ngOnInit(): void {
-    
+    this.getAllTaskCategories();
   }
 
   setMeetingReportType(reportType: string){
@@ -31,6 +34,17 @@ export class ReportSettingsComponent implements OnInit {
   setActionItemReportType(reportType: string){
     this.reportType = reportType;
     this.router.navigate(['/action-items-reports'],{queryParams:{reportType:reportType}})
+  }
+
+  getAllTaskCategories(){
+    this.tastCategory.getAllTaskCategories().subscribe(
+      Response=>{ 
+        this.taskCategoriesList = Response.body;
+      }
+    )
+
+   // this.reportType = reportType;
+    //this.router.navigate(['/action-items-reports'])
   }
 
 }

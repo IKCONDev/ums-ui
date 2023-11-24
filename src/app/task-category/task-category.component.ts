@@ -35,7 +35,7 @@ export class TaskCategoryComponent implements OnInit {
     if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized');
     }
-    this.getTaskcategories()
+    this.getAllTaskcategories();
   }
 
   ngAfterViewInit(): void {
@@ -61,14 +61,14 @@ export class TaskCategoryComponent implements OnInit {
   }
 
 
-  getTaskcategories(){
+  getAllTaskcategories(){
     this.isComponentLoading=true;
     this.isTaskCategoryDataText=true;
     setTimeout(()=>{
       this.isComponentLoading=false;
       this.isTaskCategoryDataText=false;
     },200)
-    this.taskCategoryService.findTaskCategories().subscribe({
+    this.taskCategoryService.getAllTaskCategories().subscribe({
       next: response => {
         this.taskCategoryList = response.body;
           this.isComponentLoading=false;
@@ -147,8 +147,8 @@ export class TaskCategoryComponent implements OnInit {
     }
   }
 
-  getTaskCategory(categoryId: number){
-    this.taskCategoryService.findTaskCatgeoryById(categoryId).subscribe({
+  getTaskCategoryById(categoryId: number){
+    this.taskCategoryService.getTaskCatgeoryById(categoryId).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.taskCategory = response.body;
