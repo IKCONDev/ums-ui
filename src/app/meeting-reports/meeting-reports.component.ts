@@ -105,6 +105,8 @@ export class MeetingReportsComponent implements OnInit {
   chooseEmployee(){
     if(this.organizedmeetingListChart != null){
       this.organizedmeetingListChart.destroy();
+     let val = document.getElementById('select').innerHTML;
+     console.log(val)
     }
     this.getMeetingsByOrganizerReport(this.selectedEmployee);
   }
@@ -167,7 +169,7 @@ export class MeetingReportsComponent implements OnInit {
             loop: true
           }
         },
-        aspectRatio: 2,
+        aspectRatio: 2.3,
         scales: {
           x: {
             display: true,
