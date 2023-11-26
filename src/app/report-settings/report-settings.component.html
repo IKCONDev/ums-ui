@@ -19,10 +19,9 @@
             </div>
             <div class="col-sm-3">
                 <h4><b>Action Items</b></h4>
-                <a (click)="setActionItemReportType('departments')">Departments</a><br/>
-                <a (click)="setActionItemReportType('employees')" >Organized</a><br/>
-                <a (click)="setActionItemReportType('severity')">Severity</a><br/>
-                <a (click)="setActionItemReportType('priority')">Priority</a><br/>
+                <a routerLink="/actionitem-reports" (click)="setActionItemReportType('department')">Departments</a><br/>
+                <a routerLink="/actionitem-reports" (click)="setActionItemReportType('organized')" >Organized</a><br/>
+                <a routerLink="/actionitem-reports" (click)="setActionItemReportType('priority')">Priority</a><br/>
             </div>
             <div class="col-sm-3">
                 <h4><b>Task Items</b></h4>

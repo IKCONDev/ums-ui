@@ -52,7 +52,7 @@ import { ReportSettingsComponent } from './report-settings/report-settings.compo
 import { AppMenuItemsComponent } from './app-menu-item/app-menu-item.component';
 import { MeetingReportsComponent } from './meeting-reports/meeting-reports.component';
 import { TaskReportsComponent } from './task-reports/task-reports.component';
-import { ActionItemsReportsComponent } from './action-items-reports/action-items-reports.component';
+import { ActionItemsReportsComponent } from './action-item-reports/action-item-reports.component';
 
 
 @NgModule({
