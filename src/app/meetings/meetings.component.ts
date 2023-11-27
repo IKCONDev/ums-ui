@@ -12,7 +12,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
 import { count, max } from 'rxjs';
-import { JsonPipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
 import { EmployeeService } from '../employee/service/employee.service';
 import { Employee } from '../model/Employee.model';
@@ -131,7 +131,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
-    private headerService: HeaderService) {
+    private headerService: HeaderService,private datePipe: DatePipe) {
       console.log(this.organizedMeetingTitleFilter+"-----------empty");
       console.log(this.attendedMeetingTitleFilter+"------------empty")
   }
@@ -1636,11 +1636,35 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param startDate 
    * @param endDate 
    */
+  newStartDate:Date;
+  newEndDate:Date;
   filterOrganizedMeetingList(meetingTitle: string, startDate: string, endDate: string){
     console.log(meetingTitle+" "+startDate+" "+endDate);
+    // this.newStartDate = new Date(startDate);
+    const StartDateTimestamp = new Date(startDate);
+    const endDateTimestamp = new Date (endDate)
+    // Use DatePipe to format and convert to UTC
+    let StartDateTimestampUTC: string | null = null;
 
+    if (StartDateTimestamp !== null) {
+      StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+    }
+    
+    let endDateTimestampUTC: string | null = null;
+
+    if (endDateTimestamp !== null) {
+      endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+    }
+    
+
+    console.log(StartDateTimestampUTC);
+    console.log(endDateTimestampUTC)
+    
+    console.log(this.newStartDate);
     this.organizedMeetingTitleFilter = meetingTitle;
     this.organizedMeetingStartDateFilter = startDate;
+
+    console.log(this.organizedMeetingStartDateFilter);
     this.organizedMeetingEndDateFilter = endDate;
 
     localStorage.setItem('organizedMeetingTitleFilter',meetingTitle);
@@ -1649,13 +1673,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting,
       this.organizedMeetingTitleFilter,
-      this.organizedMeetingStartDateFilter,
-      this.organizedMeetingEndDateFilter).subscribe({
+      StartDateTimestampUTC.toString(),
+      endDateTimestampUTC.toString()).subscribe({
         next: response => {
           this.meetings = response.body;
           this.meetingCount = response.body.length;
           this.closeFilterModal();
-          window.location.reload();
+          //window.location.reload();
         }
       });
       
