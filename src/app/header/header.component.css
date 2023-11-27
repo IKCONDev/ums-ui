@@ -12,6 +12,10 @@
   color: black;
 }
 
+a :hover{
+  color: gray;
+}
+
 .title {
   color: var(--gray-800, #242D35);
   font-size: 28px;
