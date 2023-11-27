@@ -604,6 +604,7 @@ validateTaskCategory(){
    * @param form 
    */
   updateTaskDetails(form: NgForm) {
+    console.log("entered the update task details");
     var currentDate = new Date();
       var year = currentDate.getFullYear();
       var month = currentDate.getMonth() + 1; 
@@ -611,6 +612,9 @@ validateTaskCategory(){
        var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
        console.log(formattedStartDate)
     if(this.update_Task.status === 'Completed'){
+      if(this.update_Task.startDate===null||this.update_Task.startDate===""){
+        this.update_Task.startDate=formattedStartDate;
+      }
        this.update_Task.dueDate = formattedStartDate;
     }
     if(this.update_Task.status === 'Inprogress'){
