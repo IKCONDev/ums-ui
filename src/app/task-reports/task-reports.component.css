@@ -34,6 +34,18 @@
     background: var(--side-text, #ECF7FC);
 }
 
-b{
-    color: white;
+
+
+table tr th {
+    font-size: 11px;
+    background-color: #134E69D9;
+}
+
+table tr td {
+    font-size: 11px;
+    /* background-color: #134E69D9; */
+}
+
+#reportheading{
+    color: whitesmoke;
 }

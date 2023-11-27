@@ -10,7 +10,9 @@ import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
 import { MeetingService } from '../meetings/service/meetings.service';
 import { TaskReportService } from './service/task-reports.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpStatusCode } from '@angular/common/http';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-report',
@@ -23,7 +25,7 @@ export class TaskReportsComponent implements OnInit {
   batchDetails: BatchDetails[];
   departmentList: Department[];
   umsUsersList: string[];
-  selectedDepartment: number;
+  selectedDepartment: string;
   selectedTaskOwner: string;
   selectedTaskSeverity: string = 'High';
   selectedTaskStatus: string = 'Yet to start';
@@ -66,7 +68,8 @@ export class TaskReportsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private departmentService: DepartmentService,
     private headerService: HeaderService,
-    private meetingService: MeetingService) { 
+    private meetingService: MeetingService,
+    private router: Router) { 
       this.activatedRoute.queryParams.subscribe(param => {
         this.reportType = param['reportType'];
         console.log(this.reportType)
@@ -76,40 +79,43 @@ export class TaskReportsComponent implements OnInit {
   /**
    * 
    */
+  loggedInUserPrincipalObject: Users;
   ngOnInit(): void {
     //get batch process details
-    this.taskreportsService.getAllBatchProcessDetails().subscribe(
-      res => {
-        this.batchDetails = res.body;
-        console.log(this.batchDetails);
-        this.batchDetails.filter(batchDetail => {
+    // this.taskreportsService.getAllBatchProcessDetails().subscribe(
+    //   res => {
+    //     this.batchDetails = res.body;
+    //     console.log(this.batchDetails);
+    //     this.batchDetails.filter(batchDetail => {
 
-        })
-      });
+    //     })
+    //   });
 
     this.getLoggedInUserDetails(this.loggedInUser);
     //get active users list
     this.getActiveUsersList();
     this.getDepartments();
     this.selectedTaskOwner = this.loggedInUser;
-    if(this.taskListChart === null){
-      this.getTasks();
-    }
-    if(this.taskListByTaskOwnerChart === null){
-      this.chooseUser();
-    }
-    if(this.taskListByTaskStatusChart === null){
-      this.chooseStatus();
-    }
-    if(this.taskListByTaskSeverityChart === null){
-      this.chooseSeverity();
-    }
-    if(this.agedTaskListChart === null){
-      this.getAgedTasks();
-    }
-    //if(this.taskListByDepartmentChart === null){
-      this.chooseDepartment();
-    //}
+    // if(this.reportType === null){
+    //   this.getTasks();
+    // }
+    setTimeout(() => {
+      if(this.reportType === 'organized'){
+        this.chooseUser();
+      }
+      if(this.reportType === 'status'){
+        this.chooseStatus();
+      }
+      if(this.reportType === 'severity'){
+        this.chooseSeverity();
+      }
+      if(this.reportType === 'aged'){
+        this.getAgedTasks();
+      }
+      if(this.reportType === 'department'){
+        this.chooseDepartment();
+      }
+    },400)
     console.log('finished')
     
   }
@@ -119,105 +125,135 @@ export class TaskReportsComponent implements OnInit {
       next: response => {
         this.departmentList = response.body;
         console.log(this.departmentList)
+      }, error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
     })
   }
 
-  userDetaiils: Users
+  departmentName: string;
+  department: Department;
+  getDepartmentById(selectedDepartmentId: number){
+    this.departmentService.getDepartment(selectedDepartmentId).subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.department = response.body
+          this.departmentName = this.department.departmentName;
+        }
+      }, error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+    })
+  }
+
+
   getLoggedInUserDetails(loggedInUser: string) {
     this.headerService.fetchUserProfile(loggedInUser).subscribe({
       next: response => {
-        this.userDetaiils = response.body;
-        this.defaultDepartment = response.body.employee.department.departmentId;
-      }
-    })
-  }
-
-  getTasks() {
-    const startDate=new Date();
-        const endDate=new Date();
-        //add dynamic year
-        startDate.setFullYear(new Date().getFullYear(),0,1);
-        startDate.setHours(0,0,0,0);
-        endDate.setFullYear(new Date().getFullYear(),11,31);
-        endDate.setHours(23,59,59,999);
-        console.log(startDate);
-        console.log(endDate);
-      this.taskreportsService.findAllTasks(startDate.toISOString(),endDate.toISOString()).subscribe({
-      next: response => {
-        console.log(response)
-        this.taskListCount = response.body;
-        console.log(this.taskListCount)
-        if(this.taskListChart != null){
-          this.taskListChart.destroy();
+        this.loggedInUserPrincipalObject = response.body;
+        this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
+        this.departmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
+      }, error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
         }
-        setTimeout(() => {
-          this.createTaskListChart();
-        },200)
       }
     })
   }
 
-  createTaskListChart() {
-    this.taskListChart = new Chart("taskListChart", {
-      type: 'bar',
-      data: {// values on X-Axis
-        xLabels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-	       datasets: [
-          {
-            label: "Total Tasks",
-            data: this.taskListCount,
-            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 3,
-          },
-        ]
+  // getTasks() {
+  //   const startDate=new Date();
+  //       const endDate=new Date();
+  //       //add dynamic year
+  //       startDate.setFullYear(new Date().getFullYear(),0,1);
+  //       startDate.setHours(0,0,0,0);
+  //       endDate.setFullYear(new Date().getFullYear(),11,31);
+  //       endDate.setHours(23,59,59,999);
+  //       console.log(startDate);
+  //       console.log(endDate);
+  //     this.taskreportsService.findAllTasks(startDate.toISOString(),endDate.toISOString()).subscribe({
+  //     next: response => {
+  //       console.log(response)
+  //       this.taskListCount = response.body;
+  //       console.log(this.taskListCount)
+  //       if(this.taskListChart != null){
+  //         this.taskListChart.destroy();
+  //       }
+  //       setTimeout(() => {
+  //         this.createTaskListChart();
+  //       },200)
+  //     }, error: error => {
+  //       if(error.status === HttpStatusCode.Unauthorized){
+  //         this.router.navigateByUrl('/session-timeout')
+  //       }
+  //     }
+  //   })
+  // }
+
+//   createTaskListChart() {
+//     this.taskListChart = new Chart("taskListChart", {
+//       type: 'bar',
+//       data: {// values on X-Axis
+//         xLabels: ['Jan','Feb','Mar' ,'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+// 	       datasets: [
+//           {
+//             label: "Total Tasks",
+//             data: this.taskListCount,
+//             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+//             borderColor: 'rgba(255, 99, 132, 1)',
+//             borderWidth: 3,
+//           },
+//         ]
         
-      },
-      options: {
-        aspectRatio: 1.7,
-        scales: {
-          x: {
-            display: true,
-            grid: {
-              display: false,
-            },
-          },
-          y: {
-            display: true,
-            grid: {
-              display: true,
-            },
-          },
-        },
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top',
-            align:'center',
-            labels: {
-              usePointStyle: true,
-              font: {
-                size: 12,
-              },
-              padding: 16,
-              pointStyle:'rectRounded',
+//       },
+//       options: {
+//         aspectRatio: 1.7,
+//         scales: {
+//           x: {
+//             display: true,
+//             grid: {
+//               display: false,
+//             },
+//           },
+//           y: {
+//             display: true,
+//             grid: {
+//               display: true,
+//             },
+//           },
+//         },
+//         plugins: {
+//           legend: {
+//             display: true,
+//             position: 'top',
+//             align:'center',
+//             labels: {
+//               usePointStyle: true,
+//               font: {
+//                 size: 12,
+//               },
+//               padding: 16,
+//               pointStyle:'rectRounded',
           
-            },
-          },
-          title: {
-            display: true,
-            text: 'Task Status of current Year',
-            align:'center',
-            font: {
-              size: 14,
-            },
-          },
-        },
-      }
-    });
+//             },
+//           },
+//           title: {
+//             display: true,
+//             text: 'Task Status of current Year',
+//             align:'center',
+//             font: {
+//               size: 14,
+//             },
+//           },
+//         },
+//       }
+//     });
   
-}
+// }
 
   getTasksByDepartment(selectedDepartment: number) {
     this.taskreportsService.findAllTasksByDepartment(selectedDepartment).subscribe({
@@ -225,6 +261,9 @@ export class TaskReportsComponent implements OnInit {
         this.taskListByDepartment = response.body;
         this.taskListByDepartmentCount = response.body.length;
         console.log(response.body)
+        setTimeout(() => {
+          this.createTaskListByDepartmentChart();
+        }, 400)
       }
     })
   }
@@ -233,12 +272,9 @@ export class TaskReportsComponent implements OnInit {
     console.log(this.selectedDepartment)
     if (this.taskListByDepartmentChart != null) {
       this.taskListByDepartmentChart.destroy();
+      this.getDepartmentById(parseInt(this.selectedDepartment));
     }
-    this.getTasksByDepartment(this.selectedDepartment !=0 ? this.selectedDepartment : this.defaultDepartment);
-    setTimeout(() => {
-      this.createTaskListByDepartmentChart();
-    }, 500)
-
+    this.getTasksByDepartment(parseInt(this.selectedDepartment));
   }
 
   createTaskListByDepartmentChart() {
@@ -258,7 +294,7 @@ export class TaskReportsComponent implements OnInit {
 
       },
       options: {
-        aspectRatio: 2,
+        aspectRatio: 2.2,
         scales: {
           x: {
             display: true,
@@ -331,22 +367,22 @@ export class TaskReportsComponent implements OnInit {
 
   createTaskListByTaskOwnerChart() {
     this.taskListByTaskOwnerChart = new Chart("taskListByTaskOwnerChart", {
-      type: 'polarArea',
+      type: 'bar',
       data: {// values on X-Axis
         xLabels: ['Total tasks'],
         datasets: [
           {
-            label: "Total Task of a task owner",
+            label: "Total tasks of a task owner",
             data: [this.taskListByTaskOwnerCount],
-            backgroundColor: 'rgba(0, 201 , 255, 0.8)', // Red
-            borderColor: 'rgba(0, 201, 255, 1)',
+            backgroundColor: 'rgba(159, 134, 105, 0.8)', // Dark blue
+            borderColor: 'rgba(159, 134, 105, 1)',
             borderWidth: 3,
           },
         ]
 
       },
       options: {
-        aspectRatio: 2,
+        aspectRatio: 2.2,
         scales: {
           x: {
             display: true,
@@ -418,14 +454,14 @@ export class TaskReportsComponent implements OnInit {
           {
             label: "Total Tasks by severity level",
             data: [this.taskListByTaskSeverityCount],
-            backgroundColor: 'rgba(245, 40, 145, 0.8)', // Red
-            borderColor: 'rgba(245, 40, 145, 1)',
+            backgroundColor: 'rgba(37, 128, 101, 0.8)', // Dark Green
+            borderColor: 'rgba(37, 128, 101, 1)',
             borderWidth: 3,
           },
         ]
       },
       options: {
-        aspectRatio: 2,
+        aspectRatio: 2.2,
         scales: {
           x: {
             display: true,
@@ -497,8 +533,8 @@ export class TaskReportsComponent implements OnInit {
           {
             label: "Total Tasks by status",
             data: [this.taskListByTaskStatusCount],
-            backgroundColor: 'rgba(216, 175, 53, 0.8)', // Yellow
-            borderColor: 'rgba(216, 175, 53, 1)',
+            backgroundColor: 'rgba(31, 190, 189, 0.8)', // Dark Blue
+            borderColor: 'rgba(31, 190, 189, 1)',
             borderWidth: 3,
           },
         ]
@@ -513,7 +549,7 @@ export class TaskReportsComponent implements OnInit {
             loop: true
           }
         },
-        aspectRatio: 2,
+        aspectRatio: 2.2,
         scales: {
           x: {
             display: true,
@@ -582,21 +618,21 @@ export class TaskReportsComponent implements OnInit {
   //AGED TASK CHART
   createAgedTaskListChart() {
     this.agedTaskListChart = new Chart("taskListByAge", {
-      type: 'doughnut',
+      type: 'pie',
       data: {// values on X-Axis
         xLabels: ['Total tasks'],
         datasets: [
           {
             label: "Aged Tasks",
             data: [this.agedTaskListCount],
-            backgroundColor: 'rgba(198, 59, 24, 0.8)', // Yellow
-            borderColor: 'rgba(198, 59, 24, 1)',
+            backgroundColor: 'rgba(169, 180, 185, 0.8)', // grey
+            borderColor: 'rgba(169, 180, 185, 1)',
             borderWidth: 3,
           },
         ]
       },
       options: {
-        aspectRatio: 1.77,
+        aspectRatio: 2.2,
         scales: {
           x: {
             display: true,
