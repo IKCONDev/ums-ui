@@ -12,7 +12,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
 import { count, max } from 'rxjs';
-import { JsonPipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
 import { EmployeeService } from '../employee/service/employee.service';
 import { Employee } from '../model/Employee.model';
@@ -131,7 +131,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
-    private headerService: HeaderService) {
+    private headerService: HeaderService,private datePipe: DatePipe) {
       console.log(this.organizedMeetingTitleFilter+"-----------empty");
       console.log(this.attendedMeetingTitleFilter+"------------empty")
   }
@@ -1641,26 +1641,49 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param startDate 
    * @param endDate 
    */
+  newStartDate:Date;
+  newEndDate:Date;
   filterOrganizedMeetingList(meetingTitle: string, startDate: string, endDate: string){
     console.log(meetingTitle+" "+startDate+" "+endDate);
+    // this.newStartDate = new Date(startDate);
+    let StartDateTimestampUTC: string | null = "";
+    let endDateTimestampUTC: string | null = "";
 
+    if (startDate!="") {
+      console.log('not null for start')
+        const StartDateTimestamp = new Date(startDate);
+        StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+    }
+
+    if (endDate!="") {
+      console.log('not null for enddate')
+        const endDateTimestamp = new Date(endDate);
+        endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+    }
+
+    console.log(StartDateTimestampUTC);
+    console.log(endDateTimestampUTC)
+    
+    console.log(this.newStartDate);
     this.organizedMeetingTitleFilter = meetingTitle;
     this.organizedMeetingStartDateFilter = startDate;
+
+    console.log(this.organizedMeetingStartDateFilter);
     this.organizedMeetingEndDateFilter = endDate;
 
     localStorage.setItem('organizedMeetingTitleFilter',meetingTitle);
-    localStorage.setItem('organizedMeetingStartDateFilter',startDate);
-    localStorage.setItem('organizedMeetingEndDateFilter',endDate);
+    localStorage.setItem('organizedMeetingStartDateFilter',StartDateTimestampUTC);
+    localStorage.setItem('organizedMeetingEndDateFilter',endDateTimestampUTC);
 
     this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting,
       this.organizedMeetingTitleFilter,
-      this.organizedMeetingStartDateFilter,
-      this.organizedMeetingEndDateFilter).subscribe({
+      StartDateTimestampUTC.toString(),
+      endDateTimestampUTC.toString()).subscribe({
         next: response => {
           this.meetings = response.body;
           this.meetingCount = response.body.length;
           this.closeFilterModal();
-          window.location.reload();
+          //window.location.reload();
         }
       });
       

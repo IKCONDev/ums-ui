@@ -41,4 +41,10 @@ export class MeetingReportsService {
         }
         ),params:params});
   }
+   findAllMeetings(){
+
+    return this.http.get<Meeting[]>(`${this.apiGatewayPathUrl}/${this.reportMicroservicePathUrl}/meeting/all`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      })});
+  }
 }

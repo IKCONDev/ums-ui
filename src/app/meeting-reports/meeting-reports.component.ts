@@ -36,6 +36,7 @@ export class MeetingReportsComponent implements OnInit {
   selectedDepartment: string;
   selectedDepartmentName: string;
   selectedAttendeeUser: string;
+  selectedDepartmentID: number;
 
   organizedMeetingList :Meeting[];
   organizedMeetingListCount: number
@@ -67,7 +68,7 @@ export class MeetingReportsComponent implements OnInit {
       next: response => {
         this.loggedInUserObject = response.body;
         this.selectedEmployee = this.loggedInUserObject.email;
-        this.selectedDepartment = this.loggedInUserObject.employee.department.departmentId.toString();
+        //this.selectedDepartment = this.loggedInUserObject.employee.department.departmentId.toString();
         this.selectedDepartmentName = this.loggedInUserObject.employee.department.departmentName;
         this.selectedAttendeeUser = this.loggedInUserObject.email;
         if(this.reportType === 'employee'){
@@ -84,6 +85,7 @@ export class MeetingReportsComponent implements OnInit {
     //initial data load
       this.getEmployeeAsUserList();      
       this.getAllDepartments();
+      this.getAllMeetings();
   }
 
   getLoggedInUserDetails(loggedInUser: string){
@@ -104,6 +106,7 @@ export class MeetingReportsComponent implements OnInit {
         if(response.status === HttpStatusCode.Ok){
           this.choosenDepartment = response.body;
           this.selectedDepartmentName = this.choosenDepartment.departmentName;
+           this.selectedDepartmentID= this.choosenDepartment.departmentId;
           console.log(this.choosenDepartment)
         }
       },error: error => {
@@ -473,5 +476,18 @@ export class MeetingReportsComponent implements OnInit {
   //     .attr("height", (d: any) => this.height - y(d.Stars))
   //     .attr("fill", "#d04a35");
   // }
-
+  OrganizedMeetingList : Meeting[]
+  OrganizedMeetingCount : number;
+  getAllMeetings(){
+     this.meetingReportService.findAllMeetings().subscribe({ 
+      next: response => {
+        this.OrganizedMeetingList = response.body;
+        console.log(this.OrganizedMeetingList);
+        this.OrganizedMeetingCount = response.body.length;
+        setTimeout(() => {
+          //this.createMeetingsByDepartmentReportChart();
+        },400)
+      }
+    })
+  }
 }
