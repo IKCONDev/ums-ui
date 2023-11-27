@@ -146,4 +146,79 @@
         <p style="text-align: center;"><b>No Action items organized !</b></p>
        </ng-template>
     </div>
+    <!-- report 2 -->
+    <div class="card-body" *ngIf="reportType === 'priority';">
+        <div class="row">
+            <div class="col-sm-5" style="margin-left: 50px;">
+                <div class="card">
+                    <div class="card-header" style="background-color: #134E69D9;">
+                        <h4 style="text-align: center;color: white;">Report Summary</h4>
+                    </div>
+                    <div style="margin-left: 30px;margin-top: 20px;">
+                    <p>Report Module : <b>Action Items</b></p>
+                    <p>Report Type : <b>Pie Chart</b></p>
+                    <p>Report For : <b>{{"Priority"}}</b></p>
+                    <p>Priority Type : <b>{{selectedPriority}}</b></p>
+                    <p>Total action items for the priority : <b>{{actionItemsCountByPriority}}</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b>Action Items</b>
+                    </div>
+                    <div class="chart">
+                        <div style="padding-top: 6px;"></div>
+                        <ng-select id="select" [(ngModel)]="selectedPriority" style="float: right; width: 250px;"
+                            placeholder="choose" (change)="choosePriority()">
+                            <ng-option value="High">High</ng-option>
+                            <ng-option value="Medium">Medium</ng-option>
+                            <ng-option value="Low">Low</ng-option>
+                        </ng-select>
+                        <canvas id="actionItemsByPriorityReportChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br/>
+    <table class="table table-hover" *ngIf="actionItemsCountByPriority > 0; else noPriMeetings">
+        <thead>
+            <tr >
+                <th>ID</th>
+                <th>Title</th>
+                <th>Organizer</th>
+                <th>Priority</th>
+                <th>Planned Start Date</th>
+                <th>Planned End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let actionItem of actionItemListByPriority">
+                <td>{{actionItem.actionItemId}}</td>
+                <td>{{actionItem.actionItemTitle}}</td>
+                <td>{{actionItem.emailId}}</td>
+                <td>{{actionItem.actionPriority}}</td>
+                <td>{{actionItem.startDate}}</td>
+                <td>{{actionItem.endDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #noPriMeetings>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Organizer</th>
+                    <th>Priority</th>
+                    <th>Start Date Time</th>
+                    <th>End Date Time</th>
+                </tr>
+            </thead>
+            <tbody>
+        </table>
+        <p style="text-align: center;"><b>No Action items !</b></p>
+       </ng-template>
+    </div>
 </div>

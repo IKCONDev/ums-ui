@@ -66,6 +66,9 @@ export class ActionItemsReportsComponent implements OnInit {
       if(this.reportType === 'organized'){
         this.chooseUser();
       }
+      if(this.reportType === 'priority'){
+        this.choosePriority();
+      }
     },200)
   }
 
@@ -169,13 +172,16 @@ export class ActionItemsReportsComponent implements OnInit {
 
   selectedPriority: string = 'High';
   actionItemListByPriority: ActionItems[];
-  actionItemsCountByPriority: number;
+  actionItemsCountByPriority: number = 0;
   getActionItemsReportByPriority(selectedPriority: string){
     this.actionItemsReportService.findActionItemsReportByPriority(selectedPriority).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.actionItemListByPriority = response.body;
           this.actionItemsCountByPriority = response.body.length;
+          setTimeout(() => {
+            this.createActionItemsByPriorityReportChart();
+          },400)
         }
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
@@ -190,6 +196,83 @@ export class ActionItemsReportsComponent implements OnInit {
       this.actionItemsByDepartmentReportChart.destroy();
     }
     this.getActionItemsReportByDepartment(this.selectedDepartment)
+  }
+
+  actionItemsByPriorityReportChart = null;
+
+  choosePriority(){
+    if(this.actionItemsByPriorityReportChart != null){
+      this.actionItemsByPriorityReportChart.destroy();
+    }
+    this.getActionItemsReportByPriority(this.selectedPriority);
+  }
+
+  createActionItemsByPriorityReportChart(){
+    this.actionItemsByPriorityReportChart = new Chart("actionItemsByPriorityReportChart", {
+      type: 'pie',
+      data: {// values on X-Axis
+        xLabels: ['Total Action items of  priority'],
+        datasets: [
+          {
+            label: "Total Action items of  priority",
+            data: [this.actionItemsCountByPriority],
+            backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
+            borderColor: 'rgba(175, 136, 245, 1)',
+            borderWidth: 3,
+          },
+        ]
+      },
+      options: {
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'easeOutExpo',
+            from: 1,
+            to: 0,
+            loop: true
+          }
+        },
+        aspectRatio: 2.3,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            beginAtZero: false,
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total Action items of priority',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
   }
 
   createActionItemsByDepartmentReportChart(){
