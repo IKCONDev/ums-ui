@@ -24,6 +24,6 @@ export class Employee{
     modifiedByEmailId: string;
     departmentName: string;
     isUser: boolean;
-    dateOfJoining:string;
+    dateOfJoining:Date;
     reportingManagerName: string;
 }
