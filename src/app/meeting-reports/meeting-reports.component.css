@@ -1,8 +1,9 @@
-.container-fluid{
-    margin-left: 110px;
-    padding-top: 20px;
-    margin-right: 30px;
-  }
+.container-fluid {
+  padding-top: 10px;
+  padding-left:120px;
+  padding-right: 32px;
+  padding-bottom: 20px;
+}
   
   .modal.right .modal-dialog {
       position: fixed;
@@ -92,7 +93,9 @@
   }
 
   table tr th{
+    color: white;
     font-size: 11px;
+    background-color: #134E69D9;
   }
 
   table tr td{

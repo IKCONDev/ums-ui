@@ -89,7 +89,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     actionPriority: '',
     actionStatus: 'Not Submitted',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    departmentId: 0
 
   }
 
@@ -103,7 +104,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     actionPriority: '',
     actionStatus: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    departmentId: 0
   }
 
   organizedMeetingTitleFilter: string = localStorage.getItem('organizedMeetingTitleFilter');
@@ -542,6 +544,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       console.log(this.addDetails);
       this.addDetails.meetingId = this.currentMeetingId;
       this.addDetails.emailId = this.selectedReporteeOrganizedMeeting != null ? this.selectedReporteeOrganizedMeeting : this.loggedInUser;
+      this.addDetails.departmentId = this.selectedReporteeDepartment;
       this.actionItemService.saveActionItem(this.addDetails).subscribe({
         next: (response) => {
           this.response = response.body;
@@ -907,7 +910,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.updatedetails.actionItemOwner = this.actionItems_new.actionItemOwner;
         this.updatedetails.startDate = this.actionItems_new.startDate;
         this.updatedetails.endDate = this.actionItems_new.endDate;
-
+        this.updatedetails.departmentId = this.actionItems_new.departmentId;
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
@@ -944,7 +947,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
           this.actionItemsToBeSubmittedIds.push(checkbox.value)
-          this.disableSubmit = true;
         }
       }
     }
@@ -964,6 +966,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.meetingsService.submitActionItems(this.actionItemsToBeSubmitted, meeting).subscribe({
       next: (response) => {
+        this.disableSubmit = true;
         console.log(response.body)
         var isActionItemsSubmitted = response.body;
         this.toastr.success('Action items submitted successfully')
@@ -1227,7 +1230,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
       this.id = this.updatedetails.actionItemId;
-      console.log(this.updatedetails);
+      //this.updatedetails.departmentId = this.selectedReporteeDepartment;
       this.actionItemService.updateActionItem(this.updatedetails).subscribe({
         next: (response) => {
           this.data = response.body;
@@ -1368,14 +1371,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log("the entered discussion points:" + this.discussionPoints);
     console.log(this.SendActionItemList);
     console.log("entered sendmom email method");
-    let isEmailvalid = true;
+    // let isEmailvalid = true;
 
-    if(!this.isemailforSendMoMEmailValid){
-      var valid = this.validateMoMEmail();
-      isEmailvalid = valid;
+    // if(!this.isemailforSendMoMEmailValid){
+    //   var valid = this.validateMoMEmail();
+    //   isEmailvalid = valid;
 
-    }
-    if (isEmailvalid == true) {
+    // }
+//  if (isEmailvalid == true) {
       this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints,this.hoursDiff,this.minutesDiff).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
@@ -1394,7 +1397,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }//error
       })
     }
-  }
+  
 
   addMeeting = {
     meetingId: 0,

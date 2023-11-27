@@ -52,6 +52,7 @@ table th {
   width: 20px;
   text-align: left;
   font-size: 11px;
+  white-space: nowrap;
 }
 
 th,

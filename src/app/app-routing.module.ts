@@ -32,7 +32,7 @@ import { ReportSettingsComponent } from './report-settings/report-settings.compo
 import { AppMenuItemsComponent } from './app-menu-item/app-menu-item.component';
 import { MeetingReportsComponent } from './meeting-reports/meeting-reports.component';
 import { TaskReportsComponent } from './task-reports/task-reports.component';
-import { ActionItemsReportsComponent } from './action-items-reports/action-items-reports.component';
+import { ActionItemsReportsComponent } from './action-item-reports/action-item-reports.component';
 
 
 /**
@@ -70,7 +70,7 @@ const routes: Routes = [
   {path: 'menu-item', component: AppMenuItemsComponent},
   {path: 'meeting-report', component: MeetingReportsComponent},
   {path: 'task-reports', component: TaskReportsComponent},
-  {path: 'action-items-reports', component: ActionItemsReportsComponent},
+  {path: 'actionitem-reports', component: ActionItemsReportsComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},

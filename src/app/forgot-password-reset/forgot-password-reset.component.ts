@@ -90,42 +90,62 @@ export class ForgotPasswordResetComponent {
   verificationResponse: string ='';
   passwordCriteria : string='';
   result_value: boolean;
-  setNewPassword(event : any){
-     this.newPassword = event.target.value;
-     this.result_value=this.isPasswordvalid(this.newPassword);
-     console.log(this.newPassword); 
-     if(this.result_value=== true){
-       console.log("Strong password");
-       this.passwordCriteria="Strong Password";
-      if(this.newPassword!=this.confirmPassword){
-        this.verificationResponse="Password doesn't match"
-        this.isUpdate=true;
-      }
-     }
-     else{
+  setNewPassword(event: any) {
+    this.newPassword = event.target.value;
+  
+    if (this.newPassword === '') {
+      this.passwordCriteria = '';
+      this.verificationResponse = '';
+    } else {
+      this.result_value = this.isPasswordvalid(this.newPassword);
+      console.log(this.newPassword);
+  
+      if (this.result_value === true) {
+        console.log("Strong password");
+        this.passwordCriteria = "Strong Password";
+      } else {
         console.log("Weak password");
-        this.passwordCriteria="Weak Password";
-     }
-     
-
+        this.passwordCriteria = "Weak Password";
+      }
+      // Checking the new password and confirm password match or not
+      if (this.newPassword === this.confirmPassword) {
+        this.isUpdate = false;
+        this.verificationResponse = "";
+      } else if (this.newPassword === '' && this.confirmPassword === '') {
+        this.verificationResponse = "";
+      } else {
+        // Check if both new and confirm passwords are non-empty
+        if (this.newPassword !== '' && this.confirmPassword !== '') {
+          this.verificationResponse = "Password doesn't match";
+          this.isUpdate = true;
+        } else {
+          this.verificationResponse = "";
+        }
+        console.log("password doesn't match");
+      }
+    }
   }
-  setConfirmPassword(event : any){
-    this.isUpdate=true;
+  
+  setConfirmPassword(event: any) {
+    this.isUpdate = true;
     this.confirmPassword = event.target.value;
     console.log(this.confirmPassword);
-    if(this.newPassword === this.confirmPassword){
-       this.isUpdate =false;
-       this.verificationResponse="";
+  
+    if (this.newPassword === this.confirmPassword) {
+      this.isUpdate = false;
+      this.verificationResponse = "";
+    } else if (this.newPassword === '' && this.confirmPassword === '') {
+      this.verificationResponse = "";
+    } else {
+      if (this.newPassword !== '' && this.confirmPassword !== '') {
+        this.verificationResponse = "Password doesn't match";
+        console.log("password doesn't match");
+      } else {
+        this.verificationResponse = "";
+      }
     }
-    else if(this.newPassword==''&& this.confirmPassword==''){
-       this.verificationResponse="";
-    }
-    else{
-      this.verificationResponse="Password doesn't match";
-      console.log("password doesn't match");
-    }
-
   }
+  
   isPasswordvalid(newPassword:string) : boolean{
     const minLength =8;
     const hasUppercase = /[A-Z]/.test(newPassword);

@@ -213,10 +213,14 @@ export class ForgotPasswordOtpValidationComponent {
   otpValidation(event: KeyboardEvent) {
     const invalidChars = ['+', '-', '.', 'e'];
     const inputElement = event.target as HTMLInputElement;
-    if (invalidChars.includes(event.key) || (inputElement.value.length == 6 && event.key != 'Backspace'
-    )) {
-      event.preventDefault();
-      this.verifyButtonDisabled = false;
+    
+    // Clear the error message when the user starts modifying the OTP
+    this.OtpResponseMessage = "";
+    this.isValidOtp = false;
+
+    if (invalidChars.includes(event.key) || (inputElement.value.length == 6 && event.key != 'Backspace')) {
+        event.preventDefault();
+        this.verifyButtonDisabled = false;
     }
   }
 }

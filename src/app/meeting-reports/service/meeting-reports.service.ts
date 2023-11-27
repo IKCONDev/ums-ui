@@ -32,4 +32,13 @@ export class MeetingReportsService {
           }
           ),params:params});
     }
+
+    findMeetingsByAttendeeReport(attendeeEmail: string){
+      var params = new HttpParams()
+      .set('attendee',attendeeEmail)
+      return this.http.get<Meeting[]>(`${this.apiGatewayPathUrl}/${this.reportMicroservicePathUrl}/meeting/attendee`,{observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        }
+        ),params:params});
+  }
 }

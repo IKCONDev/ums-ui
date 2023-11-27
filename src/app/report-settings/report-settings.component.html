@@ -13,23 +13,23 @@
             </div>
             <div class="col-sm-2">
                 <h4><b>Meetings</b></h4>
-                <a  (click)="setMeetingReportType('department')">By Department</a><br />
-                <a  (click)="setMeetingReportType('employee')">By Employees</a><br />
+                <a routerLink="/meeting-reports" (click)="setMeetingReportType('department')">Department</a><br />
+                <a routerLink="/meeting-reports" (click)="setMeetingReportType('employee')">Organized</a><br />
+                <a routerLink="/meeting-reports" (click)="setMeetingReportType('attended')">Attended</a><br />
             </div>
             <div class="col-sm-3">
                 <h4><b>Action Items</b></h4>
-                <a (click)="setActionItemReportType('departments')">Departments</a><br/>
-                <a (click)="setActionItemReportType('employees')" >Employees</a><br/>
-                <a (click)="setActionItemReportType('severity')">Severity</a><br/>
-                <a (click)="setActionItemReportType('priority')">Priority</a><br/>
+                <a routerLink="/actionitem-reports" (click)="setActionItemReportType('department')">Departments</a><br/>
+                <a routerLink="/actionitem-reports" (click)="setActionItemReportType('organized')" >Organized</a><br/>
+                <a routerLink="/actionitem-reports" (click)="setActionItemReportType('priority')">Priority</a><br/>
             </div>
             <div class="col-sm-3">
                 <h4><b>Task Items</b></h4>
-                <a (click)="setTaskReportType('departments')">Departments</a><br/>
-                <a (click)="setTaskReportType('employees')" >Employees</a><br/>
-                <a (click)="setTaskReportType('severity')">Severity</a><br/>
-                <a (click)="setTaskReportType('status')">Status(priority)</a><br/>
-                <a (click)="setTaskReportType('agedtask')">Aged</a>
+                <a routerLink="/task-reports"  (click)="setTaskReportType('departments')">Departments</a><br/>
+                <a routerLink="/task-reports"  (click)="setTaskReportType('employees')" >Organized</a><br/>
+                <a routerLink="/task-reports"  (click)="setTaskReportType('severity')">Severity</a><br/>
+                <a routerLink="/task-reports"  (click)="setTaskReportType('status')">Status(priority)</a><br/>
+                <a routerLink="/task-reports"  (click)="setTaskReportType('agedtask')">Aged</a>
             </div>
         </div>
         <br /><br/>

@@ -51,7 +51,8 @@ export class PermissionComponent implements OnInit{
           paging: true,
           searching: true, // Enable search feature
           pageLength: 7,
-          order: [[1,'asc']]
+          order: [[1,'asc']],
+          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ]
           // Add other options here as needed
         });
       });
