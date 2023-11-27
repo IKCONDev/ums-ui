@@ -1641,21 +1641,20 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   filterOrganizedMeetingList(meetingTitle: string, startDate: string, endDate: string){
     console.log(meetingTitle+" "+startDate+" "+endDate);
     // this.newStartDate = new Date(startDate);
-    const StartDateTimestamp = new Date(startDate);
-    const endDateTimestamp = new Date (endDate)
-    // Use DatePipe to format and convert to UTC
-    let StartDateTimestampUTC: string | null = null;
+    let StartDateTimestampUTC: string | null = "";
+    let endDateTimestampUTC: string | null = "";
 
-    if (StartDateTimestamp !== null) {
-      StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+    if (startDate!="") {
+      console.log('not null for start')
+        const StartDateTimestamp = new Date(startDate);
+        StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
-    
-    let endDateTimestampUTC: string | null = null;
 
-    if (endDateTimestamp !== null) {
-      endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+    if (endDate!="") {
+      console.log('not null for enddate')
+        const endDateTimestamp = new Date(endDate);
+        endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
-    
 
     console.log(StartDateTimestampUTC);
     console.log(endDateTimestampUTC)
@@ -1668,8 +1667,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.organizedMeetingEndDateFilter = endDate;
 
     localStorage.setItem('organizedMeetingTitleFilter',meetingTitle);
-    localStorage.setItem('organizedMeetingStartDateFilter',startDate);
-    localStorage.setItem('organizedMeetingEndDateFilter',endDate);
+    localStorage.setItem('organizedMeetingStartDateFilter',StartDateTimestampUTC);
+    localStorage.setItem('organizedMeetingEndDateFilter',endDateTimestampUTC);
 
     this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting,
       this.organizedMeetingTitleFilter,
