@@ -477,8 +477,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isEmployeeFirstNameValid = false;
 
     }
-    else if (this.addEmployee.lastName.length <= 4) {
-      this.employeeLastNameErrorInfo = "Last Name should have min of 4 characters";
+    else if (this.addEmployee.lastName.length ==0) {
+      this.employeeLastNameErrorInfo = "Last Name should have min of 1 character";
       this.isEmployeeLasttNameValid = false;
 
     }
@@ -655,8 +655,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
     }
-    else if (this.existingEmployee.lastName.length <= 4) {
-      this.updateLastNameErrorInfo = "Last Name should have min of 4 characters";
+    else if (this.existingEmployee.lastName.length ==0) {
+      this.updateLastNameErrorInfo = "Last Name should have min of 1 character";
       this.isUpdateLastNameValid = false;
     }
     else if (this.existingEmployee.lastName.length >= 30) {
