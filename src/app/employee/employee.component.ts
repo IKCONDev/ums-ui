@@ -861,14 +861,22 @@ isUpdateEmployeeGenderValid = false;
   isEmployeeDateofJoinValid = false;
   isEmployeeDateofJoinErrorInfo = '';
   validateEmployeeDateofJoining(){
+    const selectedDate = new Date(this.addEmployee.dateOfJoining);
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 30);
+    const maxDate = new Date();
+    maxDate.setMonth(11);
+    maxDate.setDate(31);
 
     if(this.addEmployee.dateOfJoining == '' || this.addEmployee.dateOfJoining == null){
       this.isEmployeeDateofJoinValid = false;
       this.isEmployeeDateofJoinErrorInfo = 'Date of Joining is required';
-    }
-    else{
-      this.isEmployeeDateofJoinValid = true;
-      this.isEmployeeDateofJoinErrorInfo = '';
+    }else if (selectedDate < minDate || selectedDate > maxDate) {
+          this.isEmployeeDateofJoinErrorInfo = 'Set correct date or month';
+          this.isEmployeeDateofJoinValid = false;
+    }else{
+        this.isEmployeeDateofJoinValid = true;
+        this.isEmployeeDateofJoinErrorInfo = '';
     }
     return this.isEmployeeDateofJoinValid;
 
@@ -899,12 +907,20 @@ isUpdateEmployeeGenderValid = false;
   isUpdateDateofJoin = false;
   isUpdateDateofJoinErrorInfo = '';
   validateUpdateDateofJoining(){
+    const selectedDate = new Date(this.existingEmployee.dateOfJoining);
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 30);
+    const maxDate = new Date();
+    maxDate.setMonth(11);
+    maxDate.setDate(31);
 
     if(this.existingEmployee.dateOfJoining == '' || this.existingEmployee.dateOfJoining == null){
       this.isUpdateDateofJoin = false;
       this.isUpdateDateofJoinErrorInfo = 'Date of Joining is required';
-    }
-    else{
+    }else if (selectedDate < minDate || selectedDate > maxDate) {
+      this.isUpdateDateofJoinErrorInfo = 'Set correct date or month';
+      this.isUpdateDateofJoin = false;
+    }else{
       this.isUpdateDateofJoin = true;
       this.isUpdateDateofJoinErrorInfo = '';
     }
