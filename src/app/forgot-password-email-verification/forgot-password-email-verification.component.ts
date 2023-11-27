@@ -113,6 +113,9 @@ export class ForgotPasswordEmailVerificationComponent {
    */
   disableGetOtp:boolean=false;
   constructOtp() {
+    console.log(this.email);
+    var emailRegExp =  /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
+    if(emailRegExp.test(this.email)){
     this.disableGetOtp=true;
     this.isError=false;  
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
@@ -136,6 +139,10 @@ export class ForgotPasswordEmailVerificationComponent {
       }
     )
   }
+  else
+  this.toastr.error("Email ID is incorrect , OTP has not sent ")
+}
+  
 
   /**
    * 

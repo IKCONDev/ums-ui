@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SideMenubarComponent } from './side-menubar/side-menubar.component';
 import { TwofactorAuthenticationComponent } from './twofactor-authentication/twofactor-authentication.component';
 import { TwofactorOtpValidationComponent } from './twofactor-otp-validation/twofactor-otp-validation.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MyProfileComponent  } from './my-profile/my-profile.component';
 import { MeetingsComponent } from './meetings/meetings.component';
 import { OverviewComponent } from './overview/overview.component';
@@ -108,11 +108,15 @@ import { ActionItemsReportsComponent } from './action-item-reports/action-item-r
     NgSelectModule,
     ReactiveFormsModule,
     NgxUiLoaderModule,
+    DatePipe
     // NgxUiLoaderHttpModule.forRoot({
     //   showForeground:true,
     // }),
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy,}],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    DatePipe,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
