@@ -141,7 +141,7 @@
                 <br />
                 <label><b>Last Name</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="Last Name"
-                    [(ngModel)]="addEmployee.lastName" id="lastName" name="lastName" required="true" #lastName="ngModel" minlength="4"
+                    [(ngModel)]="addEmployee.lastName" id="lastName" name="lastName" required="true" #lastName="ngModel" minlength="1"
                     maxlength="30" (keyup)="validateEmployeeLastName()"
                     [class.invalid]="lastName.invalid && lastName.touched" />
                 <span *ngIf="employeeLastNameErrorInfo != ''">
@@ -271,7 +271,7 @@
                     <p id="errorMessage">{{updateFirstNameErrorInfo}}</p>
                 </span><br />
                 <label><b>Last Name</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="Last Name" minlength="4" maxlength="30"
+                <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="Last Name" minlength="1" maxlength="30"
                     [(ngModel)]="existingEmployee.lastName" id="updateLastName" name="updateLastName" required="true"
                     #updateLastName="ngModel" (keyup)="validateUpdateLastName()"
                     [class.invalid]="updateLastName.invalid && updateLastName.touched" />

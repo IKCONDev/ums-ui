@@ -150,10 +150,15 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
   validateDesignationName(){
    // var deptName=  event.target.value;
    const regex = /^\S.*[a-zA-Z\s]*$/;
+   const regex2=/^[A-Za-z ]+$/;
     if(this.addDesignation.designationName === '' || this.addDesignation.designationName.trim()==="" || regex.exec(this.addDesignation.designationName)===null){
       this.designationNameErrorInfo = 'Designation name is required';
       this.isDesignationNameValid = false;
-    }else if(this.addDesignation.designationName.length < 5){
+    }else if(regex2.test(this.addDesignation.designationName) === false){
+      this.designationNameErrorInfo = 'Designation name cannot have special characters or numbers';
+      this.isDesignationNameValid = false;
+     }
+    else if(this.addDesignation.designationName.length < 5){
       this.designationNameErrorInfo = 'Designation name should have minimum of 5 characters.';
       this.isDesignationNameValid = false;
     }else if(this.addDesignation.designationName.length >= 50){
@@ -284,14 +289,19 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdatedDesignationName(){
     // var deptName=  event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
+    const regex2=/^[A-Za-z ]+$/;
      if(this.existingDesignation.designationName === '' || this.existingDesignation.designationName.trim()==="" || regex.exec(this.existingDesignation.designationName)===null){
-       this.updatedDesignationNameErrorInfo = 'Department name is required';
+       this.updatedDesignationNameErrorInfo = 'Designation name is required';
        this.isUpdatedDesignationNameValid = false;
-     }else if(this.existingDesignation.designationName.length < 5){
-       this.updatedDesignationNameErrorInfo = 'department name should have minimum of 5 characters.';
+     }else if(regex2.test(this.existingDesignation.designationName) === false){
+      this.updatedDesignationNameErrorInfo = 'Designation name cannot have special characters or numbers';
+      this.isUpdatedDesignationNameValid = false;
+     }
+     else if(this.existingDesignation.designationName.length < 5){
+       this.updatedDesignationNameErrorInfo = 'Designation name should have minimum of 5 characters.';
        this.isUpdatedDesignationNameValid = false;
      }else if(this.existingDesignation.designationName.length>=50){
-       this.updatedDesignationNameErrorInfo = 'department name should not exceed more than 50 characters';
+       this.updatedDesignationNameErrorInfo = 'Designation name should not exceed more than 50 characters';
        this.isUpdatedDesignationNameValid = false;
      }else{
        this.isUpdatedDesignationNameValid = true;
