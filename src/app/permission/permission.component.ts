@@ -88,6 +88,7 @@ export class PermissionComponent implements OnInit{
       this.permissionService.createPermission(permission).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
+            this.closeModal();
             this.toastrService.success('permission created successfully');
             setTimeout(() => {
               window.location.reload();
@@ -126,6 +127,7 @@ export class PermissionComponent implements OnInit{
         this.permissionService.updatePermission(permission).subscribe({
           next: response => {
             if(response.status === HttpStatusCode.PartialContent){
+              this.closeModal();
               this.toastrService.success('Permission updated successfully');
               setTimeout(() => {
                 window.location.reload();
@@ -141,10 +143,12 @@ export class PermissionComponent implements OnInit{
         })
 
 
-      }  
-       
+      }   
     }
-    
+    closeModal(){
+      document.getElementById('closeModal').click();
+    }
+  
     getpermissonById(permissionId: number){
       this.permissionService.findPermissionById(permissionId).subscribe({
         next: response => {

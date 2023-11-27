@@ -1,5 +1,5 @@
 <div class="navbar">
-    <h3 class="title">{{title}}</h3>
+   <h3 class="title"><b *ngIf="title === 'Action Item Reports' || title === 'Meeting Reports'"><a id="back" routerLink="/report-settings">{{"<"}}</a></b>{{" "}}{{title}}</h3>
     <div class="icon">
         <!-- notification icon -->
         <div data-toggle="modal" data-target="#notificationModal" class="notify">  
