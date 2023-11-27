@@ -184,7 +184,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   validateDepartmentName(){
    // var deptName=  event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.addDepartment.departmentName === '' || this.addDepartment.departmentName.trim()==="" || regex.exec(this.addDepartment.departmentName)===null){
+    const regex2=/^[A-Za-z]+$/;
+    if(this.addDepartment.departmentName === '' || this.addDepartment.departmentName.trim()==="" || regex.exec(this.addDepartment.departmentName)===null || regex2.test(this.addDepartment.departmentName) === false){
       this.departmentNameErrorInfo = 'Department name is required';
       this.isDepartmentNameValid = false;
     }else if(this.addDepartment.departmentName.length < 3){
@@ -257,7 +258,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   validateDepartmentLocation(){
    // var deptLocation = event.target.value;
    const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.addDepartment.departmentAddress === ''|| this.addDepartment.departmentAddress.trim()==="" || regex.exec(this.addDepartment.departmentAddress)===null){
+   const regex2=/^[A-Za-z]+$/;
+    if(this.addDepartment.departmentAddress === ''|| this.addDepartment.departmentAddress.trim()==="" || regex.exec(this.addDepartment.departmentAddress)===null || regex2.test(this.addDepartment.departmentAddress) === false){
       this.departmentLocationErrorInfo = 'Department location is required';
       this.isDepartmentLocationValid = false;
     }else if(this.addDepartment.departmentAddress.length < 3){
@@ -408,7 +410,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdatedDepartmentName(){
     // var deptName=  event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-     if(this.existingDepartment.departmentName === ''|| this.existingDepartment.departmentName.trim()==="" || regex.exec(this.existingDepartment.departmentName)===null){
+    const regex2=/^[A-Za-z]+$/;
+     if(this.existingDepartment.departmentName === ''|| this.existingDepartment.departmentName.trim()==="" || regex.exec(this.existingDepartment.departmentName)===null || regex2.test(this.existingDepartment.departmentName) === false){
        this.updatedDepartmentNameErrorInfo = 'Department name is required';
        this.isUpdatedDepartmentNameValid = false;
      }else if(this.existingDepartment.departmentName.length < 3){
@@ -481,7 +484,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdatedDepartmentLocation(){
     // var deptLocation = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-     if(this.existingDepartment.departmentAddress === '' || this.existingDepartment.departmentAddress.trim()==="" || regex.exec(this.existingDepartment.departmentAddress)===null){
+    const regex2=/^[A-Za-z]+$/;
+     if(this.existingDepartment.departmentAddress === '' || this.existingDepartment.departmentAddress.trim()==="" || regex.exec(this.existingDepartment.departmentAddress)===null || regex2.test(this.existingDepartment.departmentAddress) === false){
        this.updatedDepartmentLocationErrorInfo = 'Department location is required';
        this.isUpdatedDepartmentLocationValid = false;
      }else if(this.existingDepartment.departmentAddress.length < 3){
