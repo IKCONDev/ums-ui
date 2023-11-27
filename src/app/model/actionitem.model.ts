@@ -12,8 +12,7 @@ export class ActionItems{
     actionPriority: string
     actionStatus: string
     startDate: string
-    endDate: string
-
-    
+    endDate: string;
+    departmentId: number;
 
  }
