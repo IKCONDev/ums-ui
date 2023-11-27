@@ -145,9 +145,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.table = $('#assignedTable').DataTable({
           paging: true,
           searching: true, // Enable search feature
-          pageLength: 7,
+          pageLength: 10,
           ordering: true,
-          order: [[0,'asc']]
+          order: [[0,'asc']],
+          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
           // Add other options here as needed
         });
       });
@@ -159,7 +160,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 7,
-          order: [[1,'asc']]
+          order: [[1,'asc']],
+          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ],
           // Add other options here as needed
         });
       });
@@ -254,18 +256,21 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * executes after the initialization of component
    */
   ngAfterViewInit(): void {
-    // console.log('executed - After View Init')
-    // setTimeout(() => {
-    //   $(document).ready(() => {
-    //     this.table = $('#assignedTable').DataTable({
-    //       paging: true,
-    //       searching: true, // Enable search feature
-    //       pageLength: 7,
-    //       order: [[0,'asc']]
-    //       // Add other options here as needed
-    //     });
-    //   });
-    // },100)
+    console.log('executed - After View Init')
+    if(this.table = null){
+      setTimeout(() => {
+        $(document).ready(() => {
+          this.table = $('#assignedTable').DataTable({
+            paging: true,
+            searching: true, // Enable search feature
+            pageLength: 7,
+            order: [[0,'asc']],
+            lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ],
+            // Add other options here as needed
+          });
+        });
+      },300)
+    }
   }
 
   /**
