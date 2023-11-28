@@ -13,6 +13,7 @@ import { Users } from '../model/Users.model';
 import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../model/Department.model';
 import { error } from 'jquery';
+import { DepartmentCount } from '../model/DepartmentCount.model';
 
 @Component({
   selector: 'app-meeting-reports',
@@ -31,6 +32,7 @@ export class MeetingReportsComponent implements OnInit {
 
   employeeListAsUser: Employee[];
   departmentList: Department[];
+  deptMeetingCount :DepartmentCount[]
 
   selectedEmployee: string;
   selectedDepartment: string;
@@ -86,6 +88,7 @@ export class MeetingReportsComponent implements OnInit {
       this.getEmployeeAsUserList();      
       this.getAllDepartments();
       this.getAllMeetings();
+      this.getAllDepartmentsCount();
   }
 
   getLoggedInUserDetails(loggedInUser: string){
@@ -278,7 +281,8 @@ export class MeetingReportsComponent implements OnInit {
         datasets: [
           {
             label: "Total Meetings of a department",
-            data: [this.meetingsByDepartmentListCount],
+           data: [this.meetingsByDepartmentListCount],
+           //data: [this.OrganizedMeetingCount],
             backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
             borderColor: 'rgba(197, 14, 71, 1)',
             borderWidth: 3,
@@ -486,8 +490,115 @@ export class MeetingReportsComponent implements OnInit {
         this.OrganizedMeetingCount = response.body.length;
         setTimeout(() => {
           //this.createMeetingsByDepartmentReportChart();
+          this.createMeetingsByAllDepartmentReportChart();
         },400)
       }
     })
   }
+ deptValueCount : DepartmentCount[] = [];
+ meetingDepartmentCount : string[];
+  getAllDepartmentsCount(){
+    this.meetingReportService.getAllDepartmentMeetingsCount().subscribe({
+       next : response =>{
+         this.deptMeetingCount = response.body;
+        // this.deptValueCount = new  DepartmentCount[this.deptMeetingCount.length];
+         console.log(this.deptMeetingCount);
+         var i =0;
+         this.deptMeetingCount.forEach(deptCount =>{
+           var deptCountString = (String)(deptCount);
+           console.log(deptCountString)
+           this.meetingDepartmentCount = deptCountString.split(',');
+           console.log(this.meetingDepartmentCount)
+            var deptObject = new DepartmentCount();
+            deptObject.deptId = this.meetingDepartmentCount[0]
+            deptObject.meetingCount = this.meetingDepartmentCount[1]
+           this.deptValueCount.push(deptObject);
+         })
+         console.log(this.deptValueCount)
+         this.getAllDepartmentNames()
+         
+       }
+    })
+  }
+  getAllDepartmentNames(){
+     this.getAllDepartments();
+     this.departmentList.map(deptList =>{
+       this.deptValueCount.map(deptValue=>{
+         if(deptList.departmentId === parseInt(deptValue.deptId) ){
+            deptValue.departmentName = deptList.departmentName;
+            deptValue.departmentHead = deptList.departmentHead;
+         }
+       })
+     })
+    
+  }
+  createMeetingsByAllDepartmentReportChart(){
+    this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
+      type: 'pie',
+      data: {// values on X-Axis
+        xLabels: ['Total Meetings of All departments'],
+        datasets: [
+          {
+            label: "Total Meetings of All departments",
+           data: [this.OrganizedMeetingCount],
+           //data: [this.OrganizedMeetingCount],
+            backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
+            borderColor: 'rgba(197, 14, 71, 1)',
+            borderWidth: 3,
+          },
+        ]
+      },
+      options: {
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'easeOutExpo',
+            from: 1,
+            to: 0,
+            loop: true
+          }
+        },
+        aspectRatio: 2.3,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            beginAtZero: false,
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total Meetings of All departments',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
 }
