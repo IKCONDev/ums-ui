@@ -54,6 +54,7 @@ import { MeetingReportsComponent } from './meeting-reports/meeting-reports.compo
 import { TaskReportsComponent } from './task-reports/task-reports.component';
 import { ActionItemsReportsComponent } from './action-item-reports/action-item-reports.component';
 import { TaskcategoryReportComponent } from './taskcategory-report/taskcategory-report.component';
+import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-map.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { TaskcategoryReportComponent } from './taskcategory-report/taskcategory-
     TaskReportsComponent,
     ActionItemsReportsComponent,
     TaskcategoryReportComponent,
+    RoleMenuitemsMapComponent,
   ],
   imports: [
     BrowserModule,

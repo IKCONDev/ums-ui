@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
 import { error } from 'jquery';
 import { Router } from '@angular/router';
+import { PermissionService } from '../permission/service/permission.service';
+import { Permission } from '../model/Permission.model';
 
 
 @Component({
@@ -35,7 +37,10 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     createdDateTime: new Date(Date.now()),
     modifiedBy: '',
     modifiedByEmailId: '',
-    modifiedDateTime: Date
+    modifiedDateTime: Date,
+    permission: {
+      permissionId:0,
+    }
   }
 
   //existing db role obj
@@ -48,8 +53,14 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     modifiedBy: '',
     modifiedByEmailId: '',
     modifiedDateTime: '',
+    permission: {
+      permissionId:0,
+      permissionValue:'',
+      permissionStatus:'',
+    }
   }
 
+  permissionList: Permission[];
   isComponentLoading:boolean=false;
   isRoleDataText:boolean=false;
 
@@ -59,7 +70,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    * @param toastr 
    */
   constructor(private roleService: RoleService, private toastr: ToastrService,
-    private router: Router) {
+    private router: Router, private permissionService: PermissionService) {
 
   }
 
@@ -70,6 +81,18 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     }
 
     this.getRoleList();
+
+    this.permissionService.getAllPermissions().subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.permissionList = response.body;
+        }
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+    })
   }
 
   ngAfterViewInit(): void {
@@ -84,7 +107,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
           // Add other options here as needed
         });
       });
-    },100)
+    },400)
   }
 
   ngOnDestroy(): void {
@@ -118,8 +141,23 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     return this.isRoleNameValid;
   }
 
-  updatedRoleNameErrorInfo: string = ''
+  permissionValueErrorInfo = ''
+  isPermissionValueValid = false;
+  validatePermissionValue(){
+    if(this.addRoleObj.permission.permissionId.toString() === "0"){
+      this.permissionValueErrorInfo = 'Please choose a permission'
+      this.isPermissionValueValid = false;
+    }else{
+      this.permissionValueErrorInfo = '';
+      this.isPermissionValueValid = true;
+    }
+    return this.isPermissionValueValid;
+  }
+
+  updatedRoleNameErrorInfo: string = '';
   isUpdatedRoleNameValid = false;
+  updatePermissionValueErrorInfo: string = '';
+  isUpdatePermissionValueValid = false;
   /**
    * 
    * @returns 
@@ -142,20 +180,36 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     return this.isUpdatedRoleNameValid;
   }
 
+  validateUpdatePermissionValue(){
+    if(this.existingRole.permission.permissionId.toString() === "0"){
+      this.updatePermissionValueErrorInfo = 'Please choose a permission'
+      this.isUpdatePermissionValueValid = false;
+    }else{
+      this.updatePermissionValueErrorInfo = '';
+      this.isUpdatePermissionValueValid = true;
+    }
+    return this.isUpdatePermissionValueValid;
+  }
+
   /**
    * create a new role
    */
   createRole() {
     console.log('executed')
     let isNameValid = true;
+    let isPermissionValid = true;
     //validate on submit
     if (this.isRoleNameValid === false) {
       var valid = this.validateRoleName();
       isNameValid = valid;
     }
+    if(this.isPermissionValueValid === false){
+      var valid = this.validatePermissionValue();
+      isPermissionValid = valid;
+    }
     console.log(isNameValid)
     //if no form errors submit the form
-    if (isNameValid) {
+    if (isNameValid && isPermissionValid) {
       this.addRoleObj.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
       this.addRoleObj.createdByEmailId = localStorage.getItem('email');
       console.log(this.addRoleObj)
@@ -191,14 +245,19 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    */
   updateRole() {
     var isNameValid = true;
+    var isPermissionValid = true;
     //validate on submit
     if (this.isUpdatedRoleNameValid === false) {
       var valid = this.validateUpdatedRoleName();
       console.log(valid)
       isNameValid =valid;
     }
+    if(this.isUpdatePermissionValueValid === false){
+      var valid = this.validateUpdatePermissionValue();
+      isPermissionValid = valid;
+    }
       //if no errors in form, allow to submit
-    if(isNameValid){
+    if(isNameValid && isPermissionValid){
       this.existingRole.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     this.existingRole.modifiedByEmailId = localStorage.getItem('email');
     //this.updatedRole.modifiedDateTime = new Date(Date.now)
@@ -371,14 +430,17 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
   clearErrorMessages(){
     //clear create form
     this.addRoleObj.roleName = '';
+    this.addRoleObj.permission.permissionId = 0;
 
     //clear create form error messages
     this.roleNameErrorInfo= '';
+    this.permissionValueErrorInfo = '';
 
     //clear update form error messages
     this.updatedRoleNameErrorInfo = '';
-    
+
     this.isRoleNameValid=false;
+    this.isPermissionValueValid = false;
   }
 
   /**

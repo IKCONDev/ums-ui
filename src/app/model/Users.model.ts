@@ -1,5 +1,6 @@
 import { Employee } from "./Employee.model";
 import { Role } from "./Role.model";
+import { UserRoleMenuItemPermissionMap } from "./UserRoleMenuItemPermissionMap.model";
 
 export interface Users{
      email: string;
@@ -11,5 +12,6 @@ export interface Users{
 	 profilePic: Blob;
 	 active: boolean;
 	 loginAttempts: number;
+	 userRoleMenuItemPermissionMap: UserRoleMenuItemPermissionMap;
 
 }

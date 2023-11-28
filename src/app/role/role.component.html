@@ -1,69 +1,73 @@
 <html>
-    <div>
-        <app-side-menubar></app-side-menubar>
-    </div>
-    <div>
-        <app-header [title]="title"></app-header>
-    </div>
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title"></app-header>
+</div>
 
-    <div class="container-fluid">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-5">
-                    <h3 id="heading">Role</h3>
-                </div>
-                <div class="col-sm-4" id="searchDiv">
-                    <input type="search" class="form-control" placeholder="Search user"/>
-                </div>
-                <div id="addBtnDiv" class="col-sm-1">
-                    <button class="form-control" 
-                       id="addBtn" type="submit" data-toggle="modal" data-target="#createModal">
-                    <p>Add</p></button>
-                </div>
-                <div id="deleteBtnDiv" class="col-sm-1">
-                    <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn"
-                     value="Delete" (click)="removeAllSelectedRoles()"><p>Delete</p></button>
-                </div>
-                <!-- <div class="col-sm-1" id="filter">
+<div class="container-fluid">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-5">
+                <h3 id="heading">Role</h3>
+            </div>
+            <div class="col-sm-4" id="searchDiv">
+                <!-- <input type="search" class="form-control" placeholder="Search user"/> -->
+            </div>
+            <div id="addBtnDiv" class="col-sm-1">
+                <button class="form-control" id="addBtn" type="submit" data-toggle="modal" data-target="#createModal">
+                    <p>Add</p>
+                </button>
+            </div>
+            <div id="deleteBtnDiv" class="col-sm-1">
+                <button type="submit" class="form-control" id="deleteBtn" name="deleteBtn" value="Delete"
+                    (click)="removeAllSelectedRoles()">
+                    <p>Delete</p>
+                </button>
+            </div>
+            <!-- <div class="col-sm-1" id="filter">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                         <path d="M11 18H13C13.55 18 14 17.55 14 17C14 16.45 13.55 16 13 16H11C10.45 16 10 16.45 10 17C10 17.55 10.45 18 11 18ZM3 7C3 7.55 3.45 8 4 8H20C20.55 8 21 7.55 21 7C21 6.45 20.55 6 20 6H4C3.45 6 3 6.45 3 7ZM7 13H17C17.55 13 18 12.55 18 12C18 11.45 17.55 11 17 11H7C6.45 11 6 11.45 6 12C6 12.55 6.45 13 7 13Z" fill="#E5EEF1"/>
                       </svg>
                 </div> -->
-            </div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <table id="dataTable" class="table table-hover">
-                    <thead id="thead" >
-                        <tr>
-                            <th>
-                                <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)"/>
-                            </th>
-                            <th>Role ID</th>
-                            <th style="width: 80px;">Role Name</th>
-                            <th>Created By</th>
-                            <th>Created Date</th>
-                            <th>Modified By</th>
-                            <th>Modified Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="isRoleDataText===false">
-                        <tr class="trbody" *ngFor="let role of roleList; let i=index">
-                            <td>
-                                <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox" 
-                                value="{{role.roleId}}" (click)="toggleMainCheckBox(i)"/>
-                            </td>
-                            <td>{{role.roleId}}</td>
-                            <td id="role-subject">{{role.roleName | uppercase}}</td>
-                            <td>{{role.createdBy | titlecase}}</td>
-                            <td>{{role.createdDateTime|date:'MMM d, y, h:mm a'}}</td>
-                            <td>{{role.modifiedBy | titlecase}}</td>
-                            <td>{{role.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
-                            <td>
-                                <span id="editIcon" (click)="getRoleById(role.roleId)"
-                                data-toggle="modal" data-target="#updateModal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <table id="dataTable" class="table table-hover">
+                <thead id="thead">
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="mainCheckBox" (click)="checkSubCheckBoxes($event)" />
+                        </th>
+                        <th>Role ID</th>
+                        <th style="width: 80px;">Role Name</th>
+                        <th>Permissions</th>
+                        <th>Created By</th>
+                        <th>Created Date</th>
+                        <th>Modified By</th>
+                        <th>Modified Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="isRoleDataText===false">
+                    <tr class="trbody" *ngFor="let role of roleList; let i=index">
+                        <td>
+                            <input type="checkbox" id="subCheckBox{{i}}" class="subCheckBox" value="{{role.roleId}}"
+                                (click)="toggleMainCheckBox(i)" />
+                        </td>
+                        <td>{{role.roleId}}</td>
+                        <td id="role-subject">{{role.roleName | uppercase}}</td>
+                        <td>{{role.permission.permissionValue}}</td>
+                        <td>{{role.createdBy | titlecase}}</td>
+                        <td>{{role.createdDateTime|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{role.modifiedBy | titlecase}}</td>
+                        <td>{{role.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
+                        <td>
+                            <span id="editIcon" (click)="getRoleById(role.roleId)" data-toggle="modal"
+                                data-target="#updateModal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
                                     <g id="edit">
                                         <path id="Vector"
@@ -72,9 +76,9 @@
                                     </g>
                                 </svg>
                                 &nbsp;
-                                </span>
-                                <span id="trashIcon" (click)="deleteRoleById(role.roleId)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            </span>
+                            <span id="trashIcon" (click)="deleteRoleById(role.roleId)">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                     viewBox="0 0 482.428 482.429" xml:space="preserve">
                                     <g>
@@ -90,77 +94,108 @@
                                         </g>
                                     </g>
                                 </svg>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
-       <!-- Create Role Modal -->
-       <div class="modal" tabindex="-1" id="createModal" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal header -->
-                <div class="modal-header" id="modalHeader">
-                    <h5 class="modal-title">Add Role</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearErrorMessages()">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
+<!-- Create Role Modal -->
+<div class="modal" tabindex="-1" id="createModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title">Add Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearErrorMessages()">
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div>
                     <label><b>Role Name</b><span id="required">*</span></label>
-                    <input type="text" id="roleName" style="text-transform: uppercase;" class="deptInput form-control" placeholder="Role Name"
-                    [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()" minlength="3" maxlength="50"/><br/>
+                    <input type="text" id="roleName" style="text-transform: uppercase;" class="deptInput form-control"
+                        placeholder="Role Name" [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()"
+                        minlength="3" maxlength="50" /><br />
                     <span id="errorInfo" *ngIf="roleNameErrorInfo != ''">{{roleNameErrorInfo}}</span>
                 </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="createRole()">Save</button>
-                    <button id="closeAddModal" type="button" class="btn btn-outline-danger" data-dismiss="modal" 
-                    (click)="clearErrorMessages()">Close</button>
+                <br />
+                <div>
+                    <label><b>Assign Permission</b><span id="required">*</span></label><br />
+                    <select id="permissions" [(ngModel)]="addRoleObj.permission.permissionId" class="form-control-sm"
+                        placeholder="choose permission" (change)="validatePermissionValue()">
+                        <option value=0>Choose permission</option>
+                        <option *ngFor="let permission of permissionList" value="{{permission.permissionId}}">
+                            {{permission.permissionValue}}</option>
+                    </select>
+                    <span id="errorInfo" *ngIf="permissionValueErrorInfo != ''">{{permissionValueErrorInfo}}</span>
                 </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="createRole()">Save</button>
+                <button id="closeAddModal" type="button" class="btn btn-outline-danger" data-dismiss="modal"
+                    (click)="clearErrorMessages()">Close</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Update Role Modal -->
-    <div class="modal" tabindex="-1" id="updateModal" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal header -->
-                <div class="modal-header" id="modalHeader">
-                    <h5 class="modal-title">Update Role</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearErrorMessages()">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
+<!-- Update Role Modal -->
+<div class="modal" tabindex="-1" id="updateModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title">Update Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearErrorMessages()">
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div>
                     <label><b>Role Name</b><span id="required">*</span></label>
-                    <input type="text" id="roleName" style="text-transform: uppercase;" class="deptInput form-control" placeholder="role Name"
-                    [(ngModel)]="existingRole.roleName" (keyup)="validateUpdatedRoleName()" minlength="3" maxlength="50"/><br/>
+                    <input type="text" id="roleName" style="text-transform: uppercase;" class="deptInput form-control"
+                        placeholder="Role name" [(ngModel)]="existingRole.roleName" (keyup)="validateUpdatedRoleName()"
+                        minlength="3" maxlength="50" /><br />
                     <span id="errorInfo" *ngIf="updatedRoleNameErrorInfo != ''">{{updatedRoleNameErrorInfo}}</span>
                 </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="updateRole()">Save</button>
-                    <button id="closeUpdateModal" type="button" class="btn btn-outline-danger" data-dismiss="modal"
-                     (click)="clearErrorMessages()">Close</button>
+                <div>
+                    <label><b>Assign Permission</b><span id="required">*</span></label><br />
+                    <select id="permissions" [(ngModel)]="existingRole.permission.permissionId" class="form-control-sm"
+                        placeholder="choose permission" (change)="validateUpdatePermissionValue()">
+                        <!-- <option value=0>Choose permission</option> -->
+                        <option *ngFor="let permission of permissionList" value="{{permission.permissionId}}">
+                            {{permission.permissionValue}}</option>
+                    </select>
+                    <span id="errorInfo"
+                        *ngIf="updatePermissionValueErrorInfo != ''">{{updatePermissionValueErrorInfo}}</span>
                 </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateRole()">Save</button>
+                <button id="closeUpdateModal" type="button" class="btn btn-outline-danger" data-dismiss="modal"
+                    (click)="clearErrorMessages()">Close</button>
             </div>
         </div>
     </div>
-    
+</div>
+
 <div style="text-align: center;padding-top:200px;color: #134E69D9;">
     <span *ngIf="isComponentLoading===true">
         <div class="spinner-border" style="width: 4rem; height: 4rem;animation-duration: 1s;" role="status">
             <span class="sr-only">Loading...</span>
             <!-- <div style="position: fixed;padding-top: 16px;padding-left: 8px;"><h5>UMS</h5></div> -->
         </div>
-    </span>    
-</div> 
+    </span>
+</div>
+
 </html>
