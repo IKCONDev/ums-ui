@@ -520,14 +520,22 @@ export class MeetingReportsComponent implements OnInit {
        }
     })
   }
+  deptValueCount1 : DepartmentCount[] = [];
   getAllDepartmentNames(){
      this.getAllDepartments();
-     this.departmentList.map(deptList =>{
-       this.deptValueCount.map(deptValue=>{
+     //this.deptValueCount1 = new DepartmentCount[this.deptValueCount.length]
+     this.departmentList.forEach(deptList =>{
+       this.deptValueCount.forEach(deptValue=>{
          if(deptList.departmentId === parseInt(deptValue.deptId) ){
             deptValue.departmentName = deptList.departmentName;
             deptValue.departmentHead = deptList.departmentHead;
          }
+        //  else{
+        //    deptValue.deptId =(String)(deptList.departmentId);
+        //    deptValue.meetingCount = null;
+        //    deptValue.departmentName = deptList.departmentName;
+        //    deptValue.departmentHead = deptList.departmentHead;
+        //  }
        })
      })
     
