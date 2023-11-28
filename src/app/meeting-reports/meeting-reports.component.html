@@ -292,18 +292,23 @@
                     <th>ID</th>
                     <th>Department Name</th>
                     <th>Department Head</th>
-                    <th>Total Meetings</th>
+                    <th>Count of Meetings</th>
+                    <!-- <th>Department Head</th>
+                    <th>Total Meetings</th> -->
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let department of departmentList">
-                    <td>{{department.departmentId}}</td>
-                    <td>{{department.departmentName}}</td>
+
+                <tr  *ngFor="let department of deptValueCount">
+                    <td>{{department.deptId}}</td>
+                     <td>{{department.departmentName}}</td>
                     <td>{{department.departmentHead}}</td>
-                    <td>{{0}}</td>
+                    <td>{{department.meetingCount}}</td>
+
+                    
                 </tr>
-             
              </tbody>
+
         </table>
        <ng-template #noMeetings>
         <table class="table table-hover" *ngIf="meetingsByDepartmentListCount > 0; else meetings">

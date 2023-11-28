@@ -47,4 +47,9 @@ export class MeetingReportsService {
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
       })});
   }
+   getAllDepartmentMeetingsCount(){
+    return this.http.get<any[]>(`${this.apiGatewayPathUrl}/${this.reportMicroservicePathUrl}/meeting/count`,{observe:'response',headers: new HttpHeaders({
+      'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+    })});
+   }
 }

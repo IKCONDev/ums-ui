@@ -13,6 +13,7 @@ import { Users } from '../model/Users.model';
 import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../model/Department.model';
 import { error } from 'jquery';
+import { DepartmentCount } from '../model/DepartmentCount.model';
 
 @Component({
   selector: 'app-meeting-reports',
@@ -31,6 +32,7 @@ export class MeetingReportsComponent implements OnInit {
 
   employeeListAsUser: Employee[];
   departmentList: Department[];
+  deptMeetingCount :DepartmentCount[]
 
   selectedEmployee: string;
   selectedDepartment: string;
@@ -86,6 +88,7 @@ export class MeetingReportsComponent implements OnInit {
       this.getEmployeeAsUserList();      
       this.getAllDepartments();
       this.getAllMeetings();
+      this.getAllDepartmentsCount();
   }
 
   getLoggedInUserDetails(loggedInUser: string){
@@ -489,5 +492,41 @@ export class MeetingReportsComponent implements OnInit {
         },400)
       }
     })
+  }
+ deptValueCount : DepartmentCount[] = [];
+ meetingDepartmentCount : string[];
+  getAllDepartmentsCount(){
+    this.meetingReportService.getAllDepartmentMeetingsCount().subscribe({
+       next : response =>{
+         this.deptMeetingCount = response.body;
+        // this.deptValueCount = new  DepartmentCount[this.deptMeetingCount.length];
+         console.log(this.deptMeetingCount);
+         var i =0;
+         this.deptMeetingCount.forEach(deptCount =>{
+           var deptCountString = (String)(deptCount);
+           console.log(deptCountString)
+           this.meetingDepartmentCount = deptCountString.split(',');
+           console.log(this.meetingDepartmentCount)
+            var deptObject = new DepartmentCount();
+            deptObject.deptId = this.meetingDepartmentCount[0]
+            deptObject.meetingCount = this.meetingDepartmentCount[1]
+           this.deptValueCount.push(deptObject);
+         })
+         console.log(this.deptValueCount)
+         this.getAllDepartmentNames()
+       }
+    })
+  }
+  getAllDepartmentNames(){
+     this.getAllDepartments();
+     this.departmentList.map(deptList =>{
+       this.deptValueCount.map(deptValue=>{
+         if(deptList.departmentId === parseInt(deptValue.deptId) ){
+            deptValue.departmentName = deptList.departmentName;
+            deptValue.departmentHead = deptList.departmentHead;
+         }
+       })
+     })
+    
   }
 }
