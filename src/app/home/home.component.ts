@@ -49,6 +49,10 @@ export class HomeComponent implements OnInit{
     }else if(this.selectedOption==='months'){
       this.fetchTaskStatus();
     }
+    else if(this.selectedOption==='Year'){
+      this.fetchTaskStatus();
+    }
+    
     
   }
   onSelectChange2(){
@@ -209,6 +213,7 @@ export class HomeComponent implements OnInit{
   
   TotalTasks:any[];
   TotalTasksForYear:any[];
+  TotalTasksForMonth:any[];
   
   fetchTaskStatus(){
     if(this.selectedOption==='Week'){
@@ -232,7 +237,7 @@ export class HomeComponent implements OnInit{
         }
       })
     }
-    else if(this.selectedOption==='months'){
+    else if(this.selectedOption==='Year'){
       if(this.myChart!=null){
         this.myChart.destroy();
         }
@@ -248,6 +253,26 @@ export class HomeComponent implements OnInit{
             console.log("entered the else if of fetchTask for year")
             this.TotalTasksForYear=response.body;
             console.log(this.TotalTasksForYear)
+            this.createChart(); 
+            }
+          })
+        
+    }
+    else if(this.selectedOption==='months'){
+      if(this.myChart!=null){
+        this.myChart.destroy();
+        }
+        const startDate=new Date();
+        const endDate=new Date();
+        //add dynamic year
+        startDate.setFullYear(new Date().getFullYear(),0,1);
+        endDate.setFullYear(new Date().getFullYear(),11,31);
+        console.log(endDate);
+        this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0],endDate.toISOString().split('T')[0]).subscribe({
+          next: response =>{
+            console.log("entered the else if of fetchTask for year for mont wise")
+            this.TotalTasksForMonth=response.body;
+            console.log(this.TotalTasksForMonth)
             this.createChart(); 
             }
           })
@@ -320,28 +345,28 @@ export class HomeComponent implements OnInit{
         xLabels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'],
 	       datasets: [
           {
-            label: "Total Tasks",
+            label: "Total",
             data: this.TotalTasks[0],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
           },
           {
-            label: "Yet To Start Task",
+            label: "Yet To Start",
             data: this.TotalTasks[1],
             backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
             borderColor: 'rgba(255, 148, 112, 1)',
             borderWidth: 3,
           },
           {
-            label: "Inprogress Task",
+            label: "Inprogress",
             data: this.TotalTasks[2],
             backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
           borderColor: 'rgba(255, 206, 86, 1)',
           borderWidth: 3,
         },
         {
-          label: "Completed Task",
+          label: "Completed",
           data: this.TotalTasks[3],
           backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
           borderColor: 'rgba(75, 192, 192, 1)',
@@ -384,7 +409,7 @@ export class HomeComponent implements OnInit{
           },
           title: {
             display: true,
-            text: 'Task Status of current Week',
+            text: 'Task Status for the current Week',
             font: {
               size: 14,
             },
@@ -392,7 +417,7 @@ export class HomeComponent implements OnInit{
         },
       }
     });
-  }else if(this.selectedOption==='months'){
+  }else if(this.selectedOption==='Year'){
      this.myChart = new Chart("myChart", {
       type: 'bar',
       data: {// values on X-Axis
@@ -472,7 +497,91 @@ export class HomeComponent implements OnInit{
         },
       }
     });
+    
   
+}else if(this.selectedOption==='months'){
+  const currentDate = new Date();
+const currentMonth = currentDate.toLocaleString('en-US', { month: 'short' });
+console.log(this.TotalTasksForMonth[0][10])
+  this.myChart = new Chart("myChart", {
+   type: 'bar',
+   data: {// values on X-Axis
+     xLabels: [currentMonth],
+      datasets: [
+       {
+         label: "Total Tasks",
+         data: [this.TotalTasksForMonth[0][10]],
+         backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+         borderColor: 'rgba(255, 99, 132, 1)',
+         borderWidth: 3,
+       },
+       {
+         label: "Yet To Start Task",
+         data: [this.TotalTasksForMonth[1][10]],
+         backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
+         borderColor: 'rgba(255, 148, 112, 1)',
+         borderWidth: 3,
+       },
+       {
+         label: "Inprogress Task",
+         data: [this.TotalTasksForMonth[2][10]],
+         backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
+       borderColor: 'rgba(255, 206, 86, 1)',
+       borderWidth: 3,
+     },
+     {
+       label: "Completed Task",
+       data: [this.TotalTasksForMonth[3][10]],
+       backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
+       borderColor: 'rgba(75, 192, 192, 1)',
+       borderWidth: 3,
+     }
+
+     ]
+     
+   },
+   options: {
+     aspectRatio: 1.7,
+     scales: {
+       x: {
+         display: true,
+         grid: {
+           display: false,
+         },
+       },
+       y: {
+         display: true,
+         grid: {
+           display: true,
+         },
+       },
+     },
+     plugins: {
+       legend: {
+         display: true,
+         position: 'top',
+         align:'center',
+         labels: {
+           usePointStyle: true,
+           font: {
+             size: 12,
+           },
+           padding: 16,
+           pointStyle:'rectRounded',
+       
+         },
+       },
+       title: {
+         display: true,
+         text: 'Task Status of current Year',
+         align:'start',
+         font: {
+           size: 14,
+         },
+       },
+     },
+   }
+ });
 }
   
   
