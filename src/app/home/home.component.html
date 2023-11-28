@@ -102,7 +102,7 @@
             <b>Tasks</b>
           </div>
           <div class="chart">
-            <ng-select style="float: left; width: 150px;">
+            <ng-select [(ngModel)]="MajorselectedOption"(change)="onSelectChange()" style="float: left; width: 150px;">
               <ng-option value="All">All</ng-option>
               <ng-option value="Total">Total</ng-option>
               <ng-option value="Yet to start">Yet to start</ng-option>

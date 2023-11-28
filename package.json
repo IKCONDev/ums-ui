@@ -28,6 +28,7 @@
     "angular-disable-browser-back-button": "^2.0.0",
     "bootstrap": "^5.3.0",
     "chart.js": "^4.4.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "datatables.net": "^1.13.6",
     "file-system": "^2.2.2",
     "javascript-time-ago": "^2.5.9",
