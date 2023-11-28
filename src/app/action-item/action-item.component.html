@@ -60,6 +60,7 @@
                 <thead class="header" style="background-color: #ecf7fc;">
                    <!---<th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>-->
                     <th>Action Item ID</th>
+                    <th>Meeting ID</th>
                     <th style="width: 170px;">Title</th>
                     <th>Owner</th>
                     <th>Planned Start Date</th>
@@ -76,7 +77,8 @@
                        <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
                                 value="{{actionItem.actionItemId}}"></td>-->
                         <!--<td>{{actionItem.actionItemId}}</td>-->
-                        <td>A000{{actionItem.actionItemId}}</td>
+                        <td style="padding-left: 30px;">{{actionItem.actionItemId}}</td>
+                        <td style="padding-left: 30px;">{{actionItem.meetingId}}</td>
                         <td id="actionItem-subject">{{actionItem.actionItemTitle}}</td>
                         <td>
                             <p *ngFor="let owner of actionItem.actionItemOwner">{{owner}}</p>

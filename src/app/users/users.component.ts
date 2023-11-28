@@ -280,7 +280,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
                this.toastr.success("User updated successfully");
                document.getElementById('closeUpdateModal').click();
                setTimeout(() => {
-                 window.location.reload();
+                 //window.location.reload();
                 },1000);
            }
            else{
