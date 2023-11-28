@@ -320,28 +320,28 @@ export class HomeComponent implements OnInit{
         xLabels: ['Sun','Mon','Tue' ,'Wed','Thu','Fri','Sat'],
 	       datasets: [
           {
-            label: "Total Tasks",
+            label: "Total",
             data: this.TotalTasks[0],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
           },
           {
-            label: "Yet To Start Task",
+            label: "Yet To Start",
             data: this.TotalTasks[1],
             backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
             borderColor: 'rgba(255, 148, 112, 1)',
             borderWidth: 3,
           },
           {
-            label: "Inprogress Task",
+            label: "Inprogress",
             data: this.TotalTasks[2],
             backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
           borderColor: 'rgba(255, 206, 86, 1)',
           borderWidth: 3,
         },
         {
-          label: "Completed Task",
+          label: "Completed",
           data: this.TotalTasks[3],
           backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
           borderColor: 'rgba(75, 192, 192, 1)',
@@ -384,7 +384,7 @@ export class HomeComponent implements OnInit{
           },
           title: {
             display: true,
-            text: 'Task Status of current Week',
+            text: 'Task Status for the current Week',
             font: {
               size: 14,
             },
