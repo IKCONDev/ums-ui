@@ -113,7 +113,9 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     // }
     if(isNameValid === true){
     //set createdBy
-    this.addDesignation.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+    this.addDesignation.designationName = this.transformToTitleCase(this.addDesignation.designationName);
+
+    this.addDesignation.createdBy =this.transformToTitleCase( localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
     this.addDesignation.createdByEmailId = localStorage.getItem('email');
     this.designationService.createDesignation(this.addDesignation).subscribe({
       next: (response)=> {
@@ -256,7 +258,11 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     //   this.toastr.error('Please fill the required fields')
     // }
     if(isNameValid === true){
-      this.existingDesignation.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+    
+    this.existingDesignation.designationName = this.transformToTitleCase(this.existingDesignation.designationName);
+    this.existingDesignation.createdBy = this.transformToTitleCase(this.existingDesignation.createdBy);
+
+    this.existingDesignation.modifiedBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
     console.log(this.existingDesignation)
     this.designationService.updateDesignation(this.existingDesignation).subscribe({
       next: (response) => {
@@ -390,5 +396,11 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
       $('#mainCheckBox').prop('checked',false);
     }
   }
+  transformToTitleCase(text: string): string {
+    return text.toLowerCase().split(' ').map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+  }
+
 
 }

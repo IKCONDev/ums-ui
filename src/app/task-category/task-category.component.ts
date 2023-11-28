@@ -171,8 +171,10 @@ export class TaskCategoryComponent implements OnInit {
      isDescriptionValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true){
+      taskCategory.taskCategoryTitle=this.transformToTitleCase(this.taskCategory.taskCategoryTitle);
+      
       taskCategory.modifiedByEmailId = this.loggedInUser;
-      taskCategory.modifiedBy = this.loggedInUserFullName;
+      taskCategory.modifiedBy = this.transformToTitleCase(this.loggedInUserFullName);
       this.taskCategoryService.updateTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
@@ -213,8 +215,11 @@ export class TaskCategoryComponent implements OnInit {
      isDescriptionValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true){
+
+      taskCategory.taskCategoryTitle=this.transformToTitleCase(this.taskCategory.taskCategoryTitle);
+
       taskCategory.createdByEmailId = this.loggedInUser;
-      taskCategory.createdBy = this.loggedInUserFullName;
+      taskCategory.createdBy = this.transformToTitleCase(this.loggedInUserFullName);
       this.taskCategoryService.createTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
@@ -315,6 +320,12 @@ export class TaskCategoryComponent implements OnInit {
     } else {
       $('.subCheckBox').prop('checked', false);
     }
+  }
+
+  transformToTitleCase(text: string): string {
+    return text.toLowerCase().split(' ').map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
   }
 
 }
