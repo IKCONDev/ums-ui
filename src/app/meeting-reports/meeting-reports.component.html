@@ -78,6 +78,16 @@
         </div>
         <div *ngIf="reportType === 'employee'">
             <div class="row">
+             <div class="col-sm-2" style="margin-left: 100px;">
+                <ng-select id="select" [(ngModel)]="selectedEmployee" style="float: right; width: 250px;  margin-left: 0px;"
+                                placeholder="choose" (change)="chooseEmployee()">
+                                <ng-option *ngFor="let employee of employeeListAsUser"
+                                    value="{{employee.email}}">{{employee.firstName}} {{employee.lastName}}</ng-option>
+                </ng-select>
+            </div>
+            </div>
+            <br/>
+            <div class="row">
                 <div class="col-sm-5" style="margin-left: 50px;">
                     <div class="card">
                         <div class="card-header" style="background-color: #134E69D9;">
@@ -98,11 +108,11 @@
                         </div>
                         <div class="chart">
                             <div style="padding-top: 6px;"></div>
-                            <ng-select id="select" [(ngModel)]="selectedEmployee" style="float: right; width: 250px;"
+                             <!-- <ng-select id="select" [(ngModel)]="selectedEmployee" style="float: right; width: 250px;"
                                 placeholder="choose" (change)="chooseEmployee()">
                                 <ng-option *ngFor="let employee of employeeListAsUser"
                                     value="{{employee.email}}">{{employee.firstName}} {{employee.lastName}}</ng-option>
-                            </ng-select>
+                            </ng-select>  -->
                             <canvas id="organizedmeetingListChart"></canvas>
                         </div>
                     </div>
@@ -148,6 +158,16 @@
     </div>
     <div *ngIf="reportType === 'attended'">
         <div class="row">
+            <div class="col-sm-2" style="margin-left: 100px;;">
+                <ng-select id="select" [(ngModel)]="selectedAttendeeUser" style="float: right; width: 250px;"
+                placeholder="choose" (change)="chooseAttendedMeetingUser()">
+                <ng-option *ngFor="let employee of employeeListAsUser"
+                    value="{{employee.email}}">{{employee.firstName}} {{employee.lastName}}</ng-option>
+               </ng-select> 
+            </div>
+        </div>
+        <br/>
+        <div class="row">
             <div class="col-sm-5" style="margin-left: 50px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
@@ -155,7 +175,7 @@
                     </div>
                     <div style="margin-left: 30px;margin-top: 20px;">
                     <p>Report Module : <b>Meetings</b></p>
-                    <p>Report Type : <b>Bar</b></p>
+                    <!-- <p>Report Type : <b>Bar</b></p> -->
                     <p>Attndee Name : <b>{{"Vaishnav Kannan"}}</b></p>
                     <p>Attendee Email ID : <b>{{selectedAttendeeUser}}</b></p>
                     <p>Total Meetings Attended : <b>{{attendedMeetingListCount}}</b></p>
@@ -169,11 +189,11 @@
                     </div>
                     <div class="chart">
                         <div style="padding-top: 6px;"></div>
-                        <ng-select id="select" [(ngModel)]="selectedAttendeeUser" style="float: right; width: 250px;"
+                        <!-- <ng-select id="select" [(ngModel)]="selectedAttendeeUser" style="float: right; width: 250px;"
                             placeholder="choose" (change)="chooseAttendedMeetingUser()">
                             <ng-option *ngFor="let employee of employeeListAsUser"
                                 value="{{employee.email}}">{{employee.firstName}} {{employee.lastName}}</ng-option>
-                        </ng-select>
+                        </ng-select> -->
                         <canvas id="attendedMeetingListChart"></canvas>
                     </div>
                 </div>
