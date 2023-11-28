@@ -281,7 +281,8 @@ export class MeetingReportsComponent implements OnInit {
         datasets: [
           {
             label: "Total Meetings of a department",
-            data: [this.meetingsByDepartmentListCount],
+           data: [this.meetingsByDepartmentListCount],
+           //data: [this.OrganizedMeetingCount],
             backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
             borderColor: 'rgba(197, 14, 71, 1)',
             borderWidth: 3,
@@ -489,6 +490,7 @@ export class MeetingReportsComponent implements OnInit {
         this.OrganizedMeetingCount = response.body.length;
         setTimeout(() => {
           //this.createMeetingsByDepartmentReportChart();
+          this.createMeetingsByAllDepartmentReportChart();
         },400)
       }
     })
@@ -514,6 +516,7 @@ export class MeetingReportsComponent implements OnInit {
          })
          console.log(this.deptValueCount)
          this.getAllDepartmentNames()
+         
        }
     })
   }
@@ -529,4 +532,73 @@ export class MeetingReportsComponent implements OnInit {
      })
     
   }
+  createMeetingsByAllDepartmentReportChart(){
+    this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
+      type: 'pie',
+      data: {// values on X-Axis
+        xLabels: ['Total Meetings of All departments'],
+        datasets: [
+          {
+            label: "Total Meetings of All departments",
+           data: [this.OrganizedMeetingCount],
+           //data: [this.OrganizedMeetingCount],
+            backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
+            borderColor: 'rgba(197, 14, 71, 1)',
+            borderWidth: 3,
+          },
+        ]
+      },
+      options: {
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'easeOutExpo',
+            from: 1,
+            to: 0,
+            loop: true
+          }
+        },
+        aspectRatio: 2.3,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            beginAtZero: false,
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total Meetings of All departments',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
 }
