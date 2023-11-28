@@ -199,6 +199,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
    })
+   }else{
+    this.toastr.warning('Designation not deleted.');
    }
   }
 

@@ -99,7 +99,7 @@
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr *ngIf="isOrganizedMeetingDataText===false">
-                        <td>{{meeting.meetingId}}</td>
+                        <td style="padding-left: 30px;">{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
