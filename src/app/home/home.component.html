@@ -102,9 +102,17 @@
             <b>Tasks</b>
           </div>
           <div class="chart">
+            <ng-select [(ngModel)]="MajorselectedOption"(change)="onSelectChange()" style="float: left; width: 150px;">
+              <ng-option value="All">All</ng-option>
+              <ng-option value="Total">Total</ng-option>
+              <ng-option value="Yet to start">Yet to start</ng-option>
+              <ng-option value="Inprogress">Inprogress</ng-option>
+              <ng-option value="Completed">Completed</ng-option>
+            </ng-select>
             <ng-select [(ngModel)]="selectedOption" (change)="onSelectChange()" style="float: right; width: 150px;">
               <ng-option value="Week">Week</ng-option>
-              <ng-option value="months">Months</ng-option>
+              <ng-option value="months">Month</ng-option>
+              <ng-option value="Year">Year</ng-option>
             </ng-select>
             <canvas id="myChart"></canvas>
           </div>

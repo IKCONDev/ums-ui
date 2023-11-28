@@ -179,9 +179,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (isFirstNameValid == true && isLastNameValid == true && isGenderValid == true
       && isEmailIdValid == true && isReportingManagerValid == true 
       && isDepartmentValid == true && isDesignationValid == true && isEmployeeID == true && isDateofJoining == true) {
+      this.addEmployee.firstName = this.transformToTitleCase(this.addEmployee.firstName);
+      this.addEmployee.lastName = this.transformToTitleCase(this.addEmployee.lastName);
+      this.addEmployee.employeeOrgId = this.addEmployee.employeeOrgId.toUpperCase();
 
       console.log(this.addEmployee);
-      this.addEmployee.createdBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
+      this.addEmployee.createdBy =this.transformToTitleCase(localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'));
       this.addEmployee.createdByEmailId = localStorage.getItem('email').toLowerCase();
       this.employeeservice.createEmployee(this.addEmployee).subscribe({
         next: response => {
@@ -401,6 +404,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (isEmailIdValid == true && isFirstNameValid == true && isReportingManagerValid == true
        && isLastNameValid == true && isDepartmentValid == true && isGenderValid == true &&
       isDesignationValid == true && isDateofJoiningValid == true && isEmployeeIDValid == true) {
+      
+      this.existingEmployee.firstName = this.transformToTitleCase(this.existingEmployee.firstName);
+      this.existingEmployee.lastName = this.transformToTitleCase(this.existingEmployee.lastName);
+      this.existingEmployee.employeeOrgId = this.existingEmployee.employeeOrgId.toUpperCase();
+      
       this.existingEmployee.modifiedBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       this.employeeservice.updateEmployee(this.existingEmployee).subscribe(
         response => {
@@ -954,6 +962,12 @@ isUpdateEmployeeGenderValid = false;
       
       datePicker.setAttribute('min', minDate.toISOString().split('T')[0]);
       datePicker.setAttribute('max', maxDate.toISOString().split('T')[0]);
+  }
+
+  transformToTitleCase(text: string): string {
+    return text.toLowerCase().split(' ').map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
   }
 
 }

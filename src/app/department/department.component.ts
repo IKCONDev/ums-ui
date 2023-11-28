@@ -148,7 +148,12 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     if(isNameValid === true && isCodeValid === true
      &&isHeadValid === true && isLocationValid === true){
     //set createdBy
-    this.addDepartment.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+    this.addDepartment.departmentName = this.transformToTitleCase(this.addDepartment.departmentName);
+    this.addDepartment.departmentHead = this.transformToTitleCase(this.addDepartment.departmentHead);
+    this.addDepartment.departmentAddress = this.transformToTitleCase(this.addDepartment.departmentAddress);
+    this.addDepartment.departmentCode = this.addDepartment.departmentCode.toUpperCase();
+
+    this.addDepartment.createdBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
     this.addDepartment.createdByEmailId = localStorage.getItem('email');
     this.departmentService.saveDepartment(this.addDepartment).subscribe({
       next: (response)=> {
@@ -388,7 +393,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     // }
     if(isNameValid === true && isCodeValid === true
      &&isHeadValid === true && isLocationValid === true){
-      this.existingDepartment.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+
+      this.existingDepartment.departmentName = this.transformToTitleCase(this.existingDepartment.departmentName);
+      this.existingDepartment.departmentHead = this.transformToTitleCase(this.existingDepartment.departmentHead);
+      this.existingDepartment.departmentAddress = this.transformToTitleCase(this.existingDepartment.departmentAddress);
+      this.existingDepartment.createdBy = this.transformToTitleCase(this.existingDepartment.createdBy);
+      this.existingDepartment.departmentCode = this.existingDepartment.departmentCode.toUpperCase();
+
+
+    this.existingDepartment.modifiedBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
     console.log(this.existingDepartment)
     this.departmentService.updateDepartment(this.existingDepartment).subscribe({
       next: (response) => {
@@ -621,5 +634,12 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(anyUnchecked);
     $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
+
+  transformToTitleCase(text: string): string {
+    return text.toLowerCase().split(' ').map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+  }
+
 
 }

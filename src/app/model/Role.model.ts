@@ -1,7 +1,12 @@
+import { MenuItem } from "./MenuItem.model";
+import { Permission } from "./Permission.model";
+
 export class Role extends Object{
     roleId:number;
     roleName: string;
     roleStatus: string;
+    permission: Permission;
+    menuItems: MenuItem[];
     createdBy: string;
     createdByEmailId: string;
     createdDateTime : Date;
