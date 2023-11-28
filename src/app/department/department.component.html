@@ -57,13 +57,13 @@
                                 value="{{department.departmentId}}" (click)="toggleMainCheckBox(i)" />
                         </td>
                         <td>{{department.departmentId}}</td>
-                        <td>{{department.departmentName | titlecase}}</td>
-                        <td>{{department.departmentCode | uppercase}}</td>
-                        <td>{{department.departmentHead | titlecase}}</td>
-                        <td>{{department.departmentAddress | titlecase}}</td>
-                        <td>{{department.createdBy | titlecase}}</td>
+                        <td>{{department.departmentName}}</td>
+                        <td>{{department.departmentCode}}</td>
+                        <td>{{department.departmentHead}}</td>
+                        <td>{{department.departmentAddress}}</td>
+                        <td>{{department.createdBy}}</td>
                         <td>{{department.createdDateTime |date:'MMM d, y, h:mm a' }}</td>
-                        <td>{{department.modifiedBy | titlecase}}</td>
+                        <td>{{department.modifiedBy}}</td>
                         <td>{{department.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
                             <span id="editIcon" (click)="fetchOneDepartment(department.departmentId)"

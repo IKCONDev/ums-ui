@@ -58,9 +58,9 @@
                         <td>{{category.taskCategoryId}}</td>
                         <td>{{category.taskCategoryTitle}}</td>
                         <td>{{category.taskCategoryDescription}}</td>
-                        <td>{{category.createdBy | titlecase}}</td>
+                        <td>{{category.createdBy}}</td>
                         <td>{{category.createdDateTime |date:'MMM d, y, h:mm a' }}</td>
-                        <td>{{category.modifiedBy | titlecase}}</td>
+                        <td>{{category.modifiedBy}}</td>
                         <td>{{category.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
                             <span id="editIcon" (click)="getTaskCategoryById(category.taskCategoryId)"
@@ -127,7 +127,7 @@
                 <label><b>Task Category Description</b><span id="required">*</span></label><br/>
                 <textarea id="categoryDesc" class="form-control" placeholder="Category description"
                     [(ngModel)]="taskCategory.taskCategoryDescription" (keyup)="validateTaskCategoryDescription()"  minlength="5" maxlength="100"
-                    rows="5" cols="10" style="text-transform: capitalize;width: 400px;">
+                    rows="5" cols="10" style="width: 400px;">
                 </textarea><br />
                 <span *ngIf="categoryDescErrorInfo != ''">
                     <p id="errorMessage">{{categoryDescErrorInfo}}</p>
