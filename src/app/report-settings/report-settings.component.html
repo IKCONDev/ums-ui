@@ -16,13 +16,14 @@
                 <a routerLink="/meeting-reports" (click)="setMeetingReportType('department')">Department</a><br />
                 <a routerLink="/meeting-reports" (click)="setMeetingReportType('employee')">Organized</a><br />
                 <a routerLink="/meeting-reports" (click)="setMeetingReportType('attended')">Attended</a><br />
-                <a routerLink="/meeting-reports" (click)="setMeetingReportType('all')">All</a><br />
+                <a routerLink="/meeting-reports" (click)="setMeetingReportType('all')">All Departments</a><br />
             </div>
             <div class="col-sm-3">
                 <h4><b>Action Items</b></h4>
                 <a routerLink="/actionitem-reports" (click)="setActionItemReportType('department')">Departments</a><br/>
                 <a routerLink="/actionitem-reports" (click)="setActionItemReportType('organized')" >Organized</a><br/>
                 <a routerLink="/actionitem-reports" (click)="setActionItemReportType('priority')">Priority</a><br/>
+                <a routerLink="/actionitem-reports" (click)="setActionItemReportType('all')">All Departments</a><br />
             </div>
             <div class="col-sm-3">
                 <h4><b>Task Items</b></h4>
@@ -31,7 +32,7 @@
                 <a routerLink="/task-reports"  (click)="setTaskReportType('severity')">Severity</a><br/>
                 <a routerLink="/task-reports"  (click)="setTaskReportType('status')">Status(priority)</a><br/>
                 <a routerLink="/task-reports"  (click)="setTaskReportType('aged')">Aged</a><br/>
-                <a routerLink="/task-reports"  (click)="setTaskReportType('all')">All</a>
+                <a routerLink="/task-reports"  (click)="setTaskReportType('all')">All Departments</a>
             </div>
         </div>
         <br /><br/>

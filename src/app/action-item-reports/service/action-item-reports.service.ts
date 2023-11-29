@@ -39,4 +39,9 @@ export class ActionItemsReportsService {
           }
           ),params:params});
     }
+    getAllDepartmentActionItemsCount(){
+      return this.http.get<any[]>(`${this.apiGatewayPathUrl}/${this.actionItemReportsControllerPathUrl}/department-actions`,{observe:'response',headers: new HttpHeaders({
+        'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+      })});
+    }
 }

@@ -158,7 +158,7 @@ export class TaskReportsComponent implements OnInit {
     this.headerService.fetchUserProfile(loggedInUser).subscribe({
       next: response => {
         this.loggedInUserPrincipalObject = response.body;
-        this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
+        //this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
         this.departmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
       }, error: error => {
         if(error.status === HttpStatusCode.Unauthorized){

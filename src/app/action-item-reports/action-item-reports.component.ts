@@ -11,6 +11,7 @@ import { Employee } from '../model/Employee.model';
 import { Chart } from 'chart.js';
 import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
+import { DepartmentCount } from '../model/DepartmentCount.model';
 
 @Component({
   selector: 'app-action-item-reports',
@@ -70,6 +71,8 @@ export class ActionItemsReportsComponent implements OnInit {
         this.choosePriority();
       }
     },200)
+    this.getAllDepartmentsCount();
+    this.getAllDepartmentNames();
   }
 
   department: Department;
@@ -419,4 +422,48 @@ export class ActionItemsReportsComponent implements OnInit {
     });
   }
   
+  //Action Items By Department Count
+ deptMeetingCount : DepartmentCount[];
+deptValueCount : DepartmentCount[] = [];
+ meetingDepartmentCount : string[];
+  getAllDepartmentsCount(){
+    this.actionItemsReportService.getAllDepartmentActionItemsCount().subscribe({
+       next : response =>{
+         this.deptMeetingCount = response.body;
+        // this.deptValueCount = new  DepartmentCount[this.deptMeetingCount.length];
+         console.log(this.deptMeetingCount);
+         var i =0;
+         this.deptMeetingCount.forEach(deptCount =>{
+           var deptCountString = (String)(deptCount);
+           console.log(deptCountString)
+           this.meetingDepartmentCount = deptCountString.split(',');
+           console.log(this.meetingDepartmentCount)
+            var deptObject = new DepartmentCount();
+            deptObject.deptId = this.meetingDepartmentCount[0]
+            deptObject.meetingCount = this.meetingDepartmentCount[1]
+           this.deptValueCount.push(deptObject);
+         })
+         console.log(this.deptValueCount)
+         this.getAllDepartmentNames()
+         
+       }
+    })
+  }
+  deptValueCount1 : DepartmentCount[] = [];
+  getAllDepartmentNames(){
+     this.getAllDepartments();
+     //this.deptValueCount1 = new DepartmentCount[this.deptValueCount.length]
+     this.departmentList.forEach(deptList =>{
+      console.log(deptList);
+       this.deptValueCount.forEach(deptValue=>{
+         if(deptList.departmentId === parseInt(deptValue.deptId) ){
+            deptValue.departmentName = deptList.departmentName;
+            deptValue.departmentHead = deptList.departmentHead;
+         }
+       })
+
+     })
+    
+  }
+
 }
