@@ -74,9 +74,9 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
         this.table = $('#myTable').DataTable({
           paging: true,
           searching: true, // Enable search feature
-          pageLength: 7,
+          pageLength: 10,
           order: [[1,'asc']],
-          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ]
+          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
           // Add other options here as needed
         });
       });

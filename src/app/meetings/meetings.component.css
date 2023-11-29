@@ -859,14 +859,16 @@ svg:hover{
   overflow-y: auto;
 
 }
-/* CSS for another loader symbol
+
+/* CSS for loader symbol */
+
    .loader {
   transform: rotateZ(45deg);
   perspective: 1000px;
   border-radius: 50%;
   width: 48px;
   height: 48px;
-  color: #134E69D9;
+  color: #2AA3D9;
 }
   .loader:before,
   .loader:after {
@@ -882,7 +884,7 @@ svg:hover{
     animation: 1s spin linear infinite;
   }
   .loader:after {
-    color: #134E69D9;
+    color: #2AA3D9;
     transform: rotateY(70deg);
     animation-delay: .4s;
   }
@@ -931,7 +933,7 @@ svg:hover{
   87% {
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
-} */
+}
 
 #closeButtonTitle {
   position: absolute;
