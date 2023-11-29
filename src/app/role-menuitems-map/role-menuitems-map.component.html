@@ -24,7 +24,7 @@
                         <th>Role ID</th>
                         <th style="width: 80px;">Role Name</th>
                         <th>Permissions</th>
-                        <!-- <th>Menu Item ID's</th> -->
+                        <th>Menu Items</th>
                         <th>Created By</th>
                         <th>Created Date</th>
                         <th>Modified By</th>
@@ -41,6 +41,9 @@
                         <td>{{role.roleId}}</td>
                         <td id="role-subject">{{role.roleName | uppercase}}</td>
                         <td>{{role.permission.permissionValue}}</td>
+                        <td class="wordWrap" style="width: 140px;">
+                            <span *ngFor="let menuItem of role.menuItems">{{menuItem.menuItemName+","}}</span>
+                        </td>
                         <td>{{role.createdBy | titlecase}}</td>
                         <td>{{role.createdDateTime|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{role.modifiedBy | titlecase}}</td>
@@ -65,7 +68,7 @@
             <div class="modal-header" id="modalHeader">
                 <h5 class="modal-title">Assign Menu Items For Role</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;" (click)="clearErrorMessages()">&times;</span>
                 </button>
             </div>
             <!-- Modal body -->
@@ -96,7 +99,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" (click)="updateRoleWithMenuItems()">Save</button>
                 <button id="closeUpdateModal" type="button" class="btn btn-outline-danger" data-dismiss="modal"
-                    >Close</button>
+                   (click)="clearErrorMessages()" >Close</button>
             </div>
         </div>
     </div>
