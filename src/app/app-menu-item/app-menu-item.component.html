@@ -60,9 +60,9 @@
                         <td>{{menuItem.menuItemName}}</td>
                         <td>{{menuItem.menuItemPath}}</td>
                         <td>{{menuItem.menuItemDescription}}</td>
-                        <td>{{menuItem.createdBy | titlecase}}</td>
+                        <td>{{menuItem.createdBy}}</td>
                         <td>{{menuItem.createdDateTime |date:'MMM d, y, h:mm a' }}</td>
-                        <td>{{menuItem.modifiedBy | titlecase}}</td>
+                        <td>{{menuItem.modifiedBy}}</td>
                         <td>{{menuItem.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
                             <span id="editIcon" (click)="getMenuItem(menuItem.menuItemId)"
@@ -127,7 +127,7 @@
                 </span>
                 <!--   -->
                 <label><b>Menu Item Path</b><span id="required">*</span></label>
-                <input id="categoryName" type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Menu Item Path"
+                <input id="categoryName" type="text" class="deptInput form-control" placeholder="Menu Item Path"
                     [(ngModel)]="menuItem.menuItemPath" (keyup)="validateMenuItemPath()" minlength="3"
                     maxlength="50" /><br />
                 <span *ngIf="menuItemNameErrorInfo != ''">
@@ -137,7 +137,7 @@
                 <label><b>Menu Item Description</b><span id="required">*</span></label><br/>
                 <textarea id="categoryDesc" class="form-control" placeholder="Menu Item Description"
                     [(ngModel)]="menuItem.menuItemDescription" (keyup)="validateMenuItemDescription()"  minlength="5" maxlength="100"
-                    rows="5" cols="10" style="text-transform: capitalize;width: 400px;">
+                    rows="5" cols="10" style="width: 400px;">
                 </textarea><br />
                 <span *ngIf="menuItemDescErrorInfo != ''">
                     <p id="errorMessage">{{menuItemDescErrorInfo}}</p>

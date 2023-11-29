@@ -124,7 +124,7 @@
                 <label><b>Permission Description</b><span id="required"></span></label><br/>
                 <textarea id="categoryDesc" class="form-control" placeholder="permission description" [(ngModel)]="addPermission.permissionDescription"
                      minlength="5" maxlength="50" (keyup)="validatePermissionDescription()"
-                    rows="2" cols="5" style="text-transform: capitalize;width: 400px;">
+                    rows="2" cols="5" style="width: 400px;">
                 </textarea>
                 <span *ngIf="permissionDescriptionErrorInfo != ''">
                     <p id="errorMessage">{{permissionDescriptionErrorInfo}}</p>

@@ -19,7 +19,7 @@ export class AppMenuItemsComponent {
   private table: any;
   loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole')
-  loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+  loggedInUserFullName =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
 
   menuItemList: MenuItem[];
   isComponentLoading:boolean=false;
@@ -175,6 +175,7 @@ export class AppMenuItemsComponent {
     if(isTitleValid === true && isDescriptionValid === true && isMenuItemPathValid === true){
       menuItem.modifiedByEmailId = this.loggedInUser;
       menuItem.modifiedBy = this.loggedInUserFullName;
+      this.menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
       this.menuItemService.updateMenuItem(menuItem).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.PartialContent){
@@ -218,6 +219,7 @@ export class AppMenuItemsComponent {
     if(isTitleValid === true && isDescriptionValid === true && isMenuItemPathValid === true){
       menuItem.createdByEmailId = this.loggedInUser;
       menuItem.createdBy = this.loggedInUserFullName;
+      this.menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
       this.menuItemService.createMenuItem(menuItem).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
@@ -337,5 +339,12 @@ export class AppMenuItemsComponent {
       $('.subCheckBox').prop('checked', false);
     }
   }
+
+  transformToTitleCase(text: string): string {
+    return text.toLowerCase().split(' ').map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+  }
+
 
 }

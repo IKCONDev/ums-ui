@@ -16,7 +16,7 @@ export class PermissionComponent implements OnInit{
   addPermission: Permission = new Permission();
   loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole')
-  loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+  loggedInUserFullName =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
   ngOnInit(): void {
     this.getAllPermissions();
     throw new Error('Method not implemented.');
@@ -226,6 +226,12 @@ export class PermissionComponent implements OnInit{
 
     }
   }   
+
+  transformToTitleCase(text: string): string {
+    return text.toLowerCase().split(' ').map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+  }
 
 }
 
