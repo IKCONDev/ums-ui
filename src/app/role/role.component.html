@@ -58,11 +58,11 @@
                                 (click)="toggleMainCheckBox(i)" />
                         </td>
                         <td>{{role.roleId}}</td>
-                        <td id="role-subject">{{role.roleName | uppercase}}</td>
+                        <td id="role-subject">{{role.roleName}}</td>
                         <td>{{role.permission.permissionValue}}</td>
-                        <td>{{role.createdBy | titlecase}}</td>
+                        <td>{{role.createdBy}}</td>
                         <td>{{role.createdDateTime|date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{role.modifiedBy | titlecase}}</td>
+                        <td>{{role.modifiedBy}}</td>
                         <td>{{role.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
                             <span id="editIcon" (click)="getRoleById(role.roleId)" data-toggle="modal"

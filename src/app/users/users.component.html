@@ -48,7 +48,7 @@
                     <tbody  *ngIf="isUserDataText===false">
                         <tr class="trbody" *ngFor="let user of userList; let i = index">    
                             <td>{{user.email}}</td>
-                            <td>{{user.userRoles[0].roleName | uppercase}}</td>
+                            <td>{{user.userRoles[0].roleName}}</td>
                             <td>{{user.active == true? 'Active': 'Inactive'}}</td>
                             <td>{{user.active == true? 'Login Enabled':'Login Disabled'}}</td>
                             <td *ngIf="user.email != loggedInUser">
