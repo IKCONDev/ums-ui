@@ -544,7 +544,7 @@ export class MeetingReportsComponent implements OnInit {
         datasets: [
           {
             label: "Total Meetings of All departments",
-           data: [this.OrganizedMeetingCount],
+            data: [this.OrganizedMeetingCount],
            //data: [this.OrganizedMeetingCount],
             backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
             borderColor: 'rgba(197, 14, 71, 1)',
