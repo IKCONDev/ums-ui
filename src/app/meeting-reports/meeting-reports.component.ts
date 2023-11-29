@@ -89,6 +89,7 @@ export class MeetingReportsComponent implements OnInit {
       this.getAllDepartments();
       this.getAllMeetings();
       this.getAllDepartmentsCount();
+      this.getAllDepartmentNames();
   }
 
   getLoggedInUserDetails(loggedInUser: string){

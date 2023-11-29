@@ -9,8 +9,8 @@
         <div class="col-sm-2" style="margin-left: 80px;">
             <ng-select id="select" style="float: right; width: 250px;"
             placeholder="choose">
-            <!-- <ng-option *ngFor="let department of departmentList"
-                value="{{department.departmentId}}">{{department.departmentName}}</ng-option> -->
+            <ng-option *ngFor="let task of taskCategoryList"
+                value="{{task.taskCategoryId}}">{{task.taskCategoryTitle}}</ng-option>
         </ng-select>
         </div>
     </div>
