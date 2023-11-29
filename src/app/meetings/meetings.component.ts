@@ -236,7 +236,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     //disable actionItem btn default
     this.isActionItemSaveButtonDisabled = true;
-    this.pastDateTime();
+    // this.pastDateTime();
 
     //get reportees data of logged in user
     if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
@@ -454,10 +454,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addDetails.startDate === '') {
       this.actionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isActionItemStartDateValid = false;
-    } else if (new Date(this.addDetails.startDate) < currentDate) {
-      this.actionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
-      this.isActionItemStartDateValid = false;
-    } else {
+     } 
+    //else if (new Date(this.addDetails.startDate) < currentDate) {
+    //   this.actionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
+    //   this.isActionItemStartDateValid = false;
+    // } 
+    else {
       this.actionItemStartDateErrorInfo = '';
       this.isActionItemStartDateValid = true;
     }
@@ -1162,10 +1164,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.updatedetails.startDate === '') {
       this.updateActionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isUpdateActionItemStartDateValid = false;
-    } else if (new Date(this.updatedetails.startDate.toString()) < new Date(Date.now())) {
-      this.updateActionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
-      this.isUpdateActionItemStartDateValid = false;
-    } else {
+    }
+    //  else if (new Date(this.updatedetails.startDate.toString()) < new Date(Date.now())) {
+    //   this.updateActionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
+    //   this.isUpdateActionItemStartDateValid = false;
+    // }
+     else {
       this.updateActionItemStartDateErrorInfo = '';
       this.isUpdateActionItemStartDateValid = true;
     }
@@ -1313,25 +1317,25 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  min: any = "";
+  // min: any = "";
 
-  /**
-   * 
-   */
-  pastDateTime() {
-    var tdate: any = new Date();
-    var date: any = tdate.getDate();
-    if (date < 10) {
-      date = "0" + date;
-    }
-    var month: any = tdate.getMonth() + 1;
-    if (month < 10) {
-      month = "0" + month;
-    }
-    var year: any = tdate.getFullYear();
-    this.min = year + "-" + month + "-" + date ;
-    console.log(this.min);
-  }
+  // /**
+  //  * 
+  //  */
+  // pastDateTime() {
+  //   var tdate: any = new Date();
+  //   var date: any = tdate.getDate();
+  //   if (date < 10) {
+  //     date = "0" + date;
+  //   }
+  //   var month: any = tdate.getMonth() + 1;
+  //   if (month < 10) {
+  //     month = "0" + month;
+  //   }
+  //   var year: any = tdate.getFullYear();
+  //   this.min = year + "-" + month + "-" + date ;
+  //   console.log(this.min);
+  // }
 
   onMaterialGroupChange(event) {
     console.log(event);

@@ -202,7 +202,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
       }
    })
    }else{
-    this.toastr.warning('Designation not deleted.');
+    this.toastr.warning('Designation '+designationId+' not deleted.');
    }
   }
 
@@ -398,6 +398,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
       $('#mainCheckBox').prop('checked',false);
     }
   }
+
   transformToTitleCase(text: string): string {
     return text.toLowerCase().split(' ').map(word => {
       return word.charAt(0).toUpperCase() + word.slice(1);
