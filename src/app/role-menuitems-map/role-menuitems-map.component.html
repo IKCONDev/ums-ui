@@ -78,15 +78,18 @@
                     <!-- <span id="errorInfo" *ngIf="updatedRoleNameErrorInfo != ''">{{updatedRoleNameErrorInfo}}</span> -->
                 </div>
                 <div>
-                    <label><b>Choose Menu Items</b><span id="required">*</span><span style="font-size: 13px;">&nbsp;(+ crtl to choose more than one option)</span></label><br/>
+                    <label><b>Choose Menu Items</b><span id="required">*</span><span style="font-size: 13px;"></span></label><br/>
                     <!-- <select id="menuItemsBox" ng-multiple="true" multiple [(ngModel)]="menuItemIds" class="form-control-sm" placeholder="choose menuItems">
                         <option *ngFor="let menuItem of menuItemList" value={{menuItem.menuItemId}}>{{menuItem.menuItemName}}</option>
                     </select> -->
-                <select id="menuItemsBox" style="width:400px;" multiple ng-multiple="true"
+                <!-- <select id="menuItemsBox" style="width:400px;" multiple ng-multiple="true"
                     ng-model="menuItemIds"
                     ng-options="sort.menuItem as sort.menuItem for sort in menuItemList | unique : 'menuItem'">
                     <option *ngFor="let menuItem of menuItemList" value="{{menuItem.menuItemId}}">{{menuItem.menuItemName}}</option>
-                </select>
+                </select> -->
+                <div *ngFor="let menuItem of menuItemList;let i = index">
+                    <input #checkboxes id="menuItems" class="menuItems" name="menuItems" type="checkbox" value="{{menuItem.menuItemId}}" (change)="storeValue($event,i)"/>{{menuItem.menuItemName}}
+                </div>
                 </div>
             </div>
             <!-- Modal footer -->

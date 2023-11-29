@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { RoleService } from '../role/service/role.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { Role } from '../model/Role.model';
@@ -79,43 +79,27 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
    * 
    * @param id 
    */
+   menuItems: MenuItem[] = [];
+   selectedMenuItemIds:any[] = [];
+   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
    getRoleById(id: number) {
+    console.log(this.checkboxes)
     this.roleService.getRole(id).subscribe({
      next: (response) => {
         this.existingRole = response.body;
-        console.log(this.existingRole)
-        // this.menuItemList.forEach(menuItem => {
-        //   this.existingRole.menuItems.forEach(extMenuItem => {
-        //     if(menuItem.menuItemId === extMenuItem.menuItemId){
-        //       this.menuItemIds.push[extMenuIte]
-        //     }
-        //   })
-        // })
-        this.existingRole.menuItems.forEach(menuItem => {
-          this.menuItemIds.push(menuItem.menuItemId)
-        })
-        console.log(this.menuItemIds)
-        console.log(this.existingRole);
-        var menuItemsDropdown = document.getElementById('menuItemsBox') as HTMLSelectElement;
+        console.log(this.existingRole.menuItems)
         if(this.existingRole.menuItems.length > 0){
-          this.existingRole.menuItems.forEach(menuItem => {
-            console.log(menuItem)
-            for(var j=0;  j < menuItemsDropdown.options.length;  j++){
-              if(menuItemsDropdown.options[j].value.trim() === menuItem.menuItemId.toString()){
-                console.log('exe')
-                menuItemsDropdown.options[j].selected = true;
-                //menuItemsDropdown.options[j].style.background = 'lightgrey';
-                menuItemsDropdown.options[j].style.marginBottom = '3px'
-                break;
-              }
-           }
+          this.existingRole.menuItems.forEach(item => {
+            //set existing menu item checkboxes to checked/true
+            this.checkboxes.forEach((element) => {
+                 var value = element.nativeElement.value;
+                 if(value.toString().trim() === item.menuItemId.toString().trim()){
+                //set existing menu items to the new menu items array
+                 this.menuItems.push(item);
+                 element.nativeElement.checked = true;
+                 }
+            }); 
           })
-        }else{
-          for(var j=0;  j < menuItemsDropdown.options.length;  j++){
-            menuItemsDropdown.options[j].selected = false;
-           // menuItemsDropdown.options[j].style.background = 'white';
-            menuItemsDropdown.options[j].style.marginBottom = '0px'
-          }
         }
       },error: error =>{
         if(error.status === HttpStatusCode.Unauthorized){
@@ -124,11 +108,11 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
       }
   })
   }
-
   /**
    * 
    */
   getAllMenuItems(){
+    
     this.menuItemService.findMenuItems().subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
@@ -142,54 +126,48 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
     })
   }
 
+  
+
   /**
    * 
    */
-  menuItems: MenuItem[] = [];
+  storeValue(event: any, index: number){
+    console.log(event.target.value)
+    //if a menu item is checked store the menu item in menuItems array.
+    if(event.target.checked === true){
+      this.selectedMenuItemIds.push(event.target.value);
+      console.log(this.selectedMenuItemIds)
+      this.menuItemList.forEach(menuItem => {
+        if(menuItem.menuItemId === parseInt(event.target.value)){
+          this.menuItems.push(menuItem);
+        }
+      })
+      console.log(this.menuItems)
+    }else{
+      //if a menu item is unchecked, remove the menu item from the menuItems array.
+      var unCheckedMenuID = this.selectedMenuItemIds.pop();
+      var i = 0;
+      this.menuItems.forEach(menuItem => {
+        if(menuItem.menuItemId === parseInt(event.target.value)){
+          this.menuItems.splice(i,1);
+        }
+        i=i+1;
+      })
+      console.log(this.menuItems);
+    }
+    this.existingRole.menuItems = this.menuItems;
+    console.log(this.existingRole.menuItems);
+  }
+
   updateRoleWithMenuItems(){
-    console.log(this.existingRole)
-    // var newMenuItems = [];
-    //   this.existingRole.menuItems.forEach(extMenuItem => {
-    //     this.menuItemIds.forEach(id => {
-    //       if(extMenuItem.menuItemId != id){
-    //         newMenuItems.push(id);
-    //         return;
-    //       }
-    //     })
-    //   })
-    //   this.menuItemList.forEach(menuItem => {
-    //     newMenuItems.forEach(menuItemId => {
-    //       if(menuItem.menuItemId === menuItemId){
-    //         this.existingRole.menuItems.push(menuItem);
-    //       }
-    //     })
-    //   })
-    var newMenuItems = [];
-    var multiselect = document.getElementById("menuItemsBox") as HTMLSelectElement;
-    var selectedOptions = [];
-    for (var i = 0; i < multiselect.options.length; i++) {
-    if (multiselect.options[i].selected) {
-      selectedOptions.push(multiselect.options[i].value);
-    }
-   }
-   this.menuItemList.forEach(menuItem => {
-    console.log(menuItem.menuItemId)
-    for(var i=0; i<selectedOptions.length;i++){
-      console.log(selectedOptions[i])
-      if(selectedOptions[i].toString().trim() == menuItem.menuItemId.toString().trim()){
-        console.log('exe')
-        newMenuItems.push(menuItem);
-        return;
-      }
-    }
-   })
-   this.existingRole.menuItems = newMenuItems;
-   console.log(newMenuItems)
    console.log(this.existingRole)
     this.roleService.updateRole(this.existingRole).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.PartialContent){
           var updatedRole = response.body;
+          setTimeout(() => {
+            window.location.reload();
+          },1000)
         }
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
