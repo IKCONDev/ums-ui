@@ -42,7 +42,10 @@
                         <td id="role-subject">{{role.roleName | uppercase}}</td>
                         <td>{{role.permission.permissionValue}}</td>
                         <td class="wordWrap" style="width: 140px;">
-                            <span *ngFor="let menuItem of role.menuItems">{{menuItem.menuItemName+","}}</span>
+                            <span *ngFor="let menuItem of role.menuItems; let j = index">
+                                <span *ngIf="menuItem.menuItemName != ''">{{menuItem.menuItemName}}{{j === role.menuItems.length - 1 ? '' : ', '}}</span>
+                                <span *ngIf="menuItem.menuItemName === ''">No menu items for this role</span>
+                            </span>
                         </td>
                         <td>{{role.createdBy | titlecase}}</td>
                         <td>{{role.createdDateTime|date:'MMM d, y, h:mm a'}}</td>
