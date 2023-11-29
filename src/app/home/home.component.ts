@@ -88,10 +88,15 @@ export class HomeComponent implements OnInit {
 
   }
   onSelectChange2() {
-    console.log("entered onselect change")
+    console.log("entered onselect change2")
     if (this.selectedOption2 === 'Week') {
       this.fetchTaskStatus2();
     } else if (this.selectedOption2 === 'months') {
+      console.log('months')
+      this.fetchTaskStatus2();
+    }
+    else if (this.selectedOption2 === 'Year') {
+      console.log("entered for year");
       this.fetchTaskStatus2();
     }
 
@@ -315,6 +320,7 @@ export class HomeComponent implements OnInit {
   }
   TotalMeetingStatus: any[];
   TotalMeetingStatusForYear: any[];
+  TotalMeetingStatusForMonth:any[];
   fetchTaskStatus2() {
     if (this.myChart2 != null) {
       this.myChart2.destroy();
@@ -341,7 +347,7 @@ export class HomeComponent implements OnInit {
 
         }
       })
-    } else if (this.selectedOption2 === 'months') {
+    } else if (this.selectedOption2 === 'Year') {
       if (this.myChart2 != null) {
         this.myChart2.destroy();
       }
@@ -359,6 +365,30 @@ export class HomeComponent implements OnInit {
           console.log("entered the else if of fetchmeetings fo year")
           this.TotalMeetingStatusForYear = response.body;
           console.log(this.TotalMeetingStatusForYear)
+          this.createChart2();
+        }
+      })
+
+
+    }
+    else if (this.selectedOption2 === 'months') {
+      if (this.myChart2 != null) {
+        this.myChart2.destroy();
+      }
+      const startDate = new Date();
+      const endDate = new Date();
+
+      startDate.setFullYear(2023, 0, 1);
+      startDate.setHours(0, 0, 0, 0);
+
+      endDate.setFullYear(2023, 11, 31);
+      endDate.setHours(23, 59, 59, 999);
+      console.log(startDate + " " + endDate);
+      this.homeService.fetchMeetingStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
+        next: response => {
+          console.log("entered the else if of fetchmeetings fo year")
+          this.TotalMeetingStatusForMonth = response.body;
+          console.log(this.TotalMeetingStatusForMonth)
           this.createChart2();
         }
       })
@@ -692,7 +722,7 @@ export class HomeComponent implements OnInit {
           },
         }
       });
-    } if (this.selectedOption2 === 'months') {
+    } if (this.selectedOption2 === 'Year') {
       var mildColors = [
         'lavender', 'lightcyan', 'lightcoral', 'lightseagreen', 'lightpink', 'lightslategray',
         'mistyrose', 'lightgoldenrodyellow', 'lightseashell', 'lightblue', 'lightgreen', 'lightsteelblue'
@@ -747,6 +777,73 @@ export class HomeComponent implements OnInit {
             title: {
               display: true,
               text: '   Meeting Status of Current Year',
+              align: 'start',
+              font: {
+                size: 14,
+              },
+            },
+          },
+          elements: {
+            arc: {
+              borderRadius: 3,
+              borderWidth: 2,
+              borderAlign: 'inner' // Set the border width for pie chart segments
+            },
+          },
+        }
+      });
+    } if (this.selectedOption2 === 'months') {
+      const currentDate = new Date();
+      const currentMonth = currentDate.toLocaleString('en-US', { month: 'short' });
+      const currentMonthNumber = currentDate.getMonth();
+      console.log( this.TotalMeetingStatusForMonth[1][currentMonthNumber])
+      this.myChart2 = new Chart("myChart2", {
+        type: 'pie',
+        data: {
+          labels: [currentMonth],
+          datasets: [
+            {
+              label: "Organised Meetings",
+              data: [this.TotalMeetingStatusForMonth[1][currentMonthNumber]],
+              backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+              borderWidth: 1.5,
+            },
+            {
+              label: "Attended Meetings",
+              data: [this.TotalMeetingStatusForMonth[0][currentMonthNumber]],
+              backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrang
+              borderWidth: 1.5,
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 1.7,
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'right',
+              align: 'end',
+              labels: {
+                usePointStyle: true,
+                font: {
+                  size: 12,
+                },
+                padding: 16,
+                pointStyle: 'rectRounded',
+
+              },
+            },
+            title: {
+              display: true,
+              text: '   Meeting status of current month',
               align: 'start',
               font: {
                 size: 14,
