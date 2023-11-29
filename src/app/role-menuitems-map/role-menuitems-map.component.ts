@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 import { error } from 'jquery';
 import { MenuItem } from '../model/MenuItem.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-role-menuitems-map',
@@ -21,11 +22,14 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
   isComponentLoading: boolean = false;
   existingRole: Role = new Role();
   menuItemList: MenuItem[];
-  menuItemIds: number[] = [];
+  menuItems: MenuItem[] = [];
+  selectedMenuItemIds:any[] = [];
+  @ViewChildren("checkboxes") menuItemCheckboxes: QueryList<ElementRef>;
 
   constructor(private roleService: RoleService,
     private router: Router,
-    private menuItemService: AppMenuItemService){
+    private menuItemService: AppMenuItemService,
+    private toastr: ToastrService){
   }
 
 
@@ -79,11 +83,8 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
    * 
    * @param id 
    */
-   menuItems: MenuItem[] = [];
-   selectedMenuItemIds:any[] = [];
-   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
    getRoleById(id: number) {
-    console.log(this.checkboxes)
+    console.log(this.menuItemCheckboxes)
     this.roleService.getRole(id).subscribe({
      next: (response) => {
         this.existingRole = response.body;
@@ -91,7 +92,7 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
         if(this.existingRole.menuItems.length > 0){
           this.existingRole.menuItems.forEach(item => {
             //set existing menu item checkboxes to checked/true
-            this.checkboxes.forEach((element) => {
+            this.menuItemCheckboxes.forEach((element) => {
                  var value = element.nativeElement.value;
                  if(value.toString().trim() === item.menuItemId.toString().trim()){
                 //set existing menu items to the new menu items array
@@ -108,11 +109,11 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
       }
   })
   }
+
   /**
    * 
    */
   getAllMenuItems(){
-    
     this.menuItemService.findMenuItems().subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
@@ -126,12 +127,12 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
     })
   }
 
-  
-
   /**
    * 
+   * @param event 
+   * @param index 
    */
-  storeValue(event: any, index: number){
+  storeSelectedMenuItems(event: any, index: number){
     console.log(event.target.value)
     //if a menu item is checked store the menu item in menuItems array.
     if(event.target.checked === true){
@@ -159,12 +160,17 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
     console.log(this.existingRole.menuItems);
   }
 
+  /**
+   * 
+   */
   updateRoleWithMenuItems(){
    console.log(this.existingRole)
     this.roleService.updateRole(this.existingRole).subscribe({
       next: response => {
-        if(response.status === HttpStatusCode.PartialContent){
+        if(response.status === HttpStatusCode.Created){
           var updatedRole = response.body;
+          document.getElementById('closeUpdateModal').click();
+          this.toastr.success('Menu Items assigned for the role '+this.existingRole.roleName+' successfully')
           setTimeout(() => {
             window.location.reload();
           },1000)
@@ -172,16 +178,19 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
+        }else{
+          this.toastr.error('Error while assigning menu items for the role. Please try again !');
         }
       }
     })
   }
 
   clearErrorMessages(){
-    console.log('exe')
-    this.checkboxes.forEach(element => {
+    //uncheck all the checkbox on modal close
+    this.menuItemCheckboxes.forEach(element => {
       element.nativeElement.checked = false;
     })
+    //empty the menu items list for a new role for next time
     this.menuItems = [];
   }
 

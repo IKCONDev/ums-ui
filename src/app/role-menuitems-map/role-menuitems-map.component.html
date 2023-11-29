@@ -91,7 +91,7 @@
                     <option *ngFor="let menuItem of menuItemList" value="{{menuItem.menuItemId}}">{{menuItem.menuItemName}}</option>
                 </select> -->
                 <div *ngFor="let menuItem of menuItemList;let i = index">
-                    <input #checkboxes id="menuItems" class="menuItems" name="menuItems" type="checkbox" value="{{menuItem.menuItemId}}" (change)="storeValue($event,i)"/>{{menuItem.menuItemName}}
+                    <input #checkboxes id="menuItems" class="menuItems" name="menuItems" type="checkbox" value="{{menuItem.menuItemId}}" (change)="storeSelectedMenuItems($event,i)"/>{{menuItem.menuItemName}}
                 </div>
                 </div>
             </div>
