@@ -146,3 +146,17 @@ table td{
 #required{
     color: red;
 }
+
+.wordWrap{
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    max-width:140px;
+    cursor: pointer;
+    word-wrap: break-word;
+}
+
+.wordWrap:hover{
+    overflow: visible;
+    white-space: normal;
+  }
