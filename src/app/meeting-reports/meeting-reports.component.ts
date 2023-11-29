@@ -525,18 +525,14 @@ export class MeetingReportsComponent implements OnInit {
      this.getAllDepartments();
      //this.deptValueCount1 = new DepartmentCount[this.deptValueCount.length]
      this.departmentList.forEach(deptList =>{
+      console.log(deptList);
        this.deptValueCount.forEach(deptValue=>{
          if(deptList.departmentId === parseInt(deptValue.deptId) ){
             deptValue.departmentName = deptList.departmentName;
             deptValue.departmentHead = deptList.departmentHead;
          }
-        //  else{
-        //    deptValue.deptId =(String)(deptList.departmentId);
-        //    deptValue.meetingCount = null;
-        //    deptValue.departmentName = deptList.departmentName;
-        //    deptValue.departmentHead = deptList.departmentHead;
-        //  }
        })
+
      })
     
   }
