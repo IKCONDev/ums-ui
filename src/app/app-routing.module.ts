@@ -34,6 +34,7 @@ import { MeetingReportsComponent } from './meeting-reports/meeting-reports.compo
 import { TaskReportsComponent } from './task-reports/task-reports.component';
 import { ActionItemsReportsComponent } from './action-item-reports/action-item-reports.component';
 import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-map.component';
+import { TaskcategoryReportComponent } from './taskcategory-report/taskcategory-report.component';
 
 
 /**
@@ -73,6 +74,7 @@ const routes: Routes = [
   {path: 'task-reports', component: TaskReportsComponent},
   {path: 'actionitem-reports', component: ActionItemsReportsComponent},
   {path:'role-menuitems-map', component:RoleMenuitemsMapComponent},
+  {path :'taskcategory-report', component:TaskcategoryReportComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},
