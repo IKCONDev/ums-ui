@@ -35,6 +35,7 @@ import { TaskReportsComponent } from './task-reports/task-reports.component';
 import { ActionItemsReportsComponent } from './action-item-reports/action-item-reports.component';
 import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-map.component';
 import { TaskcategoryReportComponent } from './taskcategory-report/taskcategory-report.component';
+import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permission/user-role-menuitem-permission.component';
 
 
 /**
@@ -75,6 +76,7 @@ const routes: Routes = [
   {path: 'actionitem-reports', component: ActionItemsReportsComponent},
   {path:'role-menuitems-map', component:RoleMenuitemsMapComponent},
   {path :'taskcategory-report', component:TaskcategoryReportComponent},
+  {path: 'modify-permissions', component: UserRoleMenuitemPermissionComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},

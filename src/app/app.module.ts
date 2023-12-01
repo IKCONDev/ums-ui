@@ -55,6 +55,7 @@ import { TaskReportsComponent } from './task-reports/task-reports.component';
 import { ActionItemsReportsComponent } from './action-item-reports/action-item-reports.component';
 import { TaskcategoryReportComponent } from './taskcategory-report/taskcategory-report.component';
 import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-map.component';
+import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permission/user-role-menuitem-permission.component';
 
 
 @NgModule({
@@ -101,6 +102,7 @@ import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-m
     ActionItemsReportsComponent,
     TaskcategoryReportComponent,
     RoleMenuitemsMapComponent,
+    UserRoleMenuitemPermissionComponent,
   ],
   imports: [
     BrowserModule,
