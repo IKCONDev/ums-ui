@@ -3,6 +3,7 @@ import { Role } from "./Role.model";
 import { UserRoleMenuItemPermissionMap } from "./UserRoleMenuItemPermissionMap.model";
 
 export interface Users{
+	 id: number;
      email: string;
 	 encryptedPassword: string;
 	 userRoles: Role[];
