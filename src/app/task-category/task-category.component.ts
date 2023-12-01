@@ -275,7 +275,7 @@ export class TaskCategoryComponent implements OnInit {
     }else if(this.taskCategory.taskCategoryDescription.length < 5){
       this.categoryDescErrorInfo = 'Task category description should have minimum of 5 characters.';
       this.isCategoryDescValid = false;
-    }else if(this.taskCategory.taskCategoryDescription.length > 50){
+    }else if(this.taskCategory.taskCategoryDescription.length >= 100){
       this.categoryDescErrorInfo = 'Task category description should not exceed more than 100 characters';
       this.isCategoryDescValid = false;
     }else{
