@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-sm-2" style="margin-left: 80px;">
                     <ng-select id="select" style="float: right; width: 250px;"
-                    placeholder="choose">
+                    placeholder="choose"  [(ngModel)]="selectedTaskCategory" (change)="getchoosenCategory()">
                     <ng-option *ngFor="let task of taskCategoryList"
                         value="{{task.taskCategoryId}}">{{task.taskCategoryTitle}}</ng-option>
                 </ng-select>
@@ -30,9 +30,17 @@
                         <p>DepartmentName : <b>{{selectedDepartmentName}}</b></p>
                         <p>Total Meetings of the Department : <b>{{meetingsByDepartmentListCount}}</b></p>
                         </div> -->
+                        <div *ngIf="selectedTaskCategory == null; else noTaskCategory ">
                             <p>Report Module : <b>Task category</b></p>
                             <p>Task Category Name : <b>All</b></p>
-                            <p>Total tasks:</p>
+                            <p>Total tasks: <b>{{alltasksCount}}</b></p>
+                        </div>
+                        <ng-template #noTaskCategory>
+                            <p>Report Module : <b>Task category</b></p>
+                            <p>Task Category Name : <b>{{0}}</b></p>
+                            <p>Total tasks: <b>{{categoryOfTaskCount}}</b></p>
+                        </ng-template>
+                            
                            
                       </div>
                 </div>

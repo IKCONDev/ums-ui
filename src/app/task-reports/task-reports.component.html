@@ -470,11 +470,11 @@
                     <!-- <p>Report Type : <b>Doughnut Chart</b></p> -->
                     <div *ngIf="selectedDepartment != null; else allTasks">
                         <p>DepartmentName : <b>{{departmentName}}</b></p>
-                        <p>Total Meetings : <b>{{taskListByDepartmentCount}}</b></p>
+                        <p>Total Tasks : <b>{{taskListByDepartmentCount}}</b></p>
                     </div>
                     <ng-template #allTasks>
                         <p>DepartmentName : <b>{{"All"}}</b></p>
-                        <p>Total Meetings : <b>{{taskListByDepartmentCount}}</b></p>
+                        <p>Total Tasks : <b>{{alltasksCount}}</b></p>
                    </ng-template>
                     <!-- <p>Report For : <b>{{"Department"}}</b></p>
                     <p>Department ID : <b>{{selectedDepartment}}</b></p>

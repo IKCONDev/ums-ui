@@ -3,6 +3,9 @@ import { TaskCategoryService } from '../task-category/service/task-category.serv
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskCategory } from '../model/TaskCategory.model';
 import { param } from 'jquery';
+import { TaskService } from '../task/service/task.service';
+import { Task } from '../model/Task.model';
+import { TaskCategoryReport } from './service/taskcategoryreport.service';
 
 @Component({
   selector: 'app-taskcategory-report',
@@ -13,18 +16,22 @@ export class TaskcategoryReportComponent implements OnInit {
 
   @Output()  title = 'Task Category'
   reportType: string;
+  selectedTaskCategory : string;
   ngOnInit(): void {
 
     this.getAllTaskCategoryList();
+    this.getAllTasksByTaskcategory();
     setTimeout(() => {
       if(this.reportType === 'all'){
-        this.getAllTaskCategoryList();
+       // this.getAllTaskCategoryList();
       }
       
     },400)
 
   }
-  constructor(private taskCategoryService: TaskCategoryService, private router: Router, private activatedRoute : ActivatedRoute){
+  constructor(private taskCategoryService: TaskCategoryService, private router: Router, private activatedRoute : ActivatedRoute,
+    private taskservice: TaskService, private taskCategoryReportservice : TaskCategoryReport
+    ){
     this.activatedRoute.queryParams.subscribe(param =>{
        this.reportType = param['reportType'];
     })
@@ -37,7 +44,28 @@ export class TaskcategoryReportComponent implements OnInit {
        }
     })
   }
+  taskList : Task[]
+  alltasksCount : number;
   getAllTasksByTaskcategory(){
-
+    this.taskservice.getAlltasks().subscribe({
+       next : response =>{
+         this.taskList = response.body;
+         this.alltasksCount = response.body.length;
+       }
+    })
   }
-}
+  taskListByCategory : Task[]
+  categoryOfTaskCount : number;
+  getchoosenCategory(){
+    console.log(this.selectedTaskCategory);
+    this.taskCategoryReportservice.getAllTasksByTaskCategoryId(parseInt(this.selectedTaskCategory)).subscribe({
+      next : response =>{
+        this.taskListByCategory = response.body;
+        console.log(this.taskListByCategory);
+        //this.categoryOfTaskCount = response.body.length;
+        
+      }
+    })
+  }
+
+} 
