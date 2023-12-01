@@ -762,9 +762,9 @@ b {
     animation: 1s spin linear infinite;
   }
   .loader:after {
-    color: #2AA3D9;
+    color: #30D64B;
     transform: rotateY(70deg);
-    animation-delay: .4s;
+    animation-delay: .3s;
   }
 
 @keyframes rotate {

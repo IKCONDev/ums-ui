@@ -42,9 +42,9 @@
                 <h4><b>Task Category</b></h4>
 
                 <div *ngFor = "let taskCategory of taskCategoriesList">
-                    <a routerLink="/taskcategory-report">{{taskCategory.taskCategoryTitle}}</a>
+                    <a routerLink="/taskcategory-report" (click)="setTaskCategoryType(taskCategory.taskCategoryTitle)">{{taskCategory.taskCategoryTitle}}</a>
                 </div> 
-                <a routerLink="/taskcategory-report">Task Category Summary</a>
+                <a routerLink="/taskcategory-report" (click)="setTaskCategoryType('all')">Task Category Summary</a>
                
             </div>
            <!--- <div class="col-sm-3">
