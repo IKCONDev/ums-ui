@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpStatusCode } from '@angular/common/http';
 import { error } from 'jquery';
 import { DepartmentCount } from '../model/DepartmentCount.model';
+import { TaskService } from '../task/service/task.service';
 
 @Component({
   selector: 'app-report',
@@ -70,7 +71,7 @@ export class TaskReportsComponent implements OnInit {
     private departmentService: DepartmentService,
     private headerService: HeaderService,
     private meetingService: MeetingService,
-    private router: Router) { 
+    private router: Router, private taskService : TaskService) { 
       this.activatedRoute.queryParams.subscribe(param => {
         this.reportType = param['reportType'];
         console.log(this.reportType)
@@ -96,6 +97,7 @@ export class TaskReportsComponent implements OnInit {
     //get active users list
     this.getActiveUsersList();
     this.getDepartments();
+    this. getAllTasksByDepartment();
     this.selectedTaskOwner = this.loggedInUser;
     // if(this.reportType === null){
     //   this.getTasks();
@@ -722,5 +724,16 @@ deptValueCount : DepartmentCount[] = [];
      })
     
   }
+  alltaskList : Task[]
+  alltasksCount : number;
+  getAllTasksByDepartment(){
+    this.taskService.getAlltasks().subscribe({
+       next : response =>{
+         this.taskList = response.body;
+         this.alltasksCount = response.body.length;
+       }
+    })
+  }
+
 
 }
