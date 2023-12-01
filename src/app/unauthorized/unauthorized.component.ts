@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-unauthorized',
   templateUrl: './unauthorized.component.html',
   styleUrls: ['./unauthorized.component.css']
 })
-export class UnauthorizedComponent {
+export class UnauthorizedComponent implements OnInit {
+  ngOnInit(): void {
+    // localStorage.clear();
+    // window.localStorage.clear();
+  }
 
 }

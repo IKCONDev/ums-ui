@@ -13,37 +13,65 @@
             </div>
         </div>
     </div><br />
-    <div class="userDropdown">
-        <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-            [(ngModel)]="selectedUserId" placeholder="Choose user" (change)="getRoleMenuItemPermissionByUserId()">
-            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
-            <ng-option [value]="employee.email" *ngFor="let employee of employeeList">
-                {{employee.firstName}} {{employee.lastName}}
-            </ng-option>
-        </ng-select>
+    <div class="userDropdown row">
+        <div class="col-sm-1"><b>User :</b></div>
+        <div class="col-sm-3">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
+                [(ngModel)]="selectedUserId" placeholder="Choose user"
+                (change)="getRoleMenuItemPermissionListByUserId()">
+                <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+                <ng-option [value]="employee.email" *ngFor="let employee of employeeList">
+                    {{employee.firstName}} {{employee.lastName}}
+                </ng-option>
+            </ng-select>
+        </div>
     </div><br />
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Menu Item</th>
-                <th>View</th>
-                <th>Create</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let userRPMMap of userRPMMapList">
-                <td >{{userRPMMap.menuItemIdList}}</td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('View')"><input type="checkbox" checked (change)="updatePermissionStatus(userRPMMap.id,$event,'View')"/></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('View')"><input type="checkbox" (change)="updatePermissionStatus(userRPMMap.id,$event,'View')"/></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" checked (change)="updatePermissionStatus(userRPMMap.id,$event,'Create')"/></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" (change)="updatePermissionStatus(userRPMMap.id,$event,'Create')"/></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" checked (change)="updatePermissionStatus(userRPMMap.id,$event,'Update')"/></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" (change)="updatePermissionStatus(userRPMMap.id,$event,'Update')"/></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" checked (change)="updatePermissionStatus(userRPMMap.id,$event,'Delete')"/></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" (change)="updatePermissionStatus(userRPMMap.id,$event,'Delete')"/></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="row">
+        <div class="col-sm-1">
+            <label><b>User ID : </b></label>
+        </div>
+        <div class="col-sm-3">
+            {{selectedUserId}}
+        </div>
+    </div><br/>
+        <div class="row">
+            <div class="col-sm-1">
+                <label><b>ROLE : </b></label>
+            </div>
+            <div class="col-sm-3">
+                {{roleName}}
+            </div>
+        </div><br/>
+        <table id="myTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Menu Item</th>
+                    <th>View</th>
+                    <th>Create</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let userRPMMap of userRPMMapList">
+                    <td>{{userRPMMap.menuItem.menuItemName}}</td>
+                    <td *ngIf="userRPMMap.permissionIdList.includes('View')"><input type="checkbox" checked
+                            (change)="updatePermissionStatus(userRPMMap,$event,'View')" /></td>
+                    <td *ngIf="!userRPMMap.permissionIdList.includes('View')"><input type="checkbox"
+                            (change)="updatePermissionStatus(userRPMMap,$event,'View')" /></td>
+                    <td *ngIf="userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" checked
+                            (change)="updatePermissionStatus(userRPMMap,$event,'Create')" /></td>
+                    <td *ngIf="!userRPMMap.permissionIdList.includes('Create')"><input type="checkbox"
+                            (change)="updatePermissionStatus(userRPMMap,$event,'Create')" /></td>
+                    <td *ngIf="userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" checked
+                            (change)="updatePermissionStatus(userRPMMap,$event,'Update')" /></td>
+                    <td *ngIf="!userRPMMap.permissionIdList.includes('Update')"><input type="checkbox"
+                            (change)="updatePermissionStatus(userRPMMap,$event,'Update')" /></td>
+                    <td *ngIf="userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" checked
+                            (change)="updatePermissionStatus(userRPMMap,$event,'Delete')" /></td>
+                    <td *ngIf="!userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox"
+                            (change)="updatePermissionStatus(userRPMMap,$event,'Delete')" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

@@ -45,12 +45,12 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
      * 
      */
   ngOnInit(): void {
-
-    // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
-    //   this.router.navigateByUrl('/unauthorized')
-    // }
-    this.getAllEmployeesWithStatus();
-    this.getAllUsers();
+    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+      this.router.navigateByUrl('/unauthorized')
+      return;
+    }
+      this.getAllEmployeesWithStatus();
+      this.getAllUsers();
   }
 
   /**

@@ -1,3 +1,5 @@
+import { MenuItem } from "./MenuItem.model";
+
 export class UserRoleMenuItemPermissionMap{
    
     id: number;
@@ -11,5 +13,6 @@ export class UserRoleMenuItemPermissionMap{
     modifiedBy : string;
     createdByEmailId: string;
     modifiedByEmailId: string;
+    menuItem: MenuItem;
     
 }

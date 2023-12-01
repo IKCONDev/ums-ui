@@ -26,4 +26,17 @@ export class UserRoleMenuItemPermissionService{
         })
     }
 
+    /**
+     * 
+     * @param userRPMMap 
+     * @returns 
+     */
+    updateUserRoleMenuItemPermissionMap(userRPMMap: UserRoleMenuItemPermissionMap){
+        return this.http.put<UserRoleMenuItemPermissionMap>(`${this.gatewayUrl}/${this.adminMicroserviceUserRPMControllerPathUrl}/update`,userRPMMap,{observe:'response',
+         headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+         })
+        })
+    }
+
 }
