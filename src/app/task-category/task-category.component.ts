@@ -254,7 +254,7 @@ export class TaskCategoryComponent implements OnInit {
     }else if(this.taskCategory.taskCategoryTitle.length < 3){
       this.categoryTitleErrorInfo = 'Task category name/title should have minimum of 3 characters.';
       this.isCategoryTitleValid = false;
-    }else if(this.taskCategory.taskCategoryTitle.length > 50){
+    }else if(this.taskCategory.taskCategoryTitle.length >= 50){
       this.categoryTitleErrorInfo = 'Task category name/title should not exceed more than 50 characters';
       this.isCategoryTitleValid = false;
     }else{
