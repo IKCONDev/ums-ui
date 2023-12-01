@@ -47,5 +47,9 @@ export class ReportSettingsComponent implements OnInit {
    // this.reportType = reportType;
     //this.router.navigate(['/action-items-reports'])
   }
+  setTaskCategoryType(reportType: string){
+    this.reportType = reportType;
+    this.router.navigate(['taskcategory-report'],{queryParams:{reportType:reportType}})
+  }
 
 }

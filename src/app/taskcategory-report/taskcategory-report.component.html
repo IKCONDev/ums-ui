@@ -4,48 +4,176 @@
 <div>
     <app-header [title]="title"></app-header>
 </div>
-<div class="container-fluid" style="margin-left: 0px;">
-    <div class="row">
-        <div class="col-sm-2" style="margin-left: 80px;">
-            <ng-select id="select" style="float: right; width: 250px;"
-            placeholder="choose">
-            <ng-option *ngFor="let task of taskCategoryList"
-                value="{{task.taskCategoryId}}">{{task.taskCategoryTitle}}</ng-option>
-        </ng-select>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="card-body">
+
+<div class="container-fluid">
+    <div class="card-body" *ngIf="reportType === 'all'">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-2" style="margin-left: 80px;">
+                    <ng-select id="select" style="float: right; width: 250px;"
+                    placeholder="choose">
+                    <ng-option *ngFor="let task of taskCategoryList"
+                        value="{{task.taskCategoryId}}">{{task.taskCategoryTitle}}</ng-option>
+                </ng-select>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                
+                <div class="col-sm-5" style="margin-left: 40px;">
                     <div class="card">
                         <div class="card-header" style="background-color: #134E69D9;">
                             <h4 style="text-align: center;color: white;">Report Summary</h4>
                         </div>
                         <div style="margin-left: 30px;margin-top: 20px;">
-                        <p>Report Module : <b>Task category</b></p>
-                        <p>Task Category Name : <b>Task</b></p>
-                       </div>
-                    </div>
+                        <!-- <p>Report Module : <b>Meetings</b></p>
+                        <p>Department ID : <b>{{selectedDepartment}}</b></p>
+                        <p>DepartmentName : <b>{{selectedDepartmentName}}</b></p>
+                        <p>Total Meetings of the Department : <b>{{meetingsByDepartmentListCount}}</b></p>
+                        </div> -->
+                            <p>Report Module : <b>Task category</b></p>
+                            <p>Task Category Name : <b>All</b></p>
+                            <p>Total tasks:</p>
+                           
+                      </div>
                 </div>
-
-                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-5">
                     <div class="card">
                         <div class="card-header">
-                            <b id="reportheading">Tasks</b>
+                            <b>Meetings</b>
                         </div>
                         <div class="chart">
+                            <div style="padding-top: 6px;"></div>
                             <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                                 placeholder="choose" (change)="chooseDepartment()">
                                 <ng-option *ngFor="let department of departmentList"
                                     value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                             </ng-select> -->
-                            <!-- <canvas id="taskListByDepartmentChart"></canvas> -->
+                            <canvas id="meetingsByDepartmentListChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-    </div>
-  </div>
+            <br/>
+            <!-- <table class="table table-hover" *ngIf="meetingsByDepartmentListCount > 0; else noDeptMeetings"> -->
+            <table class="table table-hover">
+                <thead>
+                    <tr >
+                        <th>ID</th>
+                        <th>Task Category Name</th>
+                        <th>Count of Tasks</th>
+                    </tr>
+                </thead>
+                <!-- <tbody>
+                    <tr *ngFor="let meeting of meetingsByDepartmentList">
+                        <td>{{meeting.meetingId}}</td>
+                        <td>{{meeting.subject}}</td>
+                        <td>{{meeting.organizerName}}</td>
+                        <td>{{meeting.startDateTime}}</td>
+                        <td>{{meeting.endDateTime}}</td>
+                    </tr>
+                </tbody> -->
+            </table>
+            <ng-template #noDeptMeetings>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Task Category Name</th>
+                            <th>Count of Tasks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                </table>
+                <p style="text-align: center;"><b>No Meetings from this department !</b></p>
+               </ng-template>
+        
+        </div>
+        <div class="card-body" *ngIf="reportType !='all'">
+            <div class="row">
+                <!-- <div class="col-sm-2" style="margin-left: 80px;">
+                    <ng-select id="select" style="float: right; width: 250px;"
+                    placeholder="choose">
+                    <ng-option *ngFor="let task of taskCategoryList"
+                        value="{{task.taskCategoryId}}">{{task.taskCategoryTitle}}</ng-option>
+                </ng-select>
+                </div> -->
+            </div>
+            <br/>
+            <div class="row">
+                
+                <div class="col-sm-5" style="margin-left: 40px;">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #134E69D9;">
+                            <h4 style="text-align: center;color: white;">Report Summary</h4>
+                        </div>
+                        <div style="margin-left: 30px;margin-top: 20px;">
+                        <!-- <p>Report Module : <b>Meetings</b></p>
+                        <p>Department ID : <b>{{selectedDepartment}}</b></p>
+                        <p>DepartmentName : <b>{{selectedDepartmentName}}</b></p>
+                        <p>Total Meetings of the Department : <b>{{meetingsByDepartmentListCount}}</b></p>
+                        </div> -->
+                            <p>Report Module : <b>Task category</b></p>
+                            <p>Task Category Name : <b>Task</b></p>
+                            <p>Total tasks:</p>
+                           
+                      </div>
+                </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <b>Meetings</b>
+                        </div>
+                        <div class="chart">
+                            <div style="padding-top: 6px;"></div>
+                            <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
+                                placeholder="choose" (change)="chooseDepartment()">
+                                <ng-option *ngFor="let department of departmentList"
+                                    value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
+                            </ng-select> -->
+                            <canvas id="meetingsByDepartmentListChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <!-- <table class="table table-hover" *ngIf="meetingsByDepartmentListCount > 0; else noDeptMeetings"> -->
+            <table class="table table-hover">
+                <thead>
+                    <tr >
+                        <th>ID</th>
+                        <th>Task Category Name</th>
+                        <th>Organizer</th>
+                        <th>Start Date Time</th>
+                        <th>End Date Time</th>
+                    </tr>
+                </thead>
+                <!-- <tbody>
+                    <tr *ngFor="let meeting of meetingsByDepartmentList">
+                        <td>{{meeting.meetingId}}</td>
+                        <td>{{meeting.subject}}</td>
+                        <td>{{meeting.organizerName}}</td>
+                        <td>{{meeting.startDateTime}}</td>
+                        <td>{{meeting.endDateTime}}</td>
+                    </tr>
+                </tbody> -->
+            </table>
+            <ng-template #noDeptMeetings>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Organizer</th>
+                            <th>Start Date Time</th>
+                            <th>End Date Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                </table>
+                <p style="text-align: center;"><b>No Meetings from this department !</b></p>
+               </ng-template>
+        
+        </div>
 </div>
