@@ -80,7 +80,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },100)
+    },600)
   }
 
   ngOnDestroy(): void {
@@ -140,7 +140,6 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     }
   }
   addUserObj ={
-     
     email : '',
     userRoles: [
       {
@@ -205,7 +204,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
    * display existing user
    */
   existingUserObj={
-
+    id: 0,
     email : '',
     userRoles: [
       {
@@ -224,7 +223,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     this.userService.getSingleUser(email).subscribe(
       response =>{
         this.existingUserObj = response.body;
-        console.log(this.existingUserObj.email);
+        console.log(this.existingUserObj);
       }
     )
   //   this.roles.filter(role =>{

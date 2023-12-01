@@ -62,6 +62,10 @@ export class TaskReportService{
         .set('date', currentDateTime);
         return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/tasks/aged`,{observe:'response',params:params});
     }
-
+    getAllDepartmentTasksCount(){
+        return this.http.get<any[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/task/department-task`,{observe:'response',headers: new HttpHeaders({
+          'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+        })});
+    }
      
 }

@@ -169,6 +169,17 @@
     <!-- report 2 -->
     <div class="card-body" *ngIf="reportType === 'priority';">
         <div class="row">
+            <div class="col-sm-2" style="margin-left: 100px;">
+                <ng-select id="select" [(ngModel)]="selectedPriority" style="float: right; width: 250px;"
+                placeholder="choose" (change)="choosePriority()">
+                <ng-option value="High">High</ng-option>
+                <ng-option value="Medium">Medium</ng-option>
+                <ng-option value="Low">Low</ng-option>
+            </ng-select>
+         </div>
+        </div>
+        <br/>
+        <div class="row">
             <div class="col-sm-5" style="margin-left: 50px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
@@ -190,12 +201,12 @@
                     </div>
                     <div class="chart">
                         <div style="padding-top: 6px;"></div>
-                        <ng-select id="select" [(ngModel)]="selectedPriority" style="float: right; width: 250px;"
+                        <!-- <ng-select id="select" [(ngModel)]="selectedPriority" style="float: right; width: 250px;"
                             placeholder="choose" (change)="choosePriority()">
                             <ng-option value="High">High</ng-option>
                             <ng-option value="Medium">Medium</ng-option>
                             <ng-option value="Low">Low</ng-option>
-                        </ng-select>
+                        </ng-select> -->
                         <canvas id="actionItemsByPriorityReportChart"></canvas>
                     </div>
                 </div>
@@ -239,6 +250,121 @@
             <tbody>
         </table>
         <p style="text-align: center;"><b>No Action items !</b></p>
+       </ng-template>
+    </div>
+    <div class="card-body" *ngIf="reportType === 'all'">
+        <div class="row">
+         <div class="col-sm-2" style="margin-left: 100px;">
+            <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
+            placeholder="choose" (change)="chooseDepartment()">
+            <ng-option *ngFor="let department of departmentList"
+                value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
+        </ng-select>
+      </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-sm-5" style="margin-left: 50px;">
+                <div class="card">
+                    <div class="card-header" style="background-color: #134E69D9;">
+                        <h4 style="text-align: center;color: white;">Report Summary</h4>
+                    </div>
+                    <div style="margin-left: 30px;margin-top: 20px;">
+                    <p>Report Module : <b>Action Items</b></p>
+                    <!-- <p>Report Type : <b>Pie Chart</b></p> -->
+                    <div *ngIf="selectedDepartment != null; else allMeetings">
+                        <p>DepartmentName : <b>{{selectedDepartmentName}}</b></p>
+                        <p>Total Meetings : <b>{{actionItemsCountOfDepartment}}</b></p>
+                    </div>
+                    <ng-template #allMeetings>
+                            <p>DepartmentName : <b>{{"All"}}</b></p>
+                            <p>Total Meetings : <b>{{actionItemsCountOfDepartment}}</b></p>
+                       </ng-template>
+                    <!-- <p>Department ID : <b>{{selectedDepartment}}</b></p>
+                    <p>Department Name : <b>{{selectedDepartmentName}}</b></p>
+                    <p>Total action items of the department : <b>{{actionItemsCountOfDepartment}}</b></p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b>Action Items</b>
+                    </div>
+                    <div class="chart">
+                        <div style="padding-top: 6px;"></div>
+                        <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
+                            placeholder="choose" (change)="chooseDepartment()">
+                            <ng-option *ngFor="let department of departmentList"
+                                value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
+                        </ng-select> -->
+                        <canvas id="actionItemsByDepartmentReportChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br/>
+    <table class="table table-hover" *ngIf="selectedDepartment==null ; else noMeetings">
+        <thead>
+           <tr>
+               <th>ID</th>
+               <th>Department Name</th>
+               <th>Department Head</th>
+               <th>Count of ActionItems</th>
+               <!-- <th>Department Head</th>
+               <th>Total Meetings</th> -->
+           </tr>
+       </thead>
+       <tbody>
+
+           <tr  *ngFor="let department of deptValueCount">
+               <td>{{department.deptId}}</td>
+                <td>{{department.departmentName}}</td>
+               <td>{{department.departmentHead}}</td>
+               <td>{{department.meetingCount}}</td>
+
+               
+           </tr>
+        </tbody>
+
+   </table>
+   <ng-template #noMeetings>
+    <table class="table table-hover" *ngIf="actionItemsCountOfDepartment > 0; else noDeptMeetings">
+        <thead>
+            <tr >
+                <th>ID</th>
+                <th>Title</th>
+                <th>Organizer</th>
+                <th>Planned Start Date</th>
+                <th>Planned End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let actionItem of actionItemListByDepartment">
+                <td>{{actionItem.actionItemId}}</td>
+                <td>{{actionItem.actionItemTitle}}</td>
+                <td>{{actionItem.emailId}}</td>
+                <td>{{actionItem.startDate}}</td>
+                <td>{{actionItem.endDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+   </ng-template>
+   
+    <ng-template #noDeptMeetings>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Organizer</th>
+                    <th>Start Date Time</th>
+                    <th>End Date Time</th>
+                </tr>
+            </thead>
+            <tbody>
+        </table>
+        <p style="text-align: center;"><b>No Action items organized from this department !</b></p>
        </ng-template>
     </div>
 </div>
