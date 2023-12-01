@@ -182,6 +182,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.addEmployee.firstName = this.transformToTitleCase(this.addEmployee.firstName);
       this.addEmployee.lastName = this.transformToTitleCase(this.addEmployee.lastName);
       this.addEmployee.employeeOrgId = this.addEmployee.employeeOrgId.toUpperCase();
+      this.addEmployee.email=this.addEmployee.email.toLowerCase();
 
       console.log(this.addEmployee);
       this.addEmployee.createdBy =this.transformToTitleCase(localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'));

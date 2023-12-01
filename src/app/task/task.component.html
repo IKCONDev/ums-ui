@@ -393,11 +393,11 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>Category</b></td>
+                                            <td><b>Category</b><span id="required">*</span></td>
                                             <td style="padding-left: 20px;">
                                                 <span>
                                                     <select id="taskCategory" class="form-control-sm"
-                                                        style="width: 300px;"
+                                                        style="width: 311px;"
                                                         [(ngModel)]="update_Task.taskCategory.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
                                                         (change)="validateTaskCategory()">
@@ -616,11 +616,11 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>Category</b></td>
+                                            <td><b>Category</b><span id="required">*</span></td>
                                             <td style="padding-left: 20px;">
                                                 <span>
                                                     <input type="text" disabled="true" id="taskCategory"
-                                                        class="form-control" style="width: 300px;"
+                                                        class="form-control" style="width: 312px;"
                                                         [(ngModel)]="update_Task.taskCategory.taskCategoryTitle"
                                                         name="taskCategory" #taskCategory="ngModel" />
                                                     <!-- <option default="true" selected="true" value="null">select</option> -->
