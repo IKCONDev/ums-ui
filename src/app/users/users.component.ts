@@ -74,13 +74,13 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
         this.table = $('#myTable').DataTable({
           paging: true,
           searching: true, // Enable search feature
-          pageLength: 7,
+          pageLength: 10,
           order: [[1,'asc']],
-          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ]
+          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
           // Add other options here as needed
         });
       });
-    },100)
+    },600)
   }
 
   ngOnDestroy(): void {
@@ -140,7 +140,6 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     }
   }
   addUserObj ={
-     
     email : '',
     userRoles: [
       {
@@ -205,7 +204,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
    * display existing user
    */
   existingUserObj={
-
+    id: 0,
     email : '',
     userRoles: [
       {
@@ -224,7 +223,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     this.userService.getSingleUser(email).subscribe(
       response =>{
         this.existingUserObj = response.body;
-        console.log(this.existingUserObj.email);
+        console.log(this.existingUserObj);
       }
     )
   //   this.roles.filter(role =>{
