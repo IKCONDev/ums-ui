@@ -278,7 +278,7 @@ table th{
     white-space: nowrap;
     text-overflow:ellipsis; 
     overflow: hidden;
-    max-width:90px;
+    max-width:200px;
     cursor: pointer;
     word-wrap: break-word;
   }

@@ -26,13 +26,18 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   private table: any;
   loggedInUserRole: string = localStorage.getItem('userRole');
 
+  addUserRPMMap: UserRoleMenuItemPermissionMap = new UserRoleMenuItemPermissionMap();
+  addPermissionList: string[] = [];
+  addPermissionIdListString: string;
+  roleName: string;
+  userRPMMapList: UserRoleMenuItemPermissionMap[] = [];
+  unassignedMenuItemList: MenuItem[] = [];
+
   constructor(private employeeService: EmployeeService, private router: Router,
     private toastr: ToastrService, private userRPMService: UserRoleMenuItemPermissionService,
     private menuItemService: AppMenuItemService,
     private roleService: RoleService) {
      if (this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN') {
-      localStorage.clear();
-      window.localStorage.clear();
       this.router.navigateByUrl('/unauthorized')
      }
   }
@@ -43,26 +48,43 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     this.getAllMenuItems();
   }
 
-  roleName: string;
+  /**
+   * 
+   * @param roleId 
+   */
   getRoleDetails(roleId: number) {
     this.roleService.getRole(roleId).subscribe({
       next: response => {
         if (response.status === HttpStatusCode.Ok) {
           this.roleName = response.body.roleName;
         }
+      }, error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }else{
+          this.toastr.error('Error while fetching role details')
+        }
       }
     })
   }
 
-  getAllMenuItems() {
+  /**
+   * get all menu items list
+   */
+  async getAllMenuItems() : Promise<MenuItem[]>{
     this.menuItemService.findMenuItems().subscribe({
       next: response => {
         this.menuItemList = response.body;
+        //this.unassignedMenuItemList = response.body;
         console.log(this.menuItemList)
       }
     })
+    return this.menuItemList;
   }
 
+  /**
+   * 
+   */
   getUsersList() {
     this.employeeService.getUserStatusEmployees(true).subscribe({
       next: response => {
@@ -78,7 +100,9 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   }
 
   //RPM - RolePermissionMenuItem
-  userRPMMapList: UserRoleMenuItemPermissionMap[] = [];
+  /**
+   * 
+   */
   getRoleMenuItemPermissionListByUserId() {
     localStorage.setItem('selectedUser', this.selectedUserId);
     this.userRPMService.findUserRoleMenuitemPermissionMapsByUserId(this.selectedUserId).subscribe({
@@ -102,7 +126,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     })
   }
 
-  updatePermissionStatus(userRPMMap: UserRoleMenuItemPermissionMap, event: any, permissionValue: string) {
+  updateUserRoleMenuItemPermissionMap(userRPMMap: UserRoleMenuItemPermissionMap, event: any, permissionValue: string) {
     var isconfirmed = window.confirm('Are you sure, you want to update the permission ?')
     if (isconfirmed) {
       if (event.target.checked === false) {
@@ -147,8 +171,90 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     console.log(userRPMMap)
   }
 
-  checkChecked(userRPMMap: UserRoleMenuItemPermissionMap) {
-    console.log('true')
+  /**
+   * clear error messages and existing values
+   */
+  clearErrorMessages(){
+    this.addUserRPMMap.permissionIdList = null;
+    this.addUserRPMMap.menuItemIdList = null;
+    this.unassignedMenuItemList = [];
+    console.log(this.unassignedMenuItemList)
   }
 
+  /**
+   * 
+   */
+  createUserRoleMenuItemPermissionMapForUser(){
+    this.addUserRPMMap.email = this.selectedUserId;
+    this.addUserRPMMap.permissionIdList = this.addPermissionIdListString;
+    this.addUserRPMMap.roleId = this.roleId;
+    console.log(this.addUserRPMMap)
+    this.userRPMService.createUserRoleMenuItemPermissionMap(this.addUserRPMMap).subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Created){
+          this.toastr.success('Menu Item and permissions are added for user');
+          setTimeout(() => {
+            window.location.reload();
+          },1000)
+        }
+      }, error: error => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout');
+        } else {
+          this.toastr.error('Error while adding a menu item and permissions for user.');
+        }
+      }
+    })
+  }
+
+
+  /**
+   * 
+   * @param event 
+   * @param permissionAssigned 
+   */
+  setPermission(event: any, permissionAssigned){
+    if(event.target.checked === true && (permissionAssigned === 'View' || permissionAssigned === 'Create' || permissionAssigned === 'Update' || permissionAssigned === 'Delete')){
+      var addPermissionListString = this.addPermissionList.join(',');
+      if(!addPermissionListString.includes(permissionAssigned)){
+        this.addPermissionList.push(permissionAssigned);
+      }
+    }//if
+    else{
+      var addPermissionListString = this.addPermissionList.join(',');
+      if(addPermissionListString.includes(permissionAssigned)){
+        var i = 0;
+        this.addPermissionList.forEach(permission => {
+          console.log(permission)
+          console.log(permissionAssigned)
+          if(permission.toString().trim() === permissionAssigned.toString().trim()){
+            this.addPermissionList.splice(i,1);
+          }
+          i = i+1;
+        });
+      }
+    }//else
+    this.addPermissionIdListString = this.addPermissionList.join(',');
+  }
+
+  /**
+   * 
+   */
+  async showUnAssignedMenuItemsForUser(){
+    await this.getAllMenuItems().then(value => {
+      this.unassignedMenuItemList = value;
+    }, reason => {
+      this.toastr.error('Menu Items could not fetched for user '+reason);
+    });
+    this.userRPMMapList.forEach(userRPMMap => {
+      var i = 0;
+      this.unassignedMenuItemList.forEach(menuItem => {
+        if(parseInt(userRPMMap.menuItemIdList.trim()) === menuItem.menuItemId){
+          this.unassignedMenuItemList.splice(i,1);
+          return;
+        }
+      })
+      i = i+1;
+    })
+  }
 }
