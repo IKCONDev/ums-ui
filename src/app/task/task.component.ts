@@ -802,7 +802,7 @@ validateTaskCategory(){
             if (taskIds.length > 1) {
               this.toastr.success("Tasks deleted");
             } else {
-              this.toastr.success('Task T000' + taskIds + 'is deleted');
+              this.toastr.success('Task ' + taskIds + ' is deleted');
             }
             setTimeout(() => {
               window.location.reload();
@@ -919,7 +919,7 @@ validateTaskCategory(){
 
     }
     else {
-      this.toastr.warning("Task T000" + id + " is not Deleted");
+      this.toastr.warning("Task " + id + " is not Deleted");
 
     }
 

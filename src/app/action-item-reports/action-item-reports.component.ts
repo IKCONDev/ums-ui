@@ -70,9 +70,12 @@ export class ActionItemsReportsComponent implements OnInit {
       if(this.reportType === 'priority'){
         this.choosePriority();
       }
+      if(this.reportType === 'all'){
+        this.getAllDepartmentsCount();
+        this.getAllDepartmentNames();
+      }
     },200)
-    this.getAllDepartmentsCount();
-    this.getAllDepartmentNames();
+    
   }
 
   department: Department;

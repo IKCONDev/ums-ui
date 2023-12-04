@@ -10,6 +10,7 @@ import { TaskCategoryCount } from '../model/TaskCategoryCount.model';
 import { HttpStatus } from '@azure/msal-common';
 import { HttpStatusCode } from '@angular/common/http';
 import { TaskCategoryComponent } from '../task-category/task-category.component';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-taskcategory-report',
@@ -21,15 +22,19 @@ export class TaskcategoryReportComponent implements OnInit {
   @Output()  title = 'Task Category'
   reportType: string;
   selectedTaskCategory : string;
+  taskListByCategoryChart = null
   ngOnInit(): void {
 
     this.getAllTaskCategoryList();
     this.getAllTasksByTaskcategory();
-    this.getAllTasksByCategoryCount();
+    //this.getAllTasksByCategoryCount();
     setTimeout(() => {
       if(this.reportType === 'all'){
-       // this.getAllTaskCategoryList();
+        this.getAllTasksByCategoryCount();
+        this.getchoosenCategory();
+        
       }
+
       
     },400)
 
@@ -64,6 +69,10 @@ export class TaskcategoryReportComponent implements OnInit {
   selectedtaskCategoryName : string;
   getchoosenCategory(){
     console.log(this.selectedTaskCategory);
+    if (this.taskListByCategoryChart != null) {
+      this.taskListByCategoryChart.destroy();
+     
+    }
     this.getTaskCategoryId(parseInt(this.selectedTaskCategory))
     this.taskCategoryReportservice.getAllTasksByTaskCategoryId(parseInt(this.selectedTaskCategory)).subscribe({
       next : response =>{
@@ -118,5 +127,64 @@ export class TaskcategoryReportComponent implements OnInit {
        })
     })
   }
+  createTaskListByDepartmentChart() {
+    this.taskListByCategoryChart = new Chart("taskListByDepartmentChart", {
+      type: 'doughnut',
+      data: {// values on X-Axis
+        xLabels: ['Total tasks'],
+        datasets: [
+          {
+            label: "Total Tasks of a department",
+            data: [this.categoryOfTaskCount],
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 3,
+          },
+        ]
+
+      },
+      options: {
+        aspectRatio: 2.2,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            display: true,
+            grid: {
+              display: true,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total task list for a category',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
 
 } 

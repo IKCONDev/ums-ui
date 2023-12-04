@@ -32,6 +32,8 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   roleName: string;
   userRPMMapList: UserRoleMenuItemPermissionMap[] = [];
   unassignedMenuItemList: MenuItem[] = [];
+  isUserRoleMenuItemPermissionText:boolean=false;
+  isComponentLoading:boolean=false;
 
   constructor(private employeeService: EmployeeService, private router: Router,
     private toastr: ToastrService, private userRPMService: UserRoleMenuItemPermissionService,
@@ -104,11 +106,15 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
    * 
    */
   getRoleMenuItemPermissionListByUserId() {
+    this.isComponentLoading=true;
+    this.isUserRoleMenuItemPermissionText=true;
     localStorage.setItem('selectedUser', this.selectedUserId);
     this.userRPMService.findUserRoleMenuitemPermissionMapsByUserId(this.selectedUserId).subscribe({
       next: response => {
         if (response.status === HttpStatusCode.Ok) {
           this.userRPMMapList = response.body;
+          this.isComponentLoading=false;
+          this.isUserRoleMenuItemPermissionText=false;
           this.roleId = this.userRPMMapList[0].roleId;
           console.log(this.userRPMMapList)
           this.getRoleDetails(this.roleId);
