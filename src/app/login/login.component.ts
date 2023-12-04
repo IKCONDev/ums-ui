@@ -290,8 +290,10 @@ getTokenPopup(request) {
         this.loginInfo.email = response.headers.get('email')
         this.loginInfo.twoFactorAuth = response.headers.get('twoFactorAuth')
         this.loginInfo.jwtExpiry = response.headers.get('jwtExpiry').toString()
-        console.log('Jwt expiry : '+ this.loginInfo.jwtExpiry);
-
+        var userRoleMenuItemPermissionMap = response.headers.get('userRoleMenuItemsPermissionMap');
+        const map = new Map(Object.entries(JSON.parse(userRoleMenuItemPermissionMap)));
+        console.log(userRoleMenuItemPermissionMap)
+        console.log(map)
 
         if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
           //login success popup
@@ -306,6 +308,8 @@ getTokenPopup(request) {
           localStorage.setItem('userId', this.loginInfo.userId);
           localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
           localStorage.setItem('jwtExpiry',this.loginInfo.jwtExpiry)
+          localStorage.setItem('userRoleMenuItemPermissionMap',userRoleMenuItemPermissionMap);
+
           //set default tabs for meetings
           localStorage.setItem('tabOpened', 'OrganizedMeeting');
           //set default tabs for tasks
@@ -363,6 +367,8 @@ getTokenPopup(request) {
           localStorage.setItem('userId', this.loginInfo.userId);
           localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
           localStorage.setItem('jwtExpiry',this.loginInfo.jwtExpiry)
+          localStorage.setItem('userRoleMenuItemPermissionMap',userRoleMenuItemPermissionMap);
+          
           //set default tabs for meetings
           localStorage.setItem('tabOpened', 'OrganizedMeeting');
           //set default tabs for tasks

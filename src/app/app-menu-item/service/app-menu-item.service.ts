@@ -49,6 +49,14 @@ export class AppMenuItemService {
     })
   }
 
+  findMenuItemByName(menuItemName: string){
+    return this.http.get<MenuItem>(`${this.gatewayMicroservicePathUrl}/${this.menuItemMicroservicePathUrl}/get/${menuItemName}`,{observe: 'response', headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      )
+    })
+  }
+
   deleteSelectedMenuItems(menuItemIds: number[]){
     return this.http.delete<boolean>(`${this.gatewayMicroservicePathUrl}/${this.menuItemMicroservicePathUrl}/delete/${menuItemIds}`,{observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -56,4 +64,6 @@ export class AppMenuItemService {
       )
     })
   }
+
+
 }

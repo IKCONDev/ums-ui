@@ -11,10 +11,9 @@ import { Meeting } from '../model/Meeting.model';
 import { NumberValueAccessor } from '@angular/forms';
 import { TaskStatusModel } from '../model/taskStatus.model';
 import { NotificationService } from '../notifications/service/notification.service';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
+import { MenuItem } from '../model/MenuItem.model';
 Chart.register(...registerables);
-
-
-
 
 @Component({
   selector: 'app-home',
@@ -33,6 +32,9 @@ export class HomeComponent implements OnInit {
   organizedTasksCount: number = 0;
   assignedTasksCount: number = 0;
 
+  //contains the logged in user role, menuitems and its permissions
+  userRoleMenuItemsPermissionMap: Map<String, String>
+
   loginDetails = {
     firstName: '',
     token: '',
@@ -43,6 +45,10 @@ export class HomeComponent implements OnInit {
   selectedOption: string;
   selectedOption2: string;
   MajorselectedOption: string;
+
+  /**
+   * 
+   */
   onSelectChange() {
     console.log("entered onselect change")
     if (this.selectedOption === 'Week' && this.MajorselectedOption === 'All') {
@@ -112,7 +118,7 @@ export class HomeComponent implements OnInit {
    * @param homeService 
    */
   constructor(private router: Router, private homeService: HomeService, private headerService: HeaderService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService, private menuItemService: AppMenuItemService
   ) {
     let loginInfo = {
       firstName: '',
@@ -177,25 +183,59 @@ export class HomeComponent implements OnInit {
   /**
    * 
    */
+  viewPermission: boolean = false;
+  createPermission: boolean = false;
+  updatePermission: boolean = false;
+  deletePermission: boolean = false;
   ngOnInit(): void {
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+    }
+    console.log(this.userRoleMenuItemsPermissionMap);
+
+    //get menu item  details of home page
+    this.getCurrentMenuItemDetails();
+
+    //TODO: later change to async and await
+    setTimeout(() => {
+      if (this.userRoleMenuItemsPermissionMap.has(this.currentMenuItem.menuItemId.toString().trim())) {
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.viewPermission = true;
+          //get all counts and display in home/overview poge
+          this.getUserorganizedMeetingCount();
+          this.getUserOrganizedActionItemsCount();
+          this.getUserAssignedTasksCount();
+          this.getUserOrganizedTasksCount();
+          this.getUserAttendedMeetingCount();
+          if (this.selectedOption != 'months') {
+            this.selectedOption = "Week";
+          }
+          if (this.selectedOption2 != 'months') {
+            this.selectedOption2 = "Week";
+          }
+          this.MajorselectedOption = "All";
+
+          this.onSelectChange();
+          this.onSelectChange2();
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }
+      }
+    }, 1000)
+
     //get noti count
     this.getNotificationCount(this.loggedInUser);
-    //get all counts and display in home/overview poge
-    this.getUserorganizedMeetingCount();
-    this.getUserOrganizedActionItemsCount();
-    this.getUserAssignedTasksCount();
-    this.getUserOrganizedTasksCount();
-    this.getUserAttendedMeetingCount();
-    if (this.selectedOption != 'months') {
-      this.selectedOption = "Week";
-    }
-    if (this.selectedOption2 != 'months') {
-      this.selectedOption2 = "Week";
-    }
-    this.MajorselectedOption = "All";
-
-    this.onSelectChange();
-    this.onSelectChange2();
   }
 
   /*
@@ -211,6 +251,17 @@ export class HomeComponent implements OnInit {
     //set overview as default component after logout in home page
   }
   */
+
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails() {
+    this.menuItemService.findMenuItemByName('Overview').subscribe({
+      next: response => {
+        if (response.status === HttpStatusCode.Ok) {
+          this.currentMenuItem = response.body;
+        }
+      }
+    })
+  }
 
 
   /**
@@ -320,7 +371,7 @@ export class HomeComponent implements OnInit {
   }
   TotalMeetingStatus: any[];
   TotalMeetingStatusForYear: any[];
-  TotalMeetingStatusForMonth:any[];
+  TotalMeetingStatusForMonth: any[];
   fetchTaskStatus2() {
     if (this.myChart2 != null) {
       this.myChart2.destroy();
@@ -796,7 +847,7 @@ export class HomeComponent implements OnInit {
       const currentDate = new Date();
       const currentMonth = currentDate.toLocaleString('en-US', { month: 'short' });
       const currentMonthNumber = currentDate.getMonth();
-      console.log( this.TotalMeetingStatusForMonth[1][currentMonthNumber])
+      console.log(this.TotalMeetingStatusForMonth[1][currentMonthNumber])
       this.myChart2 = new Chart("myChart2", {
         type: 'pie',
         data: {

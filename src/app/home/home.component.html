@@ -15,7 +15,7 @@
     <app-header [title]="title" [unreadNotificationCount]="notificationCount" id="header"></app-header>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid" *ngIf="viewPermission === true; else noPermission">
     <div class="row">
       <div class="col-sm-4">
         <div class="card">
@@ -196,6 +196,13 @@
       &nbsp;
     </div>
   </div>
+
+  <ng-template #noPermission>
+    <div class="container-fluid">
+      <p>YOu dont have enough permissions to view this page</p>
+    </div>
+  </ng-template>
+  
 
 
 </body>
