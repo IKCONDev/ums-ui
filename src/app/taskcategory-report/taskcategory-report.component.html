@@ -37,7 +37,7 @@
                         </div>
                         <ng-template #noTaskCategory>
                             <p>Report Module : <b>Task category</b></p>
-                            <p>Task Category Name : <b>{{0}}</b></p>
+                            <p>Task Category Name : <b>{{selectedtaskCategoryName}}</b></p>
                             <p>Total tasks: <b>{{categoryOfTaskCount}}</b></p>
                         </ng-template>
                             
@@ -64,7 +64,7 @@
             </div>
             <br/>
             <!-- <table class="table table-hover" *ngIf="meetingsByDepartmentListCount > 0; else noDeptMeetings"> -->
-            <table class="table table-hover">
+            <table class="table table-hover" *ngIf="selectedTaskCategory == null; else selectedDropdownData">
                 <thead>
                     <tr >
                         <th>ID</th>
@@ -72,28 +72,51 @@
                         <th>Count of Tasks</th>
                     </tr>
                 </thead>
-                <!-- <tbody>
-                    <tr *ngFor="let meeting of meetingsByDepartmentList">
-                        <td>{{meeting.meetingId}}</td>
-                        <td>{{meeting.subject}}</td>
-                        <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                 <tbody>
+                    <tr *ngFor="let taskcategory of finaltaskCategoryObject">
+                        <td>{{taskcategory.taskCategoryId}}</td>
+                        <td>{{taskcategory.taskCategoryTitle}}</td>
+                        <td>{{taskcategory.taskCategoryCount}}</td>
                     </tr>
-                </tbody> -->
+                </tbody>
             </table>
-            <ng-template #noDeptMeetings>
-                <table class="table table-hover">
+            <ng-template #selectedDropdownData>
+                <table class="table table-hover" *ngIf="categoryOfTaskCount >0; else noData">
+                    <thead>
+                        <tr >
+                            <th>ID</th>
+                            <th>Task Title</th>
+                            <th>Task Owner</th>
+                            <th>Organizer</th>
+                            <th>Start Date</th>
+                        </tr>
+                    </thead>
+                     <tbody>
+                        <tr *ngFor="let task of taskListByCategory">
+                            <td>{{task.taskId}}</td>
+                            <td>{{task.taskTitle}}</td>
+                            <td>{{task.taskOwner}}</td>
+                            <td>{{task.emailId}}</td>
+                            <td>{{task.startDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+               </ng-template>
+               <ng-template #noData>
+                <table class="table table-hover" >
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Task Category Name</th>
-                            <th>Count of Tasks</th>
+                            <th>Task Title</th>
+                            <th>Task Owner</th>
+                            <th>Organizer</th>
+                            <th>Start Date</th>
                         </tr>
                     </thead>
                     <tbody>
                 </table>
-                <p style="text-align: center;"><b>No Meetings from this department !</b></p>
+                <p style="text-align: center;"><b>No Tasks from this taskCategory !</b></p>
+
                </ng-template>
         
         </div>
