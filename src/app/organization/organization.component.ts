@@ -398,7 +398,7 @@ export class OrganizationComponent implements OnInit {
       this.isUpdateOrgAddressValid = false;
       this.updatedOrgAddressErrorInfo = 'Organisation address should have minimum of 30 chars';
     }
-    else if (this.org.orgAddress.length > 300) {
+    else if (this.org.orgAddress.length >= 300) {
       this.isUpdateOrgAddressValid = false;
       this.updatedOrgAddressErrorInfo = 'Organisation address should not exceed more than 300 chars';
     }

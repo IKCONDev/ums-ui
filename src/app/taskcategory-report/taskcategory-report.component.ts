@@ -89,7 +89,7 @@ export class TaskcategoryReportComponent implements OnInit {
         this.taskListByCategory = response.body;
         console.log(this.taskListByCategory);
         this.categoryOfTaskCount = response.body.length;
-        setTimeout(() => {
+        setTimeout(() => {  
           this.createTaskListByDepartmentChart();
         }, 400)
       }
@@ -147,7 +147,7 @@ export class TaskcategoryReportComponent implements OnInit {
         xLabels: ['Total tasks'],
         datasets: [
           {
-            label: "Total Tasks of a department",
+            label: "Total Tasks of a task category",
             data: [this.categoryOfTaskCount],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',

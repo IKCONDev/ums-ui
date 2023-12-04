@@ -30,6 +30,7 @@
     "chart.js": "^4.4.0",
     "chartjs-plugin-datalabels": "^2.2.0",
     "datatables.net": "^1.13.6",
+    "datatables.net-dt": "^1.13.8",
     "file-system": "^2.2.2",
     "javascript-time-ago": "^2.5.9",
     "ngx-toastr": "^17.0.2",
