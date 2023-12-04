@@ -337,6 +337,8 @@ getTokenPopup(request) {
           localStorage.setItem("actionItemStartDateFilter",'');
           localStorage.setItem("actionItemEndDateFilter",'');
 
+          localStorage.setItem('selectedUser',localStorage.getItem('email'));
+
           console.log(localStorage.getItem('userRole'))
           let navigationExtras: NavigationExtras = {
             state: {
@@ -389,6 +391,8 @@ getTokenPopup(request) {
           localStorage.setItem("actionItemOwnerFilter",'');
           localStorage.setItem("actionItemStartDateFilter",'');
           localStorage.setItem("actionItemEndDateFilter",'');
+
+          localStorage.setItem('selectedUser',localStorage.getItem('email'));
           
           let navigationExtras: NavigationExtras = {
             state: {
