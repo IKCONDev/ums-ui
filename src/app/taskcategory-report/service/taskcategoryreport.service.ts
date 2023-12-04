@@ -17,5 +17,8 @@ export class TaskCategoryReport{
      return this.http.get<Task[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/task/category`,{observe:'response',params:params});
 
     }
+    getAllTasksByCategoryCount(){
+        return this.http.get<any[]>(`${this.gateWayURL}/${this.reportMicroservicePathUrl}/task/all-categorycount`,{observe:'response'});
+    }
 
 }
