@@ -137,3 +137,14 @@ input[type=checkbox] {
     width: 18px;
     height: 17px;
 }
+
+.inputStyling{
+    border: 1px solid #2AA3D9;
+    border-radius: 4px;
+    width: 400px;
+}
+
+#collapse{
+    overflow-y:scroll;
+    height:100px;
+}

@@ -8,8 +8,15 @@
 <div class="container-fluid">
     <div class="card-header">
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-9">
                 <h3 id="heading">User Menu Item Permission List</h3>
+            </div>
+            <!-- Add btn -->
+            <div id="addBtnDiv" class="col-sm-1 d-flex">
+                <button class="form-control d-flex" id="addBtn" type="submit" data-toggle="modal"
+                    data-target="#addModal" style="width: 60px;" (click)="showUnAssignedMenuItemsForUser()">
+                    <p>Add</p>
+                </button>
             </div>
         </div>
     </div><br />
@@ -25,6 +32,7 @@
                 </ng-option>
             </ng-select>
         </div>
+
     </div><br />
     <div class="row">
         <div class="col-sm-1">
@@ -33,45 +41,113 @@
         <div class="col-sm-3">
             {{selectedUserId}}
         </div>
-    </div><br/>
-        <div class="row">
-            <div class="col-sm-1">
-                <label><b>ROLE : </b></label>
+    </div><br />
+    <div class="row">
+        <div class="col-sm-1">
+            <label><b>ROLE : </b></label>
+        </div>
+        <div class="col-sm-3">
+            {{roleName}}
+        </div>
+    </div><br />
+    <table id="myTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th>Menu Item</th>
+                <th>View</th>
+                <th>Create</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let userRPMMap of userRPMMapList">
+                <td>{{userRPMMap.menuItem.menuItemName}}</td>
+                <td *ngIf="userRPMMap.permissionIdList.includes('View')"><input type="checkbox" checked
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'View')" /></td>
+                <td *ngIf="!userRPMMap.permissionIdList.includes('View')"><input type="checkbox"
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'View')" /></td>
+                <td *ngIf="userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" checked
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Create')" /></td>
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Create')"><input type="checkbox"
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Create')" /></td>
+                <td *ngIf="userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" checked
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Update')" /></td>
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Update')"><input type="checkbox"
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Update')" /></td>
+                <td *ngIf="userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" checked
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Delete')" /></td>
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox"
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Delete')" /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Add User Role Menu Permission Item Modal -->
+<div class="modal" tabindex="-1" id="addModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title">Add Menu Item Access For User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+                        (click)="clearErrorMessages()">&times;</span>
+                </button>
             </div>
-            <div class="col-sm-3">
-                {{roleName}}
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div>
+                    <label><b>User ID</b></label>
+                <input type="text" [(ngModel)]="selectedUserId" class="form-control inputStyling" disabled="true" />
+                </div>
+                <br />
+                <div>
+                    <label><b>Role</b></label>
+                <input type="text" [(ngModel)]="roleName" class="form-control inputStyling" disabled="true" />
+                </div>
+                <br />
+                <div>
+                    <label><b>Menu Item</b></label>
+                    <div *ngIf="unassignedMenuItemList.length > 0; else noMenuItems">
+                        <ng-select id="menuItemsBox" class="inputStyling" ng-model="menuItemIds"
+                            [(ngModel)]="addUserRPMMap.menuItemIdList"
+                            ng-options="sort.menuItem as sort.menuItem for sort in menuItemList | unique : 'menuItem'"
+                            placeholder="choose menu item">
+                            <ng-option *ngFor="let menuItem of unassignedMenuItemList"
+                                value="{{menuItem.menuItemId}}">{{menuItem.menuItemName}}</ng-option>
+                        </ng-select>
+                    </div>
+                    <ng-template #noMenuItems>
+                        <input class="form-control inputStyling" value="All menu items are already assigned for this user"
+                            disabled="true" />
+                    </ng-template>
+                </div>
+                <br />
+                <div>
+                    <label><b>Choose permission for menu item</b></label><br />
+                    <div *ngIf="unassignedMenuItemList.length > 0; else noPermissions">
+                        <input type="checkbox" name="permission1" (change)="setPermission($event,'View')" />View
+                        <input type="checkbox" name="permission2" (change)="setPermission($event,'Create')" />Create
+                        <input type="checkbox" name="permission3" (change)="setPermission($event,'Update')" />Update
+                        <input type="checkbox" name="permission4" (change)="setPermission($event,'Delete')" />Delete
+                    </div>
+                    <ng-template #noPermissions>
+                        <input type="checkbox" disabled="true" />View
+                        <input type="checkbox" disabled="true" />Create
+                        <input type="checkbox" disabled="true" />Update
+                        <input type="checkbox" disabled="true" />Delete
+                    </ng-template>
+                </div>
             </div>
-        </div><br/>
-        <table id="myTable" class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Menu Item</th>
-                    <th>View</th>
-                    <th>Create</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let userRPMMap of userRPMMapList">
-                    <td>{{userRPMMap.menuItem.menuItemName}}</td>
-                    <td *ngIf="userRPMMap.permissionIdList.includes('View')"><input type="checkbox" checked
-                            (change)="updatePermissionStatus(userRPMMap,$event,'View')" /></td>
-                    <td *ngIf="!userRPMMap.permissionIdList.includes('View')"><input type="checkbox"
-                            (change)="updatePermissionStatus(userRPMMap,$event,'View')" /></td>
-                    <td *ngIf="userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" checked
-                            (change)="updatePermissionStatus(userRPMMap,$event,'Create')" /></td>
-                    <td *ngIf="!userRPMMap.permissionIdList.includes('Create')"><input type="checkbox"
-                            (change)="updatePermissionStatus(userRPMMap,$event,'Create')" /></td>
-                    <td *ngIf="userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" checked
-                            (change)="updatePermissionStatus(userRPMMap,$event,'Update')" /></td>
-                    <td *ngIf="!userRPMMap.permissionIdList.includes('Update')"><input type="checkbox"
-                            (change)="updatePermissionStatus(userRPMMap,$event,'Update')" /></td>
-                    <td *ngIf="userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" checked
-                            (change)="updatePermissionStatus(userRPMMap,$event,'Delete')" /></td>
-                    <td *ngIf="!userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox"
-                            (change)="updatePermissionStatus(userRPMMap,$event,'Delete')" /></td>
-                </tr>
-            </tbody>
-        </table>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                    (click)="createUserRoleMenuItemPermissionMapForUser()">Save</button>
+                <button id="closeUpdateModal" type="button" class="btn btn-outline-danger" data-dismiss="modal"
+                    (click)="clearErrorMessages()">Close</button>
+            </div>
+        </div>
     </div>
+</div>
