@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-sm-2" style="margin-left: 80px;">
                     <ng-select id="select" style="float: right; width: 250px;"
-                    placeholder="choose"  [(ngModel)]="selectedTaskCategory" (change)="getchoosenCategory()">
+                    placeholder="choose"  [(ngModel)]="selectedTaskCategory" (change)="getchoosenCategory(selectedTaskCategory)">
                     <ng-option *ngFor="let task of taskCategoryList"
                         value="{{task.taskCategoryId}}">{{task.taskCategoryTitle}}</ng-option>
                 </ng-select>
@@ -57,7 +57,7 @@
                                 <ng-option *ngFor="let department of departmentList"
                                     value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                             </ng-select> -->
-                            <canvas id="meetingsByDepartmentListChart"></canvas>
+                            <canvas id="taskListByCategoryChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                </ng-template>
         
         </div>
-        <div class="card-body" *ngIf="reportType !='all'">
+        <div class="card-body" *ngIf="reportType !='all'" >
             <div class="row">
                 <!-- <div class="col-sm-2" style="margin-left: 80px;">
                     <ng-select id="select" style="float: right; width: 250px;"
@@ -145,8 +145,8 @@
                         <p>Total Meetings of the Department : <b>{{meetingsByDepartmentListCount}}</b></p>
                         </div> -->
                             <p>Report Module : <b>Task category</b></p>
-                            <p>Task Category Name : <b>Task</b></p>
-                            <p>Total tasks:</p>
+                            <p>Task Category Name : <b>{{selectedtaskCategoryName}}</b></p>
+                            <p>Total tasks:<b>{{categoryOfTaskCount}}</b></p>
                            
                       </div>
                 </div>
@@ -169,28 +169,27 @@
                 </div>
             </div>
             <br/>
-            <!-- <table class="table table-hover" *ngIf="meetingsByDepartmentListCount > 0; else noDeptMeetings"> -->
-            <table class="table table-hover">
+            <table class="table table-hover" *ngIf="categoryOfTaskCount >0; else noData">
                 <thead>
                     <tr >
                         <th>ID</th>
-                        <th>Task Category Name</th>
+                        <th>Task Title</th>
+                        <th>Task Owner</th>
                         <th>Organizer</th>
-                        <th>Start Date Time</th>
-                        <th>End Date Time</th>
+                        <th>Start Date</th>
                     </tr>
                 </thead>
-                <!-- <tbody>
-                    <tr *ngFor="let meeting of meetingsByDepartmentList">
-                        <td>{{meeting.meetingId}}</td>
-                        <td>{{meeting.subject}}</td>
-                        <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                 <tbody>
+                    <tr *ngFor="let task of taskListByCategory">
+                        <td>{{task.taskId}}</td>
+                        <td>{{task.taskTitle}}</td>
+                        <td>{{task.taskOwner}}</td>
+                        <td>{{task.emailId}}</td>
+                        <td>{{task.startDate}}</td>
                     </tr>
-                </tbody> -->
-            </table>
-            <ng-template #noDeptMeetings>
+                </tbody>
+            </table>  
+            <ng-template #noData>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -203,8 +202,8 @@
                     </thead>
                     <tbody>
                 </table>
-                <p style="text-align: center;"><b>No Meetings from this department !</b></p>
-               </ng-template>
+                <p style="text-align: center;"><b>No Tasks from this category!</b></p>
+             </ng-template>
         
         </div>
 </div>
