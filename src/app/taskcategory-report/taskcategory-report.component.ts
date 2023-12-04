@@ -31,19 +31,28 @@ export class TaskcategoryReportComponent implements OnInit {
     setTimeout(() => {
       if(this.reportType === 'all'){
         this.getAllTasksByCategoryCount();
-        this.getchoosenCategory();
-        
+        this.getchoosenCategory(this.selectedTaskCategory); 
+      }
+      if(this.reportType !='all'){
+        this.getTaskCategoryId(parseInt(this.valueoftaskCategory))
+        this.getchoosenCategory(this.valueoftaskCategory)
       }
 
       
-    },400)
+    },200)
 
   }
+  valueoftaskCategory : string;
+  value : string[]
   constructor(private taskCategoryService: TaskCategoryService, private router: Router, private activatedRoute : ActivatedRoute,
     private taskservice: TaskService, private taskCategoryReportservice : TaskCategoryReport
     ){
     this.activatedRoute.queryParams.subscribe(param =>{
        this.reportType = param['reportType'];
+       console.log(this.reportType);
+      this.value = this.reportType.split(',')
+       console.log(this.value[1])
+       this.valueoftaskCategory = this.value[1]
     })
   }
   taskCategoryList : TaskCategory[];
@@ -67,11 +76,12 @@ export class TaskcategoryReportComponent implements OnInit {
   taskListByCategory : Task[]
   categoryOfTaskCount : number;
   selectedtaskCategoryName : string;
-  getchoosenCategory(){
+  getchoosenCategory(selectedCategory : string){
+     this.selectedTaskCategory = selectedCategory;
     console.log(this.selectedTaskCategory);
     if (this.taskListByCategoryChart != null) {
       this.taskListByCategoryChart.destroy();
-     
+      
     }
     this.getTaskCategoryId(parseInt(this.selectedTaskCategory))
     this.taskCategoryReportservice.getAllTasksByTaskCategoryId(parseInt(this.selectedTaskCategory)).subscribe({
@@ -79,7 +89,9 @@ export class TaskcategoryReportComponent implements OnInit {
         this.taskListByCategory = response.body;
         console.log(this.taskListByCategory);
         this.categoryOfTaskCount = response.body.length;
-        
+        setTimeout(() => {
+          this.createTaskListByDepartmentChart();
+        }, 400)
       }
     })
   }
@@ -128,8 +140,9 @@ export class TaskcategoryReportComponent implements OnInit {
     })
   }
   createTaskListByDepartmentChart() {
-    this.taskListByCategoryChart = new Chart("taskListByDepartmentChart", {
-      type: 'doughnut',
+    console.log("create task category chart entered");
+    this.taskListByCategoryChart = new Chart("taskListByCategoryChart", {
+      type: 'pie',
       data: {// values on X-Axis
         xLabels: ['Total tasks'],
         datasets: [
