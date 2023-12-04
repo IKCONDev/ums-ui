@@ -1489,10 +1489,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.meetingSubjectErrorInfo = 'Meeting subject is required';
       this.isMeetingSubjectValid = false;
     } else if (this.addMeeting.subject.length < 4) {
-      this.meetingSubjectErrorInfo = 'Meeting subject should have minimum of 4 chars';
+      this.meetingSubjectErrorInfo = 'Meeting subject should have minimum of 4 characters';
       this.isMeetingSubjectValid = false;
-    } else if (this.addMeeting.subject.length > 100) {
-      this.meetingSubjectErrorInfo = 'Meeting subject should not exceed maximum of 100 chars';
+    } else if (this.addMeeting.subject.length >= 100) {
+      this.meetingSubjectErrorInfo = 'Meeting subject should not exceed maximum of 100 characters';
       this.isMeetingSubjectValid = false;
     } else {
       this.isMeetingSubjectValid = true;

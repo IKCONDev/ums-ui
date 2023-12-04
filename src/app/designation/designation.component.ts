@@ -197,7 +197,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
         }else{
-          this.toastr.warning('Error while deleting designation '+ designationId+ '! Please try again !')
+          this.toastr.warning('Error while deleting designation '+ designationId+ ' ! Please try again !')
         }
       }
    })
