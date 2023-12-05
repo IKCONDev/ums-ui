@@ -116,7 +116,7 @@ export class ActionItemComponent implements OnInit {
   isUpdateActionItemStartDateValid = false;
   isUpdateActionItemEndDateValid = false;
 
-  isComponentLoading: boolean = false;
+  isComponentLoading: boolean = true;
   displayText: boolean = false;
   isActionItemDataText: boolean = false;
   /**
@@ -162,7 +162,7 @@ export class ActionItemComponent implements OnInit {
   userRoleMenuItemsPermissionMap: Map<string, string>
   @Output() notificationCount: number = 0;
 
-  viewPermission: boolean = true;
+  viewPermission:boolean;
   createPermission: boolean = false;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
@@ -184,6 +184,7 @@ export class ActionItemComponent implements OnInit {
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
+          this.isComponentLoading=true;
           this.viewPermission = true;
           this.getActiveUMSUsersEmailIdList();
           //get action items of user
@@ -214,6 +215,7 @@ export class ActionItemComponent implements OnInit {
           //disable past dates  
           this.pastDateTime();
         } else{
+          this.isComponentLoading=false;
           this.viewPermission = false;
         }
         if (menuItemPermissions.includes('Create')) {
