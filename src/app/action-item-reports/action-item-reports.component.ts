@@ -12,6 +12,7 @@ import { Chart } from 'chart.js';
 import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
 import { DepartmentCount } from '../model/DepartmentCount.model';
+import { ActionService } from '../action-item/service/action.service';
 
 @Component({
   selector: 'app-action-item-reports',
@@ -36,7 +37,7 @@ export class ActionItemsReportsComponent implements OnInit {
   constructor(private activatedRoute:ActivatedRoute, private deprtmentService: DepartmentService,
     private router: Router, private actionItemsReportService: ActionItemsReportsService, 
     private employeeService: EmployeeService, private headerService: HeaderService, 
-    private departmentService: DepartmentService){
+    private departmentService: DepartmentService, private actionService:ActionService){
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
       console.log(this.reportType)
@@ -51,7 +52,7 @@ export class ActionItemsReportsComponent implements OnInit {
         if(response.status === HttpStatusCode.Ok){
           this.loggedInUserPrincipalObject = response.body;
           this.selectedUser = this.loggedInUserPrincipalObject.email;
-          this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
+          //this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
           this.selectedDepartmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
           this.selectedPriority = 'High';
         }
@@ -61,6 +62,7 @@ export class ActionItemsReportsComponent implements OnInit {
        //initialize data
       this.getAllDepartments();
       this.getEmployeeAsUserList();
+      this.getAllActionItemsCount();
       if(this.reportType === 'department'){
         this.chooseDepartment();
       }
@@ -252,6 +254,9 @@ export class ActionItemsReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks:{
+              stepSize :1
+            },
           },
         },
         plugins: {
@@ -319,6 +324,9 @@ export class ActionItemsReportsComponent implements OnInit {
             display: true,
             grid: {
               display: true,
+            },
+            ticks:{
+              stepSize :1
             },
           },
         },
@@ -396,6 +404,9 @@ export class ActionItemsReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks:{
+              stepSize :1
+            },
           },
         },
         plugins: {
@@ -467,6 +478,17 @@ deptValueCount : DepartmentCount[] = [];
 
      })
     
+  }
+  allActionItemsCount : number;
+  allActionItems : ActionItems[]
+  getAllActionItemsCount(){
+    this.actionService.getAllActionItems().subscribe({
+       next : response =>{
+         this.allActionItems= response.body;
+         this.allActionItemsCount = response.body.length;
+
+       }
+    })
   }
 
 }

@@ -45,10 +45,15 @@
                       </div>
                 </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                     <div class="card">
-                        <div class="card-header">
-                            <b>Meetings</b>
+                        <div class="card-header" id="header">
+                            <b style="color:white;">Task Category</b>
+                            <a style="color: white;" (click)="setChartType('pie')">Pie</a>
+                            <a style="color: white;" (click)="setChartType('bar')">Bar</a>
+                            <a style="color: white;" (click)="setChartType('line')">Line</a>
+                            <a style="color: white;" (click)="setChartType('doughnut')">doughnut</a>
+
                         </div>
                         <div class="chart">
                             <div style="padding-top: 6px;"></div>
@@ -151,10 +156,13 @@
                       </div>
                 </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                     <div class="card">
-                        <div class="card-header">
-                            <b>Meetings</b>
+                        <div class="card-header" id="header">
+                            <b style="color: white;">Task Category</b>
+                            <a style="color: white;" (click)="setChartType('pie')">Pie</a>
+                            <a style="color: white;" (click)="setChartType('bar')">Bar</a>
+                            <a style="color: white;" (click)="setChartType('line')">Line</a>
                         </div>
                         <div class="chart">
                             <div style="padding-top: 6px;"></div>

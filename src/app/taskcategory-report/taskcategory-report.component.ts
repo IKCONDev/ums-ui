@@ -11,6 +11,7 @@ import { HttpStatus } from '@azure/msal-common';
 import { HttpStatusCode } from '@angular/common/http';
 import { TaskCategoryComponent } from '../task-category/task-category.component';
 import { Chart } from 'chart.js';
+import { valueOrDefault } from 'chart.js/dist/helpers/helpers.core';
 
 @Component({
   selector: 'app-taskcategory-report',
@@ -22,7 +23,7 @@ export class TaskcategoryReportComponent implements OnInit {
   @Output()  title = 'Task Category'
   reportType: string;
   selectedTaskCategory : string;
-  taskListByCategoryChart = null
+  taskListByCategoryChart = null;
   ngOnInit(): void {
 
     this.getAllTaskCategoryList();
@@ -90,7 +91,7 @@ export class TaskcategoryReportComponent implements OnInit {
         console.log(this.taskListByCategory);
         this.categoryOfTaskCount = response.body.length;
         setTimeout(() => {  
-          this.createTaskListByDepartmentChart();
+          //this.createTaskListByDepartmentChart();
         }, 400)
       }
     })
@@ -139,19 +140,32 @@ export class TaskcategoryReportComponent implements OnInit {
        })
     })
   }
+  type : any
+  setChartType(value : any){
+    this.type = value;
+    console.log(this.type);
+    if(this.taskListByCategoryChart!= null ){
+      this.taskListByCategoryChart.destroy();
+    }
+    this.createTaskListByDepartmentChart();
+    
+  }
   createTaskListByDepartmentChart() {
     console.log("create task category chart entered");
     this.taskListByCategoryChart = new Chart("taskListByCategoryChart", {
-      type: 'pie',
+      type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
+        xLabels: [this.selectedtaskCategoryName],
         datasets: [
           {
             label: "Total Tasks of a task category",
             data: [this.categoryOfTaskCount],
-            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 3,
+           // backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+            backgroundColor: 'rgb(153, 102, 255)', // Red
+            //backgroundColor : 'limegreen',
+           // borderColor: 'rgba(255, 99, 132, 1)',
+            borderColor :'rgb(153, 102, 255)',
+            borderWidth: 1,
           },
         ]
 
@@ -161,14 +175,19 @@ export class TaskcategoryReportComponent implements OnInit {
         scales: {
           x: {
             display: true,
+            //stacked: true,
             grid: {
-              display: false,
-            },
+               display: true,
+
+             },
           },
           y: {
             display: true,
             grid: {
               display: true,
+            },
+            ticks :{
+               stepSize : 1,
             },
           },
         },
@@ -198,6 +217,5 @@ export class TaskcategoryReportComponent implements OnInit {
       }
     });
   }
-
-
+ 
 } 
