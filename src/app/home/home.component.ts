@@ -191,15 +191,15 @@ export class HomeComponent implements OnInit {
   updatePermission: boolean = false;
   deletePermission: boolean = false;
   async ngOnInit(): Promise<void> {
-<<<<<<< HEAD
+
     this.isComponentLoading=true;
     this.isHomeComponentData=true;
     this.isPermissionData=true;
-=======
+
     if(localStorage.getItem('jwtToken') === null){
       this.router.navigateByUrl('/session-timeout');
     }
->>>>>>> 94e6a941e9b3e623bbeb1bd8cfa26f5caae32636
+    
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
     }
