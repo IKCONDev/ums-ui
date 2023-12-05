@@ -616,7 +616,7 @@
                 <!-- edit icon -->
                 <div style="text-align: end;">
 
-                    <button type="button" class="fa fa-pencil" (click)="editInfo()" [hidden]="isDisable==true">
+                    <button [style.color]="editButtonColor" [disabled]="!updatePermission" type="button" class="fa fa-pencil" (click)="editInfo()" [hidden]="isDisable==true">
                     </button>
                 </div>
 
@@ -624,10 +624,10 @@
                 <div style="text-align: end;">
                     <div class="row">
                         <div class="col-sm-6" *ngIf="isDisable==true">
-                            <button class="btn btn-primary" (click)="saveOrUpdateOrg()">Save </button>
+                            <button class="btn btn-primary" [disabled]="!updatePermission" (click)="saveOrUpdateOrg()">Save </button>
                         </div>
                         <div class="col-sm-6" *ngIf="isDisable==true">
-                            <button class="btn btn-danger" (click)="cancelCompanyDetails()">Cancel </button>
+                            <button class="btn btn-danger" [disabled]="!updatePermission" (click)="cancelCompanyDetails()">Cancel </button>
                         </div>
                     </div>
                 </div>
