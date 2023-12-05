@@ -68,6 +68,7 @@ export class OrganizationComponent implements OnInit {
   deletePermission: boolean;
   noPermissions: boolean;
   userRoleMenuItemsPermissionMap: Map<string, string>
+  editButtonColor: string;
   async ngOnInit(): Promise<void> {
 
     if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
@@ -104,8 +105,10 @@ export class OrganizationComponent implements OnInit {
         }
         if (menuItemPermissions.includes('Update')) {
           this.updatePermission = true;
+          this.editButtonColor = '#5590AA';
         }else{
           this.updatePermission = false;
+          this.editButtonColor = 'lightgray';
         }
         if (menuItemPermissions.includes('Delete')) {
           this.deletePermission = true;
