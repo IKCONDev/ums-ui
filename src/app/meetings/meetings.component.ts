@@ -656,16 +656,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('tabOpened'))
 
     if (tabOpened === 'OrganizedMeeting') {
+      document.getElementById("organizedMeeting").style.borderBottom = '2px solid white';
+      document.getElementById("organizedMeeting").style.width = 'fit-content';
+      document.getElementById("organizedMeeting").style.paddingBottom = '2px';
+      document.getElementById("attendedMeeting").style.borderBottom = 'none';
       console.log(document.getElementById('organizedMeeting'))
       //get user organized meetings
       if (this.selectedReporteeOrganizedMeeting != '') {
         this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, this.organizedMeetingTitleFilter,
           this.organizedMeetingStartDateFilter, this.organizedMeetingEndDateFilter).subscribe({
             next: (response) => {
-              document.getElementById("organizedMeeting").style.borderBottom = '2px solid white';
-              document.getElementById("organizedMeeting").style.width = 'fit-content';
-              document.getElementById("organizedMeeting").style.paddingBottom = '2px';
-              document.getElementById("attendedMeeting").style.borderBottom = 'none';
+             
               this.meetings = response.body;
               this.meetingCount = response.body.length
               if (this.meetingCount === 0) {
