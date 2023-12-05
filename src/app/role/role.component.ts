@@ -231,7 +231,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
           }else if(error.status === HttpStatusCode.Found){
             this.toastr.error('Role name '+this.addRoleObj.roleName+' already exists')
             //close form modal
-            document.getElementById('closeAddModal').click();
+            //document.getElementById('closeAddModal').click();
           }else {
             this.toastr.error("Error while creating role. Please try again !")
           }

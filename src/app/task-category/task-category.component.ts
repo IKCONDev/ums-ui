@@ -223,8 +223,8 @@ export class TaskCategoryComponent implements OnInit {
       this.taskCategoryService.createTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
-            this.closeModal();
             this.toastrService.success('Task category '+taskCategory.taskCategoryTitle+' created successfully');
+            this.closeModal();
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -234,6 +234,7 @@ export class TaskCategoryComponent implements OnInit {
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.Found){
             this.toastrService.error("Task category '"+taskCategory.taskCategoryTitle+"' already exists");
+            //this.closeModal();
           }
           else {
             this.toastrService.error('Error while creating the task category. Please try again !')

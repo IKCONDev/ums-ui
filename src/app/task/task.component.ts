@@ -155,7 +155,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.table.destroy();
     }
   }
-  isComponentLoading: boolean = true;
+  isComponentLoading: boolean = false;
   displayText: boolean = false;
   isOrganizedDataText: boolean = false;
   isAssignedDataText: boolean = false;
@@ -179,6 +179,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   createPermission: boolean = false;;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
+  noPermissions: boolean;
 
   updateButtonColor: string;
   deleteButtonColor: string;
@@ -197,12 +198,13 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       var currentMenuItem = await this.getCurrentMenuItemDetails();
       console.log(currentMenuItem)
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
-          this.isComponentLoading = false;
+          //this.isComponentLoading = false;
           this.viewPermission = true;
           //disable kwyboard movement on startdate
           const taskStartDate = document.getElementById('taskStartDate');
@@ -268,7 +270,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           //  localStorage.setItem('selectedReportee', localStorage.getItem('email'));
           //console.log(this.selectedReportee)
         } else {
-          this.isComponentLoading = false;
+          //this.isComponentLoading = false;
           this.viewPermission = false;
         }
         if (menuItemPermissions.includes('Create')) {
@@ -285,6 +287,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.deleteButtonColor = 'lightgray'
         }
+      }else{
+        this.noPermissions = true;
       }
     }
 

@@ -7,51 +7,65 @@
     <app-header [title]="title"></app-header>
 </div>
 <!-- container -->
-<div class="container-fluid" *ngIf="isorganizationDataText===false">
+<div class="container-fluid" *ngIf="viewPermission === true && isorganizationDataText===false">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-3">
                 <span *ngIf="org.organizationImage!=null">
-                <label for="file-input" class="image-container">
-                    <img *ngIf="org.organizationImage!=null" [src]="'data:image/png/jpg/jpeg;base64,'+org.organizationImage" width="210px" height="210px" class="image-preview" />
-                    <div class="upload-text"><svg width="88" height="88" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_313_1241)">
-                        <path d="M23.9996 30.3996C27.5342 30.3996 30.3996 27.5342 30.3996 23.9996C30.3996 20.465 27.5342 17.5996 23.9996 17.5996C20.465 17.5996 17.5996 20.465 17.5996 23.9996C17.5996 27.5342 20.465 30.3996 23.9996 30.3996Z" fill="black"/>
-                        <path d="M18 4L14.34 8H8C5.79 8 4 9.79 4 12V36C4 38.21 5.79 40 8 40H40C42.21 40 44 38.21 44 36V12C44 9.79 42.21 8 40 8H33.66L30 4H18ZM24 34C18.48 34 14 29.52 14 24C14 18.48 18.48 14 24 14C29.52 14 34 18.48 34 24C34 29.52 29.52 34 24 34Z" fill="black"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_313_1241">
-                        <rect width="48" height="48" fill="white"/>
-                        </clipPath>
-                        </defs>
-                        </svg>
+                    <label for="file-input" class="image-container">
+                        <img *ngIf="org.organizationImage!=null"
+                            [src]="'data:image/png/jpg/jpeg;base64,'+org.organizationImage" width="210px" height="210px"
+                            class="image-preview" />
+                        <div class="upload-text"><svg width="88" height="88" viewBox="0 0 48 48" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_313_1241)">
+                                    <path
+                                        d="M23.9996 30.3996C27.5342 30.3996 30.3996 27.5342 30.3996 23.9996C30.3996 20.465 27.5342 17.5996 23.9996 17.5996C20.465 17.5996 17.5996 20.465 17.5996 23.9996C17.5996 27.5342 20.465 30.3996 23.9996 30.3996Z"
+                                        fill="black" />
+                                    <path
+                                        d="M18 4L14.34 8H8C5.79 8 4 9.79 4 12V36C4 38.21 5.79 40 8 40H40C42.21 40 44 38.21 44 36V12C44 9.79 42.21 8 40 8H33.66L30 4H18ZM24 34C18.48 34 14 29.52 14 24C14 18.48 18.48 14 24 14C29.52 14 34 18.48 34 24C34 29.52 29.52 34 24 34Z"
+                                        fill="black" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_313_1241">
+                                        <rect width="48" height="48" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
                         </div>
-                </label>
-            </span>
+                    </label>
+                </span>
                 <input id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)" />
                 <span *ngIf="org.organizationImage===null">
-                <label  for="file-input" class="image-container">
-                    <img src="" class="image-preview" />
-                    <div class="upload-text"><svg width="88" height="88" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_313_1241)">
-                        <path d="M23.9996 30.3996C27.5342 30.3996 30.3996 27.5342 30.3996 23.9996C30.3996 20.465 27.5342 17.5996 23.9996 17.5996C20.465 17.5996 17.5996 20.465 17.5996 23.9996C17.5996 27.5342 20.465 30.3996 23.9996 30.3996Z" fill="black"/>
-                        <path d="M18 4L14.34 8H8C5.79 8 4 9.79 4 12V36C4 38.21 5.79 40 8 40H40C42.21 40 44 38.21 44 36V12C44 9.79 42.21 8 40 8H33.66L30 4H18ZM24 34C18.48 34 14 29.52 14 24C14 18.48 18.48 14 24 14C29.52 14 34 18.48 34 24C34 29.52 29.52 34 24 34Z" fill="black"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_313_1241">
-                        <rect width="48" height="48" fill="white"/>
-                        </clipPath>
-                        </defs>
-                        </svg>
+                    <label for="file-input" class="image-container">
+                        <img src="" class="image-preview" />
+                        <div class="upload-text"><svg width="88" height="88" viewBox="0 0 48 48" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_313_1241)">
+                                    <path
+                                        d="M23.9996 30.3996C27.5342 30.3996 30.3996 27.5342 30.3996 23.9996C30.3996 20.465 27.5342 17.5996 23.9996 17.5996C20.465 17.5996 17.5996 20.465 17.5996 23.9996C17.5996 27.5342 20.465 30.3996 23.9996 30.3996Z"
+                                        fill="black" />
+                                    <path
+                                        d="M18 4L14.34 8H8C5.79 8 4 9.79 4 12V36C4 38.21 5.79 40 8 40H40C42.21 40 44 38.21 44 36V12C44 9.79 42.21 8 40 8H33.66L30 4H18ZM24 34C18.48 34 14 29.52 14 24C14 18.48 18.48 14 24 14C29.52 14 34 18.48 34 24C34 29.52 29.52 34 24 34Z"
+                                        fill="black" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_313_1241">
+                                        <rect width="48" height="48" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
                         </div>
-                </label>
-            </span>
-                
+                    </label>
+                </span>
+
                 <br />
                 <!-- orgName -->
                 <div style="padding-top: 8px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 25 25" fill="none">
-                        <path d="M21.5 21H20V7.5C20.0074 7.39064 19.978 7.28195 19.9163 7.1913C19.8547 7.10066 19.7644 7.0333 19.66 7L16 5.47V21H15V3.5C15 3.36739 14.9473 3.24021 14.8536 3.14645C14.7598 3.05268 14.6326 3 14.5 3H5.5C5.36739 3 5.24021 3.05268 5.14645 3.14645C5.05268 3.24021 5 3.36739 5 3.5V21H3.5C3.36739 21 3.24021 21.0527 3.14645 21.1464C3.05268 21.2402 3 21.3674 3 21.5C3 21.6326 3.05268 21.7598 3.14645 21.8536C3.24021 21.9473 3.36739 22 3.5 22H21.5C21.6326 22 21.7598 21.9473 21.8536 21.8536C21.9473 21.7598 22 21.6326 22 21.5C22 21.3674 21.9473 21.2402 21.8536 21.1464C21.7598 21.0527 21.6326 21 21.5 21ZM17.5 9H18.5C18.6326 9 18.7598 9.05268 18.8536 9.14645C18.9473 9.24021 19 9.36739 19 9.5C18.9974 9.63181 18.9439 9.7575 18.8507 9.85072C18.7575 9.94394 18.6318 9.99744 18.5 10H17.5C17.3682 9.99744 17.2425 9.94394 17.1493 9.85072C17.0561 9.7575 17.0026 9.63181 17 9.5C17 9.36739 17.0527 9.24021 17.1464 9.14645C17.2402 9.05268 17.3674 9 17.5 9ZM17.5 12H18.5C18.6326 12 18.7598 12.0527 18.8536 12.1464C18.9473 12.2402 19 12.3674 19 12.5C19 12.6326 18.9473 12.7598 18.8536 12.8536C18.7598 12.9473 18.6326 13 18.5 13H17.5C17.3674 13 17.2402 12.9473 17.1464 12.8536C17.0527 12.7598 17 12.6326 17 12.5C17 12.3674 17.0527 12.2402 17.1464 12.1464C17.2402 12.0527 17.3674 12 17.5 12ZM17.5 15H18.5C18.6318 15.0026 18.7575 15.0561 18.8507 15.1493C18.9439 15.2425 18.9974 15.3682 19 15.5C19 15.6326 18.9473 15.7598 18.8536 15.8536C18.7598 15.9473 18.6326 16 18.5 16H17.5C17.3674 16 17.2402 15.9473 17.1464 15.8536C17.0527 15.7598 17 15.6326 17 15.5C17.0026 15.3682 17.0561 15.2425 17.1493 15.1493C17.2425 15.0561 17.3682 15.0026 17.5 15ZM17.5 18H18.5C18.6326 18 18.7598 18.0527 18.8536 18.1464C18.9473 18.2402 19 18.3674 19 18.5C19 18.6326 18.9473 18.7598 18.8536 18.8536C18.7598 18.9473 18.6326 19 18.5 19H17.5C17.3674 19 17.2402 18.9473 17.1464 18.8536C17.0527 18.7598 17 18.6326 17 18.5C17 18.3674 17.0527 18.2402 17.1464 18.1464C17.2402 18.0527 17.3674 18 17.5 18ZM11 6H12C12.1326 6 12.2598 6.05268 12.3536 6.14645C12.4473 6.24021 12.5 6.36739 12.5 6.5C12.5 6.63261 12.4473 6.75979 12.3536 6.85355C12.2598 6.94732 12.1326 7 12 7H11C10.8674 7 10.7402 6.94732 10.6464 6.85355C10.5527 6.75979 10.5 6.63261 10.5 6.5C10.5 6.36739 10.5527 6.24021 10.6464 6.14645C10.7402 6.05268 10.8674 6 11 6ZM11 9H12C12.1326 9 12.2598 9.05268 12.3536 9.14645C12.4473 9.24021 12.5 9.36739 12.5 9.5C12.5 9.63261 12.4473 9.75979 12.3536 9.85355C12.2598 9.94732 12.1326 10 12 10H11C10.8674 10 10.7402 9.94732 10.6464 9.85355C10.5527 9.75979 10.5 9.63261 10.5 9.5C10.5 9.36739 10.5527 9.24021 10.6464 9.14645C10.7402 9.05268 10.8674 9 11 9ZM11 12H12C12.1326 12 12.2598 12.0527 12.3536 12.1464C12.4473 12.2402 12.5 12.3674 12.5 12.5C12.5 12.6326 12.4473 12.7598 12.3536 12.8536C12.2598 12.9473 12.1326 13 12 13H11C10.8674 13 10.7402 12.9473 10.6464 12.8536C10.5527 12.7598 10.5 12.6326 10.5 12.5C10.5 12.3674 10.5527 12.2402 10.6464 12.1464C10.7402 12.0527 10.8674 12 11 12ZM11 15H12C12.1326 15 12.2598 15.0527 12.3536 15.1464C12.4473 15.2402 12.5 15.3674 12.5 15.5C12.5 15.6326 12.4473 15.7598 12.3536 15.8536C12.2598 15.9473 12.1326 16 12 16H11C10.8674 16 10.7402 15.9473 10.6464 15.8536C10.5527 15.7598 10.5 15.6326 10.5 15.5C10.5 15.3674 10.5527 15.2402 10.6464 15.1464C10.7402 15.0527 10.8674 15 11 15ZM7.94 6H9C9.13261 6 9.25979 6.05268 9.35355 6.14645C9.44732 6.24021 9.5 6.36739 9.5 6.5C9.5 6.63261 9.44732 6.75979 9.35355 6.85355C9.25979 6.94732 9.13261 7 9 7H8C7.86739 7 7.74021 6.94732 7.64645 6.85355C7.55268 6.75979 7.5 6.63261 7.5 6.5C7.5 6.36739 7.55268 6.24021 7.64645 6.14645C7.74021 6.05268 7.86739 6 8 6H7.94ZM7.94 9H9C9.13261 9 9.25979 9.05268 9.35355 9.14645C9.44732 9.24021 9.5 9.36739 9.5 9.5C9.5 9.63261 9.44732 9.75979 9.35355 9.85355C9.25979 9.94732 9.13261 10 9 10H8C7.86739 10 7.74021 9.94732 7.64645 9.85355C7.55268 9.75979 7.5 9.63261 7.5 9.5C7.5 9.36739 7.55268 9.24021 7.64645 9.14645C7.74021 9.05268 7.86739 9 8 9H7.94ZM7.94 12H9C9.13261 12 9.25979 12.0527 9.35355 12.1464C9.44732 12.2402 9.5 12.3674 9.5 12.5C9.5 12.6326 9.44732 12.7598 9.35355 12.8536C9.25979 12.9473 9.13261 13 9 13H8C7.86739 13 7.74021 12.9473 7.64645 12.8536C7.55268 12.7598 7.5 12.6326 7.5 12.5C7.5 12.3674 7.55268 12.2402 7.64645 12.1464C7.74021 12.0527 7.86739 12 8 12H7.94ZM7.94 15H9C9.13261 15 9.25979 15.0527 9.35355 15.1464C9.44732 15.2402 9.5 15.3674 9.5 15.5C9.5 15.6326 9.44732 15.7598 9.35355 15.8536C9.25979 15.9473 9.13261 16 9 16H8C7.86739 16 7.74021 15.9473 7.64645 15.8536C7.55268 15.7598 7.5 15.6326 7.5 15.5C7.5 15.3674 7.55268 15.2402 7.64645 15.1464C7.74021 15.0527 7.86739 15 8 15H7.94ZM10.5 21V19H9.5V21H8.5V18.47C8.50765 18.3427 8.56369 18.2231 8.65664 18.1357C8.7496 18.0483 8.87243 17.9998 9 18H11C11.1326 18 11.2598 18.0527 11.3536 18.1464C11.4473 18.2402 11.5 18.3674 11.5 18.5V21H10.5Z" fill="#2B3344"/>
+                        <path
+                            d="M21.5 21H20V7.5C20.0074 7.39064 19.978 7.28195 19.9163 7.1913C19.8547 7.10066 19.7644 7.0333 19.66 7L16 5.47V21H15V3.5C15 3.36739 14.9473 3.24021 14.8536 3.14645C14.7598 3.05268 14.6326 3 14.5 3H5.5C5.36739 3 5.24021 3.05268 5.14645 3.14645C5.05268 3.24021 5 3.36739 5 3.5V21H3.5C3.36739 21 3.24021 21.0527 3.14645 21.1464C3.05268 21.2402 3 21.3674 3 21.5C3 21.6326 3.05268 21.7598 3.14645 21.8536C3.24021 21.9473 3.36739 22 3.5 22H21.5C21.6326 22 21.7598 21.9473 21.8536 21.8536C21.9473 21.7598 22 21.6326 22 21.5C22 21.3674 21.9473 21.2402 21.8536 21.1464C21.7598 21.0527 21.6326 21 21.5 21ZM17.5 9H18.5C18.6326 9 18.7598 9.05268 18.8536 9.14645C18.9473 9.24021 19 9.36739 19 9.5C18.9974 9.63181 18.9439 9.7575 18.8507 9.85072C18.7575 9.94394 18.6318 9.99744 18.5 10H17.5C17.3682 9.99744 17.2425 9.94394 17.1493 9.85072C17.0561 9.7575 17.0026 9.63181 17 9.5C17 9.36739 17.0527 9.24021 17.1464 9.14645C17.2402 9.05268 17.3674 9 17.5 9ZM17.5 12H18.5C18.6326 12 18.7598 12.0527 18.8536 12.1464C18.9473 12.2402 19 12.3674 19 12.5C19 12.6326 18.9473 12.7598 18.8536 12.8536C18.7598 12.9473 18.6326 13 18.5 13H17.5C17.3674 13 17.2402 12.9473 17.1464 12.8536C17.0527 12.7598 17 12.6326 17 12.5C17 12.3674 17.0527 12.2402 17.1464 12.1464C17.2402 12.0527 17.3674 12 17.5 12ZM17.5 15H18.5C18.6318 15.0026 18.7575 15.0561 18.8507 15.1493C18.9439 15.2425 18.9974 15.3682 19 15.5C19 15.6326 18.9473 15.7598 18.8536 15.8536C18.7598 15.9473 18.6326 16 18.5 16H17.5C17.3674 16 17.2402 15.9473 17.1464 15.8536C17.0527 15.7598 17 15.6326 17 15.5C17.0026 15.3682 17.0561 15.2425 17.1493 15.1493C17.2425 15.0561 17.3682 15.0026 17.5 15ZM17.5 18H18.5C18.6326 18 18.7598 18.0527 18.8536 18.1464C18.9473 18.2402 19 18.3674 19 18.5C19 18.6326 18.9473 18.7598 18.8536 18.8536C18.7598 18.9473 18.6326 19 18.5 19H17.5C17.3674 19 17.2402 18.9473 17.1464 18.8536C17.0527 18.7598 17 18.6326 17 18.5C17 18.3674 17.0527 18.2402 17.1464 18.1464C17.2402 18.0527 17.3674 18 17.5 18ZM11 6H12C12.1326 6 12.2598 6.05268 12.3536 6.14645C12.4473 6.24021 12.5 6.36739 12.5 6.5C12.5 6.63261 12.4473 6.75979 12.3536 6.85355C12.2598 6.94732 12.1326 7 12 7H11C10.8674 7 10.7402 6.94732 10.6464 6.85355C10.5527 6.75979 10.5 6.63261 10.5 6.5C10.5 6.36739 10.5527 6.24021 10.6464 6.14645C10.7402 6.05268 10.8674 6 11 6ZM11 9H12C12.1326 9 12.2598 9.05268 12.3536 9.14645C12.4473 9.24021 12.5 9.36739 12.5 9.5C12.5 9.63261 12.4473 9.75979 12.3536 9.85355C12.2598 9.94732 12.1326 10 12 10H11C10.8674 10 10.7402 9.94732 10.6464 9.85355C10.5527 9.75979 10.5 9.63261 10.5 9.5C10.5 9.36739 10.5527 9.24021 10.6464 9.14645C10.7402 9.05268 10.8674 9 11 9ZM11 12H12C12.1326 12 12.2598 12.0527 12.3536 12.1464C12.4473 12.2402 12.5 12.3674 12.5 12.5C12.5 12.6326 12.4473 12.7598 12.3536 12.8536C12.2598 12.9473 12.1326 13 12 13H11C10.8674 13 10.7402 12.9473 10.6464 12.8536C10.5527 12.7598 10.5 12.6326 10.5 12.5C10.5 12.3674 10.5527 12.2402 10.6464 12.1464C10.7402 12.0527 10.8674 12 11 12ZM11 15H12C12.1326 15 12.2598 15.0527 12.3536 15.1464C12.4473 15.2402 12.5 15.3674 12.5 15.5C12.5 15.6326 12.4473 15.7598 12.3536 15.8536C12.2598 15.9473 12.1326 16 12 16H11C10.8674 16 10.7402 15.9473 10.6464 15.8536C10.5527 15.7598 10.5 15.6326 10.5 15.5C10.5 15.3674 10.5527 15.2402 10.6464 15.1464C10.7402 15.0527 10.8674 15 11 15ZM7.94 6H9C9.13261 6 9.25979 6.05268 9.35355 6.14645C9.44732 6.24021 9.5 6.36739 9.5 6.5C9.5 6.63261 9.44732 6.75979 9.35355 6.85355C9.25979 6.94732 9.13261 7 9 7H8C7.86739 7 7.74021 6.94732 7.64645 6.85355C7.55268 6.75979 7.5 6.63261 7.5 6.5C7.5 6.36739 7.55268 6.24021 7.64645 6.14645C7.74021 6.05268 7.86739 6 8 6H7.94ZM7.94 9H9C9.13261 9 9.25979 9.05268 9.35355 9.14645C9.44732 9.24021 9.5 9.36739 9.5 9.5C9.5 9.63261 9.44732 9.75979 9.35355 9.85355C9.25979 9.94732 9.13261 10 9 10H8C7.86739 10 7.74021 9.94732 7.64645 9.85355C7.55268 9.75979 7.5 9.63261 7.5 9.5C7.5 9.36739 7.55268 9.24021 7.64645 9.14645C7.74021 9.05268 7.86739 9 8 9H7.94ZM7.94 12H9C9.13261 12 9.25979 12.0527 9.35355 12.1464C9.44732 12.2402 9.5 12.3674 9.5 12.5C9.5 12.6326 9.44732 12.7598 9.35355 12.8536C9.25979 12.9473 9.13261 13 9 13H8C7.86739 13 7.74021 12.9473 7.64645 12.8536C7.55268 12.7598 7.5 12.6326 7.5 12.5C7.5 12.3674 7.55268 12.2402 7.64645 12.1464C7.74021 12.0527 7.86739 12 8 12H7.94ZM7.94 15H9C9.13261 15 9.25979 15.0527 9.35355 15.1464C9.44732 15.2402 9.5 15.3674 9.5 15.5C9.5 15.6326 9.44732 15.7598 9.35355 15.8536C9.25979 15.9473 9.13261 16 9 16H8C7.86739 16 7.74021 15.9473 7.64645 15.8536C7.55268 15.7598 7.5 15.6326 7.5 15.5C7.5 15.3674 7.55268 15.2402 7.64645 15.1464C7.74021 15.0527 7.86739 15 8 15H7.94ZM10.5 21V19H9.5V21H8.5V18.47C8.50765 18.3427 8.56369 18.2231 8.65664 18.1357C8.7496 18.0483 8.87243 17.9998 9 18H11C11.1326 18 11.2598 18.0527 11.3536 18.1464C11.4473 18.2402 11.5 18.3674 11.5 18.5V21H10.5Z"
+                            fill="#2B3344" />
                     </svg><span id="required" [hidden]="isDisable === false">*</span>&nbsp;&nbsp;&nbsp;
                     <!-- <label>Company Name : </label> -->
                     <b *ngIf="org.orgName === null  && isDisable == false">-</b>
@@ -59,9 +73,9 @@
                         <h4 *ngIf="org.orgName !== null">{{org.orgName}}</h4>
                     </label>
                     <!-- add textbox -->
-                    <input type="text" placeholder="Enter Company Name" [(ngModel)]="org.orgName" *ngIf="isDisable==true" 
-                    class="form-control"
-                    minlength="3" maxlength="40" (keyup)="validateOrgName()">
+                    <input type="text" placeholder="Enter Company Name" [(ngModel)]="org.orgName"
+                        *ngIf="isDisable==true" class="form-control" minlength="3" maxlength="40"
+                        (keyup)="validateOrgName()">
                     <span *ngIf="updatedOrgNameErrorInfo!= ''">
                         <p id="errorMessage">{{updatedOrgNameErrorInfo}}</p>
                     </span>
@@ -73,20 +87,24 @@
                 <!-- orgWebsite -->
                 <!-- <label>Website : </label> -->
                 <div>
-                    <svg xmlns="http://www.w3.org/2000/svg"  width="19" height="20" viewBox="0 0 92 92" fill="none">
-                        <path d="M46 0C20.6 0 0 20.6 0 46C0 71.4 20.6 92 46 92C71.4 92 92 71.4 92 46C92 20.6 71.4 0 46 0ZM49.7 83.8C49.5 83.8 49.3 83.8 49 83.9V62.2C54.2 62.1 58.9 62 63.2 61.7C59.4 73.4 52.3 81.2 49.7 83.8ZM42.3 83.8C39.6 81.1 32.6 73.3 28.8 61.7C33 62 37.8 62.2 43 62.2V83.9C42.8 83.9 42.6 83.8 42.3 83.8ZM8 46C8 43.5 8.3 41 8.7 38.6C10.9 38.2 15.1 37.6 21 37C20.5 39.9 20.2 42.9 20.2 46.1C20.2 49.3 20.5 52.3 20.9 55.1C15.1 54.5 10.8 53.9 8.6 53.5C8.3 51 8 48.5 8 46ZM26.3 46C26.3 42.6 26.7 39.4 27.3 36.4C31.9 36.1 37.1 35.8 43 35.8V56.2C37.2 56.1 31.9 55.9 27.2 55.5C26.7 52.6 26.3 49.4 26.3 46ZM49.6 8.2C52.3 10.9 59.2 18.9 63.1 30.3C58.9 30 54.2 29.8 49 29.8V8.1C49.2 8.1 49.4 8.2 49.6 8.2ZM43 8.1V29.8C37.8 29.9 33.1 30 28.9 30.3C32.7 18.9 39.7 10.9 42.3 8.2C42.6 8.2 42.8 8.1 43 8.1ZM49 56.2V35.8C54.8 35.9 60.1 36.1 64.7 36.4C65.3 39.4 65.7 42.6 65.7 46C65.7 49.4 65.4 52.6 64.8 55.6C60.2 55.9 54.9 56.1 49 56.2ZM70.9 37C76.8 37.6 81 38.2 83.2 38.6C83.7 41 84 43.5 84 46C84 48.5 83.7 51 83.3 53.4C81.1 53.8 76.9 54.4 71 55C71.5 52.1 71.7 49.1 71.7 45.9C71.7 42.9 71.4 39.8 70.9 37ZM81.4 32.2C78.6 31.8 74.6 31.3 69.5 30.8C67.1 22.2 62.9 15.3 59.4 10.4C69.5 14.2 77.5 22.2 81.4 32.2ZM32.6 10.4C29 15.2 24.9 22.1 22.5 30.7C17.5 31.1 13.5 31.7 10.6 32.1C14.5 22.2 22.6 14.2 32.6 10.4ZM10.6 59.8C13.4 60.2 17.4 60.7 22.4 61.2C24.8 69.8 28.8 76.7 32.4 81.5C22.4 77.6 14.5 69.7 10.6 59.8ZM59.6 81.5C63.2 76.7 67.2 69.9 69.6 61.3C74.6 60.9 78.6 60.3 81.4 59.9C77.5 69.7 69.6 77.6 59.6 81.5Z" fill="black"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 92 92" fill="none">
+                        <path
+                            d="M46 0C20.6 0 0 20.6 0 46C0 71.4 20.6 92 46 92C71.4 92 92 71.4 92 46C92 20.6 71.4 0 46 0ZM49.7 83.8C49.5 83.8 49.3 83.8 49 83.9V62.2C54.2 62.1 58.9 62 63.2 61.7C59.4 73.4 52.3 81.2 49.7 83.8ZM42.3 83.8C39.6 81.1 32.6 73.3 28.8 61.7C33 62 37.8 62.2 43 62.2V83.9C42.8 83.9 42.6 83.8 42.3 83.8ZM8 46C8 43.5 8.3 41 8.7 38.6C10.9 38.2 15.1 37.6 21 37C20.5 39.9 20.2 42.9 20.2 46.1C20.2 49.3 20.5 52.3 20.9 55.1C15.1 54.5 10.8 53.9 8.6 53.5C8.3 51 8 48.5 8 46ZM26.3 46C26.3 42.6 26.7 39.4 27.3 36.4C31.9 36.1 37.1 35.8 43 35.8V56.2C37.2 56.1 31.9 55.9 27.2 55.5C26.7 52.6 26.3 49.4 26.3 46ZM49.6 8.2C52.3 10.9 59.2 18.9 63.1 30.3C58.9 30 54.2 29.8 49 29.8V8.1C49.2 8.1 49.4 8.2 49.6 8.2ZM43 8.1V29.8C37.8 29.9 33.1 30 28.9 30.3C32.7 18.9 39.7 10.9 42.3 8.2C42.6 8.2 42.8 8.1 43 8.1ZM49 56.2V35.8C54.8 35.9 60.1 36.1 64.7 36.4C65.3 39.4 65.7 42.6 65.7 46C65.7 49.4 65.4 52.6 64.8 55.6C60.2 55.9 54.9 56.1 49 56.2ZM70.9 37C76.8 37.6 81 38.2 83.2 38.6C83.7 41 84 43.5 84 46C84 48.5 83.7 51 83.3 53.4C81.1 53.8 76.9 54.4 71 55C71.5 52.1 71.7 49.1 71.7 45.9C71.7 42.9 71.4 39.8 70.9 37ZM81.4 32.2C78.6 31.8 74.6 31.3 69.5 30.8C67.1 22.2 62.9 15.3 59.4 10.4C69.5 14.2 77.5 22.2 81.4 32.2ZM32.6 10.4C29 15.2 24.9 22.1 22.5 30.7C17.5 31.1 13.5 31.7 10.6 32.1C14.5 22.2 22.6 14.2 32.6 10.4ZM10.6 59.8C13.4 60.2 17.4 60.7 22.4 61.2C24.8 69.8 28.8 76.7 32.4 81.5C22.4 77.6 14.5 69.7 10.6 59.8ZM59.6 81.5C63.2 76.7 67.2 69.9 69.6 61.3C74.6 60.9 78.6 60.3 81.4 59.9C77.5 69.7 69.6 77.6 59.6 81.5Z"
+                            fill="black" />
                     </svg>&nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgWebsite === null&& isDisable == false || org.orgWebsite === '' && isDisable == false">-</b>
-                <label *ngIf="org.orgWebsite !== null && isDisable==false"><a href={{org.orgWebsite}}>
-                        {{org.orgWebsite}}</a></label>
-                <input type="text" placeholder="Enter Company Website Url" [(ngModel)]="org.orgWebsite" *ngIf="isDisable==true" 
-                class="form-control"  minlength="6" maxlength="50" (keyup)="validateWebsite()">
-                <span *ngIf="updatedOrgWebsiteErrorInfo!= ''">
-                    <p id="errorMessage">{{updatedOrgWebsiteErrorInfo}}</p>
-                </span>
-                <div *ngIf="isDisable==true" style="padding-bottom: 0px;">
-                    &nbsp;
-                </div>
+                    <b
+                        *ngIf="org.orgWebsite === null&& isDisable == false || org.orgWebsite === '' && isDisable == false">-</b>
+                    <label *ngIf="org.orgWebsite !== null && isDisable==false"><a href={{org.orgWebsite}}>
+                            {{org.orgWebsite}}</a></label>
+                    <input type="text" placeholder="Enter Company Website Url" [(ngModel)]="org.orgWebsite"
+                        *ngIf="isDisable==true" class="form-control" minlength="6" maxlength="50"
+                        (keyup)="validateWebsite()">
+                    <span *ngIf="updatedOrgWebsiteErrorInfo!= ''">
+                        <p id="errorMessage">{{updatedOrgWebsiteErrorInfo}}</p>
+                    </span>
+                    <div *ngIf="isDisable==true" style="padding-bottom: 0px;">
+                        &nbsp;
+                    </div>
                 </div>
 
                 <!-- orgFunctionalType -->
@@ -96,11 +114,13 @@
                             d="M9 5.75V4.25C9 3.425 8.325 2.75 7.5 2.75H3C2.175 2.75 1.5 3.425 1.5 4.25V14.75C1.5 15.575 2.175 16.25 3 16.25H15C15.825 16.25 16.5 15.575 16.5 14.75V7.25C16.5 6.425 15.825 5.75 15 5.75H9ZM4.5 14.75H3V13.25H4.5V14.75ZM4.5 11.75H3V10.25H4.5V11.75ZM4.5 8.75H3V7.25H4.5V8.75ZM4.5 5.75H3V4.25H4.5V5.75ZM7.5 14.75H6V13.25H7.5V14.75ZM7.5 11.75H6V10.25H7.5V11.75ZM7.5 8.75H6V7.25H7.5V8.75ZM7.5 5.75H6V4.25H7.5V5.75ZM14.25 14.75H9V13.25H10.5V11.75H9V10.25H10.5V8.75H9V7.25H14.25C14.6625 7.25 15 7.5875 15 8V14C15 14.4125 14.6625 14.75 14.25 14.75ZM13.5 8.75H12V10.25H13.5V8.75ZM13.5 11.75H12V13.25H13.5V11.75Z"
                             fill="#202224" />
                     </svg>&nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgFunctionalType === null&& isDisable == false || org.orgFunctionalType === ''  && isDisable == false">-</b>
+                    <b
+                        *ngIf="org.orgFunctionalType === null&& isDisable == false || org.orgFunctionalType === ''  && isDisable == false">-</b>
                     <label *ngIf="org.orgFunctionalType !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgFunctionalType}}</label>
-                    <input type="text" placeholder="Enter Company Type" [(ngModel)]="org.orgFunctionalType" 
-                    *ngIf="isDisable==true" class="form-control" minlength="6" maxlength="50" (keyup)="validateOrgFunction()">
+                    <input type="text" placeholder="Enter Company Type" [(ngModel)]="org.orgFunctionalType"
+                        *ngIf="isDisable==true" class="form-control" minlength="6" maxlength="50"
+                        (keyup)="validateOrgFunction()">
                     <span *ngIf="updatedorgFunctionalTypeErrorInfo!= ''">
                         <p id="errorMessage">{{updatedorgFunctionalTypeErrorInfo}}</p>
                     </span>
@@ -117,11 +137,13 @@
                             d="M9 9.5C10.6575 9.5 12 8.1575 12 6.5C12 4.8425 10.6575 3.5 9 3.5C7.3425 3.5 6 4.8425 6 6.5C6 8.1575 7.3425 9.5 9 9.5ZM9 11C6.9975 11 3 12.005 3 14V14.75C3 15.1625 3.3375 15.5 3.75 15.5H14.25C14.6625 15.5 15 15.1625 15 14.75V14C15 12.005 11.0025 11 9 11Z"
                             fill="#202224" />
                     </svg>&nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgContactPersonName === null&& isDisable == false || org.orgContactPersonName === ''  && isDisable == false">-</b>
+                    <b
+                        *ngIf="org.orgContactPersonName === null&& isDisable == false || org.orgContactPersonName === ''  && isDisable == false">-</b>
                     <label *ngIf="org.orgContactPersonName !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonName}}</label>
-                    <input type="text"placeholder="Enter Company Contact Person" [(ngModel)]="org.orgContactPersonName" *ngIf="isDisable==true"
-                     class="form-control"  minlength="3" maxlength="50"(keyup)="validateOrgContactPersonNameFunction()">
+                    <input type="text" placeholder="Enter Company Contact Person" [(ngModel)]="org.orgContactPersonName"
+                        *ngIf="isDisable==true" class="form-control" minlength="3" maxlength="50"
+                        (keyup)="validateOrgContactPersonNameFunction()">
                     <span *ngIf="updatedorgContactPersonNameErrorInfo!= ''">
                         <p id="errorMessage">{{updatedorgContactPersonNameErrorInfo}}</p>
                     </span>
@@ -129,7 +151,7 @@
 
                     </div>
                 </div>
-                
+
                 <!-- orgContact -->
                 <div>
                     <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -137,12 +159,15 @@
                             d="M9.65979 4.28781C12.0448 4.58781 13.9123 6.45531 14.2123 8.84031C14.2573 9.22281 14.5798 9.50031 14.9548 9.50031C14.9848 9.50031 15.0148 9.50031 15.0448 9.49281C15.4573 9.44031 15.7498 9.06531 15.6973 8.65281C15.3148 5.58531 12.9073 3.17781 9.83979 2.79531C9.42729 2.75031 9.05229 3.04281 9.00729 3.45531C8.95479 3.86781 9.24729 4.24281 9.65979 4.28781ZM9.94479 5.87031C9.54729 5.76531 9.13479 6.00531 9.02979 6.41031C8.92479 6.81531 9.16479 7.22031 9.56979 7.32531C10.3573 7.52781 10.9723 8.14281 11.1823 8.93781C11.2723 9.27531 11.5723 9.50031 11.9098 9.50031C11.9698 9.50031 12.0373 9.49281 12.0973 9.47781C12.4948 9.37281 12.7348 8.96031 12.6373 8.56281C12.2848 7.23531 11.2573 6.20781 9.94479 5.87031ZM14.4223 11.9453L12.5173 11.7278C12.0598 11.6753 11.6098 11.8328 11.2873 12.1553L9.90729 13.5353C7.78479 12.4553 6.04479 10.7228 4.96479 8.59281L6.35229 7.20531C6.67479 6.88281 6.83229 6.43281 6.77979 5.97531L6.56229 4.08531C6.47229 3.32781 5.83479 2.75781 5.06979 2.75781H3.77229C2.92479 2.75781 2.21979 3.46281 2.27229 4.31031C2.66979 10.7153 7.79229 15.8303 14.1898 16.2278C15.0373 16.2803 15.7423 15.5753 15.7423 14.7278V13.4303C15.7498 12.6728 15.1798 12.0353 14.4223 11.9453Z"
                             fill="#202224" />
                     </svg>&nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgContactPersonNumber === null&& isDisable == false || org.orgContactPersonNumber === ''  && isDisable == false">-</b>
+                    <b
+                        *ngIf="org.orgContactPersonNumber === null&& isDisable == false || org.orgContactPersonNumber === ''  && isDisable == false">-</b>
                     <label *ngIf="org.orgContactPersonNumber !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonNumber}}</label>
-                    <input type="text" placeholder="Enter Contact Person Number" [(ngModel)]="org.orgContactPersonNumber"
-                     *ngIf="isDisable==true" minlength="10" maxlength="10" (keyup)="validateOrgContactPersonNumber()" (keydown)="numberValidation($event)" class="form-control">
-                     <span *ngIf="updatedorgContactPersonNumberErrorInfo!= ''">
+                    <input type="text" placeholder="Enter Contact Person Number"
+                        [(ngModel)]="org.orgContactPersonNumber" *ngIf="isDisable==true" minlength="10" maxlength="10"
+                        (keyup)="validateOrgContactPersonNumber()" (keydown)="numberValidation($event)"
+                        class="form-control">
+                    <span *ngIf="updatedorgContactPersonNumberErrorInfo!= ''">
                         <p id="errorMessage">{{updatedorgContactPersonNumberErrorInfo}}</p>
                     </span>
                     <div *ngIf="isDisable==true" style="padding-bottom: 6px;">
@@ -163,31 +188,34 @@
                             </clipPath>
                         </defs>
                     </svg> &nbsp;&nbsp;&nbsp;
-                    <b *ngIf="org.orgContactPersonEmail === null&& isDisable == false || org.orgContactPersonEmail === '' && isDisable == false">-</b>
+                    <b
+                        *ngIf="org.orgContactPersonEmail === null&& isDisable == false || org.orgContactPersonEmail === '' && isDisable == false">-</b>
                     <label *ngIf="org.orgContactPersonEmail !== null && isDisable==false"
                         style="padding-bottom: 12px;">{{org.orgContactPersonEmail}}</label>
-                    <input type="text" placeholder="Enter Contact Person Email" [(ngModel)]="org.orgContactPersonEmail" *ngIf="isDisable==true"
-                        class="form-control" (keyup)="validateOrgContactPersonEmail()">
-                        <span *ngIf="updatedorgContactPersonEmailErrorInfo!= ''">
-                            <p id="errorMessage">{{updatedorgContactPersonEmailErrorInfo}}</p>
-                        </span>
+                    <input type="text" placeholder="Enter Contact Person Email" [(ngModel)]="org.orgContactPersonEmail"
+                        *ngIf="isDisable==true" class="form-control" (keyup)="validateOrgContactPersonEmail()">
+                    <span *ngIf="updatedorgContactPersonEmailErrorInfo!= ''">
+                        <p id="errorMessage">{{updatedorgContactPersonEmailErrorInfo}}</p>
+                    </span>
                     <div *ngIf="isDisable==true" style="padding-bottom: 6px;">
                     </div>
                 </div>
 
                 <!-- orgAddress -->
                 <h5>Address details<span id="required" [hidden]="isDisable === false">*</span></h5>
-                <b *ngIf="org.orgAddress === null&& isDisable == false || org.orgAddress === ''  && isDisable == false">-</b>
+                <b
+                    *ngIf="org.orgAddress === null&& isDisable == false || org.orgAddress === ''  && isDisable == false">-</b>
                 <label *ngIf="org.orgAddress !== null && isDisable==false">{{org.orgAddress}}</label>
                 <div>
                     <span *ngIf="updatedOrgAddressErrorInfo!= ''">
                         <p id="errorMessage">{{updatedOrgAddressErrorInfo}}</p>
                     </span>
                 </div>
-                <textarea style="margin-bottom: 40px;max-height:250px;" [(ngModel)]="org.orgAddress" *ngIf="isDisable==true" rows="3" cols="10"
-                    class="form-control" (keyup)="validateOrgAddress()" minlength="30" maxlength="300">
+                <textarea style="margin-bottom: 40px;max-height:250px;" [(ngModel)]="org.orgAddress"
+                    *ngIf="isDisable==true" rows="3" cols="10" class="form-control" (keyup)="validateOrgAddress()"
+                    minlength="30" maxlength="300">
                 </textarea>
-               
+
             </div>
 
             <div class="col-sm-6">
@@ -196,7 +224,8 @@
                 <h5>Super Admin</h5>
                 <div class="row">
                     <div class="col-sm-3"><label>Email ID</label></div>
-                    <div *ngIf="org.orgSuperAdminEmailId === null&& isDisable == false || org.orgSuperAdminEmailId === ''  && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgSuperAdminEmailId === null&& isDisable == false || org.orgSuperAdminEmailId === ''  && isDisable == false"
+                        class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -204,11 +233,12 @@
                             <label *ngIf="isDisable==false">{{org.orgSuperAdminEmailId}}</label>
                         </div>
                         <div>
-                            <input type="text" placeholder="Enter Super Admin Email ID" *ngIf="isDisable==true" [(ngModel)]="org.orgSuperAdminEmailId"
-                                class="form-control"(keyup)="validateSuperAdminEmail()">
-                                <span *ngIf="updatedOrgSuperAdminEmailErrorInfo!= ''">
-                                    <p id="errorMessage">{{updatedOrgSuperAdminEmailErrorInfo}}</p>
-                                </span>
+                            <input type="text" placeholder="Enter Super Admin Email ID" *ngIf="isDisable==true"
+                                [(ngModel)]="org.orgSuperAdminEmailId" class="form-control"
+                                (keyup)="validateSuperAdminEmail()">
+                            <span *ngIf="updatedOrgSuperAdminEmailErrorInfo!= ''">
+                                <p id="errorMessage">{{updatedOrgSuperAdminEmailErrorInfo}}</p>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -219,7 +249,8 @@
                     <div class="col-sm-3">
                         <label>Country</label>
                     </div>
-                    <div *ngIf="org.orgCountry === null&& isDisable == false|| org.orgCountry=== '' && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgCountry === null&& isDisable == false|| org.orgCountry=== '' && isDisable == false"
+                        class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -227,8 +258,8 @@
                             <label *ngIf="isDisable==false">{{org.orgCountry}}</label>
                         </div>
                         <div>
-                            <select *ngIf="isDisable==true" [(ngModel)]="org.orgCountry" id="country-dropdown" (change)="viewCountryCode()"
-                             class="form-select" (keyup)="validateOrgCountry()"
+                            <select *ngIf="isDisable==true" [(ngModel)]="org.orgCountry" id="country-dropdown"
+                                (change)="viewCountryCode()" class="form-select" (keyup)="validateOrgCountry()"
                                 placeholder="choose Country">
                                 <span *ngIf="updatedOrgCountryErrorInfo!= ''">
                                     <p id="errorMessage">{{updatedOrgCountryErrorInfo}}</p>
@@ -263,7 +294,8 @@
                                 <option value="Botswana" data-code="+267">Botswana</option>
                                 <option value="Bouvet Island" data-code="+47">Bouvet Island</option>
                                 <option value="Brazil" data-code="+55">Brazil</option>
-                                <option value="British Indian Ocean Territory" data-code="+246">British Indian Ocean Territory</option>
+                                <option value="British Indian Ocean Territory" data-code="+246">British Indian Ocean
+                                    Territory</option>
                                 <option value="Brunei Darussalam" data-code="+673">Brunei Darussalam</option>
                                 <option value="Bulgaria" data-code="+359">Bulgaria</option>
                                 <option value="Burkina Faso" data-code="+226">Burkina Faso</option>
@@ -273,7 +305,8 @@
                                 <option value="Canada" data-code="+1">Canada</option>
                                 <option value="Cape Verde" data-code="+238">Cape Verde</option>
                                 <option value="Cayman Islands" data-code="+1-345">Cayman Islands</option>
-                                <option value="Central African Republic" data-code="+236">Central African Republic</option>
+                                <option value="Central African Republic" data-code="+236">Central African Republic
+                                </option>
                                 <option value="Chad" data-code="+235">Chad</option>
                                 <option value="Chile" data-code="+56">Chile</option>
                                 <option value="China" data-code="+86">China</option>
@@ -290,7 +323,8 @@
                                 <option value="Curacao" data-code="+599">Curacao</option>
                                 <option value="Cyprus" data-code="+357">Cyprus</option>
                                 <option value="Czech Republic" data-code="+420">Czech Republic</option>
-                                <option value="Democratic Republic of Congo" data-code="+243">Democratic Republic of Congo</option> 
+                                <option value="Democratic Republic of Congo" data-code="+243">Democratic Republic of
+                                    Congo</option>
                                 <option value="Denmark" data-code="+45">Denmark</option>
                                 <option value="Djibouti" data-code="+253">Djibouti</option>
                                 <option value="Dominica" data-code="+1-767">Dominica</option>
@@ -310,7 +344,8 @@
                                 <option value="France" data-code="+33">France</option>
                                 <option value="French Guiana" data-code="+594">French Guiana</option>
                                 <option value="French Polynesia" data-code="+689">French Polynesia</option>
-                                <option value="French Southern Territories" data-code="+262">French Southern Territories</option>
+                                <option value="French Southern Territories" data-code="+262">French Southern Territories
+                                </option>
                                 <option value="Gabon" data-code="+241">Gabon</option>
                                 <option value="Gambia" data-code="+220">Gambia</option>
                                 <option value="Georgia" data-code="+995">Georgia</option>
@@ -328,7 +363,8 @@
                                 <option value="Guinea-Bissau" data-code="+245">Guinea-Bissau</option>
                                 <option value="Guyana" data-code="+592">Guyana</option>
                                 <option value="Haiti" data-code="+509">Haiti</option>
-                                <option value="Heard and McDonald Islands" data-code="+672">Heard and Mc Donald Islands</option>
+                                <option value="Heard and McDonald Islands" data-code="+672">Heard and Mc Donald Islands
+                                </option>
                                 <option value="Holy See" data-code="+379">Holy See (Vatican City State)</option>
                                 <option value="Honduras" data-code="+504">Honduras</option>
                                 <option value="Hong Kong" data-code="+852">Hong Kong</option>
@@ -351,13 +387,14 @@
                                 <option value="Kenya" data-code="+254">Kenya</option>
                                 <option value="Kiribati" data-code="+686">Kiribati</option>
                                 <option value="Kosovo" data-code="+383">Kosovo</option>
-                                <option value="Democratic People's Republic of Korea" data-code="+850">Korea, Democratic People's Republic of</option>
+                                <option value="Democratic People's Republic of Korea" data-code="+850">Korea, Democratic
+                                    People's Republic of</option>
                                 <option value="Korea" data-code="+82">Korea, Republic of</option>
                                 <option value="Kuwait" data-code="+965">Kuwait</option>
                                 <option value="Kyrgyzstan" data-code="+996">Kyrgyzstan</option>
                                 <option value="Lao" data-code="+856">Lao People's Democratic Republic</option>
                                 <option value="Latvia" data-code="+371">Latvia</option>
-                                <option value="Lebanon"  data-code="+961">Lebanon</option>
+                                <option value="Lebanon" data-code="+961">Lebanon</option>
                                 <option value="Lesotho" data-code="+266">Lesotho</option>
                                 <option value="Liberia" data-code="+231">Liberia</option>
                                 <option value="Libya" data-code="+218">Libya</option>
@@ -365,7 +402,8 @@
                                 <option value="Lithuania" data-code="+370">Lithuania</option>
                                 <option value="Luxembourg" data-code="+352">Luxembourg</option>
                                 <option value="Macau" data-code="+853">Macau</option>
-                                <option value="Macedonia" data-code="+389">Macedonia, The Former Yugoslav Republic of</option>
+                                <option value="Macedonia" data-code="+389">Macedonia, The Former Yugoslav Republic of
+                                </option>
                                 <option value="Madagascar" data-code="+261">Madagascar</option>
                                 <option value="Malawi" data-code="+265">Malawi</option>
                                 <option value="Malaysia" data-code="+60">Malaysia</option>
@@ -398,7 +436,8 @@
                                 <option value="Nigeria" data-code="+234">Nigeria</option>
                                 <option value="Niue" data-code="+683">Niue</option>
                                 <option value="Norfolk Island" data-code="+672">Norfolk Island</option>
-                                <option value="Northern Mariana Islands" data-code="+1-670">Northern Mariana Islands</option>
+                                <option value="Northern Mariana Islands" data-code="+1-670">Northern Mariana Islands
+                                </option>
                                 <option value="Norway" data-code="+47">Norway</option>
                                 <option value="Oman" data-code="+968">Oman</option>
                                 <option value="Pakistan" data-code="+92">Pakistan</option>
@@ -417,15 +456,16 @@
                                 <option value="Romania" data-code="+40">Romania</option>
                                 <option value="Russia" data-code="+7">Russian Federation</option>
                                 <option value="Rwanda" data-code="+250">Rwanda</option>
-                                <option value="Saint Kitts and Nevis" data-code="+1-869">Saint Kitts and Nevis</option> 
+                                <option value="Saint Kitts and Nevis" data-code="+1-869">Saint Kitts and Nevis</option>
                                 <option value="Saint LUCIA" data-code="+1-758">Saint LUCIA</option>
-                                <option value="Saint Vincent" data-code="+1-784">Saint Vincent and the Grenadines</option>
+                                <option value="Saint Vincent" data-code="+1-784">Saint Vincent and the Grenadines
+                                </option>
                                 <option value="Samoa" data-code="+685">Samoa</option>
                                 <option value="San Marino" data-code="+378">San Marino</option>
-                                <option value="Sao Tome and Principe" data-code="+239">Sao Tome and Principe</option> 
+                                <option value="Sao Tome and Principe" data-code="+239">Sao Tome and Principe</option>
                                 <option value="Saudi Arabia" data-code="+966">Saudi Arabia</option>
                                 <option value="Senegal" data-code="+221">Senegal</option>
-                                <option value="Serbia"  data-code="+381">Serbia</option>
+                                <option value="Serbia" data-code="+381">Serbia</option>
                                 <option value="Seychelles" data-code="+248">Seychelles</option>
                                 <option value="Sierra" data-code="+232">Sierra Leone</option>
                                 <option value="Singapore" data-code="+65">Singapore</option>
@@ -434,11 +474,13 @@
                                 <option value="Solomon Islands" data-code="+677">Solomon Islands</option>
                                 <option value="Somalia" data-code="+252">Somalia</option>
                                 <option value="South Africa" data-code="+27">South Africa</option>
-                                <option value="South Georgia" data-code="+500">South Georgia and the South Sandwich Islands</option>
+                                <option value="South Georgia" data-code="+500">South Georgia and the South Sandwich
+                                    Islands</option>
                                 <option value="Span" data-code="+34">Spain</option>
                                 <option value="SriLanka" data-code="+94">Sri Lanka</option>
                                 <option value="St. Helena" data-code="+290">St. Helena</option>
-                                <option value="St. Pierre and Miguelon" data-code="+508">St. Pierre and Miquelon</option>
+                                <option value="St. Pierre and Miguelon" data-code="+508">St. Pierre and Miquelon
+                                </option>
                                 <option value="Sudan" data-code="+249">Sudan</option>
                                 <option value="Suriname" data-code="+597">Suriname</option>
                                 <option value="Svalbard" data-code="+47">Svalbard and Jan Mayen Islands</option>
@@ -469,9 +511,11 @@
                                 <option value="Vanuatu" data-code="+678">Vanuatu</option>
                                 <option value="Venezuela" data-code="+58">Venezuela</option>
                                 <option value="Vietnam" data-code="+84">Viet Nam</option>
-                                <option value="Virgin Islands (British)" data-code="+1-284">Virgin Islands (British)</option>
+                                <option value="Virgin Islands (British)" data-code="+1-284">Virgin Islands (British)
+                                </option>
                                 <option value="Virgin Islands (U.S)" data-code="+10340">Virgin Islands (U.S.)</option>
-                                <option value="Wallis and Futana Islands" data-code="+681">Wallis and Futuna Islands</option>
+                                <option value="Wallis and Futana Islands" data-code="+681">Wallis and Futuna Islands
+                                </option>
                                 <option value="Western Sahara" data-code="+212">Western Sahara</option>
                                 <option value="Yemen" data-code="+967">Yemen</option>
                                 <option value="Zambia" data-code="+260">Zambia</option>
@@ -488,7 +532,8 @@
                     <div class="col-sm-3">
                         <label>Timezone</label>
                     </div>
-                    <div *ngIf="org.orgTimeZone === null && isDisable == false || org.orgTimeZone===''   && isDisable == false" class="col-sm-2">
+                    <div *ngIf="org.orgTimeZone === null && isDisable == false || org.orgTimeZone===''   && isDisable == false"
+                        class="col-sm-2">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -499,7 +544,7 @@
                             <!-- <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone"
                                 class="form-control" placeholder="Enter TimeZone"> -->
                             <select *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone" class="form-select"
-                            placeholder = "choose time zone">
+                                placeholder="choose time zone">
                                 <option value="Indian Standard Time">Indian Standard Time (IST)</option>
                                 <option value="Universal Coordinated Time">Universal Coordinated Time (UTC)</option>
                                 <option value="Eastern Time">Eastern Time (ET)</option>
@@ -517,7 +562,8 @@
                 <div class="row">
                     <!-- orgEmailId -->
                     <div class="col-sm-3"><label>Email ID</label></div>
-                    <div *ngIf="org.orgEmailId === null&& isDisable == false || org.orgEmailId === ''  && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgEmailId === null&& isDisable == false || org.orgEmailId === ''  && isDisable == false"
+                        class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -525,11 +571,11 @@
                             <label *ngIf="isDisable==false">{{org.orgEmailId}}</label>
                         </div>
                         <div>
-                            <input type="text" placeholder="Enter Company Email ID" *ngIf="isDisable==true" [(ngModel)]="org.orgEmailId"
-                                class="form-control" (keyup)="validateCompanyEmail()" >
-                                <span *ngIf="updatedCompanyEmailErrorInfo!= ''">
-                                    <p id="errorMessage">{{updatedCompanyEmailErrorInfo}}</p>
-                                </span>
+                            <input type="text" placeholder="Enter Company Email ID" *ngIf="isDisable==true"
+                                [(ngModel)]="org.orgEmailId" class="form-control" (keyup)="validateCompanyEmail()">
+                            <span *ngIf="updatedCompanyEmailErrorInfo!= ''">
+                                <p id="errorMessage">{{updatedCompanyEmailErrorInfo}}</p>
+                            </span>
 
                         </div>
                         <div *ngIf="isDisable==true">
@@ -543,7 +589,8 @@
                     <div class="col-sm-3">
                         <label>Phone</label>
                     </div>
-                    <div *ngIf="org.orgContactNumber === null&& isDisable == false || org.orgContactNumber === ''  && isDisable == false" class="col-sm-1">
+                    <div *ngIf="org.orgContactNumber === null&& isDisable == false || org.orgContactNumber === ''  && isDisable == false"
+                        class="col-sm-1">
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
@@ -551,22 +598,26 @@
                             <label *ngIf="isDisable==false">{{org.orgContactNumber}}</label>
                         </div>
                         <div style="display: flex;">
-                            <input type="text" class="form-control" id="dial-code-input"  *ngIf="isDisable==true" readonly>
-                            <input type="text" placeholder="Enter Company Contact Number" *ngIf="isDisable==true" [(ngModel)]="org.orgContactNumber"
-                                class="form-control" (keyup)="validateOrgContactNumber()" (keydown)="numberValidation($event)" minlength="10" maxlength="18">
+                            <input type="text" class="form-control" id="dial-code-input" *ngIf="isDisable==true"
+                                readonly>
+                            <input type="text" placeholder="Enter Company Contact Number" *ngIf="isDisable==true"
+                                [(ngModel)]="org.orgContactNumber" class="form-control"
+                                (keyup)="validateOrgContactNumber()" (keydown)="numberValidation($event)" minlength="10"
+                                maxlength="18">
                         </div>
                         <span *ngIf="updatedOrgContactNumberErrorInfo!= ''">
                             <p id="errorMessage">{{updatedOrgContactNumberErrorInfo}}</p>
                         </span>
                     </div>
                 </div>
-            </div>    
-                <br />
+            </div>
+            <br />
             <div class="col-sm-2">
                 <!-- edit icon -->
                 <div style="text-align: end;">
 
-                    <button type="button" class="fa fa-pencil" (click)="editInfo()" [hidden]="isDisable==true"> </button>
+                    <button type="button" class="fa fa-pencil" (click)="editInfo()" [hidden]="isDisable==true">
+                    </button>
                 </div>
 
                 <!-- save icon --show only when edit icon is clicked -->
@@ -585,13 +636,15 @@
     </div>
 </div>
 
+
 <div *ngIf="isComponentLoading===true"  style="padding-top:220px;color: #134E69D9;">
+
     <!-- <span *ngIf="isComponentLoading===true">
         <div class="spinner-border" style="width: 4rem; height: 4rem;animation-duration:1s" role="status">
             <span class="sr-only">Loading...</span>
              <div style="position: fixed;padding-top: 16px;padding-left: 8px;"><h5>UMS</h5></div>
         </div>
-    </span>-->   
+    </span>-->
     <div style="padding-left: 48%;">
         <div class="loader" style="color: #2AA3D9;"></div> 
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 315 103" fill="none" style="margin-left:-13px">
@@ -605,13 +658,23 @@
                 <stop stop-color="#2AA3D9"/>
                 <stop offset="1"/>
                 </linearGradient>
-                <linearGradient id="paint1_linear_354_164515" x1="59.3489" y1="68.8271" x2="-58.8583" y2="152.454" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2AA3D9"/>
-                <stop offset="1"/>
+                <linearGradient id="paint1_linear_354_164515" x1="59.3489" y1="68.8271" x2="-58.8583" y2="152.454"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2AA3D9" />
+                    <stop offset="1" />
                 </linearGradient>
-                </defs>
-                <!-- Animation -->
-                <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.5s" repeatCount="indefinite" />
-            </svg>
-    </div>      
-</div> 
+            </defs>
+            <!-- Animation -->
+            <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.5s"
+                repeatCount="indefinite" />
+        </svg>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="viewPermission===false">
+    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+</div>
+
+<div class="container-fluid" *ngIf="noPermissions===true">
+    <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
+</div>

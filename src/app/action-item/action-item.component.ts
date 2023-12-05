@@ -162,10 +162,16 @@ export class ActionItemComponent implements OnInit {
   userRoleMenuItemsPermissionMap: Map<string, string>
   @Output() notificationCount: number = 0;
 
+<<<<<<< HEAD
   viewPermission:boolean;
+=======
+  viewPermission: boolean;
+>>>>>>> 41d041d032105a3390d37be8109c63c0261fefdc
   createPermission: boolean = false;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
+  noPermissions: boolean;
+  
   buttoncolor: string;
   async ngOnInit(): Promise<void> {
 
@@ -179,6 +185,7 @@ export class ActionItemComponent implements OnInit {
       var currentMenuItem = await this.getCurrentMenuItemDetails();
       console.log(currentMenuItem)
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
@@ -223,14 +230,21 @@ export class ActionItemComponent implements OnInit {
           this.buttoncolor = '#007bff';
           console.log('create true')
         }else{
+          this.createPermission = false;
           this.buttoncolor = 'lightgray'
         }
         if (menuItemPermissions.includes('Update')) {
           this.updatePermission = true;
+        }else{
+          this.updatePermission = false;
         }
         if (menuItemPermissions.includes('Delete')) {
           this.deletePermission = true;
+        }else{
+          this.deletePermission = false;
         }
+      }else{
+        this.noPermissions = true;
       }
     }
 

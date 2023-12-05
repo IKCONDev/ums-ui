@@ -8,6 +8,16 @@
     <div class="card-body">
         <div *ngIf="reportType === 'department'">
             <div class="row">
+                <div class="col-sm-2" style="margin-left: 100px;">
+                    <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
+                                placeholder="choose" (change)="chooseDepartment()">
+                                <ng-option *ngFor="let department of departmentList"
+                                    value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
+                            </ng-select>
+               </div>
+            </div>
+            <br/>
+            <div class="row">
                 
                 <div class="col-sm-5" style="margin-left: 50px;">
                     <div class="card">
@@ -29,11 +39,11 @@
                         </div>
                         <div class="chart">
                             <div style="padding-top: 6px;"></div>
-                            <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
+                            <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                                 placeholder="choose" (change)="chooseDepartment()">
                                 <ng-option *ngFor="let department of departmentList"
                                     value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
-                            </ng-select>
+                            </ng-select> -->
                             <canvas id="meetingsByDepartmentListChart"></canvas>
                         </div>
                     </div>
