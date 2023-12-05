@@ -19,11 +19,11 @@ export class AppMenuItemsComponent {
   private table: any;
   loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole')
-  loggedInUserFullName =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
+  loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
 
   menuItemList: MenuItem[];
-  isComponentLoading:boolean=false;
-  isMenuItemDataText:boolean=false;
+  isMenuItemDataText= false;
+  isComponentLoading = false;
 
   constructor(private menuItemService: AppMenuItemService, private toastrService: ToastrService,
     private router: Router){}
@@ -42,8 +42,7 @@ export class AppMenuItemsComponent {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 7,
-          order: [[1,'asc']],
-          lengthMenu: [ [7, 10, 25, 50, -1], [7, 10, 25, 50, "All"] ],
+          order: [[1,'asc']]
           // Add other options here as needed
         });
       });
@@ -60,18 +59,14 @@ export class AppMenuItemsComponent {
 
 
   getMenuItems(){
-    this.isComponentLoading=true;
-    this.isMenuItemDataText=true;
-    setTimeout(()=>{
-      this.isComponentLoading=false;
-      this.isMenuItemDataText=false;
-    },200)
     this.menuItemService.findMenuItems().subscribe({
       next: response => {
         this.menuItemList = response.body;
-          this.isComponentLoading=false;
-          this.isMenuItemDataText=false;
         console.log(response.body)
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
       }
     })
   }
@@ -175,7 +170,6 @@ export class AppMenuItemsComponent {
     if(isTitleValid === true && isDescriptionValid === true && isMenuItemPathValid === true){
       menuItem.modifiedByEmailId = this.loggedInUser;
       menuItem.modifiedBy = this.loggedInUserFullName;
-      this.menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
       this.menuItemService.updateMenuItem(menuItem).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.PartialContent){
@@ -219,7 +213,6 @@ export class AppMenuItemsComponent {
     if(isTitleValid === true && isDescriptionValid === true && isMenuItemPathValid === true){
       menuItem.createdByEmailId = this.loggedInUser;
       menuItem.createdBy = this.loggedInUserFullName;
-      this.menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
       this.menuItemService.createMenuItem(menuItem).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
@@ -339,12 +332,5 @@ export class AppMenuItemsComponent {
       $('.subCheckBox').prop('checked', false);
     }
   }
-
-  transformToTitleCase(text: string): string {
-    return text.toLowerCase().split(' ').map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join(' ');
-  }
-
 
 }

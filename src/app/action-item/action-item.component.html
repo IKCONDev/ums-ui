@@ -5,7 +5,7 @@
     <app-header [title]="title" [unreadNotificationCount]="notificationCount" id="header"></app-header>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="viewPermission === true">
     <div class="card-header">
         <div class="row">
             <div class="col-sm-11">
@@ -170,12 +170,11 @@
                                         
                                         <tr style="background-color: white;">
                                             <td></td>
-                                            <td style="text-align: center;color:#007bff" colspan="7">
-                                                <a data-toggle="modal" data-target="#xlModal"
-                                                    style="cursor: pointer;padding-left: 50px;" (click)="getActiveUMSUsersEmailIdList()">Add Task</a>
+                                            <td style="text-align: center;" colspan="7">
+                                                <button id="addTask" [style.color]="buttoncolor" [disabled]="createPermission === false" data-toggle="modal" data-target="#xlModal"
+                                                    style="cursor: pointer;padding-left: 50px;" (click)="getActiveUMSUsersEmailIdList()">Add Task</button>
                                             </td>
                                             <td></td>
-
                                         </tr>
                                     </tbody>
                                 </table>
@@ -201,7 +200,10 @@
             </ng-template>
         </div>
     </div>
-    </div>
+</div>
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+  </div>
     
 <!--Modal for update-->
 <div class="modal" id="myModal">

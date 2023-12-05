@@ -112,7 +112,9 @@ export class HomeComponent implements OnInit {
   //get the latest selected component on page load /refresh
   //selectedOption:string = localStorage.getItem('selectedComponent');
   //title:string = localStorage.getItem('title');
-
+  isHomeComponentData:boolean=false;
+  isComponentLoading:boolean=false;
+  isPermissionData:boolean=false;
   /**
    * 
    * @param router 
@@ -189,17 +191,26 @@ export class HomeComponent implements OnInit {
   updatePermission: boolean = false;
   deletePermission: boolean = false;
   async ngOnInit(): Promise<void> {
+
+    this.isComponentLoading=true;
+    this.isHomeComponentData=true;
+    this.isPermissionData=true;
+
+    if(localStorage.getItem('jwtToken') === null){
+      this.router.navigateByUrl('/session-timeout');
+    }
+    
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
     }
-    console.log(this.userRoleMenuItemsPermissionMap);
-
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
     console.log(currentMenuItem)
 
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //provide permission to access this component for the logged in user if view permission exists
+        this.isComponentLoading=false;
+        this.isHomeComponentData=false;
         console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
@@ -235,6 +246,8 @@ export class HomeComponent implements OnInit {
 
     //get noti count
     this.getNotificationCount(this.loggedInUser);
+    this.isPermissionData=false;
+    this.isComponentLoading=false;
   }
 
   /*
@@ -253,20 +266,24 @@ export class HomeComponent implements OnInit {
 
   currentMenuItem: MenuItem;
   async getCurrentMenuItemDetails() : Promise<MenuItem> {
-      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Overview'));
-      try{
+      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Overview')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
           console.log(this.currentMenuItem)
+        }else if(response.status === HttpStatusCode.Unauthorized){
+          console.log('eit')
+          this.router.navigateByUrl('/session-timeout');
         }
-      }catch(error){
-        if(error.status === HttpStatusCode.Unauthorized){
+      },reason => {
+        if(reason.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
         }
       }
+      )
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
+
 
 
   /**

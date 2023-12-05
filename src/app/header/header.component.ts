@@ -107,7 +107,7 @@ export class HeaderComponent implements OnChanges {
         console.log(this.userDetails)
         console.log(this.userDetails.userRoles[0].roleName)
         localStorage.setItem('userRole',this.userDetails.userRoles[0].roleName);
-        //localStorage.setItem('userRoleMenuItemsPermissionMap'
+       // localStorage.setItem('userRoleMenuItemsPermissionMap',JSON.parse())
         //get reporting manager of employee
         this.getEmployee(this.userDetails.employee.reportingManager);
       }

@@ -4,7 +4,7 @@
 <div>
     <app-header [title]="title" id="header"></app-header>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="viewPermission === true">
     <div class="card-header">
         <div class="row">
             <div class="col-sm-2 d-flex">
@@ -30,9 +30,12 @@
             </div> -->
             <div class="col-sm-4"></div>
             <div *ngIf="tabOpened === 'OrganizedMeeting'" id="createBtnDiv" class="col-sm-1 d-flex">
-                <i style="padding-top: 5px;" class="fa-solid fa-2x fa-plus-square" data-toggle="modal"
+                <i *ngIf="createPermission === true" style="padding-top: 5px;" class="fa-solid fa-2x fa-plus-square" data-toggle="modal"
                     data-target="#createModal" (click)="getActiveUMSUsersEmailIdList()">
                 </i>
+                <i *ngIf="createPermission === false" style="padding-top: 5px;" class="fa-solid fa-2x fa-plus-square"
+                style="color: lightgray;">
+               </i>
             </div>
             <div *ngIf="tabOpened === 'AttendedMeeting'" class="col-sm-2 d-flex" id="attendedFilter" data-toggle="modal"
                 data-target="#attendedFilterModal">
@@ -250,19 +253,19 @@
                                             <td class="actionItemRows"
                                                 *ngIf="actionItem.actionStatus==='Not Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                <span class="edit-icon"
+                                                <button [disabled]="!updatePermission" class="edit-icon"
                                                     (click)="editActionItem(actionItem.actionItemId)"
                                                     (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
                                                     data-target="#myModal">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                         viewBox="0 0 20 20" fill="none">
-                                                        <g id="edit">
+                                                        <g [style.fill] = "updateButtonColor" id="edit">
                                                             <path id="Vector"
                                                                 d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                                                fill="#5590AA" />
+                                                                 />
                                                         </g>
                                                     </svg>
-                                                </span>
+                                                </button>
                                             </td>
                                             <td class="actionItemRows" *ngIf="actionItem.actionStatus==='Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
@@ -397,6 +400,10 @@
             </ng-template>
         </div>
     </div>
+</div>
+
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <h2 style="text-align: center;margin-top: 50px;">You dont have permission to view this page</h2>
 </div>
 
 <!-- action item add modal -->
@@ -943,7 +950,7 @@
         </span>-->       
         <span class="loader"></span>
         <div style="margin-top: -10px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="55" viewBox="0 0 315 103" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 315 103" fill="none">
                 <path d="M70.7305 1.88965H99.9988V53.726H70.7305V31.2772V1.88965Z" fill="url(#paint0_linear_354_164515)"/>
                 <path d="M99.9905 54.5423V1.88965L29.2588 73.7258C24.3834 88.0114 49.998 101.481 60.5596 101.481C93.9306 101.481 100.261 66.515 99.9905 54.5423Z" fill="url(#paint1_linear_354_164515)"/>
                 <path d="M0 53.3168V1.48131C20.3252 5.15471 30.4878 12.0918 30.4878 53.3168C30.4878 94.5417 50.1355 100.664 60.1626 101.48C12.3577 101.48 0 77.3982 0 53.3168Z" fill="#30D64B"/>

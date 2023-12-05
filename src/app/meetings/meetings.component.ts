@@ -11,12 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
-import { count, max } from 'rxjs';
+import { count, lastValueFrom, max } from 'rxjs';
 import { DatePipe, JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
 import { EmployeeService } from '../employee/service/employee.service';
 import { Employee } from '../model/Employee.model';
 import { HeaderService } from '../header/service/header.service';
+import { MenuItem } from '../model/MenuItem.model';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 
 @Component({
@@ -118,10 +120,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   attendedMeetingStartDateFilter: string = localStorage.getItem('attendedMeetingStartDateFilter');
   attendedMeetingEndDateFilter: string = localStorage.getItem('attendedMeetingEndDateFilter');
 
-  isComponentLoading:boolean=false;
-  displayText:boolean=false;
-  isOrganizedMeetingDataText:boolean=false;
-  isAttendedMeetingDataText:boolean=false;
+  isComponentLoading: boolean = true;
+  displayText: boolean = false;
+  isOrganizedMeetingDataText: boolean = false;
+  isAttendedMeetingDataText: boolean = false;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -131,9 +133,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
-    private headerService: HeaderService,private datePipe: DatePipe) {
-      console.log(this.organizedMeetingTitleFilter+"-----------empty");
-      console.log(this.attendedMeetingTitleFilter+"------------empty")
+    private headerService: HeaderService, private datePipe: DatePipe, private menuItemService: AppMenuItemService) {
+    console.log(this.organizedMeetingTitleFilter + "-----------empty");
+    console.log(this.attendedMeetingTitleFilter + "------------empty")
   }
 
   /**
@@ -147,8 +149,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true, // Enable search feature
           pageLength: 10,
           ordering: true,
-          order: [[0,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+          order: [[0, 'asc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           // Add other options here as needed
         });
       });
@@ -160,8 +162,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 10,
-          order: [[1,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+          order: [[1, 'asc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           // Add other options here as needed
         });
       });
@@ -197,59 +199,99 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  selectedReporteeName: string ='';
+  selectedReporteeName: string = '';
   selectedReporteeDepartment: number = 0;
+  userRoleMenuItemsPermissionMap: Map<string, string>
+  viewPermission: boolean;
+  createPermission: boolean = false;
+  updatePermission: boolean = false;
+  deletePermission: boolean = false;
+
+  updateButtonColor: string;
+
   /**
    * executes when the component is initialized or loaded first time
    */
-  ngOnInit(): void {
-    this.getActiveUMSAttendeesEmailIdList();
-    //get user data on switch reportee or user
-    this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting:this.loggedInUser).subscribe({
-      next: response => {
-        this.selectedReporteeName = response.body.employee.firstName +' '+ response.body.employee.lastName;
-        this.selectedReporteeDepartment = response.body.employee.department.departmentId;
-        this.addMeeting.organizerName = this.selectedReporteeName;
-        this.addMeeting.departmentId = this.selectedReporteeDepartment;
-        console.log(this.selectedReporteeDepartment)
+  async ngOnInit(): Promise<void> {
+    if (localStorage.getItem('jwtToken') === null) {
+      this.router.navigateByUrl('/session-timeout');
+    }
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+      var currentMenuItem = await this.getCurrentMenuItemDetails();
+      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.isComponentLoading = false;
+          this.viewPermission = true;
+          //hit db and get all details
+          this.getActiveUMSAttendeesEmailIdList();
+          //get user data on switch reportee or user
+          this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting != '' ? this.selectedReporteeOrganizedMeeting : this.loggedInUser).subscribe({
+            next: response => {
+              this.selectedReporteeName = response.body.employee.firstName + ' ' + response.body.employee.lastName;
+              this.selectedReporteeDepartment = response.body.employee.department.departmentId;
+              this.addMeeting.organizerName = this.selectedReporteeName;
+              this.addMeeting.departmentId = this.selectedReporteeDepartment;
+              console.log(this.selectedReporteeDepartment)
+            }
+          });
+          //generate action items for user meetings automatically upon component initialization
+          this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
+            (response => {
+              console.log(response.body)
+            })
+          )
+
+          if (this.selectedReporteeOrganizedMeeting === '') {
+            this.selectedReporteeOrganizedMeeting = localStorage.getItem('email');
+          }
+          if (this.selectedReporteeAssignedMeeting === '') {
+            this.selectedReporteeAssignedMeeting = localStorage.getItem('email');
+          }
+
+          //set default tab to OrganizedMeetings tab when application is opened
+          //localStorage.setItem('tabOpened', 'OrganizedMeeting');
+          this.tabOpened = localStorage.getItem('tabOpened')
+          console.log(this.tabOpened)
+          this.getMeetings(this.tabOpened);
+
+          //disable actionItem btn default
+          this.isActionItemSaveButtonDisabled = true;
+          // this.pastDateTime();
+
+          //get reportees data of logged in user
+          if (this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN') {
+            this.getAllEmployees();
+          } else {
+            this.getEmployeeReportees();
+          }
+
+          //initialize jquery datatable meetings table
+          this.InitailizeJqueryDataTable();
+
+          this.enableOrDisableSendMOM();
+        } else {
+          this.isComponentLoading = false;
+          this.viewPermission = false;
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+          this.updateButtonColor = '#5590AA';
+        } else {
+          this.updateButtonColor = 'lightgrey';
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }
       }
-    });
-    //generate action items for user meetings automatically upon component initialization
-    this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
-      (response => {
-        console.log(response.body)
-      })
-    )
-
-    if (this.selectedReporteeOrganizedMeeting === '') {
-      this.selectedReporteeOrganizedMeeting = localStorage.getItem('email');
     }
-    if (this.selectedReporteeAssignedMeeting === '') {
-      this.selectedReporteeAssignedMeeting = localStorage.getItem('email');
-    }
-
-    //set default tab to OrganizedMeetings tab when application is opened
-    //localStorage.setItem('tabOpened', 'OrganizedMeeting');
-    this.tabOpened = localStorage.getItem('tabOpened')
-    console.log(this.tabOpened)
-    this.getMeetings(this.tabOpened);
-
-    //disable actionItem btn default
-    this.isActionItemSaveButtonDisabled = true;
-    // this.pastDateTime();
-
-    //get reportees data of logged in user
-    if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
-      this.getAllEmployees();
-    }else{
-      this.getEmployeeReportees();
-    }
-
-    //initialize jquery datatable meetings table
-    this.InitailizeJqueryDataTable();
-
-    this.enableOrDisableSendMOM();
-
   }
 
   /**
@@ -257,19 +299,19 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   ngAfterViewInit(): void {
     console.log('executed - After View Init')
-    if(this.table = null){
+    if (this.table = null) {
       setTimeout(() => {
         $(document).ready(() => {
           this.table = $('#assignedTable').DataTable({
             paging: true,
             searching: true, // Enable search feature
             pageLength: 10,
-            order: [[1,'asc']],
-            lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+            order: [[1, 'asc']],
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             // Add other options here as needed
           });
         });
-      },300)
+      }, 300)
     }
   }
 
@@ -454,7 +496,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addDetails.startDate === '') {
       this.actionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isActionItemStartDateValid = false;
-     } 
+    }
     //else if (new Date(this.addDetails.startDate) < currentDate) {
     //   this.actionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
     //   this.isActionItemStartDateValid = false;
@@ -602,10 +644,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param tabOpened 
    */
   getMeetings(tabOpened: string) {
-    this.isComponentLoading=true;
-    this.displayText=true;
-    this.isOrganizedMeetingDataText=true;
-    this.isAttendedMeetingDataText=true;
+    this.isComponentLoading = true;
+    this.displayText = true;
+    this.isOrganizedMeetingDataText = true;
+    this.isAttendedMeetingDataText = true;
     //re-initailze slider
     this.initializeActionItemsSlider();
     console.log(tabOpened)
@@ -614,143 +656,144 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('tabOpened'))
 
     if (tabOpened === 'OrganizedMeeting') {
-      document.getElementById("organizedMeeting").style.borderBottom = '2px solid white';
-      document.getElementById("organizedMeeting").style.width = 'fit-content';
-      document.getElementById("organizedMeeting").style.paddingBottom = '2px';
-      document.getElementById("attendedMeeting").style.borderBottom = 'none';
+      console.log(document.getElementById('organizedMeeting'))
       //get user organized meetings
       if (this.selectedReporteeOrganizedMeeting != '') {
-        this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting,this.organizedMeetingTitleFilter,
+        this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, this.organizedMeetingTitleFilter,
           this.organizedMeetingStartDateFilter, this.organizedMeetingEndDateFilter).subscribe({
-          next: (response) => {
-            this.meetings = response.body;
-            this.meetingCount = response.body.length
-            if(this.meetingCount===0){
-                this.isComponentLoading=false;
-                this.displayText=false;
-            }else{
-                this.isComponentLoading=false;
-                this.isOrganizedMeetingDataText=false;
-            }
-            localStorage.setItem('meetingCount', this.meetingCount.toString());
-            console.log(this.meetings);
-            this.meetings.forEach(meeting => {
-              if (meeting.meetingTranscripts.length > 0) {
-                //enable the transcript icon, if transcript is not available for the meeting
-                meeting.isTranscriptDisabled = false;
-                console.log('transcript found for the meeting')
-
-                //store the count of transcripts available for the meeting
-                this.transcriptsCount = meeting.meetingTranscripts.length;
-
-                //iterate through transcripts of the meeting and merge it into a single transcript
-                meeting.meetingTranscripts.forEach(transcript => {
-                  //split the transcript data properly to display to the user 
-                  //get all transcripts of the meeting and display it as single transcript
-                  meeting.transcriptData = transcript.transcriptContent.split('\n');
-                  console.log(meeting.transcriptData)
-                })
+            next: (response) => {
+              document.getElementById("organizedMeeting").style.borderBottom = '2px solid white';
+              document.getElementById("organizedMeeting").style.width = 'fit-content';
+              document.getElementById("organizedMeeting").style.paddingBottom = '2px';
+              document.getElementById("attendedMeeting").style.borderBottom = 'none';
+              this.meetings = response.body;
+              this.meetingCount = response.body.length
+              if (this.meetingCount === 0) {
+                this.isComponentLoading = false;
+                this.displayText = false;
               } else {
-                //disable the transcript icon, if transcript is not available for the meeting
-                meeting.isTranscriptDisabled = true;
+                this.isComponentLoading = false;
+                this.isOrganizedMeetingDataText = false;
               }
-            });
-          },//next
-          error: (error) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.router.navigateByUrl("/session-timeout")
-            }
-          }//error
-        })//subscribe
+              localStorage.setItem('meetingCount', this.meetingCount.toString());
+              console.log(this.meetings);
+              this.meetings.forEach(meeting => {
+                if (meeting.meetingTranscripts.length > 0) {
+                  //enable the transcript icon, if transcript is not available for the meeting
+                  meeting.isTranscriptDisabled = false;
+                  console.log('transcript found for the meeting')
+
+                  //store the count of transcripts available for the meeting
+                  this.transcriptsCount = meeting.meetingTranscripts.length;
+
+                  //iterate through transcripts of the meeting and merge it into a single transcript
+                  meeting.meetingTranscripts.forEach(transcript => {
+                    //split the transcript data properly to display to the user 
+                    //get all transcripts of the meeting and display it as single transcript
+                    meeting.transcriptData = transcript.transcriptContent.split('\n');
+                    console.log(meeting.transcriptData)
+                  })
+                } else {
+                  //disable the transcript icon, if transcript is not available for the meeting
+                  meeting.isTranscriptDisabled = true;
+                }
+              });
+            },//next
+            error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl("/session-timeout")
+              }
+            }//error
+          })//subscribe
       } else {
         const startDateFilter = this.organizedMeetingStartDateFilter ? new Date(this.organizedMeetingStartDateFilter).toISOString() : null;
         const endDateFilter = this.organizedMeetingEndDateFilter ? new Date(this.organizedMeetingEndDateFilter).toISOString() : null;
-        this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email'),this.organizedMeetingTitleFilter,
-        startDateFilter,endDateFilter).subscribe({
-          next: (response) => {
-            this.meetings = response.body;
-            this.meetingCount = response.body.length
-            localStorage.setItem('meetingCount', this.meetingCount.toString());
-            console.log(this.meetings);
-            this.meetings.forEach(meeting => {
-              if (meeting.meetingTranscripts.length > 0) {
-                //enable the transcript icon, if transcript is not available for the meeting
-                meeting.isTranscriptDisabled = false;
-                console.log('transcript found for the meeting')
+        this.meetingsService.getUserOraganizedMeetingsByUserId(localStorage.getItem('email'), this.organizedMeetingTitleFilter,
+          startDateFilter, endDateFilter).subscribe({
+            next: (response) => {
+              this.meetings = response.body;
+              this.meetingCount = response.body.length
+              localStorage.setItem('meetingCount', this.meetingCount.toString());
+              console.log(this.meetings);
+              this.meetings.forEach(meeting => {
+                if (meeting.meetingTranscripts.length > 0) {
+                  //enable the transcript icon, if transcript is not available for the meeting
+                  meeting.isTranscriptDisabled = false;
+                  console.log('transcript found for the meeting')
 
-                //store the count of transcripts available for the meeting
-                this.transcriptsCount = meeting.meetingTranscripts.length;
+                  //store the count of transcripts available for the meeting
+                  this.transcriptsCount = meeting.meetingTranscripts.length;
 
-                //iterate through transcripts of the meeting and merge it into a single transcript
-                meeting.meetingTranscripts.forEach(transcript => {
-                  //split the transcript data properly to display to the user 
-                  //get all transcripts of the meeting and display it as single transcript
-                  meeting.transcriptData = transcript.transcriptContent.split('\n');
-                  console.log(meeting.transcriptData)
-                })
-              } else {
-                //disable the transcript icon, if transcript is not available for the meeting
-                meeting.isTranscriptDisabled = true;
+                  //iterate through transcripts of the meeting and merge it into a single transcript
+                  meeting.meetingTranscripts.forEach(transcript => {
+                    //split the transcript data properly to display to the user 
+                    //get all transcripts of the meeting and display it as single transcript
+                    meeting.transcriptData = transcript.transcriptContent.split('\n');
+                    console.log(meeting.transcriptData)
+                  })
+                } else {
+                  //disable the transcript icon, if transcript is not available for the meeting
+                  meeting.isTranscriptDisabled = true;
+                }
+              });
+            },//next
+            error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl("/session-timeout")
               }
-            });
-          },//next
-          error: (error) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.router.navigateByUrl("/session-timeout")
-            }
-          }//error
-        })//subscribe
+            }//error
+          })//subscribe
       }
     } else {
       if (this.selectedReporteeAssignedMeeting != '') {
-        document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
-        document.getElementById("attendedMeeting").style.paddingBottom = '2px';
-        document.getElementById("attendedMeeting").style.width = 'fit-content';
-        document.getElementById("organizedMeeting").style.borderBottom = 'none';
         //get user attended meetings
-        this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting,this.attendedMeetingTitleFilter,
-          this.attendedMeetingStartDateFilter,this.attendedMeetingEndDateFilter).subscribe({
-          next: (response) => {
-            //extract the meetings from response object
-            this.attendedMeetings = response.body;
-            this.attendedMeetingCount = response.body.length;
-            if(this.attendedMeetingCount===0){
-                this.isComponentLoading=false;
-                this.displayText=false;
-            }else{
-                this.isComponentLoading=false;
-                 this.isAttendedMeetingDataText=false;
-            }
-            localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
-            console.log(this.attendedMeetings);
-          },//next
-          error: (error) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.router.navigateByUrl("/session-timeout")
-            }
-          }//error
-        })//subscribe
+        this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting, this.attendedMeetingTitleFilter,
+          this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
+            next: (response) => {
+              document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
+              document.getElementById("attendedMeeting").style.paddingBottom = '2px';
+              document.getElementById("attendedMeeting").style.width = 'fit-content';
+              document.getElementById("organizedMeeting").style.borderBottom = 'none';
+              //extract the meetings from response object
+              this.attendedMeetings = response.body;
+              this.attendedMeetingCount = response.body.length;
+              if (this.attendedMeetingCount === 0) {
+                this.isComponentLoading = false;
+                this.displayText = false;
+              } else {
+                this.isComponentLoading = false;
+                this.isAttendedMeetingDataText = false;
+              }
+              localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
+              console.log(this.attendedMeetings);
+            },//next
+            error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl("/session-timeout")
+              }
+            }//error
+          })//subscribe
       } else {
         document.getElementById("attendedMeeting").style.borderBottom = '2px solid white';
         document.getElementById("attendedMeeting").style.paddingBottom = '2px';
         document.getElementById("attendedMeeting").style.width = 'fit-content';
         document.getElementById("organizedMeeting").style.borderBottom = 'none';
         //get user attended meetings
-        this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email')),this.attendedMeetingTitleFilter,
-        this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
-          next: (response) => {
-            //extract the meetings from response object
-            this.attendedMeetings = response.body;
-            this.attendedMeetingCount = response.body.length
-            localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
-            console.log(this.attendedMeetings);
-          },//next
-          error: (error) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.router.navigateByUrl("/session-timeout")
-            }
-          }//error
-        })//subscribe
+        this.meetingsService.getUserAttendedMeetingsByUserId((localStorage.getItem('email')), this.attendedMeetingTitleFilter,
+          this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
+            next: (response) => {
+              //extract the meetings from response object
+              this.attendedMeetings = response.body;
+              this.attendedMeetingCount = response.body.length
+              localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
+              console.log(this.attendedMeetings);
+            },//next
+            error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl("/session-timeout")
+              }
+            }//error
+          })//subscribe
       }
     }
   }
@@ -1018,9 +1061,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // }});
     this.meetingsService.getActiveUserEmailIdList().subscribe({
       next: (response) => {
-        let i=0;
+        let i = 0;
         this.userEmailIdList = response.body;
-        
+
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
@@ -1045,8 +1088,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (response) => {
         this.userEmailIdListForAttendees = response.body;
         this.userEmailIdListForAttendees.map(email => {
-          if(email === this.selectedReporteeOrganizedMeeting){
-             this.userEmailIdListForAttendees.splice(i,1);
+          if (email === this.selectedReporteeOrganizedMeeting) {
+            this.userEmailIdListForAttendees.splice(i, 1);
           }
           i++;
         })
@@ -1169,7 +1212,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //   this.updateActionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
     //   this.isUpdateActionItemStartDateValid = false;
     // }
-     else {
+    else {
       this.updateActionItemStartDateErrorInfo = '';
       this.isUpdateActionItemStartDateValid = true;
     }
@@ -1387,38 +1430,38 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //   isEmailvalid = valid;
 
     // }
-//  if (isEmailvalid == true) {
-      this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints,this.hoursDiff,this.minutesDiff).subscribe({
-        next: (response) => {
-          if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success("Email sent successfully");
-            document.getElementById('closeSendMoMEmail').click();
-          }
-          
-          
+    //  if (isEmailvalid == true) {
+    this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints, this.hoursDiff, this.minutesDiff).subscribe({
+      next: (response) => {
+        if (response.status == HttpStatusCode.Ok) {
+          this.toastr.success("Email sent successfully");
+          document.getElementById('closeSendMoMEmail').click();
+        }
 
-        }, error: (error) => {
-          if (error.status === HttpStatusCode.Unauthorized) {
-            this.router.navigateByUrl("/session-timeout")
-          }else{
-            this.toastr.error("Error occured while sending email, please try again");
-          }
-        }//error
-      })
-    }
-  
+
+
+      }, error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl("/session-timeout")
+        } else {
+          this.toastr.error("Error occured while sending email, please try again");
+        }
+      }//error
+    })
+  }
+
 
   addMeeting = {
     meetingId: 0,
     subject: '',
     organizerName: '',
-    organizerEmailId: this.selectedReporteeOrganizedMeeting != ''?this.selectedReporteeOrganizedMeeting:this.loggedInUser,
+    organizerEmailId: this.selectedReporteeOrganizedMeeting != '' ? this.selectedReporteeOrganizedMeeting : this.loggedInUser,
     departmentId: 0,
     startDateTime: '',
     endDateTime: '',
     attendees: [],
     //actionItems: 
-    emailId: this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting: this.loggedInUser,
+    emailId: this.selectedReporteeOrganizedMeeting != '' ? this.selectedReporteeOrganizedMeeting : this.loggedInUser,
     attendeeCount: 0,
     createdBy: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
     createByEmailId: localStorage.getItem('email'),
@@ -1576,7 +1619,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.emailListErrorInfo = 'choose the emailId to send Email';
       this.isemailforSendMoMEmailValid = false;
       console.log("Email List is" + this.emailListForsendingMOM);
-     
+
     }
     else {
       this.isemailforSendMoMEmailValid = true;
@@ -1600,7 +1643,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * if Role is Admin then get all employees
    */
-  getAllEmployees(){
+  getAllEmployees() {
     this.employeeService.getAll().subscribe({
       next: response => {
         this.reporteeList = response.body;
@@ -1612,27 +1655,27 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * store selected reportee in localstorage
    */
-  storeReporteeDataOfOrganizedMeeting(){
+  storeReporteeDataOfOrganizedMeeting() {
     localStorage.setItem('selectedReporteeOrganizedMeeting', this.selectedReporteeOrganizedMeeting);
     console.log(this.selectedReporteeOrganizedMeeting);
     this.selectedReporteeOrganizedMeeting = localStorage.getItem('selectedReporteeOrganizedMeeting')
-    if(this.selectedReporteeOrganizedMeeting === 'null'){
-      localStorage.setItem('selectedReporteeOrganizedMeeting',this.loggedInUser)
+    if (this.selectedReporteeOrganizedMeeting === 'null') {
+      localStorage.setItem('selectedReporteeOrganizedMeeting', this.loggedInUser)
       this.selectedReporteeOrganizedMeeting = localStorage.getItem('selectedReporteeOrganizedMeeting');
     }
     console.log(this.selectedReporteeOrganizedMeeting)
     window.location.reload();
   }
 
-   /**
-   * store selected reportee in localstorage
-   */
-   storeReporteeDataOfAssignedMeeting(){
+  /**
+  * store selected reportee in localstorage
+  */
+  storeReporteeDataOfAssignedMeeting() {
     localStorage.setItem('selectedReporteeAssignedMeeting', this.selectedReporteeAssignedMeeting);
     console.log(this.selectedReporteeAssignedMeeting);
     this.selectedReporteeAssignedMeeting = localStorage.getItem('selectedReporteeAssignedMeeting')
-    if(this.selectedReporteeAssignedMeeting === 'null'){
-      localStorage.setItem('selectedReporteeAssignedMeeting',this.loggedInUser)
+    if (this.selectedReporteeAssignedMeeting === 'null') {
+      localStorage.setItem('selectedReporteeAssignedMeeting', this.loggedInUser)
       this.selectedReporteeAssignedMeeting = localStorage.getItem('selectedReporteeAssignedMeeting');
     }
     console.log(this.selectedReporteeAssignedMeeting)
@@ -1645,29 +1688,29 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param startDate 
    * @param endDate 
    */
-  newStartDate:Date;
-  newEndDate:Date;
-  filterOrganizedMeetingList(meetingTitle: string, startDate: string, endDate: string){
-    console.log(meetingTitle+" "+startDate+" "+endDate);
+  newStartDate: Date;
+  newEndDate: Date;
+  filterOrganizedMeetingList(meetingTitle: string, startDate: string, endDate: string) {
+    console.log(meetingTitle + " " + startDate + " " + endDate);
     // this.newStartDate = new Date(startDate);
     let StartDateTimestampUTC: string | null = "";
     let endDateTimestampUTC: string | null = "";
 
-    if (startDate!="") {
+    if (startDate != "") {
       console.log('not null for start')
-        const StartDateTimestamp = new Date(startDate);
-        StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+      const StartDateTimestamp = new Date(startDate);
+      StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
 
-    if (endDate!="") {
+    if (endDate != "") {
       console.log('not null for enddate')
-        const endDateTimestamp = new Date(endDate);
-        endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+      const endDateTimestamp = new Date(endDate);
+      endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
 
     console.log(StartDateTimestampUTC);
     console.log(endDateTimestampUTC)
-    
+
     console.log(this.newStartDate);
     this.organizedMeetingTitleFilter = meetingTitle;
     this.organizedMeetingStartDateFilter = startDate;
@@ -1675,9 +1718,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(this.organizedMeetingStartDateFilter);
     this.organizedMeetingEndDateFilter = endDate;
 
-    localStorage.setItem('organizedMeetingTitleFilter',meetingTitle);
-    localStorage.setItem('organizedMeetingStartDateFilter',StartDateTimestampUTC);
-    localStorage.setItem('organizedMeetingEndDateFilter',endDateTimestampUTC);
+    localStorage.setItem('organizedMeetingTitleFilter', meetingTitle);
+    localStorage.setItem('organizedMeetingStartDateFilter', StartDateTimestampUTC);
+    localStorage.setItem('organizedMeetingEndDateFilter', endDateTimestampUTC);
 
     this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting,
       this.organizedMeetingTitleFilter,
@@ -1690,26 +1733,26 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           //window.location.reload();
         }
       });
-      
+
 
   }
 
-  closeFilterModal(){
+  closeFilterModal() {
     document.getElementById('filterModal').click();
   }
 
-  resetOrganizedMeetingsFilter(){
-    localStorage.setItem('organizedMeetingTitleFilter','');
-    localStorage.setItem('organizedMeetingStartDateFilter','');
-    localStorage.setItem('organizedMeetingEndDateFilter','');
+  resetOrganizedMeetingsFilter() {
+    localStorage.setItem('organizedMeetingTitleFilter', '');
+    localStorage.setItem('organizedMeetingStartDateFilter', '');
+    localStorage.setItem('organizedMeetingEndDateFilter', '');
     this.closeFilterModal();
     window.location.reload();
   }
 
-  resetAttendedMeetingsFilter(){
-    localStorage.setItem('attendedMeetingTitleFilter','');
-    localStorage.setItem('attendedMeetingStartDateFilter','');
-    localStorage.setItem('attendedMeetingEndDateFilter','');
+  resetAttendedMeetingsFilter() {
+    localStorage.setItem('attendedMeetingTitleFilter', '');
+    localStorage.setItem('attendedMeetingStartDateFilter', '');
+    localStorage.setItem('attendedMeetingEndDateFilter', '');
     this.closeFilterModal();
     window.location.reload();
   }
@@ -1720,140 +1763,158 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param meetingStartDateTime 
    * @param meetingEndDateTime 
    */
-  filterAttendedMeetingList(meetingTitle, meetingStartDateTime, meetingEndDateTime){
+  filterAttendedMeetingList(meetingTitle, meetingStartDateTime, meetingEndDateTime) {
     this.attendedMeetingTitleFilter = meetingTitle;
     this.attendedMeetingStartDateFilter = meetingStartDateTime;
     this.attendedMeetingEndDateFilter = meetingEndDateTime;
 
-    localStorage.setItem('attendedMeetingTitleFilter',meetingTitle);
-    localStorage.setItem('attendedMeetingStartDateFilter',meetingStartDateTime);
+    localStorage.setItem('attendedMeetingTitleFilter', meetingTitle);
+    localStorage.setItem('attendedMeetingStartDateFilter', meetingStartDateTime);
     localStorage.setItem('attendedMeetingEndDateFilter', meetingEndDateTime);
 
     this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting,
       this.attendedMeetingTitleFilter, this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
         next: response => {
-          if(response.status === HttpStatusCode.Ok){
+          if (response.status === HttpStatusCode.Ok) {
             this.attendedMeetings = response.body;
             this.attendedMeetingCount = response.body.length;
           }
         }
       })
-      this.closeFilterModal();
-      window.location.reload();
+    this.closeFilterModal();
+    window.location.reload();
   }
 
 
-  attendeeEmailList :string[];
-  attendeeEmployeeName : Employee[];
-// Define a function to retrieve attendee names by email IDs
-getAllAttendeeNamesByEmailId(meetingAttendees: any[]) {
-  const attendeeEmailList: string[] = [];
+  attendeeEmailList: string[];
+  attendeeEmployeeName: Employee[];
+  // Define a function to retrieve attendee names by email IDs
+  getAllAttendeeNamesByEmailId(meetingAttendees: any[]) {
+    const attendeeEmailList: string[] = [];
 
-  // Extract email addresses from meetingAttendees
-  meetingAttendees.forEach(attendee => {
-    attendeeEmailList.push(attendee.email);
-  });
-  //attendeeEmailList.push('dhanush.akunuri@ikcontech.com')
-  //attendeeEmailList.push('dhanush.akunuri@ikcontech.com')
-  console.log(attendeeEmailList);
-  // Call the service to get employee names based on email IDs
-  this.employeeService.getAllEmployeesByAttendeeEmailId(attendeeEmailList).subscribe({
-    next: (response) => {
-      this.attendeeEmployeeName = response.body;
-      console.log(this.attendeeEmployeeName);
-      // Perform further actions with retrieved attendee names if needed
-    },
-    error: (err) => {
-      console.error('Error occurred while fetching attendee names:', err);
-      // Handle error as per your application's requirements
-    }
-  });
-}
+    // Extract email addresses from meetingAttendees
+    meetingAttendees.forEach(attendee => {
+      attendeeEmailList.push(attendee.email);
+    });
+    //attendeeEmailList.push('dhanush.akunuri@ikcontech.com')
+    //attendeeEmailList.push('dhanush.akunuri@ikcontech.com')
+    console.log(attendeeEmailList);
+    // Call the service to get employee names based on email IDs
+    this.employeeService.getAllEmployeesByAttendeeEmailId(attendeeEmailList).subscribe({
+      next: (response) => {
+        this.attendeeEmployeeName = response.body;
+        console.log(this.attendeeEmployeeName);
+        // Perform further actions with retrieved attendee names if needed
+      },
+      error: (err) => {
+        console.error('Error occurred while fetching attendee names:', err);
+        // Handle error as per your application's requirements
+      }
+    });
+  }
 
-isDisabled = false;
-actionItemsErrorMessage = '';
-actionItemList: ActionItems[];
-meetingList: Meeting[];
-//newActionItemList: ActionItems[] = [];
-enableOrDisableSendMOM() {
-  this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, '', '', '').subscribe({
-    next: response => {
-      this.meetingList = response.body;
-      this.meetingList.forEach(meeting => {
-        var newActionItemList = [];
-        this.actionItemService.getAllActionItems().subscribe({
-          next: response => {
-            this.actionItemList = response.body;
-            for (var i = 0; i < this.actionItemList.length; i++) {
-              var actionItem = this.actionItemList[i];
-              if (meeting.meetingId === actionItem.meetingId) {
-                newActionItemList.push(actionItem);
-                break;
+  isDisabled = false;
+  actionItemsErrorMessage = '';
+  actionItemList: ActionItems[];
+  meetingList: Meeting[];
+  //newActionItemList: ActionItems[] = [];
+  enableOrDisableSendMOM() {
+    this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, '', '', '').subscribe({
+      next: response => {
+        this.meetingList = response.body;
+        this.meetingList.forEach(meeting => {
+          var newActionItemList = [];
+          this.actionItemService.getAllActionItems().subscribe({
+            next: response => {
+              this.actionItemList = response.body;
+              for (var i = 0; i < this.actionItemList.length; i++) {
+                var actionItem = this.actionItemList[i];
+                if (meeting.meetingId === actionItem.meetingId) {
+                  newActionItemList.push(actionItem);
+                  break;
+                }
               }
+              if (newActionItemList.length === 0) {
+                this.disableMomButton(meeting.meetingId);
+              }
+            },
+            error: error => {
+              console.error('Error fetching action items:', error);
             }
-            if (newActionItemList.length === 0) {
-              this.disableMomButton(meeting.meetingId);
-            }
-          },
-          error: error => {
-            console.error('Error fetching action items:', error);
-          }
+          });
         });
-      });
-    },
-    error: error => {
-      console.error('Error fetching meetings:', error);
-    }
-  });
-}
-
-disableMomButton(meetingId: number) {
-  var momBTN = document.getElementById('email' + meetingId);
-  if (momBTN) {
-    momBTN.style.pointerEvents = 'none';
-    momBTN.style.fill = 'lightgrey';
-    momBTN.style.cursor = 'pointer'
-    momBTN.title = 'This button is disabled because there are no action items.'; 
-    var svgPath = momBTN.querySelector('svg path') as HTMLInputElement;
-    if (svgPath) {
-      svgPath.style.fill = 'lightgrey';
-      svgPath.setAttribute('title', 'This button is disabled because there are no action items.');    
-    }
+      },
+      error: error => {
+        console.error('Error fetching meetings:', error);
+      }
+    });
   }
-}
-receiptientsList: string[] = [];
-updatedreceiptientsList: string[] = [];
 
-getAddReceiptientsForMOMEmail(meetingAttendees: Attendee[]) {
-  this.meetingsService.getActiveUserEmailIdList().subscribe({
-    next: (response) => {
-      this.receiptientsList = response.body;
-      console.log(this.receiptientsList);
-      this.updatedreceiptientsList = [];
-      meetingAttendees.forEach(attendee => {
-        // Check  attendee's email is not in the user email list
-        if (!this.receiptientsList.includes(attendee.email)) {
-          this.updatedreceiptientsList.push(attendee.email);
-        }  
-        else {
-          //attendee's email is present, remove it from userEmailIdList
-          const index = this.receiptientsList.indexOf(attendee.email);
-          if (index > -1) {
-            this.receiptientsList.splice(index, 1);
-          }
-        }
-
-      });
-    },
-    error: (error) => {
-      if (error.status === HttpStatusCode.Unauthorized) {
-        this.router.navigateByUrl("/session-timeout");
+  disableMomButton(meetingId: number) {
+    var momBTN = document.getElementById('email' + meetingId);
+    if (momBTN) {
+      momBTN.style.pointerEvents = 'none';
+      momBTN.style.fill = 'lightgrey';
+      momBTN.style.cursor = 'pointer'
+      momBTN.title = 'This button is disabled because there are no action items.';
+      var svgPath = momBTN.querySelector('svg path') as HTMLInputElement;
+      if (svgPath) {
+        svgPath.style.fill = 'lightgrey';
+        svgPath.setAttribute('title', 'This button is disabled because there are no action items.');
       }
     }
-  });
-}
+  }
+  receiptientsList: string[] = [];
+  updatedreceiptientsList: string[] = [];
+
+  getAddReceiptientsForMOMEmail(meetingAttendees: Attendee[]) {
+    this.meetingsService.getActiveUserEmailIdList().subscribe({
+      next: (response) => {
+        this.receiptientsList = response.body;
+        console.log(this.receiptientsList);
+        this.updatedreceiptientsList = [];
+        meetingAttendees.forEach(attendee => {
+          // Check  attendee's email is not in the user email list
+          if (!this.receiptientsList.includes(attendee.email)) {
+            this.updatedreceiptientsList.push(attendee.email);
+          }
+          else {
+            //attendee's email is present, remove it from userEmailIdList
+            const index = this.receiptientsList.indexOf(attendee.email);
+            if (index > -1) {
+              this.receiptientsList.splice(index, 1);
+            }
+          }
+
+        });
+      },
+      error: (error) => {
+        if (error.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl("/session-timeout");
+        }
+      }
+    });
+  }
 
 
-
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Meetings')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
+  }
 }
 
