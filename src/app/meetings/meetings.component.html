@@ -4,7 +4,7 @@
 <div>
     <app-header [title]="title" id="header"></app-header>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="viewPermission === true">
     <div class="card-header">
         <div class="row">
             <div class="col-sm-2 d-flex">
@@ -397,6 +397,10 @@
             </ng-template>
         </div>
     </div>
+</div>
+
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <h2 style="text-align: center;margin-top: 50px;">You dont have permission to view this page</h2>
 </div>
 
 <!-- action item add modal -->

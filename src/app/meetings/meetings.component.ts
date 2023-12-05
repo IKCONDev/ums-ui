@@ -11,12 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Users } from '../model/Users.model';
-import { count, max } from 'rxjs';
+import { count, lastValueFrom, max } from 'rxjs';
 import { DatePipe, JsonPipe } from '@angular/common';
 import { MOMObject } from '../model/momObject.model';
 import { EmployeeService } from '../employee/service/employee.service';
 import { Employee } from '../model/Employee.model';
 import { HeaderService } from '../header/service/header.service';
+import { MenuItem } from '../model/MenuItem.model';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 
 @Component({
@@ -131,7 +133,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
-    private headerService: HeaderService,private datePipe: DatePipe) {
+    private headerService: HeaderService,private datePipe: DatePipe, private menuItemService: AppMenuItemService) {
       console.log(this.organizedMeetingTitleFilter+"-----------empty");
       console.log(this.attendedMeetingTitleFilter+"------------empty")
   }
@@ -199,58 +201,92 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   selectedReporteeName: string ='';
   selectedReporteeDepartment: number = 0;
+  userRoleMenuItemsPermissionMap: Map<string, string>
+  viewPermission: boolean  = true;
+  createPermission: boolean = false;
+  updatePermission: boolean = false;
+  deletePermission: boolean = false;
+
   /**
    * executes when the component is initialized or loaded first time
    */
-  ngOnInit(): void {
-    this.getActiveUMSAttendeesEmailIdList();
-    //get user data on switch reportee or user
-    this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting:this.loggedInUser).subscribe({
-      next: response => {
-        this.selectedReporteeName = response.body.employee.firstName +' '+ response.body.employee.lastName;
-        this.selectedReporteeDepartment = response.body.employee.department.departmentId;
-        this.addMeeting.organizerName = this.selectedReporteeName;
-        this.addMeeting.departmentId = this.selectedReporteeDepartment;
-        console.log(this.selectedReporteeDepartment)
-      }
-    });
-    //generate action items for user meetings automatically upon component initialization
-    this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
-      (response => {
-        console.log(response.body)
-      })
-    )
+ async ngOnInit(): Promise<void> {
 
-    if (this.selectedReporteeOrganizedMeeting === '') {
-      this.selectedReporteeOrganizedMeeting = localStorage.getItem('email');
-    }
-    if (this.selectedReporteeAssignedMeeting === '') {
-      this.selectedReporteeAssignedMeeting = localStorage.getItem('email');
-    }
-
-    //set default tab to OrganizedMeetings tab when application is opened
-    //localStorage.setItem('tabOpened', 'OrganizedMeeting');
-    this.tabOpened = localStorage.getItem('tabOpened')
-    console.log(this.tabOpened)
-    this.getMeetings(this.tabOpened);
-
-    //disable actionItem btn default
-    this.isActionItemSaveButtonDisabled = true;
-    // this.pastDateTime();
-
-    //get reportees data of logged in user
-    if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
-      this.getAllEmployees();
-    }else{
-      this.getEmployeeReportees();
-    }
-
-    //initialize jquery datatable meetings table
-    this.InitailizeJqueryDataTable();
-
-    this.enableOrDisableSendMOM();
-
+  if(localStorage.getItem('jwtToken') === null){
+    this.router.navigateByUrl('/session-timeout');
   }
+  if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+    this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+    var currentMenuItem = await this.getCurrentMenuItemDetails();
+    if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+      //provide permission to access this component for the logged in user if view permission exists
+      console.log('exe')
+      //get permissions of this component for the user
+      var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+      if (menuItemPermissions.includes('View')) {
+        this.viewPermission = true;
+        //hit db and get all details
+        this.getActiveUMSAttendeesEmailIdList();
+        //get user data on switch reportee or user
+        this.headerService.fetchUserProfile(this.selectedReporteeOrganizedMeeting!=''?this.selectedReporteeOrganizedMeeting:this.loggedInUser).subscribe({
+          next: response => {
+            this.selectedReporteeName = response.body.employee.firstName +' '+ response.body.employee.lastName;
+            this.selectedReporteeDepartment = response.body.employee.department.departmentId;
+            this.addMeeting.organizerName = this.selectedReporteeName;
+            this.addMeeting.departmentId = this.selectedReporteeDepartment;
+            console.log(this.selectedReporteeDepartment)
+          }
+        });
+        //generate action items for user meetings automatically upon component initialization
+        this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
+          (response => {
+            console.log(response.body)
+          })
+        )
+    
+        if (this.selectedReporteeOrganizedMeeting === '') {
+          this.selectedReporteeOrganizedMeeting = localStorage.getItem('email');
+        }
+        if (this.selectedReporteeAssignedMeeting === '') {
+          this.selectedReporteeAssignedMeeting = localStorage.getItem('email');
+        }
+    
+        //set default tab to OrganizedMeetings tab when application is opened
+        //localStorage.setItem('tabOpened', 'OrganizedMeeting');
+        this.tabOpened = localStorage.getItem('tabOpened')
+        console.log(this.tabOpened)
+        this.getMeetings(this.tabOpened);
+    
+        //disable actionItem btn default
+        this.isActionItemSaveButtonDisabled = true;
+        // this.pastDateTime();
+    
+        //get reportees data of logged in user
+        if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
+          this.getAllEmployees();
+        }else{
+          this.getEmployeeReportees();
+        }
+    
+        //initialize jquery datatable meetings table
+        this.InitailizeJqueryDataTable();
+    
+        this.enableOrDisableSendMOM();
+      }else{
+        this.viewPermission = false;
+      }
+      if (menuItemPermissions.includes('Create')) {
+        this.createPermission = true;
+      }
+      if (menuItemPermissions.includes('Update')) {
+        this.updatePermission = true;
+      }
+      if (menuItemPermissions.includes('Delete')) {
+        this.deletePermission = true;
+      }
+    }
+  }
+}
 
   /**
    * executes after the initialization of component
@@ -614,6 +650,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('tabOpened'))
 
     if (tabOpened === 'OrganizedMeeting') {
+      console.log(document.getElementById('organizedMeeting'))
       document.getElementById("organizedMeeting").style.borderBottom = '2px solid white';
       document.getElementById("organizedMeeting").style.width = 'fit-content';
       document.getElementById("organizedMeeting").style.paddingBottom = '2px';
@@ -1852,6 +1889,28 @@ getAddReceiptientsForMOMEmail(meetingAttendees: Attendee[]) {
     }
   });
 }
+
+
+currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails() : Promise<MenuItem> {
+      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Meetings')).then(response => {
+        if (response.status === HttpStatusCode.Ok) {
+          this.currentMenuItem = response.body;
+          console.log(this.currentMenuItem)
+        }else if(response.status === HttpStatusCode.Unauthorized){
+          console.log('eit')
+          this.router.navigateByUrl('/session-timeout');
+        }
+      },reason => {
+        if(reason.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+      )
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
+  }
+
 
 
 

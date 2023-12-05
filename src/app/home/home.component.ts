@@ -189,11 +189,12 @@ export class HomeComponent implements OnInit {
   updatePermission: boolean = false;
   deletePermission: boolean = false;
   async ngOnInit(): Promise<void> {
+    if(localStorage.getItem('jwtToken') === null){
+      this.router.navigateByUrl('/session-timeout');
+    }
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
     }
-    console.log(this.userRoleMenuItemsPermissionMap);
-
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
     console.log(currentMenuItem)
@@ -253,20 +254,25 @@ export class HomeComponent implements OnInit {
 
   currentMenuItem: MenuItem;
   async getCurrentMenuItemDetails() : Promise<MenuItem> {
-      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Overview'));
-      try{
+      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Overview')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
           console.log(this.currentMenuItem)
+        }else if(response.status === HttpStatusCode.Unauthorized){
+          console.log('eit')
+          this.router.navigateByUrl('/session-timeout');
         }
-      }catch(error){
-        if(error.status === HttpStatusCode.Unauthorized){
+      },reason => {
+        if(reason.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
         }
       }
+      )
+    
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
+
 
 
   /**
