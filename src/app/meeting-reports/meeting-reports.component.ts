@@ -617,5 +617,10 @@ export class MeetingReportsComponent implements OnInit {
       }
     });
   }
+  type : any
+  setChartType(value : any){
+    this.type = value;
+
+  }
 
 }
