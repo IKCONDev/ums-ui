@@ -38,9 +38,9 @@
                     </div>
                     <div style="margin-left: 30px;margin-top: 20px;">
                     <p>Report Module : <b>Tasks</b></p>
-                    <p>Report Type : <b>Doughnut Chart</b></p>
-                    <p>Report For : <b>{{"Department"}}</b></p>
-                    <p>Department ID : <b>{{selectedDepartment}}</b></p>
+                    <!-- <p>Report Type : <b>Doughnut Chart</b></p> -->
+                    <!-- <p>Report For : <b>{{"Department"}}</b></p> -->
+                    <!-- <p>Department ID : <b>{{selectedDepartment}}</b></p> -->
                     <p>Department Name : <b>{{departmentName}}</b></p>
                     <p>Total tasks for the department : <b>{{taskListByDepartmentCount}}</b></p>
                     </div>
@@ -48,10 +48,15 @@
             </div>
             <div class="col-sm-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div id="chartHeading" class="card-header">
                         <b id="reportheading">Tasks</b>
+                        <a style="color: #fff;" (click)="setChartType('line')">Line</a>
+                        <a style="color: #fff;"(click)="setChartType('bar')">Bar</a>
+                        <a style="color: #fff;"(click)="setChartType('pie')">Pie</a>
+                        <a style="color: #fff;"(click)="setChartType('doughnut')">Doughnut</a>
+                        
                     </div>
-                    <div class="chart">
+                   <div class="chart">
                         <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                             placeholder="choose" (change)="chooseDepartment()">
                             <ng-option *ngFor="let department of departmentList"

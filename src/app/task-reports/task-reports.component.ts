@@ -118,10 +118,14 @@ export class TaskReportsComponent implements OnInit {
       if(this.reportType === 'department'){
         this.chooseDepartment();
       }
+      if(this.reportType ==='all'){
+        this.getAllDepartmentsCount();
+        this.getAllDepartmentNames();
+      }
     },400)
     console.log('finished')
-    this.getAllDepartmentsCount();
-    this.getAllDepartmentNames();
+   // this.getAllDepartmentsCount();
+    //this.getAllDepartmentNames();
     
   }
 
@@ -284,7 +288,7 @@ export class TaskReportsComponent implements OnInit {
 
   createTaskListByDepartmentChart() {
     this.taskListByDepartmentChart = new Chart("taskListByDepartmentChart", {
-      type: 'doughnut',
+      type: this.ChartType,
       data: {// values on X-Axis
         xLabels: ['Total tasks'],
         datasets: [
@@ -312,6 +316,9 @@ export class TaskReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks :{
+              stepSize : 1,
+           },
           },
         },
         plugins: {
@@ -400,6 +407,9 @@ export class TaskReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks :{
+              stepSize : 1,
+           },
           },
         },
         plugins: {
@@ -479,6 +489,9 @@ export class TaskReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks :{
+              stepSize : 1,
+           },
           },
         },
         plugins: {
@@ -568,6 +581,9 @@ export class TaskReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks :{
+              stepSize : 1,
+           },
           },
         },
         plugins: {
@@ -651,6 +667,9 @@ export class TaskReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks :{
+              stepSize : 1,
+           },
           },
         },
         plugins: {
@@ -733,6 +752,17 @@ deptValueCount : DepartmentCount[] = [];
          this.alltasksCount = response.body.length;
        }
     })
+  }
+  ChartType:any='line';
+  setChartType(value:any){
+    console.log(value)
+    this.ChartType=value;
+    if(this.taskListByDepartmentChart!=null){
+      this.taskListByDepartmentChart.destroy();
+
+      this.createTaskListByDepartmentChart();
+    }
+   
   }
 
 

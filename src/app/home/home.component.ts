@@ -14,6 +14,7 @@ import { NotificationService } from '../notifications/service/notification.servi
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 import { MenuItem } from '../model/MenuItem.model';
 import { lastValueFrom } from 'rxjs';
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 Chart.register(...registerables);
 
 @Component({
@@ -280,6 +281,7 @@ export class HomeComponent implements OnInit {
         }
       }
       )
+    
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
@@ -532,6 +534,14 @@ export class HomeComponent implements OnInit {
             },
           },
           plugins: {
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+              formatter: Math.round,
+              font: {
+                  weight: 'bold'
+              }
+          },
             legend: {
               display: true,
               position: 'top',
@@ -611,6 +621,14 @@ export class HomeComponent implements OnInit {
             },
           },
           plugins: {
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+              formatter: Math.round,
+              font: {
+                  weight: 'bold'
+              }
+          },
             legend: {
               display: true,
               position: 'top',
@@ -697,6 +715,16 @@ export class HomeComponent implements OnInit {
             },
           },
           plugins: {
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+              formatter: function(value, context) {
+                return context.dataIndex + ': ' + Math.round(value*100) + '%';
+              },
+              font: {
+                  weight: 'bold'
+              }
+          },
             legend: {
               display: true,
               position: 'top',

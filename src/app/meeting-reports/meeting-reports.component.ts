@@ -245,6 +245,9 @@ export class MeetingReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks:{
+              stepSize :1
+            },
           },
         },
         plugins: {
@@ -314,6 +317,9 @@ export class MeetingReportsComponent implements OnInit {
             grid: {
               display: true,
             },
+            ticks:{
+              stepSize :1
+            },
           },
         },
         plugins: {
@@ -381,6 +387,9 @@ export class MeetingReportsComponent implements OnInit {
             display: true,
             grid: {
               display: true,
+            },
+            ticks:{
+              stepSize :1
             },
           },
         },
@@ -576,6 +585,9 @@ export class MeetingReportsComponent implements OnInit {
             display: true,
             grid: {
               display: true,
+            },
+            ticks:{
+              stepSize :1
             },
           },
         },
