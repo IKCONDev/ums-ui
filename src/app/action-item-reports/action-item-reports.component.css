@@ -101,4 +101,18 @@
     table tr td{
       font-size: 11px;
     }
+    .card-header{
+
+      background-color: #134E69D9;
+      padding-left: 25px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+  }
+  #header{
+    display: flex;
+    justify-content: space-around;
     
+  }
+  #reportheading{
+    color: whitesmoke;
+  }
