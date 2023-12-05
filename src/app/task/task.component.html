@@ -19,7 +19,7 @@
                     data-toggle="modal" data-target="#myModal_add">Add</button></div>-->
             <div class="col-sm-3"></div>
             <div *ngIf="tabOpened === 'OrganizedTask'" id="deleteBtnDiv" class="col-sm-2">
-                <button class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
+                <button [disabled]="!deletePermission" class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
             </div>
             <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1">
             </div>

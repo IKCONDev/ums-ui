@@ -33,6 +33,7 @@
     "datatables.net-dt": "^1.13.8",
     "file-system": "^2.2.2",
     "javascript-time-ago": "^2.5.9",
+    "luxon": "^3.4.4",
     "ngx-toastr": "^17.0.2",
     "ngx-ui-loader": "^13.0.0",
     "rxjs": "^7.8.1",

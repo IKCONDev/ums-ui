@@ -155,7 +155,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.table.destroy();
     }
   }
-  isComponentLoading: boolean = false;
+  isComponentLoading: boolean = true;
   displayText: boolean = false;
   isOrganizedDataText: boolean = false;
   isAssignedDataText: boolean = false;
@@ -175,7 +175,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Output() notificationCount: number
   userRoleMenuItemsPermissionMap: Map<string, string>;
-  viewPermission: boolean = true;
+  viewPermission: boolean;
   createPermission: boolean = false;;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
@@ -202,6 +202,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
+          this.isComponentLoading = false;
           this.viewPermission = true;
           //disable kwyboard movement on startdate
           const taskStartDate = document.getElementById('taskStartDate');
@@ -266,7 +267,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           //set default as loggedin user for whom tasks should be retrived when login
           //  localStorage.setItem('selectedReportee', localStorage.getItem('email'));
           //console.log(this.selectedReportee)
-        }else{
+        } else {
+          this.isComponentLoading = false;
           this.viewPermission = false;
         }
         if (menuItemPermissions.includes('Create')) {
@@ -275,12 +277,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         if (menuItemPermissions.includes('Update')) {
           this.updatePermission = true;
           this.updateButtonColor = '#5590AA';
-        }else{
+        } else {
           this.updateButtonColor = 'lightgray'
         }
         if (menuItemPermissions.includes('Delete')) {
           this.deletePermission = true;
-        }else{
+        } else {
           this.deleteButtonColor = 'lightgray'
         }
       }
@@ -318,10 +320,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('taskTabOpened'))
 
     if (this.tabOpened === 'AssignedTask') {
-      document.getElementById("AssignedTask").style.borderBottom = '2px solid white';
-      document.getElementById("AssignedTask").style.width = 'fit-content';
-      document.getElementById("AssignedTask").style.paddingBottom = '2px';
-      document.getElementById("OrganizedTask").style.borderBottom = 'none';
       if (this.selectedReporteeAssigned != '') {
         this.service.getAssignedTasksOfUser(this.selectedReporteeAssigned,
           this.assignedTaskTitleFilter,
@@ -330,6 +328,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           this.assignedTaskStartDateFilter,
           this.assignedTaskEndDateFilter).subscribe({
             next: (response) => {
+              document.getElementById("AssignedTask").style.borderBottom = '2px solid white';
+              document.getElementById("AssignedTask").style.width = 'fit-content';
+              document.getElementById("AssignedTask").style.paddingBottom = '2px';
+              document.getElementById("OrganizedTask").style.borderBottom = 'none';
               console.log(response.body)
               //extract the meetings from response object
               this.assignedTasks = response.body;
@@ -370,11 +372,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     else {
-      document.getElementById("OrganizedTask").style.borderBottom = '2px solid white';
-      document.getElementById("OrganizedTask").style.width = 'fit-content';
-      document.getElementById("OrganizedTask").style.paddingBottom = '2px';
-      document.getElementById("AssignedTask").style.borderBottom = 'none';
-
       console.log(this.selectedReporteeOrganized)
       //get taskList default without any filters
       if (this.selectedReporteeOrganized != '' && this.selectedReporteeOrganized != null) {
@@ -386,6 +383,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           this.filter_StartDate,
           this.filter_EndDate).subscribe({
             next: (res) => {
+              document.getElementById("OrganizedTask").style.borderBottom = '2px solid white';
+              document.getElementById("OrganizedTask").style.width = 'fit-content';
+              document.getElementById("OrganizedTask").style.paddingBottom = '2px';
+              document.getElementById("AssignedTask").style.borderBottom = 'none';
               this.task = res.body;
               this.taskCount = res.body.length;
               if (this.taskCount === 0) {

@@ -4,7 +4,7 @@
 <div>
     <app-header [title]="title"></app-header>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="viewPermission === true">
     <div class="card-header">
         <div class="row">
             <div id="generalDiv" class="col-sm-2">
@@ -58,3 +58,7 @@
     <div class="card-body"></div>
     <div class="card-footer"></div>
 </div>
+
+<div class="container-fluid" *ngIf="viewPermission===false">
+    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+  </div>
