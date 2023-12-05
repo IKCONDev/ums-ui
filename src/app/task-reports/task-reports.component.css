@@ -54,3 +54,13 @@ table tr td {
     display: flex;
     justify-content: space-between;
 }
+
+a{
+    cursor: pointer;
+    
+  }
+ 
+  #chartType{
+    display: flex;
+    justify-content: space-between;
+  }

@@ -50,11 +50,12 @@
                 <div class="card">
                     <div id="chartHeading" class="card-header">
                         <b id="reportheading">Tasks</b>
+                        <div id="chartType" class="col-sm-6">
                         <a style="color: #fff;" (click)="setChartType('line')">Line</a>
                         <a style="color: #fff;"(click)="setChartType('bar')">Bar</a>
                         <a style="color: #fff;"(click)="setChartType('pie')">Pie</a>
                         <a style="color: #fff;"(click)="setChartType('doughnut')">Doughnut</a>
-                        
+                        </div>
                     </div>
                    <div class="chart">
                         <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
