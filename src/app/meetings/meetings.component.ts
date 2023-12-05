@@ -120,10 +120,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   attendedMeetingStartDateFilter: string = localStorage.getItem('attendedMeetingStartDateFilter');
   attendedMeetingEndDateFilter: string = localStorage.getItem('attendedMeetingEndDateFilter');
 
-  isComponentLoading: boolean = true;
+  isComponentLoading: boolean = false;
   displayText: boolean = false;
   isOrganizedMeetingDataText: boolean = false;
   isAttendedMeetingDataText: boolean = false;
+  
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -206,6 +207,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   createPermission: boolean = false;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
+  noPermissions: boolean;
 
   updateButtonColor: string;
 
@@ -220,12 +222,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
       var currentMenuItem = await this.getCurrentMenuItemDetails();
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
-          this.isComponentLoading = false;
+          //this.isComponentLoading = false;
           this.viewPermission = true;
           //hit db and get all details
           this.getActiveUMSAttendeesEmailIdList();
@@ -275,7 +278,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
           this.enableOrDisableSendMOM();
         } else {
-          this.isComponentLoading = false;
+          //this.isComponentLoading = false;
           this.viewPermission = false;
         }
         if (menuItemPermissions.includes('Create')) {
@@ -290,6 +293,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         if (menuItemPermissions.includes('Delete')) {
           this.deletePermission = true;
         }
+      }else{
+        this.noPermissions = true;
+        console.log('exe')
       }
     }
   }

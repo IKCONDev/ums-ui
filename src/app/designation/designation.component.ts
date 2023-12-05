@@ -134,7 +134,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         }else if(error.status === HttpStatusCode.Found){
           console.log(error)
           this.toastr.error('Designation name '+this.addDesignation.designationName+' already exists');
-          document.getElementById('closeAddModal').click();
+          //document.getElementById('closeAddModal').click();
         }else{
           this.toastr.error('Error while creating designation. Please try again !')
         }

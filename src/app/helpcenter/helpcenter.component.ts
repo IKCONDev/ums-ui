@@ -17,6 +17,7 @@ export class HelpcenterComponent implements OnInit {
   createPermission: boolean;
   updatePermission: boolean;
   deletePermission: boolean;
+  noPermissions: boolean;
   userRoleMenuItemsPermissionMap: Map<string, string>
 
   constructor(private router: Router, private menuItemService: AppMenuItemService){}
@@ -34,6 +35,7 @@ export class HelpcenterComponent implements OnInit {
     console.log(currentMenuItem)
 
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
@@ -58,6 +60,8 @@ export class HelpcenterComponent implements OnInit {
         }else{
           this.deletePermission = false;
         }
+      }else{
+        this.noPermissions = true;
       }
   }
 

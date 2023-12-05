@@ -203,7 +203,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.Found){
             this.toastr.error('Employee email ID '+this.addEmployee.email+' already exists');
-            document.getElementById('closeAddModal').click();
+            //document.getElementById('closeAddModal').click();
           }else if(error.status=== HttpStatusCode.NotAcceptable){
             this.toastr.error('Employee ID already present');
           }
