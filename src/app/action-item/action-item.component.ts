@@ -14,6 +14,9 @@ import { Users } from '../model/Users.model';
 import { HeaderService } from '../header/service/header.service';
 import { NotificationService } from '../notifications/service/notification.service';
 import { TaskCategory } from '../model/TaskCategory.model';
+import { MenuItem } from '../model/MenuItem.model';
+import { lastValueFrom } from 'rxjs';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 @Component({
   selector: 'app-action-item',
@@ -69,7 +72,7 @@ export class ActionItemComponent implements OnInit {
     actionItemId: 0,
     meetingId: 0,
     emailId: '',
-    departmentId:0,
+    departmentId: 0,
     actionItemOwner: [],
     actionItemTitle: '',
     actionItemDescription: '',
@@ -113,9 +116,9 @@ export class ActionItemComponent implements OnInit {
   isUpdateActionItemStartDateValid = false;
   isUpdateActionItemEndDateValid = false;
 
-  isComponentLoading:boolean=false;
-  displayText:boolean=false;
-  isActionItemDataText:boolean=false;
+  isComponentLoading: boolean = false;
+  displayText: boolean = false;
+  isActionItemDataText: boolean = false;
   /**
    * 
    * @param service 
@@ -125,7 +128,8 @@ export class ActionItemComponent implements OnInit {
    */
   constructor(private service: ActionService, private taskService: TaskService, private toastr: ToastrService,
     private meetingsService: MeetingService, private router: Router, private employeeService: EmployeeService,
-    private headerService: HeaderService, private notificationService: NotificationService) {
+    private headerService: HeaderService, private notificationService: NotificationService,
+    private menuItemService: AppMenuItemService) {
 
     //show action items slider control code
     $(function () {
@@ -155,44 +159,89 @@ export class ActionItemComponent implements OnInit {
   /**
    * 
    */
+  userRoleMenuItemsPermissionMap: Map<string, string>
   @Output() notificationCount: number = 0;
-  ngOnInit(): void {
-     //get noti count
-     this.notificationService.getTopTenNotificationsByUserId(this.loggedInUser).subscribe({
+
+  viewPermission: boolean = true;
+  createPermission: boolean = false;
+  updatePermission: boolean = false;
+  deletePermission: boolean = false;
+  buttoncolor: string;
+  async ngOnInit(): Promise<void> {
+
+    if (localStorage.getItem('jwtToken') === null) {
+      this.router.navigateByUrl('/session-timeout');
+    }
+
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+      //get menu item  details of home page
+      var currentMenuItem = await this.getCurrentMenuItemDetails();
+      console.log(currentMenuItem)
+      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.viewPermission = true;
+          this.getActiveUMSUsersEmailIdList();
+          //get action items of user
+          this.getActionItemsOfUser();
+          if (this.selectedReporteeOrganizedActionItem === '') {
+            this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
+            console.log(this.selectedReporteeOrganizedActionItem)
+          }
+
+          this.headerService.fetchUserProfile(this.selectedReporteeOrganizedActionItem).subscribe({
+            next: response => {
+              this.selectedUserDetails = response.body;
+              this.selectedUserdepartmentId = response.body.employee.departmentId;
+              console.log(this.selectedUserdepartmentId);
+            }
+          })
+
+          //get reportees data of logged in user
+          if (this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN') {
+            this.getAllEmployees();
+          } else {
+            this.getEmployeeReportees();
+          }
+
+          //get taskCategories
+          this.getTaskcategories();
+
+          //disable past dates  
+          this.pastDateTime();
+        } else{
+          this.viewPermission = false;
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+          this.buttoncolor = '#007bff';
+          console.log('create true')
+        }else{
+          this.buttoncolor = 'lightgray'
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }
+      }
+    }
+
+
+    //get noti count
+    this.notificationService.getTopTenNotificationsByUserId(this.loggedInUser).subscribe({
       next: response => {
-       localStorage.setItem('notificationCount',response.body.length.toString()); 
-       this.notificationCount = parseInt(localStorage.getItem('notificationCount'));
+        localStorage.setItem('notificationCount', response.body.length.toString());
+        this.notificationCount = parseInt(localStorage.getItem('notificationCount'));
       }
     })
 
-    this.getActiveUMSUsersEmailIdList();
-    //get action items of user
-    this.getActionItemsOfUser();
-    if (this.selectedReporteeOrganizedActionItem === '') {
-      this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
-      console.log(this.selectedReporteeOrganizedActionItem)
-    }
 
-    this.headerService.fetchUserProfile(this.selectedReporteeOrganizedActionItem).subscribe({
-      next: response => {
-        this.selectedUserDetails = response.body;
-        this.selectedUserdepartmentId = response.body.employee.departmentId;
-        console.log(this.selectedUserdepartmentId);
-      }
-    })
-
-    //get reportees data of logged in user
-    if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
-      this.getAllEmployees();
-    }else{
-      this.getEmployeeReportees();
-    }
-
-    //get taskCategories
-    this.getTaskcategories();
-
-    //disable past dates  
-    this.pastDateTime();
   }
 
 
@@ -200,21 +249,21 @@ export class ActionItemComponent implements OnInit {
    * Get action items of logged in user
    */
   getActionItemsOfUser() {
-    this.isComponentLoading=true;
-    this.displayText=true;
-    this.isActionItemDataText=true;
-    if(this.selectedReporteeOrganizedActionItem != ''){
+    this.isComponentLoading = true;
+    this.displayText = true;
+    this.isActionItemDataText = true;
+    if (this.selectedReporteeOrganizedActionItem != '') {
       this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
         next: (response) => {
           this.actionItems = response.body;
-          console.log(this.actionItems+"--sele")
+          console.log(this.actionItems + "--sele")
           this.actionItemCount = response.body.length;
-          if(this.actionItemCount===0){
-              this.isComponentLoading=false;
-              this.displayText=false;
-          }else{
-              this.isComponentLoading=false;
-              this.isActionItemDataText=false;
+          if (this.actionItemCount === 0) {
+            this.isComponentLoading = false;
+            this.displayText = false;
+          } else {
+            this.isComponentLoading = false;
+            this.isActionItemDataText = false;
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -222,18 +271,18 @@ export class ActionItemComponent implements OnInit {
           }
         }
       });
-    }else{
+    } else {
       this.service.getUserActionItemsByUserId(this.loggedInUser).subscribe({
         next: (response) => {
           this.actionItems = response.body;
-          console.log(this.actionItems+"def")
+          console.log(this.actionItems + "def")
           this.actionItemCount = response.body.length;
-          if(this.actionItemCount===0){
-              this.isComponentLoading=false;
-              this.displayText=false;
-          }else{
-              this.isComponentLoading=false;
-              this.isActionItemDataText=false;
+          if (this.actionItemCount === 0) {
+            this.isComponentLoading = false;
+            this.displayText = false;
+          } else {
+            this.isComponentLoading = false;
+            this.isActionItemDataText = false;
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -809,8 +858,8 @@ export class ActionItemComponent implements OnInit {
   }
 
   currentActionItemPriority: string = localStorage.getItem('currentActionItemPriority');
-  currentActionItemPlannedStartDate:string = localStorage.getItem('currentActionItemPlannedStartDate');
-  currentActionItemPlannedEndDate:string = localStorage.getItem('currentActionItemPlannedEndDate');
+  currentActionItemPlannedStartDate: string = localStorage.getItem('currentActionItemPlannedStartDate');
+  currentActionItemPlannedEndDate: string = localStorage.getItem('currentActionItemPlannedEndDate');
 
   //Tasks
   add_Task = {
@@ -828,7 +877,7 @@ export class ActionItemComponent implements OnInit {
     actionItemId: 0,
     actionTitle: '',
     emailId: '',
-    departmentId:0,
+    departmentId: 0,
     taskCategoryId: 0,
     taskCategory: {
       taskCategoryId: 0,
@@ -927,16 +976,16 @@ export class ActionItemComponent implements OnInit {
 
   taskCategoryErrorInfo = '';
   isTaskCategoryValid = false;
-validateTaskCategory(){
-  if(this.add_Task.taskCategoryId === 0){
-    this.taskCategoryErrorInfo = 'select a task category';
-    this.isTaskCategoryValid = false;
-  }else {
-    this.taskCategoryErrorInfo = '';
-    this.isTaskCategoryValid = true;
+  validateTaskCategory() {
+    if (this.add_Task.taskCategoryId === 0) {
+      this.taskCategoryErrorInfo = 'select a task category';
+      this.isTaskCategoryValid = false;
+    } else {
+      this.taskCategoryErrorInfo = '';
+      this.isTaskCategoryValid = true;
+    }
+    return this.isTaskCategoryValid;
   }
-  return this.isTaskCategoryValid;
-}
 
   taskStartDateErrorInfo = '';
   isTaskStartDateValid = false;
@@ -1024,7 +1073,7 @@ validateTaskCategory(){
       var valid = this.validateTaskOwner();
       isOwnerValid = valid;
     }
-    if(!this.isTaskCategoryValid){
+    if (!this.isTaskCategoryValid) {
       var valid = this.validateTaskCategory();
       isCategoryValid = valid;
     }
@@ -1093,7 +1142,7 @@ validateTaskCategory(){
   /**
    * if Role is Admin then get all employees
    */
-  getAllEmployees(){
+  getAllEmployees() {
     this.employeeService.getAll().subscribe({
       next: response => {
         this.reporteeList = response.body;
@@ -1126,12 +1175,12 @@ validateTaskCategory(){
   /**
    * store selected reportee in localstorage
    */
-  storeReporteeDataOfOrganizedActionItems(){
+  storeReporteeDataOfOrganizedActionItems() {
     localStorage.setItem('selectedReporteeOrganizedActionItem', this.selectedReporteeOrganizedActionItem);
     console.log(this.selectedReporteeOrganizedActionItem);
     this.selectedReporteeOrganizedActionItem = localStorage.getItem('selectedReporteeOrganizedActionItem')
-    if(this.selectedReporteeOrganizedActionItem === 'null'){
-      localStorage.setItem('selectedReporteeOrganizedActionItem',this.loggedInUser)
+    if (this.selectedReporteeOrganizedActionItem === 'null') {
+      localStorage.setItem('selectedReporteeOrganizedActionItem', this.loggedInUser)
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('selectedReporteeOrganizedActionItem');
     }
     console.log(this.selectedReporteeOrganizedActionItem)
@@ -1152,7 +1201,7 @@ validateTaskCategory(){
     localStorage.setItem('actionItemStartDateFilter', '');
     localStorage.setItem('actionItemEndDateFilter', '');
     localStorage.setItem('actionItemOwnerFilter', '');
-    
+
     this.CloseFilterActionItemModal();
     window.location.reload();
   }
@@ -1164,49 +1213,74 @@ validateTaskCategory(){
    * @param ActionItemStartDate 
    * @param ActionItemEndDate 
    */
-  filterActionItemList(actionItemTitle: string, actionItemOwner:string, actionItemStartDate: string, actionItemEndDate: string, ) {
-    this.actionItemNameFilter=actionItemTitle;
-    this.actionItemOwnerFilter=actionItemOwner;
-    this.actionItemStartDateFilter=actionItemStartDate;
-    this.actionItemEndDateFilter=actionItemEndDate;
+  filterActionItemList(actionItemTitle: string, actionItemOwner: string, actionItemStartDate: string, actionItemEndDate: string,) {
+    this.actionItemNameFilter = actionItemTitle;
+    this.actionItemOwnerFilter = actionItemOwner;
+    this.actionItemStartDateFilter = actionItemStartDate;
+    this.actionItemEndDateFilter = actionItemEndDate;
 
     console.log(actionItemTitle)
-    
-    localStorage.setItem("actionItemNameFilter",actionItemTitle);
-    localStorage.setItem("actionItemOwnerFilter",actionItemOwner);
-    localStorage.setItem("actionItemStartDateFilter",actionItemStartDate);
-    localStorage.setItem("actionItemEndDateFilter",actionItemEndDate);
 
-    this.service.getActionItemByUserId(this.selectedReporteeOrganizedActionItem,actionItemTitle,actionItemOwner,actionItemStartDate,actionItemEndDate)
-    .subscribe({
-      next: response => {
-        this.actionItems = response.body;
-        this.actionItemCount = response.body.length;
-       
-      }
-    })
+    localStorage.setItem("actionItemNameFilter", actionItemTitle);
+    localStorage.setItem("actionItemOwnerFilter", actionItemOwner);
+    localStorage.setItem("actionItemStartDateFilter", actionItemStartDate);
+    localStorage.setItem("actionItemEndDateFilter", actionItemEndDate);
+
+    this.service.getActionItemByUserId(this.selectedReporteeOrganizedActionItem, actionItemTitle, actionItemOwner, actionItemStartDate, actionItemEndDate)
+      .subscribe({
+        next: response => {
+          this.actionItems = response.body;
+          this.actionItemCount = response.body.length;
+
+        }
+      })
     this.CloseFilterActionItemModal();
-   //window.location.reload();
+    //window.location.reload();
   }
 
-  getCurrentActionItemDetails(actionItem: ActionItems){
-    localStorage.setItem('currentActionItemPriority',actionItem.actionPriority)
+  getCurrentActionItemDetails(actionItem: ActionItems) {
+    localStorage.setItem('currentActionItemPriority', actionItem.actionPriority)
     this.add_Task.taskPriority = localStorage.getItem('currentActionItemPriority');
     console.log(localStorage.getItem('currentActionItemPriority'));
-    localStorage.setItem('currentActionItemPlannedStartDate',actionItem.startDate);
+    localStorage.setItem('currentActionItemPlannedStartDate', actionItem.startDate);
     this.add_Task.plannedStartDate = localStorage.getItem('currentActionItemPlannedStartDate');
-    localStorage.setItem('currentActionItemPlannedEndDate',actionItem.endDate);
+    localStorage.setItem('currentActionItemPlannedEndDate', actionItem.endDate);
     this.add_Task.plannedEndDate = localStorage.getItem('currentActionItemPlannedEndDate');
     console.log(localStorage.getItem('currentActionItemPlannedEndDate'))
   }
 
-  getTaskcategories(){
+  getTaskcategories() {
     this.taskService.findTaskCategories().subscribe({
       next: response => {
         this.taskCategoryList = response.body;
         console.log(response.body)
       }
     })
+  }
+
+  currentMenuItem: MenuItem;
+  /**
+   * 
+   * @returns 
+   */
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('ActionItems')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
+
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
   }
 
 }

@@ -253,19 +253,19 @@
                                             <td class="actionItemRows"
                                                 *ngIf="actionItem.actionStatus==='Not Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                <span class="edit-icon"
+                                                <button [disabled]="!updatePermission" class="edit-icon"
                                                     (click)="editActionItem(actionItem.actionItemId)"
                                                     (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
                                                     data-target="#myModal">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                         viewBox="0 0 20 20" fill="none">
-                                                        <g id="edit">
+                                                        <g [style.fill] = "updateButtonColor" id="edit">
                                                             <path id="Vector"
                                                                 d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                                                fill="#5590AA" />
+                                                                 />
                                                         </g>
                                                     </svg>
-                                                </span>
+                                                </button>
                                             </td>
                                             <td class="actionItemRows" *ngIf="actionItem.actionStatus==='Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->

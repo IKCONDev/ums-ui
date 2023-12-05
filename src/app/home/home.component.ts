@@ -280,7 +280,6 @@ export class HomeComponent implements OnInit {
         }
       }
       )
-    
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }

@@ -207,6 +207,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   updatePermission: boolean = false;
   deletePermission: boolean = false;
 
+  updateButtonColor: string;
+
   /**
    * executes when the component is initialized or loaded first time
    */
@@ -280,6 +282,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       if (menuItemPermissions.includes('Update')) {
         this.updatePermission = true;
+        this.updateButtonColor = '#5590AA';
+      }else{
+        this.updateButtonColor = 'lightgrey';
       }
       if (menuItemPermissions.includes('Delete')) {
         this.deletePermission = true;

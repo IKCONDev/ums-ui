@@ -14,6 +14,9 @@ import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
 import { NotificationService } from '../notifications/service/notification.service';
 import { TaskCategory } from '../model/TaskCategory.model';
+import { MenuItem } from '../model/MenuItem.model';
+import { lastValueFrom } from 'rxjs';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 @Component({
   selector: 'app-task',
@@ -38,7 +41,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedReporteeOrganized: string = localStorage.getItem('selectedReporteeOrganized');
   selectedReporteeAssigned: string = localStorage.getItem('selectedReporteeAssigned');
   selectedUserDepartmentIdOrganized: number = 0;
-  selectedUserDetailsOrganized : Users;
+  selectedUserDetailsOrganized: Users;
 
   isTaskTitleValid = false;
   isTaskDescriptionValid = false;
@@ -57,8 +60,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     taskPriority: '',
     startDate: '',
     dueDate: '',
-    plannedStartDate:'',
-    plannedEndDate:'',
+    plannedStartDate: '',
+    plannedEndDate: '',
     taskOwner: '',
     organizer: '',
     status: '',
@@ -87,7 +90,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   assignedTaskPriorityFilter = localStorage.getItem('assignedTaskPriorityFilter');
   assignedTaskStartDateFilter = localStorage.getItem('assignedTaskStartDateFilter');
   assignedTaskEndDateFilter = localStorage.getItem('assignedTaskEndDateFilter');
- // assignedTaskOrganizerFilter = this.selectedReporteeAssigned
+  // assignedTaskOrganizerFilter = this.selectedReporteeAssigned
 
 
   private table: any;
@@ -100,7 +103,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true,
           pageLength: 10,
           order: [[1, 'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ], // Set the options for the "Show entries" dropdown
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
         });
       });
@@ -113,7 +116,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true,
           pageLength: 10,
           order: [[1, 'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ], // Set the options for the "Show entries" dropdown
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
         });
       });
@@ -121,30 +124,30 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(()=> {
+    setTimeout(() => {
       $(document).ready(() => {
         this.table = $('#table').DataTable({
           paging: true,
           searching: true, // Enable search feature
           pageLength: 10,
-          order: [[1,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+          order: [[1, 'asc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           // Add other options here as needed
         });
-  
+
       });
-  
+
       $(document).ready(() => {
         this.table = $('#assignedtaskTable').DataTable({
           paging: true,
           searching: true, // Enable search feature
           pageLength: 10,
-          order: [[1,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+          order: [[1, 'asc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           // Add other options here as needed
         });
       });
-    },500)
+    }, 500)
   }
 
   ngOnDestroy(): void {
@@ -152,10 +155,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.table.destroy();
     }
   }
-isComponentLoading:boolean=false;
-displayText:boolean=false;
-isOrganizedDataText:boolean=false;
-isAssignedDataText:boolean=false;
+  isComponentLoading: boolean = false;
+  displayText: boolean = false;
+  isOrganizedDataText: boolean = false;
+  isAssignedDataText: boolean = false;
   /**
    * 
    * @param service 
@@ -164,91 +167,137 @@ isAssignedDataText:boolean=false;
    */
   constructor(private service: TaskService, private meetingService: MeetingService,
     private toastr: ToastrService, private router: Router, private employeeService: EmployeeService,
-    private headerService: HeaderService, private notificationService: NotificationService) {
+    private headerService: HeaderService, private notificationService: NotificationService,
+    private menuItemService: AppMenuItemService) {
 
   }
 
-  
- @Output() notificationCount: number
+
+  @Output() notificationCount: number
+  userRoleMenuItemsPermissionMap: Map<string, string>;
+  viewPermission: boolean = true;
+  createPermission: boolean = false;;
+  updatePermission: boolean = false;
+  deletePermission: boolean = false;
+
+  updateButtonColor: string;
+  deleteButtonColor: string;
   /**
    * 
    */
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
+    if (localStorage.getItem('jwtToken') === null) {
+      this.router.navigateByUrl('/session-timeout');
+    }
+
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+      //get menu item  details of home page
+      var currentMenuItem = await this.getCurrentMenuItemDetails();
+      console.log(currentMenuItem)
+      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.viewPermission = true;
+          //disable kwyboard movement on startdate
+          const taskStartDate = document.getElementById('taskStartDate');
+          taskStartDate.addEventListener("keydown", function (e) {
+            e.preventDefault();
+          })
+
+          /* this.service.getAlltaskDetails().subscribe(res=>{
+              this.task =res.body;
+              this.taskCount = res.body.length;
+              console.log(this.task);
+           });*/
+
+          if (this.selectedReporteeOrganized === '') {
+            this.selectedReporteeOrganized = localStorage.getItem('email');
+          }
+          if (this.selectedReporteeAssigned === '') {
+            this.selectedReporteeAssigned = localStorage.getItem('email');
+          }
+
+          //get user details of selected organized user
+          this.headerService.fetchUserProfile(this.selectedReporteeOrganized).subscribe({
+            next: response => {
+              this.selectedUserDetailsOrganized = response.body;
+              this.selectedUserDepartmentIdOrganized = response.body.employee.departmentId;
+              console.log(this.selectedUserDepartmentIdOrganized)
+            }
+          });
+
+          this.selectedUserDepartmentIdOrganized = parseInt(localStorage.getItem('selectedUserDepartmentId'));
+          console.log(this.selectedUserDepartmentIdOrganized)
+          console.log(this.selectedReporteeOrganized)
+
+          //get user details of selected assigned user
+          this.headerService.fetchUserProfile(this.selectedReporteeAssigned).subscribe({
+            next: response => {
+              this.selectedUserDetailsOrganized = response.body;
+              this.selectedUserDepartmentIdOrganized = response.body.employee.departmentId;
+              console.log(this.selectedUserDepartmentIdOrganized)
+            }
+          });
+
+          this.selectedUserDepartmentIdOrganized = parseInt(localStorage.getItem('selectedUserDepartmentId'));
+          console.log(this.selectedUserDepartmentIdOrganized)
+          console.log(this.selectedReporteeOrganized)
+
+          //set default tab to Organized Task when application is opened
+          //localStorage.setItem('taskTabOpened', 'OrganizedTask');
+          this.tabOpened = localStorage.getItem('taskTabOpened')
+          console.log(this.tabOpened)
+          this.getTasks(this.tabOpened);
+
+          //get reportees data of logged in user
+          if (this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN') {
+            this.getAllEmployees();
+          } else {
+            this.getEmployeeReportees();
+          }
+
+          this.getTaskcategories();
+
+          //set default as loggedin user for whom tasks should be retrived when login
+          //  localStorage.setItem('selectedReportee', localStorage.getItem('email'));
+          //console.log(this.selectedReportee)
+        }else{
+          this.viewPermission = false;
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+          this.updateButtonColor = '#5590AA';
+        }else{
+          this.updateButtonColor = 'lightgray'
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }else{
+          this.deleteButtonColor = 'lightgray'
+        }
+      }
+    }
 
     //get noti count
     this.notificationService.getTopTenNotificationsByUserId(this.loggedInUser).subscribe({
       next: response => {
-       localStorage.setItem('notificationCount',response.body.length.toString()); 
-       this.notificationCount = parseInt(localStorage.getItem('notificationCount'));
+        localStorage.setItem('notificationCount', response.body.length.toString());
+        this.notificationCount = parseInt(localStorage.getItem('notificationCount'));
       }
     })
 
     //disable past date times
     this.min = this.pastDateTime();
 
-    //disable kwyboard movement on startdate
-    const taskStartDate = document.getElementById('taskStartDate');
-    taskStartDate.addEventListener("keydown", function (e) {
-      e.preventDefault();
-    })
 
-    /* this.service.getAlltaskDetails().subscribe(res=>{
-        this.task =res.body;
-        this.taskCount = res.body.length;
-        console.log(this.task);
-     });*/
-
-     if(this.selectedReporteeOrganized === ''){
-      this.selectedReporteeOrganized = localStorage.getItem('email');
-    }
-    if(this.selectedReporteeAssigned === ''){
-      this.selectedReporteeAssigned = localStorage.getItem('email');
-    }
-
-    //get user details of selected organized user
-    this.headerService.fetchUserProfile(this.selectedReporteeOrganized).subscribe({
-      next: response => {
-        this.selectedUserDetailsOrganized = response.body;
-        this.selectedUserDepartmentIdOrganized = response.body.employee.departmentId;
-        console.log(this.selectedUserDepartmentIdOrganized)
-      }
-    });
-
-    this.selectedUserDepartmentIdOrganized = parseInt(localStorage.getItem('selectedUserDepartmentId'));
-    console.log(this.selectedUserDepartmentIdOrganized)
-    console.log(this.selectedReporteeOrganized)
-
-    //get user details of selected assigned user
-    this.headerService.fetchUserProfile(this.selectedReporteeAssigned).subscribe({
-      next: response => {
-        this.selectedUserDetailsOrganized = response.body;
-        this.selectedUserDepartmentIdOrganized = response.body.employee.departmentId;
-        console.log(this.selectedUserDepartmentIdOrganized)
-      }
-    });
-
-    this.selectedUserDepartmentIdOrganized = parseInt(localStorage.getItem('selectedUserDepartmentId'));
-    console.log(this.selectedUserDepartmentIdOrganized)
-    console.log(this.selectedReporteeOrganized)
-
-    //set default tab to Organized Task when application is opened
-    //localStorage.setItem('taskTabOpened', 'OrganizedTask');
-    this.tabOpened = localStorage.getItem('taskTabOpened')
-    console.log(this.tabOpened)
-    this.getTasks(this.tabOpened);
-
-     //get reportees data of logged in user
-     if(this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN'){
-      this.getAllEmployees();
-    }else{
-      this.getEmployeeReportees();
-    }
-
-    this.getTaskcategories();
-
-    //set default as loggedin user for whom tasks should be retrived when login
-    //  localStorage.setItem('selectedReportee', localStorage.getItem('email'));
-    //console.log(this.selectedReportee)
   }
 
   /**
@@ -256,10 +305,10 @@ isAssignedDataText:boolean=false;
    * @param tabOpened 
    */
   getTasks(tabOpened: string) {
-    this.isComponentLoading=true;
-    this.displayText=true;
-    this.isAssignedDataText=true;
-    this.isOrganizedDataText=true;
+    this.isComponentLoading = true;
+    this.displayText = true;
+    this.isAssignedDataText = true;
+    this.isOrganizedDataText = true;
 
     //check logged in user role
     //if (this.loggedInUserRole != 'ADMIN') {
@@ -273,51 +322,51 @@ isAssignedDataText:boolean=false;
       document.getElementById("AssignedTask").style.width = 'fit-content';
       document.getElementById("AssignedTask").style.paddingBottom = '2px';
       document.getElementById("OrganizedTask").style.borderBottom = 'none';
-      if(this.selectedReporteeAssigned != ''){
+      if (this.selectedReporteeAssigned != '') {
         this.service.getAssignedTasksOfUser(this.selectedReporteeAssigned,
           this.assignedTaskTitleFilter,
           this.assignedTaskPriorityFilter,
-         // this.assignedTaskOrganizerFilter,
+          // this.assignedTaskOrganizerFilter,
           this.assignedTaskStartDateFilter,
           this.assignedTaskEndDateFilter).subscribe({
-          next: (response) => {
-            console.log(response.body)
-            //extract the meetings from response object
-            this.assignedTasks = response.body;
-            this.assignedTasksCount = response.body.length
-            if(this.assignedTasksCount===0){
-                this.isComponentLoading=false;
-                this.displayText=false;
-            }else{
-                this.isComponentLoading=false;
-                this.isAssignedDataText=false;
+            next: (response) => {
+              console.log(response.body)
+              //extract the meetings from response object
+              this.assignedTasks = response.body;
+              this.assignedTasksCount = response.body.length
+              if (this.assignedTasksCount === 0) {
+                this.isComponentLoading = false;
+                this.displayText = false;
+              } else {
+                this.isComponentLoading = false;
+                this.isAssignedDataText = false;
+              }
+              localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+            }, error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl('/session-timeout');
+              }
             }
-            localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
-          }, error: (error) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.router.navigateByUrl('/session-timeout');
-            }
-          }
-        });
-      }else{
+          });
+      } else {
         this.service.getAssignedTasksOfUser(this.loggedInUser,
           this.assignedTaskTitleFilter,
           this.assignedTaskPriorityFilter,
           //this.assignedTaskOrganizerFilter,
           this.assignedTaskStartDateFilter,
           this.assignedTaskEndDateFilter).subscribe({
-          next: (response) => {
-            console.log(response.body)
-            //extract the meetings from response object
-            this.assignedTasks = response.body;
-            this.assignedTasksCount = response.body.length
-            localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
-          }, error: (error) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.router.navigateByUrl('/session-timeout');
+            next: (response) => {
+              console.log(response.body)
+              //extract the meetings from response object
+              this.assignedTasks = response.body;
+              this.assignedTasksCount = response.body.length
+              localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
+            }, error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl('/session-timeout');
+              }
             }
-          }
-        });
+          });
       }
     }
     else {
@@ -328,56 +377,56 @@ isAssignedDataText:boolean=false;
 
       console.log(this.selectedReporteeOrganized)
       //get taskList default without any filters
-      if(this.selectedReporteeOrganized != '' && this.selectedReporteeOrganized != null){
+      if (this.selectedReporteeOrganized != '' && this.selectedReporteeOrganized != null) {
         console.log('executed selected repportee')
         this.service.getTaskByUserId(this.selectedReporteeOrganized,
-        this.filter_Taskname,
-        this.filter_Priority,
-        this.filter_Email_Organizer,
-        this.filter_StartDate,
-        this.filter_EndDate).subscribe({
-          next: (res) => {
-            this.task = res.body;
-            this.taskCount = res.body.length;
-            if(this.taskCount===0){
-                this.isComponentLoading=false;
-                this.displayText=false;
-            }else{
-                this.isComponentLoading=false;
-                this.isOrganizedDataText=false;
+          this.filter_Taskname,
+          this.filter_Priority,
+          this.filter_Email_Organizer,
+          this.filter_StartDate,
+          this.filter_EndDate).subscribe({
+            next: (res) => {
+              this.task = res.body;
+              this.taskCount = res.body.length;
+              if (this.taskCount === 0) {
+                this.isComponentLoading = false;
+                this.displayText = false;
+              } else {
+                this.isComponentLoading = false;
+                this.isOrganizedDataText = false;
+              }
+              console.log(this.task);
+            }, error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl('/session-timeout');
+              }
             }
-            console.log(this.task);
-          }, error: (error) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.router.navigateByUrl('/session-timeout');
-            }
-          }
-          
-        });
+
+          });
         //this.InitailizeJqueryDataTable();
-      }else{
+      } else {
         console.log('executed default repportee')
         this.service.getTaskByUserId(localStorage.getItem('email'),
-        this.filter_Taskname,
-        this.filter_Priority,
-        this.filter_Email_Organizer,
-        this.filter_StartDate,
-        this.filter_EndDate).subscribe({
-          next: (res) => {
-            this.task = res.body;
-            this.taskCount = res.body.length;
-            console.log(this.task);
-          }, error: (error) => {
-            if (error.status === HttpStatusCode.Unauthorized) {
-              this.router.navigateByUrl('/session-timeout');
+          this.filter_Taskname,
+          this.filter_Priority,
+          this.filter_Email_Organizer,
+          this.filter_StartDate,
+          this.filter_EndDate).subscribe({
+            next: (res) => {
+              this.task = res.body;
+              this.taskCount = res.body.length;
+              console.log(this.task);
+            }, error: (error) => {
+              if (error.status === HttpStatusCode.Unauthorized) {
+                this.router.navigateByUrl('/session-timeout');
+              }
             }
-          }
-        });
+          });
         //this.InitailizeJqueryDataTable();
       }
-      
+
     }
-    
+
   }
 
   //validate Task Title
@@ -442,16 +491,16 @@ isAssignedDataText:boolean=false;
 
   taskCategoryErrorInfo = '';
   isTaskCategoryValid = false;
-validateTaskCategory(){
-  if(this.update_Task.taskCategoryId === 0){
-    this.taskCategoryErrorInfo = 'select a task category';
-    this.isTaskCategoryValid = false;
-  }else {
-    this.taskCategoryErrorInfo = '';
-    this.isTaskCategoryValid = true;
+  validateTaskCategory() {
+    if (this.update_Task.taskCategoryId === 0) {
+      this.taskCategoryErrorInfo = 'select a task category';
+      this.isTaskCategoryValid = false;
+    } else {
+      this.taskCategoryErrorInfo = '';
+      this.isTaskCategoryValid = true;
+    }
+    return this.isTaskCategoryValid;
   }
-  return this.isTaskCategoryValid;
-}
 
   //validating Task Priority
   taskPriorityErrorInfo = "";
@@ -537,7 +586,7 @@ validateTaskCategory(){
    */
   validateTaskStartDate() {
     //var taskStartDate=event.target.value;
-    if ( this.update_Task.startDate === null) {
+    if (this.update_Task.startDate === null) {
       this.taskStartDateErrorInfo = 'Select the start date';
       this.isTaskStartDateValid = false;
     }
@@ -606,19 +655,19 @@ validateTaskCategory(){
   updateTaskDetails(form: NgForm) {
     console.log("entered the update task details");
     var currentDate = new Date();
-      var year = currentDate.getFullYear();
-      var month = currentDate.getMonth() + 1; 
-       var day = currentDate.getDate();
-       var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
-       console.log(formattedStartDate)
-    if(this.update_Task.status === 'Completed'){
-      if(this.update_Task.startDate===null||this.update_Task.startDate===""){
-        this.update_Task.startDate=formattedStartDate;
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1;
+    var day = currentDate.getDate();
+    var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+    console.log(formattedStartDate)
+    if (this.update_Task.status === 'Completed') {
+      if (this.update_Task.startDate === null || this.update_Task.startDate === "") {
+        this.update_Task.startDate = formattedStartDate;
       }
-       this.update_Task.dueDate = formattedStartDate;
+      this.update_Task.dueDate = formattedStartDate;
     }
-    if(this.update_Task.status === 'Inprogress'){
-       this.update_Task.startDate = formattedStartDate;
+    if (this.update_Task.status === 'Inprogress') {
+      this.update_Task.startDate = formattedStartDate;
     }
     console.log(this.update_Task.startDate)
     console.log(this.update_Task.dueDate)
@@ -654,9 +703,9 @@ validateTaskCategory(){
       isStatusValid = valid;
     }
     if (isTitleValid === true && isDescriptionValid === true && isPriorityValid === true && isStatusValid === true) {
-      if(this.update_Task.dueDate < this.update_Task.plannedEndDate && this.update_Task.status === 'Completed' && this.update_Task.dueDate != null){
+      if (this.update_Task.dueDate < this.update_Task.plannedEndDate && this.update_Task.status === 'Completed' && this.update_Task.dueDate != null) {
         var isConfirmed = window.confirm('This task is being completed before the planned end date, Are you sure you want to proceed ?');
-        if(isConfirmed){
+        if (isConfirmed) {
           console.log(this.update_Task.taskCategoryId);
           console.log(this.update_Task.taskCategory.taskCategoryId)
           //this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
@@ -679,9 +728,9 @@ validateTaskCategory(){
             }
           });
         }
-      }else{
+      } else {
         console.log(this.update_Task.startDate)
-       // this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
+        // this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
         this.service.updateTask(this.update_Task).subscribe({
           next: (response) => {
             this.response = response.body;
@@ -701,7 +750,7 @@ validateTaskCategory(){
           }
         });
       }
-      
+
     }
   }
 
@@ -762,7 +811,7 @@ validateTaskCategory(){
   checkSubCheckBoxes() {
     if ($('#mainCheckBox').is(':checked')) {
       $('.subCheckBox').prop('checked', true);
-      
+
     } else {
       $('.subCheckBox').prop('checked', false);
     }
@@ -943,12 +992,12 @@ validateTaskCategory(){
     localStorage.setItem('taskStartDateFilter', '');
     localStorage.setItem('taskEndDateFilter', '');
     localStorage.setItem('taskOrganizerFilter', '');
-    
+
     this.CloseFilterTaskModal();
     window.location.reload();
   }
 
-  resetAssignedFilterModal(){
+  resetAssignedFilterModal() {
     localStorage.setItem('assignedTaskTitleFilter', '');
     localStorage.setItem('assignedTaskPriorityFilter', '');
     localStorage.setItem('assignedTaskStartDateFilter', '');
@@ -1059,7 +1108,7 @@ validateTaskCategory(){
 
     this.assignedTaskTitleFilter = '';
     this.assignedTaskPriorityFilter = '';
-   // this.assignedTaskOrganizerFilter = '';
+    // this.assignedTaskOrganizerFilter = '';
     this.assignedTaskStartDateFilter = '';
     this.assignedTaskEndDateFilter = '';
 
@@ -1120,7 +1169,7 @@ validateTaskCategory(){
   /**
    * if Role is Admin then get all employees
    */
-  getAllEmployees(){
+  getAllEmployees() {
     this.employeeService.getAll().subscribe({
       next: response => {
         this.reporteeList = response.body;
@@ -1136,28 +1185,28 @@ validateTaskCategory(){
     localStorage.setItem('selectedReporteeOrganized', this.selectedReporteeOrganized);
     console.log(this.selectedReporteeOrganized);
     this.selectedReporteeOrganized = localStorage.getItem('selectedReporteeOrganized')
-    if(this.selectedReporteeOrganized === 'null'){
-      localStorage.setItem('selectedReporteeOrganized',this.loggedInUser)
+    if (this.selectedReporteeOrganized === 'null') {
+      localStorage.setItem('selectedReporteeOrganized', this.loggedInUser)
       this.selectedReporteeOrganized = localStorage.getItem('selectedReporteeOrganized');
     }
     console.log(this.selectedReporteeOrganized)
     window.location.reload();
   }
 
-   /**
-   * 
-   */
+  /**
+  * 
+  */
 
 
-   /**
-   * store selected reportee in localstorage
-   */
-   storeReporteeDataOfAssignedTask(){
+  /**
+  * store selected reportee in localstorage
+  */
+  storeReporteeDataOfAssignedTask() {
     localStorage.setItem('selectedReporteeAssigned', this.selectedReporteeAssigned);
     console.log(this.selectedReporteeAssigned);
     this.selectedReporteeAssigned = localStorage.getItem('selectedReporteeAssigned')
-    if(this.selectedReporteeAssigned === 'null'){
-      localStorage.setItem('selectedReporteeAssigned',this.loggedInUser)
+    if (this.selectedReporteeAssigned === 'null') {
+      localStorage.setItem('selectedReporteeAssigned', this.loggedInUser)
       this.selectedReporteeAssigned = localStorage.getItem('selectedReporteeAssigned');
     }
     console.log(this.selectedReporteeAssigned)
@@ -1165,13 +1214,34 @@ validateTaskCategory(){
   }
 
   taskCategoryList: TaskCategory[];
-  getTaskcategories(){
+  getTaskcategories() {
     this.service.findTaskCategories().subscribe({
       next: response => {
         this.taskCategoryList = response.body;
         console.log(response.body)
       }
     })
+  }
+
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Tasks')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
+
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
   }
 
 }
