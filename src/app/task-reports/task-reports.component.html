@@ -48,8 +48,13 @@
             </div>
             <div class="col-sm-6">
                 <div class="card">
-                    <div class="card-header">
+                    <div id="chartHeading" class="card-header">
                         <b id="reportheading">Tasks</b>
+                        <a style="color: #fff;" (click)="setChartType('line')">Line</a>
+                        <a style="color: #fff;"(click)="setChartType('bar')">Bar</a>
+                        <a style="color: #fff;"(click)="setChartType('pie')">Pie</a>
+                        <a style="color: #fff;"(click)="setChartType('doughnut')">Doughnut</a>
+                        
                     </div>
                     <div class="chart">
                         <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"

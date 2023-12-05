@@ -50,3 +50,7 @@ table tr td {
 #reportheading{
     color: whitesmoke;
 }
+#chartHeading{
+    display: flex;
+    justify-content: space-between;
+}

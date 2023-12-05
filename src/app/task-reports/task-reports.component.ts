@@ -284,7 +284,7 @@ export class TaskReportsComponent implements OnInit {
 
   createTaskListByDepartmentChart() {
     this.taskListByDepartmentChart = new Chart("taskListByDepartmentChart", {
-      type: 'doughnut',
+      type: this.ChartType,
       data: {// values on X-Axis
         xLabels: ['Total tasks'],
         datasets: [
@@ -733,6 +733,17 @@ deptValueCount : DepartmentCount[] = [];
          this.alltasksCount = response.body.length;
        }
     })
+  }
+  ChartType:any='line';
+  setChartType(value:any){
+    console.log(value)
+    this.ChartType=value;
+    if(this.taskListByDepartmentChart!=null){
+      this.taskListByDepartmentChart.destroy();
+
+      this.createTaskListByDepartmentChart();
+    }
+   
   }
 
 
