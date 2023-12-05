@@ -20,6 +20,7 @@ export class ReportSettingsComponent implements OnInit {
   createPermission: boolean;
   updatePermission: boolean;
   deletePermission: boolean;
+  noPermissions: boolean;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private tastCategory: TaskCategoryService,
     private menuItemService: AppMenuItemService){
@@ -40,6 +41,7 @@ export class ReportSettingsComponent implements OnInit {
     console.log(currentMenuItem)
 
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
@@ -65,6 +67,8 @@ export class ReportSettingsComponent implements OnInit {
         }else{
           this.deletePermission = false;
         }
+      }else{
+        this.noPermissions = true;
       }
   }
 

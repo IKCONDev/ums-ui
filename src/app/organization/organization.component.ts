@@ -633,7 +633,7 @@ onFileChanged(event:any){
     
   currentMenuItem: MenuItem;
   async getCurrentMenuItemDetails() : Promise<MenuItem> {
-      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Company Details')).then(response => {
+      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Organization')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
           console.log(this.currentMenuItem)

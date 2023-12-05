@@ -31,6 +31,7 @@ export class SettingsComponent implements OnInit {
   createPermission: boolean;
   updatePermission: boolean;
   deletePermission: boolean;
+  noPermissions: boolean;
 
   async ngOnInit(): Promise<void> {
     if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
@@ -48,6 +49,7 @@ export class SettingsComponent implements OnInit {
     console.log(currentMenuItem)
 
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
@@ -72,6 +74,8 @@ export class SettingsComponent implements OnInit {
         }else{
           this.deletePermission = false;
         }
+      }else{
+        this.noPermissions = true;
       }
   }
 
