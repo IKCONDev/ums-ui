@@ -59,9 +59,13 @@ export class AppMenuItemsComponent {
 
 
   getMenuItems(){
+    this.isComponentLoading=true;
+    this.isMenuItemDataText=true;
     this.menuItemService.findMenuItems().subscribe({
       next: response => {
         this.menuItemList = response.body;
+        this.isComponentLoading=false;
+        this.isMenuItemDataText=false;
         console.log(response.body)
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
@@ -211,6 +215,7 @@ export class AppMenuItemsComponent {
       isMenuItemPathValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true && isMenuItemPathValid === true){
+      menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
       menuItem.createdByEmailId = this.loggedInUser;
       menuItem.createdBy = this.loggedInUserFullName;
       this.menuItemService.createMenuItem(menuItem).subscribe({
@@ -331,6 +336,12 @@ export class AppMenuItemsComponent {
     } else {
       $('.subCheckBox').prop('checked', false);
     }
+  }
+
+  transformToTitleCase(text: string): string {
+    return text.toLowerCase().split(' ').map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
   }
 
 }
