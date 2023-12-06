@@ -87,7 +87,7 @@ export class OrganizationComponent implements OnInit {
     console.log(currentMenuItem)
 
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
-        this.noPermissions = false;
+        //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
@@ -116,7 +116,8 @@ export class OrganizationComponent implements OnInit {
           this.deletePermission = false;
         }
       }else{
-        this.noPermissions = true;
+        //this.noPermissions = true;
+        this.router.navigateByUrl('/unauthorized');
       }
   }
 

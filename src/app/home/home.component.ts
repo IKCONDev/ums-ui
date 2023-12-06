@@ -243,6 +243,8 @@ export class HomeComponent implements OnInit {
         if (menuItemPermissions.includes('Delete')) {
           this.deletePermission = true;
         }
+      }else{
+        this.router.navigateByUrl('/unauthorized');
       }
 
     //get noti count

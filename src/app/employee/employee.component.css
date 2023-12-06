@@ -1,187 +1,215 @@
-.container-fluid{
-    padding-top: 10px;
-    padding-left:120px;
-    padding-right: 32px;
-    padding-bottom: 20px;
+.container-fluid {
+  padding-top: 10px;
+  padding-left: 120px;
+  padding-right: 32px;
+  padding-bottom: 20px;
 }
 
-.card-header{
+.card-header {
 
-    background-color: #134E69D9;
-    padding-left: 25px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+  background-color: #134E69D9;
+  padding-left: 25px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 
 }
-#heading{
-    color: #F6FBFD;
-    padding-top: 8px;
+
+#heading {
+  color: #F6FBFD;
+  padding-top: 8px;
 }
 
 .card-body {
-    padding-top: 10px;
-    padding-left: 24px;
-    padding-right: 24px;
-}
-.input-border{
-    border-radius: 8px;
-    border: 1px solid var(--brand-color-1, #2AA3D9);
+  padding-top: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
-#addBtn{
-    border-radius: 4px;
-    background: var(--side-text, #ECF7FC);
+.input-border {
+  border-radius: 8px;
+  border: 1px solid var(--brand-color-1, #2AA3D9);
 }
 
-#addBtnDiv{
-    padding-top: 8px;
-    padding-left: 15px;
+#addBtn {
+  border-radius: 4px;
+  background: var(--side-text, #ECF7FC);
+}
+
+#addBtnDiv {
+  padding-top: 8px;
+  padding-left: 15px;
 
 }
 
-#deleteBtn{
-    border-radius: 4px;
-    background: var(--side-text, #ECF7FC);
+#deleteBtn {
+  border-radius: 4px;
+  background: var(--side-text, #ECF7FC);
 }
 
-#deleteBtnDiv{
-    padding-top: 8px;
-    
+#deleteBtnDiv {
+  padding-top: 8px;
+
 }
 
-#searchDiv{
-    padding-top: 8px;
+#searchDiv {
+  padding-top: 8px;
 }
 
 #filter {
-    padding-top: 10px;
-    color: #F6FBFD;
-    cursor: pointer;
-    font-weight: bold;
+  padding-top: 10px;
+  color: #F6FBFD;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 #thead {
-    background: var(--side-text, #ECF7FC);
+  background: var(--side-text, #ECF7FC);
 }
 
-#tablehead{
-    background: var(--side-text, #ECF7FC);
-}
-table th{
-    background: var(--side-text, #ECF7FC);
-    font-size: 11px;
+#tablehead {
+  background: var(--side-text, #ECF7FC);
 }
 
-td{
-    font-size: 11px;
-}
-.updateEmployeeInput, .addEmployeeInput{
-    border: 1px solid #2AA3D9;
-    height: 50px;
-    width: 400px;
-}
-.modal-body{
-    margin-left: 35px;
-}
-#modalHeader{
-    background-color: #134E69D9; 
-    color: #ecf7fc;
-}
-#errorMessage{
-    color: red;
-    font-size: 12px;
-  }
-.checkbox{
-    width: 13.5px;
-    height: 13.5px;
-}
-.mainCheckBox{
-    width: 13.5px;
-    height: 13.5px;
-
-}
-#trashIcon, #editIcon{
-     cursor: pointer;
+table th {
+  background: var(--side-text, #ECF7FC);
+  font-size: 11px;
 }
 
-#required{
-    color: red;
-    padding-left: 2px;
+td {
+  font-size: 11px;
 }
-#employeeId::placeholder{
-    text-transform: initial;
+
+.updateEmployeeInput,
+.addEmployeeInput {
+  border: 1px solid #2AA3D9;
+  height: 50px;
+  width: 400px;
+}
+
+.modal-body {
+  margin-left: 35px;
+}
+
+#modalHeader {
+  background-color: #134E69D9;
+  color: #ecf7fc;
+}
+
+#errorMessage {
+  color: red;
+  font-size: 12px;
+}
+
+.checkbox {
+  width: 13.5px;
+  height: 13.5px;
+}
+
+.mainCheckBox {
+  width: 13.5px;
+  height: 13.5px;
+
+}
+
+#trashIcon, #editIcon {
+  cursor: pointer;
+  background: none;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+}
+
+#required {
+  color: red;
+  padding-left: 2px;
+}
+
+#employeeId::placeholder {
+  text-transform: initial;
 }
 
 /* CSS for loader symbol */
 .loader {
-    transform: rotateZ(45deg);
-    perspective: 1000px;
-    border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    color: #2AA3D9;
+  transform: rotateZ(45deg);
+  perspective: 1000px;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  color: #2AA3D9;
+}
+
+.loader:before,
+.loader:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  transform: rotateX(70deg);
+  animation: 1s spin linear infinite;
+}
+
+.loader:after {
+  color: #30D64B;
+  transform: rotateY(70deg);
+  animation-delay: .3s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(0deg);
   }
-    .loader:before,
-    .loader:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: inherit;
-      height: inherit;
-      border-radius: 50%;
-      transform: rotateX(70deg);
-      animation: 1s spin linear infinite;
-    }
-    .loader:after {
-      color: #30D64B;
-      transform: rotateY(70deg);
-      animation-delay: .3s;
-    }
-  
-  @keyframes rotate {
-    0% {
-      transform: translate(-50%, -50%) rotateZ(0deg);
-    }
-    100% {
-      transform: translate(-50%, -50%) rotateZ(360deg);
-    }
+
+  100% {
+    transform: translate(-50%, -50%) rotateZ(360deg);
   }
-  
-  @keyframes rotateccw {
-    0% {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-    100% {
-      transform: translate(-50%, -50%) rotate(-360deg);
-    }
+}
+
+@keyframes rotateccw {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
   }
-  
-  @keyframes spin {
-    0%,
-    100% {
-      box-shadow: .2em 0px 0 0px currentcolor;
-    }
-    12% {
-      box-shadow: .2em .2em 0 0 currentcolor;
-    }
-    25% {
-      box-shadow: 0 .2em 0 0px currentcolor;
-    }
-    37% {
-      box-shadow: -.2em .2em 0 0 currentcolor;
-    }
-    50% {
-      box-shadow: -.2em 0 0 0 currentcolor;
-    }
-    62% {
-      box-shadow: -.2em -.2em 0 0 currentcolor;
-    }
-    75% {
-      box-shadow: 0px -.2em 0 0 currentcolor;
-    }
-    87% {
-      box-shadow: .2em -.2em 0 0 currentcolor;
-    }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
   }
+}
+
+@keyframes spin {
+
+  0%,
+  100% {
+    box-shadow: .2em 0px 0 0px currentcolor;
+  }
+
+  12% {
+    box-shadow: .2em .2em 0 0 currentcolor;
+  }
+
+  25% {
+    box-shadow: 0 .2em 0 0px currentcolor;
+  }
+
+  37% {
+    box-shadow: -.2em .2em 0 0 currentcolor;
+  }
+
+  50% {
+    box-shadow: -.2em 0 0 0 currentcolor;
+  }
+
+  62% {
+    box-shadow: -.2em -.2em 0 0 currentcolor;
+  }
+
+  75% {
+    box-shadow: 0px -.2em 0 0 currentcolor;
+  }
+
+  87% {
+    box-shadow: .2em -.2em 0 0 currentcolor;
+  }
+}
