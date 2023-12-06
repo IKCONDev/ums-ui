@@ -39,6 +39,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     private toastr: ToastrService, private userRPMService: UserRoleMenuItemPermissionService,
     private menuItemService: AppMenuItemService,
     private roleService: RoleService) {
+      
      if (this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN') {
       this.router.navigateByUrl('/unauthorized')
      }
