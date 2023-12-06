@@ -316,13 +316,17 @@
                             <a style="color: white;" (click)="setChartType('doughnut')">Doughnut</a>
                      </div>
                     </div>
-                    <div class="chart">
+                    <div class="chart" *ngIf="selectedDepartment == null">
                         <div style="padding-top: 6px;"></div>
                         <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                             placeholder="choose" (change)="chooseDepartment()">
                             <ng-option *ngFor="let department of departmentList"
                                 value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                         </ng-select> -->
+                        <canvas id="actionItemsByDepartmentReportChart"></canvas>
+                    </div>
+                    <div class="chart" *ngIf="selectedDepartment != null">
+                        <div style="padding-top: 6px;"></div>
                         <canvas id="actionItemsByDepartmentReportChart"></canvas>
                     </div>
                 </div>
