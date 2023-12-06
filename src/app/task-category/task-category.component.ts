@@ -5,7 +5,9 @@ import { HttpStatusCode } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { error } from 'jquery';
-import { flatMap } from 'rxjs';
+import { flatMap, lastValueFrom } from 'rxjs';
+import { MenuItem } from '../model/MenuItem.model';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 @Component({
   selector: 'app-task-category',
@@ -15,27 +17,78 @@ import { flatMap } from 'rxjs';
 export class TaskCategoryComponent implements OnInit {
  
   @Output() title = 'Task Categories';
-
   taskCategory: TaskCategory = new TaskCategory();
   existingTaskCategory: TaskCategory = new TaskCategory();
   private table: any;
   loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole')
   loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
-
   taskCategoryList: TaskCategory[];
-
   isComponentLoading:boolean=false;
   isTaskCategoryDataText:boolean=false;
+  viewPermission: boolean;
+  createPermission: boolean;
+  updatePermission: boolean;
+  deletePermission: boolean;
+  noPermissions: boolean;
+  addButtonColor: string;
+  deleteButtonColor: string;
+  updateButtonColor: string;
+  userRoleMenuItemsPermissionMap: Map<string, string>
 
   constructor(private taskCategoryService: TaskCategoryService, private toastrService: ToastrService,
-    private router: Router){}
+    private router: Router, private menuItemService: AppMenuItemService){}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized');
     }
-    this.getAllTaskcategories();
+    if(localStorage.getItem('jwtToken') === null){
+      this.router.navigateByUrl('/session-timeout');
+    }
+    
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+    }
+    //get menu item  details of home page
+    var currentMenuItem = await this.getCurrentMenuItemDetails();
+    console.log(currentMenuItem)
+
+      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        this.noPermissions = false;
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.viewPermission = true;
+          this.getAllTaskcategories();
+        }else{
+          this.viewPermission = false;
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+        }else{
+          this.createPermission = false;
+          this.addButtonColor = 'lightgray'
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+          this.updateButtonColor = '#5590AA';
+        }else{
+          this.updatePermission = false;
+          this.updateButtonColor = 'lightgray';
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }else{
+          this.deletePermission = false;
+          this.deleteButtonColor = 'lightgray';
+        }
+      }else{
+        this.noPermissions = true;
+        this.router.navigateByUrl('/unauthorized');
+      }
   }
 
   ngAfterViewInit(): void {
@@ -327,6 +380,26 @@ export class TaskCategoryComponent implements OnInit {
     return text.toLowerCase().split(' ').map(word => {
       return word.charAt(0).toUpperCase() + word.slice(1);
     }).join(' ');
+  }
+
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails() : Promise<MenuItem> {
+      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Task Categories')).then(response => {
+        if (response.status === HttpStatusCode.Ok) {
+          this.currentMenuItem = response.body;
+          console.log(this.currentMenuItem)
+        }else if(response.status === HttpStatusCode.Unauthorized){
+          console.log('eit')
+          this.router.navigateByUrl('/session-timeout');
+        }
+      },reason => {
+        if(reason.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+      )
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
   }
 
 }

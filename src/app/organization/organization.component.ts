@@ -132,11 +132,11 @@ export class OrganizationComponent implements OnInit {
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           console.log(response.body)
-          this.org = response.body;
           setTimeout(()=>{
             this.isComponentLoading=false;
             this.isorganizationDataText=false;
-          },400)
+          },1500)
+          this.org = response.body;
         }
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {

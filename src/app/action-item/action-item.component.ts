@@ -268,15 +268,18 @@ export class ActionItemComponent implements OnInit {
     if (this.selectedReporteeOrganizedActionItem != '') {
       this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
         next: (response) => {
-          this.actionItems = response.body;
           console.log(this.actionItems + "--sele")
           this.actionItemCount = response.body.length;
           if (this.actionItemCount === 0) {
             this.isComponentLoading = false;
             this.displayText = false;
           } else {
-            this.isComponentLoading = false;
-            this.isActionItemDataText = false;
+            //set default time for loading
+            setTimeout(()=>{
+              this.isComponentLoading = false;
+              this.isActionItemDataText = false;
+            },1500)
+            this.actionItems = response.body;
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -287,15 +290,18 @@ export class ActionItemComponent implements OnInit {
     } else {
       this.service.getUserActionItemsByUserId(this.loggedInUser).subscribe({
         next: (response) => {
-          this.actionItems = response.body;
           console.log(this.actionItems + "def")
           this.actionItemCount = response.body.length;
           if (this.actionItemCount === 0) {
             this.isComponentLoading = false;
             this.displayText = false;
           } else {
-            this.isComponentLoading = false;
-            this.isActionItemDataText = false;
+            //set default time for loading
+            setTimeout(()=>{
+              this.isComponentLoading = false;
+              this.isActionItemDataText = false;
+            },1500)
+            this.actionItems = response.body;
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
