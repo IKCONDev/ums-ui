@@ -279,7 +279,7 @@ export class MeetingReportsComponent implements OnInit {
 
   createMeetingsByDepartmentReportChart(){
     this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
-      type: 'pie',
+      type: this.type,
       data: {// values on X-Axis
         xLabels: ['Total Meetings of a department'],
         datasets: [
@@ -621,10 +621,16 @@ export class MeetingReportsComponent implements OnInit {
   setChartType(value : any){
     this.type = value;
     console.log(this.type)
-    if(this.reportType =='all' || this.reportType == 'department'){
+    if(this.reportType =='all' ){
       if(this.meetingsByDepartmentListChart!= null){
         this.meetingsByDepartmentListChart.destroy()
         this.createMeetingsByAllDepartmentReportChart()
+      }
+    }
+    if(this.reportType == 'department'){
+      if(this.meetingsByDepartmentListChart!= null){
+        this.meetingsByDepartmentListChart.destroy()
+        this.createMeetingsByDepartmentReportChart()
       }
     }
     if(this.reportType =='attended'){
