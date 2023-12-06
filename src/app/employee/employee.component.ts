@@ -86,7 +86,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(currentMenuItem)
 
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
-        this.noPermissions = false;
+        //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
@@ -116,6 +116,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           this.deleteButtonColor = 'lightgray';
         }
       }else{
+        //this.noPermissions = true;
         this.router.navigateByUrl('/unauthorized');
       }
 
@@ -137,7 +138,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    },200)
+    },1700)
   }
 
   ngOnDestroy(): void {
@@ -158,12 +159,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     setTimeout(()=>{
       this.isEmployeeDataText=false;
       this.isComponentLoading=false;
-    },200)
+    },1500)
     this.employeeservice.getAll().subscribe({
       next: response => {
-        this.employeeData = response.body;
+        setTimeout(()=>{
           this.isEmployeeDataText=false;
           this.isComponentLoading=false;
+        },1500)
+        this.employeeData = response.body;
         console.log(this.employeeData);
       },
       error: error => {

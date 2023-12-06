@@ -98,12 +98,12 @@ html{
 }
 
 
-#trashIcon{
-    cursor: pointer;
-}
-
-#editIcon{
-    cursor: pointer;
+#trashIcon, #editIcon {
+  cursor: pointer;
+  background: none;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
 }
 
 table th{
@@ -218,4 +218,8 @@ td{
     87% {
       box-shadow: .2em -.2em 0 0 currentcolor;
     }
+  }
+
+  table tbody tr td{
+    padding-left: 18px;
   }

@@ -265,6 +265,8 @@ export class TaskReportsComponent implements OnInit {
 // }
 
   getTasksByDepartment(selectedDepartment: number) {
+    if(selectedDepartment!=null){
+      console.log(selectedDepartment)
     this.taskreportsService.findAllTasksByDepartment(selectedDepartment).subscribe({
       next: response => {
         this.taskListByDepartment = response.body;
@@ -276,6 +278,7 @@ export class TaskReportsComponent implements OnInit {
       }
     })
   }
+}
 
   chooseDepartment() {
     console.log(this.selectedDepartment)
@@ -754,16 +757,21 @@ deptValueCount : DepartmentCount[] = [];
     })
   }
   ChartType:any='line';
+  colorOfChartType:any='line';
+  colorForSvg:any='grey';
   setChartType(value:any){
+    this.colorOfChartType=value;
     console.log(value)
     this.ChartType=value;
     if(this.taskListByDepartmentChart!=null){
       this.taskListByDepartmentChart.destroy();
 
       this.createTaskListByDepartmentChart();
+      
     }
    
   }
+  
 
 
 }
