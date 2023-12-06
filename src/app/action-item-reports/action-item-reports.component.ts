@@ -290,8 +290,11 @@ export class ActionItemsReportsComponent implements OnInit {
   }
 
   createActionItemsByDepartmentReportChart(){
+    console.log(" created graph entered")
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
-      type: 'bar',
+      
+      type: this.type,
+    
       data: {// values on X-Axis
         xLabels: ['Total Action items of a department'],
         datasets: [
@@ -463,7 +466,7 @@ deptValueCount : DepartmentCount[] = [];
          console.log(this.deptValueCount)
          if(this.actionItemsByDepartmentReportChart ! = null){
            this.actionItemsByDepartmentReportChart.destroy()
-           this.createActionItemsAllDepartmentReportChart()
+          // this.createActionItemsAllDepartmentReportChart()
          }
          this.createActionItemsAllDepartmentReportChart()
          this.getAllDepartmentNames()
@@ -575,21 +578,37 @@ deptValueCount : DepartmentCount[] = [];
   setChartType(value : any){
     this.type = value;
     console.log(this.type)
-    if(this.reportType == 'priority'){
+    if(this.reportType == 'department' ){
 
-    }
-    if(this.reportType == 'organized'){
-
+      if(this.actionItemsByDepartmentReportChart ! = null){
+         this.actionItemsByDepartmentReportChart.destroy()
+         this.createActionItemsByDepartmentReportChart()
+        
+      }
     }
     if(this.reportType == 'all' ){
 
       if(this.actionItemsByDepartmentReportChart ! = null){
          this.actionItemsByDepartmentReportChart.destroy()
          this.createActionItemsByDepartmentReportChart()
+        
       }
-      
+    }
+    
+    if(this.reportType == 'priority'){
 
     }
+    if(this.reportType == 'organized'){
+
+    }
+    
+    // if(this.reportType == 'all' ){
+
+    //   if(this.actionItemsByDepartmentReportChart ! = null){
+    //      this.actionItemsByDepartmentReportChart.destroy()
+    //      this.createActionItemsByDepartmentReportChart()
+    //   }
+    // }
     
 
   }
