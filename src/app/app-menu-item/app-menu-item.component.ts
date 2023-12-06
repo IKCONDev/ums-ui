@@ -172,6 +172,7 @@ export class AppMenuItemsComponent {
       isMenuItemPathValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true && isMenuItemPathValid === true){
+      menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
       menuItem.modifiedByEmailId = this.loggedInUser;
       menuItem.modifiedBy = this.loggedInUserFullName;
       this.menuItemService.updateMenuItem(menuItem).subscribe({

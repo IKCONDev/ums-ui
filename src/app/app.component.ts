@@ -8,9 +8,6 @@ import {LocationStrategy} from '@angular/common';
 export class AppComponent {
   title = 'ums-ui';
   constructor(private Location: LocationStrategy ) {
-    history.pushState(null, null, window.location.href);
-    this.Location.onPopState(() => {
-    history.pushState(null, null, window.location.href);
-    });
+
     }
 }
