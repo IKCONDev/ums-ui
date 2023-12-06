@@ -71,9 +71,9 @@ export class OrganizationComponent implements OnInit {
   editButtonColor: string;
   async ngOnInit(): Promise<void> {
 
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
-      this.router.navigateByUrl('/unauthorized')
-    }
+    // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+    //   this.router.navigateByUrl('/unauthorized')
+    // }
 
     if(localStorage.getItem('jwtToken') === null){
       this.router.navigateByUrl('/session-timeout');

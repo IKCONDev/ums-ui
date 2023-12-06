@@ -58,10 +58,10 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     deleteButtonColor: string;
     addButtonColor: string;
   async ngOnInit(): Promise<void> {
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
-      this.router.navigateByUrl('/unauthorized')
-      return;
-    }
+    // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+    //   this.router.navigateByUrl('/unauthorized')
+    //   return;
+    // }
 
     if(localStorage.getItem('jwtToken') === null){
       this.router.navigateByUrl('/session-timeout');

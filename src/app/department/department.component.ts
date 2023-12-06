@@ -50,9 +50,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private departmentService: DepartmentService,
     private toastr: ToastrService, private router: Router, 
     private employeeService: EmployeeService, private menuItemService: AppMenuItemService){
-      
-    //get all departments List on component initialization
-    this.getAllDepartments();
+
     
   }
 
@@ -61,9 +59,9 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   async ngOnInit(): Promise<void> {
 
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
-      this.router.navigateByUrl('/unauthorized');
-    }
+    // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+    //   this.router.navigateByUrl('/unauthorized');
+    // }
     if(localStorage.getItem('jwtToken') === null){
       this.router.navigateByUrl('/session-timeout');
     }
@@ -83,6 +81,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
           this.viewPermission = true;
+          //get all departments List on component initialization
+          this.getAllDepartments();
           this.getUserStatusEmployees(true);
         }else{
           this.viewPermission = false;
