@@ -278,6 +278,7 @@ export class MeetingReportsComponent implements OnInit {
   }
 
   createMeetingsByDepartmentReportChart(){
+    console.log(" draw chart")
     this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
       type: this.type,
       data: {// values on X-Axis
