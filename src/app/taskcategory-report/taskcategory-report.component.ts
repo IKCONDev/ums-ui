@@ -91,7 +91,7 @@ export class TaskcategoryReportComponent implements OnInit {
         console.log(this.taskListByCategory);
         this.categoryOfTaskCount = response.body.length;
         setTimeout(() => {  
-          //this.createTaskListByDepartmentChart();
+          this.createTaskListByDepartmentChart();
         }, 400)
       }
     })
@@ -140,7 +140,7 @@ export class TaskcategoryReportComponent implements OnInit {
        })
     })
   }
-  type : any
+  type : any = 'line'
   setChartType(value : any){
     this.type = value;
     console.log(this.type);
@@ -160,11 +160,11 @@ export class TaskcategoryReportComponent implements OnInit {
           {
             label: "Total Tasks of a task category",
             data: [this.categoryOfTaskCount],
-           // backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-            backgroundColor: 'rgb(153, 102, 255)', // Red
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+           // backgroundColor: 'rgb(153, 102, 255)', // Red
             //backgroundColor : 'limegreen',
-           // borderColor: 'rgba(255, 99, 132, 1)',
-            borderColor :'rgb(153, 102, 255)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+           // borderColor :'rgb(153, 102, 255)',
             borderWidth: 1,
           },
         ]

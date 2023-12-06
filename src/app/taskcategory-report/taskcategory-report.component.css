@@ -114,8 +114,14 @@
 }
 #header{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
+#chartType{
+
+  display: flex;
+  justify-content: space-between;
+}
+
 
 
   

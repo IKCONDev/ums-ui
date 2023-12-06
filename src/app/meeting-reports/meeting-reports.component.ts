@@ -208,7 +208,7 @@ export class MeetingReportsComponent implements OnInit {
 
   createMeetingsByOrganizerReportChart(){
     this.organizedmeetingListChart = new Chart("organizedmeetingListChart", {
-      type: 'bar',
+      type: this.type,
       data: {// values on X-Axis
         xLabels: ['Total Meetings of an organizer'],
         datasets: [
@@ -351,7 +351,7 @@ export class MeetingReportsComponent implements OnInit {
 
   createMeetingsByAttendeeReportChart(){
     this.attendedMeetingListChart = new Chart("attendedMeetingListChart", {
-      type: 'bar',
+      type: this.type,
       data: {// values on X-Axis
         xLabels: ['Total Meetings of an attendee'],
         datasets: [
@@ -548,7 +548,7 @@ export class MeetingReportsComponent implements OnInit {
   }
   createMeetingsByAllDepartmentReportChart(){
     this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
-      type: 'pie',
+      type: this.type,
       data: {// values on X-Axis
         xLabels: ['Total Meetings of All departments'],
         datasets: [
@@ -617,10 +617,31 @@ export class MeetingReportsComponent implements OnInit {
       }
     });
   }
-  type : any
+  type : any = 'line'
   setChartType(value : any){
     this.type = value;
+    console.log(this.type)
+    if(this.reportType =='all' || this.reportType == 'department'){
+      if(this.meetingsByDepartmentListChart!= null){
+        this.meetingsByDepartmentListChart.destroy()
+        this.createMeetingsByAllDepartmentReportChart()
+      }
+    }
+    if(this.reportType =='attended'){
+      if(this.attendedMeetingListChart!= null){
+        this.attendedMeetingListChart.destroy()
+        this.createMeetingsByAttendeeReportChart()
+      }
 
+    }
+    if(this.reportType == 'employee'){
+      if(this.organizedmeetingListChart!= null){
+        this.organizedmeetingListChart.destroy()
+        this.createMeetingsByOrganizerReportChart()
+      }
+    }
+
+    
   }
 
 }
