@@ -126,7 +126,7 @@
                 </div>
                 <br />
                 <div>
-                    <label><b>Choose permission for menu item</b></label><br />
+                    <label><b>Select permissions for menu item</b></label><br />
                     <div *ngIf="unassignedMenuItemList.length > 0; else noPermissions">
                         <input type="checkbox" name="permission1" (change)="setPermission($event,'View')" />View
                         <input type="checkbox" name="permission2" (change)="setPermission($event,'Create')" />Create

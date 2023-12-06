@@ -155,7 +155,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 100)
+    }, 1700)
 
     setTimeout(() => {
       $(document).ready(() => {
@@ -317,7 +317,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             // Add other options here as needed
           });
         });
-      }, 300)
+      }, 1700)
     }
   }
 
@@ -672,14 +672,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("organizedMeeting").style.width = 'fit-content';
               document.getElementById("organizedMeeting").style.paddingBottom = '2px';
               document.getElementById("attendedMeeting").style.borderBottom = 'none';
-              this.meetings = response.body;
               this.meetingCount = response.body.length
               if (this.meetingCount === 0) {
                 this.isComponentLoading = false;
                 this.displayText = false;
               } else {
-                this.isComponentLoading = false;
-                this.isOrganizedMeetingDataText = false;
+                //set default time for loading
+                setTimeout(() => {
+                 this.isComponentLoading = false;
+                 this.isOrganizedMeetingDataText = false;
+                },1500)
+                this.meetings = response.body;
               }
               localStorage.setItem('meetingCount', this.meetingCount.toString());
               console.log(this.meetings);
@@ -761,14 +764,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("attendedMeeting").style.width = 'fit-content';
               document.getElementById("organizedMeeting").style.borderBottom = 'none';
               //extract the meetings from response object
-              this.attendedMeetings = response.body;
+             
               this.attendedMeetingCount = response.body.length;
               if (this.attendedMeetingCount === 0) {
                 this.isComponentLoading = false;
                 this.displayText = false;
               } else {
-                this.isComponentLoading = false;
-                this.isAttendedMeetingDataText = false;
+                setTimeout(() => {
+                  this.isComponentLoading = false;
+                  this.isAttendedMeetingDataText = false;
+                },1500)
+                this.attendedMeetings = response.body;
               }
               localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
               console.log(this.attendedMeetings);
