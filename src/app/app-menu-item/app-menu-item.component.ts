@@ -40,9 +40,9 @@ export class AppMenuItemsComponent {
     private router: Router){}
 
   async ngOnInit(): Promise<void> {
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
-      this.router.navigateByUrl('/unauthorized');
-    }
+    // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+    //   this.router.navigateByUrl('/unauthorized');
+    // }
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
     }

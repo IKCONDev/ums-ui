@@ -8,6 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from '../employee/service/employee.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { NotificationService } from '../notifications/service/notification.service';
+import { UserRoleMenuItemPermissionService } from '../user-role-menuitem-permission/service/user-role-menuitem-permission.service';
+import { UserRoleMenuItemPermissionMap } from '../model/UserRoleMenuItemPermissionMap.model';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +26,8 @@ export class HeaderComponent implements OnChanges {
   userDetails: Users;
   reportingManagerName: string;
   @Input() unreadNotificationCount = parseInt(localStorage.getItem('notificationCount'));
+  loggedInUserId: string;
+  userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[];
 
   /**
    * 
@@ -30,7 +35,9 @@ export class HeaderComponent implements OnChanges {
    * @param router 
    */
   constructor(private headerService: HeaderService, private router: Router, 
-    private toastr: ToastrService, private employeeService: EmployeeService,private notificationService: NotificationService){
+    private toastr: ToastrService, private employeeService: EmployeeService,
+    private notificationService: NotificationService, 
+    private userRoleMenuItemPermissionMapService: UserRoleMenuItemPermissionService){
 
   }
 
@@ -42,7 +49,15 @@ export class HeaderComponent implements OnChanges {
   /**
    * 
    */
-  ngOnInit() {
+  async ngOnInit() {
+    this.loggedInUserId = localStorage.getItem('email');
+    //get users latest permissions
+   var userRoleMenuItemPermissionMap = await this.getLatestUserRoleMenuItemPermissionMapofUser();
+    console.log(userRoleMenuItemPermissionMap)
+    var userRPMJSONMap = JSON.stringify(Object.fromEntries(userRoleMenuItemPermissionMap));
+    console.log(userRPMJSONMap)
+    localStorage.setItem('userRoleMenuItemPermissionMap',userRPMJSONMap);
+    
     this.userProfileDetails();
 
     //due to this , the userDetails also gets initialized and you can
@@ -54,6 +69,41 @@ export class HeaderComponent implements OnChanges {
     }
     },1000)
     console.log('header')
+  }
+
+ /**
+  * 
+  * @returns 
+  */
+  async getLatestUserRoleMenuItemPermissionMapofUser(): Promise<Map<string, string>> {
+    await lastValueFrom(this.userRoleMenuItemPermissionMapService.findUserRoleMenuitemPermissionMapsByUserId(this.loggedInUserId)).then(
+      response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.userRoleMenuItemPermissionList = response.body;
+          console.log(response.body);
+          console.log('exe on init' )
+        } else if(response.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+        }
+      }, reason => {
+        console.log(reason)
+      }
+    )
+    var userRoleMenuItemPermissionMap =  await this.prepareUserRoleMenuItemPermissionMapFromList(this.userRoleMenuItemPermissionList);
+    return userRoleMenuItemPermissionMap;
+  }
+
+  /**
+   * 
+   * @param userRoleMenuItemPermissionList 
+   * @returns 
+   */
+  async prepareUserRoleMenuItemPermissionMapFromList(userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[]): Promise<Map<string,string>>{
+    var userRoleMenuItemPermissionMap = new Map<string, string>();
+    userRoleMenuItemPermissionList.forEach(userRPM => {
+      userRoleMenuItemPermissionMap.set(userRPM.menuItemIdList, userRPM.permissionIdList);
+    })
+    return userRoleMenuItemPermissionMap;
   }
 
   currentState: string = localStorage.getItem('sliderState');
