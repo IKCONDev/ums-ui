@@ -32,7 +32,7 @@ export class ActionItemsReportsComponent implements OnInit {
   selectedUser: string;
 
   actionItemsByDepartmentReportChart =  null;
-  actionItemsAllDepartmentReportChart = null;
+  actionItemsByDepartmentReportChart1 = null
 
 
   constructor(private activatedRoute:ActivatedRoute, private deprtmentService: DepartmentService,
@@ -64,8 +64,8 @@ export class ActionItemsReportsComponent implements OnInit {
       this.getAllDepartments();
       this.getEmployeeAsUserList();
       this.getAllActionItemsCount();
-      this.getAllDepartmentsCount();
-      this.getAllDepartmentNames();
+      // this.getAllDepartmentsCount();
+      // this.getAllDepartmentNames();
       if(this.reportType === 'department'){
         this.chooseDepartment();
       }
@@ -76,8 +76,8 @@ export class ActionItemsReportsComponent implements OnInit {
         this.choosePriority();
       }
       if(this.reportType === 'all'){
-        // this.getAllDepartmentsCount();
-        // this.getAllDepartmentNames();
+         this.getAllDepartmentsCount();
+         this.getAllDepartmentNames();
       }
     },200)
     
@@ -503,7 +503,7 @@ deptValueCount : DepartmentCount[] = [];
   }
   
   createActionItemsAllDepartmentReportChart(){
-    this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
+    this.actionItemsByDepartmentReportChart1 = new Chart("actionItemsByDepartmentReportChart1", {
       type: this.type,
       data: {// values on X-Axis
         xLabels: ['Total Action items of a department'],
@@ -578,19 +578,19 @@ deptValueCount : DepartmentCount[] = [];
   setChartType(value : any){
     this.type = value;
     console.log(this.type)
-    if(this.reportType == 'department' ){
+    if(this.reportType == 'all'&& this.selectedDepartment !=null ){
 
       if(this.actionItemsByDepartmentReportChart ! = null){
          this.actionItemsByDepartmentReportChart.destroy()
          this.createActionItemsByDepartmentReportChart()
-        
       }
     }
-    if(this.reportType == 'all' ){
+    if(this.reportType == 'all' && this.selectedDepartment == null){
 
-      if(this.actionItemsByDepartmentReportChart ! = null){
-         this.actionItemsByDepartmentReportChart.destroy()
-         this.createActionItemsByDepartmentReportChart()
+      if(this.actionItemsByDepartmentReportChart1 ! = null){
+         this.actionItemsByDepartmentReportChart1.destroy()
+         //this.createActionItemsAllDepartmentReportChart()
+         this.getActionItemsReportByDepartment(this.selectedDepartment);
         
       }
     }

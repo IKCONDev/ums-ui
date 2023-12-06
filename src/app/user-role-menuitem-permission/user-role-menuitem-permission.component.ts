@@ -45,6 +45,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   deleteButtonColor: string;
   updateButtonColor: string;
   userRoleMenuItemsPermissionMap: Map<string, string>
+  currentMenuItem: MenuItem;
 
   constructor(private employeeService: EmployeeService, private router: Router,
     private toastr: ToastrService, private userRPMService: UserRoleMenuItemPermissionService,
@@ -131,13 +132,15 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
    * get all menu items list
    */
   async getAllMenuItems() : Promise<MenuItem[]>{
-    this.menuItemService.findMenuItems().subscribe({
-      next: response => {
+    await lastValueFrom(this.menuItemService.findMenuItems()).then(
+      response => {
+       if(response.status === HttpStatusCode.Ok){
         this.menuItemList = response.body;
-        //this.unassignedMenuItemList = response.body;
-        console.log(this.menuItemList)
+       }else if(response.status === HttpStatusCode.Unauthorized){
+        this.router.navigateByUrl('/session-timeout')
+       }
       }
-    })
+    )
     return this.menuItemList;
   }
 
@@ -231,7 +234,6 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
         event.target.checked = true;
       }
     }
-    console.log(userRPMMap)
   }
 
   /**
@@ -288,8 +290,6 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
       if(addPermissionListString.includes(permissionAssigned)){
         var i = 0;
         this.addPermissionList.forEach(permission => {
-          console.log(permission)
-          console.log(permissionAssigned)
           if(permission.toString().trim() === permissionAssigned.toString().trim()){
             this.addPermissionList.splice(i,1);
           }
@@ -297,31 +297,30 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
         });
       }
     }//else
+    //contains the  new permission list updated for the user
     this.addPermissionIdListString = this.addPermissionList.join(',');
   }
 
   /**
    * 
    */
-  async showUnAssignedMenuItemsForUser(){
-    await this.getAllMenuItems().then(value => {
-      this.unassignedMenuItemList = value;
-    }, reason => {
-      this.toastr.error('Menu Items could not fetched for user '+reason);
-    });
-    this.userRPMMapList.forEach(userRPMMap => {
-      var i = 0;
-      this.unassignedMenuItemList.forEach(menuItem => {
-        if(parseInt(userRPMMap.menuItemIdList.trim()) === menuItem.menuItemId){
-          this.unassignedMenuItemList.splice(i,1);
-          return;
+  async showUnAssignedMenuItemsForUser() {
+    this.unassignedMenuItemList = await this.getAllMenuItems();
+    for (var i = 0; i < this.userRPMMapList.length; i++) {
+      for (var j = 0; j < this.unassignedMenuItemList.length; j++) {
+        if (this.unassignedMenuItemList[j].menuItemId === parseInt(this.userRPMMapList[i].menuItemIdList.trim())) {
+          this.unassignedMenuItemList.splice(j, 1);
+          break;
         }
-      })
-      i = i+1;
-    })
+      }
+    }
   }
+  
 
-  currentMenuItem: MenuItem;
+  /**
+   * 
+   * @returns 
+   */
   async getCurrentMenuItemDetails() : Promise<MenuItem> {
       const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('User Menu Item Permissions')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
