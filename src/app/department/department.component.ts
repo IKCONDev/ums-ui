@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../employee/service/employee.service';
 import { Employee } from '../model/Employee.model';
+import { MenuItem } from '../model/MenuItem.model';
+import { lastValueFrom } from 'rxjs';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 
 @Component({
@@ -34,9 +37,20 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   isComponentLoading:boolean=false;
   isDepartmentDataText:boolean=false;
 
+  viewPermission: boolean;
+  createPermission: boolean;
+  updatePermission: boolean;
+  deletePermission: boolean;
+  noPermissions: boolean;
+  addButtonColor: string;
+  deleteButtonColor: string;
+  updateButtonColor: string;
+  userRoleMenuItemsPermissionMap: Map<string, string>
+
   constructor(private departmentService: DepartmentService,
     private toastr: ToastrService, private router: Router, 
-    private employeeService: EmployeeService){
+    private employeeService: EmployeeService, private menuItemService: AppMenuItemService){
+      
     //get all departments List on component initialization
     this.getAllDepartments();
     
@@ -45,11 +59,57 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * ngOnInit() executes on component initialization everytime
    */
-  ngOnInit(): void {
-    this.getUserStatusEmployees(true);
+  async ngOnInit(): Promise<void> {
+
     if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized');
     }
+    if(localStorage.getItem('jwtToken') === null){
+      this.router.navigateByUrl('/session-timeout');
+    }
+    
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+    }
+    //get menu item  details of home page
+    var currentMenuItem = await this.getCurrentMenuItemDetails();
+    console.log(currentMenuItem)
+
+      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        this.noPermissions = false;
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.viewPermission = true;
+          this.getUserStatusEmployees(true);
+        }else{
+          this.viewPermission = false;
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+        }else{
+          this.createPermission = false;
+          this.addButtonColor = 'lightgray'
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+          this.updateButtonColor = '#5590AA';
+        }else{
+          this.updatePermission = false;
+          this.updateButtonColor = 'lightgray';
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }else{
+          this.deletePermission = false;
+          this.deleteButtonColor = 'lightgray';
+        }
+      }else{
+        this.noPermissions = true;
+        this.router.navigateByUrl('/unauthorized');
+      }
   }
 
   employeesAsUser: Employee[];
@@ -643,6 +703,26 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     return text.toLowerCase().split(' ').map(word => {
       return word.charAt(0).toUpperCase() + word.slice(1);
     }).join(' ');
+  }
+
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails() : Promise<MenuItem> {
+      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Departments')).then(response => {
+        if (response.status === HttpStatusCode.Ok) {
+          this.currentMenuItem = response.body;
+          console.log(this.currentMenuItem)
+        }else if(response.status === HttpStatusCode.Unauthorized){
+          console.log('eit')
+          this.router.navigateByUrl('/session-timeout');
+        }
+      },reason => {
+        if(reason.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+      )
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
   }
 
 
