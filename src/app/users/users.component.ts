@@ -139,7 +139,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },600)
+    },1700)
   }
 
   ngOnDestroy(): void {
@@ -466,10 +466,12 @@ getAllEmployeesWithStatus(){
   this.isUserDataText=true;
    this.employeeservice.getAllEmployeeStatus().subscribe({
       next : response =>{
-         this.employeeWithStatus = response.body;
+        setTimeout(()=>{
           this.isComponentLoading=false;
           this.isUserDataText=false;
-         console.log( this.employeeWithStatus)
+        },1500)
+          this.employeeWithStatus = response.body;
+          console.log( this.employeeWithStatus)
       },
       error: error => {
         if(error.status === HttpStatusCode.Unauthorized){

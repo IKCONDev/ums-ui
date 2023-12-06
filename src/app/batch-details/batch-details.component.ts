@@ -29,7 +29,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },100)
+    },1700)
   }
 
   initializeJqueryDataTable(){
@@ -42,7 +42,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },400)
+    },1700)
   }
 
   ngOnDestroy(): void {
@@ -65,9 +65,9 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
     * 
     */
    ngOnInit(): void {
-          this.displayText=true;
-          this.isComponentLoading=true;
-          this.isBatchDetailsText=true;
+      this.displayText=true;
+      this.isComponentLoading=true;
+      this.isBatchDetailsText=true;
 
     if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
       this.router.navigateByUrl('/unauthorized');
@@ -75,14 +75,16 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
       
       this.batchService.getAllBatchProcessDetails().subscribe(
          res=>{
-          this.batchDetails = res.body;
-          this.batchRecordsCount = this.batchDetails.length;
+          this.batchRecordsCount = res.body.length;
           if(this.batchRecordsCount===0){
               this.displayText=false;
               this.isComponentLoading=false;
           }else{
+            setTimeout(()=>{
               this.isComponentLoading=false;
               this.isBatchDetailsText=false;
+            },1500)
+            this.batchDetails = res.body;
           }
      });
      this.initializeJqueryDataTable();
