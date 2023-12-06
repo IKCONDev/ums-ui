@@ -14,6 +14,12 @@ export class SettingsComponent implements OnInit {
 
   title: string = 'Settings';
   loggedInUserRole = localStorage.getItem('userRole');
+  userRoleMenuItemsPermissionMap: Map<string, string>;
+  viewPermission: boolean;
+  createPermission: boolean;
+  updatePermission: boolean;
+  deletePermission: boolean;
+  noPermissions: boolean;
 
 
   /**
@@ -26,17 +32,10 @@ export class SettingsComponent implements OnInit {
   /**
    * 
    */
-  userRoleMenuItemsPermissionMap: Map<string, string>;
-  viewPermission: boolean;
-  createPermission: boolean;
-  updatePermission: boolean;
-  deletePermission: boolean;
-  noPermissions: boolean;
-
   async ngOnInit(): Promise<void> {
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
-      this.router.navigateByUrl('/unauthorized');
-    }
+    // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+    //   this.router.navigateByUrl('/unauthorized');
+    // }
     if(localStorage.getItem('jwtToken') === null){
       this.router.navigateByUrl('/session-timeout');
     }

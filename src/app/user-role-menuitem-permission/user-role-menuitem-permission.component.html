@@ -5,7 +5,7 @@
     <app-header [title]="title"></app-header>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="viewPermission === true">
     <div class="card-header">
         <div class="row">
             <div class="col-sm-9">
@@ -13,7 +13,8 @@
             </div>
             <!-- Add btn -->
             <div id="addBtnDiv" class="col-sm-1 d-flex">
-                <button class="form-control d-flex" id="addBtn" type="submit" data-toggle="modal"
+                <button [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control d-flex" 
+                id="addBtn" type="submit" data-toggle="modal"
                     data-target="#addModal" style="width: 60px;" (click)="showUnAssignedMenuItemsForUser()">
                     <p>Add</p>
                 </button>
@@ -63,26 +64,33 @@
         <tbody>
             <tr *ngFor="let userRPMMap of userRPMMapList">
                 <td>{{userRPMMap.menuItem.menuItemName}}</td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('View')"><input type="checkbox" checked
+                <td *ngIf="userRPMMap.permissionIdList.includes('View')"><input [disabled]="!updatePermission" type="checkbox" checked
                         (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'View')" /></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('View')"><input type="checkbox"
+                <td *ngIf="!userRPMMap.permissionIdList.includes('View')"><input type="checkbox" [disabled]="!updatePermission"
                         (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'View')" /></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" checked
+                <td *ngIf="userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" [disabled]="!updatePermission" checked
                         (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Create')" /></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Create')"><input type="checkbox"
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" [disabled]="!updatePermission"
                         (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Create')" /></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" checked
+                <td *ngIf="userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" [disabled]="!updatePermission" checked
                         (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Update')" /></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Update')"><input type="checkbox"
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" [disabled]="!updatePermission"
                         (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Update')" /></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" checked
+                <td *ngIf="userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" [disabled]="!updatePermission" checked
                         (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Delete')" /></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox"
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" [disabled]="!updatePermission"
                         (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Delete')" /></td>
             </tr>
         </tbody>
     </table>
 </div>
+
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+</div>
+<!-- <div class="container-fluid" *ngIf="noPermissions===true">
+    <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
+</div> -->
 
 <!-- Add User Role Menu Permission Item Modal -->
 <div class="modal" tabindex="-1" id="addModal" data-backdrop="static" data-keyboard="false">

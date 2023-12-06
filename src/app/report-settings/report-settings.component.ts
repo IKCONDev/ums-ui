@@ -21,16 +21,17 @@ export class ReportSettingsComponent implements OnInit {
   updatePermission: boolean;
   deletePermission: boolean;
   noPermissions: boolean;
+  userRoleMenuItemsPermissionMap: Map<string, string>
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private tastCategory: TaskCategoryService,
     private menuItemService: AppMenuItemService){
 
   }
 
-  userRoleMenuItemsPermissionMap: Map<string, string>
   async ngOnInit(): Promise<void> {
     if(localStorage.getItem('jwtToken') === null){
       this.router.navigateByUrl('/session-timeout');
+      return;
     }
     
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {

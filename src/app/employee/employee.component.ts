@@ -31,7 +31,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     teamsUserId: '',
     firstName: '',
     lastName: '',
-    gender:'',
+    gender: '',
     email: '',
     empDesignation: {
       id: 0,
@@ -46,13 +46,13 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     modifiedBy: '',
     createdByEmailId: '',
     modifiedByEmailId: '',
-    dateOfJoining :'',
+    dateOfJoining: '',
   }
 
   employeeData: Employee[];
   reportingManagerName: string;
-  isComponentLoading:boolean=false;
-  isEmployeeDataText:boolean=false;
+  isComponentLoading: boolean = false;
+  isEmployeeDataText: boolean = false;
 
   constructor(private employeeservice: EmployeeService, private toastr: ToastrService,
     private departmentservice: DepartmentService, private router: Router, private designationService: DesignationService,
@@ -67,17 +67,17 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   deleteButtonColor: string;
   updateButtonColor: string;
   userRoleMenuItemsPermissionMap: Map<string, string>
-  
+
   async ngOnInit(): Promise<void> {
 
-    if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
-      this.router.navigateByUrl('/unauthorized')
-    }
+    // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
+    //   this.router.navigateByUrl('/unauthorized')
+    // }
 
-    if(localStorage.getItem('jwtToken') === null){
+    if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
-    
+
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
     }
@@ -85,44 +85,43 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     var currentMenuItem = await this.getCurrentMenuItemDetails();
     console.log(currentMenuItem)
 
-      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
-        //this.noPermissions = false;
-        //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
-        //get permissions of this component for the user
-        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
-        if (menuItemPermissions.includes('View')) {
-          this.viewPermission = true;
-        }else{
-          this.viewPermission = false;
-        }
-        if (menuItemPermissions.includes('Create')) {
-          this.createPermission = true;
-        }else{
-          this.createPermission = false;
-          this.addButtonColor = 'lightgrey'
-        }
-        if (menuItemPermissions.includes('Update')) {
-          this.updatePermission = true;
-          this.updateButtonColor = '#5590AA';
-        }else{
-          this.updatePermission = false;
-          this.updateButtonColor = 'lightgray';
-        }
-        if (menuItemPermissions.includes('Delete')) {
-          this.deletePermission = true;
-        }else{
-          this.deletePermission = false;
-          this.deleteButtonColor = 'lightgray';
-        }
-      }else{
-        //this.noPermissions = true;
-        this.router.navigateByUrl('/unauthorized');
+    if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+      //this.noPermissions = false;
+      //provide permission to access this component for the logged in user if view permission exists
+      console.log('exe')
+      //get permissions of this component for the user
+      var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+      if (menuItemPermissions.includes('View')) {
+        this.viewPermission = true;
+        this.getAllEmployees();
+        this.getAllDepartments();
+        this.Date();
+      } else {
+        this.viewPermission = false;
       }
-
-    this.getAllEmployees();
-    this.getAllDepartments();
-    this.Date();
+      if (menuItemPermissions.includes('Create')) {
+        this.createPermission = true;
+      } else {
+        this.createPermission = false;
+        this.addButtonColor = 'lightgrey'
+      }
+      if (menuItemPermissions.includes('Update')) {
+        this.updatePermission = true;
+        this.updateButtonColor = '#5590AA';
+      } else {
+        this.updatePermission = false;
+        this.updateButtonColor = 'lightgray';
+      }
+      if (menuItemPermissions.includes('Delete')) {
+        this.deletePermission = true;
+      } else {
+        this.deletePermission = false;
+        this.deleteButtonColor = 'lightgray';
+      }
+    } else {
+      //this.noPermissions = true;
+      this.router.navigateByUrl('/unauthorized');
+    }
 
   }
 
@@ -133,12 +132,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 10,
-          order: [[1,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+          order: [[1, 'asc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
           // Add other options here as needed
         });
       });
-    },1700)
+    }, 1700)
   }
 
   ngOnDestroy(): void {
@@ -154,23 +153,23 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   departmentList: Department[] = [];
   getAllEmployees() {
-    this.isEmployeeDataText=true;
-    this.isComponentLoading=true;
-    setTimeout(()=>{
-      this.isEmployeeDataText=false;
-      this.isComponentLoading=false;
-    },1500)
+    this.isEmployeeDataText = true;
+    this.isComponentLoading = true;
+    setTimeout(() => {
+      this.isEmployeeDataText = false;
+      this.isComponentLoading = false;
+    }, 1500)
     this.employeeservice.getAll().subscribe({
       next: response => {
-        setTimeout(()=>{
-          this.isEmployeeDataText=false;
-          this.isComponentLoading=false;
-        },1500)
+        setTimeout(() => {
+          this.isEmployeeDataText = false;
+          this.isComponentLoading = false;
+        }, 1500)
         this.employeeData = response.body;
         console.log(this.employeeData);
       },
       error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
+        if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl('/session-timeout');
         }
       }
@@ -224,30 +223,30 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       isDesignationValid = valid;
     }
 
-    if(!this.isEmployeeGenderValid){
+    if (!this.isEmployeeGenderValid) {
       var valid = this.validateEmployeeGender();
       isGenderValid = valid;
     }
-    if(!this.isEmployeeDateofJoinValid){
+    if (!this.isEmployeeDateofJoinValid) {
       var valid = this.validateEmployeeDateofJoining();
       isDateofJoining = valid;
     }
-    if(!this.isEmployeeIDValid){
+    if (!this.isEmployeeIDValid) {
       var valid = this.validateEmployeeID();
       isEmployeeID = valid;
     }
 
 
     if (isFirstNameValid == true && isLastNameValid == true && isGenderValid == true
-      && isEmailIdValid == true && isReportingManagerValid == true 
+      && isEmailIdValid == true && isReportingManagerValid == true
       && isDepartmentValid == true && isDesignationValid == true && isEmployeeID == true && isDateofJoining == true) {
       this.addEmployee.firstName = this.transformToTitleCase(this.addEmployee.firstName);
       this.addEmployee.lastName = this.transformToTitleCase(this.addEmployee.lastName);
       this.addEmployee.employeeOrgId = this.addEmployee.employeeOrgId.toUpperCase();
-      this.addEmployee.email=this.addEmployee.email.toLowerCase();
+      this.addEmployee.email = this.addEmployee.email.toLowerCase();
 
       console.log(this.addEmployee);
-      this.addEmployee.createdBy =this.transformToTitleCase(localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'));
+      this.addEmployee.createdBy = this.transformToTitleCase(localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'));
       this.addEmployee.createdByEmailId = localStorage.getItem('email').toLowerCase();
       this.employeeservice.createEmployee(this.addEmployee).subscribe({
         next: response => {
@@ -261,20 +260,20 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         },
         error: error => {
-          if(error.status === HttpStatusCode.Unauthorized){
+          if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout');
-          }else if(error.status === HttpStatusCode.Found){
-            this.toastr.error('Employee email ID '+this.addEmployee.email+' already exists');
+          } else if (error.status === HttpStatusCode.Found) {
+            this.toastr.error('Employee email ID ' + this.addEmployee.email + ' already exists');
             //document.getElementById('closeAddModal').click();
-          }else if(error.status=== HttpStatusCode.NotAcceptable){
+          } else if (error.status === HttpStatusCode.NotAcceptable) {
             this.toastr.error('Employee ID already present');
           }
-          
-          else{
+
+          else {
             this.toastr.error('Error while creating employee. please try again !')
           }
         }
-    });
+      });
     }
 
 
@@ -287,7 +286,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     teamsUserId: '',
     firstName: '',
     lastName: '',
-    gender:'',
+    gender: '',
     email: '',
     empDesignation: {
       id: 0,
@@ -302,7 +301,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     modifiedBy: '',
     createdByEmailId: '',
     modifiedByEmailId: '',
-    dateOfJoining:''
+    dateOfJoining: ''
   }
 
   /**
@@ -342,20 +341,20 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
         this.departmentList = response.body;
         console.log(this.departmentList);
       })
-      this.employeeservice.getAll().subscribe({
-       next: response => {
-         var employeeList: Employee[] = response.body;
-         this.employeeData = employeeList;
-         this.employeeData.forEach(employee => {
+    this.employeeservice.getAll().subscribe({
+      next: response => {
+        var employeeList: Employee[] = response.body;
+        this.employeeData = employeeList;
+        this.employeeData.forEach(employee => {
           this.departmentList.forEach(department => {
-            if(employee.departmentId === department.departmentId){
+            if (employee.departmentId === department.departmentId) {
               console.log(true)
               employee.departmentName = department.departmentName
             }
           })
         })
-       } 
-      })
+      }
+    })
   }
 
   designationList: Designation[];
@@ -375,7 +374,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-  
+
   /**
    * remove employee
    */
@@ -388,21 +387,21 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.employeeservice.deleteEmployee(employeeId).subscribe({
         next: response => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success('Employee ' +employeeId+' deleted successfully');
+            this.toastr.success('Employee ' + employeeId + ' deleted successfully');
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
         },
         error: error => {
-          this.toastr.error("Error occured while deleting employee "+employeeId);
+          this.toastr.error("Error occured while deleting employee " + employeeId);
           console.log("error occured");
         }
       }
       );
     }
     else {
-      this.toastr.warning('Employee ' +employeeId+ ' not deleted');
+      this.toastr.warning('Employee ' + employeeId + ' not deleted');
     }
 
   }
@@ -432,7 +431,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       isLastNameValid = valid;
     }
 
-    if(!this.isUpdateEmployeeGenderValid){
+    if (!this.isUpdateEmployeeGenderValid) {
       var valid = this.validateUpdateEmployeeGender();
       isGenderValid = valid;
     }
@@ -455,39 +454,39 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       var valid = this.validateUpdateDesignation();
       isDesignationValid = valid;
     }
-    if(!this.isUpdateEmployeeIDValid){
+    if (!this.isUpdateEmployeeIDValid) {
       var valid = this.validateUpdateEmployeeID();
       isEmployeeIDValid = valid;
     }
-    if(!this.isUpdateDateofJoin){
+    if (!this.isUpdateDateofJoin) {
       var valid = this.validateUpdateDateofJoining();
       isDateofJoiningValid = valid;
     }
 
     if (isEmailIdValid == true && isFirstNameValid == true && isReportingManagerValid == true
-       && isLastNameValid == true && isDepartmentValid == true && isGenderValid == true &&
+      && isLastNameValid == true && isDepartmentValid == true && isGenderValid == true &&
       isDesignationValid == true && isDateofJoiningValid == true && isEmployeeIDValid == true) {
-      
+
       this.existingEmployee.firstName = this.transformToTitleCase(this.existingEmployee.firstName);
       this.existingEmployee.lastName = this.transformToTitleCase(this.existingEmployee.lastName);
       this.existingEmployee.employeeOrgId = this.existingEmployee.employeeOrgId.toUpperCase();
-      
+
       this.existingEmployee.modifiedBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       this.employeeservice.updateEmployee(this.existingEmployee).subscribe(
         response => {
           var employeerecord = response.body;
           if (response.status == HttpStatusCode.Created) {
-            this.toastr.success('Employee '+this.existingEmployee.id+' updated successfully');
+            this.toastr.success('Employee ' + this.existingEmployee.id + ' updated successfully');
             document.getElementById('closeUpdateModal').click();
             setTimeout(() => {
               window.location.reload();
-            },1000)
+            }, 1000)
           }
-          else if(response.status == HttpStatusCode.NotAcceptable){
+          else if (response.status == HttpStatusCode.NotAcceptable) {
             this.toastr.error("Employee ID already present");
           }
           else {
-            this.toastr.error("Error occured while updating employee "+this.existingEmployee.id);
+            this.toastr.error("Error occured while updating employee " + this.existingEmployee.id);
           }
         }
       )
@@ -511,12 +510,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   employeeFirstNameErrorInfo = '';
   validateEmployeeFirstName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/^[A-Za-z ]+$/;
+    const regex2 = /^[A-Za-z ]+$/;
 
     if (this.addEmployee.firstName == '' || this.addEmployee.firstName.trim() === "" || regex.exec(this.addEmployee.firstName) === null) {
       this.employeeFirstNameErrorInfo = "First Name is required";
       this.isEmployeeFirstNameValid = false;
-    }else if(regex2.test(this.addEmployee.firstName) === false){
+    } else if (regex2.test(this.addEmployee.firstName) === false) {
       this.employeeFirstNameErrorInfo = "First Name cannot have special characters or numbers";
       this.isEmployeeFirstNameValid = false;
     }
@@ -540,12 +539,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   employeeLastNameErrorInfo = "";
   validateEmployeeLastName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/^[A-Za-z ]+$/;
+    const regex2 = /^[A-Za-z ]+$/;
 
     if (this.addEmployee.lastName == '' || this.addEmployee.lastName.trim() === "" || regex.exec(this.addEmployee.lastName) === null) {
       this.employeeLastNameErrorInfo = "Last Name is required";
       this.isEmployeeLasttNameValid = false;
-    }else if(regex2.test(this.addEmployee.lastName) === false){
+    } else if (regex2.test(this.addEmployee.lastName) === false) {
       this.employeeLastNameErrorInfo = "Last Name cannot have special characters or numbers";
       this.isEmployeeLasttNameValid = false;
     }
@@ -554,7 +553,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isEmployeeFirstNameValid = false;
 
     }
-    else if (this.addEmployee.lastName.length ==0) {
+    else if (this.addEmployee.lastName.length == 0) {
       this.employeeLastNameErrorInfo = "Last Name should have min of 1 character";
       this.isEmployeeLasttNameValid = false;
 
@@ -570,11 +569,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   employeeGenderErrorInfo = '';
   isEmployeeGenderValid = false;
 
-  validateEmployeeGender(){
-    if(this.addEmployee.gender === ''){
+  validateEmployeeGender() {
+    if (this.addEmployee.gender === '') {
       this.isEmployeeGenderValid = false;
       this.employeeGenderErrorInfo = 'Gender is required';
-    }else{
+    } else {
       this.isEmployeeGenderValid = true;
       this.employeeGenderErrorInfo = ''
     }
@@ -598,15 +597,15 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   employeeReportingManagerErrorInfo = "";
   //validateEmployeeReportingManager() {
 
-   // if (this.addEmployee.reportingManager == '' || this.addEmployee.reportingManager===null) {
-   //   this.employeeReportingManagerErrorInfo = "Reporting Manager is required";
+  // if (this.addEmployee.reportingManager == '' || this.addEmployee.reportingManager===null) {
+  //   this.employeeReportingManagerErrorInfo = "Reporting Manager is required";
   //    this.isEmployeeReportingManagerValid = false;
-   // }
-   // else {
-   //   this.employeeReportingManagerErrorInfo = "";
-    //  this.isEmployeeReportingManagerValid = true;
-   // }
-   // return this.isEmployeeReportingManagerValid;
+  // }
+  // else {
+  //   this.employeeReportingManagerErrorInfo = "";
+  //  this.isEmployeeReportingManagerValid = true;
+  // }
+  // return this.isEmployeeReportingManagerValid;
   //}
 
   employeeDepartmentErrorInfo = "";
@@ -653,30 +652,30 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.employeeDesignationErrorInfo = '';
     this.employeeReportingManagerErrorInfo = '';
     this.employeeGenderErrorInfo = '';
-    this.isEmployeeDateofJoinErrorInfo ='';
+    this.isEmployeeDateofJoinErrorInfo = '';
     this.isEmployeeIDErrorInfo = '';
 
-    this.isEmployeeFirstNameValid=false;
-    this.isEmployeeLasttNameValid=false;
-    this.isEmployeeEmailIdValid=false;
-    this.isEmployeeDepartmentValid=false;
-    this.isEmployeeDesignationtValid=false;
-    this.isEmployeeGenderValid=false;
-    this.isEmployeeReportingManagerValid=false;
-  
+    this.isEmployeeFirstNameValid = false;
+    this.isEmployeeLasttNameValid = false;
+    this.isEmployeeEmailIdValid = false;
+    this.isEmployeeDepartmentValid = false;
+    this.isEmployeeDesignationtValid = false;
+    this.isEmployeeGenderValid = false;
+    this.isEmployeeReportingManagerValid = false;
 
-    this.addEmployee.firstName = '' ;
-    this.addEmployee.lastName ='';
-    this.addEmployee.gender='';
+
+    this.addEmployee.firstName = '';
+    this.addEmployee.lastName = '';
+    this.addEmployee.gender = '';
     this.addEmployee.email = '';
     this.addEmployee.reportingManager = '';
-    this.addEmployee.departmentId=0;
-    this.addEmployee.empDesignation.id=0;
-    this.addEmployee.dateOfJoining ='';
+    this.addEmployee.departmentId = 0;
+    this.addEmployee.empDesignation.id = 0;
+    this.addEmployee.dateOfJoining = '';
     this.addEmployee.employeeOrgId = '';
 
   }
-  clearUpdateErrorMessages(){
+  clearUpdateErrorMessages() {
     this.updateFirstNameErrorInfo = "";
     this.updateLastNameErrorInfo = "";
     this.updateEmailIdErrorInfo = "";
@@ -702,12 +701,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   validateUpdateFirstName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/^[A-Za-z ]+$/;
+    const regex2 = /^[A-Za-z ]+$/;
 
     if (this.existingEmployee.firstName == '' || this.existingEmployee.firstName.trim() === "" || regex.exec(this.existingEmployee.firstName) === null) {
       this.updateFirstNameErrorInfo = "First Name is required";
       this.isUpdateFirstNameValid = false;
-    }else if(regex2.test(this.existingEmployee.firstName) === false){
+    } else if (regex2.test(this.existingEmployee.firstName) === false) {
       this.updateFirstNameErrorInfo = "First Name cannot have special characters or numbers";
       this.isUpdateFirstNameValid = false;
     }
@@ -729,16 +728,16 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   updateLastNameErrorInfo = "";
   validateUpdateLastName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/^[A-Za-z ]+$/;
+    const regex2 = /^[A-Za-z ]+$/;
 
     if (this.existingEmployee.lastName == '' || this.existingEmployee.lastName.trim() === "" || regex.exec(this.existingEmployee.lastName) === null) {
       this.updateLastNameErrorInfo = "Last Name is required";
       this.isUpdateLastNameValid = false;
-    }else if(regex2.test(this.existingEmployee.lastName) === false){
+    } else if (regex2.test(this.existingEmployee.lastName) === false) {
       this.updateLastNameErrorInfo = "Last Name cannot have special characters or numbers";
       this.isUpdateLastNameValid = false;
     }
-    else if (this.existingEmployee.lastName.length ==0) {
+    else if (this.existingEmployee.lastName.length == 0) {
       this.updateLastNameErrorInfo = "Last Name should have min of 1 character";
       this.isUpdateLastNameValid = false;
     }
@@ -754,13 +753,13 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.isUpdateLastNameValid;
   }
 
-updateGenderErrorInfo = '';
-isUpdateEmployeeGenderValid = false;
-  validateUpdateEmployeeGender(){
-    if(this.existingEmployee.gender === ''){
+  updateGenderErrorInfo = '';
+  isUpdateEmployeeGenderValid = false;
+  validateUpdateEmployeeGender() {
+    if (this.existingEmployee.gender === '') {
       this.isUpdateEmployeeGenderValid = false;
       this.updateGenderErrorInfo = 'Gender is required';
-    }else{
+    } else {
       this.isUpdateEmployeeGenderValid = true;
       this.updateGenderErrorInfo = ''
     }
@@ -786,19 +785,19 @@ isUpdateEmployeeGenderValid = false;
 
   }
   updateReportingManagerErrorInfo = "";
-//  validateUpdateReportingManager() {
+  //  validateUpdateReportingManager() {
 
-//    if (this.existingEmployee.reportingManager === '') {
-//      this.updateReportingManagerErrorInfo = "Reporting Manager is required";
- //     this.isUpdateReportingManagerValid = false;
-//    }
+  //    if (this.existingEmployee.reportingManager === '') {
+  //      this.updateReportingManagerErrorInfo = "Reporting Manager is required";
+  //     this.isUpdateReportingManagerValid = false;
+  //    }
   //  else {
   //    this.updateReportingManagerErrorInfo = "";
-   //   this.isUpdateReportingManagerValid = true;
+  //   this.isUpdateReportingManagerValid = true;
 
-   // }
+  // }
   //  return this.isUpdateReportingManagerValid;
-//  }
+  //  }
   updateDepartmentErrorInfo = "";
   validateUpdateDepartment() {
     if (this.existingEmployee.departmentId <= 0) {
@@ -830,9 +829,9 @@ isUpdateEmployeeGenderValid = false;
 
   /** check the selected checkboxes to delete */
 
-/**
- * 
- */
+  /**
+   * 
+   */
   checkCheckBoxes() {
 
     var employeeIdsToBeDeleted = [];
@@ -917,24 +916,24 @@ isUpdateEmployeeGenderValid = false;
     const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
     console.log(anyUnchecked);
     $('#mainCheckBox').prop('checked', !anyUnchecked);
-    
+
   }
   isEmployeeIDValid = false;
   isEmployeeIDErrorInfo = '';
-  validateEmployeeID(){
+  validateEmployeeID() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/[a-zA-Z0-9]+/;
-    if(this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null||regex2.exec(this.addEmployee.employeeOrgId) === null){
+    const regex2 = /[a-zA-Z0-9]+/;
+    if (this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null || regex2.exec(this.addEmployee.employeeOrgId) === null) {
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID is required';
-    }else if(this.addEmployee.employeeOrgId.length <= 1){
+    } else if (this.addEmployee.employeeOrgId.length <= 1) {
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters';
-    }else if(this.addEmployee.employeeOrgId.length  >= 20){
+    } else if (this.addEmployee.employeeOrgId.length >= 20) {
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
     }
-    else{
+    else {
       this.isEmployeeIDValid = true;
       this.isEmployeeIDErrorInfo = '';
     }
@@ -943,7 +942,7 @@ isUpdateEmployeeGenderValid = false;
   }
   isEmployeeDateofJoinValid = false;
   isEmployeeDateofJoinErrorInfo = '';
-  validateEmployeeDateofJoining(){
+  validateEmployeeDateofJoining() {
     const selectedDate = new Date(this.addEmployee.dateOfJoining);
     const minDate = new Date();
     minDate.setFullYear(minDate.getFullYear() - 30);
@@ -951,35 +950,35 @@ isUpdateEmployeeGenderValid = false;
     maxDate.setMonth(11);
     maxDate.setDate(31);
 
-    if(this.addEmployee.dateOfJoining == '' || this.addEmployee.dateOfJoining == null){
+    if (this.addEmployee.dateOfJoining == '' || this.addEmployee.dateOfJoining == null) {
       this.isEmployeeDateofJoinValid = false;
       this.isEmployeeDateofJoinErrorInfo = 'Date of Joining is required';
-    }else if (selectedDate < minDate || selectedDate > maxDate) {
-          this.isEmployeeDateofJoinErrorInfo = 'Set correct date or month';
-          this.isEmployeeDateofJoinValid = false;
-    }else{
-        this.isEmployeeDateofJoinValid = true;
-        this.isEmployeeDateofJoinErrorInfo = '';
+    } else if (selectedDate < minDate || selectedDate > maxDate) {
+      this.isEmployeeDateofJoinErrorInfo = 'Set correct date or month';
+      this.isEmployeeDateofJoinValid = false;
+    } else {
+      this.isEmployeeDateofJoinValid = true;
+      this.isEmployeeDateofJoinErrorInfo = '';
     }
     return this.isEmployeeDateofJoinValid;
 
   }
   isUpdateEmployeeIDValid = false;
   isUpdateEmployeeIDErrorInfo = '';
-  validateUpdateEmployeeID(){
+  validateUpdateEmployeeID() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/[a-zA-Z0-9]+/;
-    if(this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null||regex2.exec(this.existingEmployee.employeeOrgId) === null){
+    const regex2 = /[a-zA-Z0-9]+/;
+    if (this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null || regex2.exec(this.existingEmployee.employeeOrgId) === null) {
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required';
-    }else if(this.existingEmployee.employeeOrgId.length <= 1){
+    } else if (this.existingEmployee.employeeOrgId.length <= 1) {
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters';
-    }else if(this.existingEmployee.employeeOrgId.length  >= 20){
+    } else if (this.existingEmployee.employeeOrgId.length >= 20) {
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
     }
-    else{
+    else {
       this.isUpdateEmployeeIDValid = true;
       this.isUpdateEmployeeIDErrorInfo = '';
     }
@@ -989,7 +988,7 @@ isUpdateEmployeeGenderValid = false;
   }
   isUpdateDateofJoin = false;
   isUpdateDateofJoinErrorInfo = '';
-  validateUpdateDateofJoining(){
+  validateUpdateDateofJoining() {
     const selectedDate = new Date(this.existingEmployee.dateOfJoining);
     const minDate = new Date();
     minDate.setFullYear(minDate.getFullYear() - 30);
@@ -997,34 +996,34 @@ isUpdateEmployeeGenderValid = false;
     maxDate.setMonth(11);
     maxDate.setDate(31);
 
-    if(this.existingEmployee.dateOfJoining == '' || this.existingEmployee.dateOfJoining == null){
+    if (this.existingEmployee.dateOfJoining == '' || this.existingEmployee.dateOfJoining == null) {
       this.isUpdateDateofJoin = false;
       this.isUpdateDateofJoinErrorInfo = 'Date of Joining is required';
-    }else if (selectedDate < minDate || selectedDate > maxDate) {
+    } else if (selectedDate < minDate || selectedDate > maxDate) {
       this.isUpdateDateofJoinErrorInfo = 'Set correct date or month';
       this.isUpdateDateofJoin = false;
-    }else{
+    } else {
       this.isUpdateDateofJoin = true;
       this.isUpdateDateofJoinErrorInfo = '';
     }
     return this.isUpdateDateofJoin;
-    
+
   }
 
-  Date(){
-      const datePicker = document.getElementById('datePicker');
-      
-      // Calculate the minimum date (30 years ago)
-      const minDate = new Date();
-      minDate.setFullYear(minDate.getFullYear() - 30);
-      
-      // Calculate the maximum date (end of the current year)
-      const maxDate = new Date();
-      maxDate.setMonth(11); // December
-      maxDate.setDate(31); // Last day of the month
-      
-      datePicker.setAttribute('min', minDate.toISOString().split('T')[0]);
-      datePicker.setAttribute('max', maxDate.toISOString().split('T')[0]);
+  Date() {
+    const datePicker = document.getElementById('datePicker');
+
+    // Calculate the minimum date (30 years ago)
+    const minDate = new Date();
+    minDate.setFullYear(minDate.getFullYear() - 30);
+
+    // Calculate the maximum date (end of the current year)
+    const maxDate = new Date();
+    maxDate.setMonth(11); // December
+    maxDate.setDate(31); // Last day of the month
+
+    datePicker.setAttribute('min', minDate.toISOString().split('T')[0]);
+    datePicker.setAttribute('max', maxDate.toISOString().split('T')[0]);
   }
 
   transformToTitleCase(text: string): string {
@@ -1034,21 +1033,21 @@ isUpdateEmployeeGenderValid = false;
   }
 
   currentMenuItem: MenuItem;
-  async getCurrentMenuItemDetails() : Promise<MenuItem> {
-      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Employees')).then(response => {
-        if (response.status === HttpStatusCode.Ok) {
-          this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
-        }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
-          this.router.navigateByUrl('/session-timeout');
-        }
-      },reason => {
-        if(reason.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout')
-        }
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Employees')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
       }
-      )
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
