@@ -222,7 +222,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
       var currentMenuItem = await this.getCurrentMenuItemDetails();
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
-        this.noPermissions = false;
+        //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
         console.log('exe')
         //get permissions of this component for the user
@@ -294,8 +294,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.deletePermission = true;
         }
       }else{
-        this.noPermissions = true;
-        console.log('exe')
+        this.router.navigateByUrl('/unauthorized');
       }
     }
   }
