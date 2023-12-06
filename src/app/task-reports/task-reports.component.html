@@ -51,11 +51,11 @@
                     <div id="chartHeading" class="card-header">
                         <b id="reportheading">Tasks</b>
                         
-                        <div id="chartType" class="col-sm-6">
-                            <span  [style.color]="colorOfChartType==='line' ? '#EF7426' : '#fff'" (click)="setChartType('line')"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                        <div id="chartType" class="col-sm-5">
+                            <span  (click)="setChartType('line')"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                                 width="42" height="22" viewBox="0 0 512.000000 512.000000"
                                 preserveAspectRatio="xMidYMid meet">  
-                               <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                               <g [style.fill]="colorOfChartType==='line' ? 'lightgray' : '#fff'" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                                fill="#000000" stroke="none">
                                <path d="M335 4306 c-41 -18 -83 -69 -90 -109 -3 -18 -4 -766 -3 -1664 3
                                -1630 3 -1632 24 -1659 11 -15 33 -37 48 -48 l27 -21 2219 0 2219 0 27 21 c53
@@ -70,11 +70,11 @@
                                15 -33 37 -48 48 -27 20 -40 21 -519 24 -483 2 -493 2 -534 -19z"/>
                                </g>
                                </svg></span>
-                            <span  [style.color]="colorOfChartType==='bar' ? '#ef7426' : '#fff'" (click)="setChartType('bar')"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                            <span   (click)="setChartType('bar')"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                                 width="42" height="22" viewBox="0 0 312 512.000000"
                                 preserveAspectRatio="xMidYMid meet">
         
-                                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                <g [style.fill]="colorOfChartType==='bar' ? 'lightgray' : '#fff'" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                                 fill="#000000" stroke="none">
                                 <path d="M0 2118 c0 -1342 3 -1945 11 -1972 14 -50 82 -118 135 -134 32 -9
                                 585 -12 2508 -12 l2466 0 0 215 0 215 -2345 0 -2345 0 0 1810 0 1810 -215 0
@@ -90,11 +90,11 @@
                                 c-219 1 -376 -2 -398 -9z"/>
                                 </g>
                                 </svg></span>
-                            <span  [style.color]="colorOfChartType==='pie' ? '#ef7426' : '#fff'" (click)="setChartType('pie')"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                            <span  (click)="setChartType('pie')"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                                width="42" height="22" viewBox="0 0 512.000000 512.000000"
                                preserveAspectRatio="xMidYMid meet">
                               
-                              <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                              <g [style.fill]="colorOfChartType==='pie' ? 'lightgray' : '#fff'" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                               fill="#000000" stroke="none">
                               <path d="M2241 5104 c-885 -113 -1654 -686 -2021 -1504 -90 -201 -169 -482
                               -202 -720 -20 -145 -16 -527 6 -675 23 -151 83 -391 131 -521 85 -231 235
@@ -108,11 +108,11 @@
                               511 1323 l7 67 -1099 0 -1098 0 775 -775z"/>
                               </g>
                               </svg></span>
-                            <span  [style.color]="colorOfChartType==='doughnut' ? '#ef7426' : '#fff'" (click)="setChartType('doughnut')"><svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                            <span (click)="setChartType('doughnut')"><svg  version="1.0" xmlns="http://www.w3.org/2000/svg"
                                 width="42" height="22" viewBox="0 0 512.000000 512.000000"
                                 preserveAspectRatio="xMidYMid meet">
                                
-                               <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                               <g  [style.fill]="colorOfChartType==='doughnut' ? 'lightgray' : '#fff'" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                                fill="#000000" stroke="none">
                                <path d="M2360 4969 c-575 -47 -1132 -312 -1535 -730 -550 -570 -784 -1346
                                -640 -2124 138 -744 626 -1386 1310 -1721 251 -122 447 -184 720 -225 197 -30

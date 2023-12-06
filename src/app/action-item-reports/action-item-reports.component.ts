@@ -32,6 +32,7 @@ export class ActionItemsReportsComponent implements OnInit {
   selectedUser: string;
 
   actionItemsByDepartmentReportChart =  null;
+  actionItemsAllDepartmentReportChart = null;
 
 
   constructor(private activatedRoute:ActivatedRoute, private deprtmentService: DepartmentService,
@@ -63,6 +64,8 @@ export class ActionItemsReportsComponent implements OnInit {
       this.getAllDepartments();
       this.getEmployeeAsUserList();
       this.getAllActionItemsCount();
+      this.getAllDepartmentsCount();
+      this.getAllDepartmentNames();
       if(this.reportType === 'department'){
         this.chooseDepartment();
       }
@@ -73,8 +76,8 @@ export class ActionItemsReportsComponent implements OnInit {
         this.choosePriority();
       }
       if(this.reportType === 'all'){
-        this.getAllDepartmentsCount();
-        this.getAllDepartmentNames();
+        // this.getAllDepartmentsCount();
+        // this.getAllDepartmentNames();
       }
     },200)
     
@@ -217,7 +220,7 @@ export class ActionItemsReportsComponent implements OnInit {
 
   createActionItemsByPriorityReportChart(){
     this.actionItemsByPriorityReportChart = new Chart("actionItemsByPriorityReportChart", {
-      type: 'pie',
+      type: this.type,
       data: {// values on X-Axis
         xLabels: ['Total Action items of  priority'],
         datasets: [
@@ -288,7 +291,7 @@ export class ActionItemsReportsComponent implements OnInit {
 
   createActionItemsByDepartmentReportChart(){
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
-      type: 'pie',
+      type: 'bar',
       data: {// values on X-Axis
         xLabels: ['Total Action items of a department'],
         datasets: [
@@ -367,7 +370,7 @@ export class ActionItemsReportsComponent implements OnInit {
   actionItemsByOrganizerReportChart = null;
   createActionItemsOfOrganizerReportChart(){
     this.actionItemsByOrganizerReportChart = new Chart("actionItemsByOrganizerReportChart", {
-      type: 'bar',
+      type: this.type,
       data: {// values on X-Axis
         xLabels: ['Total Action items of a organizer'],
         datasets: [
@@ -458,6 +461,11 @@ deptValueCount : DepartmentCount[] = [];
            this.deptValueCount.push(deptObject);
          })
          console.log(this.deptValueCount)
+         if(this.actionItemsByDepartmentReportChart ! = null){
+           this.actionItemsByDepartmentReportChart.destroy()
+           this.createActionItemsAllDepartmentReportChart()
+         }
+         this.createActionItemsAllDepartmentReportChart()
          this.getAllDepartmentNames()
          
        }
@@ -467,7 +475,7 @@ deptValueCount : DepartmentCount[] = [];
   getAllDepartmentNames(){
      this.getAllDepartments();
      //this.deptValueCount1 = new DepartmentCount[this.deptValueCount.length]
-     this.departmentList.forEach(deptList =>{
+     this.departmentList.map(deptList =>{
       console.log(deptList);
        this.deptValueCount.forEach(deptValue=>{
          if(deptList.departmentId === parseInt(deptValue.deptId) ){
@@ -477,7 +485,6 @@ deptValueCount : DepartmentCount[] = [];
        })
 
      })
-    
   }
   allActionItemsCount : number;
   allActionItems : ActionItems[]
@@ -489,6 +496,102 @@ deptValueCount : DepartmentCount[] = [];
 
        }
     })
+    //this.actionItemsAllDepartmentReportChart()
+  }
+  
+  createActionItemsAllDepartmentReportChart(){
+    this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
+      type: this.type,
+      data: {// values on X-Axis
+        xLabels: ['Total Action items of a department'],
+        datasets: [
+          {
+            label: "Total Action items of a department",
+            data: [this.allActionItemsCount],
+            backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
+            borderColor: 'rgba(175, 136, 245, 1)',
+            borderWidth: 3,
+          },
+        ]
+      },
+      options: {
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'easeOutExpo',
+            from: 1,
+            to: 0,
+            loop: true
+          }
+        },
+        aspectRatio: 2.3,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            beginAtZero: false,
+            display: true,
+            grid: {
+              display: true,
+            },
+            ticks:{
+              stepSize :1
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total Action items of a department',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+
+
+  type : any = 'line'
+  setChartType(value : any){
+    this.type = value;
+    console.log(this.type)
+    if(this.reportType == 'priority'){
+
+    }
+    if(this.reportType == 'organized'){
+
+    }
+    if(this.reportType == 'all' ){
+
+      if(this.actionItemsByDepartmentReportChart ! = null){
+         this.actionItemsByDepartmentReportChart.destroy()
+         this.createActionItemsByDepartmentReportChart()
+      }
+      
+
+    }
+    
+
   }
 
 }

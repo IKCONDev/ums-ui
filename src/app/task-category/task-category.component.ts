@@ -197,7 +197,7 @@ export class TaskCategoryComponent implements OnInit {
         }
       })
     }else{
-      this.toastrService.warning('Task category nor deleted.')
+      this.toastrService.warning('Task category not deleted.')
     }
   }
 
