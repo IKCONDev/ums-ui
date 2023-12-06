@@ -33,8 +33,8 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   roleName: string;
   userRPMMapList: UserRoleMenuItemPermissionMap[] = [];
   unassignedMenuItemList: MenuItem[] = [];
-  isUserRoleMenuItemPermissionText:boolean=false;
-  isComponentLoading:boolean=false;
+  isUserRoleMenuItemPermissionText: boolean = false;
+  isComponentLoading: boolean = false;
 
   viewPermission: boolean;
   createPermission: boolean;
@@ -51,17 +51,23 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     private toastr: ToastrService, private userRPMService: UserRoleMenuItemPermissionService,
     private menuItemService: AppMenuItemService,
     private roleService: RoleService) {
-
-     if (this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN') {
-      this.router.navigateByUrl('/unauthorized')
-     }
   }
 
+  /**
+   * initialize the view of the component as soon as the component is loaded
+   */
   async ngOnInit(): Promise<void> {
-    if(localStorage.getItem('jwtToken') === null){
+
+    // if (this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN') {
+    //   this.router.navigateByUrl('/unauthorized')
+    //  }
+
+    //if the session of user is null, redirect to session-timeout
+    if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
-    
+
+    //check wether the user has previlages(permissions) to view the component
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
     }
@@ -69,47 +75,48 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     var currentMenuItem = await this.getCurrentMenuItemDetails();
     console.log(currentMenuItem)
 
-      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
-        //this.noPermissions = false;
-        //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
-        //get permissions of this component for the user
-        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
-        if (menuItemPermissions.includes('View')) {
-          this.viewPermission = true;
-          this.getUsersList();
-          this.getRoleMenuItemPermissionListByUserId();
-          this.getAllMenuItems();
-        }else{
-          this.viewPermission = false;
-        }
-        if (menuItemPermissions.includes('Create')) {
-          this.createPermission = true;
-        }else{
-          this.createPermission = false;
-          this.addButtonColor = 'lightgrey'
-        }
-        if (menuItemPermissions.includes('Update')) {
-          this.updatePermission = true;
-          this.updateButtonColor = '#5590AA';
-        }else{
-          this.updatePermission = false;
-          this.updateButtonColor = 'lightgray';
-        }
-        if (menuItemPermissions.includes('Delete')) {
-          this.deletePermission = true;
-        }else{
-          this.deletePermission = false;
-          this.deleteButtonColor = 'lightgray';
-        }
-      }else{
-        //this.noPermissions = true;
-        this.router.navigateByUrl('/unauthorized');
+    if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+      //this.noPermissions = false;
+      //provide permission to access this component for the logged in user if view permission exists
+      console.log('exe')
+      //get permissions of this component for the user
+      var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+      if (menuItemPermissions.includes('View')) {
+        this.viewPermission = true;
+        //fetch details from db is view permission exists for ther user
+        this.getUsersList();
+        this.getRoleMenuItemPermissionListByUserId();
+        this.getAllMenuItems();
+      } else {
+        this.viewPermission = false;
       }
+      if (menuItemPermissions.includes('Create')) {
+        this.createPermission = true;
+      } else {
+        this.createPermission = false;
+        this.addButtonColor = 'lightgrey'
+      }
+      if (menuItemPermissions.includes('Update')) {
+        this.updatePermission = true;
+        this.updateButtonColor = '#5590AA';
+      } else {
+        this.updatePermission = false;
+        this.updateButtonColor = 'lightgray';
+      }
+      if (menuItemPermissions.includes('Delete')) {
+        this.deletePermission = true;
+      } else {
+        this.deletePermission = false;
+        this.deleteButtonColor = 'lightgray';
+      }
+    } else {
+      //this.noPermissions = true;
+      this.router.navigateByUrl('/unauthorized');
+    }
   }
 
   /**
-   * 
+   * get the role details based on the provided roleId (record Id in database)
    * @param roleId 
    */
   getRoleDetails(roleId: number) {
@@ -119,9 +126,9 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
           this.roleName = response.body.roleName;
         }
       }, error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
+        if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl('/session-timeout');
-        }else{
+        } else {
           this.toastr.error('Error while fetching role details')
         }
       }
@@ -129,23 +136,24 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   }
 
   /**
-   * get all menu items list
+   * get all menu items list of UMS application
    */
-  async getAllMenuItems() : Promise<MenuItem[]>{
+  async getAllMenuItems(): Promise<MenuItem[]> {
+    //await for the promised result to execute further
     await lastValueFrom(this.menuItemService.findMenuItems()).then(
       response => {
-       if(response.status === HttpStatusCode.Ok){
-        this.menuItemList = response.body;
-       }else if(response.status === HttpStatusCode.Unauthorized){
-        this.router.navigateByUrl('/session-timeout')
-       }
+        if (response.status === HttpStatusCode.Ok) {
+          this.menuItemList = response.body;
+        } else if (response.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
     )
     return this.menuItemList;
   }
 
   /**
-   * 
+   * get the list of all employees, if and only if the user status of the employee is true.
    */
   getUsersList() {
     this.employeeService.getUserStatusEmployees(true).subscribe({
@@ -166,15 +174,15 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
    * 
    */
   getRoleMenuItemPermissionListByUserId() {
-    this.isComponentLoading=true;
-    this.isUserRoleMenuItemPermissionText=true;
+    this.isComponentLoading = true;
+    this.isUserRoleMenuItemPermissionText = true;
     localStorage.setItem('selectedUser', this.selectedUserId);
     this.userRPMService.findUserRoleMenuitemPermissionMapsByUserId(this.selectedUserId).subscribe({
       next: response => {
         if (response.status === HttpStatusCode.Ok) {
           this.userRPMMapList = response.body;
-          this.isComponentLoading=false;
-          this.isUserRoleMenuItemPermissionText=false;
+          this.isComponentLoading = false;
+          this.isUserRoleMenuItemPermissionText = false;
           this.roleId = this.userRPMMapList[0].roleId;
           console.log(this.userRPMMapList)
           this.getRoleDetails(this.roleId);
@@ -239,7 +247,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   /**
    * clear error messages and existing values
    */
-  clearErrorMessages(){
+  clearErrorMessages() {
     this.addUserRPMMap.permissionIdList = null;
     this.addUserRPMMap.menuItemIdList = null;
     this.unassignedMenuItemList = [];
@@ -249,18 +257,18 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   /**
    * 
    */
-  createUserRoleMenuItemPermissionMapForUser(){
+  createUserRoleMenuItemPermissionMapForUser() {
     this.addUserRPMMap.email = this.selectedUserId;
     this.addUserRPMMap.permissionIdList = this.addPermissionIdListString;
     this.addUserRPMMap.roleId = this.roleId;
     console.log(this.addUserRPMMap)
     this.userRPMService.createUserRoleMenuItemPermissionMap(this.addUserRPMMap).subscribe({
       next: response => {
-        if(response.status === HttpStatusCode.Created){
+        if (response.status === HttpStatusCode.Created) {
           this.toastr.success('Menu Item and permissions are added for user');
           setTimeout(() => {
             window.location.reload();
-          },1000)
+          }, 1000)
         }
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -278,22 +286,22 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
    * @param event 
    * @param permissionAssigned 
    */
-  setPermission(event: any, permissionAssigned){
-    if(event.target.checked === true && (permissionAssigned === 'View' || permissionAssigned === 'Create' || permissionAssigned === 'Update' || permissionAssigned === 'Delete')){
+  setPermission(event: any, permissionAssigned) {
+    if (event.target.checked === true && (permissionAssigned === 'View' || permissionAssigned === 'Create' || permissionAssigned === 'Update' || permissionAssigned === 'Delete')) {
       var addPermissionListString = this.addPermissionList.join(',');
-      if(!addPermissionListString.includes(permissionAssigned)){
+      if (!addPermissionListString.includes(permissionAssigned)) {
         this.addPermissionList.push(permissionAssigned);
       }
     }//if
-    else{
+    else {
       var addPermissionListString = this.addPermissionList.join(',');
-      if(addPermissionListString.includes(permissionAssigned)){
+      if (addPermissionListString.includes(permissionAssigned)) {
         var i = 0;
         this.addPermissionList.forEach(permission => {
-          if(permission.toString().trim() === permissionAssigned.toString().trim()){
-            this.addPermissionList.splice(i,1);
+          if (permission.toString().trim() === permissionAssigned.toString().trim()) {
+            this.addPermissionList.splice(i, 1);
           }
-          i = i+1;
+          i = i + 1;
         });
       }
     }//else
@@ -315,27 +323,27 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
       }
     }
   }
-  
+
 
   /**
    * 
    * @returns 
    */
-  async getCurrentMenuItemDetails() : Promise<MenuItem> {
-      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('User Menu Item Permissions')).then(response => {
-        if (response.status === HttpStatusCode.Ok) {
-          this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
-        }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
-          this.router.navigateByUrl('/session-timeout');
-        }
-      },reason => {
-        if(reason.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout')
-        }
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('User Menu Item Permissions')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
       }
-      )
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
