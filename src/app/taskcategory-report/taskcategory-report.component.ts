@@ -24,6 +24,8 @@ export class TaskcategoryReportComponent implements OnInit {
   reportType: string;
   selectedTaskCategory : string;
   taskListByCategoryChart = null;
+  taskListByCategoryChart1 = null;
+  type : any = 'line'
   ngOnInit(): void {
 
     this.getAllTaskCategoryList();
@@ -32,7 +34,7 @@ export class TaskcategoryReportComponent implements OnInit {
     setTimeout(() => {
       if(this.reportType === 'all'){
         this.getAllTasksByCategoryCount();
-        this.getchoosenCategory(this.selectedTaskCategory); 
+        //this.getchoosenCategory(this.selectedTaskCategory); 
       }
       if(this.reportType !='all'){
         this.getTaskCategoryId(parseInt(this.valueoftaskCategory))
@@ -73,6 +75,11 @@ export class TaskcategoryReportComponent implements OnInit {
          this.alltasksCount = response.body.length;
        }
     })
+    // if(this.taskListByCategoryChart1 ! = null){
+    //   this.taskListByCategoryChart1.destroy()
+    //   this.createTaskListAllDepartmentChart()
+    // }
+   
   }
   taskListByCategory : Task[]
   categoryOfTaskCount : number;
@@ -126,6 +133,7 @@ export class TaskcategoryReportComponent implements OnInit {
             this.finaltaskCategoryObject.push(taskCategoryObject);
           
          })
+        this.createTaskListAllDepartmentChart();
          this.getAllTaskCategoryNames();
       }
     })
@@ -140,15 +148,25 @@ export class TaskcategoryReportComponent implements OnInit {
        })
     })
   }
-  type : any = 'line'
+  
   setChartType(value : any){
     this.type = value;
     console.log(this.type);
-    if(this.taskListByCategoryChart!= null ){
-      this.taskListByCategoryChart.destroy();
+
+    if(this.selectedtaskCategoryName == null){
+       if(this.taskListByCategoryChart1!= null ){
+         this.taskListByCategoryChart1.destroy();
+       }
+      this.createTaskListAllDepartmentChart()
     }
-    this.createTaskListByDepartmentChart();
-    
+    else{
+      if(this.taskListByCategoryChart!= null ){
+        this.taskListByCategoryChart.destroy();
+      }
+      this.createTaskListByDepartmentChart();
+    }
+  
+  
   }
   createTaskListByDepartmentChart() {
     console.log("create task category chart entered");
@@ -160,6 +178,73 @@ export class TaskcategoryReportComponent implements OnInit {
           {
             label: "Total Tasks of a task category",
             data: [this.categoryOfTaskCount],
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+           // backgroundColor: 'rgb(153, 102, 255)', // Red
+            //backgroundColor : 'limegreen',
+            borderColor: 'rgba(255, 99, 132, 1)',
+           // borderColor :'rgb(153, 102, 255)',
+            borderWidth: 1,
+          },
+        ]
+
+      },
+      options: {
+        aspectRatio: 2.2,
+        scales: {
+          x: {
+            display: true,
+            //stacked: true,
+            grid: {
+               display: true,
+
+             },
+          },
+          y: {
+            display: true,
+            grid: {
+              display: true,
+            },
+            ticks :{
+               stepSize : 1,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total task list for a category',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
+  }
+  createTaskListAllDepartmentChart() {
+    console.log("create task category chart entered");
+    this.taskListByCategoryChart1 = new Chart("taskListByCategoryChart1", {
+      type: this.type,
+      data: {// values on X-Axis
+        xLabels: ['all'],
+        datasets: [
+          {
+            label: "Total Tasks of a task category",
+            data: [this.alltasksCount],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
            // backgroundColor: 'rgb(153, 102, 255)', // Red
             //backgroundColor : 'limegreen',
