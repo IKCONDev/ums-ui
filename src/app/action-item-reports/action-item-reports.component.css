@@ -110,9 +110,13 @@
   }
   #header{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     
   }
   #reportheading{
     color: whitesmoke;
+  }
+  #chartType{
+    display: flex;
+    justify-content: space-between;
   }
