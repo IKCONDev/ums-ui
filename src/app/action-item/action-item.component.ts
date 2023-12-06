@@ -274,8 +274,10 @@ export class ActionItemComponent implements OnInit {
             this.isComponentLoading = false;
             this.displayText = false;
           } else {
-            this.isComponentLoading = false;
-            this.isActionItemDataText = false;
+            setTimeout(()=>{
+              this.isComponentLoading = false;
+              this.isActionItemDataText = false;
+            },4000)
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -293,8 +295,10 @@ export class ActionItemComponent implements OnInit {
             this.isComponentLoading = false;
             this.displayText = false;
           } else {
-            this.isComponentLoading = false;
-            this.isActionItemDataText = false;
+            setTimeout(()=>{
+              this.isComponentLoading = false;
+              this.isActionItemDataText = false;
+            },4000)
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
