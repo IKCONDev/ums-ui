@@ -695,7 +695,21 @@ input{
   width: 300px;
 }
 
+.btn-danger{
+  border: none;
+  border-radius: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 10px;
+}
+
 .btn-success{
   background-color: #90C853;
-  border-color: #90C853;
+  border: none;
+  border-radius: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 10px;
 }
