@@ -147,7 +147,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
         }else{
-          this.toastr.error('Error while showing designations data ! Please try again or reload the page')
+          this.toastr.error('Error occured while showing designations data ! Please try again or reload the page.')
         }
       }
    })
@@ -213,17 +213,17 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    const regex = /^\S.*[a-zA-Z\s]*$/;
    const regex2=/^[A-Za-z ]+$/;
     if(this.addDesignation.designationName === '' || this.addDesignation.designationName.trim()==="" || regex.exec(this.addDesignation.designationName)===null){
-      this.designationNameErrorInfo = 'Designation name is required';
+      this.designationNameErrorInfo = 'Designation name is required.';
       this.isDesignationNameValid = false;
     }else if(regex2.test(this.addDesignation.designationName) === false){
-      this.designationNameErrorInfo = 'Designation name cannot have special characters or numbers';
+      this.designationNameErrorInfo = 'Designation name cannot have special characters or numbers.';
       this.isDesignationNameValid = false;
      }
     else if(this.addDesignation.designationName.length < 5){
       this.designationNameErrorInfo = 'Designation name should have minimum of 5 characters.';
       this.isDesignationNameValid = false;
     }else if(this.addDesignation.designationName.length >= 50){
-      this.designationNameErrorInfo = 'Designation name should not exceed more than 50 characters';
+      this.designationNameErrorInfo = 'Designation name should not exceed more than 50 characters.';
       this.isDesignationNameValid = false;
     }else{
       this.isDesignationNameValid = true;
@@ -358,10 +358,10 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2=/^[A-Za-z ]+$/;
      if(this.existingDesignation.designationName === '' || this.existingDesignation.designationName.trim()==="" || regex.exec(this.existingDesignation.designationName)===null){
-       this.updatedDesignationNameErrorInfo = 'Designation name is required';
+       this.updatedDesignationNameErrorInfo = 'Designation name is required.';
        this.isUpdatedDesignationNameValid = false;
      }else if(regex2.test(this.existingDesignation.designationName) === false){
-      this.updatedDesignationNameErrorInfo = 'Designation name cannot have special characters or numbers';
+      this.updatedDesignationNameErrorInfo = 'Designation name cannot have special characters or numbers.';
       this.isUpdatedDesignationNameValid = false;
      }
      else if(this.existingDesignation.designationName.length < 5){
@@ -413,7 +413,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             if(this.designationIdsToBeDeleted.length > 1){
-              this.toastr.success('Designations deleted sucessfully') 
+              this.toastr.success('Designations deleted sucessfully.') 
             } else{
               this.toastr.success('Designation '+this.designationIdsToBeDeleted+ ' is deleted sucessfully.') 
             }
@@ -426,7 +426,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         })
       )
     }else{
-      this.toastr.warning('Designations not deleted')
+      this.toastr.warning('Designations not deleted.')
     }
    }else{
     this.toastr.error('Please select atleast one designation to delete.')

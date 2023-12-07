@@ -149,7 +149,7 @@ export class PermissionComponent implements OnInit{
         next: response => {
           if(response.status === HttpStatusCode.Created){
             this.closeModal();
-            this.toastrService.success('permission created successfully');
+            this.toastrService.success('Permission created successfully.');
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -159,7 +159,7 @@ export class PermissionComponent implements OnInit{
             this.router.navigateByUrl('/session-timeout');
           }
           else {
-            this.toastrService.error('Error while creating permission. Please try again !')
+            this.toastrService.error('Error occured while creating permission. Please try again !')
           }
         }
       })
@@ -188,7 +188,7 @@ export class PermissionComponent implements OnInit{
           next: response => {
             if(response.status === HttpStatusCode.PartialContent){
               this.closeModal();
-              this.toastrService.success('Permission updated successfully');
+              this.toastrService.success('Permission '+ permission.permissionId+' updated successfully.');
               setTimeout(() => {
                 window.location.reload();
               },1000)
@@ -197,7 +197,7 @@ export class PermissionComponent implements OnInit{
             if(error.status === HttpStatusCode.Unauthorized){
               this.router.navigateByUrl('/session-timeout');
             }else {
-              this.toastrService.error('Error while creating the permission, Please try again !')
+              this.toastrService.error("Error occured while updating the permission "+ permission.permissionId+". Please try again !")
             }
           }
         })
@@ -224,7 +224,7 @@ export class PermissionComponent implements OnInit{
     validatePermissionValue(){
       const regex = /^\S.*[a-zA-Z\s]*$/;
       if(this.addPermission.permissionValue ==''){
-        this.permissionValueErrorInfo = 'Permission Value is required';
+        this.permissionValueErrorInfo = 'Permission Value is required.';
         this.isPermissionValueValid = false;
       }else{
         this.isPermissionValueValid = true;
@@ -239,13 +239,13 @@ export class PermissionComponent implements OnInit{
       const regex = /^\S.*[a-zA-Z\s]*$/;
       if(this.addPermission.permissionDescription === '' || this.addPermission.permissionDescription.trim()==="" || 
       regex.exec(this.addPermission.permissionDescription)===null){
-        this.permissionDescriptionErrorInfo = 'Permission description is required';
+        this.permissionDescriptionErrorInfo = 'Permission description is required.';
         this.isPermissionDescriptionValid = false;
       }else if(this.addPermission.permissionDescription.length < 5){
         this.permissionDescriptionErrorInfo = 'Permission description should have minimum of 5 characters.';
         this.isPermissionDescriptionValid = false;
       }else if(this.addPermission.permissionDescription.length > 50){
-        this.permissionDescriptionErrorInfo = 'Permission description should not exceed more than 100 characters';
+        this.permissionDescriptionErrorInfo = 'Permission description should not exceed more than 100 characters.';
         this.isPermissionDescriptionValid = false;
       }else{
         this.isPermissionDescriptionValid = true;
@@ -272,13 +272,13 @@ export class PermissionComponent implements OnInit{
        this.permissionService.deleteSelectedPermission(permissionId).subscribe({
          next: response =>{
             if(response.status == HttpStatusCode.Ok){
-               this.toastrService.success("permission  deleted successfully");
+               this.toastrService.success("Permission deleted successfully.");
             }
          },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else {
-            this.toastrService.error('Error while deleting permission, Please try again !')
+            this.toastrService.error('Error occured while deleting permission. Please try again !')
           }
         }
 

@@ -245,7 +245,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
          
          if(response.status == HttpStatusCode.Created){
            this.addUserObj = response.body;
-            this.toastr.success("User added successfully");
+            this.toastr.success("User added successfully.");
             document.getElementById('closeAddModal').click();
             setTimeout(()=>{
                window.location.reload();
@@ -335,14 +335,14 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
          response=>{
            var userRecord = response.body;
            if(response.status == HttpStatusCode.Created){
-               this.toastr.success("User updated successfully");
+               this.toastr.success("User" + existinguser.roleId+ " updated successfully.");
                document.getElementById('closeUpdateModal').click();
                setTimeout(() => {
                  window.location.reload();
                 },1000);
            }
            else{
-              this.toastr.error("Error occured while updating user. Please try again !");
+              this.toastr.error("Error occured while updating user "+existinguser.roleId+ ". Please try again !");
            }
          }
       )
@@ -362,19 +362,19 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
         response=>{
            var userRecord = response.body;
            if(response.status == HttpStatusCode.Ok){
-             this.toastr.success("User deleted successfully");
+             this.toastr.success("User '"+useremailId +"' deleted successfully.");
              setTimeout(() => {
               window.location.reload();
              },1000);
            }
            else{
-            this.toastr.error("Error occued while deleting user. Please try again !");
+            this.toastr.error("Error occued while deleting user '"+useremailId+"' . Please try again !");
           }
          
         });
     }
     else{
-      this.toastr.warning("User not deleted");
+      this.toastr.warning("User '"+useremailId+"' not deleted.");
     }
     
 
@@ -389,7 +389,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
     //emailRegExp.test(this.addUserObj.email)===false
    if(this.addUserObj.email == ''){
-      this.useremailIdErrorInfo = "Email ID is required";
+      this.useremailIdErrorInfo = "Email ID is required.";
       this.isEmailValid = false;
    }
    else{
@@ -403,11 +403,11 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
  roleErrorInfo ="";
  validateuserRole(){
    if(this.addUserObj.userRoles.at(0).roleId ==0 ){
-     this.roleErrorInfo = 'Role is required';
+     this.roleErrorInfo = 'Role is required.';
      this.isRoleNameValid = false;
    }
    else if(this.addUserObj.userRoles.at(0).roleName.toString() === 'select'){
-    this.roleErrorInfo = 'Role is required for select' ;
+    this.roleErrorInfo = 'Role is required for select.' ;
     this.isRoleNameValid = false;
    }
    else{
