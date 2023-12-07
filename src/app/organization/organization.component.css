@@ -89,41 +89,54 @@ input[type='file'] {
 }
 
 
-#file-input-label {
-    font-size: 1.3em;
-    padding: 10px 15px;
-    border: 1px solid black;
-    border-radius: 4%;
-}
 .image-container {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
 }
 
-.image-preview {
-    width: 210px;
-    height: 210px;
+.profile-pic {
+  width: 110px;
+  height: 110px;
+  transition: filter 0.3s ease; /* Add transition for smoother effect */
 }
 
 .upload-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: black;  /* Customize the text color */
-    font-size: 16px;  /* Customize the font size */
-    display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 16px;
+  display: none;
 }
 
 .image-container:hover .upload-text {
-    display: block;
-    cursor: pointer;
-    justify-content: center;
+  display: block;
 }
 
-.image-container:hover .image-preview {
-    filter: blur(3px); /* Apply blur on hover */
+.image-container:hover .profile-pic {
+  filter: blur(2px);
+}
+
+.delete-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  display: none;
+  padding: 5px;
+  /* background-color: rgb(221, 30, 30); */
+  /* border-radius: 50%; */
+  /* border: 1px solid #ccc; */
+  color: red;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.image-container:hover .delete-icon {
+  display: block;
+  
 }
 
 #dial-code-input{
