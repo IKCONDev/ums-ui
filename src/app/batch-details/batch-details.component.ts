@@ -73,8 +73,8 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
       this.router.navigateByUrl('/unauthorized');
     }
       
-      this.batchService.getAllBatchProcessDetails().subscribe(
-         res=>{
+    this.batchService.getAllBatchProcessDetails().subscribe({
+        next :   res=>{
           this.batchDetails = res.body;
           this.batchRecordsCount = res.body.length;
           if(this.batchRecordsCount===0){
@@ -84,8 +84,8 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
               this.isComponentLoading=false;
               this.isBatchDetailsText=false;
           }
-     });
-     this.initializeJqueryDataTable();
+     } });
+     //this.initializeJqueryDataTable();
    }
 }
 

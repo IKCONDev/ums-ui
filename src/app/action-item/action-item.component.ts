@@ -162,7 +162,7 @@ export class ActionItemComponent implements OnInit {
   userRoleMenuItemsPermissionMap: Map<string, string>
   @Output() notificationCount: number = 0;
 
-  viewPermission:boolean;
+  viewPermission:boolean = true;
   createPermission: boolean = false;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
