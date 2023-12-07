@@ -252,7 +252,7 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             display: true,
             grid: {
               display: true,
@@ -324,7 +324,7 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             display: true,
             grid: {
               display: true,
@@ -403,7 +403,7 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             display: true,
             grid: {
               display: true,
@@ -534,13 +534,13 @@ deptValueCount : DepartmentCount[] = [];
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             display: true,
             grid: {
               display: true,
             },
-            ticks:{
-              stepSize :1
+            ticks: {
+              stepSize: 1, // Set stepSize to 1 to display only whole numbers on the y-axis
             },
           },
         },
