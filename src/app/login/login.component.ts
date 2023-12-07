@@ -20,7 +20,7 @@ export class LoginComponent {
 
   constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
     @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService,
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService, private userRoleMenuItemPermissionMapService: UserRoleMenuItemPermissionService) {
     this.myMSALObj = new PublicClientApplication(this.msalConfig);
   }
 
@@ -263,7 +263,7 @@ export class LoginComponent {
     console.log('submitted')
     if (localStorage.getItem('jwtToken') === null || localStorage.getItem('jwtToken') === "") {
       this.loginService.logUserIfValid(this.user).subscribe({
-        next: async response => {
+        next: response => {
           this.loginInfo.token = response.headers.get('token');
           this.loginInfo.userId = response.headers.get('userId');
           this.loginInfo.userRole = response.headers.get('userRole');
@@ -272,11 +272,11 @@ export class LoginComponent {
           this.loginInfo.email = response.headers.get('email');
           this.loginInfo.twoFactorAuth = response.headers.get('twoFactorAuth');
           this.loginInfo.jwtExpiry = response.headers.get('jwtExpiry').toString();
-          //localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
-          //var userRoleMenuItemPermissionMap = response.headers.get('userRoleMenuItemsPermissionMap');
-          //const map = new Map(Object.entries(JSON.parse(userRoleMenuItemPermissionMap)));
-          //console.log(userRoleMenuItemPermissionMap)
-          //console.log(map)
+          const userRPMJSONMap = response.headers.get('userRoleMenuItemsPermissionMap');
+          // var userRoleMenuItemPermissionMap = response.headers.get('userRoleMenuItemsPermissionMap');
+          // const map = new Map(Object.entries(JSON.parse(userRoleMenuItemPermissionMap)));
+          // console.log(userRoleMenuItemPermissionMap)
+          // console.log(map)
 
           if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
 
@@ -292,7 +292,7 @@ export class LoginComponent {
             localStorage.setItem('userId', this.loginInfo.userId);
             localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
             localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
-           // localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
+            localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
 
             //set default tabs for meetings
             localStorage.setItem('tabOpened', 'OrganizedMeeting');
@@ -351,7 +351,7 @@ export class LoginComponent {
             localStorage.setItem('userId', this.loginInfo.userId);
             localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
             localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
-           // localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
+           localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
 
             //set default tabs for meetings
             localStorage.setItem('tabOpened', 'OrganizedMeeting');
