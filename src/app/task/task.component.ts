@@ -446,16 +446,16 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     //var taskTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim() === "" || regex.exec(this.update_Task.taskTitle) === null) {
-      this.taskTitleErrrorInfo = 'Title is required';
+      this.taskTitleErrrorInfo = 'Title is required.';
       this.isTaskTitleValid = false;
 
     }
     else if (this.update_Task.taskTitle.length <= 5) {
-      this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters';
+      this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters.';
       this.isTaskTitleValid = false;
     }
     else if (this.update_Task.taskTitle.length >= 50) {
-      this.taskTitleErrrorInfo = 'Title must not exceed 50 characters';
+      this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
       this.isTaskTitleValid = false;
     }
     else {
@@ -476,15 +476,15 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     // var taskDescription=event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim() === "" || regex.exec(this.update_Task.taskDescription) === null) {
-      this.taskDescriptionErrorInfo = 'Description is required';
+      this.taskDescriptionErrorInfo = 'Description is required.';
       this.isTaskDescriptionValid = false;
     }
     else if (this.update_Task.taskDescription.length <= 10) {
-      this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
+      this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters.';
       this.isTaskDescriptionValid = false;
     }
     else if (this.update_Task.taskDescription.length >= 250) {
-      this.taskDescriptionErrorInfo = 'Description must not exceed 250 characters';
+      this.taskDescriptionErrorInfo = 'Description should not exceed more than 250 characters.';
       this.isTaskDescriptionValid = false;
     }
     else {
@@ -499,7 +499,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   isTaskCategoryValid = false;
   validateTaskCategory() {
     if (this.update_Task.taskCategoryId === 0) {
-      this.taskCategoryErrorInfo = 'select a task category';
+      this.taskCategoryErrorInfo = 'Select a task category.';
       this.isTaskCategoryValid = false;
     } else {
       this.taskCategoryErrorInfo = '';
@@ -518,11 +518,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskPriority() {
     //var taskPriority = event.target.value;
     if (this.update_Task.taskPriority === '') {
-      this.taskPriorityErrorInfo = 'task priority should not be empty';
+      this.taskPriorityErrorInfo = 'Task priority should not be empty.';
       this.isTaskPriorityValid = false;
     }
     else if (this.update_Task.taskPriority == 'select') {
-      this.taskPriorityErrorInfo = 'task priority is required';
+      this.taskPriorityErrorInfo = 'Task priority is required.';
       this.isTaskPriorityValid = false;
     }
     else {
@@ -542,12 +542,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskStatus() {
     // var taskStatus = event.target.value;
     if (this.update_Task.status === null || this.update_Task.status === '') {
-      this.taskStatusErrorInfo = 'Status is required';
+      this.taskStatusErrorInfo = 'Status is required.';
       this.isTaskStatusValid = false;
 
     }
     else if (this.update_Task.status === 'Select') {
-      this.taskStatusErrorInfo = 'Status is required';
+      this.taskStatusErrorInfo = 'Status is required.';
       this.isTaskStatusValid = false;
     }
     else {
@@ -568,11 +568,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.update_Task.taskOwner == '' || this.update_Task.taskOwner === null) {
 
-      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.taskOwnerErrorInfo = 'Task Owner is required.';
       this.isTaskOwnerValid = false;
     }
     else if (this.update_Task.taskOwner == '') {
-      this.taskOwnerErrorInfo = 'task Owner is required';
+      this.taskOwnerErrorInfo = 'Task Owner is required.';
       this.isTaskOwnerValid = false;
 
     }
@@ -593,7 +593,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskStartDate() {
     //var taskStartDate=event.target.value;
     if (this.update_Task.startDate === null) {
-      this.taskStartDateErrorInfo = 'Select the start date';
+      this.taskStartDateErrorInfo = 'Select the start date.';
       this.isTaskStartDateValid = false;
     }
     else if (new Date(this.update_Task.startDate).toString() < Date.now().toString()) {
@@ -617,11 +617,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskDueDate() {
     // var taskDueDate=event.target.value;
     if (this.update_Task.dueDate === '') {
-      this.taskDueDateErrorInfo = 'Select the due date';
+      this.taskDueDateErrorInfo = 'Select the due date.';
       this.isTaskDueDateValid = false;
     }
     if (new Date(this.update_Task.dueDate.toString()) < new Date(this.update_Task.startDate.toString())) {
-      this.taskDueDateErrorInfo = 'Due date should`nt be less than startdate';
+      this.taskDueDateErrorInfo = 'Due date should`nt be less than startdate.';
       this.isTaskDueDateValid = false;
     }
     else {
@@ -720,7 +720,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               this.response = response.body;
               //this.data = response.body;
               if (response.status === HttpStatusCode.Ok) {
-                this.toastr.success('Task updated successfully');
+                this.toastr.success('Task updated successfully.');
                 document.getElementById('closeUpdateModal').click();
                 document.getElementById('closeAssignedUpdateModal').click();
                 setTimeout(() => {
@@ -742,7 +742,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             this.response = response.body;
             //this.data = response.body;
             if (response.status === HttpStatusCode.Ok) {
-              this.toastr.success('Task updated successfully');
+              this.toastr.success('Task updated successfully.');
               document.getElementById('closeUpdateModal').click();
               document.getElementById('closeAssignedUpdateModal').click();
               setTimeout(() => {
@@ -834,7 +834,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   tasksTobeDeleted = [];
   deleteTasks(taskIds: any[]) {
     //initialize to empty array on clikck from second time
-    var isconfirmed = window.confirm("Are you sure, you really want to delete these records?")
+    var isconfirmed = window.confirm("Are you sure, you really want to delete these records ?")
     if (isconfirmed) {
 
       this.tasksTobeDeleted = [];
@@ -846,7 +846,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
       if (taskIds.length < 1) {
-        this.toastr.error('No tasks selected to delete')
+        this.toastr.error('No tasks selected to delete.')
         return;
       }
       this.service.deleteAllTasksByTaskIds(this.tasksTobeDeleted).subscribe({
@@ -855,9 +855,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           console.log(this.istaskDeleted);
           if (this.istaskDeleted) {
             if (taskIds.length > 1) {
-              this.toastr.success("Tasks deleted");
+              this.toastr.success("Tasks deleted.");
             } else {
-              this.toastr.success('Task ' + taskIds + ' is deleted');
+              this.toastr.success('Task ' + taskIds + ' is deleted.');
             }
             setTimeout(() => {
               window.location.reload();
@@ -865,7 +865,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           }
           else {
             console.log("tasks not deleted");
-            this.toastr.error("tasks not deleted .Please try again !");
+            this.toastr.error("Tasks not deleted. Please try again !");
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -876,7 +876,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
     else {
-      this.toastr.warning("No tasks deleted");
+      this.toastr.warning("No tasks deleted.");
 
     }
 
@@ -955,26 +955,26 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   deleteTaskById(id: number) {
-    var isconfirmed = window.confirm("Are you sure, you want to really delete the record");
+    var isconfirmed = window.confirm("Are you sure, you want to really delete the record ?");
     if (isconfirmed) {
 
       this.service.deleteTaskById(id).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success("Task Deleted successfully");
+            this.toastr.success("Task Deleted successfully.");
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
           else {
-            this.toastr.error("Error Occured While deleting Task")
+            this.toastr.error("Error Occured While deleting Task.")
           }
         }
       })
 
     }
     else {
-      this.toastr.warning("Task " + id + " is not Deleted");
+      this.toastr.warning("Task " + id + " is not Deleted.");
 
     }
 
