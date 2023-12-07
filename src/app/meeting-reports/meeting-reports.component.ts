@@ -619,22 +619,26 @@ export class MeetingReportsComponent implements OnInit {
     });
   }
   type : any = 'line'
+  colorOfChartType: any = 'line';
   setChartType(value : any){
     this.type = value;
     console.log(this.type)
     if(this.reportType =='all' ){
+      this.colorOfChartType = value;
       if(this.meetingsByDepartmentListChart!= null){
         this.meetingsByDepartmentListChart.destroy()
         this.createMeetingsByAllDepartmentReportChart()
       }
     }
     if(this.reportType == 'department'){
+      this.colorOfChartType = value;
       if(this.meetingsByDepartmentListChart!= null){
         this.meetingsByDepartmentListChart.destroy()
         this.createMeetingsByDepartmentReportChart()
       }
     }
     if(this.reportType =='attended'){
+      this.colorOfChartType = value;
       if(this.attendedMeetingListChart!= null){
         this.attendedMeetingListChart.destroy()
         this.createMeetingsByAttendeeReportChart()
@@ -642,6 +646,7 @@ export class MeetingReportsComponent implements OnInit {
 
     }
     if(this.reportType == 'employee'){
+      this.colorOfChartType = value;
       if(this.organizedmeetingListChart!= null){
         this.organizedmeetingListChart.destroy()
         this.createMeetingsByOrganizerReportChart()

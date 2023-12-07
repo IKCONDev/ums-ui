@@ -25,7 +25,7 @@ export class TaskcategoryReportComponent implements OnInit {
   selectedTaskCategory : string;
   taskListByCategoryChart = null;
   taskListByCategoryChart1 = null;
-  type : any = 'line'
+  
   ngOnInit(): void {
 
     this.getAllTaskCategoryList();
@@ -148,18 +148,21 @@ export class TaskcategoryReportComponent implements OnInit {
        })
     })
   }
-  
+  type : any = 'line'
+  colorOfChartType: any = 'line';
   setChartType(value : any){
     this.type = value;
     console.log(this.type);
 
     if(this.selectedtaskCategoryName == null){
+      this.colorOfChartType = value;
        if(this.taskListByCategoryChart1!= null ){
          this.taskListByCategoryChart1.destroy();
        }
       this.createTaskListAllDepartmentChart()
     }
     else{
+      this.colorOfChartType = value;
       if(this.taskListByCategoryChart!= null ){
         this.taskListByCategoryChart.destroy();
       }
