@@ -269,17 +269,14 @@ export class ActionItemComponent implements OnInit {
       this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
         next: (response) => {
           console.log(this.actionItems + "--sele")
+          this.actionItems = response.body;
           this.actionItemCount = response.body.length;
           if (this.actionItemCount === 0) {
             this.isComponentLoading = false;
             this.displayText = false;
           } else {
-            //set default time for loading
-            setTimeout(()=>{
               this.isComponentLoading = false;
               this.isActionItemDataText = false;
-            },1500)
-            this.actionItems = response.body;
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -291,17 +288,14 @@ export class ActionItemComponent implements OnInit {
       this.service.getUserActionItemsByUserId(this.loggedInUser).subscribe({
         next: (response) => {
           console.log(this.actionItems + "def")
+          this.actionItems = response.body;
           this.actionItemCount = response.body.length;
           if (this.actionItemCount === 0) {
             this.isComponentLoading = false;
             this.displayText = false;
           } else {
-            //set default time for loading
-            setTimeout(()=>{
               this.isComponentLoading = false;
               this.isActionItemDataText = false;
-            },1500)
-            this.actionItems = response.body;
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {

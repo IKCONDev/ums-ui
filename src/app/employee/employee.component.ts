@@ -137,7 +137,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 1700)
+    }, 400)
   }
 
   ngOnDestroy(): void {
@@ -158,14 +158,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     setTimeout(() => {
       this.isEmployeeDataText = false;
       this.isComponentLoading = false;
-    }, 1500)
+    }, 200)
     this.employeeservice.getAll().subscribe({
       next: response => {
-        setTimeout(() => {
+          this.employeeData = response.body;
           this.isEmployeeDataText = false;
           this.isComponentLoading = false;
-        }, 1500)
-        this.employeeData = response.body;
         console.log(this.employeeData);
       },
       error: error => {
