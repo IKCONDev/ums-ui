@@ -27,12 +27,54 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   loggedInUser: string = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole');
   @Output() title: string = 'Users';
-
   userList: Users[];
   userDetails: any;
-
   isComponentLoading: boolean = false;
   isUserDataText: boolean = false;
+  roles: Role[];
+  userEmailIdList: string[];
+  employeeData: Employee[];
+  employee: Employee;
+  currentMenuItem: MenuItem;
+  initialRoleList: Role[];
+  unAssignedRoles: any[];
+  previousRole: any;
+  display: string = 'block'
+  employeeWithStatus: Employee[]
+  existingUserObj = {
+    id: 0,
+    email: '',
+    userRoles: [
+      {
+        roleId: 0,
+        roleName: '',
+        roleDescription: '',
+        roleStatus: ''
+      }
+    ],
+    active: false,
+    otpCode: 0,
+    twoFactorAuthentication: false,
+    profilePic: null,
+    firstName: '',
+    lastName: '',
+    userOrgId: ''
+  }
+  addUserObj = {
+    email: '',
+    userRoles: [
+      {
+        roleId: 0,
+        roleName: '',
+        roleStatus: 'Active'
+      }
+    ],
+    active: false,
+    otpCode: 0,
+    twoFactorAuthentication: false,
+    profilePic: null
+  }
+
   /**
    * 
    * @param userService 
@@ -58,6 +100,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   updateButtonColor: string;
   deleteButtonColor: string;
   addButtonColor: string;
+
   async ngOnInit(): Promise<void> {
     // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
     //   this.router.navigateByUrl('/unauthorized')
@@ -200,21 +243,8 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
   }
-  addUserObj = {
-    email: '',
-    userRoles: [
-      {
-        roleId: 0,
-        roleName: '',
-        roleStatus: 'Active'
-      }
-    ],
-    active: false,
-    otpCode: 0,
-    twoFactorAuthentication: false,
-    profilePic: null
 
-  }
+
   createUser() {
 
     let isEmailId = true;
@@ -261,28 +291,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     //this.addUserObj.userRoles.at(0).roleName; 
   }
 
-  /**
-   * display existing user
-   */
-  existingUserObj = {
-    id: 0,
-    email: '',
-    userRoles: [
-      {
-        roleId: 0,
-        roleName: '',
-        roleDescription: '',
-        roleStatus: ''
-      }
-    ],
-    active: false,
-    otpCode: 0,
-    twoFactorAuthentication: false,
-    profilePic: null,
-    firstName: '',
-    lastName: '',
-    userOrgId: ''
-  }
 
   fetchOneUser(email: string) {
     console.log(email);
@@ -304,7 +312,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * get roles
    */
-  roles: Role[];
   getAllRoles() {
     this.roleService.getAllRoles().subscribe(
       response => {
@@ -433,7 +440,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isRoleNameValid = false;
   }
 
-  userEmailIdList: string[];
+
   /**
    * get the list of active users
    */
@@ -452,7 +459,10 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       }//error
     })
   }
-  employeeData: Employee[];
+
+  /**
+   * 
+   */
   getAllEmployees() {
     this.employeeservice.getAll().subscribe({
       next: response => {
@@ -467,7 +477,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  employee: Employee;
+
   getEmployee(email: string) {
     this.employeeservice.getEmployee(email).subscribe({
       next: response => {
@@ -485,7 +495,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  employeeWithStatus: Employee[]
   getAllEmployeesWithStatus() {
     this.isComponentLoading = true;
     this.isUserDataText = true;
@@ -517,7 +526,10 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.isUpdateRoleNameValid;
   }
 
-  currentMenuItem: MenuItem;
+  /**
+   * 
+   * @returns 
+   */
   async getCurrentMenuItemDetails(): Promise<MenuItem> {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Users')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
@@ -537,8 +549,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.currentMenuItem;
   }
 
-  initialRoleList: Role[];
-  unAssignedRoles: any[];
   getAllUnassignedRoles() {
     this.roleService.getAllRoles().subscribe({
       next: response => {
@@ -561,11 +571,10 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
    * 
    * @param user
    */
-  previousRole: any;
   updateUserObj(role: any) {
     var oldRole = this.existingUserObj.userRoles[0].roleName;
     var newRole = role.roleName
-    var confirmed = window.confirm('Are you sure, you want to update the role from ' + oldRole + ' to ' + newRole + ' ?');
+    var confirmed = window.confirm('Are you sure, you want to update the role of this user from ' + oldRole + ' to ' + newRole + ' ?');
     if (confirmed) {
       var previousRole = this.existingUserObj.userRoles[0]
       this.existingUserObj.userRoles[0].roleId = role.roleId;
@@ -606,20 +615,26 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  display: string = 'block'
+  /**
+   * 
+   * @param userRole 
+   */
   removeRoleTemporary(userRole: any) {
     var isConfirmed = window.confirm('Are you sure, you want to unassign this role ' + userRole.roleName + ' ?');
     if (isConfirmed) {
       console.log(userRole)
       this.unAssignedRoles.push(userRole)
       this.display = 'none'
-      this.toastr.warning('Please add a new role. Previous role will be assigned automcatically, if new role is not assigned.')
-    }else{
+      this.toastr.warning('Please assign a new role for this user !. Previous role will be assigned automcatically, if new role is not assigned.')
+    } else {
       this.toastr.warning('Operation cancelled.')
     }
   }
 
-  closeModal(){
+  /**
+   * 
+   */
+  closeModal() {
     window.location.reload();
   }
 
