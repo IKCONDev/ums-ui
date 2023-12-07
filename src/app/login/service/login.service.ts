@@ -23,7 +23,7 @@ export class LoginService {
      */
     logUserIfValid(user: Object){
         console.log('user-login-service')
-        return this.http.post<HttpHeaders>(`${this.finalHttpUrl}/login`,user,{observe: 'response'});
-      }
+         return this.http.post<HttpHeaders>(`${this.finalHttpUrl}/login`,user,{observe: 'response'});
+    }
 
 }
