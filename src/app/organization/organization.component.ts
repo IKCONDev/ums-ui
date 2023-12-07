@@ -655,10 +655,10 @@ onFileChanged(event:any){
 
   deleteImage(event:Event){
     console.log("deleted");
-    var isConfirmed = window.confirm('Are you sure you want to delete your profile picture ? ');
+    var isConfirmed = window.confirm('Are you sure you want to delete your organization picture ? ');
     event.preventDefault();
     if(isConfirmed){
-    this.orgService.deleteOrgPic().subscribe({
+    this.orgService.deleteOrgPic(this.org.orgId).subscribe({
       next: (response) => {
           this.toast.success('Organization pic deleted successfully');
           setTimeout(() => {
