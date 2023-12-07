@@ -64,7 +64,8 @@
                     <br />
                     <div class="col-sm-12" style="text-align: center;padding-top: 10px;">
 
-                        <button id="loginButton" class="btn btn-primary" style="width: 240px;" (click)="login()">Login</button>
+                        <button id="loginButton" class="btn btn-primary" style="width: 240px;" (window:keypress)="loginIfEnterButtonIsClicked($event)" 
+                         (click)="login()">Login</button>
                     </div>
                     <!-- <br />
                     <p style="text-align: center;">or</p>

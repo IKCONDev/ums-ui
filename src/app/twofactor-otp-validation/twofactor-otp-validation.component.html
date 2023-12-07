@@ -50,6 +50,7 @@
                             <div class="col-sm-12" style="text-align: end">
                                 <span  style="font-size: 15px; padding-right: 190px;" [ngStyle]="{'color': isValidOtp? 'green':'red'}">{{OtpResponseMessage}}</span>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a *ngIf="display !='00:00'" style="padding-right: 150px;"></a>
                                 <a *ngIf="display ==='00:00'" style="padding-right: 66px;" (click)="resendOtp()" id="resendOtpLink">Resend OTP</a>
                            </div>
                     </div>
