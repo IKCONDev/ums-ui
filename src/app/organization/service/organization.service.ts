@@ -75,12 +75,11 @@ export class OrganizationService {
         )
     });
     }
-    emailId:any;
+
     finalUrlForDeletingPic:any=this.apiGatewayUrl+"/"+this.adminMicroserviceOrganizationPathUrl+this.deleteOrganizationPic;
-    deleteOrgPic(){
-        this.emailId=localStorage.getItem('email');
+    deleteOrgPic(orgId){
         return this.http.delete<any>(this.finalUrlForDeletingPic ,{
-          params: { email: this.emailId },
+          params: { orgId: orgId },
           headers: new HttpHeaders({
             'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
           }),
