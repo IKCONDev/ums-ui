@@ -15,4 +15,9 @@ export interface Users{
 	 loginAttempts: number;
 	 userRoleMenuItemPermissionMap: UserRoleMenuItemPermissionMap;
 
+	 //other props related to employee of the user
+	 firstName: string,
+	 lastName: string,
+	 userOrgId: string
+
 }

@@ -212,6 +212,7 @@ input:checked+.slider:before {
   transform: translateX(26px);
 }
 
+
 /* properties for modal */
 .modal {
   border-radius: 5px;
@@ -233,6 +234,7 @@ input:checked+.slider:before {
 
 .modal-body {
   margin-left: 35px;
+  height: 800px;
 }
 
 #required {
@@ -530,6 +532,7 @@ input:checked+.slider:before {
   align-items: flex-start;
   justify-content: flex-start;
   color: #a6a6a6;
+  
 }
 
 .row1 {
@@ -673,4 +676,26 @@ b {
   87% {
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
+}
+
+#userdetails{
+  border-radius: 5px 5px 0px 0px;
+border: 1px solid var(--outline, #D5D5D5);
+background: var(--Dashboard-BG, #F6FBFD);
+width: 995px;
+height: 72px;
+flex-shrink: 0;
+}
+
+.card{
+  border-radius: 0px;
+}
+
+input{
+  width: 300px;
+}
+
+.btn-success{
+  background-color: #90C853;
+  border-color: #90C853;
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpStatusCode } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-app-menu-items',
@@ -202,6 +203,12 @@ export class AppMenuItemsComponent {
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.menuItem = response.body;
+        }
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }else {
+          this.toastrService.error('Error while fetching menu item. Please try again !')
         }
       }
     })

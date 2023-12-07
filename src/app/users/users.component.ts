@@ -1,4 +1,4 @@
-import { AfterViewInit, Component , OnDestroy, OnInit, Output} from '@angular/core';
+import { AfterViewInit, Component , OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import { UserService } from './service/users.service';
 import { Users } from '../model/Users.model';
 import { MsalInterceptorAuthRequest } from '@azure/msal-angular';
@@ -13,6 +13,7 @@ import { Employee } from '../model/Employee.model';
 import { MenuItem } from '../model/MenuItem.model';
 import { lastValueFrom } from 'rxjs';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
+import { error } from 'jquery';
 
 
 @Component({
@@ -108,7 +109,8 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
           this.deleteButtonColor = 'lightgray';
         }
       }else{
-        this.noPermissions = true;
+        this.router.navigateByUrl('/unauthorized');
+       // this.noPermissions = true;
       }
   }
 
@@ -274,15 +276,20 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     active : false,
     otpCode: 0,
     twoFactorAuthentication: false,
-    profilePic: null
-
+    profilePic: null,
+    firstName: '',
+    lastName: '',
+    userOrgId: ''
   }
+
   fetchOneUser(email : string){
     console.log(email);
     this.userService.getSingleUser(email).subscribe(
       response =>{
         this.existingUserObj = response.body;
         console.log(this.existingUserObj);
+        //get employee details of the user
+        this.getEmployee(this.existingUserObj.email);
       }
     )
   //   this.roles.filter(role =>{
@@ -300,6 +307,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
     this.roleService.getAllRoles().subscribe(
       response=>{
          this.roles = response.body;
+        // this.unAssignedRoles = response.body;
          console.log(" roles:"+ this.roles);
       }
     )
@@ -325,12 +333,8 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
         //get role name of the role id and attach to existing user
        if(role.roleId == this.existingUserObj.userRoles[0].roleId){
         this.existingUserObj.userRoles[0].roleName = role.roleName;
-        console.log(role.roleName)
         }
       })
-      console.log(this.existingUserObj.userRoles[0].roleId)
-      console.log(this.existingUserObj.userRoles[0].roleName)
-      console.log(this.existingUserObj)
       this.userService.update(this.existingUserObj).subscribe(
          response=>{
            var userRecord = response.body;
@@ -460,6 +464,25 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
       }
     })
   }
+
+  employee: Employee;
+  getEmployee(email: string){
+    this.employeeservice.getEmployee(email).subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.employee = response.body;
+          this.existingUserObj.firstName = this.employee.firstName;
+          this.existingUserObj.lastName = this.employee.lastName;
+          this.existingUserObj.userOrgId = this.employee.employeeOrgId;
+        }
+      }, error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+    })
+  }
+
 employeeWithStatus :Employee[]
 getAllEmployeesWithStatus(){
   this.isComponentLoading=true;
@@ -510,6 +533,65 @@ currentMenuItem: MenuItem;
       )
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
+  }
+
+  initialRoleList : any[];
+  unAssignedRoles: any[];
+  getAllUnassignedRoles(){
+    this.roleService.getAllRoles().subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.initialRoleList = response.body;
+          for(var i= 0; i< this.initialRoleList.length; i++){
+            if(this.existingUserObj.userRoles[0].roleId === this.initialRoleList[i].roleId){
+              this.initialRoleList.splice(i,1);
+              this.unAssignedRoles = this.initialRoleList;
+            }
+          }
+        }
+      }
+    })
+  }
+
+  /**
+   * 
+   * @param user
+   */
+  previousRole: any;
+  updateUserObj( roleId: number){
+      var previousRole = this.existingUserObj.userRoles[0]
+      this.existingUserObj.userRoles[0].roleId = roleId;
+      this.roles.forEach(role =>{
+        //get role name of the role id and attach to existing user
+       if(role.roleId == this.existingUserObj.userRoles[0].roleId){
+        this.existingUserObj.userRoles[0].roleName = role.roleName;
+       }
+      });
+      this.userService.update(this.existingUserObj).subscribe(
+         response=>{
+           var userRecord = response.body;
+           if(response.status == HttpStatusCode.Created){
+            //this.getAllRoles();
+               this.toastr.success("User updated successfully");
+               document.getElementById('closeUpdateModal').click();
+               for(var i= 0; i< this.unAssignedRoles.length; i++){
+                console.log(' previous role '+previousRole)
+                if(this.existingUserObj.userRoles[0].roleId === this.unAssignedRoles[i].roleId){
+                  this.unAssignedRoles.splice(i,1);
+                  this.unAssignedRoles.push(previousRole)
+                  this.getAllUnassignedRoles();
+                  break;
+                }
+              }
+              //  setTimeout(() => {
+              //    window.location.reload();
+              //   },1000);
+           }
+           else{
+              this.toastr.error("Error occured while updating user");
+           }
+         }
+      )  
   }
 
 }

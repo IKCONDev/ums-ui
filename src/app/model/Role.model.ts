@@ -5,6 +5,7 @@ export class Role extends Object{
     roleId:number;
     roleName: string;
     roleStatus: string;
+    roleDescription: string;
     permission: Permission;
     menuItems: MenuItem[];
     createdBy: string;
