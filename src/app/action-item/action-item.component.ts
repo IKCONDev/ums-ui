@@ -472,12 +472,12 @@ export class ActionItemComponent implements OnInit {
       console.log(this.isActionsDeleted);
       if (this.isActionsDeleted) {
         console.log("actions deleted");
-        this.toastr.success("action Items Deleted");
+        this.toastr.success("Action Items deleted");
         window.location.reload();
       }
       else {
         console.log("actions not deleted");
-        this.toastr.error("action Items are not deleted try again");
+        this.toastr.error("Action Items are not deleted. Please try again !");
       }
     });
   }
@@ -533,13 +533,13 @@ export class ActionItemComponent implements OnInit {
   validateActionTitle(): boolean {
     // var actionItemTitle = event.target.value;
     if (this.addDetails.actionItemTitle === '') {
-      this.actionItemTitleErrorInfo = "Action Item title is required";
+      this.actionItemTitleErrorInfo = "Action Item title is required.";
       this.isActionItemTitleValid = false;
     } else if (this.addDetails.actionItemTitle.length < 5) {
-      this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 chars';
+      this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters.';
       this.isActionItemTitleValid = false;
     } else if (this.addDetails.actionItemTitle.length > 500) {
-      this.actionItemTitleErrorInfo = 'Title must not exceed 500 chars';
+      this.actionItemTitleErrorInfo = 'Title should not exceed more than 500 characters.';
       this.isActionItemTitleValid = false;
     } else {
       this.actionItemTitleErrorInfo = '';
@@ -555,13 +555,13 @@ export class ActionItemComponent implements OnInit {
   validateActionDescription(): boolean {
     //var actionItemDescription = event.target.value;
     if (this.addDetails.actionItemDescription === '') {
-      this.actionItemDescriptionErrorInfo = "Description is required";
+      this.actionItemDescriptionErrorInfo = "Description is required.";
       this.isActionItemDescriptionValid = false;
     } else if (this.addDetails.actionItemDescription.length < 10) {
-      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 chars';
+      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters.';
       this.isActionItemDescriptionValid = false;
     } else if (this.addDetails.actionItemDescription.length > 1000) {
-      this.actionItemDescriptionErrorInfo = 'Description must not exceed 1000 chars';
+      this.actionItemDescriptionErrorInfo = 'Description  should not exceed more than 1000 characters.';
       this.isActionItemDescriptionValid = false;
     } else {
       this.actionItemDescriptionErrorInfo = '';
@@ -578,10 +578,10 @@ export class ActionItemComponent implements OnInit {
   validateActionPriority() {
     //var actionItemPriority = event.target.value;
     if (this.addDetails.actionPriority === '') {
-      this.actionItemPriorityErrorInfo = "Priority is required";
+      this.actionItemPriorityErrorInfo = "Priority is required.";
       this.isActionItemPriorityValid = false;
     } else if (this.addDetails.actionPriority === 'select') {
-      this.actionItemPriorityErrorInfo = "Priority is required";
+      this.actionItemPriorityErrorInfo = "Priority is required.";
       this.isActionItemPriorityValid = false;
     } else {
       this.actionItemPriorityErrorInfo = '';
@@ -628,7 +628,7 @@ export class ActionItemComponent implements OnInit {
   validateActionStartDate() {
     //var actionItemStartDate = event.target.value;
     if (this.addDetails.startDate === '') {
-      this.actionItemStartDateErrorInfo = 'Start Date cannot be blank'
+      this.actionItemStartDateErrorInfo = 'Start Date cannot be blank.'
       this.isActionItemStartDateValid = false;
     } else if (new Date(this.addDetails.startDate.toString()) < new Date(Date.now())) {
       this.actionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
@@ -649,7 +649,7 @@ export class ActionItemComponent implements OnInit {
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
     if (this.addDetails.actionItemOwner === null) {
-      this.actionItemOwnerErrorInfo = 'Owner is required';
+      this.actionItemOwnerErrorInfo = 'Owner is required.';
       this.isActionItemOwnerValid = false;
     } else {
       this.actionItemOwnerErrorInfo = '';
@@ -667,7 +667,7 @@ export class ActionItemComponent implements OnInit {
     // var actionItemEndDate = event.target.value;
     //console.log(actionItemEndDate);
     if (this.addDetails.endDate === '') {
-      this.actionItemEndDateErrorInfo = 'End Date cannot be blank'
+      this.actionItemEndDateErrorInfo = 'End Date cannot be blank.'
       this.isActionItemEndDateValid = false;
     } else if (new Date(this.addDetails.endDate) < new Date(this.addDetails.startDate.toString())) {
       this.actionItemEndDateErrorInfo = 'End date cannot be less than start date.'
@@ -687,13 +687,13 @@ export class ActionItemComponent implements OnInit {
    */
   validateUpdateActionTitle() {
     if (this.updatedetails.actionItemTitle === '') {
-      this.updateActionItemTitleErrorInfo = 'Title is required';
+      this.updateActionItemTitleErrorInfo = 'Title is required.';
       this.isUpdateActionItemTitleValid = false;
     } else if (this.updatedetails.actionItemTitle.length < 5) {
-      this.updateActionItemTitleErrorInfo = 'Title should be manimum of 5 chars';
+      this.updateActionItemTitleErrorInfo = 'Title should be minimum of 5 characters.';
       this.isUpdateActionItemTitleValid = false;
     } else if (this.updatedetails.actionItemTitle.length > 500) {
-      this.updateActionItemTitleErrorInfo = 'Title should not exceed 500 chars';
+      this.updateActionItemTitleErrorInfo = 'Title  should not exceed more than 500 characters.';
       this.isUpdateActionItemTitleValid = false;
     } else {
       this.updateActionItemTitleErrorInfo = '';
@@ -708,13 +708,13 @@ export class ActionItemComponent implements OnInit {
    */
   validateUpdateActionDescription() {
     if (this.updatedetails.actionItemDescription === '') {
-      this.updateActionItemDescErrorInfo = 'Description is required';
+      this.updateActionItemDescErrorInfo = 'Description is required.';
       this.isUpdateActionItemDescValid = false;
     } else if (this.updatedetails.actionItemDescription.length < 5) {
-      this.updateActionItemDescErrorInfo = 'Description should be manimum of 10 chars';
+      this.updateActionItemDescErrorInfo = 'Description should be minimum of 10 characters.';
       this.isUpdateActionItemDescValid = false;
     } else if (this.updatedetails.actionItemDescription.length > 500) {
-      this.updateActionItemDescErrorInfo = 'Description should not exceed 1000 chars';
+      this.updateActionItemDescErrorInfo = 'Description  should not exceed more than 1000 characters.';
       this.isUpdateActionItemDescValid = false;
     } else {
       this.updateActionItemDescErrorInfo = '';
@@ -730,10 +730,10 @@ export class ActionItemComponent implements OnInit {
   validateUpdateActionPriority() {
     //var actionItemPriority = event.target.value;
     if (this.updatedetails.actionPriority === '') {
-      this.updateActionItemPriorityErrorInfo = "Priority is required";
+      this.updateActionItemPriorityErrorInfo = "Priority is required.";
       this.isUpdateActionItemPriorityValid = false;
     } else if (this.updatedetails.actionPriority === 'select') {
-      this.updateActionItemPriorityErrorInfo = "Priority is required";
+      this.updateActionItemPriorityErrorInfo = "Priority is required.";
       this.isUpdateActionItemPriorityValid = false;
     } else {
       this.updateActionItemPriorityErrorInfo = '';
@@ -749,7 +749,7 @@ export class ActionItemComponent implements OnInit {
   validateUpdateActionItemOwner() {
     //var actionItemOwner = event.target.value;
     if (this.updatedetails.actionItemOwner === null) {
-      this.updateActionItemOwnerErrorInfo = 'Owner is required';
+      this.updateActionItemOwnerErrorInfo = 'Owner is required.';
       this.isUpdateActionItemOwnerValid = false;
     } else {
       this.updateActionItemOwnerErrorInfo = '';
@@ -765,7 +765,7 @@ export class ActionItemComponent implements OnInit {
   validateUpdateActionStartDate() {
     //var actionItemStartDate = event.target.value;
     if (this.updatedetails.startDate === '') {
-      this.updateActionItemStartDateErrorInfo = 'Start Date cannot be blank'
+      this.updateActionItemStartDateErrorInfo = 'Start Date cannot be blank.'
       this.isUpdateActionItemStartDateValid = false;
     } else if (new Date(this.updatedetails.startDate.toString()) < new Date(Date.now())) {
       this.updateActionItemStartDateErrorInfo = 'Start date cannot be a previous date.'
@@ -785,7 +785,7 @@ export class ActionItemComponent implements OnInit {
     // var actionItemEndDate = event.target.value;
     //console.log(actionItemEndDate);
     if (this.updatedetails.endDate === '') {
-      this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank'
+      this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank.'
       this.isUpdateActionItemEndDateValid = false;
     } else if (new Date(this.updatedetails.endDate) < new Date(this.addDetails.startDate.toString())) {
       this.updateActionItemEndDateErrorInfo = 'End date cannot be less than start date.'
@@ -906,16 +906,16 @@ export class ActionItemComponent implements OnInit {
     //var taskTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.add_Task.taskTitle == "" || this.add_Task.taskTitle.trim() === "" || regex.exec(this.add_Task.taskTitle) === null) {
-      this.taskTitleErrrorInfo = 'Title is required';
+      this.taskTitleErrrorInfo = 'Title is required.';
       this.isTaskTitleValid = false;
 
     }
     else if (this.add_Task.taskTitle.length <= 5) {
-      this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters';
+      this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters.';
       this.isTaskTitleValid = false;
     }
     else if (this.add_Task.taskTitle.length >= 50) {
-      this.taskTitleErrrorInfo = 'Title must not exceed 50 characters';
+      this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
       this.isTaskTitleValid = false;
     }
     else {
@@ -931,15 +931,15 @@ export class ActionItemComponent implements OnInit {
     // var taskDescription=event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.add_Task.taskDescription === '' || this.add_Task.taskDescription.trim() === "" || regex.exec(this.add_Task.taskDescription) === null) {
-      this.taskDescriptionErrorInfo = 'Description is required';
+      this.taskDescriptionErrorInfo = 'Description is required.';
       this.isTaskDescriptionValid = false;
     }
     else if (this.add_Task.taskDescription.length <= 10) {
-      this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
+      this.taskDescriptionErrorInfo = 'Description should have minimum of 10 characters.';
       this.isTaskDescriptionValid = false;
     }
     else if (this.add_Task.taskDescription.length >= 250) {
-      this.taskDescriptionErrorInfo = 'Description must not exceed 250 characters';
+      this.taskDescriptionErrorInfo = 'Description should not exceed more than 250 characters.';
       this.isTaskDescriptionValid = false;
     }
     else {
@@ -972,12 +972,12 @@ export class ActionItemComponent implements OnInit {
   validateTaskStatus() {
     // var taskStatus = event.target.value;
     if (this.add_Task.status === '') {
-      this.taskStatusErrorInfo = 'Status is required';
+      this.taskStatusErrorInfo = 'Status is required.';
       this.isTaskStatusValid = false;
 
     }
     else if (this.add_Task.status === 'Select') {
-      this.taskStatusErrorInfo = 'Status is required';
+      this.taskStatusErrorInfo = 'Status is required.';
       this.isTaskStatusValid = false;
     }
     else {
@@ -991,7 +991,7 @@ export class ActionItemComponent implements OnInit {
   isTaskCategoryValid = false;
   validateTaskCategory() {
     if (this.add_Task.taskCategoryId === 0) {
-      this.taskCategoryErrorInfo = 'select a task category';
+      this.taskCategoryErrorInfo = 'Select a task category.';
       this.isTaskCategoryValid = false;
     } else {
       this.taskCategoryErrorInfo = '';
@@ -1005,7 +1005,7 @@ export class ActionItemComponent implements OnInit {
   validateTaskStartDate() {
     //var taskStartDate=event.target.value;
     if (this.add_Task.startDate === '') {
-      this.taskStartDateErrorInfo = 'Select the start date';
+      this.taskStartDateErrorInfo = 'Select the start date.';
       this.isTaskStartDateValid = false;
     }
     /*else if (new Date(this.update_Task.startDate.toString()) < new Date(Date.now())) {
@@ -1025,11 +1025,11 @@ export class ActionItemComponent implements OnInit {
 
     if (this.add_Task.taskOwner == '' || this.add_Task.taskOwner === null) {
 
-      this.taskOwnerErrorInfo = 'Task Owner is required';
+      this.taskOwnerErrorInfo = 'Task Owner is required.';
       this.isTaskOwnerValid = false;
     }
     else if (this.add_Task.taskOwner == '') {
-      this.taskOwnerErrorInfo = 'Task Owner is required';
+      this.taskOwnerErrorInfo = 'Task Owner is required.';
       this.isTaskOwnerValid = false;
 
     }
@@ -1045,11 +1045,11 @@ export class ActionItemComponent implements OnInit {
   validateTaskDueDate() {
     // var taskDueDate=event.target.value;
     if (this.add_Task.dueDate === '') {
-      this.taskDueDateErrorInfo = 'Select the due date';
+      this.taskDueDateErrorInfo = 'Select the due date.';
       this.isTaskDueDateValid = false;
     }
     else if (Date.parse(this.add_Task.dueDate) < Date.parse(this.add_Task.startDate)) {
-      this.taskDueDateErrorInfo = 'Date should`nt be less than startdate';
+      this.taskDueDateErrorInfo = 'Date should`nt be less than startdate.';
       this.isTaskDueDateValid = false;
     }
     else {
@@ -1111,7 +1111,7 @@ export class ActionItemComponent implements OnInit {
         next: (response) => {
           var data = response.body;
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success("Task created successfully");
+            this.toastr.success("Task created successfully.");
             document.getElementById('closeAddModal').click();
             setTimeout(() => {
               window.location.reload();
