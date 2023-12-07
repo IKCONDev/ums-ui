@@ -133,7 +133,7 @@
                 </span>
                 <!--   -->
                 <label><b>Department Head</b><span id="required">*</span></label>
-                <ng-select id="deptHead" style="text-transform: capitalize;" placeholder="Department head"
+                <ng-select id="deptHead" placeholder="Department head"
                     [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()"  minlength="3" maxlength="50">
                    <ng-option *ngFor="let deptHead of employeesAsUser" value="{{deptHead.email}}">{{deptHead.firstName}} {{deptHead.lastName}}</ng-option>
                 </ng-select><br />
@@ -195,7 +195,7 @@
                 </span>
                 <!--   -->
                 <label><b>Department Head</b><span id="required">*</span></label>
-                <ng-select type="search" style="text-transform: capitalize;" id="updateDeptHead" placeholder="Department head"
+                <ng-select type="search" id="updateDeptHead" placeholder="Department head"
                     [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateUpdatedDepartmentHead()" 
                     minlength="3" maxlength="50" placeholder="Department head">
                     <ng-option *ngFor="let deptHead of employeesAsUser" value="{{deptHead.email}}">{{deptHead.firstName}} {{deptHead.lastName}}</ng-option>
