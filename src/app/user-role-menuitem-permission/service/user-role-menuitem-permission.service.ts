@@ -19,6 +19,7 @@ export class UserRoleMenuItemPermissionService{
      * @param emailId 
      */
     findUserRoleMenuitemPermissionMapsByUserId(emailId: string){
+        console.log(localStorage.getItem('jwtToken'))
         return this.http.get<UserRoleMenuItemPermissionMap[]>(`${this.gatewayUrl}/${this.adminMicroserviceUserRPMControllerPathUrl}/all/${emailId}`,{observe:'response',
          headers: new HttpHeaders({
             'Authorization':'Bearer '+localStorage.getItem('jwtToken')

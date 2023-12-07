@@ -15,6 +15,8 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
 import { MenuItem } from '../model/MenuItem.model';
 import { lastValueFrom } from 'rxjs';
 import ChartDataLabels from 'chartjs-plugin-datalabels'
+import { UserRoleMenuItemPermissionMap } from '../model/UserRoleMenuItemPermissionMap.model';
+import { UserRoleMenuItemPermissionService } from '../user-role-menuitem-permission/service/user-role-menuitem-permission.service';
 Chart.register(...registerables);
 
 @Component({
@@ -113,16 +115,17 @@ export class HomeComponent implements OnInit {
   //get the latest selected component on page load /refresh
   //selectedOption:string = localStorage.getItem('selectedComponent');
   //title:string = localStorage.getItem('title');
-  isHomeComponentData:boolean=false;
-  isComponentLoading:boolean=false;
-  isPermissionData:boolean=false;
+  isHomeComponentData: boolean = false;
+  isComponentLoading: boolean = false;
+  isPermissionData: boolean = false;
   /**
    * 
    * @param router 
    * @param homeService 
    */
   constructor(private router: Router, private homeService: HomeService, private headerService: HeaderService,
-    private notificationService: NotificationService, private menuItemService: AppMenuItemService
+    private notificationService: NotificationService, private menuItemService: AppMenuItemService,
+    private userRoleMenuItemPermissionMapService: UserRoleMenuItemPermissionService
   ) {
     let loginInfo = {
       firstName: '',
@@ -187,31 +190,35 @@ export class HomeComponent implements OnInit {
   /**
    * 
    */
-  viewPermission: boolean = false;
-  createPermission: boolean = false;
-  updatePermission: boolean = false;
-  deletePermission: boolean = false;
+  viewPermission: boolean;
+  createPermission: boolean;
+  updatePermission: boolean;
+  deletePermission: boolean;
   async ngOnInit(): Promise<void> {
 
-    this.isComponentLoading=true;
-    this.isHomeComponentData=true;
-    this.isPermissionData=true;
+    //get users latest permissions
+    var userRoleMenuItemPermissionMap = await this.getLatestUserRoleMenuItemPermissionMapofUser(this.loggedInUser);
+    var userRPMJSONMap = JSON.stringify(Object.fromEntries(userRoleMenuItemPermissionMap));
+    localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
 
-    if(localStorage.getItem('jwtToken') === null){
+    this.isComponentLoading = true;
+    this.isHomeComponentData = true;
+    this.isPermissionData = true;
+
+    if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
-    
-    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != "" && localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
-    }
-    //get menu item  details of home page
-    var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
+      //get menu item  details of home page
+      var currentMenuItem = await this.getCurrentMenuItemDetails();
+      console.log(currentMenuItem)
 
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //provide permission to access this component for the logged in user if view permission exists
-        this.isComponentLoading=false;
-        this.isHomeComponentData=false;
+        this.isComponentLoading = false;
+        this.isHomeComponentData = false;
         console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
@@ -233,24 +240,70 @@ export class HomeComponent implements OnInit {
 
           this.onSelectChange();
           this.onSelectChange2();
+        } else {
+          this.viewPermission = false;
         }
         if (menuItemPermissions.includes('Create')) {
           this.createPermission = true;
+        } else {
+          this.createPermission = false;
         }
         if (menuItemPermissions.includes('Update')) {
           this.updatePermission = true;
+        } else {
+          this.updatePermission = false;
         }
         if (menuItemPermissions.includes('Delete')) {
           this.deletePermission = true;
+        } else {
+          this.deletePermission = false;
         }
-      }else{
+      } else {
         this.router.navigateByUrl('/unauthorized');
       }
+    }
+
 
     //get noti count
     this.getNotificationCount(this.loggedInUser);
-    this.isPermissionData=false;
-    this.isComponentLoading=false;
+    this.isPermissionData = false;
+    this.isComponentLoading = false;
+  }
+
+  /**
+  * 
+  * @returns 
+  */
+  userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[] = [];
+  async getLatestUserRoleMenuItemPermissionMapofUser(loggedInUserEmail: string): Promise<Map<string, string>> {
+    await lastValueFrom(this.userRoleMenuItemPermissionMapService.findUserRoleMenuitemPermissionMapsByUserId(loggedInUserEmail)).then(
+      response => {
+        if (response.status === HttpStatusCode.Ok) {
+          this.userRoleMenuItemPermissionList = response.body;
+          console.log(response.body);
+          console.log('exe on init')
+        } else if (response.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }, reason => {
+        console.log(reason)
+      }
+    )
+    var userRoleMenuItemPermissionMap = await this.prepareUserRoleMenuItemPermissionMapFromList(this.userRoleMenuItemPermissionList);
+    return userRoleMenuItemPermissionMap;
+  }
+
+  /**
+   * 
+   * @param userRoleMenuItemPermissionList 
+   * @returns 
+   */
+  async prepareUserRoleMenuItemPermissionMapFromList(userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[]): Promise<Map<string, string>> {
+    var userRoleMenuItemPermissionMap = new Map<string, string>();
+    userRoleMenuItemPermissionList.forEach(userRPM => {
+      userRoleMenuItemPermissionMap.set(userRPM.menuItemIdList, userRPM.permissionIdList);
+    })
+    return userRoleMenuItemPermissionMap;
   }
 
   /*
@@ -268,22 +321,22 @@ export class HomeComponent implements OnInit {
   */
 
   currentMenuItem: MenuItem;
-  async getCurrentMenuItemDetails() : Promise<MenuItem> {
-      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Overview')).then(response => {
-        if (response.status === HttpStatusCode.Ok) {
-          this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
-        }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
-          this.router.navigateByUrl('/session-timeout');
-        }
-      },reason => {
-        if(reason.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout')
-        }
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Overview')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
       }
-      )
-    
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
+
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
@@ -541,9 +594,9 @@ export class HomeComponent implements OnInit {
               align: 'top',
               formatter: Math.round,
               font: {
-                  weight: 'bold'
+                weight: 'bold'
               }
-          },
+            },
             legend: {
               display: true,
               position: 'top',
@@ -628,9 +681,9 @@ export class HomeComponent implements OnInit {
               align: 'top',
               formatter: Math.round,
               font: {
-                  weight: 'bold'
+                weight: 'bold'
               }
-          },
+            },
             legend: {
               display: true,
               position: 'top',
@@ -720,13 +773,13 @@ export class HomeComponent implements OnInit {
             datalabels: {
               anchor: 'end',
               align: 'top',
-              formatter: function(value, context) {
-                return context.dataIndex + ': ' + Math.round(value*100) + '%';
+              formatter: function (value, context) {
+                return context.dataIndex + ': ' + Math.round(value * 100) + '%';
               },
               font: {
-                  weight: 'bold'
+                weight: 'bold'
               }
-          },
+            },
             legend: {
               display: true,
               position: 'top',
@@ -1997,20 +2050,3 @@ export class HomeComponent implements OnInit {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
