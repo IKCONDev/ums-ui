@@ -115,9 +115,8 @@ export class HomeComponent implements OnInit {
   //get the latest selected component on page load /refresh
   //selectedOption:string = localStorage.getItem('selectedComponent');
   //title:string = localStorage.getItem('title');
-  isHomeComponentData: boolean = false;
   isComponentLoading: boolean = false;
-  isPermissionData: boolean = false;
+
   /**
    * 
    * @param router 
@@ -197,8 +196,6 @@ export class HomeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.isComponentLoading = true;
-    this.isHomeComponentData = true;
-    this.isPermissionData = true;
 
     if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
@@ -213,7 +210,6 @@ export class HomeComponent implements OnInit {
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //provide permission to access this component for the logged in user if view permission exists
         this.isComponentLoading = false;
-        this.isHomeComponentData = false;
         console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
@@ -261,8 +257,7 @@ export class HomeComponent implements OnInit {
 
     //get noti count
     this.getNotificationCount(this.loggedInUser);
-    this.isPermissionData = false;
-    this.isComponentLoading = false;
+
   }
 
  

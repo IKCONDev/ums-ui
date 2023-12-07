@@ -1706,6 +1706,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // this.newStartDate = new Date(startDate);
     let StartDateTimestampUTC: string | null = "";
     let endDateTimestampUTC: string | null = "";
+    this.isComponentLoading = true;
+    this.isOrganizedMeetingDataText = true;
 
     if (startDate != "") {
       console.log('not null for start')
@@ -1738,6 +1740,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       StartDateTimestampUTC.toString(),
       endDateTimestampUTC.toString()).subscribe({
         next: response => {
+          this.isComponentLoading = false;
+          this.isOrganizedMeetingDataText = false;
           this.meetings = response.body;
           this.meetingCount = response.body.length;
           this.closeFilterModal();
@@ -1778,6 +1782,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.attendedMeetingTitleFilter = meetingTitle;
     this.attendedMeetingStartDateFilter = meetingStartDateTime;
     this.attendedMeetingEndDateFilter = meetingEndDateTime;
+    this.isComponentLoading = true;
+    this.isAttendedMeetingDataText = true;
 
     localStorage.setItem('attendedMeetingTitleFilter', meetingTitle);
     localStorage.setItem('attendedMeetingStartDateFilter', meetingStartDateTime);
@@ -1787,9 +1793,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.attendedMeetingTitleFilter, this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
         next: response => {
           if (response.status === HttpStatusCode.Ok) {
+            this.isComponentLoading = false;
+            this.isAttendedMeetingDataText = false;
             this.attendedMeetings = response.body;
             this.attendedMeetingCount = response.body.length;
           }
+          this.isComponentLoading = false;
+          this.isAttendedMeetingDataText = false;
         }
       })
     this.closeFilterModal();
