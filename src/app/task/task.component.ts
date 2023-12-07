@@ -175,7 +175,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Output() notificationCount: number
   userRoleMenuItemsPermissionMap: Map<string, string>;
-  viewPermission: boolean;
+  viewPermission: boolean ;
   createPermission: boolean = false;;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
