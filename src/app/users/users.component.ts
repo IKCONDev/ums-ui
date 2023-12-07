@@ -139,7 +139,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },1700)
+    },400)
   }
 
   ngOnDestroy(): void {
@@ -466,11 +466,9 @@ getAllEmployeesWithStatus(){
   this.isUserDataText=true;
    this.employeeservice.getAllEmployeeStatus().subscribe({
       next : response =>{
-        setTimeout(()=>{
+        this.employeeWithStatus = response.body;
           this.isComponentLoading=false;
           this.isUserDataText=false;
-        },1500)
-          this.employeeWithStatus = response.body;
           console.log( this.employeeWithStatus)
       },
       error: error => {

@@ -29,7 +29,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },1700)
+    },500)
   }
 
   initializeJqueryDataTable(){
@@ -42,7 +42,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
           // Add other options here as needed
         });
       });
-    },1700)
+    },500)
   }
 
   ngOnDestroy(): void {
@@ -75,16 +75,14 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
       
       this.batchService.getAllBatchProcessDetails().subscribe(
          res=>{
+          this.batchDetails = res.body;
           this.batchRecordsCount = res.body.length;
           if(this.batchRecordsCount===0){
               this.displayText=false;
               this.isComponentLoading=false;
           }else{
-            setTimeout(()=>{
               this.isComponentLoading=false;
               this.isBatchDetailsText=false;
-            },1500)
-            this.batchDetails = res.body;
           }
      });
      this.initializeJqueryDataTable();

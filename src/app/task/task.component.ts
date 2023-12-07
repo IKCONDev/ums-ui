@@ -107,7 +107,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 1700);
+    }, 400);
 
     setTimeout(() => {
       $(document).ready(() => {
@@ -120,7 +120,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 1700);
+    }, 400);
   }
 
   ngAfterViewInit(): void {
@@ -147,7 +147,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 1700)
+    }, 400)
   }
 
   ngOnDestroy(): void {
@@ -339,16 +339,14 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("OrganizedTask").style.borderBottom = 'none';
               console.log(response.body)
               //extract the meetings from response object
+              this.assignedTasks = response.body;
               this.assignedTasksCount = response.body.length
               if (this.assignedTasksCount === 0) {
                 this.isComponentLoading = false;
                 this.displayText = false;
               } else {
-                setTimeout(()=>{
                   this.isComponentLoading = false;
                   this.isAssignedDataText = false;
-                },1500)
-                this.assignedTasks = response.body;
               }
               localStorage.setItem('assignedTasksCount', this.assignedTasksCount.toString());
             }, error: (error) => {
@@ -394,16 +392,14 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("OrganizedTask").style.width = 'fit-content';
               document.getElementById("OrganizedTask").style.paddingBottom = '2px';
               document.getElementById("AssignedTask").style.borderBottom = 'none';
+              this.task = res.body;
               this.taskCount = res.body.length;
               if (this.taskCount === 0) {
                 this.isComponentLoading = false;
                 this.displayText = false;
               } else {
-                setTimeout(()=>{
                   this.isComponentLoading = false;
                   this.isOrganizedDataText = false;
-                },1500)
-                this.task = res.body;
               }
               console.log(this.task);
             }, error: (error) => {
