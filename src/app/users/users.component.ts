@@ -36,8 +36,8 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   employeeData: Employee[];
   employee: Employee;
   currentMenuItem: MenuItem;
-  initialRoleList: Role[];
-  unAssignedRoles: any[];
+  initialRoleList: Role[] = [];
+  unAssignedRoles: any[] = [];
   previousRole: any;
   display: string = 'block'
   employeeWithStatus: Employee[]
