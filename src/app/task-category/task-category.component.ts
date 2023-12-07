@@ -286,7 +286,7 @@ export class TaskCategoryComponent implements OnInit {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.Found){
-            this.toastrService.error("Task category '"+taskCategory.taskCategoryTitle+"' already exists");
+            this.toastrService.error("Task category '"+taskCategory.taskCategoryTitle+"' already exists.");
             //this.closeModal();
           }
           else {
