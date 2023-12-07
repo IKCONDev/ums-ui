@@ -208,3 +208,23 @@ input[type='file'] {
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
 }
+
+.delete-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  display: none;
+  padding: 5px;
+  /* background-color: rgb(221, 30, 30); */
+  /* border-radius: 50%; */
+  /* border: 1px solid #ccc; */
+  color: red;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.image-container:hover .delete-icon {
+  display: block;
+  
+}

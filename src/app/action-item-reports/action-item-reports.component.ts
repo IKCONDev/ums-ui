@@ -252,7 +252,7 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             display: true,
             grid: {
               display: true,
@@ -292,9 +292,7 @@ export class ActionItemsReportsComponent implements OnInit {
   createActionItemsByDepartmentReportChart(){
     console.log(" created graph entered")
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
-      
       type: this.type,
-    
       data: {// values on X-Axis
         xLabels: ['Total Action items of a department'],
         datasets: [
@@ -326,7 +324,7 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             display: true,
             grid: {
               display: true,
@@ -405,7 +403,7 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             display: true,
             grid: {
               display: true,
@@ -503,7 +501,7 @@ deptValueCount : DepartmentCount[] = [];
   }
   
   createActionItemsAllDepartmentReportChart(){
-    this.actionItemsByDepartmentReportChart1 = new Chart("actionItemsByDepartmentReportChart1", {
+    this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
       type: this.type,
       data: {// values on X-Axis
         xLabels: ['Total Action items of a department'],
@@ -536,13 +534,13 @@ deptValueCount : DepartmentCount[] = [];
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             display: true,
             grid: {
               display: true,
             },
-            ticks:{
-              stepSize :1
+            ticks: {
+              stepSize: 1, // Set stepSize to 1 to display only whole numbers on the y-axis
             },
           },
         },
@@ -575,42 +573,46 @@ deptValueCount : DepartmentCount[] = [];
 
 
   type : any = 'line'
+  colorOfChartType : any = 'line'
   setChartType(value : any){
     this.type = value;
     console.log(this.type)
-    if(this.reportType == 'all'&& this.selectedDepartment !=null ){
-
-      if(this.actionItemsByDepartmentReportChart ! = null){
+    if(this.reportType == 'department'){
+      this.colorOfChartType = value
+      console.log("selected if condition is")
          this.actionItemsByDepartmentReportChart.destroy()
          this.createActionItemsByDepartmentReportChart()
-      }
+         console.log("graph created")
     }
-    if(this.reportType == 'all' && this.selectedDepartment == null){
-
-      if(this.actionItemsByDepartmentReportChart1 ! = null){
-         this.actionItemsByDepartmentReportChart1.destroy()
-         //this.createActionItemsAllDepartmentReportChart()
-         this.getActionItemsReportByDepartment(this.selectedDepartment);
-        
-      }
+    if(this.reportType == 'all' && this.selectedDepartment != null){
+      this.colorOfChartType = value
+      console.log("selected if condition is")
+         this.actionItemsByDepartmentReportChart.destroy()
+         this.createActionItemsByDepartmentReportChart()
+         console.log("graph created")
+    }
+    
+    if(this.reportType == 'all' && this.selectedDepartment== null){
+       this.colorOfChartType = value
+       this.actionItemsByDepartmentReportChart.destroy()
+       this.createActionItemsAllDepartmentReportChart() 
     }
     
     if(this.reportType == 'priority'){
+      this.colorOfChartType = value
+      this.actionItemsByPriorityReportChart.destroy()
+      this.createActionItemsByPriorityReportChart()
 
     }
     if(this.reportType == 'organized'){
-
+      //this.type = value
+       this.colorOfChartType = value
+       this.actionItemsByOrganizerReportChart.destroy()
+       this.createActionItemsOfOrganizerReportChart()
+       console.log(this.selectedUser)
+       console.log(this.type)
     }
     
-    // if(this.reportType == 'all' ){
-
-    //   if(this.actionItemsByDepartmentReportChart ! = null){
-    //      this.actionItemsByDepartmentReportChart.destroy()
-    //      this.createActionItemsByDepartmentReportChart()
-    //   }
-    // }
-    
-
   }
 
 }

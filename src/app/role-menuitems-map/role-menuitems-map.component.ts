@@ -221,7 +221,7 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
         if(response.status === HttpStatusCode.Created){
           var updatedRole = response.body;
           document.getElementById('closeUpdateModal').click();
-          this.toastr.success('Menu Items assigned for the role '+this.existingRole.roleName+' successfully')
+          this.toastr.success("Menu Items for the role '"+this.existingRole.roleName+"' assigned successfully.")
           setTimeout(() => {
             window.location.reload();
           },1000)
@@ -230,7 +230,7 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
         }else{
-          this.toastr.error('Error while assigning menu items for the role. Please try again !');
+          this.toastr.error('Error occured while assigning menu items for the role. Please try again !');
         }
       }
     })

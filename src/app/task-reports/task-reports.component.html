@@ -192,8 +192,8 @@
                     <!-- <p>Report Type : <b>Bar Chart</b></p> -->
                     <p>Report For : <b>{{"Organizer"}}</b></p>
                     <p>Task Owner email ID : <b>{{selectedTaskOwner}}</b></p>
-                    <p>Task Owner Name : <b>{{departmentName}}</b></p>
-                    <p>Total tasks for the organizer : <b>{{taskListByTaskOwnerCount}}</b></p>
+                    <!-- <p>Task Owner Name : <b>{{departmentName}}</b></p> -->
+                    <p>Total tasks of organizer : <b>{{taskListByTaskOwnerCount}}</b></p>
                     </div>
                 </div>
             </div>
@@ -339,7 +339,7 @@
                     </div>
                     <div style="margin-left: 30px;margin-top: 20px;">
                     <p>Report Module : <b>Tasks</b></p>
-                    <p>Report Type : <b>Pie Chart</b></p>
+                    <!-- <p>Report Type : <b>Pie Chart</b></p> -->
                     <p>Report For : <b>{{"Severity (Priority)"}}</b></p>
                     <p>Task Priority : <b>{{selectedTaskSeverity}}</b></p>
                     <p>Total tasks for the severity : <b>{{taskListByTaskSeverityCount}}</b></p>
@@ -508,7 +508,7 @@
                         </div>
                         <div style="margin-left: 30px;margin-top: 20px;">
                         <p>Report Module : <b>Tasks</b></p>
-                        <p>Report Type : <b>Bar Chart</b></p>
+                        <!-- <p>Report Type : <b>Bar Chart</b></p> -->
                         <p>Report For : <b>{{"Status"}}</b></p>
                         <p>Task Status : <b>{{selectedTaskStatus}}</b></p>
                         <p>Total tasks for the status : <b>{{taskListByTaskStatusCount}}</b></p>
@@ -650,7 +650,7 @@
                     </div>
                     <div style="margin-left: 30px;margin-top: 20px;">
                     <p>Report Module : <b>Tasks</b></p>
-                    <p>Report Type : <b>Pie Chart</b></p>
+                    <!-- <p>Report Type : <b>Pie Chart</b></p> -->
                     <p>Report For : <b>{{"Aged Tasks"}}</b></p>
                     <p>Tasks Type : <b>{{"Aged"}}</b></p>
                     <p>Aged based on : <b>{{"Planned End Date"}}</b></p>
@@ -884,12 +884,15 @@
                                 </span>
                         </div>
                     </div>
-                    <div class="chart">
+                    <div class="chart" *ngIf="selectedDepartment != null">
                         <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                             placeholder="choose" (change)="chooseDepartment()">
                             <ng-option *ngFor="let department of departmentList"
                                 value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                         </ng-select> -->
+                        <canvas id="taskListByDepartmentChart"></canvas>
+                    </div>
+                    <div class="chart" *ngIf="selectedDepartment == null">
                         <canvas id="taskListByDepartmentChart"></canvas>
                     </div>
                 </div>

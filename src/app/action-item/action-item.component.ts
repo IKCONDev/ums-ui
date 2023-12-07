@@ -162,7 +162,7 @@ export class ActionItemComponent implements OnInit {
   userRoleMenuItemsPermissionMap: Map<string, string>
   @Output() notificationCount: number = 0;
 
-  viewPermission:boolean;
+  viewPermission:boolean = true;
   createPermission: boolean = false;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
@@ -1231,6 +1231,8 @@ export class ActionItemComponent implements OnInit {
     this.actionItemOwnerFilter = actionItemOwner;
     this.actionItemStartDateFilter = actionItemStartDate;
     this.actionItemEndDateFilter = actionItemEndDate;
+    this.isComponentLoading=true;
+    this.isActionItemDataText=true;
 
     console.log(actionItemTitle)
 
@@ -1242,6 +1244,8 @@ export class ActionItemComponent implements OnInit {
     this.service.getActionItemByUserId(this.selectedReporteeOrganizedActionItem, actionItemTitle, actionItemOwner, actionItemStartDate, actionItemEndDate)
       .subscribe({
         next: response => {
+          this.isComponentLoading=false;
+          this.isActionItemDataText=false;
           this.actionItems = response.body;
           this.actionItemCount = response.body.length;
 

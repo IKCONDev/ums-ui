@@ -151,15 +151,15 @@ export class TaskCategoryComponent implements OnInit {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             if(this.taskcategoriesToBeDeleted.length > 1){
-              this.toastrService.success('Task categories deleted sucessfully') 
+              this.toastrService.success('Task categories deleted sucessfully.') 
             } else{
-              this.toastrService.success('Task categories '+this.taskcategoriesToBeDeleted+' are deleted.') 
+              this.toastrService.success('Task category '+this.taskcategoriesToBeDeleted+' is deleted.') 
             }
             setTimeout(()=>{
               window.location.reload();
             },1000)  
           }else{
-            this.toastrService.error('Error while deleting task categories... Please try again !');
+            this.toastrService.error('Error occured while deleting task categories. Please try again !');
           }
         },error: (error) => {
           if(error.status === HttpStatusCode.Unauthorized){
@@ -168,10 +168,10 @@ export class TaskCategoryComponent implements OnInit {
         }
       })
     }else{
-      this.toastrService.warning('Task categories not deleted')
+      this.toastrService.warning('Task categories not deleted.')
     }
    }else{
-    this.toastrService.error('Please select atleast one Task category to delete.')
+    this.toastrService.error('Please select atleast one task category to delete.')
    }
   }
 
@@ -192,7 +192,7 @@ export class TaskCategoryComponent implements OnInit {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else {
-            this.toastrService.error('Error while deleting task category . Please try again !')
+            this.toastrService.error('Error occured while deleting task category . Please try again !')
           }
         }
       })
@@ -232,7 +232,7 @@ export class TaskCategoryComponent implements OnInit {
         next: response => {
           if(response.status === HttpStatusCode.Created){
             this.closeModal();
-            this.toastrService.success('Task category '+taskCategory.taskCategoryTitle+' updated successfully');
+            this.toastrService.success("Task category '"+taskCategory.taskCategoryTitle+"' updated successfully.");
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -241,7 +241,7 @@ export class TaskCategoryComponent implements OnInit {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else {
-            this.toastrService.error('Error while creating the task category. Please try again !')
+            this.toastrService.error('Error occured while updating the task category. Please try again !')
           }
         }
       })
@@ -276,7 +276,7 @@ export class TaskCategoryComponent implements OnInit {
       this.taskCategoryService.createTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
-            this.toastrService.success('Task category '+taskCategory.taskCategoryTitle+' created successfully');
+            this.toastrService.success('Task category created successfully.');
             this.closeModal();
             setTimeout(() => {
               window.location.reload();
@@ -290,7 +290,7 @@ export class TaskCategoryComponent implements OnInit {
             //this.closeModal();
           }
           else {
-            this.toastrService.error('Error while creating the task category. Please try again !')
+            this.toastrService.error('Error occured while creating the task category. Please try again !')
           }
         }
       })
@@ -303,7 +303,7 @@ export class TaskCategoryComponent implements OnInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.taskCategory.taskCategoryTitle === '' || this.taskCategory.taskCategoryTitle.trim()==="" || 
     regex.exec(this.taskCategory.taskCategoryTitle)===null){
-      this.categoryTitleErrorInfo = 'Task category name/title is required';
+      this.categoryTitleErrorInfo = 'Task category name/title is required.';
       this.isCategoryTitleValid = false;
     }else if(this.taskCategory.taskCategoryTitle.length < 3){
       this.categoryTitleErrorInfo = 'Task category name/title should have minimum of 3 characters.';
@@ -324,13 +324,13 @@ export class TaskCategoryComponent implements OnInit {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.taskCategory.taskCategoryDescription === '' || this.taskCategory.taskCategoryDescription.trim()==="" || 
     regex.exec(this.taskCategory.taskCategoryDescription)===null){
-      this.categoryDescErrorInfo = 'Task category description is required';
+      this.categoryDescErrorInfo = 'Task category description is required.';
       this.isCategoryDescValid = false;
     }else if(this.taskCategory.taskCategoryDescription.length < 5){
       this.categoryDescErrorInfo = 'Task category description should have minimum of 5 characters.';
       this.isCategoryDescValid = false;
     }else if(this.taskCategory.taskCategoryDescription.length >= 100){
-      this.categoryDescErrorInfo = 'Task category description should not exceed more than 100 characters';
+      this.categoryDescErrorInfo = 'Task category description should not exceed more than 100 characters.';
       this.isCategoryDescValid = false;
     }else{
       this.isCategoryDescValid = true;

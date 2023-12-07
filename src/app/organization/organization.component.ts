@@ -653,6 +653,24 @@ onFileChanged(event:any){
     return this.currentMenuItem;
   }
 
+  deleteImage(event:Event){
+    console.log("deleted");
+    var isConfirmed = window.confirm('Are you sure you want to delete your organization picture ? ');
+    event.preventDefault();
+    if(isConfirmed){
+    this.orgService.deleteOrgPic(this.org.orgId).subscribe({
+      next: (response) => {
+          this.toast.success('Organization pic deleted successfully');
+          setTimeout(() => {
+            window.location.reload(); 
+          },200 ); 
+      }, error: (error) => {
+        this.toast.error('Error while deleting organization pic');
+      }
+    })
+  }
+}
+
 }
 
 

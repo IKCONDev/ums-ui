@@ -250,7 +250,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
         next: response => {
           if (response.status == HttpStatusCode.Created) {
             this.createdEmployee = response.body;
-            this.toastr.success("Employee created successfully");
+            this.toastr.success("Employee added successfully.");
             document.getElementById('closeAddModal').click();
             setTimeout(() => {
               window.location.reload();
@@ -261,14 +261,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout');
           } else if (error.status === HttpStatusCode.Found) {
-            this.toastr.error("Employee email ID '" + this.addEmployee.email + "' already exists'");
+            this.toastr.error("Employee email ID '"+ this.addEmployee.email +"' already exists.");
             //document.getElementById('closeAddModal').click();
           } else if (error.status === HttpStatusCode.NotAcceptable) {
-            this.toastr.error('Employee ID already present');
+            this.toastr.error("Employee '"+ this.addEmployee.employeeOrgId +"' already exists.");
           }
 
           else {
-            this.toastr.error('Error while creating employee. please try again !')
+            this.toastr.error('Error occured while creating employee. Please try again !')
           }
         }
       });
@@ -377,7 +377,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * remove employee
    */
 
-  removeEmployee(employeeId: number) {
+  removeEmployee(employeeOrgId:string,employeeId : number ) {
     var isconfirmed = window.confirm('Are you sure, you really want to delete the employee ?');
 
     if (isconfirmed) {
@@ -385,21 +385,21 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.employeeservice.deleteEmployee(employeeId).subscribe({
         next: response => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success('Employee ' + employeeId + ' deleted successfully');
+            this.toastr.success("Employee '" + employeeOrgId + "' deleted successfully.");
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
         },
         error: error => {
-          this.toastr.error("Error occured while deleting employee " + employeeId);
+          this.toastr.error("Error occured while deleting employee '" + employeeOrgId+ "'. Please try again !");
           console.log("error occured");
         }
       }
       );
     }
     else {
-      this.toastr.warning('Employee ' + employeeId + ' not deleted');
+      this.toastr.warning("Employee '" + employeeOrgId + "' not deleted.");
     }
 
   }
@@ -474,17 +474,17 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
         response => {
           var employeerecord = response.body;
           if (response.status == HttpStatusCode.Created) {
-            this.toastr.success('Employee ' + this.existingEmployee.id + ' updated successfully');
+            this.toastr.success("Employee '"+ this.existingEmployee.employeeOrgId +"' updated successfully.");
             document.getElementById('closeUpdateModal').click();
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
           else if (response.status == HttpStatusCode.NotAcceptable) {
-            this.toastr.error("Employee ID already present");
+            this.toastr.error("Employee '"+ this.existingEmployee.employeeOrgId +"' already exists.");
           }
           else {
-            this.toastr.error("Error occured while updating employee " + this.existingEmployee.id);
+            this.toastr.error("Error occured while updating employee '" + this.existingEmployee.id+"'. Please try again !");
           }
         }
       )
@@ -511,19 +511,19 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex2 = /^[A-Za-z ]+$/;
 
     if (this.addEmployee.firstName == '' || this.addEmployee.firstName.trim() === "" || regex.exec(this.addEmployee.firstName) === null) {
-      this.employeeFirstNameErrorInfo = "First Name is required";
+      this.employeeFirstNameErrorInfo = "First Name is required.";
       this.isEmployeeFirstNameValid = false;
     } else if (regex2.test(this.addEmployee.firstName) === false) {
-      this.employeeFirstNameErrorInfo = "First Name cannot have special characters or numbers";
+      this.employeeFirstNameErrorInfo = "First Name cannot have special characters or numbers.";
       this.isEmployeeFirstNameValid = false;
     }
     else if (this.addEmployee.firstName.length <= 4) {
-      this.employeeFirstNameErrorInfo = "First Name should have min of 4 characters";
+      this.employeeFirstNameErrorInfo = "First Name should have min of 4 characters.";
       this.isEmployeeFirstNameValid = false;
 
     }
     else if (this.addEmployee.firstName.length >= 30) {
-      this.employeeFirstNameErrorInfo = "First Name should not exceed more than 30 characters";
+      this.employeeFirstNameErrorInfo = "First Name should not exceed more than 30 characters.";
       this.isEmployeeFirstNameValid = false;
 
     }
@@ -540,19 +540,19 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex2 = /^[A-Za-z ]+$/;
 
     if (this.addEmployee.lastName == '' || this.addEmployee.lastName.trim() === "" || regex.exec(this.addEmployee.lastName) === null) {
-      this.employeeLastNameErrorInfo = "Last Name is required";
+      this.employeeLastNameErrorInfo = "Last Name is required.";
       this.isEmployeeLasttNameValid = false;
     } else if (regex2.test(this.addEmployee.lastName) === false) {
-      this.employeeLastNameErrorInfo = "Last Name cannot have special characters or numbers";
+      this.employeeLastNameErrorInfo = "Last Name cannot have special characters or numbers.";
       this.isEmployeeLasttNameValid = false;
     }
     else if (this.addEmployee.lastName.length >= 30) {
-      this.employeeLastNameErrorInfo = "Last Name should not exceed more than 30 characters";
+      this.employeeLastNameErrorInfo = "Last Name should not exceed more than 30 characters.";
       this.isEmployeeFirstNameValid = false;
 
     }
     else if (this.addEmployee.lastName.length == 0) {
-      this.employeeLastNameErrorInfo = "Last Name should have min of 1 character";
+      this.employeeLastNameErrorInfo = "Last Name should have min of 1 character.";
       this.isEmployeeLasttNameValid = false;
 
     }
@@ -570,7 +570,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   validateEmployeeGender() {
     if (this.addEmployee.gender === '') {
       this.isEmployeeGenderValid = false;
-      this.employeeGenderErrorInfo = 'Gender is required';
+      this.employeeGenderErrorInfo = 'Gender is required.';
     } else {
       this.isEmployeeGenderValid = true;
       this.employeeGenderErrorInfo = ''
@@ -582,7 +582,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   validateEmployeeEmailId() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
     if (this.addEmployee.email == '' || emailRegExp.test(this.addEmployee.email) === false) {
-      this.employeeEmailIdErrorInfo = "Email ID is required";
+      this.employeeEmailIdErrorInfo = "Email ID is required.";
       this.isEmployeeEmailIdValid = false;
     }
     else {
@@ -609,7 +609,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   employeeDepartmentErrorInfo = "";
   validateEmployeeDepartment() {
     if (this.addEmployee.departmentId < 1) {
-      this.employeeDepartmentErrorInfo = "Department is required"
+      this.employeeDepartmentErrorInfo = "Department is required."
       this.isEmployeeDepartmentValid = false;
 
     }
@@ -626,7 +626,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   validateEmployeeDesignation() {
 
     if (this.addEmployee.empDesignation.id == 0) {
-      this.employeeDesignationErrorInfo = "Designation is required"
+      this.employeeDesignationErrorInfo = "Designation is required."
       this.isEmployeeDesignationtValid = false;
     }
     else {
@@ -702,18 +702,18 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex2 = /^[A-Za-z ]+$/;
 
     if (this.existingEmployee.firstName == '' || this.existingEmployee.firstName.trim() === "" || regex.exec(this.existingEmployee.firstName) === null) {
-      this.updateFirstNameErrorInfo = "First Name is required";
+      this.updateFirstNameErrorInfo = "First Name is required.";
       this.isUpdateFirstNameValid = false;
     } else if (regex2.test(this.existingEmployee.firstName) === false) {
-      this.updateFirstNameErrorInfo = "First Name cannot have special characters or numbers";
+      this.updateFirstNameErrorInfo = "First Name cannot have special characters or numbers.";
       this.isUpdateFirstNameValid = false;
     }
     else if (this.existingEmployee.firstName.length <= 4) {
-      this.updateFirstNameErrorInfo = "First Name should have min of 4 characters";
+      this.updateFirstNameErrorInfo = "First Name should have min of 4 characters.";
       this.isUpdateFirstNameValid = false;
     }
     else if (this.existingEmployee.firstName.length >= 30) {
-      this.updateFirstNameErrorInfo = "First Name should not exceed more than 30 characters";
+      this.updateFirstNameErrorInfo = "First Name should not exceed more than 30 characters.";
       this.isUpdateFirstNameValid = false;
 
     }
@@ -729,18 +729,18 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex2 = /^[A-Za-z ]+$/;
 
     if (this.existingEmployee.lastName == '' || this.existingEmployee.lastName.trim() === "" || regex.exec(this.existingEmployee.lastName) === null) {
-      this.updateLastNameErrorInfo = "Last Name is required";
+      this.updateLastNameErrorInfo = "Last Name is required.";
       this.isUpdateLastNameValid = false;
     } else if (regex2.test(this.existingEmployee.lastName) === false) {
-      this.updateLastNameErrorInfo = "Last Name cannot have special characters or numbers";
+      this.updateLastNameErrorInfo = "Last Name cannot have special characters or numbers.";
       this.isUpdateLastNameValid = false;
     }
     else if (this.existingEmployee.lastName.length == 0) {
-      this.updateLastNameErrorInfo = "Last Name should have min of 1 character";
+      this.updateLastNameErrorInfo = "Last Name should have min of 1 character.";
       this.isUpdateLastNameValid = false;
     }
     else if (this.existingEmployee.lastName.length >= 30) {
-      this.updateLastNameErrorInfo = "First Name should not exceed more than 30 characters";
+      this.updateLastNameErrorInfo = "First Name should not exceed more than 30 characters.";
       this.isUpdateLastNameValid = false;
 
     }
@@ -756,7 +756,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdateEmployeeGender() {
     if (this.existingEmployee.gender === '') {
       this.isUpdateEmployeeGenderValid = false;
-      this.updateGenderErrorInfo = 'Gender is required';
+      this.updateGenderErrorInfo = 'Gender is required.';
     } else {
       this.isUpdateEmployeeGenderValid = true;
       this.updateGenderErrorInfo = ''
@@ -768,11 +768,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdateEmailId() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
     if (this.existingEmployee.email == '' || emailRegExp.test(this.existingEmployee.email) === false) {
-      this.updateEmailIdErrorInfo = "Email ID is required";
+      this.updateEmailIdErrorInfo = "Email ID is required.";
       this.isUpdateEmailIdValid = false;
     }
     else if (this.existingEmployee.email.length < 10) {
-      this.updateEmailIdErrorInfo = "Email ID is required";
+      this.updateEmailIdErrorInfo = "Email ID is required.";
       this.isUpdateEmailIdValid = false;
     }
     else {
@@ -799,7 +799,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   updateDepartmentErrorInfo = "";
   validateUpdateDepartment() {
     if (this.existingEmployee.departmentId <= 0) {
-      this.updateDepartmentErrorInfo = "Department is required";
+      this.updateDepartmentErrorInfo = "Department is required.";
       this.isUpdateDepartmentValid = false;
     }
     else {
@@ -814,7 +814,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdateDesignation() {
 
     if (this.existingEmployee.empDesignation.id <= 0) {
-      this.updateDesignationErrorInfo = "Designation is required";
+      this.updateDesignationErrorInfo = "Designation is required.";
       this.isUpdateDesignationValid = false;
     }
     else {
@@ -867,26 +867,26 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param employee 
    */
   deleteEmployeesById(ids: any[]) {
-    var isconfirmed = window.confirm("Are you sure, you really want to delete selected employees?");
+    var isconfirmed = window.confirm("Are you sure, you really want to delete selected employees ?");
     if (isconfirmed) {
 
       this.employeeservice.deleteAllEmployee(ids).subscribe(
         response => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success('Employees deleted successfully');
+            this.toastr.success('Employees deleted successfully.');
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
           else {
-            this.toastr.error("Error while deleting employees... Please try again !");
+            this.toastr.error("Error occured while deleting employees. Please try again !");
           }
         }
       )
 
     }
     else {
-      this.toastr.warning("Employees not deleted");
+      this.toastr.warning("Employees not deleted.");
 
     }
   }
@@ -923,13 +923,13 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex2 = /[a-zA-Z0-9]+/;
     if (this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null || regex2.exec(this.addEmployee.employeeOrgId) === null) {
       this.isEmployeeIDValid = false;
-      this.isEmployeeIDErrorInfo = 'Employee ID is required';
+      this.isEmployeeIDErrorInfo = 'Employee ID is required.';
     } else if (this.addEmployee.employeeOrgId.length <= 1) {
       this.isEmployeeIDValid = false;
-      this.isEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters';
+      this.isEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters.';
     } else if (this.addEmployee.employeeOrgId.length >= 20) {
       this.isEmployeeIDValid = false;
-      this.isEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
+      this.isEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters.';
     }
     else {
       this.isEmployeeIDValid = true;
@@ -950,9 +950,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.addEmployee.dateOfJoining == '' || this.addEmployee.dateOfJoining == null) {
       this.isEmployeeDateofJoinValid = false;
-      this.isEmployeeDateofJoinErrorInfo = 'Date of Joining is required';
+      this.isEmployeeDateofJoinErrorInfo = 'Date of Joining is required.';
     } else if (selectedDate < minDate || selectedDate > maxDate) {
-      this.isEmployeeDateofJoinErrorInfo = 'Set correct date or month';
+      this.isEmployeeDateofJoinErrorInfo = 'Set correct date or month.';
       this.isEmployeeDateofJoinValid = false;
     } else {
       this.isEmployeeDateofJoinValid = true;
@@ -968,13 +968,13 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     const regex2 = /[a-zA-Z0-9]+/;
     if (this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null || regex2.exec(this.existingEmployee.employeeOrgId) === null) {
       this.isUpdateEmployeeIDValid = false;
-      this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required';
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required.';
     } else if (this.existingEmployee.employeeOrgId.length <= 1) {
       this.isUpdateEmployeeIDValid = false;
-      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters';
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters.';
     } else if (this.existingEmployee.employeeOrgId.length >= 20) {
       this.isUpdateEmployeeIDValid = false;
-      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters';
+      this.isUpdateEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters.';
     }
     else {
       this.isUpdateEmployeeIDValid = true;
@@ -996,9 +996,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.existingEmployee.dateOfJoining == '' || this.existingEmployee.dateOfJoining == null) {
       this.isUpdateDateofJoin = false;
-      this.isUpdateDateofJoinErrorInfo = 'Date of Joining is required';
+      this.isUpdateDateofJoinErrorInfo = 'Date of Joining is required.';
     } else if (selectedDate < minDate || selectedDate > maxDate) {
-      this.isUpdateDateofJoinErrorInfo = 'Set correct date or month';
+      this.isUpdateDateofJoinErrorInfo = 'Set correct date or month.';
       this.isUpdateDateofJoin = false;
     } else {
       this.isUpdateDateofJoin = true;

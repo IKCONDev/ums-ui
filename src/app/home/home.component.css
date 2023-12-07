@@ -144,3 +144,7 @@ span svg{
       box-shadow: .2em -.2em 0 0 currentcolor;
     }
   }
+  
+  ng-select{
+    margin: 5px;
+  }

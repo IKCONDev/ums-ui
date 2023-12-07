@@ -175,7 +175,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Output() notificationCount: number
   userRoleMenuItemsPermissionMap: Map<string, string>;
-  viewPermission: boolean;
+  viewPermission: boolean ;
   createPermission: boolean = false;;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
@@ -1043,6 +1043,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('taskEndDateFilter'));
     console.log(localStorage.getItem('taskOrganizerFilter'));
 
+    this.isComponentLoading = true;
+    this.isOrganizedDataText = true;
+
     this.filter_Taskname = '';
     this.filter_Priority = '';
     this.filter_StartDate = '';
@@ -1072,6 +1075,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.filter_StartDate,
       this.filter_EndDate).subscribe({
         next: response => {
+          this.isComponentLoading = false;
+          this.isOrganizedDataText = false;
           console.log(response)
         }, error: error => {
           console.log(error)
@@ -1112,6 +1117,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(localStorage.getItem('assignedTaskEndDateFilter'));
     console.log(localStorage.getItem('assignedTaskOrganizerFilter'));
 
+    this.isComponentLoading = true;
+    this.isAssignedDataText = true;
+
     this.assignedTaskTitleFilter = '';
     this.assignedTaskPriorityFilter = '';
     // this.assignedTaskOrganizerFilter = '';
@@ -1141,6 +1149,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.assignedTaskStartDateFilter,
       this.assignedTaskEndDateFilter).subscribe({
         next: response => {
+          this.isComponentLoading = false;
+          this.isAssignedDataText = false;
           console.log(response)
         }, error: error => {
           console.log(error)

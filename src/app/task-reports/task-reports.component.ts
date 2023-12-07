@@ -40,6 +40,7 @@ export class TaskReportsComponent implements OnInit {
   taskListByDepartmentCount = 0;
   taskListByDepartment: Task[];
   taskListByDepartmentChart = null;
+  taskListByDepartmentChart1 = null;
 
   taskListByTaskOwnerCount = 0;
   taskListByTaskOwner: Task[];
@@ -121,6 +122,7 @@ export class TaskReportsComponent implements OnInit {
       if (this.reportType === 'all') {
         this.getAllDepartmentsCount();
         this.getAllDepartmentNames();
+        this.createTaskListAllDepartmentChart()
       }
     }, 400)
     console.log('finished')
@@ -759,6 +761,7 @@ export class TaskReportsComponent implements OnInit {
   ChartType: any = 'line';
   colorOfChartType: any = 'line';
   setChartType(value: any) {
+    this.ChartType = value;
     this.colorOfChartType = value;
     console.log(value)
 
@@ -798,14 +801,86 @@ export class TaskReportsComponent implements OnInit {
         this.createAgedTaskListChart();
       }
     }
-    else if (this.reportType === "all") {
+    else if (this.reportType === "all" && this.selectedDepartment != null) {
       this.ChartType = value;
       if (this.taskListByDepartmentChart != null) {
         this.taskListByDepartmentChart.destroy();
         this.createTaskListByDepartmentChart();
       }
     }
+    else if (this.reportType === "all") {
+      this.ChartType = value;
+      console.log("department is null")
+      if (this.taskListByDepartmentChart != null) {
+        this.taskListByDepartmentChart.destroy();
+        
+      }
+      this.createTaskListAllDepartmentChart();
+      
+      
+    }
 
+  }
+  createTaskListAllDepartmentChart() {
+    this.taskListByDepartmentChart = new Chart("taskListByDepartmentChart", {
+      type: this.ChartType,
+      data: {// values on X-Axis
+        xLabels: ['Total tasks'],
+        datasets: [
+          {
+            label: "Total Tasks of all departmenta",
+            data: [this.alltasksCount],
+            backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 3,
+          },
+        ]
+
+      },
+      options: {
+        aspectRatio: 2.2,
+        scales: {
+          x: {
+            display: true,
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            display: true,
+            grid: {
+              display: true,
+            },
+            ticks: {
+              stepSize: 1,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              font: {
+                size: 12,
+              },
+              padding: 16,
+              pointStyle: 'rectRounded',
+
+            },
+          },
+          title: {
+            display: true,
+            text: 'Total task list all departments',
+            font: {
+              size: 14,
+            },
+          },
+        },
+      }
+    });
   }
 
 
