@@ -11,7 +11,8 @@ export class OrganizationService {
     private adminMicroserviceOrganizationPathUrl = 'org';
     private saveOrganisationUrl = '/save';
     private updateOrganisationUrl = '/update';
-    private saveOrganizationPic='/saveOrgPic'
+    private saveOrganizationPic='/saveOrgPic';
+    private deleteOrganizationPic='/deleteOrgPic';
 
     /**
      * 
@@ -74,4 +75,18 @@ export class OrganizationService {
         )
     });
     }
+    emailId:any;
+    finalUrlForDeletingPic:any=this.apiGatewayUrl+"/"+this.adminMicroserviceOrganizationPathUrl+this.deleteOrganizationPic;
+    deleteOrgPic(){
+        this.emailId=localStorage.getItem('email');
+        return this.http.delete<any>(this.finalUrlForDeletingPic ,{
+          params: { email: this.emailId },
+          headers: new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+          }),
+          observe: 'response'
+        }
+      );
+      }
+      
 }

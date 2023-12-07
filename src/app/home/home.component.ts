@@ -196,11 +196,6 @@ export class HomeComponent implements OnInit {
   deletePermission: boolean;
   async ngOnInit(): Promise<void> {
 
-    //get users latest permissions
-    var userRoleMenuItemPermissionMap = await this.getLatestUserRoleMenuItemPermissionMapofUser(this.loggedInUser);
-    var userRPMJSONMap = JSON.stringify(Object.fromEntries(userRoleMenuItemPermissionMap));
-    localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
-
     this.isComponentLoading = true;
     this.isHomeComponentData = true;
     this.isPermissionData = true;
@@ -270,41 +265,7 @@ export class HomeComponent implements OnInit {
     this.isComponentLoading = false;
   }
 
-  /**
-  * 
-  * @returns 
-  */
-  userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[] = [];
-  async getLatestUserRoleMenuItemPermissionMapofUser(loggedInUserEmail: string): Promise<Map<string, string>> {
-    await lastValueFrom(this.userRoleMenuItemPermissionMapService.findUserRoleMenuitemPermissionMapsByUserId(loggedInUserEmail)).then(
-      response => {
-        if (response.status === HttpStatusCode.Ok) {
-          this.userRoleMenuItemPermissionList = response.body;
-          console.log(response.body);
-          console.log('exe on init')
-        } else if (response.status === HttpStatusCode.Unauthorized) {
-          this.router.navigateByUrl('/session-timeout');
-        }
-      }, reason => {
-        console.log(reason)
-      }
-    )
-    var userRoleMenuItemPermissionMap = await this.prepareUserRoleMenuItemPermissionMapFromList(this.userRoleMenuItemPermissionList);
-    return userRoleMenuItemPermissionMap;
-  }
-
-  /**
-   * 
-   * @param userRoleMenuItemPermissionList 
-   * @returns 
-   */
-  async prepareUserRoleMenuItemPermissionMapFromList(userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[]): Promise<Map<string, string>> {
-    var userRoleMenuItemPermissionMap = new Map<string, string>();
-    userRoleMenuItemPermissionList.forEach(userRPM => {
-      userRoleMenuItemPermissionMap.set(userRPM.menuItemIdList, userRPM.permissionIdList);
-    })
-    return userRoleMenuItemPermissionMap;
-  }
+ 
 
   /*
   onSelectedOptionChange(event: any){

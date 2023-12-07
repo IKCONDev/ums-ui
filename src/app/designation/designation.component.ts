@@ -192,7 +192,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
           this.router.navigateByUrl('/session-timeout');
         }else if(error.status === HttpStatusCode.Found){
           console.log(error)
-          this.toastr.error('Designation name '+this.addDesignation.designationName+' already exists');
+          this.toastr.error("Designation name '"+this.addDesignation.designationName+"' already exists.");
           //document.getElementById('closeAddModal').click();
         }else{
           this.toastr.error('Error while creating designation. Please try again !')
