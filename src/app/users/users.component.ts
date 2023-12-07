@@ -342,7 +342,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
                 },1000);
            }
            else{
-              this.toastr.error("Error occured while updating user");
+              this.toastr.error("Error occured while updating user. Please try again !");
            }
          }
       )
@@ -368,7 +368,7 @@ export class UsersComponent  implements OnInit,AfterViewInit,OnDestroy{
              },1000);
            }
            else{
-            this.toastr.error("Error occued while deleting user");
+            this.toastr.error("Error occued while deleting user. Please try again !");
           }
          
         });

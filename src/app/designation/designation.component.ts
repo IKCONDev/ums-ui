@@ -195,7 +195,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
           this.toastr.error("Designation name '"+this.addDesignation.designationName+"' already exists.");
           //document.getElementById('closeAddModal').click();
         }else{
-          this.toastr.error('Error while creating designation. Please try again !')
+          this.toastr.error('Error occured while creating designation. Please try again !')
         }
       }
     })
@@ -256,7 +256,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
         }else{
-          this.toastr.warning('Error while deleting designation '+ designationId+ ' ! Please try again !')
+          this.toastr.warning('Error occured while deleting designation '+ designationId+ '. Please try again !')
         }
       }
    })
@@ -329,7 +329,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (response) => {
         console.log('exec')
         if(response.status === HttpStatusCode.PartialContent){
-          this.toastr.success('Designation '+this.existingDesignation.id+' details updated')
+          this.toastr.success('Designation '+this.existingDesignation.id+' updated successfully.')
           document.getElementById('closeUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();
@@ -340,7 +340,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('session-timeout');
         }else{
-          this.toastr.error('Error while updating designation '+this.existingDesignation.designationName+' Please try again !');
+          this.toastr.error("Error occured while updating designation '"+this.existingDesignation.designationName+"'. Please try again !");
         }
       }
     })
@@ -421,7 +421,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
               window.location.reload();
             },1000)  
           }else{
-            this.toastr.error('Error while deleting designations... Please try again !');
+            this.toastr.error('Error occurred while deleting designations. Please try again !');
           }
         })
       )

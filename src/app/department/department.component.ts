@@ -233,7 +233,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
           this.toastr.error("Department name '"+this.addDepartment.departmentName+ "' already exists.")
           //document.getElementById('closeAddModal').click();
         }else{
-          this.toastr.error('Error while creating department. Please try again !')
+          this.toastr.error('Error occured while creating department. Please try again !')
         }
       }
      })
@@ -367,7 +367,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
             window.location.reload();
           },1000)
         }else{
-          this.toastr.error('Error while deleting department ' + departmentId  +' ... Please try again !')
+          this.toastr.error('Error occured while deleting department ' + departmentId  +'. Please try again !')
         }
       },error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){
@@ -467,7 +467,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (response) => {
         console.log('exec')
         if(response.status === HttpStatusCode.Created){
-          this.toastr.success('Department details updated')
+          this.toastr.success("Department "+this.existingDepartment.departmentId +" updated successfully.")
           document.getElementById('closeUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();
@@ -479,7 +479,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         else if(error.status === HttpStatusCode.Found){
           console.log(error)
-          this.toastr.error('Department name '+this.existingDepartment.departmentName+ ' already exists.')
+          this.toastr.error("Department name '" +this.existingDepartment.departmentName+ "' already exists.")
       }
       }
      })
@@ -669,7 +669,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
               window.location.reload();
             },1000)  
           }else{
-            this.toastr.error('Error while deleting departments... Please try again !');
+            this.toastr.error('Error occured while deleting departments. Please try again !');
           }
         },error: (error) => {
           if(error.status === HttpStatusCode.Unauthorized){

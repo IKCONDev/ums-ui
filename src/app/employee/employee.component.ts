@@ -250,7 +250,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
         next: response => {
           if (response.status == HttpStatusCode.Created) {
             this.createdEmployee = response.body;
-            this.toastr.success("Employee created successfully");
+            this.toastr.success("Employee created successfully.");
             document.getElementById('closeAddModal').click();
             setTimeout(() => {
               window.location.reload();
@@ -261,14 +261,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout');
           } else if (error.status === HttpStatusCode.Found) {
-            this.toastr.error("Employee email ID '" + this.addEmployee.email + "' already exists'");
+            this.toastr.error("Employee email ID '"+ this.addEmployee.email +"' already exists.");
             //document.getElementById('closeAddModal').click();
           } else if (error.status === HttpStatusCode.NotAcceptable) {
-            this.toastr.error('Employee ID already present');
+            this.toastr.error("Employee '"+ this.addEmployee.employeeOrgId +"' already exists.");
           }
 
           else {
-            this.toastr.error('Error while creating employee. please try again !')
+            this.toastr.error('Error occured while creating employee. Please try again !')
           }
         }
       });
@@ -377,7 +377,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * remove employee
    */
 
-  removeEmployee(employeeId: number) {
+  removeEmployee(employeeOrgId:string,employeeId : number ) {
     var isconfirmed = window.confirm('Are you sure, you really want to delete the employee ?');
 
     if (isconfirmed) {
@@ -385,21 +385,21 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.employeeservice.deleteEmployee(employeeId).subscribe({
         next: response => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success('Employee ' + employeeId + ' deleted successfully');
+            this.toastr.success("Employee '" + employeeOrgId + "' deleted successfully.");
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
         },
         error: error => {
-          this.toastr.error("Error occured while deleting employee " + employeeId);
+          this.toastr.error("Error occured while deleting employee '" + employeeOrgId+ "'. Please try again !");
           console.log("error occured");
         }
       }
       );
     }
     else {
-      this.toastr.warning('Employee ' + employeeId + ' not deleted');
+      this.toastr.warning("Employee '" + employeeOrgId + "' not deleted.");
     }
 
   }
@@ -474,17 +474,17 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
         response => {
           var employeerecord = response.body;
           if (response.status == HttpStatusCode.Created) {
-            this.toastr.success('Employee ' + this.existingEmployee.id + ' updated successfully');
+            this.toastr.success("Employee '"+ this.existingEmployee.employeeOrgId +"' updated successfully.");
             document.getElementById('closeUpdateModal').click();
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
           else if (response.status == HttpStatusCode.NotAcceptable) {
-            this.toastr.error("Employee ID already present");
+            this.toastr.error("Employee '"+ this.existingEmployee.employeeOrgId +"' already exists.");
           }
           else {
-            this.toastr.error("Error occured while updating employee " + this.existingEmployee.id);
+            this.toastr.error("Error occured while updating employee '" + this.existingEmployee.id+"'. Please try again !");
           }
         }
       )
@@ -879,7 +879,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
             }, 1000)
           }
           else {
-            this.toastr.error("Error while deleting employees... Please try again !");
+            this.toastr.error("Error occured while deleting employees. Please try again !");
           }
         }
       )
