@@ -74,7 +74,7 @@
       <li *ngIf="loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN' || 
                  loggedInUserRole == 'MANAGER' || loggedInUserRole === 'DEPARTMENT_HEAD'" class="nav-item" id="reportActive">
         <!-- <a class="nav-link" [ngClass]="{'active-link':isActive('/reports')}" routerLink="/reports" > -->
-          <a class="nav-link" [ngClass]="{'active-link':isActive('/reports')}" routerLink="/report-settings" >
+          <a class="nav-link" [ngClass]="{'active-link':isActive('/report-settings')}" routerLink="/report-settings" >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M10.6827 28.7162L9.33973 27.3733L17.9408 18.7402L22.4173 23.2166L29.3237 16.3421L30.6667 17.6851L22.4173 25.9345L17.9408 21.458L10.6827 28.7162ZM5.91847 27.6611C5.40687 27.6611 4.95923 27.4692 4.57554 27.0855C4.19185 26.7018 4 26.2542 4 25.7426V5.91847C4 5.40687 4.19185 4.95923 4.57554 4.57554C4.95923 4.19185 5.40687 4 5.91847 4H25.1031C25.6147 4 26.0623 4.19185 26.446 4.57554C26.8297 4.95923 27.0216 5.40687 27.0216 5.91847V12.2494H5.91847V27.6611ZM5.91847 10.3309H25.1031V5.91847H5.91847V10.3309Z"
@@ -96,7 +96,7 @@
         </a>
       </li>
       <li class="nav-item" id="helpcenter">
-        <a  class="nav-link" routerLink="/help">
+        <a  class="nav-link" [ngClass]="{'active-link':isActive('/help')}"  routerLink="/help">
           <!--<i class="fs-4 fa fa-question-circle">-->
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
