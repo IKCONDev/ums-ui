@@ -884,12 +884,15 @@
                                 </span>
                         </div>
                     </div>
-                    <div class="chart">
+                    <div class="chart" *ngIf="selectedDepartment != null">
                         <!-- <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                             placeholder="choose" (change)="chooseDepartment()">
                             <ng-option *ngFor="let department of departmentList"
                                 value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                         </ng-select> -->
+                        <canvas id="taskListByDepartmentChart"></canvas>
+                    </div>
+                    <div class="chart" *ngIf="selectedDepartment == null">
                         <canvas id="taskListByDepartmentChart"></canvas>
                     </div>
                 </div>
