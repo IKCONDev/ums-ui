@@ -148,15 +148,15 @@ export class AppMenuItemsComponent {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             if(this.menuItemsToBeDeleted.length > 1){
-              this.toastrService.success('Menu items deleted sucessfully.') 
+              this.toastrService.success('Menu items deleted sucessfully') 
             } else{
-              this.toastrService.success('Menu item '+this.menuItemsToBeDeleted+' is deleted.') 
+              this.toastrService.success('Menu items '+this.menuItemsToBeDeleted+' are deleted.') 
             }
             setTimeout(()=>{
               window.location.reload();
             },1000)  
           }else{
-            this.toastrService.error('Error occured while deleting menu items. Please try again !');
+            this.toastrService.error('Error while deleting menu items... Please try again !');
           }
         },error: (error) => {
           if(error.status === HttpStatusCode.Unauthorized){
@@ -165,7 +165,7 @@ export class AppMenuItemsComponent {
         }
       })
     }else{
-      this.toastrService.warning('Menu items not deleted.')
+      this.toastrService.warning('Menu items not deleted')
     }
    }else{
     this.toastrService.error('Please select atleast one Menu item to delete.')
@@ -180,7 +180,7 @@ export class AppMenuItemsComponent {
       this.menuItemService.deleteSelectedMenuItems(menuItemIds).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Ok){
-            this.toastrService.success('Menu item '+menuItemId+' deleted successfully.');
+            this.toastrService.success('Menu item '+menuItemId+' deleted successfully');
             setTimeout(() => {
               window.location.reload();
             })
@@ -189,7 +189,7 @@ export class AppMenuItemsComponent {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else {
-            this.toastrService.error('Error occured while deleting menu item. Please try again !')
+            this.toastrService.error('Error while deleting menu item. Please try again !')
           }
         }
       })
@@ -239,7 +239,7 @@ export class AppMenuItemsComponent {
         next: response => {
           if(response.status === HttpStatusCode.PartialContent){
             document.getElementById('closeModal').click();
-            this.toastrService.success('Menu item '+menuItem.menuItemId+' updated successfully.');
+            this.toastrService.success('Menu item '+menuItem.menuItemId+' updated successfully');
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -248,7 +248,7 @@ export class AppMenuItemsComponent {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else {
-            this.toastrService.error('Error occured while updating the menu item ' +menuItem.menuItemId +'. Please try again !')
+            this.toastrService.error('Error while creating the menu item. Please try again !')
           }
         }
       })
@@ -283,7 +283,7 @@ export class AppMenuItemsComponent {
         next: response => {
           if(response.status === HttpStatusCode.Created){
             document.getElementById('closeModal').click();
-            this.toastrService.success("'Menu item added successfully.");
+            this.toastrService.success('Menu item '+menuItem.menuItemName+' created successfully');
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -292,10 +292,10 @@ export class AppMenuItemsComponent {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.Found){
-            this.toastrService.error("Menu item '"+menuItem.menuItemName+"' already exists.");
+            this.toastrService.error("Menu item '"+menuItem.menuItemName+"' already exists");
           }
           else {
-            this.toastrService.error('Error occured while creating the menu item. Please try again !')
+            this.toastrService.error('Error while creating the menu item. Please try again !')
           }
         }
       })
@@ -308,13 +308,13 @@ export class AppMenuItemsComponent {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.menuItem.menuItemName === '' || this.menuItem.menuItemName.trim()==="" || 
     regex.exec(this.menuItem.menuItemName)===null){
-      this.menuItemNameErrorInfo = 'Menu item name is required.';
+      this.menuItemNameErrorInfo = 'Menu item name is required';
       this.isMenuItemNameValid = false;
     }else if(this.menuItem.menuItemName.length < 3){
       this.menuItemNameErrorInfo = 'Menu item name should have minimum of 2 characters.';
       this.isMenuItemNameValid = false;
     }else if(this.menuItem.menuItemName.length > 50){
-      this.menuItemNameErrorInfo = 'Menu item name should not exceed more than 25 characters.';
+      this.menuItemNameErrorInfo = 'Menu item name should not exceed more than 25 characters';
       this.isMenuItemNameValid = false;
     }else{
       this.isMenuItemNameValid = true;
@@ -329,13 +329,13 @@ export class AppMenuItemsComponent {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.menuItem.menuItemName === '' || this.menuItem.menuItemName.trim()==="" || 
     regex.exec(this.menuItem.menuItemName)===null){
-      this.menuItemPathErrorInfo = 'Menu item path is required.';
+      this.menuItemPathErrorInfo = 'Menu item path is required';
       this.isMenuItemPathValid = false;
     }else if(this.menuItem.menuItemName.length < 3){
       this.menuItemPathErrorInfo = 'Menu item path should have minimum of 4 characters.';
       this.isMenuItemPathValid = false;
     }else if(this.menuItem.menuItemName.length > 50){
-      this.menuItemPathErrorInfo = 'Menu item path should not exceed more than 30 characters.';
+      this.menuItemPathErrorInfo = 'Menu item path should not exceed more than 30 characters';
       this.isMenuItemPathValid = false;
     }else{
       this.isMenuItemPathValid = true;
@@ -350,13 +350,13 @@ export class AppMenuItemsComponent {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if(this.menuItem.menuItemDescription === '' || this.menuItem.menuItemDescription.trim()==="" || 
     regex.exec(this.menuItem.menuItemDescription)===null){
-      this.menuItemDescErrorInfo = 'Menu item description is required.';
+      this.menuItemDescErrorInfo = 'Menu item description is required';
       this.isMenuItemDescValid = false;
     }else if(this.menuItem.menuItemDescription.length < 5){
       this.menuItemDescErrorInfo = 'Menu item description should have minimum of 5 characters.';
       this.isMenuItemDescValid = false;
     }else if(this.menuItem.menuItemDescription.length > 50){
-      this.menuItemDescErrorInfo = 'Menu item description should not exceed more than 100 characters.';
+      this.menuItemDescErrorInfo = 'Menu item description should not exceed more than 100 characters';
       this.isMenuItemDescValid = false;
     }else{
       this.isMenuItemDescValid = true;

@@ -208,7 +208,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   updatePermission: boolean = false;
   deletePermission: boolean = false;
   noPermissions: boolean;
-
   updateButtonColor: string;
 
   /**
@@ -349,13 +348,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // var actionItemTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.addDetails.actionItemTitle === '' || this.addDetails.actionItemTitle.trim() === "" || regex.exec(this.addDetails.actionItemTitle) === null) {
-      this.actionItemTitleErrorInfo = "Title is required.";
+      this.actionItemTitleErrorInfo = "Title is required";
       this.isActionItemTitleValid = false;
     } else if (this.addDetails.actionItemTitle.length <= 5) {
-      this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters.';
+      this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters';
       this.isActionItemTitleValid = false;
     } else if (this.addDetails.actionItemTitle.length >= 50) {
-      this.actionItemTitleErrorInfo = 'Title should not exceed more than 50 characters.';
+      this.actionItemTitleErrorInfo = 'Title must not exceed 50 characters';
       this.isActionItemTitleValid = false;
     } else {
       this.actionItemTitleErrorInfo = '';
@@ -372,13 +371,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //var actionItemDescription = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim() === "" || regex.exec(this.addDetails.actionItemDescription) === null) {
-      this.actionItemDescriptionErrorInfo = "Description is required.";
+      this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
     } else if (this.addDetails.actionItemDescription.length <= 10) {
-      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters.';
+      this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isActionItemDescriptionValid = false;
     } else if (this.addDetails.actionItemDescription.length >= 250) {
-      this.actionItemDescriptionErrorInfo = 'Description should not exceed more than 250 characters.';
+      this.actionItemDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isActionItemDescriptionValid = false;
     } else {
       this.actionItemDescriptionErrorInfo = '';
@@ -395,10 +394,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateActionPriority() {
     //var actionItemPriority = event.target.value;
     if (this.addDetails.actionPriority === '') {
-      this.actionItemPriorityErrorInfo = "Priority is required.";
+      this.actionItemPriorityErrorInfo = "Priority is required";
       this.isActionItemPriorityValid = false;
     } else if (this.addDetails.actionPriority === 'select') {
-      this.actionItemPriorityErrorInfo = "Priority is required.";
+      this.actionItemPriorityErrorInfo = "Priority is required";
       this.isActionItemPriorityValid = false;
     } else {
       this.actionItemPriorityErrorInfo = '';
@@ -499,7 +498,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     currentDate.setHours(0, 0, 0, 0);
     console.log(this.actionItemStartDate);
     if (this.addDetails.startDate === '') {
-      this.actionItemStartDateErrorInfo = 'Start Date cannot be blank.'
+      this.actionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isActionItemStartDateValid = false;
     }
     //else if (new Date(this.addDetails.startDate) < currentDate) {
@@ -523,7 +522,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
     if (this.addDetails.actionItemOwner === null || this.addDetails.actionItemOwner.length === 0) {
-      this.actionItemOwnerErrorInfo = 'Owner is required.';
+      this.actionItemOwnerErrorInfo = 'Owner is required';
       this.isActionItemOwnerValid = false;
     } else {
       this.actionItemOwnerErrorInfo = '';
@@ -541,7 +540,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // var actionItemEndDate = event.target.value;
     //console.log(actionItemEndDate);
     if (this.addDetails.endDate === '') {
-      this.actionItemEndDateErrorInfo = 'End Date cannot be blank.'
+      this.actionItemEndDateErrorInfo = 'End Date cannot be blank'
       this.isActionItemEndDateValid = false;
     } else if (new Date(this.addDetails.endDate) < new Date(this.addDetails.startDate.toString())) {
       this.actionItemEndDateErrorInfo = 'End date cannot be less than start date.'
@@ -891,7 +890,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               window.location.reload();
             }, 1000)
           } else {
-            this.toastr.error('Action items are not deleted. Please try again !')
+            this.toastr.error('Action items were not deleted, try again')
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -1030,7 +1029,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.disableSubmit = true;
         console.log(response.body)
         var isActionItemsSubmitted = response.body;
-        this.toastr.success('Action items submitted successfully.')
+        this.toastr.success('Action items submitted successfully')
         setTimeout(() => {
           window.location.reload();
         }, 1000)
@@ -1136,13 +1135,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdateActionTitle() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.updatedetails.actionItemTitle === '' || this.updatedetails.actionItemTitle.trim() === "" || regex.exec(this.updatedetails.actionItemTitle) === null) {
-      this.updateActionItemTitleErrorInfo = 'Title is required.';
+      this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
     } else if (this.updatedetails.actionItemTitle.length <= 5) {
-      this.updateActionItemTitleErrorInfo = 'Title should have minimum of 5 characters.';
+      this.updateActionItemTitleErrorInfo = 'Title should have minimum of 5 characters';
       this.isUpdateActionItemTitleValid = false;
     } else if (this.updatedetails.actionItemTitle.length >= 50) {
-      this.updateActionItemTitleErrorInfo = 'Title should not exceed more than 50 characters.';
+      this.updateActionItemTitleErrorInfo = 'Title must not exceed 50 characters';
       this.isUpdateActionItemTitleValid = false;
     } else {
       this.updateActionItemTitleErrorInfo = '';
@@ -1158,13 +1157,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdateActionDescription() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim() === "" || regex.exec(this.updatedetails.actionItemDescription) === null) {
-      this.updateActionItemDescErrorInfo = 'Description is required.';
+      this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
     } else if (this.updatedetails.actionItemDescription.length <= 10) {
-      this.updateActionItemDescErrorInfo = 'Description should have minimum of 10 characters.';
+      this.updateActionItemDescErrorInfo = 'Description should have minimum of 10 characters';
       this.isUpdateActionItemDescValid = false;
     } else if (this.updatedetails.actionItemDescription.length >= 250) {
-      this.updateActionItemDescErrorInfo = 'Description should not exceed more than 250 characters.';
+      this.updateActionItemDescErrorInfo = 'Description must not exceed 250 characters';
       this.isUpdateActionItemDescValid = false;
     } else {
       this.updateActionItemDescErrorInfo = '';
@@ -1180,10 +1179,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdateActionPriority() {
     //var actionItemPriority = event.target.value;
     if (this.updatedetails.actionPriority === '') {
-      this.updateActionItemPriorityErrorInfo = "Priority is required.";
+      this.updateActionItemPriorityErrorInfo = "Priority is required";
       this.isUpdateActionItemPriorityValid = false;
     } else if (this.updatedetails.actionPriority === 'select') {
-      this.updateActionItemPriorityErrorInfo = "Priority is required.";
+      this.updateActionItemPriorityErrorInfo = "Priority is required";
       this.isUpdateActionItemPriorityValid = false;
     } else {
       this.updateActionItemPriorityErrorInfo = '';
@@ -1199,7 +1198,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdateActionItemOwner() {
     //var actionItemOwner = event.target.value;
     if (this.updatedetails.actionItemOwner === null || this.updatedetails.actionItemOwner.length === 0) {
-      this.updateActionItemOwnerErrorInfo = 'Owner is required.';
+      this.updateActionItemOwnerErrorInfo = 'Owner is required';
       this.isUpdateActionItemOwnerValid = false;
     } else {
       this.updateActionItemOwnerErrorInfo = '';
@@ -1216,7 +1215,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //var actionItemStartDate = event.target.value;
     console.log(this.actionItemStartDate);
     if (this.updatedetails.startDate === '') {
-      this.updateActionItemStartDateErrorInfo = 'Start Date cannot be blank.'
+      this.updateActionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isUpdateActionItemStartDateValid = false;
     }
     //  else if (new Date(this.updatedetails.startDate.toString()) < new Date(Date.now())) {
@@ -1238,7 +1237,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // var actionItemEndDate = event.target.value;
     //console.log(actionItemEndDate);
     if (this.updatedetails.endDate === '') {
-      this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank.'
+      this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank'
       this.isUpdateActionItemEndDateValid = false;
     } else if (new Date(this.updatedetails.endDate) < new Date(this.updatedetails.startDate.toString())) {
       this.updateActionItemEndDateErrorInfo = 'End date cannot be less than start date.'
@@ -1301,7 +1300,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           //var modal = document.getElementById('myModal');
           //modal.setAttribute('data-dismiss','modal');
           document.getElementById('closeUpdateModal').click();
-          this.toastr.success('Action item updated successfully.');
+          this.toastr.success('Action item updated successfully');
           setTimeout(() => {
             window.location.reload();
           }, 1000)
@@ -1445,7 +1444,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints, this.hoursDiff, this.minutesDiff).subscribe({
       next: (response) => {
         if (response.status == HttpStatusCode.Ok) {
-          this.toastr.success("Email sent successfully.");
+          this.toastr.success("Email sent successfully");
           document.getElementById('closeSendMoMEmail').click();
         }
 
@@ -1455,7 +1454,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
         } else {
-          this.toastr.error("Error occured while sending email. please try again !");
+          this.toastr.error("Error occured while sending email, please try again");
         }
       }//error
     })
@@ -1518,7 +1517,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             //get the created meeting
             this.createdMeeting = response.body;
             console.log(response.body);
-            this.toastr.success('Meeting created successfully.');
+            this.toastr.success('Meeting created successfully');
             document.getElementById('closeCreateMeetingModal').click();
             setTimeout(() => {
               window.location.reload();
@@ -1540,13 +1539,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateMeetingSubject() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.addMeeting.subject === '' || this.addMeeting.subject.trim() === "" || regex.exec(this.addMeeting.subject) === null) {
-      this.meetingSubjectErrorInfo = 'Meeting subject is required.';
+      this.meetingSubjectErrorInfo = 'Meeting subject is required';
       this.isMeetingSubjectValid = false;
     } else if (this.addMeeting.subject.length < 4) {
-      this.meetingSubjectErrorInfo = 'Meeting subject should have minimum of 4 characters.';
+      this.meetingSubjectErrorInfo = 'Meeting subject should have minimum of 4 characters';
       this.isMeetingSubjectValid = false;
     } else if (this.addMeeting.subject.length >= 100) {
-      this.meetingSubjectErrorInfo = 'Meeting subject should not exceed more than 100 characters.';
+      this.meetingSubjectErrorInfo = 'Meeting subject should not exceed maximum of 100 characters';
       this.isMeetingSubjectValid = false;
     } else {
       this.isMeetingSubjectValid = true;
@@ -1559,10 +1558,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   isMeetingStartDateValid = false;
   validateMeetingStartDateTime() {
     if (this.addMeeting.startDateTime === '') {
-      this.meetingStartDateErrorInfo = 'Start date time is required.';
+      this.meetingStartDateErrorInfo = 'Start date time is required';
       this.isMeetingStartDateValid = false;
     } else if (this.addMeeting.startDateTime === null) {
-      this.meetingStartDateErrorInfo = 'Start date time is required.';
+      this.meetingStartDateErrorInfo = 'Start date time is required';
       this.isMeetingStartDateValid = false;
     } else {
       this.meetingStartDateErrorInfo = '';
@@ -1575,13 +1574,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   isMeetingEndDateValid = false;
   validateMeetingEndDateTime() {
     if (this.addMeeting.endDateTime === '') {
-      this.meetingEndDateErrorInfo = 'End date time is required.';
+      this.meetingEndDateErrorInfo = 'End date time is required';
       this.isMeetingEndDateValid = false;
     } else if (this.addMeeting.endDateTime === null) {
-      this.meetingEndDateErrorInfo = 'End date time is required.';
+      this.meetingEndDateErrorInfo = 'End date time is required';
       this.isMeetingEndDateValid = false;
     } else if ((this.addMeeting.endDateTime) < (this.addMeeting.startDateTime)) {
-      this.meetingEndDateErrorInfo = 'End date time cannot be less than start date time.';
+      this.meetingEndDateErrorInfo = 'End date time cannot be less than start date time';
       this.isMeetingEndDateValid = false;
     } else {
       this.meetingEndDateErrorInfo = '';
@@ -1594,7 +1593,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   isMeetingAttendeesValid = false;
   validateMeetingAttendees() {
     if (this.addMeeting.attendees.length === 0) {
-      this.meetingAttendeesErrorInfo = 'Meetings attendees are required.';
+      this.meetingAttendeesErrorInfo = 'Meetings attendees are required';
       this.isMeetingAttendeesValid = false;
     } else {
       this.meetingAttendeesErrorInfo = '';
@@ -1627,7 +1626,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateMoMEmail() {
 
     if (this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0) {
-      this.emailListErrorInfo = 'Choose the emailId to send Email.';
+      this.emailListErrorInfo = 'choose the emailId to send Email';
       this.isemailforSendMoMEmailValid = false;
       console.log("Email List is" + this.emailListForsendingMOM);
 
@@ -1706,8 +1705,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     // this.newStartDate = new Date(startDate);
     let StartDateTimestampUTC: string | null = "";
     let endDateTimestampUTC: string | null = "";
-    this.isComponentLoading = true;
-    this.isOrganizedMeetingDataText = true;
 
     if (startDate != "") {
       console.log('not null for start')
@@ -1740,8 +1737,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       StartDateTimestampUTC.toString(),
       endDateTimestampUTC.toString()).subscribe({
         next: response => {
-          this.isComponentLoading = false;
-          this.isOrganizedMeetingDataText = false;
           this.meetings = response.body;
           this.meetingCount = response.body.length;
           this.closeFilterModal();
@@ -1782,8 +1777,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.attendedMeetingTitleFilter = meetingTitle;
     this.attendedMeetingStartDateFilter = meetingStartDateTime;
     this.attendedMeetingEndDateFilter = meetingEndDateTime;
-    this.isComponentLoading = true;
-    this.isAttendedMeetingDataText = true;
 
     localStorage.setItem('attendedMeetingTitleFilter', meetingTitle);
     localStorage.setItem('attendedMeetingStartDateFilter', meetingStartDateTime);
@@ -1793,13 +1786,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.attendedMeetingTitleFilter, this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
         next: response => {
           if (response.status === HttpStatusCode.Ok) {
-            this.isComponentLoading = false;
-            this.isAttendedMeetingDataText = false;
             this.attendedMeetings = response.body;
             this.attendedMeetingCount = response.body.length;
           }
-          this.isComponentLoading = false;
-          this.isAttendedMeetingDataText = false;
         }
       })
     this.closeFilterModal();
