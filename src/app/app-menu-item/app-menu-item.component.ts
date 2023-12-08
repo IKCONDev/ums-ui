@@ -161,11 +161,15 @@ export class AppMenuItemsComponent {
         },error: (error) => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout')
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastrService.error("One of the menu item is already in usage by a 'Role' ! Cannot be deleted.");
+          }else{
+            this.toastrService.error('Error while deleting Menu items.')
           }
         }
       })
     }else{
-      this.toastrService.warning('Menu items not deleted')
+      this.toastrService.warning('Menu items not deleted.')
     }
    }else{
     this.toastrService.error('Please select atleast one Menu item to delete.')
@@ -188,6 +192,8 @@ export class AppMenuItemsComponent {
         },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastrService.error("Menu item is already in usage by a 'Role' ! Cannot be deleted.");
           }else {
             this.toastrService.error('Error while deleting menu item. Please try again !')
           }
