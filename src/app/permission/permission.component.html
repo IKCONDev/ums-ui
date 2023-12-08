@@ -35,9 +35,9 @@
             <table id="table" class="table table-hover">
                 <thead id="thead">
                     <tr>
-                        <th>
+                        <!-- <th>
                             <input type="checkbox" id="mainCheckBox" />
-                        </th>
+                        </th> -->
                         <th>ID</th>
                         <th>Permission Value</th>
                         <th>Permission Description</th>
@@ -51,9 +51,9 @@
                 </thead>
                 <tbody *ngIf="isPermissionDataText===false">
                     <tr class="trbody" id="dataRow" *ngFor="let permission of permissionsList">
-                        <td>
+                        <!-- <td>
                             <input type="checkbox"  class="subCheckBox" />
-                        </td>
+                        </td> -->
                         <!-- <td>TC{{category.taskCategoryId}}</td> -->
                         <td>{{permission.permissionId}}</td>
                         <td>{{permission.permissionValue}}</td>

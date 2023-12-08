@@ -163,14 +163,14 @@
                 <label><b>Gender</b><span id="required">*</span></label><br/>
                 <input type="radio"
                     [(ngModel)]="addEmployee.gender" id="genderMale" name="gender1"
-                    (change)="validateEmployeeGender()" value="Male"/>Male
+                    (change)="validateEmployeeGender()" value="Male"/>&nbsp;Male &nbsp;&nbsp;
                 <input type="radio"
                     [(ngModel)]="addEmployee.gender" id="genderFemale" name="gender2"
-                    (change)="validateEmployeeGender()" value="Female"/>Female
+                    (change)="validateEmployeeGender()" value="Female"/>&nbsp;Female
                 <span *ngIf="employeeGenderErrorInfo != ''">
                     <p id="errorMessage">{{employeeGenderErrorInfo}}</p>
                 </span>
-                <br />
+                <br /><br/>
                 <label><b>Email</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Email"
                     [(ngModel)]="addEmployee.email" id="employeeEmail" name="employeeEmail" #employeeEmail="ngModel"
@@ -293,10 +293,10 @@
                 <label><b>Gender</b><span id="required">*</span></label><br/>
                 <input type="radio"
                     [(ngModel)]="existingEmployee.gender" id="genderMaleUpdate" name="gender"
-                    (click)="validateUpdateEmployeeGender()" value="Male"/>Male
+                    (click)="validateUpdateEmployeeGender()" value="Male"/>&nbsp;Male&nbsp;&nbsp;
                 <input type="radio"
                     [(ngModel)]="existingEmployee.gender" id="genderFemaleUpdate" name="gender"
-                    (click)="validateUpdateEmployeeGender()" value="Female"/>Female
+                    (click)="validateUpdateEmployeeGender()" value="Female"/>&nbsp;Female
                 <span *ngIf="updateGenderErrorInfo != ''">
                     <p id="errorMessage">{{updateGenderErrorInfo}}</p>
                 </span>
