@@ -300,6 +300,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log(this.existingUserObj);
         //get employee details of the user
         this.getEmployee(this.existingUserObj.email);
+        this.getAllUnassignedRoles();
       }
     )
     //   this.roles.filter(role =>{
