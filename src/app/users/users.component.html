@@ -53,7 +53,7 @@
                         <td>{{user.active == true? 'Active': 'Inactive'}}</td>
                         <td>{{user.active == true? 'Login Enabled':'Login Disabled'}}</td>
                         <td *ngIf="user.email != loggedInUser">
-                            <label class="switch" *ngIf="user.active == true">
+                            <label class="switch" *ngIf="user.active == true && user.userRoles[0].roleName != 'SUPER_ADMIN'">
                                 <input type="checkbox" id="slider{{i}}" checked
                                     (change)="checkUserTogglebuttonEnabled(user,i)">
                                 <span class="slider round"></span>
@@ -63,7 +63,7 @@
                                 <span class="slider round"></span>
                             </label>
                         </td>
-                        <td *ngIf="user.email === loggedInUser">
+                        <td *ngIf="user.email === loggedInUser;">
 
                         </td>
                         <td>
