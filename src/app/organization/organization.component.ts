@@ -69,6 +69,7 @@ export class OrganizationComponent implements OnInit {
   noPermissions: boolean;
   userRoleMenuItemsPermissionMap: Map<string, string>
   editButtonColor: string;
+
   async ngOnInit(): Promise<void> {
 
     // if(this.loggedInUserRole != 'ADMIN' && this.loggedInUserRole != 'SUPER_ADMIN'){
@@ -132,9 +133,11 @@ export class OrganizationComponent implements OnInit {
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           console.log(response.body)
+          setTimeout(()=>{
+            this.isComponentLoading=false;
+            this.isorganizationDataText=false;
+          },1500)
           this.org = response.body;
-          this.isComponentLoading=false;
-          this.isorganizationDataText=false;
         }
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -653,6 +656,7 @@ onFileChanged(event:any){
     return this.currentMenuItem;
   }
 
+
   deleteImage(event:Event){
     console.log("deleted");
     var isConfirmed = window.confirm('Are you sure you want to delete your organization picture ? ');
@@ -662,8 +666,8 @@ onFileChanged(event:any){
       next: (response) => {
           this.toast.success('Organization pic deleted successfully');
           setTimeout(() => {
-            window.location.reload(); 
-          },200 ); 
+            window.location.reload();
+          },200 );
       }, error: (error) => {
         this.toast.error('Error while deleting organization pic');
       }
@@ -672,6 +676,9 @@ onFileChanged(event:any){
 }
 
 }
+
+
+
 
 
 

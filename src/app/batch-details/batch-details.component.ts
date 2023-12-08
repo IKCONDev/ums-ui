@@ -24,31 +24,32 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit,OnDestroy{
         this.table = $('#table').DataTable({
           paging: true,
           searching: true, // Enable search feature
-          pageLength: 7,
-          order: [[1,'asc']]
+          pageLength: 6,
+          order: [[0,'asc']],
+          lengthMenu: [ [6, 25, 50, -1], [6, 25, 50, "All"] ]
           // Add other options here as needed
         });
       });
     },500)
   }
 
-  initializeJqueryDataTable(){
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 7,
-          // Add other options here as needed
-        });
-      });
-    },500)
-  }
+  // initializeJqueryDataTable(){
+  //   setTimeout(() => {
+  //     $(document).ready(() => {
+  //       this.table = $('#table').DataTable({
+  //         paging: true,
+  //         searching: true, // Enable search feature
+  //         pageLength: 7,
+  //         // Add other options here as needed
+  //       });
+  //     });
+  //   },500)
+  // }
 
   ngOnDestroy(): void {
-    if (this.table) {
-      this.table.destroy();
-    }
+    // if (this.table) {
+    //   this.table.destroy();
+    // }
   }
 
   isBatchDetailsText:boolean=false;

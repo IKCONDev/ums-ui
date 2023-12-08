@@ -26,7 +26,7 @@
                 </thead>
                 <tbody *ngFor="let item of batchDetails">
                     <tr *ngIf="isBatchDetailsText===false">
-                        <td>BD{{item.batchId}}</td>
+                        <td>{{item.batchId}}</td>
                         <td>{{item.startDateTime|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{item.endDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
