@@ -19,7 +19,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class UserRoleMenuitemPermissionComponent implements OnInit {
 
-  @Output() title = "User Menu Item Permissions";
+  @Output() title = "Assign Menu Items & Permissions";
   employeeList: Employee[] = [];
   selectedUserId: string = localStorage.getItem('selectedUser')
   menuItemList: MenuItem[] = [];

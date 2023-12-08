@@ -632,7 +632,7 @@ onFileChanged(event:any){
       var selectedCountry = $('#country-dropdown option:selected');
       var countryCode = selectedCountry.data('code');
       $('#dial-code-input').val(countryCode);
-
+      this.org.orgCountryCode=countryCode;
     }
 
     

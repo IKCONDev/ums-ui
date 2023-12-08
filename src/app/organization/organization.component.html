@@ -600,12 +600,14 @@
                         <p>-</p>
                     </div>
                     <div class="col-sm-6">
-                        <div *ngIf="org.orgContactNumber != null" id="adjustTextBox">
+                        <div *ngIf="org.orgContactNumber != null&&isDisable==false" id="adjustTextBox">
+                            <label *ngIf="isDisable==false">{{org.orgCountryCode}}</label>
+                            &nbsp;
                             <label *ngIf="isDisable==false">{{org.orgContactNumber}}</label>
                         </div>
                         <div style="display: flex;">
-                            <input type="text" class="form-control" id="dial-code-input" *ngIf="isDisable==true"
-                                readonly>
+                            <input type="text"  class="form-control"  id="dial-code-input" *ngIf="isDisable==true"
+                            [(ngModel)]="org.orgCountryCode"  readonly>
                             <input type="text" placeholder="Enter Company Contact Number" *ngIf="isDisable==true"
                                 [(ngModel)]="org.orgContactNumber" class="form-control"
                                 (keyup)="validateOrgContactNumber()" (keydown)="numberValidation($event)" minlength="10"

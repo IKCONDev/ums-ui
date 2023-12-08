@@ -591,21 +591,21 @@ export class HomeComponent implements OnInit {
               borderWidth: 3,
             },
             {
-              label: "Yet To Start Task",
+              label: "Yet To Start",
               data: this.TotalTasksForYear[1],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
               borderWidth: 3,
             },
             {
-              label: "Inprogress Task",
+              label: "Inprogress",
               data: this.TotalTasksForYear[2],
               backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
               borderColor: 'rgba(255, 206, 86, 1)',
               borderWidth: 3,
             },
             {
-              label: "Completed Task",
+              label: "Completed",
               data: this.TotalTasksForYear[3],
               backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
               borderColor: 'rgba(75, 192, 192, 1)',
@@ -688,21 +688,21 @@ export class HomeComponent implements OnInit {
               borderWidth: 3,
             },
             {
-              label: "Yet To Start Task",
+              label: "Yet To Start",
               data: [this.TotalTasksForMonth[1][currentMonthNumber]],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
               borderWidth: 3,
             },
             {
-              label: "Inprogress Task",
+              label: "Inprogress",
               data: [this.TotalTasksForMonth[2][currentMonthNumber]],
               backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
               borderColor: 'rgba(255, 206, 86, 1)',
               borderWidth: 3,
             },
             {
-              label: "Completed Task",
+              label: "Completed",
               data: [this.TotalTasksForMonth[3][currentMonthNumber]],
               backgroundColor: 'rgba(75, 192, 192, 0.8)', // Green
               borderColor: 'rgba(75, 192, 192, 1)',

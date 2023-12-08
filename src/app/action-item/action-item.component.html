@@ -144,8 +144,8 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <th id="tablehead">Task ID</th>
-                                        <th id="tablehead" style="width: 170px;">Task Title</th>
-                                        <th id="tablehead" style="width: 170px;">Task Description</th>
+                                        <th id="tablehead" style="width: 170px;">Title</th>
+                                        <th id="tablehead" style="width: 170px;">Description</th>
                                         <th id="tablehead">Assignee</th>
                                         <th id="tablehead">Task Category</th>
                                         <th id="tablehead">Planned Start Date</th>
@@ -398,7 +398,7 @@
                     <div class="row">
                         <div class="col-md-6" style="width: 560px;margin-top: 15px;">
                             <div class="col-md-12" style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
-                                <label style=" font-size: 20px;margin: 5px;margin-left: -3px;"><b id="title-label">Task Title</b><span id="required">*</span></label>
+                                <label style=" font-size: 20px;margin: 5px;margin-left: -3px;"><b id="title-label">Title</b><span id="required">*</span></label>
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px;max-height: 55px;"
@@ -478,7 +478,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><b>Priority</b><span id="required">*</span></td>
+                                            <td><b>Priority</b><span id="required"></span></td>
                                             <td style="padding-left: 0px;"><span>
                                                 <!-- <select id="taskPriority" class="form-control form-select"
                                                         [(ngModel)]="add_Task.taskPriority" name="taskPriority"
@@ -546,7 +546,7 @@
                                      </td>
                                         </tr>
                                         <tr>
-                                            <td ><b>Status</b><span id="required">*</span></td>
+                                            <td ><b>Status</b><span id="required"></span></td>
                                             <td> 
                                                 <span>
                                                     <input type="text" class="form-control"
