@@ -901,6 +901,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.toastr.warning('Action items not deleted.');
     }
+    this.actionItemsToBeDeleted =  [];
   }
 
 
