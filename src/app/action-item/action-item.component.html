@@ -155,7 +155,7 @@
                                     </thead>
                                     <tbody *ngFor="let element of task_array">
                                         <tr *ngIf="actionItem.actionItemId == element.actionItemId">
-                                            <td  class="taskRows" >T000{{element.taskId}}</td>
+                                            <td  class="taskRows" >{{element.taskId}}</td>
                                             <td  class="taskRows"  id="actionItem-subject">{{element.taskTitle}}</td>
                                             <td  class="taskRows" id="actionItem-subject">{{element.taskDescription}}</td>
                                             <td  class="taskRows" >{{element.taskOwner}}</td>
