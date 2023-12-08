@@ -607,18 +607,21 @@ export class ActionItemComponent implements OnInit {
     this.add_Task.taskOwner = '';
     this.add_Task.startDate = '';
     this.add_Task.dueDate = '';
+    this.add_Task.taskCategoryId=0;
 
     this.isTaskTitleValid = false;
     this.isTaskDescriptionValid = false;
     this.isTaskOwnerValid = false;
     this.isTaskStartDateValid = false;
     this.isTaskDueDateValid = false;
+    this.isTaskCategoryValid=false;
 
     this.taskTitleErrrorInfo = '';
     this.taskDescriptionErrorInfo = '';
     this.taskOwnerErrorInfo = '';
     this.taskStartDateErrorInfo = '';
     this.taskDueDateErrorInfo = '';
+    this.taskCategoryErrorInfo='';
   }
 
   /**
