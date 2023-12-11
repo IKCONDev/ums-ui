@@ -1187,7 +1187,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'Total task status for the current Year',
+              text: 'Total task status for the current year',
               align: 'center',
               font: {
                 size: 14,
@@ -1448,7 +1448,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'Yet to start status of current Year',
+              text: 'Yet to start status of current year',
               align: 'center',
               font: {
                 size: 14,
