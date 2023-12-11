@@ -14,6 +14,9 @@ import { DepartmentService } from '../department/service/department.service';
 import { Department } from '../model/Department.model';
 import { error } from 'jquery';
 import { DepartmentCount } from '../model/DepartmentCount.model';
+import { MenuItem } from '../model/MenuItem.model';
+import { lastValueFrom } from 'rxjs';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 @Component({
   selector: 'app-meeting-reports',
@@ -50,12 +53,20 @@ export class MeetingReportsComponent implements OnInit {
   attendedMeetingListCount: number;
   attendedMeetingListChart = null;
 
+  viewPermission: boolean;
+  createPermission: boolean;
+  updatePermission: boolean;
+  deletePermission: boolean;
+  noPermissions: boolean;
+  userRoleMenuItemsPermissionMap: Map<string, string>
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute,
     private meetingReportService: MeetingReportsService,
     private employeeService: EmployeeService,
     private userService: UserService, 
     private headerService: HeaderService,
-    private departmentService: DepartmentService) {
+    private departmentService: DepartmentService,
+    private menuItemService: AppMenuItemService) {
 
       //get current router param
     this.activatedRoute.queryParams.subscribe(param => {
@@ -64,8 +75,28 @@ export class MeetingReportsComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    //get logged in user details
+ async  ngOnInit(): Promise<void> {
+    if(localStorage.getItem('jwtToken') === null){
+      this.router.navigateByUrl('/session-timeout');
+      return;
+    }
+    
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+    }
+    //get menu item  details of home page
+    var currentMenuItem = await this.getCurrentMenuItemDetails();
+    console.log(currentMenuItem)
+
+      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        //this.noPermissions = false;
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.viewPermission = true;
+          //get logged in user details
     this.headerService.fetchUserProfile(this.loggedInUser).subscribe({
       next: response => {
         this.loggedInUserObject = response.body;
@@ -90,6 +121,29 @@ export class MeetingReportsComponent implements OnInit {
       this.getAllMeetings();
       this.getAllDepartmentsCount();
       this.getAllDepartmentNames();
+        }else{
+          this.viewPermission = false;
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+        }else{
+          this.createPermission = false;
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+        }else{
+          this.updatePermission = false;
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }else{
+          this.deletePermission = false;
+        }
+      }else{
+        //this.noPermissions = true;
+        this.router.navigateByUrl('/unauthorized');
+      }
+    
   }
 
   getLoggedInUserDetails(loggedInUser: string){
@@ -652,8 +706,26 @@ export class MeetingReportsComponent implements OnInit {
         this.createMeetingsByOrganizerReportChart()
       }
     }
+  }
 
-    
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Meeting Reports')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
   }
 
 }

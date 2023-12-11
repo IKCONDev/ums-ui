@@ -13,6 +13,9 @@ import { HeaderService } from '../header/service/header.service';
 import { Users } from '../model/Users.model';
 import { DepartmentCount } from '../model/DepartmentCount.model';
 import { ActionService } from '../action-item/service/action.service';
+import { MenuItem } from '../model/MenuItem.model';
+import { lastValueFrom } from 'rxjs';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 @Component({
   selector: 'app-action-item-reports',
@@ -32,13 +35,22 @@ export class ActionItemsReportsComponent implements OnInit {
   selectedUser: string;
 
   actionItemsByDepartmentReportChart =  null;
-  actionItemsByDepartmentReportChart1 = null
+  actionItemsByDepartmentReportChart1 = null;
+
+  viewPermission: boolean;
+  createPermission: boolean;
+  updatePermission: boolean;
+  deletePermission: boolean;
+  noPermissions: boolean;
+  userRoleMenuItemsPermissionMap: Map<string, string>
 
 
   constructor(private activatedRoute:ActivatedRoute, private deprtmentService: DepartmentService,
     private router: Router, private actionItemsReportService: ActionItemsReportsService, 
     private employeeService: EmployeeService, private headerService: HeaderService, 
-    private departmentService: DepartmentService, private actionService:ActionService){
+    private departmentService: DepartmentService, private actionService:ActionService,
+    private menuItemService: AppMenuItemService){
+
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
       console.log(this.reportType)
@@ -47,40 +59,84 @@ export class ActionItemsReportsComponent implements OnInit {
 
   selectedUserFullName: string;
   loggedInUserPrincipalObject: Users;
-  ngOnInit(): void {
-    this.headerService.fetchUserProfile(this.loggedInUserId).subscribe({
-      next: response => {
-        if(response.status === HttpStatusCode.Ok){
-          this.loggedInUserPrincipalObject = response.body;
-          this.selectedUser = this.loggedInUserPrincipalObject.email;
-          //this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
-          this.selectedDepartmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
-          this.selectedPriority = 'High';
-        }
-      }
-    })
-    setTimeout(() => {
-       //initialize data
-      this.getAllDepartments();
-      this.getEmployeeAsUserList();
-      this.getAllActionItemsCount();
-      // this.getAllDepartmentsCount();
-      // this.getAllDepartmentNames();
-      if(this.reportType === 'department'){
-        this.chooseDepartment();
-      }
-      if(this.reportType === 'organized'){
-        this.chooseUser();
-      }
-      if(this.reportType === 'priority'){
-        this.choosePriority();
-      }
-      if(this.reportType === 'all'){
-         this.getAllDepartmentsCount();
-         this.getAllDepartmentNames();
-      }
-    },200)
+
+  async ngOnInit(): Promise<void> {
+    if(localStorage.getItem('jwtToken') === null){
+      this.router.navigateByUrl('/session-timeout');
+      return;
+    }
     
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+    }
+    //get menu item  details of home page
+    var currentMenuItem = await this.getCurrentMenuItemDetails();
+    console.log(currentMenuItem)
+
+      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        //this.noPermissions = false;
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.viewPermission = true;
+          //get details to view reports
+          this.headerService.fetchUserProfile(this.loggedInUserId).subscribe({
+            next: response => {
+              if(response.status === HttpStatusCode.Ok){
+                this.loggedInUserPrincipalObject = response.body;
+                this.selectedUser = this.loggedInUserPrincipalObject.email;
+                //this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
+                this.selectedDepartmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
+                this.selectedPriority = 'High';
+              }
+            }
+          })
+          setTimeout(() => {
+             //initialize data
+            this.getAllDepartments();
+            this.getEmployeeAsUserList();
+            this.getAllActionItemsCount();
+            // this.getAllDepartmentsCount();
+            // this.getAllDepartmentNames();
+            if(this.reportType === 'department'){
+              this.chooseDepartment();
+            }
+            if(this.reportType === 'organized'){
+              this.chooseUser();
+            }
+            if(this.reportType === 'priority'){
+              this.choosePriority();
+            }
+            if(this.reportType === 'all'){
+               this.getAllDepartmentsCount();
+               this.getAllDepartmentNames();
+            }
+          },200)
+    
+        }else{
+          this.viewPermission = false;
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+        }else{
+          this.createPermission = false;
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+        }else{
+          this.updatePermission = false;
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }else{
+          this.deletePermission = false;
+        }
+      }else{
+        //this.noPermissions = true;
+        this.router.navigateByUrl('/unauthorized');
+      }
   }
 
   department: Department;
@@ -613,6 +669,26 @@ deptValueCount : DepartmentCount[] = [];
        console.log(this.type)
     }
     
+  }
+
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Action Item Reports')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
   }
 
 }
