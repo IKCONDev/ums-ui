@@ -1618,9 +1618,18 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   getDuration(meeting: Meeting) {
     var startdate = new Date(meeting.startDateTime);
     var endDate = new Date(meeting.endDateTime);
-    this.hoursDiff = (endDate.getHours() - startdate.getHours());
-    this.minutesDiff = (endDate.getMinutes() - startdate.getMinutes());
-
+  
+    // Calculate the time difference in milliseconds
+    var timeDifference = endDate.getTime() - startdate.getTime();
+  
+    // Calculate hours, minutes, and seconds
+    var millisecondsInMinute = 60 * 1000;
+    var millisecondsInHour = 60 * millisecondsInMinute;
+  
+    this.hoursDiff = Math.floor(timeDifference / millisecondsInHour);
+    this.minutesDiff = Math.floor((timeDifference % millisecondsInHour) / millisecondsInMinute);
+    console.log(this.hoursDiff);
+    console.log(this.minutesDiff);
   }
   emailListErrorInfo = '';
   isemailforSendMoMEmailValid = false;
