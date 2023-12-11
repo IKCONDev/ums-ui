@@ -111,7 +111,7 @@ export class PermissionComponent implements OnInit{
           paging: true,
           searching: true, // Enable search feature
           pageLength: 10,
-          order: [[1,'asc']],
+          order: [[0,'asc']],
           lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
           // Add other options here as needed
         });
@@ -281,7 +281,10 @@ export class PermissionComponent implements OnInit{
          },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
-          }else {
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastrService.error("Permission is already in usage by a 'Role' ! Cannot be deleted.");
+          }
+          else {
             this.toastrService.error('Error occured while deleting '+ permissionId+' permission. Please try again !')
           }
         }

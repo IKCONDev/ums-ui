@@ -223,3 +223,7 @@ td{
   table tbody tr td{
     padding-left: 18px;
   }
+
+  #categoryDesc{
+    border:1px solid #2AA3D9;
+  }
