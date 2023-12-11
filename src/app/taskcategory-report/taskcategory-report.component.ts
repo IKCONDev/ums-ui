@@ -12,6 +12,9 @@ import { HttpStatusCode } from '@angular/common/http';
 import { TaskCategoryComponent } from '../task-category/task-category.component';
 import { Chart } from 'chart.js';
 import { valueOrDefault } from 'chart.js/dist/helpers/helpers.core';
+import { MenuItem } from '../model/MenuItem.model';
+import { lastValueFrom } from 'rxjs';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 @Component({
   selector: 'app-taskcategory-report',
@@ -20,156 +23,204 @@ import { valueOrDefault } from 'chart.js/dist/helpers/helpers.core';
 })
 export class TaskcategoryReportComponent implements OnInit {
 
-  @Output()  title = 'Task Category'
+  @Output() title = 'Task Category Report'
   reportType: string;
-  selectedTaskCategory : string;
+  selectedTaskCategory: string;
   taskListByCategoryChart = null;
   taskListByCategoryChart1 = null;
-  
-  ngOnInit(): void {
 
-    this.getAllTaskCategoryList();
-    this.getAllTasksByTaskcategory();
-    //this.getAllTasksByCategoryCount();
-    setTimeout(() => {
-      if(this.reportType === 'all'){
-        this.getAllTasksByCategoryCount();
-        //this.getchoosenCategory(this.selectedTaskCategory); 
-      }
-      if(this.reportType !='all'){
-        this.getTaskCategoryId(parseInt(this.valueoftaskCategory))
-        this.getchoosenCategory(this.valueoftaskCategory)
-      }
+  viewPermission: boolean;
+  createPermission: boolean;
+  updatePermission: boolean;
+  deletePermission: boolean;
+  noPermissions: boolean;
+  userRoleMenuItemsPermissionMap: Map<string, string>
 
-      
-    },200)
+  async ngOnInit(): Promise<void> {
+
+    if (localStorage.getItem('jwtToken') === null) {
+      this.router.navigateByUrl('/session-timeout');
+      return;
+    }
+
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+    }
+    //get menu item  details of home page
+    var currentMenuItem = await this.getCurrentMenuItemDetails();
+    console.log(currentMenuItem)
+
+    if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+      //this.noPermissions = false;
+      //provide permission to access this component for the logged in user if view permission exists
+      console.log('exe')
+      //get permissions of this component for the user
+      var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+      if (menuItemPermissions.includes('View')) {
+        this.viewPermission = true;
+        this.getAllTaskCategoryList();
+        this.getAllTasksByTaskcategory();
+        //this.getAllTasksByCategoryCount();
+        setTimeout(() => {
+          if (this.reportType === 'all') {
+            this.getAllTasksByCategoryCount();
+            //this.getchoosenCategory(this.selectedTaskCategory); 
+          }
+          if (this.reportType != 'all') {
+            this.getTaskCategoryId(parseInt(this.valueoftaskCategory))
+            this.getchoosenCategory(this.valueoftaskCategory)
+          }
+        }, 200)
+
+      } else {
+        this.viewPermission = false;
+      }
+      if (menuItemPermissions.includes('Create')) {
+        this.createPermission = true;
+      } else {
+        this.createPermission = false;
+      }
+      if (menuItemPermissions.includes('Update')) {
+        this.updatePermission = true;
+      } else {
+        this.updatePermission = false;
+      }
+      if (menuItemPermissions.includes('Delete')) {
+        this.deletePermission = true;
+      } else {
+        this.deletePermission = false;
+      }
+    } else {
+      //this.noPermissions = true;
+      this.router.navigateByUrl('/unauthorized');
+    }
 
   }
-  valueoftaskCategory : string;
-  value : string[]
-  constructor(private taskCategoryService: TaskCategoryService, private router: Router, private activatedRoute : ActivatedRoute,
-    private taskservice: TaskService, private taskCategoryReportservice : TaskCategoryReport
-    ){
-    this.activatedRoute.queryParams.subscribe(param =>{
-       this.reportType = param['reportType'];
-       console.log(this.reportType);
+  valueoftaskCategory: string;
+  value: string[]
+  constructor(private taskCategoryService: TaskCategoryService, private router: Router, private activatedRoute: ActivatedRoute,
+    private taskservice: TaskService, private taskCategoryReportservice: TaskCategoryReport, private menuItemService: AppMenuItemService
+  ) {
+    this.activatedRoute.queryParams.subscribe(param => {
+      this.reportType = param['reportType'];
+      console.log(this.reportType);
       this.value = this.reportType.split(',')
-       console.log(this.value[1])
-       this.valueoftaskCategory = this.value[1]
+      console.log(this.value[1])
+      this.valueoftaskCategory = this.value[1]
     })
   }
-  taskCategoryList : TaskCategory[];
-  getAllTaskCategoryList(){
+  taskCategoryList: TaskCategory[];
+  getAllTaskCategoryList() {
     this.taskCategoryService.getAllTaskCategories().subscribe({
-       next : response =>{
-         this.taskCategoryList = response.body;
-       }
+      next: response => {
+        this.taskCategoryList = response.body;
+      }
     })
   }
-  taskList : Task[]
-  alltasksCount : number;
-  getAllTasksByTaskcategory(){
+  taskList: Task[]
+  alltasksCount: number;
+  getAllTasksByTaskcategory() {
     this.taskservice.getAlltasks().subscribe({
-       next : response =>{
-         this.taskList = response.body;
-         this.alltasksCount = response.body.length;
-       }
+      next: response => {
+        this.taskList = response.body;
+        this.alltasksCount = response.body.length;
+      }
     })
     // if(this.taskListByCategoryChart1 ! = null){
     //   this.taskListByCategoryChart1.destroy()
     //   this.createTaskListAllDepartmentChart()
     // }
-   
+
   }
-  taskListByCategory : Task[]
-  categoryOfTaskCount : number;
-  selectedtaskCategoryName : string;
-  getchoosenCategory(selectedCategory : string){
-     this.selectedTaskCategory = selectedCategory;
+  taskListByCategory: Task[]
+  categoryOfTaskCount: number;
+  selectedtaskCategoryName: string;
+  getchoosenCategory(selectedCategory: string) {
+    this.selectedTaskCategory = selectedCategory;
     console.log(this.selectedTaskCategory);
     if (this.taskListByCategoryChart != null) {
       this.taskListByCategoryChart.destroy();
-      
+
     }
     this.getTaskCategoryId(parseInt(this.selectedTaskCategory))
     this.taskCategoryReportservice.getAllTasksByTaskCategoryId(parseInt(this.selectedTaskCategory)).subscribe({
-      next : response =>{
+      next: response => {
         this.taskListByCategory = response.body;
         console.log(this.taskListByCategory);
         this.categoryOfTaskCount = response.body.length;
-        setTimeout(() => {  
+        setTimeout(() => {
           this.createTaskListByDepartmentChart();
         }, 400)
       }
     })
   }
-  selectedCategoryObject : TaskCategory
-  getTaskCategoryId(selectedTaskCategory : number){
-     this.taskCategoryService.getTaskCatgeoryById(selectedTaskCategory).subscribe({
-        next : response =>{
-          if(response.status == HttpStatusCode.Ok){
-            this.selectedCategoryObject = response.body;
-            this.selectedtaskCategoryName = this.selectedCategoryObject.taskCategoryTitle;
-          }
-           
+  selectedCategoryObject: TaskCategory
+  getTaskCategoryId(selectedTaskCategory: number) {
+    this.taskCategoryService.getTaskCatgeoryById(selectedTaskCategory).subscribe({
+      next: response => {
+        if (response.status == HttpStatusCode.Ok) {
+          this.selectedCategoryObject = response.body;
+          this.selectedtaskCategoryName = this.selectedCategoryObject.taskCategoryTitle;
         }
-     })
+
+      }
+    })
 
   }
-  taskCategoryCount : TaskCategoryCount[]
-  taskObjectString : string[]
-  finaltaskCategoryObject : TaskCategoryCount[] = []
-  getAllTasksByCategoryCount(){
+  taskCategoryCount: TaskCategoryCount[]
+  taskObjectString: string[]
+  finaltaskCategoryObject: TaskCategoryCount[] = []
+  getAllTasksByCategoryCount() {
     this.taskCategoryReportservice.getAllTasksByCategoryCount().subscribe({
-      next : response =>{
-         this.taskCategoryCount = response.body;
-         console.log(this.taskCategoryCount);
-         this.taskCategoryCount.forEach(taskCategory1 =>{
-            var taskCategoryString = (String)(taskCategory1);
-            this.taskObjectString = taskCategoryString.split(',')
-            var taskCategoryObject = new TaskCategoryCount();
-            taskCategoryObject.taskCategoryId = parseInt(this.taskObjectString[0]);
-            taskCategoryObject.taskCategoryCount = parseInt(this.taskObjectString[1]);
-            this.finaltaskCategoryObject.push(taskCategoryObject);
-          
-         })
+      next: response => {
+        this.taskCategoryCount = response.body;
+        console.log(this.taskCategoryCount);
+        this.taskCategoryCount.forEach(taskCategory1 => {
+          var taskCategoryString = (String)(taskCategory1);
+          this.taskObjectString = taskCategoryString.split(',')
+          var taskCategoryObject = new TaskCategoryCount();
+          taskCategoryObject.taskCategoryId = parseInt(this.taskObjectString[0]);
+          taskCategoryObject.taskCategoryCount = parseInt(this.taskObjectString[1]);
+          this.finaltaskCategoryObject.push(taskCategoryObject);
+
+        })
         this.createTaskListAllDepartmentChart();
-         this.getAllTaskCategoryNames();
+        this.getAllTaskCategoryNames();
       }
     })
   }
-  getAllTaskCategoryNames(){
+  getAllTaskCategoryNames() {
     this.getAllTaskCategoryList();
-    this.taskCategoryList.forEach(taskCategory=>{
-       this.finaltaskCategoryObject.map(categoryObject=>{
-         if(taskCategory.taskCategoryId == categoryObject.taskCategoryId){
-           categoryObject.taskCategoryTitle = taskCategory.taskCategoryTitle;
-         }
-       })
+    this.taskCategoryList.forEach(taskCategory => {
+      this.finaltaskCategoryObject.map(categoryObject => {
+        if (taskCategory.taskCategoryId == categoryObject.taskCategoryId) {
+          categoryObject.taskCategoryTitle = taskCategory.taskCategoryTitle;
+        }
+      })
     })
   }
-  type : any = 'line'
+  type: any = 'line'
   colorOfChartType: any = 'line';
-  setChartType(value : any){
+  setChartType(value: any) {
     this.type = value;
     console.log(this.type);
 
-    if(this.selectedtaskCategoryName == null){
+    if (this.selectedtaskCategoryName == null) {
       this.colorOfChartType = value;
-       if(this.taskListByCategoryChart1!= null ){
-         this.taskListByCategoryChart1.destroy();
-       }
+      if (this.taskListByCategoryChart1 != null) {
+        this.taskListByCategoryChart1.destroy();
+      }
       this.createTaskListAllDepartmentChart()
     }
-    else{
+    else {
       this.colorOfChartType = value;
-      if(this.taskListByCategoryChart!= null ){
+      if (this.taskListByCategoryChart != null) {
         this.taskListByCategoryChart.destroy();
       }
       this.createTaskListByDepartmentChart();
     }
-  
-  
+
+
   }
   createTaskListByDepartmentChart() {
     console.log("create task category chart entered");
@@ -182,10 +233,10 @@ export class TaskcategoryReportComponent implements OnInit {
             label: "Total Tasks of a task category",
             data: [this.categoryOfTaskCount],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-           // backgroundColor: 'rgb(153, 102, 255)', // Red
+            // backgroundColor: 'rgb(153, 102, 255)', // Red
             //backgroundColor : 'limegreen',
             borderColor: 'rgba(255, 99, 132, 1)',
-           // borderColor :'rgb(153, 102, 255)',
+            // borderColor :'rgb(153, 102, 255)',
             borderWidth: 1,
           },
         ]
@@ -198,17 +249,17 @@ export class TaskcategoryReportComponent implements OnInit {
             display: true,
             //stacked: true,
             grid: {
-               display: true,
+              display: true,
 
-             },
+            },
           },
           y: {
             display: true,
             grid: {
               display: true,
             },
-            ticks :{
-               stepSize : 1,
+            ticks: {
+              stepSize: 1,
             },
           },
         },
@@ -249,10 +300,10 @@ export class TaskcategoryReportComponent implements OnInit {
             label: "Total Tasks of a task category",
             data: [this.alltasksCount],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-           // backgroundColor: 'rgb(153, 102, 255)', // Red
+            // backgroundColor: 'rgb(153, 102, 255)', // Red
             //backgroundColor : 'limegreen',
             borderColor: 'rgba(255, 99, 132, 1)',
-           // borderColor :'rgb(153, 102, 255)',
+            // borderColor :'rgb(153, 102, 255)',
             borderWidth: 1,
           },
         ]
@@ -265,17 +316,17 @@ export class TaskcategoryReportComponent implements OnInit {
             display: true,
             //stacked: true,
             grid: {
-               display: true,
+              display: true,
 
-             },
+            },
           },
           y: {
             display: true,
             grid: {
               display: true,
             },
-            ticks :{
-               stepSize : 1,
+            ticks: {
+              stepSize: 1,
             },
           },
         },
@@ -305,5 +356,25 @@ export class TaskcategoryReportComponent implements OnInit {
       }
     });
   }
- 
+
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Task Category Report')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
+  }
+
 } 

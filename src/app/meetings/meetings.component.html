@@ -531,7 +531,8 @@
                 </div>
                 <br>
                 <!-- modal body/form -->
-                <form #form="ngForm" id="formId" method="POST">
+                <form #form="ngForm" id="formId" method="POST" style="margin: 10px;height:400px;
+                overflow:scroll;overflow-x:hidden;">
                     <!-- title -->
                     <label><b>Action Item Title</b><span id="required">*</span></label>
                     <input type="text" class="form-control" style="width: 400px;"
@@ -614,6 +615,7 @@
                     <div *ngIf="updateActionItemEndDateErrorInfo != ''">
                         <span id="errorSpan">{{updateActionItemEndDateErrorInfo}}</span>
                     </div>
+                </form>
 
                     <!--footer-->
                     <div class="modal-footer">
@@ -622,7 +624,7 @@
                         <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton"
                             data-dismiss="modal">Cancel</button>
                     </div>
-                </form>
+                
             </div>
         </div>
     </div>

@@ -15,6 +15,9 @@ import { HttpStatusCode } from '@angular/common/http';
 import { error } from 'jquery';
 import { DepartmentCount } from '../model/DepartmentCount.model';
 import { TaskService } from '../task/service/task.service';
+import { MenuItem } from '../model/MenuItem.model';
+import { lastValueFrom } from 'rxjs';
+import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 
 @Component({
   selector: 'app-report',
@@ -59,9 +62,14 @@ export class TaskReportsComponent implements OnInit {
   agedTaskListChart = null;
 
   defaultDepartment: number;
-
-
   loggedInUser = localStorage.getItem('email');
+
+  viewPermission: boolean;
+  createPermission: boolean;
+  updatePermission: boolean;
+  deletePermission: boolean;
+  noPermissions: boolean;
+  userRoleMenuItemsPermissionMap: Map<string, string>
 
   /**
    * 
@@ -72,7 +80,8 @@ export class TaskReportsComponent implements OnInit {
     private departmentService: DepartmentService,
     private headerService: HeaderService,
     private meetingService: MeetingService,
-    private router: Router, private taskService: TaskService) {
+    private router: Router, private taskService: TaskService,
+    private menuItemService: AppMenuItemService) {
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
       console.log(this.reportType)
@@ -83,18 +92,29 @@ export class TaskReportsComponent implements OnInit {
    * 
    */
   loggedInUserPrincipalObject: Users;
-  ngOnInit(): void {
-    //get batch process details
-    // this.taskreportsService.getAllBatchProcessDetails().subscribe(
-    //   res => {
-    //     this.batchDetails = res.body;
-    //     console.log(this.batchDetails);
-    //     this.batchDetails.filter(batchDetail => {
+  async ngOnInit(): Promise<void> {
+    if(localStorage.getItem('jwtToken') === null){
+      this.router.navigateByUrl('/session-timeout');
+      return;
+    }
+    
+    if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
+      this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+    }
+    //get menu item  details of home page
+    var currentMenuItem = await this.getCurrentMenuItemDetails();
+    console.log(currentMenuItem)
 
-    //     })
-    //   });
-
-    this.getLoggedInUserDetails(this.loggedInUser);
+      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        //this.noPermissions = false;
+        //provide permission to access this component for the logged in user if view permission exists
+        console.log('exe')
+        //get permissions of this component for the user
+        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+        if (menuItemPermissions.includes('View')) {
+          this.viewPermission = true;
+          //get logged in user details
+          this.getLoggedInUserDetails(this.loggedInUser);
     //get active users list
     this.getActiveUsersList();
     this.getDepartments();
@@ -125,10 +145,28 @@ export class TaskReportsComponent implements OnInit {
         this.createTaskListAllDepartmentChart()
       }
     }, 400)
-    console.log('finished')
-    // this.getAllDepartmentsCount();
-    //this.getAllDepartmentNames();
-
+        }else{
+          this.viewPermission = false;
+        }
+        if (menuItemPermissions.includes('Create')) {
+          this.createPermission = true;
+        }else{
+          this.createPermission = false;
+        }
+        if (menuItemPermissions.includes('Update')) {
+          this.updatePermission = true;
+        }else{
+          this.updatePermission = false;
+        }
+        if (menuItemPermissions.includes('Delete')) {
+          this.deletePermission = true;
+        }else{
+          this.deletePermission = false;
+        }
+      }else{
+        //this.noPermissions = true;
+        this.router.navigateByUrl('/unauthorized');
+      }
   }
 
   getDepartments() {
@@ -883,6 +921,24 @@ export class TaskReportsComponent implements OnInit {
     });
   }
 
-
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Task Reports')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+        console.log(this.currentMenuItem)
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        console.log('eit')
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
+    console.log(this.currentMenuItem);
+    return this.currentMenuItem;
+  }
 
 }

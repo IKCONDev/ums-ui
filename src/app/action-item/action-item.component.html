@@ -29,36 +29,38 @@
         </div>
     </div>
     <div class="card-body">
-         <!-- reportee dropdown -->
-         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0" id="headDiv">
-            <ng-select [searchable]="true" [clearable]="true" id="reportee"
-            name="reportee" style="width: 400px;"
-            [(ngModel)]="selectedReporteeOrganizedActionItem" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedActionItems()">
-            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+        <!-- reportee dropdown -->
+        <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
+            id="headDiv">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
+                [(ngModel)]="selectedReporteeOrganizedActionItem" placeholder="choose reportee"
+                (change)="storeReporteeDataOfOrganizedActionItems()">
+                <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                {{reportee.email}}
-            </ng-option>
-        </ng-select>
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                    {{reportee.email}}
+                </ng-option>
+            </ng-select>
         </div>
         <!-- reportee dropdown end -->
         <!-- reportee dropdown -->
-        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')  && reporteeCount > 0" id="headDiv">
-            <ng-select [searchable]="true" [clearable]="true" id="reportee"
-            name="reportee" style="width: 400px;"
-            [(ngModel)]="selectedReporteeOrganizedActionItem" placeholder="choose reportee" (change)="storeReporteeDataOfOrganizedActionItems()">
-            <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
+        <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')  && reporteeCount > 0"
+            id="headDiv">
+            <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
+                [(ngModel)]="selectedReporteeOrganizedActionItem" placeholder="choose reportee"
+                (change)="storeReporteeDataOfOrganizedActionItems()">
+                <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-            <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                {{reportee.email}}
-            </ng-option>
-        </ng-select>
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                    {{reportee.email}}
+                </ng-option>
+            </ng-select>
         </div>
         <!-- reportee dropdown end -->
         <div class="row d-flex" style="margin: 10px;">
             <table class="table table-hover" id="myTable" style="margin: 0px;">
                 <thead class="header" style="background-color: #ecf7fc;">
-                   <!---<th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>-->
+                    <!---<th style="padding-left: 23px;"><input type="checkbox" class="box" style="margin: 0px;"></th>-->
                     <th>Action Item ID</th>
                     <th>Meeting ID</th>
                     <th style="width: 170px;">Title</th>
@@ -70,11 +72,11 @@
                     <!--<th>Actions</th>-->
                     <th>Tasks</th>
                     <!-- <th></th> -->
-    
+
                 </thead>
                 <tbody *ngFor="let actionItem of actionItems, let i = index">
-                    <tr *ngIf="isActionItemDataText===false && actionItem.actionStatus === 'Submitted'" >
-                       <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
+                    <tr *ngIf="isActionItemDataText===false && actionItem.actionStatus === 'Submitted'">
+                        <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
                                 value="{{actionItem.actionItemId}}"></td>-->
                         <!--<td>{{actionItem.actionItemId}}</td>-->
                         <td style="padding-left: 30px;">{{actionItem.actionItemId}}</td>
@@ -89,7 +91,7 @@
                         <td>{{actionItem.actionStatus}}</td>
                         <!-- edit btn -->
                         <!--<td><button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                            <!-- <span *ngIf="actionItem.actionStatus==='NotConverted'" class="edit-icon" 
+                        <!-- <span *ngIf="actionItem.actionStatus==='NotConverted'" class="edit-icon" 
                             (click)="editData(actionItem.actionItemId)"
                             (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
                                 data-target="#myModal">
@@ -102,7 +104,7 @@
                                     </g>
                                 </svg>
                             </span> -->
-                            <!-- <span *ngIf="actionItem.actionStatus==='Converted'" aria-disabled="true" class="edit-icon"
+                        <!-- <span *ngIf="actionItem.actionStatus==='Converted'" aria-disabled="true" class="edit-icon"
                                 data-toggle="modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
@@ -113,7 +115,7 @@
                                     </g>
                                 </svg>
                             </span> -->
-                        
+
                         <!-- delete btn -
                             <span class="delete-icon" style="padding-top:px;padding-left: 20px;" (click)="deleteData(actionItem.actionItemId)"
                                 data-toggle="modal" data-target="#myModal_del">
@@ -136,7 +138,8 @@
                                 </svg>
                             </span>
                         </td>-->
-                        <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)" (click)="getCurrentActionItemDetails(actionItem)">Show Tasks</a></td>
+                        <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)"
+                                (click)="getCurrentActionItemDetails(actionItem)">Show Tasks</a></td>
                     </tr>
                     <tr class="detail">
                         <td colspan="12">
@@ -155,24 +158,27 @@
                                     </thead>
                                     <tbody *ngFor="let element of task_array">
                                         <tr *ngIf="actionItem.actionItemId == element.actionItemId">
-                                            <td  class="taskRows" >{{element.taskId}}</td>
-                                            <td  class="taskRows"  id="actionItem-subject">{{element.taskTitle}}</td>
-                                            <td  class="taskRows" id="actionItem-subject">{{element.taskDescription}}</td>
-                                            <td  class="taskRows" >{{element.taskOwner}}</td>
-                                            <td  class="taskRows" >{{element.taskCategory.taskCategoryTitle}}</td>
-                                            <td  class="taskRows" >{{element.plannedStartDate|date:'MMM d, y'}}</td>
-                                            <td  class="taskRows" >{{element.plannedEndDate|date:'MMM d, y'}}</td>
-                                            <td  class="taskRows" >{{element.taskPriority}}</td>
-                                            <td  class="taskRows" >{{element.status}}</td>
+                                            <td class="taskRows">{{element.taskId}}</td>
+                                            <td class="taskRows" id="actionItem-subject">{{element.taskTitle}}</td>
+                                            <td class="taskRows" id="actionItem-subject">{{element.taskDescription}}
+                                            </td>
+                                            <td class="taskRows">{{element.taskOwner}}</td>
+                                            <td class="taskRows">{{element.taskCategory.taskCategoryTitle}}</td>
+                                            <td class="taskRows">{{element.plannedStartDate|date:'MMM d, y'}}</td>
+                                            <td class="taskRows">{{element.plannedEndDate|date:'MMM d, y'}}</td>
+                                            <td class="taskRows">{{element.taskPriority}}</td>
+                                            <td class="taskRows">{{element.status}}</td>
                                         </tr>
                                     </tbody>
                                     <tbody>
-                                        
+
                                         <tr style="background-color: white;">
                                             <td></td>
                                             <td style="text-align: center;" colspan="7">
-                                                <button id="addTask" [style.color]="buttoncolor" [disabled]="createPermission === false" data-toggle="modal" data-target="#xlModal"
-                                                    style="cursor: pointer;padding-left: 50px;" (click)="getActiveUMSUsersEmailIdList()">Add Task</button>
+                                                <button id="addTask" [style.color]="buttoncolor"
+                                                    [disabled]="createPermission === false" data-toggle="modal"
+                                                    data-target="#xlModal" style="cursor: pointer;padding-left: 50px;"
+                                                    (click)="getActiveUMSUsersEmailIdList()">Add Task</button>
                                             </td>
                                             <td></td>
                                         </tr>
@@ -182,7 +188,7 @@
                         </td>
                     </tr>
                 </tbody>
-    
+
             </table>
         </div>
         <div>
@@ -196,7 +202,7 @@
                         <th>EndDate</th>
                     </thead>
                 </table>
-                <p id="no-meetings"  *ngIf="displayText===false">No Action Items Yet ! </p>
+                <p id="no-meetings" *ngIf="displayText===false">No Action Items Yet ! </p>
             </ng-template>
         </div>
     </div>
@@ -207,7 +213,7 @@
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
 </div> -->
-    
+
 <!--Modal for update-->
 <div class="modal" id="myModal">
     <div class="modal-dialog">
@@ -220,8 +226,7 @@
             <label>ActionItem Title</label>
             <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle" required="true"
                 name="uAcItemTitle" id="uAcItemTitle" minlength="5" maxlength="500" #uAcItemTitle="ngModel"
-                [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched" 
-                (keyup)="validateUpdateActionTitle()">
+                [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched" (keyup)="validateUpdateActionTitle()">
             <div *ngIf="updateActionItemTitleErrorInfo != ''">
                 <span id="errorSpan">{{updateActionItemTitleErrorInfo}}</span>
             </div>
@@ -236,9 +241,8 @@
             <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
             <label>Priority</label>
             <select id="priority" style="width: 400px;" [(ngModel)]="updatedetails.actionPriority" required="true"
-                id="actionItemPriority" name="uAcPriority" #uAcPriority="ngModel" 
-                [class.invalid]="uAcPriority.invalid && uAcPriority.touched"
-                (click)="validateUpdateActionPriority()">
+                id="actionItemPriority" name="uAcPriority" #uAcPriority="ngModel"
+                [class.invalid]="uAcPriority.invalid && uAcPriority.touched" (click)="validateUpdateActionPriority()">
                 <option>select</option>
                 <option>Low</option>
                 <option>Medium</option>
@@ -397,8 +401,10 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6" style="width: 560px;margin-top: 15px;">
-                            <div class="col-md-12" style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
-                                <label style=" font-size: 20px;margin: 5px;margin-left: -3px;"><b id="title-label">Title</b><span id="required">*</span></label>
+                            <div class="col-md-12"
+                                style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
+                                <label style=" font-size: 20px;margin: 5px;margin-left: -3px;"><b
+                                        id="title-label">Title</b><span id="required">*</span></label>
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px;max-height: 55px;"
@@ -419,7 +425,8 @@
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
-                                    <label style="font-size: 20px;margin:5px;margin-left: -3px;"><b id="description-label">Description</b><span id="required">*</span></label>
+                                    <label style="font-size: 20px;margin:5px;margin-left: -3px;"><b
+                                            id="description-label">Description</b><span id="required">*</span></label>
                                 </div>
                                 <textarea
                                     style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
@@ -431,7 +438,7 @@
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="errorSpan" style="padding-left: 2px;">{{taskDescriptionErrorInfo}}</span>
                                 </div>
-                                <br/>
+                                <br />
                             </div>
                         </div>
                         <div class="col-md-1"></div>
@@ -440,7 +447,8 @@
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="margin: 5px;">Details</label>
                             </div>
-                            <div class="row" id="details-section" style="padding-left: 10px; padding-right: 20px; padding-top: 10px;">
+                            <div class="row" id="details-section"
+                                style="padding-left: 10px; padding-right: 20px; padding-top: 10px;">
                                 <table>
                                     <tbody>
                                         <tr>
@@ -452,8 +460,9 @@
                                                 <span>
                                                     <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
-                                                        style="margin-top: 4px;padding-left: 10px;" [(ngModel)]="add_Task.taskOwner">
-                                                       <ng-option disabled selected value>choose</ng-option>
+                                                        style="margin-top: 4px;padding-left: 10px;"
+                                                        [(ngModel)]="add_Task.taskOwner">
+                                                        <ng-option disabled selected value>choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
                                                         </ng-option>
@@ -468,19 +477,23 @@
                                             <td><b>Category</b><span id="required">*</span></td>
                                             <td>
                                                 <span>
-                                                    <select id="taskCategory" class="form-control-sm" style="width: 300px;" [(ngModel)]="add_Task.taskCategoryId"
-                                                    name="taskCategory" #taskCategory="ngModel" (change)="validateTaskCategory()">
-                                                    <option default="true" selected="true" value="0">select</option>
-                                                      <option *ngFor="let taskCategory of taskCategoryList" value="{{taskCategory.taskCategoryId}}">{{taskCategory.taskCategoryTitle}}</option>
+                                                    <select id="taskCategory" class="form-control-sm"
+                                                        style="width: 300px;" [(ngModel)]="add_Task.taskCategoryId"
+                                                        name="taskCategory" #taskCategory="ngModel"
+                                                        (change)="validateTaskCategory()">
+                                                        <option default="true" selected="true" value="0">select</option>
+                                                        <option *ngFor="let taskCategory of taskCategoryList"
+                                                            value="{{taskCategory.taskCategoryId}}">
+                                                            {{taskCategory.taskCategoryTitle}}</option>
                                                     </select>
                                                     <span id="error_msg">{{taskCategoryErrorInfo}}</span>
-                                                    </span>
+                                                </span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Priority</b><span id="required"></span></td>
                                             <td style="padding-left: 0px;"><span>
-                                                <!-- <select id="taskPriority" class="form-control form-select"
+                                                    <!-- <select id="taskPriority" class="form-control form-select"
                                                         [(ngModel)]="add_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
                                                         [class.invalid]="taskPriority.invalid && taskPriority.touched"
@@ -490,8 +503,9 @@
                                                         <option>Medium</option>
                                                         <option>Low</option>
                                                     </select> -->
-                                                <input type="text" id="taskPriority" class="form-control" [(ngModel)]="add_Task.taskPriority"
-                                                name="taskPriority" #taskPriority="ngModel" readonly/>
+                                                    <input type="text" id="taskPriority" class="form-control"
+                                                        [(ngModel)]="add_Task.taskPriority" name="taskPriority"
+                                                        #taskPriority="ngModel" readonly />
                                                 </span>
                                                 <!-- <div *ngIf="taskPriorityErrorInfo!=''">
                                                     <span id="errorSpan">{{taskPriorityErrorInfo}}</span>
@@ -528,29 +542,29 @@
                                         <tr>
                                             <td><b>Planned Start Date</b></td>
                                             <td><span> <input type="date" class="form-control" min="{{min}}"
-                                                id="taskPlannedStartDate"
-                                                 name="taskPlannedStartDate" [(ngModel)]="add_Task.plannedStartDate"
-                                                 #taskPlannedStartDate="ngModel" required="true"
-                                                 [class.invalid]="taskPlannedStartDate.invalid && taskPlannedStartDate.touched"
-                                                 (change)="validateTaskDueDate()" disabled></span>
-                                     </td>
+                                                        id="taskPlannedStartDate" name="taskPlannedStartDate"
+                                                        [(ngModel)]="add_Task.plannedStartDate"
+                                                        #taskPlannedStartDate="ngModel" required="true"
+                                                        [class.invalid]="taskPlannedStartDate.invalid && taskPlannedStartDate.touched"
+                                                        (change)="validateTaskDueDate()" disabled></span>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b></td>
                                             <td><span> <input type="date" class="form-control" min="{{min}}"
-                                                id="taskPlannedDueDate"
-                                                 name="taskPlannedDueDate" [(ngModel)]="add_Task.plannedEndDate"
-                                                 #taskPlannedDueDate="ngModel" required="true"
-                                                 [class.invalid]="taskPlannedDueDate.invalid && taskPlannedDueDate.touched"
-                                                 (change)="validateTaskDueDate()" disabled></span>
-                                     </td>
+                                                        id="taskPlannedDueDate" name="taskPlannedDueDate"
+                                                        [(ngModel)]="add_Task.plannedEndDate"
+                                                        #taskPlannedDueDate="ngModel" required="true"
+                                                        [class.invalid]="taskPlannedDueDate.invalid && taskPlannedDueDate.touched"
+                                                        (change)="validateTaskDueDate()" disabled></span>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td ><b>Status</b><span id="required"></span></td>
-                                            <td> 
+                                            <td><b>Status</b><span id="required"></span></td>
+                                            <td>
                                                 <span>
-                                                    <input type="text" class="form-control"
-                                                     [value]="add_Task.status" readonly/>
+                                                    <input type="text" class="form-control" [value]="add_Task.status"
+                                                        readonly />
                                                 </span>
                                             </td>
                                         </tr>
@@ -561,8 +575,7 @@
                     </div>
                 </div>
                 <!-- Modal footer -->
-                <div class="modal-footer" role="alert"
-                    style="margin-top:-10px;margin-left: 20px; margin-bottom: -6px;">
+                <div class="modal-footer" role="alert" style="margin-top:-10px;margin-left: 20px; margin-bottom: -6px;">
                     <button type="submit" class="btn btn-primary saveButton" (click)="addTask(add_Task)"
                         style="margin-bottom:3px; margin-top: -5px;">Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
@@ -579,85 +592,100 @@
 
 <div class="modal" id="filterModal">
     <div class="modal-dialog" id="dialog">
-      <div class="modal-content"> 
-        <div class="filters-action-item">
-          <div class="filters-parent">
-              <div class="filters">Filters</div>
-              <img class="cross-icon" alt="" src="../../assets/images/cross.svg" 
-              id="closeModal" data-dismiss="modal" (click)="CloseFilterActionItemModal()" style="cursor: pointer;">
-          </div>
-          <div class="filter-dd">              
-              <div class="meeting-title-dd-parent">
-                  <!-- <div class="meeting-title-dd">
+        <div class="modal-content">
+            <div class="filters-action-item">
+                <div class="filters-parent">
+                    <div class="filters">Filters</div>
+                    <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
+                        data-dismiss="modal" (click)="CloseFilterActionItemModal()" style="cursor: pointer;">
+                </div>
+                <div class="filter-dd">
+                    <div class="meeting-title-dd-parent">
+                        <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
                           <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                       </div>          					
                   </div> -->
-                  <div class="meeting-title-dd">
-                    <div class="meeting-title-filter">
-                        <input type ="text" [(ngModel)]="actionItemNameFilter" #boxTitle placeholder="Task title" name="taskName" />
-                        <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
-                    </div>          					
+                        <div class="meeting-title-dd">
+                            <div class="meeting-title-filter">
+                                <input type="text" [(ngModel)]="actionItemNameFilter" #boxTitle placeholder="Task title"
+                                    name="taskName" />
+                                <img class="search-icon" alt="" src="../../assets/images/search.svg">
+                            </div>
+                        </div>
+                        <div class="meeting-title-dd">
+                            <div>Organizer
+                                <select [(ngModel)]="actionItemOwnerFilter" #boxOwner class="actitem-organizer-filter">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">
+                                        {{userEmail}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="date-range">
+                            <div class="date-parent">
+                                <input type="date" #boxStart [(ngModel)]="actionItemStartDateFilter" />
+                            </div>
+                            <div class="to">To</div>
+                            <div class="date-parent">
+                                <input type="date" #boxEnd [(ngModel)]="actionItemEndDateFilter" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                  <div class="meeting-title-dd">
-                      <div >Organizer
-                          <select [(ngModel)] = "actionItemOwnerFilter" #boxOwner class="actitem-organizer-filter">
-                            <option value="">Select</option>
-                            <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">{{userEmail}}</option>
-                        </select>
-                      </div>
-                  </div>
-        
-                  <div class="date-range">
-                      <div class="date-parent">
-                          <input type="date" #boxStart [(ngModel)] = "actionItemStartDateFilter" />
-                      </div>
-                      <div class="to">To</div>
-                      <div class="date-parent">
-                          <input type="date" #boxEnd [(ngModel)] = "actionItemEndDateFilter" />
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="submit-button-parent">
-              <button type="button" class="submit-button" (click)="filterActionItemList(boxTitle.value, boxOwner.value, boxStart.value, boxEnd.value)">Apply</button>
-              <button type="button" class="delete-button" (click)="resetFilterModal()" >Clear</button>
-          </div>
-      </div>  
-      </div>
+                <div class="submit-button-parent">
+                    <button type="button" class="submit-button"
+                        (click)="filterActionItemList(boxTitle.value, boxOwner.value, boxStart.value, boxEnd.value)">Apply</button>
+                    <button type="button" class="delete-button" (click)="resetFilterModal()">Clear</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 
 
-<div *ngIf="isComponentLoading===true"  style="padding-top:90px;color: #134E69D9;">
+<div *ngIf="isComponentLoading===true" style="padding-top:90px;color: #134E69D9;">
     <!-- <span *ngIf="isComponentLoading===true">
         <div class="spinner-border" style="width: 4rem; height: 4rem;animation-duration:1s" role="status">
             <span class="sr-only">Loading...</span>
              <div style="position: fixed;padding-top: 16px;padding-left: 8px;"><h5>UMS</h5></div>
         </div>
-    </span>-->   
+    </span>-->
     <div style="padding-left: 50%;">
-        <div class="loader" style="color: #2AA3D9;"></div> 
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 315 103" fill="none" style="margin-left:-7px">
-                <path d="M70.7305 1.88965H99.9988V53.726H70.7305V31.2772V1.88965Z" fill="url(#paint0_linear_354_164515)"/>
-                <path d="M99.9905 54.5423V1.88965L29.2588 73.7258C24.3834 88.0114 49.998 101.481 60.5596 101.481C93.9306 101.481 100.261 66.515 99.9905 54.5423Z" fill="url(#paint1_linear_354_164515)"/>
-                <path d="M0 53.3168V1.48131C20.3252 5.15471 30.4878 12.0918 30.4878 53.3168C30.4878 94.5417 50.1355 100.664 60.1626 101.48C12.3577 101.48 0 77.3982 0 53.3168Z" fill="#30D64B"/>
-                <path d="M118.575 101.53C117.622 101.53 116.764 101.196 116.001 100.529C115.334 99.8614 115 99.0034 115 97.9547V5.00469C115 3.95602 115.334 3.09802 116.001 2.43069C116.764 1.76335 117.622 1.42969 118.575 1.42969H134.019C135.544 1.42969 136.688 1.85868 137.451 2.71668C138.309 3.47935 138.833 4.09902 139.024 4.57569L164.192 49.7637L189.36 4.57569C189.646 4.09902 190.123 3.47935 190.79 2.71668C191.553 1.85868 192.744 1.42969 194.365 1.42969H209.666C210.715 1.42969 211.573 1.76335 212.24 2.43069C213.003 3.09802 213.384 3.95602 213.384 5.00469V97.9547C213.384 99.0034 213.003 99.8614 212.24 100.529C211.573 101.196 210.715 101.53 209.666 101.53H192.649C191.6 101.53 190.695 101.196 189.932 100.529C189.265 99.8614 188.931 99.0034 188.931 97.9547V44.3297L172.772 74.2167C172.391 75.0747 171.819 75.8374 171.056 76.5047C170.293 77.172 169.245 77.5057 167.91 77.5057H160.474C159.139 77.5057 158.091 77.172 157.328 76.5047C156.565 75.8374 155.946 75.0747 155.469 74.2167L139.31 44.3297V97.9547C139.31 99.0034 138.976 99.8614 138.309 100.529C137.642 101.196 136.784 101.53 135.735 101.53H118.575Z" fill="#2AA3D9"/>
-                <path d="M271.569 102.96C262.036 102.96 254.123 101.625 247.831 98.956C241.539 96.1913 236.772 92.6163 233.531 88.231C230.289 83.8457 228.573 79.1743 228.383 74.217C228.383 73.4543 228.669 72.787 229.241 72.215C229.908 71.5477 230.671 71.214 231.529 71.214H249.547C250.882 71.214 251.883 71.4523 252.55 71.929C253.313 72.4057 253.98 73.0253 254.552 73.788C255.315 75.218 256.363 76.6003 257.698 77.935C259.128 79.2697 260.939 80.366 263.132 81.224C265.42 81.9867 268.232 82.368 271.569 82.368C277.098 82.368 281.245 81.51 284.01 79.794C286.87 78.078 288.3 75.7423 288.3 72.787C288.3 70.6897 287.537 68.9737 286.012 67.639C284.487 66.209 282.008 64.9697 278.576 63.921C275.239 62.777 270.759 61.633 265.134 60.489C257.889 58.9637 251.692 57.0093 246.544 54.626C241.491 52.1473 237.63 48.9537 234.961 45.045C232.291 41.041 230.957 36.0837 230.957 30.173C230.957 24.3577 232.577 19.162 235.819 14.586C239.156 10.01 243.779 6.435 249.69 3.861C255.601 1.287 262.608 0 270.711 0C277.289 0 283.057 0.857995 288.014 2.574C293.067 4.29 297.309 6.57801 300.741 9.438C304.173 12.298 306.747 15.3487 308.463 18.59C310.274 21.736 311.228 24.8343 311.323 27.885C311.323 28.6477 311.037 29.3627 310.465 30.03C309.893 30.602 309.178 30.888 308.32 30.888H289.444C288.395 30.888 287.49 30.6973 286.727 30.316C285.964 29.9347 285.297 29.315 284.725 28.457C284.153 26.3597 282.628 24.5483 280.149 23.023C277.766 21.4023 274.62 20.592 270.711 20.592C266.516 20.592 263.227 21.3547 260.844 22.88C258.556 24.31 257.412 26.5503 257.412 29.601C257.412 31.5077 258.032 33.176 259.271 34.606C260.606 36.036 262.751 37.2753 265.706 38.324C268.757 39.3727 272.904 40.469 278.147 41.613C286.822 43.2337 293.829 45.2833 299.168 47.762C304.507 50.1453 308.415 53.2913 310.894 57.2C313.373 61.0133 314.612 65.8277 314.612 71.643C314.612 78.1257 312.753 83.7503 309.035 88.517C305.412 93.1883 300.36 96.7633 293.877 99.242C287.394 101.721 279.958 102.96 271.569 102.96Z" fill="#2AA3D9"/>
-                <defs>
-                <linearGradient id="paint0_linear_354_164515" x1="85.3646" y1="1.88965" x2="85.3646" y2="74.1332" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2AA3D9"/>
-                <stop offset="1"/>
+        <div class="loader" style="color: #2AA3D9;"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 315 103" fill="none"
+            style="margin-left:-7px">
+            <path d="M70.7305 1.88965H99.9988V53.726H70.7305V31.2772V1.88965Z" fill="url(#paint0_linear_354_164515)" />
+            <path
+                d="M99.9905 54.5423V1.88965L29.2588 73.7258C24.3834 88.0114 49.998 101.481 60.5596 101.481C93.9306 101.481 100.261 66.515 99.9905 54.5423Z"
+                fill="url(#paint1_linear_354_164515)" />
+            <path
+                d="M0 53.3168V1.48131C20.3252 5.15471 30.4878 12.0918 30.4878 53.3168C30.4878 94.5417 50.1355 100.664 60.1626 101.48C12.3577 101.48 0 77.3982 0 53.3168Z"
+                fill="#30D64B" />
+            <path
+                d="M118.575 101.53C117.622 101.53 116.764 101.196 116.001 100.529C115.334 99.8614 115 99.0034 115 97.9547V5.00469C115 3.95602 115.334 3.09802 116.001 2.43069C116.764 1.76335 117.622 1.42969 118.575 1.42969H134.019C135.544 1.42969 136.688 1.85868 137.451 2.71668C138.309 3.47935 138.833 4.09902 139.024 4.57569L164.192 49.7637L189.36 4.57569C189.646 4.09902 190.123 3.47935 190.79 2.71668C191.553 1.85868 192.744 1.42969 194.365 1.42969H209.666C210.715 1.42969 211.573 1.76335 212.24 2.43069C213.003 3.09802 213.384 3.95602 213.384 5.00469V97.9547C213.384 99.0034 213.003 99.8614 212.24 100.529C211.573 101.196 210.715 101.53 209.666 101.53H192.649C191.6 101.53 190.695 101.196 189.932 100.529C189.265 99.8614 188.931 99.0034 188.931 97.9547V44.3297L172.772 74.2167C172.391 75.0747 171.819 75.8374 171.056 76.5047C170.293 77.172 169.245 77.5057 167.91 77.5057H160.474C159.139 77.5057 158.091 77.172 157.328 76.5047C156.565 75.8374 155.946 75.0747 155.469 74.2167L139.31 44.3297V97.9547C139.31 99.0034 138.976 99.8614 138.309 100.529C137.642 101.196 136.784 101.53 135.735 101.53H118.575Z"
+                fill="#2AA3D9" />
+            <path
+                d="M271.569 102.96C262.036 102.96 254.123 101.625 247.831 98.956C241.539 96.1913 236.772 92.6163 233.531 88.231C230.289 83.8457 228.573 79.1743 228.383 74.217C228.383 73.4543 228.669 72.787 229.241 72.215C229.908 71.5477 230.671 71.214 231.529 71.214H249.547C250.882 71.214 251.883 71.4523 252.55 71.929C253.313 72.4057 253.98 73.0253 254.552 73.788C255.315 75.218 256.363 76.6003 257.698 77.935C259.128 79.2697 260.939 80.366 263.132 81.224C265.42 81.9867 268.232 82.368 271.569 82.368C277.098 82.368 281.245 81.51 284.01 79.794C286.87 78.078 288.3 75.7423 288.3 72.787C288.3 70.6897 287.537 68.9737 286.012 67.639C284.487 66.209 282.008 64.9697 278.576 63.921C275.239 62.777 270.759 61.633 265.134 60.489C257.889 58.9637 251.692 57.0093 246.544 54.626C241.491 52.1473 237.63 48.9537 234.961 45.045C232.291 41.041 230.957 36.0837 230.957 30.173C230.957 24.3577 232.577 19.162 235.819 14.586C239.156 10.01 243.779 6.435 249.69 3.861C255.601 1.287 262.608 0 270.711 0C277.289 0 283.057 0.857995 288.014 2.574C293.067 4.29 297.309 6.57801 300.741 9.438C304.173 12.298 306.747 15.3487 308.463 18.59C310.274 21.736 311.228 24.8343 311.323 27.885C311.323 28.6477 311.037 29.3627 310.465 30.03C309.893 30.602 309.178 30.888 308.32 30.888H289.444C288.395 30.888 287.49 30.6973 286.727 30.316C285.964 29.9347 285.297 29.315 284.725 28.457C284.153 26.3597 282.628 24.5483 280.149 23.023C277.766 21.4023 274.62 20.592 270.711 20.592C266.516 20.592 263.227 21.3547 260.844 22.88C258.556 24.31 257.412 26.5503 257.412 29.601C257.412 31.5077 258.032 33.176 259.271 34.606C260.606 36.036 262.751 37.2753 265.706 38.324C268.757 39.3727 272.904 40.469 278.147 41.613C286.822 43.2337 293.829 45.2833 299.168 47.762C304.507 50.1453 308.415 53.2913 310.894 57.2C313.373 61.0133 314.612 65.8277 314.612 71.643C314.612 78.1257 312.753 83.7503 309.035 88.517C305.412 93.1883 300.36 96.7633 293.877 99.242C287.394 101.721 279.958 102.96 271.569 102.96Z"
+                fill="#2AA3D9" />
+            <defs>
+                <linearGradient id="paint0_linear_354_164515" x1="85.3646" y1="1.88965" x2="85.3646" y2="74.1332"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2AA3D9" />
+                    <stop offset="1" />
                 </linearGradient>
-                <linearGradient id="paint1_linear_354_164515" x1="59.3489" y1="68.8271" x2="-58.8583" y2="152.454" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2AA3D9"/>
-                <stop offset="1"/>
+                <linearGradient id="paint1_linear_354_164515" x1="59.3489" y1="68.8271" x2="-58.8583" y2="152.454"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2AA3D9" />
+                    <stop offset="1" />
                 </linearGradient>
-                </defs>
-                <!-- Animation -->
-                <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.5s" repeatCount="indefinite" />
-            </svg>
-    </div>      
-</div> 
+            </defs>
+            <!-- Animation -->
+            <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.5s"
+                repeatCount="indefinite" />
+        </svg>
+    </div>
+</div>
