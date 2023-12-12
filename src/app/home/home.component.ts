@@ -779,7 +779,7 @@ export class HomeComponent implements OnInit {
       this.myChart2 = new Chart("myChart2", {
         type: 'pie',
         data: {
-          labels: ['Sunday','Monday','Tuesday','Wednesday','/nThursday','Friday','Saturday'],
+          labels: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
           datasets: [
             {
               label: "Organised Meetings",
