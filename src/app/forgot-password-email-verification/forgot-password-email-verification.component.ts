@@ -140,7 +140,7 @@ export class ForgotPasswordEmailVerificationComponent {
     )
   }
   else{
-    this.toastr.error("Email ID is incorrect , OTP has not sent ")
+    this.toastr.error("Email ID is incorrect , OTP has not been sent ")
   }
 
       
