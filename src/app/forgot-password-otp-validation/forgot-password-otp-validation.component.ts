@@ -211,7 +211,7 @@ export class ForgotPasswordOtpValidationComponent {
       }))
   }
   otpValidation(event: KeyboardEvent) {
-    const invalidChars = ['+', '-', '.', 'e'];
+    const invalidChars = ['+', '-', '.', 'e','E'];
     const inputElement = event.target as HTMLInputElement;
     
     // Clear the error message when the user starts modifying the OTP
