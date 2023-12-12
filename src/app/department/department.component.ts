@@ -165,7 +165,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
       },error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
-        }
+        } 
       }
   })
   }
@@ -722,6 +722,5 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
-
 
 }
