@@ -97,6 +97,11 @@ export class ForgotPasswordResetComponent {
       this.passwordCriteria = '';
       this.verificationResponse = '';
     } else {
+      const spaceAtFrontAndLast = /^\s|\s$/.test(this.newPassword);
+      if(!spaceAtFrontAndLast===false){
+        this.passwordCriteria = "Your password can’t start or end with a blank space";
+      }
+      else{
       this.result_value = this.isPasswordvalid(this.newPassword);
       console.log(this.newPassword);
   
@@ -125,6 +130,7 @@ export class ForgotPasswordResetComponent {
       }
     }
   }
+}
   
   setConfirmPassword(event: any) {
     this.isUpdate = true;
@@ -156,9 +162,9 @@ export class ForgotPasswordResetComponent {
     const hasUppercase = /[A-Z]/.test(newPassword);
     const hasLowercase = /[a-z]/.test(newPassword);
     const hasNumber = /\d/.test(newPassword);
-    const space=/ /.test(newPassword);
+    const spaceAtFrontAndLast = /^\s|\s$/.test(newPassword);
     const hasSpecialChar = /[!@#$^&*()_+{}\[\]:;<>,.?~\\/-]/.test(newPassword);
-    return (newPassword.length>=minLength && hasUppercase&&hasLowercase&&hasNumber&&hasSpecialChar&&!space);
+    return (newPassword.length>=minLength && hasUppercase&&hasLowercase&&hasNumber&&hasSpecialChar&&!spaceAtFrontAndLast);
   }
   updatePassword(){ 
     if(this.newPassword === this.confirmPassword&&this.passwordCriteria==="Strong Password"){
