@@ -109,7 +109,10 @@ import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permis
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates:true,
+      timeOut: 1100
+    }),
     BrowserAnimationsModule,
     NgSelectModule,
     ReactiveFormsModule,

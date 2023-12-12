@@ -65,7 +65,7 @@
                     <div class="col-sm-12" style="text-align: center;padding-top: 10px;">
 
                         <button id="loginButton" class="btn btn-primary" style="width: 240px;" (window:keypress)="loginIfEnterButtonIsClicked($event)" 
-                         (click)="login()">Login</button>
+                         (click)="login()" [disabled]=disableLoginButton>Login</button>
                     </div>
                     <!-- <br />
                     <p style="text-align: center;">or</p>

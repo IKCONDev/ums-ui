@@ -78,6 +78,7 @@ export class LoginComponent {
   username = "";
   accessToken = "";
   myMSALObj;
+  disableLoginButton:boolean=false;
 
   /**
    * initializes the MicrosoftAuthLibraryObject
@@ -260,6 +261,7 @@ export class LoginComponent {
    * Custom login of UMS application
    */
   async login(): Promise<void> {
+    this.disableLoginButton=true;
     console.log('submitted')
     if (localStorage.getItem('jwtToken') === null || localStorage.getItem('jwtToken') === "") {
       this.checkLogin();
@@ -294,7 +296,7 @@ export class LoginComponent {
             localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
             localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
             localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
-
+            this.disableLoginButton=false;
             //set default tabs for meetings
             localStorage.setItem('tabOpened', 'OrganizedMeeting');
             //set default tabs for tasks
@@ -353,7 +355,7 @@ export class LoginComponent {
             localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
             localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
            localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
-
+            this.disableLoginButton=false;
             //set default tabs for meetings
             localStorage.setItem('tabOpened', 'OrganizedMeeting');
             //set default tabs for tasks
@@ -400,11 +402,20 @@ export class LoginComponent {
           } else if (error.status === HttpStatusCode.Unauthorized) {
             this.errorInfo = 'Invalid Credentials'
             this.toastr.error('Incorrect username or password', 'Login Failure')
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
           } else if (error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('UserInactiveException')) {
             //dont even generate a jwt token for inactive user.
             this.toastr.error('Provided user account is inactive', 'Account Disabled')
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
           } else if (error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('LoginAttemptsExceededException')) {
             this.toastr.error('Account locked due to 3 continuous failed attempts');
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
           }
           // on error clear localstorage
           window.localStorage.clear();
@@ -412,6 +423,9 @@ export class LoginComponent {
       })
     } else {
       this.toastr.error('Another session is already running, please navigate to the already opened UMS application tab');
+      setTimeout(()=>{
+        this.disableLoginButton=false;
+      },1000)
     }
   }
 
@@ -507,6 +521,9 @@ export class LoginComponent {
     if(emailRegExp.test(this.user.email)===false){
       this.errorInfo = 'Invalid Credentials'
       this.toastr.error('Incorrect username or password', 'Login Failure')
+      setTimeout(()=>{
+        this.disableLoginButton=false;
+      },1200)
     }
   }
 }
