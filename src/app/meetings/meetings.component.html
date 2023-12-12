@@ -790,13 +790,14 @@
                         <!-- attendees -->
                         <label><b>Attendees</b><span id="required">*</span></label>
                         <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees"
-                            [selectableGroup]="true" name="meetingAttendees" style="width: 411px;padding-left: 10px;"
+                            [selectableGroup]="true" name="meetingAttendees" style="width: 411px;padding-left: 10px;padding-bottom: 10px;"
                             [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()"
                             placeholder="choose attendees">
                             <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdListForAttendees">
                                 {{emailId}}
                             </ng-option>
                         </ng-select>
+                    
                         <div>
                             <span id="errorSpan" *ngIf="meetingAttendeesErrorInfo != ''">
                                 <p>{{meetingAttendeesErrorInfo}}</p>
