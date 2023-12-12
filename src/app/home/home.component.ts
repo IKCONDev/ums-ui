@@ -753,7 +753,7 @@ export class HomeComponent implements OnInit {
                 },
                 padding: 16,
                 pointStyle: 'rectRounded',
-
+                
               },
             },
             title: {
@@ -775,25 +775,25 @@ export class HomeComponent implements OnInit {
   createChart2() {
     if (this.selectedOption2 === 'Week') {
       var dayColors = ['mistyrose', 'lightsteelblue', 'palegreen', 'lightcoral', 'thistle', 'lightsalmon', 'mediumseagreen'];
-
+      
       this.myChart2 = new Chart("myChart2", {
         type: 'pie',
         data: {
-          labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          labels: ['Sunday','Monday','Tuesday','Wednesday','/nThursday','Friday','Saturday'],
           datasets: [
             {
               label: "Organised Meetings",
               data: this.TotalMeetingStatus[1],
               backgroundColor: dayColors,
-
-              borderWidth: 1.5,
+              borderColor:dayColors,
+              borderWidth: 3,
             },
             {
               label: "Attended Meetings",
               data: this.TotalMeetingStatus[0],
               backgroundColor: dayColors,
-
-              borderWidth: 1.5,
+              borderColor:dayColors,
+              borderWidth: 3,
             }
           ]
         },
@@ -819,12 +819,12 @@ export class HomeComponent implements OnInit {
           plugins: {
             legend: {
               display: true,
-              position: 'right',
-              align: 'end',
+              position: 'top',
+              align: 'center',
               labels: {
                 usePointStyle: true,
                 font: {
-                  size: 14,
+                  size: 12,
                 },
                 padding: 16,
                 pointStyle: 'rectRounded',
@@ -864,15 +864,14 @@ export class HomeComponent implements OnInit {
               label: "Organised Meetings",
               data: this.TotalMeetingStatusForYear[1],
               backgroundColor: mildColors,
-
-              borderWidth: 1.5,
+              borderColor:mildColors,
+              borderWidth: 3,
             },
             {
               label: "Attended Meetings",
               data: this.TotalMeetingStatusForYear[0],
               backgroundColor: mildColors,
-
-              borderWidth: 1.5,
+              borderWidth: 3,
             }
           ]
         },
@@ -889,8 +888,8 @@ export class HomeComponent implements OnInit {
           plugins: {
             legend: {
               display: true,
-              position: 'right',
-              align: 'end',
+              position: 'top',
+              align: 'center',
               labels: {
                 usePointStyle: true,
                 font: {
@@ -933,13 +932,15 @@ export class HomeComponent implements OnInit {
               label: "Organised Meetings",
               data: [this.TotalMeetingStatusForMonth[1][currentMonthNumber]],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-              borderWidth: 1.5,
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 3,
             },
             {
               label: "Attended Meetings",
               data: [this.TotalMeetingStatusForMonth[0][currentMonthNumber]],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrang
-              borderWidth: 1.5,
+              borderColor:'rgba(255, 148, 112, 0.7)',
+              borderWidth: 3,
             }
           ]
         },
@@ -956,8 +957,8 @@ export class HomeComponent implements OnInit {
           plugins: {
             legend: {
               display: true,
-              position: 'right',
-              align: 'end',
+              position: 'top',
+              align: 'center',
               labels: {
                 usePointStyle: true,
                 font: {
