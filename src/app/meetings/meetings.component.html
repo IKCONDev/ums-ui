@@ -121,18 +121,19 @@
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header" style="background-color:#134E69D9; ">
-                                                <div class="row">
-                                                    <div class="col-sm-11" style="color: #fff;">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Meeting Id :
-                                                            {{transcriptMeetingId}} - {{meetingSubject}}</h5>
-                                                    </div>
-                                                    <div class="col-sm-1">
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <b aria-hidden="true" style="color: #fff;">&times;</b>
-                                                        </button>
-                                                    </div>
+                                                <div>
+                                                    <h5 class="modal-title" style="color: #fff;">Meeting Id :
+                                                        {{transcriptMeetingId}} - {{meetingSubject}}</h5>
                                                 </div>
+
+
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close" style="color: #fff;
+                                                             position: absolute; top: 0; right: 0; margin-right: 5px;
+                                                             margin-top: 3px;">
+                                                    <b aria-hidden="true">&times;</b>
+                                                </button>
+
                                             </div>
                                             <!-- transcript modal body -- shows transcript data -->
                                             <div class="modal-body" style="margin: 5px;" *ngIf="transcriptsCount > 0">
@@ -617,14 +618,14 @@
                     </div>
                 </form>
 
-                    <!--footer-->
-                    <div class="modal-footer">
-                        <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
-                            (click)="updateActionItem(form)" [(ngModel)]="updatedetails">Update</button>
-                        <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton"
-                            data-dismiss="modal">Cancel</button>
-                    </div>
-                
+                <!--footer-->
+                <div class="modal-footer">
+                    <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
+                        (click)="updateActionItem(form)" [(ngModel)]="updatedetails">Update</button>
+                    <button type="button" id="closeUpdateModal" class="btn btn-outline-danger cancelButton"
+                        data-dismiss="modal">Cancel</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -790,14 +791,15 @@
                         <!-- attendees -->
                         <label><b>Attendees</b><span id="required">*</span></label>
                         <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees"
-                            [selectableGroup]="true" name="meetingAttendees" style="width: 411px;padding-left: 10px;padding-bottom: 10px;"
+                            [selectableGroup]="true" name="meetingAttendees"
+                            style="width: 411px;padding-left: 10px;padding-bottom: 10px;"
                             [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()"
                             placeholder="choose attendees">
                             <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdListForAttendees">
                                 {{emailId}}
                             </ng-option>
                         </ng-select>
-                    
+
                         <div>
                             <span id="errorSpan" *ngIf="meetingAttendeesErrorInfo != ''">
                                 <p>{{meetingAttendeesErrorInfo}}</p>
@@ -820,7 +822,7 @@
                         <!--footer-->
                         <div class="modal-footer">
                             <button type="submit" id="createMeeting" class="btn btn-primary updateButton"
-                                (click)="createMeeting(form)">Create</button>
+                                (click)="createMeeting(form)">Create</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="button" id="closeCreateMeetingModal"
                                 class="btn btn-outline-danger cancelButton" data-dismiss="modal"
                                 (click)="clearErrorMessages(form)">Cancel</button>
