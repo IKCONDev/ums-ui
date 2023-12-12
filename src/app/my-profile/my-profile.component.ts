@@ -84,7 +84,7 @@ export class MyProfileComponent {
         (response) => {
           if (response.status === HttpStatusCode.Ok) {
             this.selectedUserProfilePic = response.body.profilePic;
-            this.toastr.success('Profile pic uploaded succesfully');
+            this.toastr.success('Profile picture has been uploaded succesfully');
             
             setTimeout(() => {
               window.location.reload();
@@ -149,7 +149,7 @@ export class MyProfileComponent {
     if(isConfirmed){
     this.profileService.deleteProfilePic().subscribe({
       next: (response) => {
-          this.toastr.success('Profile pic deleted successfully');
+          this.toastr.success('Profile picture has been deleted successfully');
           setTimeout(() => {
             window.location.reload(); 
           },200 ); 
