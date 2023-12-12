@@ -262,6 +262,7 @@ export class LoginComponent {
   async login(): Promise<void> {
     console.log('submitted')
     if (localStorage.getItem('jwtToken') === null || localStorage.getItem('jwtToken') === "") {
+      this.checkLogin();
       this.loginService.logUserIfValid(this.user).subscribe({
         next: response => {
           this.loginInfo.token = response.headers.get('token');
@@ -499,6 +500,14 @@ export class LoginComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  checkLogin(){
+    var emailRegExp=/^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
+    if(emailRegExp.test(this.user.email)===false){
+      this.errorInfo = 'Invalid Credentials'
+      this.toastr.error('Incorrect username or password', 'Login Failure')
+    }
   }
 }
 
