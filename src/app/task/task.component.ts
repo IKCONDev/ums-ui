@@ -102,7 +102,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true,
           pageLength: 10,
-          order: [[1, 'asc']],
+          orderFixed: [[1, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
         });
@@ -115,7 +115,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true,
           pageLength: 10,
-          order: [[1, 'asc']],
+          orderFixed: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
         });

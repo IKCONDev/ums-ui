@@ -132,8 +132,13 @@ export class ForgotPasswordResetComponent {
     console.log(this.confirmPassword);
   
     if (this.newPassword === this.confirmPassword) {
+      if(this.result_value!=false){
       this.isUpdate = false;
       this.verificationResponse = "";
+      }
+      else{
+        this.verificationResponse = "Weak Password"
+      }
     } else if (this.newPassword === '' && this.confirmPassword === '') {
       this.verificationResponse = "";
     } else {
