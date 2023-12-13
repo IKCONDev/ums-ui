@@ -10,4 +10,37 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    margin-left: 3px;
+    height: 27px;
+}
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    padding: 4px;
+    height: 27px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: .2em;
+    padding-top: .2em;
+    padding-bottom: 1.5em;
+    margin-left: 2px;
+    text-align: center;
+    align-items: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #333 !important;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    height: 30px;
+}
 
