@@ -233,5 +233,9 @@ export class ForgotPasswordResetComponent {
     });
   }
   */
+  getPOPUPMessage(){
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
 
 }
