@@ -319,7 +319,7 @@
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
-                                placeholder="Enter Title" class="form-control" name="taskTitle" required="true"
+                                placeholder="Enter title" class="form-control" name="taskTitle" required="true"
                                 [(ngModel)]="update_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
                                 minlength="5" maxlength="50"></textarea>
@@ -344,7 +344,7 @@
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..."
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description"
                                     minlength="10" maxlength="250"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
