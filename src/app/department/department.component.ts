@@ -571,7 +571,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   validateUpdatedDepartmentLocation(){
     // var deptLocation = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/^[A-Za-z ]+$/;
+    const regex2=/^[A-Za-z .,]+$/;
      if(this.existingDepartment.departmentAddress === '' || this.existingDepartment.departmentAddress.trim()==="" || regex.exec(this.existingDepartment.departmentAddress)===null){
        this.updatedDepartmentLocationErrorInfo = 'Department location is required.';
        this.isUpdatedDepartmentLocationValid = false;

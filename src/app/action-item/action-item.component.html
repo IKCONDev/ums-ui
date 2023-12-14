@@ -405,6 +405,25 @@
                                 style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
                                 <label style=" font-size: 20px;margin: 5px;margin-left: -3px;"><b
                                         id="title-label">Title</b><span id="required">*</span></label>
+                                <!--Showing the Assigned task title criteria-->     
+                                <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()" style="margin-left: 416px;">
+                                    <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_962_516)">
+                                            <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_962_516">
+                                                <rect width="48" height="48" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <span style="margin-left: -188px;" class="popuptext" id="myPopup"><ol>
+                                        <li>Title should have minimum of 5 charcters.</li>
+                                        <li>Title should not exceed more than 50 characters.</li>
+                                    </ol></span>
+                                </b> 
+
+
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px;max-height: 55px;"
@@ -427,6 +446,24 @@
                                         Text</label>-->
                                     <label style="font-size: 20px;margin:5px;margin-left: -3px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
+
+                                    <!--Showing the Assigned task description criteria-->        
+                                    <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()" style="margin-left: 354px;">
+                                        <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_962_516)">
+                                                <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill=" white" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_962_516">
+                                                    <rect width="48" height="48" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <span style="margin-left: -186px;" class="popuptext2" id="myPopup2"><ol>
+                                            <li>Description should have minimum of 10 charcters.</li>
+                                            <li>Description should not exceed more than 250 characters.</li>
+                                        </ol></span>
+                                    </b>             
                                 </div>
                                 <textarea
                                     style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"

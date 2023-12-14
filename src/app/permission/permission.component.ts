@@ -223,10 +223,15 @@ export class PermissionComponent implements OnInit{
     isPermissionValueValid:boolean = false;
     validatePermissionValue(){
       const regex = /^\S.*[a-zA-Z\s]*$/;
-      if(this.addPermission.permissionValue ==''){
+      const regex2=/^[A-Za-z ,]+$/;
+      if(this.addPermission.permissionValue =='' || this.addPermission.permissionValue.trim()==="" || regex.exec(this.addPermission.permissionValue)===null){
         this.permissionValueErrorInfo = 'Permission Value is required.';
         this.isPermissionValueValid = false;
-      }else{
+      }else if(regex2.test(this.addPermission.permissionValue) === false){
+        this.permissionValueErrorInfo = 'Permission value cannot have special characters or numbers.';
+        this.isPermissionValueValid = false;
+      }
+      else{
         this.isPermissionValueValid = true;
         this.permissionValueErrorInfo = '';
       }
