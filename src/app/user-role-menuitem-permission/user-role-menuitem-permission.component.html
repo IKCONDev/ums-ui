@@ -136,16 +136,16 @@
                 <div>
                     <label><b>Select permissions for menu item</b></label><br />
                     <div *ngIf="unassignedMenuItemList.length > 0; else noPermissions">
-                        <input type="checkbox" name="permission1" (change)="setPermission($event,'View')" />View
-                        <input type="checkbox" name="permission2" (change)="setPermission($event,'Create')" />Create
-                        <input type="checkbox" name="permission3" (change)="setPermission($event,'Update')" />Update
-                        <input type="checkbox" name="permission4" (change)="setPermission($event,'Delete')" />Delete
+                        <input type="checkbox" name="permission1" (change)="setPermission($event,'View')"  /><span class="pad"> View</span>  &nbsp;
+                        <input type="checkbox" name="permission2" (change)="setPermission($event,'Create')" /> <span class="pad"> Create</span>&nbsp;
+                        <input type="checkbox" name="permission3" (change)="setPermission($event,'Update')" /><span class="pad"> Update</span> &nbsp;
+                        <input type="checkbox" name="permission4" (change)="setPermission($event,'Delete')" /> <span class="pad"> Delete</span>&nbsp;
                     </div>
                     <ng-template #noPermissions>
-                        <input type="checkbox" disabled="true" />View
-                        <input type="checkbox" disabled="true" />Create
-                        <input type="checkbox" disabled="true" />Update
-                        <input type="checkbox" disabled="true" />Delete
+                        <input type="checkbox" disabled="true" />View &nbsp;
+                        <input type="checkbox" disabled="true" />Create &nbsp;
+                        <input type="checkbox" disabled="true" />Update &nbsp;
+                        <input type="checkbox" disabled="true" />Delete &nbsp;
                     </ng-template>
                 </div>
             </div>
