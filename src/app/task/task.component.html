@@ -86,7 +86,7 @@
                         <th>Planned End Date</th>
                         <th>Priority</th>
                         <th>Status</th>
-                        <th style="width: 150px;">Actions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isOrganizedDataText===false">
@@ -103,7 +103,7 @@
                         <td>{{item.plannedEndDate|date:'MMM d, y'}}</td>
                         <td>{{item.taskPriority}}</td>
                         <td>{{item.status}}</td>
-                        <td>
+                        <td style="width: 150px;">
                             <button [disabled]="!updatePermission" id="editIcon" data-target="#xlModal" data-toggle="modal"
                                 (click)="editTask(item.taskId)" (click)="getActiveUsersEmailIdList()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"

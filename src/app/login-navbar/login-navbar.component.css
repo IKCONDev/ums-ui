@@ -1,5 +1,10 @@
 #loginNavBar {
   /* width: 1920px; */
   height: 60px;
-  flex-shrink: 0;
+ flex-shrink: 0;
+
+}
+.navbar-expand
+{
+  margin-left: -30px;
 }

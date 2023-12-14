@@ -210,7 +210,7 @@
                 <select class="form-control" class="addEmployeeInput form-control form-select" placeholder="department"
                     [(ngModel)]="addEmployee.departmentId" id="employeeDept" name="employeeDept" #employeeDept="ngModel"
                     (change)="validateEmployeeDepartment()">
-                    <option default value="">select</option>
+                    <!-- <option default value="">select</option> -->
                     <option *ngFor="let department of departmentList" [value]="department.departmentId">
                         {{department.departmentName}}</option>
 
@@ -221,12 +221,13 @@
                 <br />
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b><span id="required">*</span></label>
-                <select class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
+               
+                <select id="mydropdown" class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
                     name="employeeDesgn" (click)="validateEmployeeDesignation()"
                     [(ngModel)]="addEmployee.empDesignation.id">
-                    <option default value="">select</option>
                     <option *ngFor="let designation of designationList" [value]="designation.id">
-                        {{designation.designationName}}</option>
+                        {{designation.designationName}}
+                    </option>
                 </select>
                 <span *ngIf=" employeeDesignationErrorInfo != ''">
                     <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>
