@@ -232,7 +232,7 @@ export class TaskCategoryComponent implements OnInit {
         next: response => {
           if(response.status === HttpStatusCode.Created){
             this.closeModal();
-            this.toastrService.success("Task category '"+taskCategory.taskCategoryTitle+"' updated successfully.");
+            this.toastrService.success("Task category updated successfully.");
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -286,7 +286,7 @@ export class TaskCategoryComponent implements OnInit {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.Found){
-            this.toastrService.error("Task category '"+taskCategory.taskCategoryTitle+"' already exists.");
+            this.toastrService.error("Task category already exists.");
             //this.closeModal();
           }
           else {
@@ -301,15 +301,20 @@ export class TaskCategoryComponent implements OnInit {
   isCategoryTitleValid:boolean = false;
   validateTaskCategoryTitle(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
+    const regex2=/^[A-Za-z ]+$/;
     if(this.taskCategory.taskCategoryTitle === '' || this.taskCategory.taskCategoryTitle.trim()==="" || 
     regex.exec(this.taskCategory.taskCategoryTitle)===null){
-      this.categoryTitleErrorInfo = 'Task category name/title is required.';
+      this.categoryTitleErrorInfo = 'Task category name is required.';
       this.isCategoryTitleValid = false;
-    }else if(this.taskCategory.taskCategoryTitle.length < 3){
-      this.categoryTitleErrorInfo = 'Task category name/title should have minimum of 3 characters.';
+    }else if(regex2.test(this.taskCategory.taskCategoryTitle) === false){
+      this.categoryTitleErrorInfo = 'Task category name cannot have special characters or numbers.';
+      this.isCategoryTitleValid = false;
+    }
+    else if(this.taskCategory.taskCategoryTitle.length < 3){
+      this.categoryTitleErrorInfo = 'Task category name should have minimum of 3 characters.';
       this.isCategoryTitleValid = false;
     }else if(this.taskCategory.taskCategoryTitle.length >= 50){
-      this.categoryTitleErrorInfo = 'Task category name/title should not exceed more than 50 characters';
+      this.categoryTitleErrorInfo = 'Task category name should not exceed more than 50 characters';
       this.isCategoryTitleValid = false;
     }else{
       this.isCategoryTitleValid = true;

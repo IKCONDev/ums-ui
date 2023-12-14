@@ -262,6 +262,9 @@ export class LoginComponent {
    */
   async login(): Promise<void> {
     this.disableLoginButton=true;
+    setTimeout(()=>{
+      this.disableLoginButton=false;
+    },2000)
     console.log('submitted')
     if (localStorage.getItem('jwtToken') === null || localStorage.getItem('jwtToken') === "") {
       this.checkLogin();
@@ -399,6 +402,9 @@ export class LoginComponent {
         }, error: error => {
           if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
             this.router.navigate(['/service-unavailable'])
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
           } else if (error.status === HttpStatusCode.Unauthorized) {
             this.errorInfo = 'Invalid Credentials'
             this.toastr.error('Incorrect username or password', 'Login Failure')
@@ -425,7 +431,7 @@ export class LoginComponent {
       this.toastr.error('Another session is already running, please navigate to the already opened UMS application tab');
       setTimeout(()=>{
         this.disableLoginButton=false;
-      },1000)
+      },1200)
     }
   }
 
