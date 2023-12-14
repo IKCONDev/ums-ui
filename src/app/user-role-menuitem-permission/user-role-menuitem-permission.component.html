@@ -151,8 +151,14 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary"
-                    (click)="createUserRoleMenuItemPermissionMapForUser()">Save</button>
+                <div *ngIf="unassignedMenuItemList.length > 0; else noSaveBtn">
+                    <button type="button"  class="btn btn-primary"
+                        (click)="createUserRoleMenuItemPermissionMapForUser()">Save</button>
+                    </div>
+                    <ng-template #noSaveBtn>
+                        <button type="button" class="btn btn-primary"
+                        (click)="createUserRoleMenuItemPermissionMapForUser()" disabled="true" >Save</button>
+                    </ng-template>
                 <button id="closeUpdateModal" type="button" class="btn btn-outline-danger" data-dismiss="modal"
                     (click)="clearErrorMessages()">Close</button>
             </div>
