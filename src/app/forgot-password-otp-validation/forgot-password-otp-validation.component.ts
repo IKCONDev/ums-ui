@@ -183,7 +183,8 @@ export class ForgotPasswordOtpValidationComponent {
    */
   verifyAndValidateOtp() {
     this.isValidOtp = false;
-    if(this.otpCode != null){
+    console.log("the otp code is:"+this.otpCode)
+    if(this.otpCode != 0 && this.otpCode != undefined){
       this.otpValidationService.verifyUserOtp(this.email, this.otpCode)
       .subscribe((response => {
         this.result = response.body;
@@ -214,7 +215,7 @@ export class ForgotPasswordOtpValidationComponent {
       }))
 
     }else{
-       this.OtpResponseMessage = "Enter the OTP."
+       this.OtpResponseMessage = "Enter OTP.       "
     }
     
   }
