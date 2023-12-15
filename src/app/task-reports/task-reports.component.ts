@@ -866,7 +866,7 @@ export class TaskReportsComponent implements OnInit {
         xLabels: ['Total tasks'],
         datasets: [
           {
-            label: "Total Tasks of all departmenta",
+            label: "Total task list of all departments",
             data: [this.alltasksCount],
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
@@ -911,7 +911,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list all departments',
+            text: 'Total task list of all departments',
             font: {
               size: 14,
             },

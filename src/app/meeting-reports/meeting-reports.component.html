@@ -27,7 +27,7 @@
                         <div style="margin-left: 30px;margin-top: 20px;">
                         <p>Report Module : <b>Meetings</b></p>
                         <p>Department ID : <b>{{selectedDepartment}}</b></p>
-                        <p>DepartmentName : <b>{{selectedDepartmentName}}</b></p>
+                        <p>Department Name : <b>{{selectedDepartmentName}}</b></p>
                         <p>Total Meetings of the Department : <b>{{meetingsByDepartmentListCount}}</b></p>
                         </div>
                     </div>
@@ -468,7 +468,7 @@
         <div class="row">
             <div>
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: left; width: 250px; margin-left: 0px;"
-                placeholder="choose" (change)="chooseDepartment()">
+                placeholder="Departments" (change)="chooseDepartment()">
                 <!-- <ng-option  value="all">All</ng-option> -->
                 <ng-option *ngFor="let department of departmentList"
                     value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
@@ -485,11 +485,11 @@
                    <!--- <p>Report Type : <b>Bar</b></p> 
                     <p>Department : <b>{{"All"}}</b></p>-->
                     <div *ngIf="selectedDepartment != null; else allMeetings">
-                        <p>DepartmentName : <b>{{selectedDepartmentName}}</b></p>
+                        <p>Department Name : <b>{{selectedDepartmentName}}</b></p>
                         <p>Total Meetings : <b>{{meetingsByDepartmentListCount}}</b></p>
                     </div>
                     <ng-template #allMeetings>
-                            <p>DepartmentName : <b>{{"All"}}</b></p>
+                            <p>Department Name : <b>{{"All"}}</b></p>
                             <p>Total Meetings : <b>{{OrganizedMeetingCount}}</b></p>
                        </ng-template>
 

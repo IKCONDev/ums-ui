@@ -336,10 +336,10 @@ export class MeetingReportsComponent implements OnInit {
     this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Meetings of a department'],
+        xLabels: ['Total meetings of a department'],
         datasets: [
           {
-            label: "Total Meetings of a department",
+            label: "Total meetings of a department",
            data: [this.meetingsByDepartmentListCount],
            //data: [this.OrganizedMeetingCount],
             backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
@@ -394,7 +394,7 @@ export class MeetingReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total Meetings of a department',
+            text: 'Total meetings of a department',
             font: {
               size: 14,
             },
@@ -408,10 +408,10 @@ export class MeetingReportsComponent implements OnInit {
     this.attendedMeetingListChart = new Chart("attendedMeetingListChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Meetings of an attendee'],
+        xLabels: ['Total meetings of an attendee'],
         datasets: [
           {
-            label: "Total Meetings of an attendee",
+            label: "Total meetings of an attendee",
             data: [this.attendedMeetingListCount],
             backgroundColor: 'rgba(101, 200, 255, 0.8)', // Yellow
             borderColor: 'rgba(101, 200, 255, 1)',
@@ -465,7 +465,7 @@ export class MeetingReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total Meetings of an attendee',
+            text: 'Total meetings of an attendee',
             font: {
               size: 14,
             },
@@ -605,10 +605,10 @@ export class MeetingReportsComponent implements OnInit {
     this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Meetings of All departments'],
+        xLabels: ['Total meetings of all departments'],
         datasets: [
           {
-            label: "Total Meetings of All departments",
+            label: "Total meetings of all departments",
             data: [this.OrganizedMeetingCount],
            //data: [this.OrganizedMeetingCount],
             backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
@@ -663,7 +663,7 @@ export class MeetingReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total Meetings of All departments',
+            text: 'Total meetings of all departments',
             font: {
               size: 14,
             },
