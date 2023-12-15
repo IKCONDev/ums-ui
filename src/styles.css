@@ -44,3 +44,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     height: 30px;
 }
 
+table.dataTable thead th, table.dataTable thead td {
+    padding: 10px 18px;
+    border-bottom: 1px solid #111;
+    background-color: #ECF7FC;
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center left;
+}
