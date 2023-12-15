@@ -104,6 +104,7 @@ export class MeetingReportsComponent implements OnInit {
         //this.selectedDepartment = this.loggedInUserObject.employee.department.departmentId.toString();
         this.selectedDepartmentName = this.loggedInUserObject.employee.department.departmentName;
         this.selectedAttendeeUser = this.loggedInUserObject.email;
+        
         if(this.reportType === 'employee'){
           this.chooseEmployee();
         }
