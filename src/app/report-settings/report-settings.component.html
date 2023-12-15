@@ -9,7 +9,7 @@
         <div class="row">
             <div id="generalDiv" class="col-sm-2">
                 <h4><b>General</b></h4>
-                <a routerLink="/batch-report">BatchProcessing Report</a><br/>
+                <a routerLink="/batch-report">Batch Processing Report</a><br/>
             </div>
             <div class="col-sm-2">
                 <h4><b>Meetings</b></h4>
@@ -18,26 +18,26 @@
                 <a routerLink="/meeting-reports" (click)="setMeetingReportType('attended')">Attended</a><br />
                 <a routerLink="/meeting-reports" (click)="setMeetingReportType('all')">All Departments</a><br />
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <h4><b>Action Items</b></h4>
                 <!-- <a routerLink="/actionitem-reports" (click)="setActionItemReportType('department')">Departments</a><br/> -->
                 <a routerLink="/actionitem-reports" (click)="setActionItemReportType('organized')" >Organized</a><br/>
                 <a routerLink="/actionitem-reports" (click)="setActionItemReportType('priority')">Priority</a><br/>
                 <a routerLink="/actionitem-reports" (click)="setActionItemReportType('all')">All Departments</a><br />
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <h4><b>Tasks</b></h4>
                 <!-- <a routerLink="/task-reports"  (click)="setTaskReportType('department')">Departments</a><br/> -->
                 <a routerLink="/task-reports"  (click)="setTaskReportType('organized')" >Organized</a><br/>
                 <a routerLink="/task-reports"  (click)="setTaskReportType('severity')">Severity</a><br/>
-                <a routerLink="/task-reports"  (click)="setTaskReportType('status')">Status(priority)</a><br/>
+                <a routerLink="/task-reports"  (click)="setTaskReportType('status')">Status(Priority)</a><br/>
                 <a routerLink="/task-reports"  (click)="setTaskReportType('aged')">Aged</a><br/>
                 <a routerLink="/task-reports"  (click)="setTaskReportType('all')">All Departments</a>
             </div>
         </div>
         <br /><br/>
         <div class="row">
-            <div id="automationDiv" class="col-sm-3">
+            <div id="automationDiv" class="col-sm-2">
                 <h4><b>Task Category</b></h4>
 
                 <div *ngFor = "let taskCategory of taskCategoriesList">

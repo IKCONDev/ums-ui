@@ -90,4 +90,7 @@ a{
 a:hover{
   color: gray;
 }
-
+.row{
+   display:  flex;
+   justify-content: space-between;
+}
