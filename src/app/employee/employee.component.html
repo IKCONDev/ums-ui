@@ -88,7 +88,7 @@
                                     </svg>
                                 </button>
                                 &nbsp;
-                                <button [disabled]="!deletePermission" id="trashIcon" (click)="removeEmployee(employee.employeeOrgId, employee.id)">
+                                <button [disabled]="!deletePermission" id="trashIcon" (click)="removeEmployee(employee.employeeOrgId, employee.id,employee.user,employee.email)">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                          version="1.1" id="Capa_1" width="15px" height="15px"
                                         viewBox="0 0 482.428 482.429" xml:space="preserve">
@@ -132,7 +132,7 @@
                     (click)="clearErrorMessages()"><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
-            <div class="modal-body">
+            <div class="modal-body" style="height: 400px ;overflow: scroll;">
 
                 <label><b>First Name</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="First Name"
@@ -210,7 +210,7 @@
                 <select class="form-control" class="addEmployeeInput form-control form-select" placeholder="department"
                     [(ngModel)]="addEmployee.departmentId" id="employeeDept" name="employeeDept" #employeeDept="ngModel"
                     (change)="validateEmployeeDepartment()">
-                    <option default value="">select</option>
+                    <!-- <option default value="">select</option> -->
                     <option *ngFor="let department of departmentList" [value]="department.departmentId">
                         {{department.departmentName}}</option>
 
@@ -221,12 +221,13 @@
                 <br />
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b><span id="required">*</span></label>
-                <select class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
+               
+                <select id="mydropdown" class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
                     name="employeeDesgn" (click)="validateEmployeeDesignation()"
                     [(ngModel)]="addEmployee.empDesignation.id">
-                    <option default value="">select</option>
                     <option *ngFor="let designation of designationList" [value]="designation.id">
-                        {{designation.designationName}}</option>
+                        {{designation.designationName}}
+                    </option>
                 </select>
                 <span *ngIf=" employeeDesignationErrorInfo != ''">
                     <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>

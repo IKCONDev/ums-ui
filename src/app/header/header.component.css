@@ -161,16 +161,18 @@ a :hover{
 }
 
 #heading {
-  color: var(--secondary-text, #606060);
-  font-size: 10px;
+  /* color: var(--secondary-text, #606060); */
+  color: var(--primary-text, #202224);
+  font-size: 14px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 150%;
   text-align: left;
 }
 
 #headingData {
-  color: var(--primary-text, #202224);
+  /* color: var(--primary-text, #202224); */
+  color: var(--secondary-text, #606060);
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

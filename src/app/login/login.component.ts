@@ -78,6 +78,7 @@ export class LoginComponent {
   username = "";
   accessToken = "";
   myMSALObj;
+  disableLoginButton:boolean=false;
 
   /**
    * initializes the MicrosoftAuthLibraryObject
@@ -260,8 +261,13 @@ export class LoginComponent {
    * Custom login of UMS application
    */
   async login(): Promise<void> {
+    this.disableLoginButton=true;
+    setTimeout(()=>{
+      this.disableLoginButton=false;
+    },2000)
     console.log('submitted')
     if (localStorage.getItem('jwtToken') === null || localStorage.getItem('jwtToken') === "") {
+      this.checkLogin();
       this.loginService.logUserIfValid(this.user).subscribe({
         next: response => {
           this.loginInfo.token = response.headers.get('token');
@@ -293,7 +299,7 @@ export class LoginComponent {
             localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
             localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
             localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
-
+            this.disableLoginButton=false;
             //set default tabs for meetings
             localStorage.setItem('tabOpened', 'OrganizedMeeting');
             //set default tabs for tasks
@@ -352,7 +358,7 @@ export class LoginComponent {
             localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
             localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
            localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
-
+            this.disableLoginButton=false;
             //set default tabs for meetings
             localStorage.setItem('tabOpened', 'OrganizedMeeting');
             //set default tabs for tasks
@@ -396,14 +402,26 @@ export class LoginComponent {
         }, error: error => {
           if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
             this.router.navigate(['/service-unavailable'])
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
           } else if (error.status === HttpStatusCode.Unauthorized) {
             this.errorInfo = 'Invalid Credentials'
             this.toastr.error('Incorrect username or password', 'Login Failure')
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
           } else if (error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('UserInactiveException')) {
             //dont even generate a jwt token for inactive user.
             this.toastr.error('Provided user account is inactive', 'Account Disabled')
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
           } else if (error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('LoginAttemptsExceededException')) {
             this.toastr.error('Account locked due to 3 continuous failed attempts');
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
           }
           // on error clear localstorage
           window.localStorage.clear();
@@ -411,6 +429,9 @@ export class LoginComponent {
       })
     } else {
       this.toastr.error('Another session is already running, please navigate to the already opened UMS application tab');
+      setTimeout(()=>{
+        this.disableLoginButton=false;
+      },1200)
     }
   }
 
@@ -499,6 +520,17 @@ export class LoginComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  checkLogin(){
+    var emailRegExp=/^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
+    if(emailRegExp.test(this.user.email)===false){
+      this.errorInfo = 'Invalid Credentials'
+      this.toastr.error('Incorrect username or password', 'Login Failure')
+      setTimeout(()=>{
+        this.disableLoginButton=false;
+      },1200)
+    }
   }
 }
 

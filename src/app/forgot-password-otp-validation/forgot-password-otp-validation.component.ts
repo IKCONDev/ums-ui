@@ -183,9 +183,12 @@ export class ForgotPasswordOtpValidationComponent {
    */
   verifyAndValidateOtp() {
     this.isValidOtp = false;
-    this.otpValidationService.verifyUserOtp(this.email, this.otpCode)
+    console.log("the otp code is:"+this.otpCode)
+    if(this.otpCode != 0 && this.otpCode != undefined){
+      this.otpValidationService.verifyUserOtp(this.email, this.otpCode)
       .subscribe((response => {
         this.result = response.body;
+        
         if (this.result === 1) {
           console.log('valid otp - navigate to reset password page')
           this.isValidOtp = true;
@@ -197,7 +200,8 @@ export class ForgotPasswordOtpValidationComponent {
             }
           }
           this.router.navigateByUrl("/reset-password", navigationExtras)
-        } else {
+        } 
+        else {
           console.log('Invalid otp please enter a valid one or request for resend otp')
           this.OtpResponseMessage = "Invalid OTP";
           this.verifyButtonDisabled = true;
@@ -209,9 +213,14 @@ export class ForgotPasswordOtpValidationComponent {
           this.router.navigateByUrl("/verify-otp", navigationExtras)
         }
       }))
+
+    }else{
+       this.OtpResponseMessage = "Enter OTP.       "
+    }
+    
   }
   otpValidation(event: KeyboardEvent) {
-    const invalidChars = ['+', '-', '.', 'e'];
+    const invalidChars = ['+', '-', '.', 'e','E'];
     const inputElement = event.target as HTMLInputElement;
     
     // Clear the error message when the user starts modifying the OTP

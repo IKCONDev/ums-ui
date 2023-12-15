@@ -86,7 +86,7 @@
                         <th>Planned End Date</th>
                         <th>Priority</th>
                         <th>Status</th>
-                        <th style="width: 150px;">Actions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isOrganizedDataText===false">
@@ -103,7 +103,7 @@
                         <td>{{item.plannedEndDate|date:'MMM d, y'}}</td>
                         <td>{{item.taskPriority}}</td>
                         <td>{{item.status}}</td>
-                        <td>
+                        <td style="width: 150px;">
                             <button [disabled]="!updatePermission" id="editIcon" data-target="#xlModal" data-toggle="modal"
                                 (click)="editTask(item.taskId)" (click)="getActiveUsersEmailIdList()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -202,7 +202,7 @@
                         <th>Planned End Date</th>
                         <th>Actual Start Date</th>
                         <th>Actual End Date</th>
-                        <th style="padding-left:6px;">Priority</th>
+                        <th>Priority</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -315,11 +315,28 @@
                                 <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                     Text</label>-->
                                 <label style="padding-top: 4px; font-size: 20px;"><b id="title-label">Task
-                                        Title</b><span id="required">*</span></label>
+                                        Title</b><span id="required">*</span></label>  
+                                <!--Showing the Organized task title criteria-->         
+                                <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()" style="margin-left: 374px;">
+                                    <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_962_516)">
+                                            <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_962_516">
+                                                <rect width="48" height="48" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <span style="margin-left: -186px;" class="popuptext" id="myPopup"><ol>
+                                        <li>Title should have minimum of 5 charcters.</li>
+                                        <li>Title should not exceed more than 50 characters.</li>
+                                    </ol></span>
+                                </b>            
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
-                                placeholder="Enter Title" class="form-control" name="taskTitle" required="true"
+                                placeholder="Enter title" class="form-control" name="taskTitle" required="true"
                                 [(ngModel)]="update_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
                                 minlength="5" maxlength="50"></textarea>
@@ -338,13 +355,30 @@
                                         Text</label>-->
                                     <label style="padding-top: 4px;font-size: 20px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
+                                    <!--Showing the organized task description criteria--> 
+                                    <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()" style="margin-left: 358px;">
+                                        <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_962_516)">
+                                                <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_962_516">
+                                                    <rect width="48" height="48" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <span style="margin-left: -186px;" class="popuptext2" id="myPopup2"><ol>
+                                            <li>Description should have minimum of 10 charcters.</li>
+                                            <li>Description should not exceed more than 250 characters.</li>
+                                        </ol></span>
+                                    </b>
                                 </div>
                                 <textarea
                                     style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description !..."
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description"
                                     minlength="10" maxlength="250"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
@@ -401,10 +435,10 @@
                                         </tr>
                                         <tr>
                                             <td><b>Category</b><span id="required">*</span></td>
-                                            <td style="padding-left: 20px;">
+                                            <td style="padding-left: 19px;">
                                                 <span>
                                                     <select id="taskCategory" class="form-control-sm"
-                                                        style="width: 311px;"
+                                                        style="width: 312px;"
                                                         [(ngModel)]="update_Task.taskCategory.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
                                                         (change)="validateTaskCategory()">
@@ -555,6 +589,23 @@
                                     Text</label>-->
                                 <label style="padding-top: 4px; font-size: 20px;"><b id="title-label">Task
                                         Title</b><span id="required">*</span></label>
+                                <!--Showing the Assigned task title criteria-->     
+                                <b class="popup" (mouseover)="getPOPUPMessage3()" (mouseout)="getPOPUPMessage3()" style="margin-left: 374px;">
+                                    <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_962_516)">
+                                            <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_962_516">
+                                                <rect width="48" height="48" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <span style="margin-left: -186px;" class="popuptext" id="myPopup3"><ol>
+                                        <li>Title should have minimum of 5 charcters.</li>
+                                        <li>Title should not exceed more than 50 characters.</li>
+                                    </ol></span>
+                                </b>                              
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;min-height: 55px;max-height: 55px;background-color: #ecf7fc;"
@@ -577,6 +628,23 @@
                                         Text</label>-->
                                     <label style="padding-top: 4px;font-size: 20px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
+                                    <!--Showing the Assigned task description criteria-->        
+                                    <b class="popup2" (mouseover)="getPOPUPMessage4()" (mouseout)="getPOPUPMessage4()" style="margin-left: 358px;">
+                                        <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_962_516)">
+                                                <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_962_516">
+                                                    <rect width="48" height="48" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <span style="margin-left: -186px;" class="popuptext2" id="myPopup4"><ol>
+                                            <li>Description should have minimum of 10 charcters.</li>
+                                             <li>Description should not exceed more than 250 characters.</li>
+                                        </ol></span>
+                                    </b>        
                                 </div>
                                 <textarea
                                     style="width: 530px; min-height:220px;max-height:220px;background-color:#ecf7fc;"
@@ -624,7 +692,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Category</b><span id="required">*</span></td>
-                                            <td style="padding-left: 20px;">
+                                            <td style="padding-left: 19px;">
                                                 <span>
                                                     <input type="text" disabled="true" id="taskCategory"
                                                         class="form-control" style="width: 312px;"

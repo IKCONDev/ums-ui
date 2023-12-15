@@ -252,6 +252,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     this.addUserRPMMap.menuItemIdList = null;
     this.unassignedMenuItemList = [];
     console.log(this.unassignedMenuItemList)
+    window.location.reload();
   }
 
   /**
@@ -266,9 +267,9 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
       next: response => {
         if (response.status === HttpStatusCode.Created) {
           this.toastr.success('Menu Item and permissions are added for user');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000)
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 1000)
         }
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {

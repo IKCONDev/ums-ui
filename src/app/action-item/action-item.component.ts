@@ -917,10 +917,10 @@ export class ActionItemComponent implements OnInit {
       this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters.';
       this.isTaskTitleValid = false;
     }
-    else if (this.add_Task.taskTitle.length >= 50) {
-      this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
-      this.isTaskTitleValid = false;
-    }
+    // else if (this.add_Task.taskTitle.length >= 50) {
+    //   this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
+    //   this.isTaskTitleValid = false;
+    // }
     else {
       this.taskTitleErrrorInfo = '';
       this.isTaskTitleValid = true;
@@ -941,7 +941,7 @@ export class ActionItemComponent implements OnInit {
       this.taskDescriptionErrorInfo = 'Description should have minimum of 10 characters.';
       this.isTaskDescriptionValid = false;
     }
-    else if (this.add_Task.taskDescription.length >= 250) {
+    else if (this.add_Task.taskDescription.length > 250) {
       this.taskDescriptionErrorInfo = 'Description should not exceed more than 250 characters.';
       this.isTaskDescriptionValid = false;
     }
@@ -1159,7 +1159,7 @@ export class ActionItemComponent implements OnInit {
    * if Role is Admin then get all employees
    */
   getAllEmployees() {
-    this.employeeService.getAll().subscribe({
+    this.employeeService.getUserStatusEmployees(true).subscribe({
       next: response => {
         this.reporteeList = response.body;
         this.reporteeCount = response.body.length;
@@ -1301,6 +1301,17 @@ export class ActionItemComponent implements OnInit {
 
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
+  }
+
+  getPOPUPMessage(){
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+    console.log("is method executing")
+  }
+
+  getPOPUPMessage2(){
+    var popup = document.getElementById("myPopup2");
+    popup.classList.toggle("show");
   }
 
 }

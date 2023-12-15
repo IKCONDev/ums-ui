@@ -280,7 +280,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         next: (response) => {
           if (response.status == HttpStatusCode.Created) {
             this.createdRole = response.body;
-            this.toastr.success("Role created sucessfully !")
+            this.toastr.success("Role created successfully !")
             //close form modal
             document.getElementById('closeAddModal').click();
             setTimeout(() => {

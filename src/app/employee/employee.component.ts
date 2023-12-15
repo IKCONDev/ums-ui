@@ -377,7 +377,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * remove employee
    */
 
-  removeEmployee(employeeOrgId:string,employeeId : number ) {
+  removeEmployee(employeeOrgId:string,employeeId : number, user : boolean,email:string ) {
+    
+   console.log("the user status is:"+user);
+   if(user === true){
+      this.toastr.warning("Please delete user with '"+ email+"' to delete employee")
+   }else{
     var isconfirmed = window.confirm('Are you sure, you really want to delete the employee ?');
 
     if (isconfirmed) {
@@ -401,6 +406,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     else {
       this.toastr.warning("Employee '" + employeeOrgId + "' not deleted.");
     }
+  }
 
   }
   /**

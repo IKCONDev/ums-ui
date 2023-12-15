@@ -567,7 +567,7 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateCompanyEmail() {
-    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
+    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
     if (this.org.orgEmailId === '') {
       this.updatedCompanyEmailErrorInfo = '';
       this.isUpdateCompanyEmailValid = true;

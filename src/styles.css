@@ -10,4 +10,48 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    margin-left: 3px;
+    height: 27px;
+}
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    padding: 4px;
+    height: 27px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: .2em;
+    padding-top: .2em;
+    padding-bottom: 1.5em;
+    margin-left: 2px;
+    text-align: center;
+    align-items: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #333 !important;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    height: 30px;
+}
 
+table.dataTable thead th, table.dataTable thead td {
+    padding: 10px 18px;
+    border-bottom: 1px solid #111;
+    background-color: #ECF7FC;
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center left;
+}

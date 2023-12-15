@@ -42,7 +42,6 @@ export class AppMenuItemService {
   }
 
   findMenuItemById(menuItemId: number){
-    menuItemId = 0;
     return this.http.get<MenuItem>(`${this.gatewayMicroservicePathUrl}/${this.menuItemMicroservicePathUrl}/${menuItemId}`,{observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
       }

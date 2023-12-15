@@ -102,7 +102,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true,
           pageLength: 10,
-          order: [[1, 'asc']],
+          orderFixed: [[1, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
         });
@@ -115,7 +115,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true,
           pageLength: 10,
-          order: [[1, 'asc']],
+          order: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
         });
@@ -142,8 +142,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 10,
-          order: [[1, 'asc']],
+          order: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+          
           // Add other options here as needed
         });
       });
@@ -450,11 +451,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isTaskTitleValid = false;
 
     }
-    else if (this.update_Task.taskTitle.length <= 5) {
+    else if (this.update_Task.taskTitle.length < 5) {
       this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters.';
       this.isTaskTitleValid = false;
     }
-    else if (this.update_Task.taskTitle.length >= 50) {
+    else if (this.update_Task.taskTitle.length > 50) {
       this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
       this.isTaskTitleValid = false;
     }
@@ -479,11 +480,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.taskDescriptionErrorInfo = 'Description is required.';
       this.isTaskDescriptionValid = false;
     }
-    else if (this.update_Task.taskDescription.length <= 10) {
+    else if (this.update_Task.taskDescription.length < 10) {
       this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters.';
       this.isTaskDescriptionValid = false;
     }
-    else if (this.update_Task.taskDescription.length >= 250) {
+    else if (this.update_Task.taskDescription.length > 250) {
       this.taskDescriptionErrorInfo = 'Description should not exceed more than 250 characters.';
       this.isTaskDescriptionValid = false;
     }
@@ -1186,7 +1187,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * if Role is Admin then get all employees
    */
   getAllEmployees() {
-    this.employeeService.getAll().subscribe({
+    this.employeeService.getUserStatusEmployees(true).subscribe({
       next: response => {
         this.reporteeList = response.body;
         this.reporteeCount = response.body.length;
@@ -1259,5 +1260,27 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
+
+  getPOPUPMessage(){
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+    console.log("is method executing")
+  }
+
+  getPOPUPMessage2(){
+    var popup = document.getElementById("myPopup2");
+    popup.classList.toggle("show");
+  }
+
+  getPOPUPMessage3(){
+    var popup = document.getElementById("myPopup3");
+    popup.classList.toggle("show");
+  }
+
+  getPOPUPMessage4(){
+    var popup = document.getElementById("myPopup4");
+    popup.classList.toggle("show");
+  }
+
 
 }

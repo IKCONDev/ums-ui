@@ -23,7 +23,7 @@ export class Employee{
     createdByEmailId: string;
     modifiedByEmailId: string;
     departmentName: string;
-    isUser: boolean;
+    user: boolean;
     dateOfJoining:Date;
     reportingManagerName: string;
 }
