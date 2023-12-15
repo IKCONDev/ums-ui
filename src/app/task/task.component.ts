@@ -1187,7 +1187,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * if Role is Admin then get all employees
    */
   getAllEmployees() {
-    this.employeeService.getAll().subscribe({
+    this.employeeService.getUserStatusEmployees(true).subscribe({
       next: response => {
         this.reporteeList = response.body;
         this.reporteeCount = response.body.length;
