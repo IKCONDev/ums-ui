@@ -799,11 +799,11 @@
                     <p>Report Module : <b>Tasks</b></p>
                     <!-- <p>Report Type : <b>Doughnut Chart</b></p> -->
                     <div *ngIf="selectedDepartment != null; else allTasks">
-                        <p>DepartmentName : <b>{{departmentName}}</b></p>
+                        <p>Department Name : <b>{{departmentName}}</b></p>
                         <p>Total Tasks : <b>{{taskListByDepartmentCount}}</b></p>
                     </div>
                     <ng-template #allTasks>
-                        <p>DepartmentName : <b>{{"All"}}</b></p>
+                        <p>Department Name : <b>{{"All"}}</b></p>
                         <p>Total Tasks : <b>{{alltasksCount}}</b></p>
                    </ng-template>
                     <!-- <p>Report For : <b>{{"Department"}}</b></p>
@@ -815,7 +815,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="card">
-                    <div id="chartHeading" class="card-header">
+                    <div id="chartHeading" class="card-header" style="height: 56px; padding-top: 15px;">
                         <b id="reportheading">Tasks</b>
                         
                         <div id="chartType" class="col-sm-5">
