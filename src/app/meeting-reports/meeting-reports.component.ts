@@ -264,7 +264,7 @@ export class MeetingReportsComponent implements OnInit {
     this.organizedmeetingListChart = new Chart("organizedmeetingListChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Meetings of an organizer'],
+        xLabels: ['Total meetings of an organizer'],
         datasets: [
           {
             label: "Total meetings by organizer",
