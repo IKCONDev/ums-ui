@@ -111,10 +111,13 @@
   #header{
     display: flex;
     justify-content: space-between;
+    height: 56px; 
+    padding-top: 15px;
     
   }
   #reportheading{
     color: whitesmoke;
+    
   }
   #chartType{
     display: flex;

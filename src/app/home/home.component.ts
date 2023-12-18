@@ -569,7 +569,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'Task status for the current Week',
+              text: 'Task status for the current week',
               font: {
                 size: 14,
               },
@@ -659,7 +659,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'Task status for the current Year',
+              text: 'Task status for the current year',
               align: 'center',
               font: {
                 size: 14,
