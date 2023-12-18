@@ -124,7 +124,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   displayText: boolean = false;
   isOrganizedMeetingDataText: boolean = false;
   isAttendedMeetingDataText: boolean = false;
-  
+  createButtonDisabled=false;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -1511,6 +1511,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid) {
       //create meeting
+      this.createButtonDisabled=true;
       console.log(this.addMeeting)
       this.meetingsService.createMeeting(this.addMeeting).subscribe({
         next: (response) => {
@@ -1525,6 +1526,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             }, 1000);
           } else {
             this.toastr.error('Error while creating meeting. Please try again !');
+            this.createButtonDisabled=false;
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {

@@ -822,7 +822,7 @@
                         <!--footer-->
                         <br>
                         <div class="modal-footer">
-                            <button type="submit" id="createMeeting" class="btn btn-primary updateButton"
+                            <button type="submit" id="createMeeting" class="btn btn-primary updateButton" [disabled]="createButtonDisabled"
                                 (click)="createMeeting(form)">Create</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="button" id="closeCreateMeetingModal"
                                 class="btn btn-outline-danger cancelButton" data-dismiss="modal"

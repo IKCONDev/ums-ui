@@ -119,6 +119,7 @@ export class ActionItemComponent implements OnInit {
   isComponentLoading: boolean = false;
   displayText: boolean = false;
   isActionItemDataText: boolean = false;
+  disableSaveButton=false;
   /**
    * 
    * @param service 
@@ -1110,6 +1111,7 @@ export class ActionItemComponent implements OnInit {
       this.add_Task.actionItemId = this.currentActionItemId;
       this.add_Task.departmentId = this.selectedUserdepartmentId;
       this.add_Task.taskCategory.taskCategoryId = this.add_Task.taskCategoryId
+      this.disableSaveButton=true;
       this.taskService.createTask(this.add_Task).subscribe({
         next: (response) => {
           var data = response.body;
@@ -1128,6 +1130,7 @@ export class ActionItemComponent implements OnInit {
           }
           else {
             this.toastr.error('Error while creating task. Please try again !')
+            this.disableSaveButton=false;
           }
         }
       })

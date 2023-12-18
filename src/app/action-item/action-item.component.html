@@ -613,7 +613,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer" role="alert" style="margin-top:-10px;margin-left: 20px; margin-bottom: -6px;">
-                    <button type="submit" class="btn btn-primary saveButton" (click)="addTask(add_Task)"
+                    <button type="submit" class="btn btn-primary saveButton" (click)="addTask(add_Task)" [disabled]="disableSaveButton"
                         style="margin-bottom:3px; margin-top: -5px;">Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
