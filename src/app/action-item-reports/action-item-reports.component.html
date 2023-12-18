@@ -506,7 +506,7 @@
         <div class="row">
             <div class="col-sm-2" style="margin-left: 100px;">
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
-                    placeholder="choose" (change)="chooseDepartment()">
+                    placeholder="Departments" (change)="chooseDepartment()">
                     <ng-option *ngFor="let department of departmentList"
                         value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                 </ng-select>

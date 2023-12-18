@@ -105,6 +105,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           orderFixed: [[1, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
+          columnDefs:[{
+            "targets": 0,
+            "orderable":false
+          }]
         });
       });
     }, 400);
@@ -132,6 +136,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           pageLength: 10,
           order: [[1, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+          columnDefs:[{
+            "targets": 0,
+            "orderable":false
+          }]
           // Add other options here as needed
         });
 

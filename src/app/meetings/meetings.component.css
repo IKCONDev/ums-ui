@@ -524,7 +524,7 @@ table.sendMOMEmail2 td {
 }
 
 .submit-button {
-  border-radius: 4px;
+  border-radius: 5px;
   background-color: #4880FF;
   border: 1px solid #151618;
   width: 100%;
@@ -532,19 +532,21 @@ table.sendMOMEmail2 td {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 4px 40px;
+  padding: 3px 40px;
+  width: 129px;
 }
 
 .delete-button {
-  border-radius: 4px;
+  border-radius: 5px;
   border: 1px solid #FE672E;
   display: flex;
   width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 4px 40px;
+  padding: 3px 40px;
   color: #FE672E;
+  width: 129px;
 }
 
 .submit-button-parent {
@@ -965,7 +967,7 @@ svg:hover {
 
 .form-control,
 input[type="datetime-local"] {
-    font-size: 12px; /* Adjust the font size as needed */
+    font-size: 13px; /* Adjust the font size as needed */
     width: 100%;
 }
 
@@ -985,7 +987,7 @@ input[type="datetime-local"] {
 .search-icon {
   position: absolute;
   top: 50%;
-  right: 10px; /* Adjust the value based on your desired position */
+  right: 20px; /* Adjust the value based on your desired position */
   transform: translateY(-50%);
   cursor: pointer;
 }
