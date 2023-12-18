@@ -78,20 +78,28 @@ export class ForgotPasswordEmailVerificationComponent {
     this.isError = true;
     this.email = event.target.value;
     console.log(this.email);
-    var emailRegExp =  /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
+    if(this.email.length===0){
+      this.disableGetOtp=false;
+    }else    
+    this.disableGetOtp=true;
+    
+    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
+    console.log(emailRegExp.test(this.email))
     if(emailRegExp.test(this.email)){
       this.emailVerificationService.VerifyEmailAddress(this.email).subscribe(
         (response) => {
           this.value = response;
           console.log("the result is:" + this.value);
           if (this.value == 1) {
-            console.log("Entered email id is a valid one");
+            console.log("Entered email id is a valid one hi");
             this.isError=false;
             this.verificationResponse = "";
+            this.disableGetOtp=false;
           }else {
-            console.log("Entered email address is not a registred email address");
+            console.log("Entered email address is not a registred email address hrllo");
             this.isError = true;
             this.verificationResponse = "Enter valid credentials";
+            this.disableGetOtp=true;
           }
         },
         (error: any) => {
@@ -100,11 +108,12 @@ export class ForgotPasswordEmailVerificationComponent {
         }
       )
     }else{
-      if(this.verificationResponse==="Email ID Exists"){
-        this.verificationResponse="Incorrect Email ID"
-      }else{
-        this.verificationResponse="";
-      }
+        if(this.email.length!=0){
+        this.isError = true;
+        this.verificationResponse = "Enter valid credentials";
+        }else{
+          this.verificationResponse = "";
+        }
     }
   }
 
@@ -113,10 +122,13 @@ export class ForgotPasswordEmailVerificationComponent {
    */
   disableGetOtp:boolean=false;
   constructOtp() {
-    console.log(this.email);
-    var emailRegExp =  /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
-    if(emailRegExp.test(this.email)){
     this.disableGetOtp=true;
+    console.log(this.email);
+    
+    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
+    console.log(emailRegExp)
+    if(emailRegExp.test(this.email)){
+    
     this.isError=false;  
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
@@ -132,7 +144,7 @@ export class ForgotPasswordEmailVerificationComponent {
           }
           this.router.navigate(['/verify-otp'], navigationExtras);
         } else {
-          this.disableGetOtp=false;
+         
           console.log('couldnt generate otp please try again or check your email address')
           this.router.navigateByUrl("/verify-email");
         }
@@ -147,7 +159,12 @@ export class ForgotPasswordEmailVerificationComponent {
 }
   
 
-  /**
+  /** justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background-size: cover;
+    object-fit: cover;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
    * 
    */
   ngOnDestroy() {

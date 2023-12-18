@@ -215,7 +215,7 @@ export class ForgotPasswordOtpValidationComponent {
       }))
 
     }else{
-       this.OtpResponseMessage = "Enter OTP.       "
+       this.OtpResponseMessage = "Enter OTP       "
     }
     
   }
