@@ -837,57 +837,48 @@
     <!-- custom advanced organized filter modal -->
     <div class="modal" id="organizedFilterModal">
         <div class="modal-dialog" id="dialog">
-            <div class="modal-content">
-                <div class="filters-action-item">
-                    <div class="filters-parent">
-                        <div class="filters">Filters</div>
-                        <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="filterModal"
-                            data-dismiss="modal" style="cursor: pointer;">
-                    </div>
-                    <div class="filter-dd">
-                        <div class="meeting-title-dd-parent">
-                            <!-- <div class="meeting-title-dd">
-                      <div class="meeting-title-filter">
-                          <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
-                          <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
-                      </div>          					
-                  </div> -->
-                            <div class="meeting-title-dd">
-                                <div class="meeting-title-filter">
-                                    <input type="text" [(ngModel)]="organizedMeetingTitleFilter"
-                                        #boxOrganizedMeetingTitle placeholder="Meeting Title"
-                                        name="meeting-title-filter" />
+            <div class="modal-content" >
+                <div >
+                    <div class="filters-action-item">
+                        <div class="filters-parent">
+                            <div class="filters">Filters</div>
+                            <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="filterModal"
+                                data-dismiss="modal" style="cursor: pointer;">
+                        </div>
+                    <div class="orgMeetingOuterDiv">
+                        <div class="meeting-title-dd">
+                            <div class="meeting-title-filter">
+                                <div class="input-container">
+                                    <input type="text" style="width: 298px;" class="form-control" [(ngModel)]="organizedMeetingTitleFilter"
+                                        #boxOrganizedMeetingTitle placeholder="Meeting Title" name="meeting-title-filter" />
                                     <img class="search-icon" alt="" src="../../assets/images/search.svg">
                                 </div>
                             </div>
-                            <!-- <div class="meeting-title-dd">
-                      <div >Assignee
-                          <input readonly="true" type="text" [(ngModel)] = "assignedTaskOrganizerFilter" #boxAssignedOrg class="actitem-organizer-filter"
-                           />
-                      </div>
-                  </div> -->
-                            <div class="date-range">
-                                <div class="date-parent">
-                                    <input type="datetime-local" #boxOrganizedStartdate
-                                        [(ngModel)]="organizedMeetingStartDateFilter" />
-                                </div>
-                                <div class="to">To</div>
-                                <div class="date-parent">
-                                    <input type="datetime-local" #boxOrganizedEndDate
-                                        [(ngModel)]="organizedMeetingEndDateFilter" />
-                                </div>
+                        </div>
+                    
+                        <div class="date-range">
+                            <div class="date-parent">
+                                <input type="datetime-local" style="width: 130px;" class="form-control" #boxOrganizedStartdate
+                                    [(ngModel)]="organizedMeetingStartDateFilter" />
+                            </div>
+                            <div style="font-size: 12px;">To</div>
+                            <div class="date-parent">
+                                <input type="datetime-local" style="width: 130px;" class="form-control" #boxOrganizedEndDate
+                                    [(ngModel)]="organizedMeetingEndDateFilter" />
                             </div>
                         </div>
-                    </div>
-                    <div class="submit-button-parent">
-                        <button type="button" class="submit-button"
-                            (click)="filterOrganizedMeetingList(boxOrganizedMeetingTitle.value, boxOrganizedStartdate.value, boxOrganizedEndDate.value)">Apply</button>
-                        <button type="button" class="delete-button"
-                            (click)="resetOrganizedMeetingsFilter()">Clear</button>
+                    
+                        <div class="date-range">
+                            <button type="button" style="margin: 8px;" class="submit-button"
+                                (click)="filterOrganizedMeetingList(boxOrganizedMeetingTitle.value, boxOrganizedStartdate.value, boxOrganizedEndDate.value)">Apply</button>
+                            <button type="button" style="margin: 8px;"  class="delete-button"
+                                (click)="resetOrganizedMeetingsFilter()">Clear</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 

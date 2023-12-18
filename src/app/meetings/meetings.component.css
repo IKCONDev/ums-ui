@@ -410,24 +410,9 @@ table.sendMOMEmail2 td {
   line-height: 150%;
 }
 
-.search-icon {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
 
-.meeting-title-filter {
-  border-radius: 3px;
-  border: 1px solid #000;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 8px 16px;
-  gap: 120px;
-}
+
+
 
 .id-hover {
   display: flex;
@@ -465,9 +450,8 @@ table.sendMOMEmail2 td {
 
 .meeting-title-dd {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
 }
 
 .expand-more-icon {
@@ -508,29 +492,15 @@ table.sendMOMEmail2 td {
   color: #202224;
 }
 
-.date-parent {
-  border-radius: 3px;
-  border: 1px solid #000;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 8px 16px;
-  gap: 32px;
-}
 
-.to {
-  position: relative;
-  line-height: 150%;
-  color: #a6a6a6;
-}
+
+
 
 .date-range {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   align-items: center;
-  justify-content: flex-start;
-  gap: 13px;
+  justify-content: space-between;
 }
 
 .meeting-title-dd-parent {
@@ -554,32 +524,34 @@ table.sendMOMEmail2 td {
 }
 
 .submit-button {
-  border-radius: 2px;
-  background-color: #4880ff;
+  border-radius: 4px;
+  background-color: #4880FF;
+  border: 1px solid #151618;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 4px 42px;
+  padding: 4px 40px;
 }
 
 .delete-button {
-  border-radius: 2px;
-  border: 1px solid #fd5454;
+  border-radius: 4px;
+  border: 1px solid #FE672E;
   display: flex;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 4px 42px;
-  color: #fd5454;
+  padding: 4px 40px;
+  color: #FE672E;
 }
 
 .submit-button-parent {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 42px;
+  align-items: center;
+  justify-content: space-between;
   font-size: 14px;
   color: #fff;
 }
@@ -983,4 +955,37 @@ svg:hover {
   outline: none;
   box-shadow: none;
   border: none;
+}
+
+.orgMeetingOuterDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.form-control,
+input[type="datetime-local"] {
+    font-size: 12px; /* Adjust the font size as needed */
+    width: 100%;
+}
+
+.meeting-title-filter {
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+  
+}
+
+.form-control {
+  padding-right: 30px; /* Adjust the value based on your icon size */
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust the value based on your desired position */
+  transform: translateY(-50%);
+  cursor: pointer;
 }
