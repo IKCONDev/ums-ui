@@ -965,7 +965,7 @@ svg:hover {
 }
 
 
-.form-control,
+.date-range .date-parent  
 input[type="datetime-local"] {
     font-size: 13px; /* Adjust the font size as needed */
     width: 100%;
