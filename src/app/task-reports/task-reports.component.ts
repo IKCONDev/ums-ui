@@ -355,6 +355,8 @@ export class TaskReportsComponent implements OnInit {
             },
           },
           y: {
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -446,6 +448,8 @@ export class TaskReportsComponent implements OnInit {
             },
           },
           y: {
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -528,6 +532,8 @@ export class TaskReportsComponent implements OnInit {
             },
           },
           y: {
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -619,7 +625,8 @@ export class TaskReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -705,7 +712,8 @@ export class TaskReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -885,6 +893,8 @@ export class TaskReportsComponent implements OnInit {
             },
           },
           y: {
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,

@@ -20,6 +20,7 @@ export class ForgotPasswordOtpValidationComponent {
   isValidOtp: boolean = false;
   OtpResponseMessage: string = '';
   verifyButtonDisabled: boolean = false;
+  countPageRefresh:number=0;
 
   /**
    * 
@@ -43,6 +44,19 @@ export class ForgotPasswordOtpValidationComponent {
     // setTimeout(() => {
     //   this.resetTimer();
     // }, 120000);
+    const isRefreshed = this.router.routerState.toString();
+    this.countPageRefresh = Number(localStorage.getItem("countPageRefresh"));
+    console.log(this.countPageRefresh);
+    if(isRefreshed){
+     this.countPageRefresh+=1;
+     localStorage.setItem("countPageRefresh",String(this.countPageRefresh))
+     console.log(this.countPageRefresh);
+     if(this.countPageRefresh>1){
+       this.router.navigate(['/verify-email'])
+       //this.countPageRefresh = 0;
+       localStorage.clear();
+     }
+    }
   }
 
 
