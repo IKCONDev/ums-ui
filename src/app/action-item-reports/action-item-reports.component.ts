@@ -308,7 +308,8 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: true,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -380,7 +381,8 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: true,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -459,7 +461,8 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: true,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -590,7 +593,8 @@ deptValueCount : DepartmentCount[] = [];
             },
           },
           y: {
-            beginAtZero: true,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,

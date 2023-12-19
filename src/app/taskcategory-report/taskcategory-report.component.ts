@@ -254,6 +254,8 @@ export class TaskcategoryReportComponent implements OnInit {
             },
           },
           y: {
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -321,6 +323,8 @@ export class TaskcategoryReportComponent implements OnInit {
             },
           },
           y: {
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
