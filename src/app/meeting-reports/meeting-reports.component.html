@@ -441,8 +441,8 @@
                     <td>{{attehdedMeeting.meetingId}}</td>
                     <td>{{attehdedMeeting.subject}}</td>
                     <td>{{attehdedMeeting.organizerName}}</td>
-                    <td>{{attehdedMeeting.startDateTime}}</td>
-                    <td>{{attehdedMeeting.endDateTime}}</td>
+                    <td>{{attehdedMeeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                    <td>{{attehdedMeeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                 </tr>
             </tbody>
         </table>
