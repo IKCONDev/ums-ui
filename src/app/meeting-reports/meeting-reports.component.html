@@ -138,8 +138,8 @@
                         <td>{{meeting.meetingId}}</td>
                         <td>{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -289,8 +289,8 @@
                         <td>{{meeting.meetingId}}</td>
                         <td>{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>
