@@ -497,14 +497,14 @@
                                                 <span>
                                                     <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
-                                                        style="margin-top: 4px;padding-left: 10px;"
+                                                        style="margin-top: 4px;padding-left: 10px;width: 348px;"
                                                         [(ngModel)]="add_Task.taskOwner">
                                                         <ng-option disabled selected value>choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
                                                         </ng-option>
                                                     </ng-select>
-                                                    <span *ngIf="taskOwnerErrorInfo != ''" style="padding-top: 0px;"
+                                                    <span *ngIf="taskOwnerErrorInfo != ''" style="padding-top: 1px;"
                                                         id="error_msg">{{taskOwnerErrorInfo}}
                                                     </span>
                                                 </span>
@@ -514,22 +514,24 @@
                                             <td><b>Category</b><span id="required">*</span></td>
                                             <td>
                                                 <span>
-                                                    <select id="taskCategory" class="form-control-sm"
-                                                        style="width: 300px;" [(ngModel)]="add_Task.taskCategoryId"
+                                                    <ng-select id="taskCategory" 
+                                                        style="width: 348px;margin-top: 6px;padding-left: 10px;padding-top: 7px;" [(ngModel)]="add_Task.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
                                                         (change)="validateTaskCategory()">
-                                                        <option default="true" selected="true" value="0">select</option>
-                                                        <option *ngFor="let taskCategory of taskCategoryList"
+                                                        <ng-option disabled selected value [value]="0">select</ng-option>
+                                                        <ng-option *ngFor="let taskCategory of taskCategoryList"
                                                             value="{{taskCategory.taskCategoryId}}">
-                                                            {{taskCategory.taskCategoryTitle}}</option>
-                                                    </select>
+                                                            {{taskCategory.taskCategoryTitle}}</ng-option>
+                                                    </ng-select>
                                                     <span id="error_msg">{{taskCategoryErrorInfo}}</span>
                                                 </span>
                                             </td>
                                         </tr>
+                                    
+                                        
                                         <tr>
                                             <td><b>Priority</b><span id="required"></span></td>
-                                            <td style="padding-left: 0px;"><span>
+                                            <td style="padding-left: 0px;padding-top: -6px;" ><span>
                                                     <!-- <select id="taskPriority" class="form-control form-select"
                                                         [(ngModel)]="add_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
@@ -542,7 +544,7 @@
                                                     </select> -->
                                                     <input type="text" id="taskPriority" class="form-control"
                                                         [(ngModel)]="add_Task.taskPriority" name="taskPriority"
-                                                        #taskPriority="ngModel" readonly />
+                                                        #taskPriority="ngModel" readonly style="width: 338px"/>
                                                 </span>
                                                 <!-- <div *ngIf="taskPriorityErrorInfo!=''">
                                                     <span id="errorSpan">{{taskPriorityErrorInfo}}</span>
@@ -583,7 +585,7 @@
                                                         [(ngModel)]="add_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true"
                                                         [class.invalid]="taskPlannedStartDate.invalid && taskPlannedStartDate.touched"
-                                                        (change)="validateTaskDueDate()" disabled></span>
+                                                        (change)="validateTaskDueDate()" disabled style="width: 338px"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -593,7 +595,7 @@
                                                         [(ngModel)]="add_Task.plannedEndDate"
                                                         #taskPlannedDueDate="ngModel" required="true"
                                                         [class.invalid]="taskPlannedDueDate.invalid && taskPlannedDueDate.touched"
-                                                        (change)="validateTaskDueDate()" disabled></span>
+                                                        (change)="validateTaskDueDate()" disabled style="width: 338px"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -601,7 +603,7 @@
                                             <td>
                                                 <span>
                                                     <input type="text" class="form-control" [value]="add_Task.status"
-                                                        readonly />
+                                                        readonly style="width: 338px" />
                                                 </span>
                                             </td>
                                         </tr>

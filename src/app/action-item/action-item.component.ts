@@ -994,7 +994,7 @@ export class ActionItemComponent implements OnInit {
   taskCategoryErrorInfo = '';
   isTaskCategoryValid = false;
   validateTaskCategory() {
-    if (this.add_Task.taskCategoryId === 0) {
+    if (this.add_Task.taskCategoryId === 0 || this.add_Task.taskCategoryId===null) {
       this.taskCategoryErrorInfo = 'Select a task category.';
       this.isTaskCategoryValid = false;
     } else {
