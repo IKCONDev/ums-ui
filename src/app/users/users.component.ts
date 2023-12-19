@@ -179,6 +179,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
           paging: true,
           searching: true, // Enable search feature
           pageLength: 10,
+          stateSave:true,
           order: [[1, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
           // Add other options here as needed
