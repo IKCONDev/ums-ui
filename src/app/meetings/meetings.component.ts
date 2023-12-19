@@ -143,6 +143,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    */
   InitailizeJqueryDataTable() {
+    if(this.table!=null){
+      this.table.destroy();
+    }
     setTimeout(() => {
       $(document).ready(() => {
         this.table = $('#assignedTable').DataTable({
@@ -150,6 +153,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true, // Enable search feature
           pageLength: 10,
           ordering: true,
+          stateSave:true,
           order: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           // Add other options here as needed
@@ -308,6 +312,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         $(document).ready(() => {
           this.table = $('#assignedTable').DataTable({
             paging: true,
+            stateSave:true,
             searching: true, // Enable search feature
             pageLength: 10,
             order: [[1, 'asc']],
