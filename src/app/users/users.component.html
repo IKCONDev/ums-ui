@@ -64,7 +64,11 @@
                             </label>
                         </td>
                         <td *ngIf="user.email === loggedInUser;">
-
+                            <label class="switch" *ngIf="user.active == true && user.userRoles[0].roleName != 'SUPER_ADMIN'">
+                                <input type="checkbox" >
+                                <span class="slider round" hidden></span>
+                            </label>
+                           
                         </td>
                         <td>
                             <button [disabled]="!updatePermission" class="edit-icon" data-target="#userUpdateModal"
@@ -126,20 +130,20 @@
             </div>
             <!-- Modal body -->
             <!--<div class="modal-body" >-->
-            <form #form="ngForm" id="formId" method="POST" style="margin-top: 9px;">
+            <form #form="ngForm" id="formId" method="POST">
                 <!--<label><b>First Name</b></label>
                 <input type="text" class="adduserInput form-control" placeholder="First Name"/><br/>
                 <label><b>Last Name</b></label>
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
                 <label><b>Email</b><span id="required">*</span></label>
                 <div>
-                    <select id="userEmail" name="userEmail" class="form-control form-select"
-                        #userEmail="ngModel" style="width: 400px;height:50px ;" [(ngModel)]="addUserObj.email"
+                    <ng-select [searchable]="true" [clearable]="true" id="userEmail" name="userEmail"
+                        #userEmail="ngModel" style="width: 400px;" [(ngModel)]="addUserObj.email"
                         (change)=" validateUserEmailId()">
-                        <option [value]="employee.email" *ngFor="let employee of employeeWithStatus">
+                        <ng-option [value]="employee.email" *ngFor="let employee of employeeWithStatus">
                             {{employee.email}}
-                        </option>
-                    </select>
+                        </ng-option>
+                    </ng-select>
                 </div>
                 <!--- <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
                 required ="true"  id="usrEmailId" name="usrEmailId" #usrEmailId="ngModel" [class.invalid]="usrEmailId.invalid && usrEmailId.touched"
