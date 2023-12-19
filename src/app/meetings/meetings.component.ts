@@ -165,6 +165,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       $(document).ready(() => {
         this.table = $('#orgTable').DataTable({
           paging: true,
+          stateSave:true,
           searching: true, // Enable search feature
           pageLength: 10,
           order: [[1, 'asc']],

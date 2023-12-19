@@ -102,6 +102,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           paging: true,
           searching: true,
           pageLength: 10,
+          stateSave:true,
           orderFixed: [[1, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
@@ -118,6 +119,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         this.table = $('#assignedtaskTable').DataTable({
           paging: true,
           searching: true,
+          stateSave:true,
           pageLength: 10,
           order: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
@@ -135,6 +137,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true, // Enable search feature
           pageLength: 10,
           order: [[1, 'asc']],
+          stateSave:true,
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           columnDefs:[{
             "targets": 0,
