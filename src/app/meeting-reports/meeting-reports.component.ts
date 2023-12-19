@@ -295,7 +295,8 @@ export class MeetingReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
@@ -368,7 +369,8 @@ export class MeetingReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
@@ -439,7 +441,8 @@ export class MeetingReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
@@ -637,7 +640,8 @@ export class MeetingReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
@@ -683,6 +687,13 @@ export class MeetingReportsComponent implements OnInit {
       if(this.meetingsByDepartmentListChart!= null){
         this.meetingsByDepartmentListChart.destroy()
         this.createMeetingsByAllDepartmentReportChart()
+      }
+    }
+    if(this.reportType =='all' && this.selectedDepartment!= null ){
+      this.colorOfChartType = value;
+      if(this.meetingsByDepartmentListChart!= null){
+        this.meetingsByDepartmentListChart.destroy()
+        this.createMeetingsByDepartmentReportChart()
       }
     }
     if(this.reportType == 'department'){
