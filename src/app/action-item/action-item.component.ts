@@ -1287,7 +1287,7 @@ export class ActionItemComponent implements OnInit {
    * @returns 
    */
   async getCurrentMenuItemDetails(): Promise<MenuItem> {
-    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('ActionItems')).then(response => {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Action Items')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
         console.log(this.currentMenuItem)

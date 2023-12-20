@@ -331,7 +331,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
    * @returns 
    */
   async getCurrentMenuItemDetails(): Promise<MenuItem> {
-    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('User Menu Item Permissions')).then(response => {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Assign Menu Items & Permissions')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
         console.log(this.currentMenuItem)
