@@ -216,3 +216,7 @@ table td{
       box-shadow: .2em -.2em 0 0 currentcolor;
     }
   }
+
+  textarea{
+    border: 1px solid #2AA3D9;
+  }
