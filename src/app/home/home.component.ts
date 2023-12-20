@@ -785,15 +785,15 @@ export class HomeComponent implements OnInit {
               label: "Organised Meetings",
               data: this.TotalMeetingStatus[1],
               backgroundColor: dayColors,
-              borderColor:dayColors,
-              borderWidth: 3,
+              
+              borderWidth: 1.5,
             },
             {
               label: "Attended Meetings",
               data: this.TotalMeetingStatus[0],
               backgroundColor: dayColors,
-              borderColor:dayColors,
-              borderWidth: 3,
+              
+              borderWidth: 1.5,
             }
           ]
         },
@@ -932,15 +932,15 @@ export class HomeComponent implements OnInit {
               label: "Organised Meetings",
               data: [this.TotalMeetingStatusForMonth[1][currentMonthNumber]],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-              borderColor: 'rgba(255, 99, 132, 1)',
-              borderWidth: 3,
+              hoverOffset:10,
+              borderWidth: 1.5,
             },
             {
               label: "Attended Meetings",
               data: [this.TotalMeetingStatusForMonth[0][currentMonthNumber]],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrang
-              borderColor:'rgba(255, 148, 112, 0.7)',
-              borderWidth: 3,
+              hoverOffset:10,
+              borderWidth: 1.5,
             }
           ]
         },
