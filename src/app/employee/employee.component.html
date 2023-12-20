@@ -207,10 +207,10 @@
                 </span>-->
                 <br />
                 <label><b>Department</b><span id="required">*</span></label>
-                <select class="form-control" class="addEmployeeInput form-control form-select" placeholder="department"
-                    [(ngModel)]="addEmployee.departmentId" id="employeeDept" name="employeeDept" #employeeDept="ngModel"
+                <select id="employeeDept" class="addEmployeeInput form-control form-select" placeholder="department"
+                    [(ngModel)]="addEmployee.departmentId"  name="employeeDept" #employeeDept="ngModel"
                     (change)="validateEmployeeDepartment()">
-                    <!-- <option default value="">select</option> -->
+                    <option hidden value="">select</option>
                     <option *ngFor="let department of departmentList" [value]="department.departmentId">
                         {{department.departmentName}}</option>
 
@@ -221,10 +221,11 @@
                 <br />
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b><span id="required">*</span></label>
-               
+                
                 <select id="mydropdown" class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
-                    name="employeeDesgn" (click)="validateEmployeeDesignation()"
+                    name="employeeDesgn" (change)="validateEmployeeDesignation()"
                     [(ngModel)]="addEmployee.empDesignation.id">
+                    <option hidden value="">select</option>
                     <option *ngFor="let designation of designationList" [value]="designation.id">
                         {{designation.designationName}}
                     </option>
