@@ -210,7 +210,7 @@
                 <select id="employeeDept" class="addEmployeeInput form-control form-select" placeholder="department"
                     [(ngModel)]="addEmployee.departmentId"  name="employeeDept" #employeeDept="ngModel"
                     (change)="validateEmployeeDepartment()">
-                    <option hidden value="">select</option>
+                    <option hidden value="0">select</option>
                     <option *ngFor="let department of departmentList" [value]="department.departmentId">
                         {{department.departmentName}}</option>
 
@@ -225,7 +225,7 @@
                 <select id="mydropdown" class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
                     name="employeeDesgn" (change)="validateEmployeeDesignation()"
                     [(ngModel)]="addEmployee.empDesignation.id">
-                    <option hidden value="">select</option>
+                    <option hidden value="0">select</option>
                     <option *ngFor="let designation of designationList" [value]="designation.id">
                         {{designation.designationName}}
                     </option>
