@@ -86,7 +86,7 @@ export class ForgotPasswordEmailVerificationComponent {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
     console.log(emailRegExp.test(this.email))
     if(emailRegExp.test(this.email)){
-      this.emailVerificationService.VerifyEmailAddress(this.email).subscribe(
+      this.emailVerificationService.VerifyEmailAddress(this.email.toLowerCase()).subscribe(
         (response) => {
           this.value = response;
           console.log("the result is:" + this.value);
