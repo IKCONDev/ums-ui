@@ -274,15 +274,25 @@ export class ActionItemsReportsComponent implements OnInit {
     this.getActionItemsReportByPriority(this.selectedPriority);
   }
 
+
+  actionItemsByPriorityData:any[];
+  actionItemsByPriorityXLabels:any[];
   createActionItemsByPriorityReportChart(){
+    if(this.type==='line'){
+      this.actionItemsByPriorityData=[0,this.actionItemsCountByPriority];
+      this.actionItemsOfOrganizerXLabels=['','Total Action items of  priority','']
+    }else{
+      this.actionItemsByPriorityData=[this.actionItemsCountByPriority];
+      this.actionItemsOfOrganizerXLabels=['Total Action items of  priority']
+    }
     this.actionItemsByPriorityReportChart = new Chart("actionItemsByPriorityReportChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Action items of  priority'],
+        xLabels: this.actionItemsOfOrganizerXLabels,
         datasets: [
           {
             label: "Total Action items of  priority",
-            data: [this.actionItemsCountByPriority],
+            data: this.actionItemsByPriorityData,
             backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
             borderColor: 'rgba(175, 136, 245, 1)',
             borderWidth: 3,
@@ -584,6 +594,7 @@ deptValueCount : DepartmentCount[] = [];
   createActionItemsAllDepartmentReportChart(){
     if(this.type==='line'){
       this.actionItemsAllDepartmentData=[0,this.allActionItemsCount,];
+      console.log(this.allActionItemsCount)
       this.actionItemsAllDepartmentXLabels=['','Total Action items of a department','']
     }else{
       this.actionItemsAllDepartmentData=[this.allActionItemsCount];

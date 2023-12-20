@@ -62,9 +62,17 @@
                                 <input type="checkbox" id="slider{{i}}" (change)="checkUserTogglebuttonEnabled(user,i)">
                                 <span class="slider round"></span>
                             </label>
+                            <label class="switch" *ngIf="user.active == true && user.userRoles[0].roleName === 'SUPER_ADMIN'">
+                                <input type="checkbox" >
+                                <span class="slider round" hidden></span>
+                            </label>
                         </td>
                         <td *ngIf="user.email === loggedInUser;">
                             <label class="switch" *ngIf="user.active == true && user.userRoles[0].roleName != 'SUPER_ADMIN'">
+                                <input type="checkbox" >
+                                <span class="slider round" hidden></span>
+                            </label>
+                            <label class="switch" *ngIf="user.active == true && user.userRoles[0].roleName === 'SUPER_ADMIN'">
                                 <input type="checkbox" >
                                 <span class="slider round" hidden></span>
                             </label>

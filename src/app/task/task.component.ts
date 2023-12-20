@@ -973,7 +973,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.service.deleteTaskById(id).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success("Task Deleted successfully.");
+            this.toastr.success("Task deleted successfully.");
             setTimeout(() => {
               window.location.reload();
             }, 1000)
@@ -986,7 +986,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
     else {
-      this.toastr.warning("Task " + id + " is not Deleted.");
+      this.toastr.warning("Task " + id + " is not deleted.");
 
     }
 
