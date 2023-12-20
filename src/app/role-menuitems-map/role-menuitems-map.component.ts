@@ -48,6 +48,7 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
       $(document).ready(() => {
         this.table = $('#dataTable').DataTable({
           paging: true,
+          stateSave:true,
           searching: true, // Enable search feature
           pageLength: 10,
           order: [[0,'asc']],

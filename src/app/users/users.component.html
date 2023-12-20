@@ -62,9 +62,21 @@
                                 <input type="checkbox" id="slider{{i}}" (change)="checkUserTogglebuttonEnabled(user,i)">
                                 <span class="slider round"></span>
                             </label>
+                            <label class="switch" *ngIf="user.active == true && user.userRoles[0].roleName === 'SUPER_ADMIN'">
+                                <input type="checkbox" >
+                                <span class="slider round" hidden></span>
+                            </label>
                         </td>
                         <td *ngIf="user.email === loggedInUser;">
-
+                            <label class="switch" *ngIf="user.active == true && user.userRoles[0].roleName != 'SUPER_ADMIN'">
+                                <input type="checkbox" >
+                                <span class="slider round" hidden></span>
+                            </label>
+                            <label class="switch" *ngIf="user.active == true && user.userRoles[0].roleName === 'SUPER_ADMIN'">
+                                <input type="checkbox" >
+                                <span class="slider round" hidden></span>
+                            </label>
+                           
                         </td>
                         <td>
                             <button [disabled]="!updatePermission" class="edit-icon" data-target="#userUpdateModal"
@@ -131,15 +143,16 @@
                 <input type="text" class="adduserInput form-control" placeholder="First Name"/><br/>
                 <label><b>Last Name</b></label>
                 <input type="search" class="adduserInput form-control" placeholder="Last Name"/><br/>-->
-                <label><b>Email</b><span id="required">*</span></label>
+                <label style="padding-top: 6px;"><b>Email</b><span id="required">*</span></label>
                 <div>
-                    <ng-select [searchable]="true" [clearable]="true" id="userEmail" name="userEmail"
-                        #userEmail="ngModel" style="width: 400px;" [(ngModel)]="addUserObj.email"
+                    <select class="form-control form-select" id="userEmail" name="userEmail"
+                        #userEmail="ngModel" style="width: 400px; height: 50px;"[(ngModel)]="addUserObj.email"
                         (change)=" validateUserEmailId()">
-                        <ng-option [value]="employee.email" *ngFor="let employee of employeeWithStatus">
+                        <option [value]="">select</option>
+                        <option [value]="employee.email" *ngFor="let employee of employeeWithStatus">
                             {{employee.email}}
-                        </ng-option>
-                    </ng-select>
+                        </option>
+                    </select>
                 </div>
                 <!--- <input type="text" class="adduserInput form-control" placeholder="Email" [(ngModel)]="addUserObj.email"
                 required ="true"  id="usrEmailId" name="usrEmailId" #usrEmailId="ngModel" [class.invalid]="usrEmailId.invalid && usrEmailId.touched"
@@ -151,7 +164,7 @@
                 <select class="adduserInput form-control form-select" placeholder="select"
                     [(ngModel)]="addUserObj.userRoles.at(0).roleId" id="userRole" name="userRole" #userRole="ngModel"
                     [class.invalid]="userRole.invalid && userRole.touched" (change)="validateuserRole()">
-                    <option value="">select</option>
+                    <option [value]="" default>select</option>
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
 
                 </select>

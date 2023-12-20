@@ -222,16 +222,26 @@ export class TaskcategoryReportComponent implements OnInit {
 
 
   }
+  taskByDepartmentData : any[]
+  taskByDepartmentXLabels : any[]
   createTaskListByDepartmentChart() {
     console.log("create task category chart entered");
+    if(this.type === 'line'){
+      this.taskByDepartmentData = [0,this.categoryOfTaskCount,];
+      this.taskByDepartmentXLabels = ['',this.selectedtaskCategoryName,''];
+    }else{
+       this.taskByDepartmentData = [this.categoryOfTaskCount];
+       this.taskByDepartmentXLabels = [this.selectedtaskCategoryName]
+    }
+
     this.taskListByCategoryChart = new Chart("taskListByCategoryChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: [this.selectedtaskCategoryName],
+        xLabels: this.taskByDepartmentXLabels,
         datasets: [
           {
             label: "Total Tasks of a task category",
-            data: [this.categoryOfTaskCount],
+            data: this.taskByDepartmentData,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             // backgroundColor: 'rgb(153, 102, 255)', // Red
             //backgroundColor : 'limegreen',
@@ -254,6 +264,8 @@ export class TaskcategoryReportComponent implements OnInit {
             },
           },
           y: {
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -289,16 +301,25 @@ export class TaskcategoryReportComponent implements OnInit {
       }
     });
   }
+  taskByAllDepartmentData : any[];
+  taskByAllDepartmentXLabel : any[];
   createTaskListAllDepartmentChart() {
     console.log("create task category chart entered");
+    if(this.type === 'line'){
+       this.taskByAllDepartmentData = [0,this.alltasksCount,];
+       this.taskByAllDepartmentXLabel =['','all',''];
+    }else{
+      this.taskByAllDepartmentData = [this.alltasksCount,];
+      this.taskByAllDepartmentXLabel =['all'];
+    }
     this.taskListByCategoryChart1 = new Chart("taskListByCategoryChart1", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['all'],
+        xLabels: this.taskByAllDepartmentXLabel,
         datasets: [
           {
             label: "Total Tasks of a task category",
-            data: [this.alltasksCount],
+            data: this.taskByAllDepartmentData,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             // backgroundColor: 'rgb(153, 102, 255)', // Red
             //backgroundColor : 'limegreen',
@@ -321,6 +342,8 @@ export class TaskcategoryReportComponent implements OnInit {
             },
           },
           y: {
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,

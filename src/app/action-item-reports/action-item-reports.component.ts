@@ -274,15 +274,25 @@ export class ActionItemsReportsComponent implements OnInit {
     this.getActionItemsReportByPriority(this.selectedPriority);
   }
 
+
+  actionItemsByPriorityData:any[];
+  actionItemsByPriorityXLabels:any[];
   createActionItemsByPriorityReportChart(){
+    if(this.type==='line'){
+      this.actionItemsByPriorityData=[0,this.actionItemsCountByPriority];
+      this.actionItemsOfOrganizerXLabels=['','Total Action items of  priority','']
+    }else{
+      this.actionItemsByPriorityData=[this.actionItemsCountByPriority];
+      this.actionItemsOfOrganizerXLabels=['Total Action items of  priority']
+    }
     this.actionItemsByPriorityReportChart = new Chart("actionItemsByPriorityReportChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Action items of  priority'],
+        xLabels: this.actionItemsOfOrganizerXLabels,
         datasets: [
           {
             label: "Total Action items of  priority",
-            data: [this.actionItemsCountByPriority],
+            data: this.actionItemsByPriorityData,
             backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
             borderColor: 'rgba(175, 136, 245, 1)',
             borderWidth: 3,
@@ -308,7 +318,8 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: true,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -345,16 +356,26 @@ export class ActionItemsReportsComponent implements OnInit {
     });
   }
 
+
+  actionItemsByDepartmentData:any[];
+  actionItemsByDepartmentXLabels:any[];
   createActionItemsByDepartmentReportChart(){
+    if(this.type==='line'){
+        this.actionItemsByDepartmentData=[0,this.actionItemsCountOfDepartment];
+        this.actionItemsByDepartmentXLabels=['','Total Action items of a department','']
+    }else{
+      this.actionItemsByDepartmentData=[this.actionItemsCountOfDepartment];
+        this.actionItemsByDepartmentXLabels=['Total Action items of a department'];
+    }
     console.log(" created graph entered")
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Action items of a department'],
+        xLabels: this.actionItemsByDepartmentXLabels,
         datasets: [
           {
             label: "Total Action items of a department",
-            data: [this.actionItemsCountOfDepartment],
+            data:this.actionItemsByDepartmentData,
             backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
             borderColor: 'rgba(175, 136, 245, 1)',
             borderWidth: 3,
@@ -380,7 +401,8 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: true,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -425,15 +447,25 @@ export class ActionItemsReportsComponent implements OnInit {
   }
 
   actionItemsByOrganizerReportChart = null;
+
+  actionItemsOfOrganizerData:any[];
+  actionItemsOfOrganizerXLabels:any[];
   createActionItemsOfOrganizerReportChart(){
+    if(this.type==='line'){
+        this.actionItemsOfOrganizerData=[0,this.actionItemsCountOforganizer];
+        this.actionItemsOfOrganizerXLabels=['','Total Action items of a organizer',''];
+    }else{
+      this.actionItemsOfOrganizerData=[this.actionItemsCountOforganizer];
+      this.actionItemsOfOrganizerXLabels=['Total Action items of a organizer'];
+    }
     this.actionItemsByOrganizerReportChart = new Chart("actionItemsByOrganizerReportChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Action items of a organizer'],
+        xLabels: this.actionItemsOfOrganizerXLabels,
         datasets: [
           {
             label: "Total Action items of a organizer",
-            data: [this.actionItemsCountOforganizer],
+            data: this.actionItemsOfOrganizerData,
             backgroundColor: 'rgba(1255, 106, 149, 0.8)', // violet
             borderColor: 'rgba(255, 106, 149, 1)',
             borderWidth: 3,
@@ -459,7 +491,8 @@ export class ActionItemsReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: true,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,
@@ -556,15 +589,25 @@ deptValueCount : DepartmentCount[] = [];
     //this.actionItemsAllDepartmentReportChart()
   }
   
+  actionItemsAllDepartmentData:any[];
+  actionItemsAllDepartmentXLabels:any[];
   createActionItemsAllDepartmentReportChart(){
+    if(this.type==='line'){
+      this.actionItemsAllDepartmentData=[0,this.allActionItemsCount,];
+      console.log(this.allActionItemsCount)
+      this.actionItemsAllDepartmentXLabels=['','Total Action items of a department','']
+    }else{
+      this.actionItemsAllDepartmentData=[this.allActionItemsCount];
+      this.actionItemsAllDepartmentXLabels=['Total Action items of a department']
+    }
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total Action items of a department'],
+        xLabels: this.actionItemsAllDepartmentXLabels,
         datasets: [
           {
             label: "Total Action items of a department",
-            data: [this.allActionItemsCount],
+            data: this.actionItemsAllDepartmentData,
             backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
             borderColor: 'rgba(175, 136, 245, 1)',
             borderWidth: 3,
@@ -590,7 +633,8 @@ deptValueCount : DepartmentCount[] = [];
             },
           },
           y: {
-            beginAtZero: true,
+            beginAtZero:true,
+            min:0,
             display: true,
             grid: {
               display: true,

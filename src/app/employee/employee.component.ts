@@ -152,6 +152,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   departmentList: Department[] = [];
+  employeeCopyData : Employee[]
   getAllEmployees() {
     this.isEmployeeDataText = true;
     this.isComponentLoading = true;
@@ -162,9 +163,21 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.employeeservice.getAll().subscribe({
       next: response => {
           this.employeeData = response.body;
+          this.employeeCopyData = this.employeeData;
+          this.employeeData.map(employee =>{
+           for(var i=0; i< this.employeeCopyData.length; i++){
+               if(employee.reportingManager === this.employeeCopyData[i].email){
+                 console.log("matched email is"+ employee.email)
+                  employee.reportingManager = this.employeeCopyData[i].firstName+" "+this.employeeCopyData[i].lastName
+                }
+          }
+            
+          })
+          this.getAllDepartments()
           this.isEmployeeDataText = false;
           this.isComponentLoading = false;
         console.log(this.employeeData);
+        console.log(this.employeeCopyData)
       },
       error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -338,11 +351,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       response => {
         this.departmentList = response.body;
         console.log(this.departmentList);
-      })
-    this.employeeservice.getAll().subscribe({
-      next: response => {
-        var employeeList: Employee[] = response.body;
-        this.employeeData = employeeList;
+        this.employeeData = this.employeeCopyData;
         this.employeeData.forEach(employee => {
           this.departmentList.forEach(department => {
             if (employee.departmentId === department.departmentId) {
@@ -351,8 +360,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           })
         })
-      }
-    })
+      })
   }
 
   designationList: Designation[];

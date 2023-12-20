@@ -340,7 +340,7 @@
                                 [(ngModel)]="update_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
                                 minlength="5" maxlength="50"></textarea>
-                            <div *ngIf="taskTitleErrrorInfo !=''">
+                            <div *ngIf="taskTitleErrrorInfo !=''" style="margin-bottom: -24px;">
                                 <span style="margin-left: 25px; color: red;">{{taskTitleErrrorInfo}}</span>
                             </div>
                         </div>
@@ -435,10 +435,10 @@
                                         </tr>
                                         <tr>
                                             <td><b>Category</b><span id="required">*</span></td>
-                                            <td style="padding-left: 19px;">
+                                            <td style="padding-left: 18px;">
                                                 <span>
-                                                    <select id="taskCategory" class="form-control-sm"
-                                                        style="width: 312px;"
+                                                    <select id="taskCategory" class="form-control form-select"
+                                                        style="width: 314px;font-size: 14px;"
                                                         [(ngModel)]="update_Task.taskCategory.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
                                                         (change)="validateTaskCategory()">
@@ -704,7 +704,7 @@
                                         </tr>
                                         <tr>
                                             <td><label for="prority"><b>Priority</b></label></td>
-                                            <td><span><select id="priority" class="form-control"
+                                            <td><span><select id="priority" class="form-control" style="font-size: 15px;"
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
                                                         [class.invalid]="taskPriority.invalid && taskPriority.touched"

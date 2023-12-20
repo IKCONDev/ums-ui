@@ -260,16 +260,25 @@ export class MeetingReportsComponent implements OnInit {
       }
     })
   }
-
+  meetingsByOrg:any[]
+  meetingsByOrgxlabels:any[]
   createMeetingsByOrganizerReportChart(){
+    if(this.type==='line'){
+      this.meetingsByOrg=[0,this.organizedMeetingListCount,];
+      this.meetingsByOrgxlabels=['','Total meetings of an organizer',''];
+    }
+    else{
+      this.meetingsByOrg=[this.organizedMeetingListCount];
+      this.meetingsByOrgxlabels=['Total meetings of an organizer'];
+    }
     this.organizedmeetingListChart = new Chart("organizedmeetingListChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total meetings of an organizer'],
+        xLabels: this.meetingsByOrgxlabels,
         datasets: [
           {
             label: "Total meetings by organizer",
-            data: [this.organizedMeetingListCount],
+            data: this.meetingsByOrg,
             backgroundColor: 'rgba(216, 175, 53, 0.8)', // Yellow
             borderColor: 'rgba(216, 175, 53, 1)',
             borderWidth: 3,
@@ -295,7 +304,8 @@ export class MeetingReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
@@ -331,17 +341,26 @@ export class MeetingReportsComponent implements OnInit {
       }
     });
   }
-
+  meetingByDepartmentdata:any[];
+  meetingLabelforxLabels:any[];
   createMeetingsByDepartmentReportChart(){
     console.log(" draw chart")
+    if(this.type==='line'){
+      this.meetingByDepartmentdata=[0,this.meetingsByDepartmentListCount,];
+      this.meetingLabelforxLabels=['','Total meetings of a department','']
+    }
+    else{
+      this.meetingByDepartmentdata=[this.meetingsByDepartmentListCount];
+      this.meetingLabelforxLabels=['Total meetings of a department']
+    }
     this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total meetings of a department'],
+        xLabels: this.meetingLabelforxLabels,
         datasets: [
           {
             label: "Total meetings of a department",
-           data: [this.meetingsByDepartmentListCount],
+           data:  this.meetingByDepartmentdata,
            //data: [this.OrganizedMeetingCount],
             backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
             borderColor: 'rgba(197, 14, 71, 1)',
@@ -368,7 +387,8 @@ export class MeetingReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
@@ -405,15 +425,25 @@ export class MeetingReportsComponent implements OnInit {
     });
   }
 
+  meetingByAttendeeData:any[];
+  meetingByAttendeeXLabels:any[];
   createMeetingsByAttendeeReportChart(){
+    if(this.type==='line'){
+      this.meetingByAttendeeData=[0,this.attendedMeetingListCount,];
+      this.meetingByAttendeeXLabels=['','Total meetings of an attendee',''];
+    }
+    else{
+      this.meetingByAttendeeData=[this.attendedMeetingListCount];
+      this.meetingByAttendeeXLabels=['Total meetings of an attendee'];
+    }
     this.attendedMeetingListChart = new Chart("attendedMeetingListChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total meetings of an attendee'],
+        xLabels: this.meetingByAttendeeXLabels,
         datasets: [
           {
             label: "Total meetings of an attendee",
-            data: [this.attendedMeetingListCount],
+            data: this.meetingByAttendeeData,
             backgroundColor: 'rgba(101, 200, 255, 0.8)', // Yellow
             borderColor: 'rgba(101, 200, 255, 1)',
             borderWidth: 3,
@@ -439,7 +469,8 @@ export class MeetingReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
@@ -602,15 +633,26 @@ export class MeetingReportsComponent implements OnInit {
      })
     
   }
+
+  MeetingsByAllDepartmentData:any[];
+  MeetingsByAllDepartmentXLabels:any[];
   createMeetingsByAllDepartmentReportChart(){
+    if(this.type==='line'){
+      this.meetingByAttendeeData=[0,this.OrganizedMeetingCount];
+      this.MeetingsByAllDepartmentXLabels=['','Total meetings of all departments',''];
+    }
+    else{
+      this.meetingByAttendeeData=[this.OrganizedMeetingCount];
+      this.MeetingsByAllDepartmentXLabels=['Total meetings of all departments'];
+    }
     this.meetingsByDepartmentListChart = new Chart("meetingsByDepartmentListChart", {
       type: this.type,
       data: {// values on X-Axis
-        xLabels: ['Total meetings of all departments'],
+        xLabels: this.MeetingsByAllDepartmentXLabels,
         datasets: [
           {
             label: "Total meetings of all departments",
-            data: [this.OrganizedMeetingCount],
+            data: this.meetingByAttendeeData,
            //data: [this.OrganizedMeetingCount],
             backgroundColor: 'rgba(197, 14, 71, 0.8)', // Yellow
             borderColor: 'rgba(197, 14, 71, 1)',
@@ -637,7 +679,8 @@ export class MeetingReportsComponent implements OnInit {
             },
           },
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
@@ -683,6 +726,13 @@ export class MeetingReportsComponent implements OnInit {
       if(this.meetingsByDepartmentListChart!= null){
         this.meetingsByDepartmentListChart.destroy()
         this.createMeetingsByAllDepartmentReportChart()
+      }
+    }
+    if(this.reportType =='all' && this.selectedDepartment!= null ){
+      this.colorOfChartType = value;
+      if(this.meetingsByDepartmentListChart!= null){
+        this.meetingsByDepartmentListChart.destroy()
+        this.createMeetingsByDepartmentReportChart()
       }
     }
     if(this.reportType == 'department'){

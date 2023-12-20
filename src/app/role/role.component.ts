@@ -162,6 +162,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
       $(document).ready(() => {
         this.table = $('#dataTable').DataTable({
           paging: true,
+          stateSave:true,
           searching: true, // Enable search feature
           pageLength: 10,
           order: [[1,'asc']],
@@ -419,8 +420,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
-          }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error("Role is already in usage by a 'User' ! Cannot be deleted.");
           }
         }
     })
@@ -479,8 +478,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
-          }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error("One of the role is already in usage by a 'User' ! Cannot be deleted.");
           }
         }
       })

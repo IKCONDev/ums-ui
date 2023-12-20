@@ -138,8 +138,8 @@
                         <td>{{meeting.meetingId}}</td>
                         <td>{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -289,8 +289,8 @@
                         <td>{{meeting.meetingId}}</td>
                         <td>{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
-                        <td>{{meeting.startDateTime}}</td>
-                        <td>{{meeting.endDateTime}}</td>
+                        <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -441,8 +441,8 @@
                     <td>{{attehdedMeeting.meetingId}}</td>
                     <td>{{attehdedMeeting.subject}}</td>
                     <td>{{attehdedMeeting.organizerName}}</td>
-                    <td>{{attehdedMeeting.startDateTime}}</td>
-                    <td>{{attehdedMeeting.endDateTime}}</td>
+                    <td>{{attehdedMeeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                    <td>{{attehdedMeeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                 </tr>
             </tbody>
         </table>
@@ -645,8 +645,8 @@
                         <td>{{attendedMeeting.subject}}</td>
                         <td>{{attendedMeeting.organizerName}}</td>
                         <td>{{attendedMeeting.departmentId}}</td>
-                        <td>{{attendedMeeting.startDateTime}}</td>
-                        <td>{{attendedMeeting.endDateTime}}</td>
+                        <td>{{attendedMeeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{attendedMeeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
              </tbody>
         </table>
