@@ -29,7 +29,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
 
   addUserRPMMap: UserRoleMenuItemPermissionMap = new UserRoleMenuItemPermissionMap();
   addPermissionList: string[] = [];
-  addPermissionIdListString: string;
+  addPermissionIdListString: string = null;
   roleName: string;
   userRPMMapList: UserRoleMenuItemPermissionMap[] = [];
   unassignedMenuItemList: MenuItem[] = [];
@@ -259,26 +259,37 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
    * 
    */
   createUserRoleMenuItemPermissionMapForUser() {
-    this.addUserRPMMap.email = this.selectedUserId;
-    this.addUserRPMMap.permissionIdList = this.addPermissionIdListString;
-    this.addUserRPMMap.roleId = this.roleId;
-    console.log(this.addUserRPMMap)
-    this.userRPMService.createUserRoleMenuItemPermissionMap(this.addUserRPMMap).subscribe({
-      next: response => {
-        if (response.status === HttpStatusCode.Created) {
-          this.toastr.success('Menu Item and permissions are added for user');
-          // setTimeout(() => {
-          //   window.location.reload();
-          // }, 1000)
-        }
-      }, error: error => {
-        if (error.status === HttpStatusCode.Unauthorized) {
-          this.router.navigateByUrl('/session-timeout');
-        } else {
-          this.toastr.error('Error while adding a menu item and permissions for user.');
-        }
-      }
-    })
+    console.log(this.addPermissionIdListString);
+    if( this.addPermissionIdListString != null  && this.addPermissionIdListString.includes('View')){
+       console.log("menu item contains view permission ");
+       this.addUserRPMMap.email = this.selectedUserId;
+       this.addUserRPMMap.permissionIdList = this.addPermissionIdListString;
+       this.addUserRPMMap.roleId = this.roleId;
+       console.log(this.addUserRPMMap)
+       this.userRPMService.createUserRoleMenuItemPermissionMap(this.addUserRPMMap).subscribe({
+         next: response => {
+           if (response.status === HttpStatusCode.Created) {
+             this.toastr.success('Menu Item and permissions are added for user');
+            //  document.getElementById('closeUpdateModal').click();
+            window.location.reload();
+             // setTimeout(() => {
+             //  window.location.reload();
+             // }, 1000)
+           }
+         }, error: error => {
+           if (error.status === HttpStatusCode.Unauthorized) {
+             this.router.navigateByUrl('/session-timeout');
+           } else {
+             this.toastr.error('Error while adding a menu item and permissions for user.');
+           }
+         }
+       })
+    }
+    else{
+       console.log("menu item not contains view permission");
+       this.toastr.warning("Please select 'View' permission")
+    }
+    
   }
 
 
