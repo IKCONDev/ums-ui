@@ -656,10 +656,9 @@
                             </div>
                         </div>
                         <div class="Organizer">
-                            <div style="padding-top: 15px;padding-left: 10px;">Organizer</div>
                             <div >
-                                <select style="width: 200px;" [(ngModel)]="actionItemOwnerFilter" #boxOwner class="form-control">
-                                    <option value="" hidden>Select</option>
+                                <select style="width: 297px;" [(ngModel)]="actionItemOwnerFilter" #boxOwner class="form-control form-select">
+                                    <option value="" hidden>Select Organizer</option>
                                     <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">
                                         {{userEmail}}</option>
                                 </select>
