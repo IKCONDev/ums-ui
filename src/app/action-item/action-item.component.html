@@ -38,7 +38,7 @@
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                    {{reportee.email}}
+                    {{reportee.firstName}} {{reportee.lastName}} - {{reportee.employeeOrgId}}
                 </ng-option>
             </ng-select>
         </div>
@@ -52,7 +52,7 @@
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                    {{reportee.email}}
+                    {{reportee.firstName}} {{reportee.lastName}} - {{reportee.employeeOrgId}}
                 </ng-option>
             </ng-select>
         </div>
