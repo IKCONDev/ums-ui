@@ -632,14 +632,14 @@
 <div class="modal" id="filterModal">
     <div class="modal-dialog" id="dialog">
         <div class="modal-content">
+            <div>
             <div class="filters-action-item">
                 <div class="filters-parent">
                     <div class="filters">Filters</div>
                     <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
                         data-dismiss="modal" (click)="CloseFilterActionItemModal()" style="cursor: pointer;">
                 </div>
-                <div class="filter-dd">
-                    <div class="meeting-title-dd-parent">
+                <div class="orgMeetingOuterDiv">
                         <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
@@ -648,10 +648,12 @@
                   </div> -->
                         <div class="meeting-title-dd">
                             <div class="meeting-title-filter">
+                            <div class="input-container">
                                 <input type="text" [(ngModel)]="actionItemNameFilter" #boxTitle placeholder="Action item title"
                                     name="taskName" />
                                 <img class="search-icon" alt="" src="../../assets/images/search.svg">
                             </div>
+                        </div>
                         </div>
                         <div class="meeting-title-dd">
                             <div>Organizer
@@ -667,22 +669,25 @@
                             <div class="date-parent">
                                 <input type="date" #boxStart [(ngModel)]="actionItemStartDateFilter" />
                             </div>
-                            <div class="to">To</div>
+                            <div style="font-size: 12px;">To</div>
                             <div class="date-parent">
                                 <input type="date" #boxEnd [(ngModel)]="actionItemEndDateFilter" />
                             </div>
                         </div>
                     </div>
+                    <div class="date-range">
+                        <button type="button" class="submit-button"
+                            (click)="filterActionItemList(boxTitle.value, boxOwner.value, boxStart.value, boxEnd.value)">Apply</button>
+                        <button type="button" class="delete-button" (click)="resetFilterModal()">Clear</button>
+                    </div>
                 </div>
-                <div class="submit-button-parent">
-                    <button type="button" class="submit-button"
-                        (click)="filterActionItemList(boxTitle.value, boxOwner.value, boxStart.value, boxEnd.value)">Apply</button>
-                    <button type="button" class="delete-button" (click)="resetFilterModal()">Clear</button>
-                </div>
+                
+            </div>
             </div>
         </div>
     </div>
-</div>
+
+
 
 
 
