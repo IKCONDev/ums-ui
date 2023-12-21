@@ -38,7 +38,7 @@
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                    {{reportee.email}}
+                    {{reportee.firstName}} {{reportee.lastName}} - {{reportee.employeeOrgId}}
                 </ng-option>
             </ng-select>
         </div>
@@ -52,7 +52,7 @@
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
-                    {{reportee.email}}
+                    {{reportee.firstName}} {{reportee.lastName}} - {{reportee.employeeOrgId}}
                 </ng-option>
             </ng-select>
         </div>
@@ -664,7 +664,6 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="date-range">
                             <div class="date-parent">
                                 <input type="date" class="form-control"style="width: 130px;" #boxStart [(ngModel)]="actionItemStartDateFilter" />
@@ -691,8 +690,6 @@
             </div>
         </div>
     </div>
-
-
 
 
 
