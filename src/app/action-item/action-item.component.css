@@ -274,6 +274,7 @@ tr.detail div {
   transform: translateY(-50%);
   cursor: pointer;
 }
+
 .meeting-title-filter {
   position: relative;
 }
@@ -363,6 +364,7 @@ input[type="datetime-local"] {
 }
 
 
+
 .to {
   position: relative;
   line-height: 150%;
@@ -406,7 +408,7 @@ input[type="datetime-local"] {
   align-items: center;
   justify-content: center;
   padding: 3px 40px;
-  width: 129px;
+  width: 128px;
 }
 
 .delete-button {
@@ -419,7 +421,7 @@ input[type="datetime-local"] {
   justify-content: center;
   padding: 3px 40px;
   color: #FE672E;
-  width: 129px;
+  width: 128px;
 }
 
 .submit-button-parent {
@@ -938,4 +940,8 @@ text-shadow: 0px 0px 0px transparent;
 .input-container {
   position: relative;
   
+}
+.Organizer{
+  display: flex;
+  justify-content: space-between;
 }
