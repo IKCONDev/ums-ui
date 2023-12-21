@@ -1309,7 +1309,6 @@ export class ActionItemComponent implements OnInit {
   getPOPUPMessage(){
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
-    console.log("is method executing")
   }
 
   getPOPUPMessage2(){

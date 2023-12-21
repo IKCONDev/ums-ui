@@ -268,22 +268,15 @@ tr.detail div {
 }
 
 .search-icon {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  overflow: hidden;
-  flex-shrink: 0;
+  position: absolute;
+  top: 50%;
+  right: 20px; /* Adjust the value based on your desired position */
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .meeting-title-filter {
-  border-radius: 3px;
-  border: 1px solid #000;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 8px 16px;
-  gap: 120px;
+  position: relative;
 }
 
 .id-hover {
@@ -322,9 +315,8 @@ tr.detail div {
 
 .meeting-title-dd {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
 }
 
 .expand-more-icon {
@@ -365,16 +357,13 @@ tr.detail div {
   color: #202224;
 }
 
-.date-parent {
-  border-radius: 3px;
-  border: 1px solid #000;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 8px 16px;
-  gap: 32px;
+.date-range .date-parent  
+input[type="datetime-local"] {
+    font-size: 13px; /* Adjust the font size as needed */
+    width: 100%;
 }
+
+
 
 .to {
   position: relative;
@@ -384,10 +373,9 @@ tr.detail div {
 
 .date-range {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   align-items: center;
-  justify-content: flex-start;
-  gap: 13px;
+  justify-content: space-between;
 }
 
 .meeting-title-dd-parent {
@@ -411,32 +399,36 @@ tr.detail div {
 }
 
 .submit-button {
-  border-radius: 2px;
-  background-color: #4880ff;
+  border-radius: 5px;
+  background-color: #4880FF;
+  border: 1px solid #151618;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 4px 42px;
+  padding: 3px 40px;
+  width: 128px;
 }
 
 .delete-button {
-  border-radius: 2px;
-  border: 1px solid #fd5454;
+  border-radius: 5px;
+  border: 1px solid #FE672E;
   display: flex;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 4px 42px;
-  color: #fd5454;
+  padding: 3px 40px;
+  color: #FE672E;
+  width: 128px;
 }
 
 .submit-button-parent {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 42px;
+  align-items: center;
+  justify-content: space-between;
   font-size: 14px;
   color: #fff;
 }
@@ -456,6 +448,7 @@ tr.detail div {
   font-size: 18px;
   color: #202224;
 }
+
 
 
 .action-icon {
@@ -939,4 +932,16 @@ text-shadow: 0px 0px 0px transparent;
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1.5 ;}
+}
+.orgMeetingOuterDiv {
+  display: flex;
+  flex-direction: column;
+}
+.input-container {
+  position: relative;
+  
+}
+.Organizer{
+  display: flex;
+  justify-content: space-between;
 }
