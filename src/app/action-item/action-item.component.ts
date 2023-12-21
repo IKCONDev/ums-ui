@@ -120,6 +120,7 @@ export class ActionItemComponent implements OnInit {
   displayText: boolean = false;
   isActionItemDataText: boolean = false;
   disableSaveButton=false;
+  isCriteria:boolean=false;
   /**
    * 
    * @param service 
@@ -616,6 +617,7 @@ export class ActionItemComponent implements OnInit {
     this.isTaskStartDateValid = false;
     this.isTaskDueDateValid = false;
     this.isTaskCategoryValid=false;
+    this.isCriteria=false;
 
     this.taskTitleErrrorInfo = '';
     this.taskDescriptionErrorInfo = '';
@@ -1134,7 +1136,9 @@ export class ActionItemComponent implements OnInit {
           }
         }
       })
-    }
+    }else{
+          this.isCriteria=true;
+        }
   }
   min: any = "";
 
@@ -1311,10 +1315,10 @@ export class ActionItemComponent implements OnInit {
     popup.classList.toggle("show");
   }
 
-  getPOPUPMessage2(){
-    var popup = document.getElementById("myPopup2");
-    popup.classList.toggle("show");
-  }
+  // getPOPUPMessage2(){
+  //   var popup = document.getElementById("myPopup2");
+  //   popup.classList.toggle("show");
+  // }
 
 }
 
