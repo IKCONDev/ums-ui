@@ -260,7 +260,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     else if(this.addDepartment.departmentName.length < 3){
       this.departmentNameErrorInfo = 'Department name should have minimum of 3 characters.';
       this.isDepartmentNameValid = false;
-    }else if(this.addDepartment.departmentName.length>=50){
+    }else if(this.addDepartment.departmentName.length> 50){
       this.departmentNameErrorInfo = 'Department name should not exceed more than 50 characters';
       this.isDepartmentNameValid = false;
     }else{
@@ -284,7 +284,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if(this.addDepartment.departmentHead.length <3){
         this.departmentHeadErrorInfo = 'Department head should have minimum of 3 characters.';
         this.isDepartmentHeadValid = false;
-    }else if(this.addDepartment.departmentHead.length>=50){
+    }else if(this.addDepartment.departmentHead.length> 50){
         this.departmentHeadErrorInfo = 'Department head should not exceed more than 50 characters';
         this.isDepartmentHeadValid = false; 
     }else{
@@ -338,7 +338,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     else if(this.addDepartment.departmentAddress.length < 3){
       this.departmentLocationErrorInfo = 'Department location should be minimum of 3 characters.';
       this.isDepartmentLocationValid = false;
-    }else if(this.addDepartment.departmentAddress.length >= 20){
+    }else if(this.addDepartment.departmentAddress.length > 20){
       this.departmentLocationErrorInfo = 'Department location should not exceed more than 20 characters.';
       this.isDepartmentLocationValid = false;
     }
@@ -505,7 +505,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
      else if(this.existingDepartment.departmentName.length < 3){
        this.updatedDepartmentNameErrorInfo = 'Department name should have minimum of 3 characters.';
        this.isUpdatedDepartmentNameValid = false;
-     }else if(this.existingDepartment.departmentName.length>=50){
+     }else if(this.existingDepartment.departmentName.length> 50){
        this.updatedDepartmentNameErrorInfo = 'Department name should not exceed more than 50 characters.';
        this.isUpdatedDepartmentNameValid = false;
      }else{
@@ -529,7 +529,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if(this.existingDepartment.departmentHead.length < 3){
       this.updatedDepartmentHeadErrorInfo = 'Department head should have minimum of 3 characters.';
       this.isUpdatedDepartmentHeadValid=false;
-    }else if(this.existingDepartment.departmentHead.length>=50){
+    }else if(this.existingDepartment.departmentHead.length> 50){
       this.updatedDepartmentHeadErrorInfo = 'Department head should not exceed more than 50 characters.'; 
       this.isUpdatedDepartmentHeadValid=false;
     }else{
@@ -553,7 +553,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     }else if(this.existingDepartment.departmentCode.length < 1){
       this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 1 characters.';
       this.isUpdatedDepartmentCodeValid=false;
-    }else if(this.existingDepartment.departmentCode.length >10){
+    }else if(this.existingDepartment.departmentCode.length > 10){
       this.updatedDepartmentCodeErrorInfo = 'Department code should not exceed more than 10 characters.';
       this.isUpdatedDepartmentCodeValid=false;
     }
@@ -583,7 +583,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
      else if(this.existingDepartment.departmentAddress.length < 3){
        this.updatedDepartmentLocationErrorInfo = 'Department location should be minimum of 3 characters.';
        this.isUpdatedDepartmentLocationValid = false;
-     }else if(this.existingDepartment.departmentAddress.length >= 20){
+     }else if(this.existingDepartment.departmentAddress.length > 20){
        this.updatedDepartmentLocationErrorInfo = 'Department location should not exceed more than 20 characters.';
        this.isUpdatedDepartmentLocationValid = false;
      }
