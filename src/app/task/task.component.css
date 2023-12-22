@@ -915,6 +915,7 @@ b {
   to {opacity:1.5;}
 }
 
+
 .orgMeetingOuterDiv {
   display: flex;
   flex-direction: column;
@@ -927,7 +928,7 @@ b {
   display: flex;
   justify-content: space-between;
 }
-.date-range .date-parent  
+
 input[type="datetime-local"] {
     font-size: 13px; /* Adjust the font size as needed */
     width: 100%;
