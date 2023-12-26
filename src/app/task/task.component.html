@@ -347,7 +347,7 @@
                                 placeholder="Enter title" class="form-control" name="taskTitle" required="true"
                                 [(ngModel)]="update_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
-                                minlength="5" maxlength="50"></textarea>
+                                minlength="5" maxlength="51"></textarea>
                             <div *ngIf="taskTitleErrrorInfo !=''" style="margin-bottom: -24px;">
                                 <span style="margin-left: 25px; color: red;">{{taskTitleErrrorInfo}}</span>
                             </div>
@@ -393,7 +393,7 @@
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
                                     (keyup)="validateTaskDescription()" placeholder="Enter description" minlength="10"
-                                    maxlength="250"></textarea>
+                                    maxlength="251"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
@@ -678,7 +678,7 @@
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
                                     (keyup)="validateTaskDescription()" placeholder="Enter description !..."
-                                    minlength="10" maxlength="250" disabled></textarea>
+                                    minlength="10" maxlength="251" disabled></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
