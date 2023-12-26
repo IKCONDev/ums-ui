@@ -52,7 +52,8 @@
                             <th>Modified By</th>
                             <th>Created By</th>
                             <th>Modified Date</th> -->
-                            <th>Actions</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="employeeData !=null && isEmployeeDataText===false">
@@ -87,7 +88,8 @@
                                         </g>
                                     </svg>
                                 </button>
-                                &nbsp;
+                              </td>
+                              <td>
                                 <button [disabled]="!deletePermission" id="trashIcon" (click)="removeEmployee(employee.employeeOrgId, employee.id,employee.user,employee.email)">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                          version="1.1" id="Capa_1" width="15px" height="15px"
