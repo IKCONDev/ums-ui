@@ -494,21 +494,21 @@ export class HomeComponent implements OnInit {
           xLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           datasets: [
             {
-              label: "Total Tasks",
+              label: "Total ",
               data: this.TotalTasks[0],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
               borderColor: 'rgba(255, 99, 132, 1)',
               borderWidth: 3,
             },
             {
-              label: "Yet To Start",
+              label: "Yet to start",
               data: this.TotalTasks[1],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
               borderWidth: 3,
             },
             {
-              label: "In-progress",
+              label: "In progress",
               data: this.TotalTasks[2],
               backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
               borderColor: 'rgba(255, 206, 86, 1)',
@@ -584,21 +584,21 @@ export class HomeComponent implements OnInit {
           xLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
-              label: "Total Tasks",
+              label: "Total ",
               data: this.TotalTasksForYear[0],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
               borderColor: 'rgba(255, 99, 132, 1)',
               borderWidth: 3,
             },
             {
-              label: "Yet To Start",
+              label: "Yet to start",
               data: this.TotalTasksForYear[1],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
               borderWidth: 3,
             },
             {
-              label: "Inprogress",
+              label: "In progress",
               data: this.TotalTasksForYear[2],
               backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
               borderColor: 'rgba(255, 206, 86, 1)',
@@ -681,21 +681,21 @@ export class HomeComponent implements OnInit {
           xLabels: [currentMonth],
           datasets: [
             {
-              label: "Total Tasks",
+              label: "Total ",
               data: [this.TotalTasksForMonth[0][currentMonthNumber]],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
               borderColor: 'rgba(255, 99, 132, 1)',
               borderWidth: 3,
             },
             {
-              label: "Yet To Start",
+              label: "Yet to start",
               data: [this.TotalTasksForMonth[1][currentMonthNumber]],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
               borderWidth: 3,
             },
             {
-              label: "Inprogress",
+              label: "In progress",
               data: [this.TotalTasksForMonth[2][currentMonthNumber]],
               backgroundColor: 'rgba(255, 206, 86, 0.8)', // Yellow
               borderColor: 'rgba(255, 206, 86, 1)',
@@ -782,14 +782,14 @@ export class HomeComponent implements OnInit {
           labels: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
           datasets: [
             {
-              label: "Organised Meetings",
+              label: "Organised meetings",
               data: this.TotalMeetingStatus[1],
               backgroundColor: dayColors,
               
               borderWidth: 1.5,
             },
             {
-              label: "Attended Meetings",
+              label: "Attended meetings",
               data: this.TotalMeetingStatus[0],
               backgroundColor: dayColors,
               
@@ -861,14 +861,14 @@ export class HomeComponent implements OnInit {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
-              label: "Organised Meetings",
+              label: "Organised meetings",
               data: this.TotalMeetingStatusForYear[1],
               backgroundColor: mildColors,
               borderColor:mildColors,
               borderWidth: 3,
             },
             {
-              label: "Attended Meetings",
+              label: "Attended meetings",
               data: this.TotalMeetingStatusForYear[0],
               backgroundColor: mildColors,
               borderWidth: 3,
@@ -929,14 +929,14 @@ export class HomeComponent implements OnInit {
           labels: [currentMonth],
           datasets: [
             {
-              label: "Organised Meetings",
+              label: "Organised meetings",
               data: [this.TotalMeetingStatusForMonth[1][currentMonthNumber]],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
               hoverOffset:10,
               borderWidth: 1.5,
             },
             {
-              label: "Attended Meetings",
+              label: "Attended meetings",
               data: [this.TotalMeetingStatusForMonth[0][currentMonthNumber]],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrang
               hoverOffset:10,
@@ -1342,7 +1342,7 @@ export class HomeComponent implements OnInit {
           xLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           datasets: [
             {
-              label: "Yet To Start",
+              label: "Yet to start",
               data: this.TotalTasks[1],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
@@ -1402,7 +1402,7 @@ export class HomeComponent implements OnInit {
           xLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
-              label: "Yet To Start",
+              label: "Yet to start",
               data: this.TotalTasksForYear[1],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
@@ -1471,7 +1471,7 @@ export class HomeComponent implements OnInit {
           xLabels: [currentMonth],
           datasets: [
             {
-              label: "Yet To Start",
+              label: "Yet to start",
               data: [this.yetToStartTaskStatus[1][currentMonthNumber]],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
@@ -1603,7 +1603,7 @@ export class HomeComponent implements OnInit {
           xLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           datasets: [
             {
-              label: "In-progress",
+              label: "In progress",
               data: this.TotalTasks[2],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
@@ -1648,7 +1648,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'In-progress status for the current week',
+              text: 'In progress status for the current week',
               font: {
                 size: 14,
               },
@@ -1663,7 +1663,7 @@ export class HomeComponent implements OnInit {
           xLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
-              label: "In-progress",
+              label: "In progress",
               data: this.TotalTasksForYear[2],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
@@ -1710,7 +1710,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'In-progress status of current year',
+              text: 'In progress status of current year',
               align: 'center',
               font: {
                 size: 14,
@@ -1732,7 +1732,7 @@ export class HomeComponent implements OnInit {
           xLabels: [currentMonth],
           datasets: [
             {
-              label: "In-progress",
+              label: "In progress",
               data: [this.inprogressTaskForMonth[2][currentMonthNumber]],
               backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrange
               borderColor: 'rgba(255, 148, 112, 1)',
@@ -1778,7 +1778,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'In-progress status for the current month',
+              text: 'In progress status for the current month',
               align: 'center',
               font: {
                 size: 14,
