@@ -45,7 +45,8 @@
                         <th>Created Date</th>
                         <th>Modified By</th>
                         <th>Modified Date</th>
-                        <th>Actions</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isTaskCategoryDataText===false">
@@ -73,8 +74,10 @@
                                              />
                                     </g>
                                 </svg>
-                                &nbsp;
+        
                             </button>
+                        </td>
+                        <td>
                             <button  [disabled]="!deletePermission" id="trashIcon" (click)="removeTaskCategory(category.taskCategoryId)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
