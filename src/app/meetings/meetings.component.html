@@ -733,7 +733,7 @@
                     <!--footer-->
                     <div class="modal-footer">
                         <button type="submit" id="sendMomEmail" class="btn btn-primary updateButton"
-                            (click)="sendMOMEmail()">Send</button>
+                            (click)="sendMOMEmail()" [disabled]="isSendButtonDisabled===true">Send</button>
                         <button type="button" id="closeSendMoMEmail" class="btn btn-outline-danger cancelButton"
                             data-dismiss="modal" (click)="clearErrorMessages(form)">Cancel</button>
                     </div>
