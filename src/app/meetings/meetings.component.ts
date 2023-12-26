@@ -357,10 +357,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addDetails.actionItemTitle === '' || this.addDetails.actionItemTitle.trim() === "" || regex.exec(this.addDetails.actionItemTitle) === null) {
       this.actionItemTitleErrorInfo = "Title is required";
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length < 5) {
+    } else if (this.addDetails.actionItemTitle.length <= 5) {
       this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters';
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length > 50) {
+    } else if (this.addDetails.actionItemTitle.length >= 50) {
       this.actionItemTitleErrorInfo = 'Title must not exceed 50 characters';
       this.isActionItemTitleValid = false;
     } else {
@@ -380,10 +380,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim() === "" || regex.exec(this.addDetails.actionItemDescription) === null) {
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
-    } else if (this.addDetails.actionItemDescription.length < 10) {
+    } else if (this.addDetails.actionItemDescription.length <= 10) {
       this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isActionItemDescriptionValid = false;
-    } else if (this.addDetails.actionItemDescription.length > 250) {
+    } else if (this.addDetails.actionItemDescription.length >= 250) {
       this.actionItemDescriptionErrorInfo = 'Description must not exceed 250 characters';
       this.isActionItemDescriptionValid = false;
     } else {
@@ -1145,10 +1145,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.updatedetails.actionItemTitle === '' || this.updatedetails.actionItemTitle.trim() === "" || regex.exec(this.updatedetails.actionItemTitle) === null) {
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length < 5) {
+    } else if (this.updatedetails.actionItemTitle.length <= 5) {
       this.updateActionItemTitleErrorInfo = 'Title should have minimum of 5 characters';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length > 50) {
+    } else if (this.updatedetails.actionItemTitle.length >= 50) {
       this.updateActionItemTitleErrorInfo = 'Title must not exceed 50 characters';
       this.isUpdateActionItemTitleValid = false;
     } else {
@@ -1167,10 +1167,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim() === "" || regex.exec(this.updatedetails.actionItemDescription) === null) {
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
-    } else if (this.updatedetails.actionItemDescription.length < 10) {
+    } else if (this.updatedetails.actionItemDescription.length <= 10) {
       this.updateActionItemDescErrorInfo = 'Description should have minimum of 10 characters';
       this.isUpdateActionItemDescValid = false;
-    } else if (this.updatedetails.actionItemDescription.length > 250) {
+    } else if (this.updatedetails.actionItemDescription.length >= 250) {
       this.updateActionItemDescErrorInfo = 'Description must not exceed 250 characters';
       this.isUpdateActionItemDescValid = false;
     } else {
@@ -1553,10 +1553,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addMeeting.subject === '' || this.addMeeting.subject.trim() === "" || regex.exec(this.addMeeting.subject) === null) {
       this.meetingSubjectErrorInfo = 'Meeting subject is required';
       this.isMeetingSubjectValid = false;
-    } else if (this.addMeeting.subject.length < 4) {
+    } else if (this.addMeeting.subject.length <= 4) {
       this.meetingSubjectErrorInfo = 'Meeting subject should have minimum of 4 characters';
       this.isMeetingSubjectValid = false;
-    } else if (this.addMeeting.subject.length > 100) {
+    } else if (this.addMeeting.subject.length >= 100) {
       this.meetingSubjectErrorInfo = 'Meeting subject should not exceed maximum of 100 characters';
       this.isMeetingSubjectValid = false;
     } else {
