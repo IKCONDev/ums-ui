@@ -430,7 +430,7 @@
                     <label><b>Action Item Title<span id="required">*</span></b></label>
                     <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
                         placeholder="Enter title !..." [(ngModel)]="addDetails.actionItemTitle" required="true"
-                        name="actionItemTitle" id="actionItemTitle" minlength="5" maxlength="50"
+                        name="actionItemTitle" id="actionItemTitle" minlength="5" maxlength="501"
                         #actionItemTitle="ngModel" [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
                         (keyup)="validateActionTitle()">
                     <div *ngIf="actionItemTitleErrorInfo != ''">
@@ -443,7 +443,7 @@
                         <textarea type="text" rows="3" cols="3" class="form-control"
                             placeholder="Enter description !..." style="width:400px;max-height:200px"
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
-                            #actionItemDescription="ngModel" minlength="10" maxlength="250" id="actionItemDescription"
+                            #actionItemDescription="ngModel" minlength="10" maxlength="2501" id="actionItemDescription"
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
                             (keyup)="validateActionDescription()"></textarea>
                     </div>
@@ -538,7 +538,7 @@
                     <label><b>Action Item Title</b><span id="required">*</span></label>
                     <input type="text" class="form-control" style="width: 400px;"
                         [(ngModel)]="updatedetails.actionItemTitle" required="true" name="uAcItemTitle"
-                        id="uAcItemTitle" minlength="5" maxlength="50" #uAcItemTitle="ngModel"
+                        id="uAcItemTitle" minlength="5" maxlength="51" #uAcItemTitle="ngModel"
                         [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched"
                         (keyup)="validateUpdateActionTitle()">
                     <div *ngIf="updateActionItemTitleErrorInfo != ''">
@@ -550,7 +550,7 @@
                         <textarea type="text" rows="3" cols="3" class="form-control"
                             style="width:400px;max-height:200p;margin-top: 4px;"
                             [(ngModel)]="updatedetails.actionItemDescription" required="true" name="uAcItemDesc"
-                            id="uAcItemDesc" minlength="10" maxlength="250" #uAcItemDesc="ngModel"
+                            id="uAcItemDesc" minlength="10" maxlength="2501" #uAcItemDesc="ngModel"
                             [class.invalid]="uAcItemDesc.invalid && uAcItemDesc.touched"
                             (keyup)="validateUpdateActionDescription()"></textarea>
                     </div>
@@ -761,7 +761,7 @@
                         <!-- title -->
                         <label><b>Meeting Title</b><span id="required">*</span></label>
                         <input type="text" class="form-control" style="width: 400px;" [(ngModel)]="addMeeting.subject"
-                            required="true" name="subject" id="subject" minlength="4" maxlength="100"
+                            required="true" name="subject" id="subject" minlength="4" maxlength="1001"
                             (keyup)="validateMeetingSubject()" placeholder="Enter subject">
                         <div>
                             <span id="errorSpan" *ngIf="meetingSubjectErrorInfo != ''">
