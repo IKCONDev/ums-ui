@@ -125,6 +125,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   isOrganizedMeetingDataText: boolean = false;
   isAttendedMeetingDataText: boolean = false;
   createButtonDisabled=false;
+  isSendButtonDisabled=false;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -1429,7 +1430,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   resultData: boolean;
   discussionPoints: string;
   sendMOMEmail() {
-
+    this.isSendButtonDisabled=true;
     for (var i = 0; i < this.actionItemsOfMeeting.length; i++) {
 
       if (this.meetingData.meetingId == this.actionItemsOfMeeting[i].meetingId) {
@@ -1452,6 +1453,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (response) => {
         if (response.status == HttpStatusCode.Ok) {
           this.toastr.success("Email sent successfully");
+          this.isSendButtonDisabled=false;
           document.getElementById('closeSendMoMEmail').click();
         }
 
@@ -1462,6 +1464,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.router.navigateByUrl("/session-timeout")
         } else {
           this.toastr.error("Error occured while sending email, please try again");
+          this.isSendButtonDisabled=false;
         }
       }//error
     })
