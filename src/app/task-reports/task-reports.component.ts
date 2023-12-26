@@ -328,16 +328,24 @@ export class TaskReportsComponent implements OnInit {
     }
     this.getTasksByDepartment(parseInt(this.selectedDepartment));
   }
-
+  taskListByDepartmentData:any[];
+  xlabelsForTaskListByDepartment:any[];
   createTaskListByDepartmentChart() {
+    if(this.ChartType==='line'){
+        this.taskListByDepartmentData=[0,this.taskListByDepartmentCount,];
+        this.xlabelsForTaskListByDepartment=['','Total tasks','']
+    }else{
+      this.taskListByDepartmentData=[this.taskListByDepartmentCount];
+      this.xlabelsForTaskListByDepartment=['Total tasks'];
+    }
     this.taskListByDepartmentChart = new Chart("taskListByDepartmentChart", {
       type: this.ChartType,
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
+        xLabels: this.xlabelsForTaskListByDepartment,
         datasets: [
           {
             label: "Total Tasks of a department",
-            data: [this.taskListByDepartmentCount],
+            data: this.taskListByDepartmentData,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
@@ -422,15 +430,24 @@ export class TaskReportsComponent implements OnInit {
     }, 500)
   }
 
+  taskListByTaskOwnerData:any[];
+  xLabelForTaskListByTaskOwner:any[];
   createTaskListByTaskOwnerChart() {
+    if(this.ChartType==='line'){
+      this.taskListByTaskOwnerData=[0,this.taskListByTaskOwnerCount,];
+      this.xLabelForTaskListByTaskOwner=['','Total tasks','']
+  }else{
+    this.taskListByTaskOwnerData=[this.taskListByTaskOwnerCount];
+    this.xLabelForTaskListByTaskOwner=['Total tasks'];
+  }
     this.taskListByTaskOwnerChart = new Chart("taskListByTaskOwnerChart", {
       type: this.ChartType,
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
+        xLabels: this.xLabelForTaskListByTaskOwner,
         datasets: [
           {
             label: "Total tasks of a task owner",
-            data: [this.taskListByTaskOwnerCount],
+            data:  this.taskListByTaskOwnerData,
             backgroundColor: 'rgba(159, 134, 105, 0.8)', // Dark blue
             borderColor: 'rgba(159, 134, 105, 1)',
             borderWidth: 3,
@@ -507,15 +524,25 @@ export class TaskReportsComponent implements OnInit {
     }, 500)
   }
 
+
+  taskListByTaskSeverityData:any[];
+  xLabelByTaskSeverity:any[];
   createTaskListByTaskSeverityChart() {
+    if(this.ChartType==='line'){
+      this.taskListByTaskSeverityData=[0,this.taskListByTaskSeverityCount,];
+      this.xLabelByTaskSeverity=['','Total tasks','']
+  }else{
+    this.taskListByTaskSeverityData=[this.taskListByTaskSeverityCount];
+    this.xLabelByTaskSeverity=['Total tasks'];
+  }
     this.taskListByTaskSeverityChart = new Chart("taskListByTaskSeverityChart", {
       type: this.ChartType,
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
+        xLabels: this.xLabelByTaskSeverity,
         datasets: [
           {
             label: "Total Tasks by severity level",
-            data: [this.taskListByTaskSeverityCount],
+            data: this.taskListByTaskSeverityData,
             backgroundColor: 'rgba(37, 128, 101, 0.8)', // Dark Green
             borderColor: 'rgba(37, 128, 101, 1)',
             borderWidth: 3,
@@ -591,15 +618,24 @@ export class TaskReportsComponent implements OnInit {
     }, 500)
   }
 
+  taskListByTaskStatusData:any[];
+  xLabelsForTaskListStatus:any[];
   createTaskListByTaskStatusChart() {
+    if(this.ChartType==='line'){
+      this.taskListByTaskStatusData=[0,this.taskListByTaskStatusCount,];
+      this.xLabelsForTaskListStatus=['','Total tasks','']
+  }else{
+    this.taskListByTaskStatusData=[this.taskListByTaskStatusCount];
+    this.xLabelsForTaskListStatus=['Total tasks'];
+  }
     this.taskListByTaskStatusChart = new Chart("taskListByTaskStatusChart", {
       type: this.ChartType,
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
+        xLabels: this.xLabelsForTaskListStatus,
         datasets: [
           {
             label: "Total Tasks by status",
-            data: [this.taskListByTaskStatusCount],
+            data: this.taskListByTaskStatusData,
             backgroundColor: 'rgba(31, 190, 189, 0.8)', // Dark Blue
             borderColor: 'rgba(31, 190, 189, 1)',
             borderWidth: 3,
@@ -687,15 +723,25 @@ export class TaskReportsComponent implements OnInit {
   }
 
   //AGED TASK CHART
+
+  agedTaskListData:any[];
+  xLabelsTaskListData:any[];
   createAgedTaskListChart() {
+    if(this.ChartType==='line'){
+      this.agedTaskListData=[0,this.agedTaskListCount,];
+      this.xLabelsTaskListData=['','Total tasks','']
+  }else{
+    this.agedTaskListData=[this.agedTaskListCount];
+    this.xLabelsTaskListData=['Total tasks'];
+  }
     this.agedTaskListChart = new Chart("taskListByAge", {
       type: this.ChartType,
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
+        xLabels:  this.xLabelsTaskListData,
         datasets: [
           {
             label: "Aged Tasks",
-            data: [this.agedTaskListCount],
+            data:  this.agedTaskListData,
             backgroundColor: 'rgba(169, 180, 185, 0.8)', // grey
             borderColor: 'rgba(169, 180, 185, 1)',
             borderWidth: 3,
@@ -867,15 +913,25 @@ export class TaskReportsComponent implements OnInit {
     }
 
   }
+  
+  taskListAllDepartmentData:any[];
+  xLabelForTaskListAllDepartrment:any[];
   createTaskListAllDepartmentChart() {
+    if(this.ChartType==='line'){
+      this.taskListAllDepartmentData=[0,this.alltasksCount,];
+      this.xLabelForTaskListAllDepartrment=['','Total tasks','']
+  }else{
+    this.taskListAllDepartmentData=[this.alltasksCount];
+    this.xLabelForTaskListAllDepartrment=['Total tasks'];
+  }
     this.taskListByDepartmentChart = new Chart("taskListByDepartmentChart", {
       type: this.ChartType,
       data: {// values on X-Axis
-        xLabels: ['Total tasks'],
+        xLabels: this.xLabelForTaskListAllDepartrment,
         datasets: [
           {
             label: "Total task list of all departments",
-            data: [this.alltasksCount],
+            data:this.taskListAllDepartmentData,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 3,
