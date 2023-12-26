@@ -126,7 +126,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Task Category Name</b><span id="required">*</span></label>
-                <input id="categoryName" type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Category name"
+                <input id="categoryName" type="text"  class="deptInput form-control" placeholder="Category name"
                     [(ngModel)]="taskCategory.taskCategoryTitle" (keyup)="validateTaskCategoryTitle()" minlength="3"
                     maxlength="51" /><br />
                 <span *ngIf="categoryTitleErrorInfo != ''">
