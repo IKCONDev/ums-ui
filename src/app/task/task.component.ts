@@ -1274,6 +1274,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.currentMenuItem;
   }
 
+  //popup message for form - (i symbol)
   getPOPUPMessage(){
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");

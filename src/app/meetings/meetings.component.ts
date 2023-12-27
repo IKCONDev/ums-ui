@@ -124,8 +124,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   displayText: boolean = false;
   isOrganizedMeetingDataText: boolean = false;
   isAttendedMeetingDataText: boolean = false;
-  createButtonDisabled=false;
-  isSendButtonDisabled=false;
+  createButtonDisabled = false;
+  isSendButtonDisabled = false;
   /**
    * executes when the component loaded first time
    * @param meetingsService 
@@ -144,7 +144,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    */
   InitailizeJqueryDataTable() {
-    if(this.table!=null){
+    if (this.table != null) {
       this.table.destroy();
     }
     setTimeout(() => {
@@ -154,7 +154,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true, // Enable search feature
           pageLength: 10,
           ordering: true,
-          stateSave:true,
+          stateSave: true,
           order: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           // Add other options here as needed
@@ -166,7 +166,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       $(document).ready(() => {
         this.table = $('#orgTable').DataTable({
           paging: true,
-          stateSave:true,
+          stateSave: true,
           searching: true, // Enable search feature
           pageLength: 10,
           order: [[1, 'asc']],
@@ -298,7 +298,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         if (menuItemPermissions.includes('Delete')) {
           this.deletePermission = true;
         }
-      }else{
+      } else {
         this.router.navigateByUrl('/unauthorized');
       }
     }
@@ -314,7 +314,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         $(document).ready(() => {
           this.table = $('#assignedTable').DataTable({
             paging: true,
-            stateSave:true,
+            stateSave: true,
             searching: true, // Enable search feature
             pageLength: 10,
             order: [[1, 'asc']],
@@ -684,9 +684,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               } else {
                 //set default time for loading
                 setTimeout(() => {
-                 this.isComponentLoading = false;
-                 this.isOrganizedMeetingDataText = false;
-                },1500)
+                  this.isComponentLoading = false;
+                  this.isOrganizedMeetingDataText = false;
+                }, 1500)
                 this.meetings = response.body;
               }
               localStorage.setItem('meetingCount', this.meetingCount.toString());
@@ -769,7 +769,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("attendedMeeting").style.width = 'fit-content';
               document.getElementById("organizedMeeting").style.borderBottom = 'none';
               //extract the meetings from response object
-             
+
               this.attendedMeetingCount = response.body.length;
               if (this.attendedMeetingCount === 0) {
                 this.isComponentLoading = false;
@@ -778,7 +778,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 setTimeout(() => {
                   this.isComponentLoading = false;
                   this.isAttendedMeetingDataText = false;
-                },1500)
+                }, 1500)
                 this.attendedMeetings = response.body;
               }
               localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
@@ -908,7 +908,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.toastr.warning('Action items not deleted.');
     }
-    this.actionItemsToBeDeleted =  [];
+    this.actionItemsToBeDeleted = [];
   }
 
 
@@ -1352,7 +1352,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       var emptyCell = document.getElementById('emptycell' + meetingId);
       emptyCell.style.display = 'none'
     } else {
-
       console.log(mainCheckBox.checked + " in else")
       var table = document.getElementById("myTable" + meetingId)
       console.log(table)
@@ -1423,14 +1422,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  /** send Mom Email */
   emailListForsendingMOM: string[];
   SendActionItemList = new Array();
   momObject: MOMObject;
   resultData: boolean;
   discussionPoints: string;
+  /** send Mom Email */
   sendMOMEmail() {
-    this.isSendButtonDisabled=true;
+    this.isSendButtonDisabled = true;
     for (var i = 0; i < this.actionItemsOfMeeting.length; i++) {
 
       if (this.meetingData.meetingId == this.actionItemsOfMeeting[i].meetingId) {
@@ -1453,18 +1452,15 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (response) => {
         if (response.status == HttpStatusCode.Ok) {
           this.toastr.success("Email sent successfully");
-          this.isSendButtonDisabled=false;
+          this.isSendButtonDisabled = false;
           document.getElementById('closeSendMoMEmail').click();
         }
-
-
-
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
         } else {
           this.toastr.error("Error occured while sending email, please try again");
-          this.isSendButtonDisabled=false;
+          this.isSendButtonDisabled = false;
         }
       }//error
     })
@@ -1520,7 +1516,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid) {
       //create meeting
-      this.createButtonDisabled=true;
+      this.createButtonDisabled = true;
       console.log(this.addMeeting)
       this.meetingsService.createMeeting(this.addMeeting).subscribe({
         next: (response) => {
@@ -1535,7 +1531,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             }, 1000);
           } else {
             this.toastr.error('Error while creating meeting. Please try again !');
-            this.createButtonDisabled=false;
+            this.createButtonDisabled = false;
           }
         }, error: (error) => {
           if (error.status === HttpStatusCode.Unauthorized) {
@@ -1614,29 +1610,36 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.isMeetingAttendeesValid;
   }
 
-  /**
+   /**
    * 
    * @param index 
    */
-  toggleMainCheckbox(index: number) {
+   /**
+   * 
+   */
+  toggleMainCheckBox(index: number) {
     if (!$('#ac-check' + index).is(':checked')) {
-      $('.mainCheckBox').prop('checked', false)
+      $('.mainCheckBox').prop('checked', false);
     }
+    const anyUnchecked = $('.ac-check:not(:checked)').length > 0;
+    $('.mainCheckBox').prop('checked', !anyUnchecked);
+
   }
+
   //Duration of meeting
   hoursDiff: any
   minutesDiff: any
   getDuration(meeting: Meeting) {
     var startdate = new Date(meeting.startDateTime);
     var endDate = new Date(meeting.endDateTime);
-  
+
     // Calculate the time difference in milliseconds
     var timeDifference = endDate.getTime() - startdate.getTime();
-  
+
     // Calculate hours, minutes, and seconds
     var millisecondsInMinute = 60 * 1000;
     var millisecondsInHour = 60 * millisecondsInMinute;
-  
+
     this.hoursDiff = Math.floor(timeDifference / millisecondsInHour);
     this.minutesDiff = Math.floor((timeDifference % millisecondsInHour) / millisecondsInMinute);
     console.log(this.hoursDiff);
