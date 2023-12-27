@@ -405,7 +405,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    }
    //delete the selected departments
    if(this.designationIdsToBeDeleted.length>0){
-    var isconfirmed = window.confirm('Are you sure, you really want to delete these designations ?')
+    var isconfirmed = window.confirm('Are you sure you want to permanently delete these designations ?')
     if(isconfirmed){
       console.log(this.designationIdsToBeDeleted)
       this.designationService.deleteAllSelectedDesignationsById(this.designationIdsToBeDeleted).subscribe(
