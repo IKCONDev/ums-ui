@@ -129,7 +129,7 @@
                     <label><b>Role Name</b><span id="required">*</span></label>
                     <input type="text" id="roleName" style="text-transform: uppercase;" class="deptInput form-control"
                         placeholder="Role Name" [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()"
-                        minlength="3" maxlength="50" /><br />
+                        minlength="3" maxlength="51" /><br />
                     <span id="errorInfo" *ngIf="roleNameErrorInfo != ''">{{roleNameErrorInfo}}</span>
                 </div>
                 <br />
@@ -172,7 +172,7 @@
                     <label><b>Role Name</b><span id="required">*</span></label>
                     <input type="text" id="roleName" style="text-transform: uppercase;" class="deptInput form-control"
                         placeholder="Role name" [(ngModel)]="existingRole.roleName" (keyup)="validateUpdatedRoleName()"
-                        minlength="3" maxlength="50" /><br />
+                        minlength="3" maxlength="51" /><br />
                     <span id="errorInfo" *ngIf="updatedRoleNameErrorInfo != ''">{{updatedRoleNameErrorInfo}}</span>
                 </div>
                 <div>
