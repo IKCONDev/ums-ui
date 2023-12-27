@@ -308,7 +308,7 @@
                     <label><b>ActionItem Title</b></label>
                     <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
                         [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
-                        id="actionItemTitle" minlength="5" maxlength="500" #actionItemTitle="ngModel"
+                        id="actionItemTitle" minlength="5" maxlength="50" #actionItemTitle="ngModel"
                         [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
                         (keyup)="validateActionTitle()">
                     <div *ngIf="actionItemTitleErrorInfo != ''">
@@ -318,7 +318,7 @@
                     <label><b>ActionItem Description</b></label>
                     <input type="text" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
-                        #actionItemDescription="ngModel" minlength="10" maxlength="1000" id="actionItemDescription"
+                        #actionItemDescription="ngModel" minlength="10" maxlength="250" id="actionItemDescription"
                         [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
                         (keyup)="validateActionDescription()">
                     <div *ngIf="actionItemDescriptionErrorInfo != ''">
@@ -391,6 +391,32 @@
             <!-- Modal Header -->
             <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
                 <h5 class="modal-title" id="xlModalLabel">Add Task</h5>
+                <!-- Showing the task criteria -->
+                <span *ngIf="isCriteria===true" style="margin-left: 2px;">
+                    <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()">
+                        <svg width="33" height="33" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg" id="svgColor">
+                            <g clip-path="url(#clip0_962_516)">
+                                <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="red" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_962_516">
+                                    <rect width="48" height="48" fill="white" />
+                                </clipPath>
+                            </defs>
+                            <!-- Animation -->
+                            <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.3s" repeatCount="indefinite" />
+                        </svg>
+                        
+                        <span class="popuptext" id="myPopup"><ol>
+                            <li>Title should have minimum of 5 charcters.</li>
+                            <li>Title should not exceed more than 50 characters.</li>
+                            <li>Description should have minimum of 10 characters.</li>
+                            <li>Description should not exceed more than 100 characters.</li>
+                            <li>Select owner.</li>
+                            <li>Select category.</li>
+                        </ol></span>
+                    </b> 
+                </span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                     (click)="clearErrorMessages(form)">
                     <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
@@ -406,7 +432,7 @@
                                 <label style=" font-size: 18px;margin: 5px;margin-left: -3px;"><b
                                         id="title-label">Title</b><span id="required">*</span></label>
                                 <!--Showing the Assigned task title criteria-->     
-                                <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()" style="margin-left: 421px;">
+                                <!-- <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()" style="margin-left: 421px;">
                                     <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_962_516)">
                                             <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
@@ -421,7 +447,7 @@
                                         <li>Title should have minimum of 5 charcters.</li>
                                         <li>Title should not exceed more than 50 characters.</li>
                                     </ol></span>
-                                </b> 
+                                </b>  -->
 
 
                             </div>
@@ -448,7 +474,7 @@
                                             id="description-label">Description</b><span id="required">*</span></label>
 
                                     <!--Showing the Assigned task description criteria-->        
-                                    <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()" style="margin-left: 354px;">
+                                    <!-- <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()" style="margin-left: 354px;">
                                         <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_962_516)">
                                                 <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill=" white" />
@@ -463,7 +489,7 @@
                                             <li>Description should have minimum of 10 charcters.</li>
                                             <li>Description should not exceed more than 250 characters.</li>
                                         </ol></span>
-                                    </b>             
+                                    </b>              -->
                                 </div>
                                 <textarea
                                     style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
@@ -497,7 +523,7 @@
                                                 <span>
                                                     <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
-                                                        style="margin-top: 4px;padding-left: 10px;width: 348px;"
+                                                        style="margin-top: 4px;padding-left: 10px;width: 348px;font-size: 1rem;"
                                                         [(ngModel)]="add_Task.taskOwner">
                                                         <ng-option disabled selected value>choose</ng-option>
                                                         <ng-option [value]="emailId"
@@ -515,7 +541,7 @@
                                             <td>
                                                 <span>
                                                     <ng-select id="taskCategory" 
-                                                        style="width: 348px;margin-top: 6px;padding-left: 10px;padding-top: 7px;" [(ngModel)]="add_Task.taskCategoryId"
+                                                        style="width: 348px;margin-top: 6px;padding-left: 10px;padding-top: 7px;font-size:1rem;" [(ngModel)]="add_Task.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
                                                         (change)="validateTaskCategory()">
                                                         <ng-option disabled selected value [value]="0">select</ng-option>

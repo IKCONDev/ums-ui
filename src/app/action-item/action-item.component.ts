@@ -120,6 +120,7 @@ export class ActionItemComponent implements OnInit {
   displayText: boolean = false;
   isActionItemDataText: boolean = false;
   disableSaveButton=false;
+  isCriteria:boolean=false;
   /**
    * 
    * @param service 
@@ -536,11 +537,11 @@ export class ActionItemComponent implements OnInit {
     if (this.addDetails.actionItemTitle === '') {
       this.actionItemTitleErrorInfo = "Action Item title is required.";
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length < 5) {
+    } else if (this.addDetails.actionItemTitle.length <= 5) {
       this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters.';
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length > 500) {
-      this.actionItemTitleErrorInfo = 'Title should not exceed more than 500 characters.';
+    } else if (this.addDetails.actionItemTitle.length >= 50) {
+      this.actionItemTitleErrorInfo = 'Title should not exceed more than 50 characters.';
       this.isActionItemTitleValid = false;
     } else {
       this.actionItemTitleErrorInfo = '';
@@ -558,11 +559,11 @@ export class ActionItemComponent implements OnInit {
     if (this.addDetails.actionItemDescription === '') {
       this.actionItemDescriptionErrorInfo = "Description is required.";
       this.isActionItemDescriptionValid = false;
-    } else if (this.addDetails.actionItemDescription.length < 10) {
+    } else if (this.addDetails.actionItemDescription.length <= 10) {
       this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters.';
       this.isActionItemDescriptionValid = false;
-    } else if (this.addDetails.actionItemDescription.length > 1000) {
-      this.actionItemDescriptionErrorInfo = 'Description  should not exceed more than 1000 characters.';
+    } else if (this.addDetails.actionItemDescription.length >= 250) {
+      this.actionItemDescriptionErrorInfo = 'Description  should not exceed more than 250 characters.';
       this.isActionItemDescriptionValid = false;
     } else {
       this.actionItemDescriptionErrorInfo = '';
@@ -616,6 +617,7 @@ export class ActionItemComponent implements OnInit {
     this.isTaskStartDateValid = false;
     this.isTaskDueDateValid = false;
     this.isTaskCategoryValid=false;
+    this.isCriteria=false;
 
     this.taskTitleErrrorInfo = '';
     this.taskDescriptionErrorInfo = '';
@@ -693,11 +695,11 @@ export class ActionItemComponent implements OnInit {
     if (this.updatedetails.actionItemTitle === '') {
       this.updateActionItemTitleErrorInfo = 'Title is required.';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length < 5) {
+    } else if (this.updatedetails.actionItemTitle.length <= 5) {
       this.updateActionItemTitleErrorInfo = 'Title should be minimum of 5 characters.';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length > 500) {
-      this.updateActionItemTitleErrorInfo = 'Title  should not exceed more than 500 characters.';
+    } else if (this.updatedetails.actionItemTitle.length >= 50) {
+      this.updateActionItemTitleErrorInfo = 'Title  should not exceed more than 50 characters.';
       this.isUpdateActionItemTitleValid = false;
     } else {
       this.updateActionItemTitleErrorInfo = '';
@@ -714,11 +716,11 @@ export class ActionItemComponent implements OnInit {
     if (this.updatedetails.actionItemDescription === '') {
       this.updateActionItemDescErrorInfo = 'Description is required.';
       this.isUpdateActionItemDescValid = false;
-    } else if (this.updatedetails.actionItemDescription.length < 5) {
+    } else if (this.updatedetails.actionItemDescription.length <= 5) {
       this.updateActionItemDescErrorInfo = 'Description should be minimum of 10 characters.';
       this.isUpdateActionItemDescValid = false;
-    } else if (this.updatedetails.actionItemDescription.length > 500) {
-      this.updateActionItemDescErrorInfo = 'Description  should not exceed more than 1000 characters.';
+    } else if (this.updatedetails.actionItemDescription.length >= 250) {
+      this.updateActionItemDescErrorInfo = 'Description  should not exceed more than 250 characters.';
       this.isUpdateActionItemDescValid = false;
     } else {
       this.updateActionItemDescErrorInfo = '';
@@ -918,10 +920,10 @@ export class ActionItemComponent implements OnInit {
       this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters.';
       this.isTaskTitleValid = false;
     }
-    // else if (this.add_Task.taskTitle.length >= 50) {
-    //   this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
-    //   this.isTaskTitleValid = false;
-    // }
+    else if (this.add_Task.taskTitle.length >= 50) {
+      this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
+      this.isTaskTitleValid = false;
+    }
     else {
       this.taskTitleErrrorInfo = '';
       this.isTaskTitleValid = true;
@@ -942,7 +944,7 @@ export class ActionItemComponent implements OnInit {
       this.taskDescriptionErrorInfo = 'Description should have minimum of 10 characters.';
       this.isTaskDescriptionValid = false;
     }
-    else if (this.add_Task.taskDescription.length > 250) {
+    else if (this.add_Task.taskDescription.length >= 250) {
       this.taskDescriptionErrorInfo = 'Description should not exceed more than 250 characters.';
       this.isTaskDescriptionValid = false;
     }
@@ -1134,7 +1136,9 @@ export class ActionItemComponent implements OnInit {
           }
         }
       })
-    }
+    }else{
+          this.isCriteria=true;
+        }
   }
   min: any = "";
 
@@ -1311,10 +1315,10 @@ export class ActionItemComponent implements OnInit {
     popup.classList.toggle("show");
   }
 
-  getPOPUPMessage2(){
-    var popup = document.getElementById("myPopup2");
-    popup.classList.toggle("show");
-  }
+  // getPOPUPMessage2(){
+  //   var popup = document.getElementById("myPopup2");
+  //   popup.classList.toggle("show");
+  // }
 
 }
 

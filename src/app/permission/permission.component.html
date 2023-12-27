@@ -46,7 +46,8 @@
                         <th>Modified By</th>
                         <th>Modified Date</th> -->
                         <th>Permission Status</th>
-                        <th>Actions</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isPermissionDataText===false">
@@ -74,8 +75,9 @@
                                             />
                                     </g>
                                 </svg>
-                                &nbsp;
                             </button>
+                        </td>
+                        <td>
                             <button [disabled]="!deletePermission" id="trashIcon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" (click)="removePermission(permission.permissionId)"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
@@ -124,7 +126,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <label><b>Permission Value</b><span id="required"></span></label>
+                <label><b>Permission Value</b><span id="required">*</span></label>
                 <input id="categoryName" type="text"  class="deptInput form-control" placeholder="Permission value" minlength="3"
                 [(ngModel)]="addPermission.permissionValue" (keyup)="validatePermissionValue()"
                     maxlength="50" />
@@ -134,7 +136,7 @@
                 <br />
 
                 <!--   -->
-                <label><b>Permission Description</b><span id="required"></span></label><br/>
+                <label><b>Permission Description</b><span id="required">*</span></label><br/>
                 <textarea id="categoryDesc" class="form-control" placeholder="Permission description" [(ngModel)]="addPermission.permissionDescription"
                      minlength="5" maxlength="50" (keyup)="validatePermissionDescription()"
                     rows="2" cols="5" style="width: 400px;">

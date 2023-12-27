@@ -206,7 +206,7 @@
                                             <th id="tablehead" style="padding: 1.4em;">Planned End Date</th>
                                             <th id="tablehead" style="padding: 1.4em;">Priority</th>
                                             <th id="tablehead" style="padding: 1.4em;">Status</th>
-                                            <th id="tablehead" style="padding: 1.4em;">Actions</th>
+                                            <th id="tablehead" style="padding: 1.4em;">Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let actionItem of actionItemsOfMeeting; let i= index">
@@ -494,7 +494,7 @@
                     <label><b>Planned Start Date</b><span id="required">*</span></label>
                     <input type="date" class="form-control" style="width:400px;" [(ngModel)]="addDetails.startDate"
                         required="true" id="actionItemStartDate" name="startDate" #startDate="ngModel"
-                        [class.invalid]="startDate.invalid && startDate.touched" (change)="validateActionStartDate()">
+                        [class.invalid]="startDate.invalid && startDate.touched" (change)="validateActionStartDate()" (change)="validateActionEndDate()">
                     <div *ngIf="actionItemStartDateErrorInfo != ''">
                         <span id="errorSpan">{{actionItemStartDateErrorInfo}}</span>
                     </div>
@@ -502,7 +502,7 @@
                     <label><b>Planned End Date</b><span id="required">*</span></label>
                     <input type="date" class="form-control" style="width:400px;" [(ngModel)]="addDetails.endDate"
                         required="true" id="actionItemEndDate" name="endDate" #endDate="ngModel"
-                        [class.invalid]="endDate.invalid && endDate.touched" (change)="validateActionEndDate()">
+                        [class.invalid]="endDate.invalid && endDate.touched" (change)="validateActionEndDate()" (change)="validateActionStartDate()">
                     <div *ngIf="actionItemEndDateErrorInfo != ''">
                         <span id="errorSpan">{{actionItemEndDateErrorInfo}}</span>
                     </div>
@@ -603,7 +603,7 @@
                     <input type="date" class="form-control" style="width:400px;" [(ngModel)]="updatedetails.startDate"
                         required="true" id="uAcItemStartDate" name="uAcItemStartDate" #uAcItemStartDate="ngModel"
                         [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
-                        (change)="validateUpdateActionStartDate()">
+                        (change)="validateUpdateActionStartDate()" (change)="validateUpdateActionEndDate()">
                     <div *ngIf="updateActionItemStartDateErrorInfo != ''">
                         <span id="errorSpan">{{updateActionItemStartDateErrorInfo}}</span>
                     </div>
@@ -612,7 +612,7 @@
                     <input type="date" class="form-control" style="width:400px;" [(ngModel)]="updatedetails.endDate"
                         required="true" id="uAcItemEndDate" name="uAcItemEndDate" #uAcItemEndDate="ngModel"
                         [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"
-                        (change)="validateUpdateActionEndDate()">
+                        (change)="validateUpdateActionEndDate()" (change)="validateUpdateActionStartDate()">
                     <div *ngIf="updateActionItemEndDateErrorInfo != ''">
                         <span id="errorSpan">{{updateActionItemEndDateErrorInfo}}</span>
                     </div>
@@ -733,7 +733,7 @@
                     <!--footer-->
                     <div class="modal-footer">
                         <button type="submit" id="sendMomEmail" class="btn btn-primary updateButton"
-                            (click)="sendMOMEmail()">Send</button>
+                            (click)="sendMOMEmail()" [disabled]="isSendButtonDisabled===true">Send</button>
                         <button type="button" id="closeSendMoMEmail" class="btn btn-outline-danger cancelButton"
                             data-dismiss="modal" (click)="clearErrorMessages(form)">Cancel</button>
                     </div>
@@ -771,7 +771,7 @@
                         <!-- start date time -->
                         <label><b>Start Date & Time</b><span id="required">*</span></label>
                         <input type="datetime-local" class="form-control" [(ngModel)]="addMeeting.startDateTime"
-                            style="width: 400px;" (change)="validateMeetingStartDateTime()" id="meetingStartDate"
+                            style="width: 400px;" (change)="validateMeetingStartDateTime()" (change)="validateMeetingEndDateTime()" id="meetingStartDate"
                             name="meetingStartDate" />
                         <div>
                             <span id="errorSpan" *ngIf="meetingStartDateErrorInfo != ''">
@@ -781,7 +781,7 @@
                         <!-- end date time -->
                         <label><b>End Date & Time</b><span id="required">*</span></label>
                         <input type="datetime-local" class="form-control" [(ngModel)]="addMeeting.endDateTime"
-                            style="width: 400px;" (change)="validateMeetingEndDateTime()" id="meetingEndDate"
+                            style="width: 400px;" (change)="validateMeetingEndDateTime()" (change)="validateMeetingStartDateTime()" id="meetingEndDate"
                             name="meetingEndDate" />
                         <div>
                             <span id="errorSpan" *ngIf="meetingEndDateErrorInfo != ''">

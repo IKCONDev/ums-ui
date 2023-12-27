@@ -815,7 +815,6 @@ text-shadow: 0px 0px 0px transparent;
 }
 
 
-/* Popup container - can be anything you want */
 .popup {
   position: relative;
   cursor: pointer;
@@ -835,10 +834,9 @@ text-shadow: 0px 0px 0px transparent;
   border-radius: 6px;
   position: absolute;
   z-index: 1;
-  bottom: 177%;
-  left: 55%;
+  bottom: -400%;
+  left: 2vw;
   font-size: 12px;
-  height: 50px;
   padding-top: 4px;
   backdrop-filter: blur(12px);
 
@@ -846,13 +844,15 @@ text-shadow: 0px 0px 0px transparent;
  
 .popup .popuptext::after {
   content: "";
+  rotate: -90deg;
   position: absolute;
-  top: 100%;
-  left: 50%;
+  top: 26%;
+  left: -0%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  border-color: #575151 transparent transparent transparent;
+  color: #202224;
 } 
 
 /* Toggle this class - hide and show the popup */
@@ -874,8 +874,11 @@ text-shadow: 0px 0px 0px transparent;
   to {opacity:1.5 ;}
 }
 
-/* Popup container - can be anything you want */
-.popup2 {
+
+/* These are used for individual popups for criteria */
+/* Pop up---1 */
+/* 
+.popup {
   position: relative;
   cursor: pointer;
   -webkit-user-select: none;
@@ -884,7 +887,67 @@ text-shadow: 0px 0px 0px transparent;
   user-select: none;
 }
  
-/* The actual popup */
+
+.popup .popuptext {
+  visibility: hidden;
+  width: 360px;
+  background-color: rgba(0, 0, 0, 0.57);
+  color: white;;
+  text-align: left;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 177%;
+  left: 55%;
+  font-size: 12px;
+  height: 50px;
+  padding-top: 4px;
+  backdrop-filter: blur(12px);
+
+}
+ 
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: -0%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+} 
+
+
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 0.2s;
+  animation: fadeIn 0.2s;
+
+}
+ 
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1.5;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1.5 ;}
+} */
+
+
+/* Popup---2 */
+
+/* .popup2 {
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+ 
 .popup2 .popuptext2 {
   visibility: hidden;
   width: 360px;
@@ -916,14 +979,13 @@ text-shadow: 0px 0px 0px transparent;
   border-color: #555 transparent transparent transparent;
 }
 
-/* Toggle this class - hide and show the popup */
+
 .popup2 .show {
   visibility: visible;
   -webkit-animation: fadeIn 0.2s;
   animation: fadeIn 0.2s;
 }
  
-/* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
   from {opacity: 0;} 
   to {opacity: 1.5;}
@@ -932,7 +994,8 @@ text-shadow: 0px 0px 0px transparent;
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1.5 ;}
-}
+} */
+
 .orgMeetingOuterDiv {
   display: flex;
   flex-direction: column;

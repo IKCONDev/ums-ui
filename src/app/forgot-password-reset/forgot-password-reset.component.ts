@@ -113,7 +113,7 @@ export class ForgotPasswordResetComponent {
         this.passwordCriteria = "Weak Password";
       }
       // Checking the new password and confirm password match or not
-      if (this.newPassword === this.confirmPassword) {
+      if (this.newPassword === this.confirmPassword && this.passwordCriteria==='Strong Password') {
         this.isUpdate = false;
         this.verificationResponse = "";
       } else if (this.newPassword === '' && this.confirmPassword === '') {

@@ -19,7 +19,8 @@
                     data-toggle="modal" data-target="#myModal_add">Add</button></div>-->
             <div class="col-sm-3"></div>
             <div *ngIf="tabOpened === 'OrganizedTask'" id="deleteBtnDiv" class="col-sm-2">
-                <button [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
+                <button [disabled]="!deletePermission" [style.background-color]="deleteButtonColor"
+                    class=" form-control" style="width: 80px;" (click)="checkCheckBoxes()">Delete</button>
             </div>
             <div *ngIf="tabOpened === 'AssignedTask'" class="col-sm-1">
             </div>
@@ -86,7 +87,8 @@
                         <th>Planned End Date</th>
                         <th>Priority</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isOrganizedDataText===false">
@@ -104,24 +106,26 @@
                         <td>{{item.taskPriority}}</td>
                         <td>{{item.status}}</td>
                         <td style="width: 150px;">
-                            <button [disabled]="!updatePermission" id="editIcon" data-target="#xlModal" data-toggle="modal"
-                                (click)="editTask(item.taskId)" (click)="getActiveUsersEmailIdList()">
+                            <button [disabled]="!updatePermission" id="editIcon" data-target="#xlModal"
+                                data-toggle="modal" (click)="editTask(item.taskId)"
+                                (click)="getActiveUsersEmailIdList()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
                                     <g id="edit" [style.fill]="updateButtonColor">
                                         <path id="Vector"
-                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                        />
+                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z" />
                                     </g>
                                 </svg>
                             </button>
-                            &nbsp;
-                            <button [style.color]="deleteButtonColor" [disabled]="!deletePermission" id="trashIcon" (click)="deleteTaskById(item.taskId)">
+                        </td>
+                        <td>
+                            <button [style.color]="deleteButtonColor" [disabled]="!deletePermission" id="trashIcon"
+                                (click)="deleteTaskById(item.taskId)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                     viewBox="0 0 482.428 482.429" xml:space="preserve">
                                     <g>
-                                        <g [style.fill]="deleteButtonColor"> 
+                                        <g [style.fill]="deleteButtonColor">
                                             <path
                                                 d="M381.163,57.799h-75.094C302.323,25.316,274.686,0,241.214,0c-33.471,0-61.104,25.315-64.85,57.799h-75.098    c-30.39,0-55.111,24.728-55.111,55.117v2.828c0,23.223,14.46,43.1,34.83,51.199v260.369c0,30.39,24.724,55.117,55.112,55.117    h210.236c30.389,0,55.111-24.729,55.111-55.117V166.944c20.369-8.1,34.83-27.977,34.83-51.199v-2.828    C436.274,82.527,411.551,57.799,381.163,57.799z M241.214,26.139c19.037,0,34.927,13.645,38.443,31.66h-76.879    C206.293,39.783,222.184,26.139,241.214,26.139z M375.305,427.312c0,15.978-13,28.979-28.973,28.979H136.096    c-15.973,0-28.973-13.002-28.973-28.979V170.861h268.182V427.312z M410.135,115.744c0,15.978-13,28.979-28.973,28.979H101.266    c-15.973,0-28.973-13.001-28.973-28.979v-2.828c0-15.978,13-28.979,28.973-28.979h279.897c15.973,0,28.973,13.001,28.973,28.979    V115.744z" />
                                             <path
@@ -204,7 +208,7 @@
                         <th>Actual End Date</th>
                         <th>Priority</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isAssignedDataText===false">
@@ -220,14 +224,14 @@
                         <td>{{task.taskPriority}}</td>
                         <td>{{task.status}}</td>
                         <td>
-                            <button [disabled]="!updatePermission" id="editIcon" data-target="#assignedmodal" data-toggle="modal"
-                                (click)="editTask(task.taskId)" (click)="getActiveUsersEmailIdList()">
+                            <button [disabled]="!updatePermission" id="editIcon" data-target="#assignedmodal"
+                                data-toggle="modal" (click)="editTask(task.taskId)"
+                                (click)="getActiveUsersEmailIdList()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
                                     <g id="edit" [style.fill]="updateButtonColor">
                                         <path id="Vector"
-                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z"
-                                            />
+                                            d="M2.5 14.3761V17.5007H5.62543L14.8475 8.28116L11.7221 5.15659L2.5 14.3761ZM17.2562 5.87316C17.5813 5.54821 17.5813 5.01911 17.2562 4.69416L15.3101 2.7486C14.9851 2.42364 14.4558 2.42364 14.1308 2.7486L12.6056 4.27339L15.731 7.39795L17.2562 5.87316Z" />
                                     </g>
                                 </svg>
                             </button>
@@ -256,8 +260,8 @@
 
 <div class="container-fluid" *ngIf="viewPermission===false">
     <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
-  </div>
-  <!-- <div class="container-fluid" *ngIf="noPermissions===true">
+</div>
+<!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
 </div> -->
 
@@ -315,12 +319,16 @@
                                 <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                     Text</label>-->
                                 <label style="padding-top: 4px; font-size: 18px;"><b id="title-label">Task
-                                        Title</b><span id="required">*</span></label>  
-                                <!--Showing the Organized task title criteria-->         
-                                <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()" style="margin-left: 376px;">
-                                    <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        Title</b><span id="required">*</span></label>
+                                <!--Showing the Organized task title criteria-->
+                                <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()"
+                                    style="margin-left: 376px;">
+                                    <svg width="31" height="51" viewBox="0 0 78 78" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_962_516)">
-                                            <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                            <path
+                                                d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z"
+                                                fill="white" />
                                         </g>
                                         <defs>
                                             <clipPath id="clip0_962_516">
@@ -328,11 +336,13 @@
                                             </clipPath>
                                         </defs>
                                     </svg>
-                                    <span style="margin-left: -186px;" class="popuptext" id="myPopup"><ol>
-                                        <li>Title should have minimum of 5 charcters.</li>
-                                        <li>Title should not exceed more than 50 characters.</li>
-                                    </ol></span>
-                                </b>            
+                                    <span style="margin-left: -186px;" class="popuptext" id="myPopup">
+                                        <ol>
+                                            <li>Title should have minimum of 5 charcters.</li>
+                                            <li>Title should not exceed more than 50 characters.</li>
+                                        </ol>
+                                    </span>
+                                </b>
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
@@ -355,11 +365,15 @@
                                         Text</label>-->
                                     <label style="padding-top: 4px;font-size: 18px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
-                                    <!--Showing the organized task description criteria--> 
-                                    <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()" style="margin-left: 363px;">
-                                        <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!--Showing the organized task description criteria-->
+                                    <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()"
+                                        style="margin-left: 363px;">
+                                        <svg width="31" height="51" viewBox="0 0 78 78" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_962_516)">
-                                                <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                                <path
+                                                    d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z"
+                                                    fill="white" />
                                             </g>
                                             <defs>
                                                 <clipPath id="clip0_962_516">
@@ -367,10 +381,12 @@
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                        <span style="margin-left: -186px;" class="popuptext2" id="myPopup2"><ol>
-                                            <li>Description should have minimum of 10 charcters.</li>
-                                            <li>Description should not exceed more than 250 characters.</li>
-                                        </ol></span>
+                                        <span style="margin-left: -186px;" class="popuptext2" id="myPopup2">
+                                            <ol>
+                                                <li>Description should have minimum of 10 charcters.</li>
+                                                <li>Description should not exceed more than 250 characters.</li>
+                                            </ol>
+                                        </span>
                                     </b>
                                 </div>
                                 <textarea
@@ -378,8 +394,8 @@
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description"
-                                    minlength="10" maxlength="250"></textarea>
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description" minlength="10"
+                                    maxlength="250"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="error_msg">{{taskDescriptionErrorInfo}}</span>
                                 </div>
@@ -482,9 +498,8 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b><span id="required">*</span></td>
-                                            <td><span> <input type="date" class="form-control"
-                                                        name="taskDueDate" [(ngModel)]="update_Task.plannedEndDate"
-                                                        disabled="true"></span>
+                                            <td><span> <input type="date" class="form-control" name="taskDueDate"
+                                                        [(ngModel)]="update_Task.plannedEndDate" disabled="true"></span>
                                                 <!-- <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
                                                 </div> -->
@@ -494,8 +509,8 @@
                                             <td><b>Actual Start Date</b></td>
                                             <td><span><input type="date" min="{{min}}" class="form-control"
                                                         name="taskActualStartDate" [(ngModel)]="update_Task.startDate"
-                                                         required="true"
-                                                        (change)="validateTaskStartDate()" disabled="true" ></span>
+                                                        required="true" (change)="validateTaskStartDate()"
+                                                        disabled="true"></span>
                                                 <span *ngIf="taskStartDateErrorInfo!=''"
                                                     id="error_msg">{{taskStartDateErrorInfo}}</span>
                                             </td>
@@ -504,8 +519,8 @@
                                             <td><b>Actual End Date</b></td>
                                             <td><span> <input type="date" min="{{min}}" class="form-control"
                                                         name="taskActualEndDate" [(ngModel)]="update_Task.dueDate"
-                                                         required="true"
-                                                        (change)="validateTaskDueDate()" disabled="true"></span>
+                                                        required="true" (change)="validateTaskDueDate()"
+                                                        disabled="true"></span>
                                                 <span *ngIf="taskDueDateErrorInfo!=''"
                                                     id="error_msg">{{taskDueDateErrorInfo}}</span>
                                             </td>
@@ -589,11 +604,15 @@
                                     Text</label>-->
                                 <label style="padding-top: 4px; font-size: 18px;"><b id="title-label">Task
                                         Title</b><span id="required">*</span></label>
-                                <!--Showing the Assigned task title criteria-->     
-                                <b class="popup" (mouseover)="getPOPUPMessage3()" (mouseout)="getPOPUPMessage3()" style="margin-left: 374px;">
-                                    <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!--Showing the Assigned task title criteria-->
+                                <b class="popup" (mouseover)="getPOPUPMessage3()" (mouseout)="getPOPUPMessage3()"
+                                    style="margin-left: 374px;">
+                                    <svg width="31" height="51" viewBox="0 0 78 78" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_962_516)">
-                                            <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                            <path
+                                                d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z"
+                                                fill="white" />
                                         </g>
                                         <defs>
                                             <clipPath id="clip0_962_516">
@@ -601,11 +620,13 @@
                                             </clipPath>
                                         </defs>
                                     </svg>
-                                    <span style="margin-left: -186px;" class="popuptext" id="myPopup3"><ol>
-                                        <li>Title should have minimum of 5 charcters.</li>
-                                        <li>Title should not exceed more than 50 characters.</li>
-                                    </ol></span>
-                                </b>                              
+                                    <span style="margin-left: -186px;" class="popuptext" id="myPopup3">
+                                        <ol>
+                                            <li>Title should have minimum of 5 charcters.</li>
+                                            <li>Title should not exceed more than 50 characters.</li>
+                                        </ol>
+                                    </span>
+                                </b>
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;min-height: 55px;max-height: 55px;background-color: #ecf7fc;"
@@ -622,17 +643,22 @@
 
                     <div class="row" style="margin: 20px;">
                         <div class="col-md-6">
-                            <div style=" width:530px; height: 250px; background-color: #ecf7fc;margin-top: 20px;" disabled>
+                            <div style=" width:530px; height: 250px; background-color: #ecf7fc;margin-top: 20px;"
+                                disabled>
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
                                     <label style="padding-top: 4px;font-size: 18px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
-                                    <!--Showing the Assigned task description criteria-->        
-                                    <b class="popup2" (mouseover)="getPOPUPMessage4()" (mouseout)="getPOPUPMessage4()" style="margin-left: 360px;">
-                                        <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!--Showing the Assigned task description criteria-->
+                                    <b class="popup2" (mouseover)="getPOPUPMessage4()" (mouseout)="getPOPUPMessage4()"
+                                        style="margin-left: 360px;">
+                                        <svg width="31" height="51" viewBox="0 0 78 78" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_962_516)">
-                                                <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="white" />
+                                                <path
+                                                    d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z"
+                                                    fill="white" />
                                             </g>
                                             <defs>
                                                 <clipPath id="clip0_962_516">
@@ -640,11 +666,13 @@
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                        <span style="margin-left: -186px;" class="popuptext2" id="myPopup4"><ol>
-                                            <li>Description should have minimum of 10 charcters.</li>
-                                             <li>Description should not exceed more than 250 characters.</li>
-                                        </ol></span>
-                                    </b>        
+                                        <span style="margin-left: -186px;" class="popuptext2" id="myPopup4">
+                                            <ol>
+                                                <li>Description should have minimum of 10 charcters.</li>
+                                                <li>Description should not exceed more than 250 characters.</li>
+                                            </ol>
+                                        </span>
+                                    </b>
                                 </div>
                                 <textarea
                                     style="width: 530px; min-height:220px;max-height:220px;background-color:#ecf7fc;"
@@ -704,9 +732,9 @@
                                         </tr>
                                         <tr>
                                             <td><label for="prority"><b>Priority</b></label></td>
-                                            <td><span><select id="priority" class="form-control" style="font-size: 15px;"
-                                                        [(ngModel)]="update_Task.taskPriority" name="taskPriority"
-                                                        #taskPriority="ngModel"
+                                            <td><span><select id="priority" class="form-control"
+                                                        style="font-size: 15px;" [(ngModel)]="update_Task.taskPriority"
+                                                        name="taskPriority" #taskPriority="ngModel"
                                                         [class.invalid]="taskPriority.invalid && taskPriority.touched"
                                                         (click)="validateTaskPriority()" disabled>
                                                         <option value="select">select</option>
@@ -751,7 +779,7 @@
                                                         name="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
-                                                        (change)="validateTaskDueDate()"  disabled="true"></span>
+                                                        (change)="validateTaskDueDate()" disabled="true"></span>
                                                 <span *ngIf="taskDueDateErrorInfo!=''"
                                                     id="error_msg">{{taskDueDateErrorInfo}}</span>
                                             </td>
@@ -772,7 +800,7 @@
                                                     <div *ngIf="taskStatusErrorInfo != ''">
                                                         <span id="error_msg">{{taskStatusErrorInfo}}</span>
                                                     </div>
-                                             </span></td>
+                                                </span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -802,157 +830,188 @@
 <div class="modal" id="filterModal">
     <div class="modal-dialog" id="dialog">
         <div class="modal-content">
-            <div class="filters-action-item">
-                <div class="filters-parent">
-                    <div class="filters">Filters</div>
-                    <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
-                        data-dismiss="modal" (click)="CloseFilterTaskModal()" style="cursor: pointer;">
-                </div>
-                <div class="filter-dd">
-                    <div class="meeting-title-dd-parent">
+            <div >
+                <div class="filters-action-item">
+                    <div class="filters-parent">
+                        <div class="filters">Filters</div>
+                        <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
+                            data-dismiss="modal" (click)="CloseFilterTaskModal()" style="cursor: pointer;">
+                    </div>
+                    <div class="orgMeetingOuterDiv">
+                        <!-- <div class="filter-dd">
+                    <div class="meeting-title-dd-parent"> -->
                         <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
                           <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                       </div>          					
                   </div> -->
-                        <div class="meeting-title-dd">
+                        <div class="meeting-title-dd" style="padding-top: 15px;">
                             <div class="meeting-title-filter">
-                                <input type="text" [(ngModel)]="filter_Taskname" #boxTaskName placeholder="Task title"
-                                    name="taskName" />
-                                <img class="search-icon" alt="" src="../../assets/images/search.svg">
+                                <div class="input-container">
+                                    <input type="text" style="width: 298px;" class="form-control"
+                                        [(ngModel)]="filter_Taskname" #boxTaskName placeholder="Task title"
+                                        name="taskName" />
+                                    <img class="search-icon" alt="" src="../../assets/images/search.svg">
+                                </div>
                             </div>
                         </div>
-                        <div class="meeting-title-dd">
-                            <div>Organizer
-                                <select [(ngModel)]="filter_Email_Organizer" #boxOrg class="actitem-organizer-filter">
-                                    <option value="">Select</option>
+
+                        <div class="Organizer"style="padding-top: 15px;">
+                            <div>
+                                <select style="width: 297px;" [(ngModel)]="filter_Email_Organizer" #boxOrg class="form-control form-select">
+                                    <option value="null" hidden>Select Organizer</option>
                                     <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">
                                         {{userEmail}}</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="meeting-title-dd">
-                            <div>Task Priority
-                                <select [(ngModel)]="filter_Priority" #boxPri class="actitem-organizer-filter">
-                                    <option value="">Select</option>
+                        <div class="Organizer"style="padding-top: 15px;">
+                            <div>
+                                <select style="width: 297px;" [(ngModel)]="filter_Priority" #boxPri class="form-control form-select" >
+                                    <option value="null" hidden>Select Priority</option>
                                     <option>High</option>
                                     <option>Medium</option>
                                     <option>Low</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="date-range">
+                        <div class="date-range"style="padding-top: 15px;">
                             <div class="date-parent">
-                                <input type="date" #boxStart [(ngModel)]="filter_StartDate" />
+                                <input type="date"  class="form-control"style="width: 130px;"#boxStart [(ngModel)]="filter_StartDate" />
                             </div>
-                            <div class="to">To</div>
+                            <div>To</div>
                             <div class="date-parent">
-                                <input type="date" #boxEnd [(ngModel)]="filter_EndDate" />
+                                <input type="date"  class="form-control"style="width: 130px;" #boxEnd [(ngModel)]="filter_EndDate" />
+                            </div>
+                        </div>
+
+
+                        <div class="date-range"style="padding-top: 15px;">
+                            <div class="date-parent">
+                            <button type="button" class="submit-button"
+                                (click)="filterOrganizedTaskList(boxTaskName.value, boxOrg.value, boxPri.value, boxStart.value, boxEnd.value)">Apply</button>
+                            </div>
+                            <div class="date-parent">
+                            <button type="button" class="delete-button" (click)="resetFilterModal()">Clear</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="submit-button-parent">
-                    <button type="button" class="submit-button"
-                        (click)="filterOrganizedTaskList(boxTaskName.value, boxOrg.value, boxPri.value, boxStart.value, boxEnd.value)">Apply</button>
-                    <button type="button" class="delete-button" (click)="resetFilterModal()">Clear</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
 <!-- custom advanced assigned filter modal -->
 <div class="modal" id="assignedFilterModal">
     <div class="modal-dialog" id="dialog">
         <div class="modal-content">
+            <div>
             <div class="filters-action-item">
                 <div class="filters-parent">
                     <div class="filters">Filters</div>
                     <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
                         data-dismiss="modal" (click)="CloseFilterTaskModal()" style="cursor: pointer;">
                 </div>
-                <div class="filter-dd">
-                    <div class="meeting-title-dd-parent">
+                <div class="orgMeetingOuterDiv">
+                <!-- <div class="filter-dd">
+                    <div class="meeting-title-dd-parent"> -->
                         <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
                           <img class="search-icon" alt="" src="../../assets/images/search.svg">                          
                       </div>          					
                   </div> -->
-                        <div class="meeting-title-dd">
-                            <div class="meeting-title-filter">
-                                <input type="text" [(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle
+                  <div class="meeting-title-dd" >
+                    <div class="meeting-title-filter" style="padding-top: 15px;">
+                        <div class="input-container">
+                                <input type="text" style="width: 298px;" class="form-control"[(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle
                                     placeholder="Task title" name="taskName" />
                                 <img class="search-icon" alt="" src="../../assets/images/search.svg">
                             </div>
                         </div>
+                  </div>
                         <!-- <div class="meeting-title-dd">
                       <div >Assignee
                           <input readonly="true" type="text" [(ngModel)] = "assignedTaskOrganizerFilter" #boxAssignedOrg class="actitem-organizer-filter"
                            />
                       </div>
                   </div> -->
-                        <div class="meeting-title-dd">
-                            <div>Task Priority
-                                <select [(ngModel)]="assignedTaskPriorityFilter" #boxAssignedPri
-                                    class="actitem-organizer-filter">
-                                    <option value="">Select</option>
+                        <div class="Organizer" style="padding-top: 15px;">
+                            
+                                <select  [(ngModel)]="assignedTaskPriorityFilter"  #boxAssignedPri 
+                                    class="form-control form-select">
+                                    <option value="null">Select Priority</option>
                                     <option>High</option>
                                     <option>Medium</option>
                                     <option>Low</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="date-range">
+                        
+                        <div class="date-range" style="padding-top: 15px;">
                             <div class="date-parent">
-                                <input type="date" #boxAssignedStart [(ngModel)]="assignedTaskStartDateFilter" />
+                                <input type="date" style="width: 130px;" #boxAssignedStart [(ngModel)]="assignedTaskStartDateFilter" class="form-control" />
                             </div>
-                            <div class="to">To</div>
+                            <div style="font-size: 12px;">To</div>
                             <div class="date-parent">
-                                <input type="date" #boxAssignedEnd [(ngModel)]="assignedTaskEndDateFilter" />
+                                <input type="date" style="width: 130px;" #boxAssignedEnd [(ngModel)]="assignedTaskEndDateFilter" class="form-control" />
                             </div>
                         </div>
-                    </div>
+                        <div class="date-range" style="padding-top: 15px;">
+                            <button type="button" class="submit-button"
+                                (click)="filterAssignedTaskList(boxAssignedTaskTitle.value, boxAssignedPri.value, boxAssignedStart.value, boxAssignedEnd.value)">Apply</button>
+                            <button type="button" class="delete-button" (click)="resetAssignedFilterModal()">Clear</button>
+                        </div>
                 </div>
-                <div class="submit-button-parent">
-                    <button type="button" class="submit-button"
-                        (click)="filterAssignedTaskList(boxAssignedTaskTitle.value, boxAssignedPri.value, boxAssignedStart.value, boxAssignedEnd.value)">Apply</button>
-                    <button type="button" class="delete-button" (click)="resetAssignedFilterModal()">Clear</button>
+                
+            </div>
+                </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+  
 
-<div *ngIf="isComponentLoading===true"  style="padding-top:90px;color: #134E69D9;">
+<div *ngIf="isComponentLoading===true" style="padding-top:90px;color: #134E69D9;">
     <!-- <span *ngIf="isComponentLoading===true">
         <div class="spinner-border" style="width: 4rem; height: 4rem;animation-duration:1s" role="status">
             <span class="sr-only">Loading...</span>
              <div style="position: fixed;padding-top: 16px;padding-left: 8px;"><h5>UMS</h5></div>
         </div>
-    </span>-->   
+    </span>-->
     <div style="padding-left: 50%;">
-        <div class="loader" style="color: #2AA3D9;"></div> 
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 315 103" fill="none" style="margin-left:-7px">
-                <path d="M70.7305 1.88965H99.9988V53.726H70.7305V31.2772V1.88965Z" fill="url(#paint0_linear_354_164515)"/>
-                <path d="M99.9905 54.5423V1.88965L29.2588 73.7258C24.3834 88.0114 49.998 101.481 60.5596 101.481C93.9306 101.481 100.261 66.515 99.9905 54.5423Z" fill="url(#paint1_linear_354_164515)"/>
-                <path d="M0 53.3168V1.48131C20.3252 5.15471 30.4878 12.0918 30.4878 53.3168C30.4878 94.5417 50.1355 100.664 60.1626 101.48C12.3577 101.48 0 77.3982 0 53.3168Z" fill="#30D64B"/>
-                <path d="M118.575 101.53C117.622 101.53 116.764 101.196 116.001 100.529C115.334 99.8614 115 99.0034 115 97.9547V5.00469C115 3.95602 115.334 3.09802 116.001 2.43069C116.764 1.76335 117.622 1.42969 118.575 1.42969H134.019C135.544 1.42969 136.688 1.85868 137.451 2.71668C138.309 3.47935 138.833 4.09902 139.024 4.57569L164.192 49.7637L189.36 4.57569C189.646 4.09902 190.123 3.47935 190.79 2.71668C191.553 1.85868 192.744 1.42969 194.365 1.42969H209.666C210.715 1.42969 211.573 1.76335 212.24 2.43069C213.003 3.09802 213.384 3.95602 213.384 5.00469V97.9547C213.384 99.0034 213.003 99.8614 212.24 100.529C211.573 101.196 210.715 101.53 209.666 101.53H192.649C191.6 101.53 190.695 101.196 189.932 100.529C189.265 99.8614 188.931 99.0034 188.931 97.9547V44.3297L172.772 74.2167C172.391 75.0747 171.819 75.8374 171.056 76.5047C170.293 77.172 169.245 77.5057 167.91 77.5057H160.474C159.139 77.5057 158.091 77.172 157.328 76.5047C156.565 75.8374 155.946 75.0747 155.469 74.2167L139.31 44.3297V97.9547C139.31 99.0034 138.976 99.8614 138.309 100.529C137.642 101.196 136.784 101.53 135.735 101.53H118.575Z" fill="#2AA3D9"/>
-                <path d="M271.569 102.96C262.036 102.96 254.123 101.625 247.831 98.956C241.539 96.1913 236.772 92.6163 233.531 88.231C230.289 83.8457 228.573 79.1743 228.383 74.217C228.383 73.4543 228.669 72.787 229.241 72.215C229.908 71.5477 230.671 71.214 231.529 71.214H249.547C250.882 71.214 251.883 71.4523 252.55 71.929C253.313 72.4057 253.98 73.0253 254.552 73.788C255.315 75.218 256.363 76.6003 257.698 77.935C259.128 79.2697 260.939 80.366 263.132 81.224C265.42 81.9867 268.232 82.368 271.569 82.368C277.098 82.368 281.245 81.51 284.01 79.794C286.87 78.078 288.3 75.7423 288.3 72.787C288.3 70.6897 287.537 68.9737 286.012 67.639C284.487 66.209 282.008 64.9697 278.576 63.921C275.239 62.777 270.759 61.633 265.134 60.489C257.889 58.9637 251.692 57.0093 246.544 54.626C241.491 52.1473 237.63 48.9537 234.961 45.045C232.291 41.041 230.957 36.0837 230.957 30.173C230.957 24.3577 232.577 19.162 235.819 14.586C239.156 10.01 243.779 6.435 249.69 3.861C255.601 1.287 262.608 0 270.711 0C277.289 0 283.057 0.857995 288.014 2.574C293.067 4.29 297.309 6.57801 300.741 9.438C304.173 12.298 306.747 15.3487 308.463 18.59C310.274 21.736 311.228 24.8343 311.323 27.885C311.323 28.6477 311.037 29.3627 310.465 30.03C309.893 30.602 309.178 30.888 308.32 30.888H289.444C288.395 30.888 287.49 30.6973 286.727 30.316C285.964 29.9347 285.297 29.315 284.725 28.457C284.153 26.3597 282.628 24.5483 280.149 23.023C277.766 21.4023 274.62 20.592 270.711 20.592C266.516 20.592 263.227 21.3547 260.844 22.88C258.556 24.31 257.412 26.5503 257.412 29.601C257.412 31.5077 258.032 33.176 259.271 34.606C260.606 36.036 262.751 37.2753 265.706 38.324C268.757 39.3727 272.904 40.469 278.147 41.613C286.822 43.2337 293.829 45.2833 299.168 47.762C304.507 50.1453 308.415 53.2913 310.894 57.2C313.373 61.0133 314.612 65.8277 314.612 71.643C314.612 78.1257 312.753 83.7503 309.035 88.517C305.412 93.1883 300.36 96.7633 293.877 99.242C287.394 101.721 279.958 102.96 271.569 102.96Z" fill="#2AA3D9"/>
-                <defs>
-                <linearGradient id="paint0_linear_354_164515" x1="85.3646" y1="1.88965" x2="85.3646" y2="74.1332" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2AA3D9"/>
-                <stop offset="1"/>
+        <div class="loader" style="color: #2AA3D9;"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="35" viewBox="0 0 315 103" fill="none"
+            style="margin-left:-7px">
+            <path d="M70.7305 1.88965H99.9988V53.726H70.7305V31.2772V1.88965Z" fill="url(#paint0_linear_354_164515)" />
+            <path
+                d="M99.9905 54.5423V1.88965L29.2588 73.7258C24.3834 88.0114 49.998 101.481 60.5596 101.481C93.9306 101.481 100.261 66.515 99.9905 54.5423Z"
+                fill="url(#paint1_linear_354_164515)" />
+            <path
+                d="M0 53.3168V1.48131C20.3252 5.15471 30.4878 12.0918 30.4878 53.3168C30.4878 94.5417 50.1355 100.664 60.1626 101.48C12.3577 101.48 0 77.3982 0 53.3168Z"
+                fill="#30D64B" />
+            <path
+                d="M118.575 101.53C117.622 101.53 116.764 101.196 116.001 100.529C115.334 99.8614 115 99.0034 115 97.9547V5.00469C115 3.95602 115.334 3.09802 116.001 2.43069C116.764 1.76335 117.622 1.42969 118.575 1.42969H134.019C135.544 1.42969 136.688 1.85868 137.451 2.71668C138.309 3.47935 138.833 4.09902 139.024 4.57569L164.192 49.7637L189.36 4.57569C189.646 4.09902 190.123 3.47935 190.79 2.71668C191.553 1.85868 192.744 1.42969 194.365 1.42969H209.666C210.715 1.42969 211.573 1.76335 212.24 2.43069C213.003 3.09802 213.384 3.95602 213.384 5.00469V97.9547C213.384 99.0034 213.003 99.8614 212.24 100.529C211.573 101.196 210.715 101.53 209.666 101.53H192.649C191.6 101.53 190.695 101.196 189.932 100.529C189.265 99.8614 188.931 99.0034 188.931 97.9547V44.3297L172.772 74.2167C172.391 75.0747 171.819 75.8374 171.056 76.5047C170.293 77.172 169.245 77.5057 167.91 77.5057H160.474C159.139 77.5057 158.091 77.172 157.328 76.5047C156.565 75.8374 155.946 75.0747 155.469 74.2167L139.31 44.3297V97.9547C139.31 99.0034 138.976 99.8614 138.309 100.529C137.642 101.196 136.784 101.53 135.735 101.53H118.575Z"
+                fill="#2AA3D9" />
+            <path
+                d="M271.569 102.96C262.036 102.96 254.123 101.625 247.831 98.956C241.539 96.1913 236.772 92.6163 233.531 88.231C230.289 83.8457 228.573 79.1743 228.383 74.217C228.383 73.4543 228.669 72.787 229.241 72.215C229.908 71.5477 230.671 71.214 231.529 71.214H249.547C250.882 71.214 251.883 71.4523 252.55 71.929C253.313 72.4057 253.98 73.0253 254.552 73.788C255.315 75.218 256.363 76.6003 257.698 77.935C259.128 79.2697 260.939 80.366 263.132 81.224C265.42 81.9867 268.232 82.368 271.569 82.368C277.098 82.368 281.245 81.51 284.01 79.794C286.87 78.078 288.3 75.7423 288.3 72.787C288.3 70.6897 287.537 68.9737 286.012 67.639C284.487 66.209 282.008 64.9697 278.576 63.921C275.239 62.777 270.759 61.633 265.134 60.489C257.889 58.9637 251.692 57.0093 246.544 54.626C241.491 52.1473 237.63 48.9537 234.961 45.045C232.291 41.041 230.957 36.0837 230.957 30.173C230.957 24.3577 232.577 19.162 235.819 14.586C239.156 10.01 243.779 6.435 249.69 3.861C255.601 1.287 262.608 0 270.711 0C277.289 0 283.057 0.857995 288.014 2.574C293.067 4.29 297.309 6.57801 300.741 9.438C304.173 12.298 306.747 15.3487 308.463 18.59C310.274 21.736 311.228 24.8343 311.323 27.885C311.323 28.6477 311.037 29.3627 310.465 30.03C309.893 30.602 309.178 30.888 308.32 30.888H289.444C288.395 30.888 287.49 30.6973 286.727 30.316C285.964 29.9347 285.297 29.315 284.725 28.457C284.153 26.3597 282.628 24.5483 280.149 23.023C277.766 21.4023 274.62 20.592 270.711 20.592C266.516 20.592 263.227 21.3547 260.844 22.88C258.556 24.31 257.412 26.5503 257.412 29.601C257.412 31.5077 258.032 33.176 259.271 34.606C260.606 36.036 262.751 37.2753 265.706 38.324C268.757 39.3727 272.904 40.469 278.147 41.613C286.822 43.2337 293.829 45.2833 299.168 47.762C304.507 50.1453 308.415 53.2913 310.894 57.2C313.373 61.0133 314.612 65.8277 314.612 71.643C314.612 78.1257 312.753 83.7503 309.035 88.517C305.412 93.1883 300.36 96.7633 293.877 99.242C287.394 101.721 279.958 102.96 271.569 102.96Z"
+                fill="#2AA3D9" />
+            <defs>
+                <linearGradient id="paint0_linear_354_164515" x1="85.3646" y1="1.88965" x2="85.3646" y2="74.1332"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2AA3D9" />
+                    <stop offset="1" />
                 </linearGradient>
-                <linearGradient id="paint1_linear_354_164515" x1="59.3489" y1="68.8271" x2="-58.8583" y2="152.454" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#2AA3D9"/>
-                <stop offset="1"/>
+                <linearGradient id="paint1_linear_354_164515" x1="59.3489" y1="68.8271" x2="-58.8583" y2="152.454"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#2AA3D9" />
+                    <stop offset="1" />
                 </linearGradient>
-                </defs>
-                <!-- Animation -->
-                <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.5s" repeatCount="indefinite" />
-            </svg>
-    </div>      
+            </defs>
+            <!-- Animation -->
+            <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.5s"
+                repeatCount="indefinite" />
+        </svg>
+    </div>
 </div>
