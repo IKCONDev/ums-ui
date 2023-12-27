@@ -313,14 +313,14 @@ export class AppMenuItemsComponent {
   isMenuItemNameValid:boolean = false;
   validateMenuItemName(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    // const regex2=/^[A-Za-z ]+$/;
+    const regex2=/^[A-Za-z &]+$/;
     if(this.menuItem.menuItemName === '' || this.menuItem.menuItemName.trim()==="" || 
     regex.exec(this.menuItem.menuItemName)===null){
       this.menuItemNameErrorInfo = 'Menu item name is required';
       this.isMenuItemNameValid = false;
-    // }else if(regex2.test(this.menuItem.menuItemName) === false){
-    //   this.menuItemNameErrorInfo = 'Menu item name cannot have special characters or numbers.';
-    //   this.isMenuItemNameValid = false;
+    }else if(regex2.test(this.menuItem.menuItemName) === false){
+      this.menuItemNameErrorInfo = 'Menu item name cannot have special characters or numbers.';
+      this.isMenuItemNameValid = false;
     }
     else if(this.menuItem.menuItemName.length < 2){
       this.menuItemNameErrorInfo = 'Menu item name should have minimum of 2 characters.';
