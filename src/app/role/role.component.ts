@@ -193,7 +193,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     } else if (this.addRoleObj.roleName.length < 3) {
       this.roleNameErrorInfo = 'Role name should have min of 3 characters'
       this.isRoleNameValid=false;
-    }else if (this.addRoleObj.roleName.length>=50){
+    }else if (this.addRoleObj.roleName.length >= 50){
       this.roleNameErrorInfo = 'Role name should not exceed more than 50 characters'
       this.isRoleNameValid=false;
     }
@@ -233,7 +233,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     } else if (this.existingRole.roleName.length < 3) {
       this.updatedRoleNameErrorInfo = 'Role name should have min of 3 characters'
       this.isUpdatedRoleNameValid = false;
-    } else if (this.existingRole.roleName.length>=50){
+    } else if (this.existingRole.roleName.length >= 50){
       this.updatedRoleNameErrorInfo = 'Role name should not exceed more than 50 characters'
       this.isUpdatedRoleNameValid = false;
     }else {

@@ -249,7 +249,7 @@ export class PermissionComponent implements OnInit{
       }else if(this.addPermission.permissionDescription.length < 5){
         this.permissionDescriptionErrorInfo = 'Permission description should have minimum of 5 characters.';
         this.isPermissionDescriptionValid = false;
-      }else if(this.addPermission.permissionDescription.length > 50){
+      }else if(this.addPermission.permissionDescription.length >= 100){
         this.permissionDescriptionErrorInfo = 'Permission description should not exceed more than 100 characters.';
         this.isPermissionDescriptionValid = false;
       }else{

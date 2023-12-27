@@ -129,7 +129,7 @@
             <div class="modal-body">
                 <label><b>Menu Item Name</b><span id="required">*</span></label>
                 <input id="categoryName" type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Menu Item Name"
-                    [(ngModel)]="menuItem.menuItemName" (keyup)="validateMenuItemName()" minlength="3"
+                    [(ngModel)]="menuItem.menuItemName" (keyup)="validateMenuItemName()" minlength="2"
                     maxlength="50" /><br />
                 <span *ngIf="menuItemNameErrorInfo != ''">
                     <p id="errorMessage">{{menuItemNameErrorInfo}}</p>
