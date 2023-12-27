@@ -834,7 +834,7 @@ export class HomeComponent implements OnInit {
             title: {
               display: true,
               text: '   Meeting status of current week',
-              align: 'start',
+              align: 'center',
               font: {
                 size: 14,
               },
@@ -903,7 +903,7 @@ export class HomeComponent implements OnInit {
             title: {
               display: true,
               text: '   Meeting status of current year',
-              align: 'start',
+              align: 'center',
               font: {
                 size: 14,
               },
@@ -972,7 +972,7 @@ export class HomeComponent implements OnInit {
             title: {
               display: true,
               text: '   Meeting status of current month',
-              align: 'start',
+              align: 'center',
               font: {
                 size: 14,
               },

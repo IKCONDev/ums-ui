@@ -225,14 +225,14 @@
             <br>
             <label>ActionItem Title</label>
             <input type="text" style="width: 400px;" [(ngModel)]="updatedetails.actionItemTitle" required="true"
-                name="uAcItemTitle" id="uAcItemTitle" minlength="5" maxlength="500" #uAcItemTitle="ngModel"
+                name="uAcItemTitle" id="uAcItemTitle" minlength="5" maxlength="51" #uAcItemTitle="ngModel"
                 [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched" (keyup)="validateUpdateActionTitle()">
             <div *ngIf="updateActionItemTitleErrorInfo != ''">
                 <span id="errorSpan">{{updateActionItemTitleErrorInfo}}</span>
             </div>
             <label>ActionItem Description</label>
             <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionItemDescription" required="true"
-                name="uAcItemDesc" id="uAcItemDesc" minlength="5" maxlength="1000" #uAcItemDesc="ngModel"
+                name="uAcItemDesc" id="uAcItemDesc" minlength="5" maxlength="251" #uAcItemDesc="ngModel"
                 [class.invalid]="uAcItemDesc.invalid && uAcItemDesc.touched"
                 (keyup)="validateUpdateActionDescription()">
             <div *ngIf="updateActionItemDescErrorInfo != ''">
@@ -308,7 +308,7 @@
                     <label><b>ActionItem Title</b></label>
                     <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
                         [(ngModel)]="addDetails.actionItemTitle" required="true" name="actionItemTitle"
-                        id="actionItemTitle" minlength="5" maxlength="50" #actionItemTitle="ngModel"
+                        id="actionItemTitle" minlength="5" maxlength="51" #actionItemTitle="ngModel"
                         [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
                         (keyup)="validateActionTitle()">
                     <div *ngIf="actionItemTitleErrorInfo != ''">
@@ -318,7 +318,7 @@
                     <label><b>ActionItem Description</b></label>
                     <input type="text" class="form-control" style="width:400px;"
                         [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
-                        #actionItemDescription="ngModel" minlength="10" maxlength="250" id="actionItemDescription"
+                        #actionItemDescription="ngModel" minlength="10" maxlength="251" id="actionItemDescription"
                         [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
                         (keyup)="validateActionDescription()">
                     <div *ngIf="actionItemDescriptionErrorInfo != ''">
@@ -456,7 +456,7 @@
                                 placeholder="Enter title" class="form-control" name="taskTitle" required="true"
                                 [(ngModel)]="add_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
-                                minlength="5" maxlength="50"></textarea>
+                                minlength="5" maxlength="51"></textarea>
                             <div *ngIf="taskTitleErrrorInfo !=''" style="margin-bottom: -24px;">
                                 <span id="errorSpan" style="padding-left: 30px;">{{taskTitleErrrorInfo}}</span>
                             </div>
@@ -497,7 +497,7 @@
                                     [(ngModel)]="add_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
                                     (keyup)="validateTaskDescription()" placeholder="Enter description"
-                                    minlength="10" maxlength="250"></textarea>
+                                    minlength="10" maxlength="251"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="errorSpan" style="padding-left: 2px;">{{taskDescriptionErrorInfo}}</span>
                                 </div>

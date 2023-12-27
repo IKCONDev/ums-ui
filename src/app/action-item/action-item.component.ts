@@ -540,7 +540,7 @@ export class ActionItemComponent implements OnInit {
     } else if (this.addDetails.actionItemTitle.length < 5) {
       this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters.';
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length >= 50) {
+    } else if (this.addDetails.actionItemTitle.length > 50) {
       this.actionItemTitleErrorInfo = 'Title should not exceed more than 50 characters.';
       this.isActionItemTitleValid = false;
     } else {
@@ -562,7 +562,7 @@ export class ActionItemComponent implements OnInit {
     } else if (this.addDetails.actionItemDescription.length < 10) {
       this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters.';
       this.isActionItemDescriptionValid = false;
-    } else if (this.addDetails.actionItemDescription.length >= 250) {
+    } else if (this.addDetails.actionItemDescription.length > 250) {
       this.actionItemDescriptionErrorInfo = 'Description  should not exceed more than 250 characters.';
       this.isActionItemDescriptionValid = false;
     } else {
@@ -698,7 +698,7 @@ export class ActionItemComponent implements OnInit {
     } else if (this.updatedetails.actionItemTitle.length < 5) {
       this.updateActionItemTitleErrorInfo = 'Title should be minimum of 5 characters.';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length >= 50) {
+    } else if (this.updatedetails.actionItemTitle.length > 50) {
       this.updateActionItemTitleErrorInfo = 'Title  should not exceed more than 50 characters.';
       this.isUpdateActionItemTitleValid = false;
     } else {
@@ -719,7 +719,7 @@ export class ActionItemComponent implements OnInit {
     } else if (this.updatedetails.actionItemDescription.length < 5) {
       this.updateActionItemDescErrorInfo = 'Description should be minimum of 10 characters.';
       this.isUpdateActionItemDescValid = false;
-    } else if (this.updatedetails.actionItemDescription.length >= 250) {
+    } else if (this.updatedetails.actionItemDescription.length > 250) {
       this.updateActionItemDescErrorInfo = 'Description  should not exceed more than 250 characters.';
       this.isUpdateActionItemDescValid = false;
     } else {
@@ -920,7 +920,7 @@ export class ActionItemComponent implements OnInit {
       this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters.';
       this.isTaskTitleValid = false;
     }
-    else if (this.add_Task.taskTitle.length >= 50) {
+    else if (this.add_Task.taskTitle.length > 50) {
       this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
       this.isTaskTitleValid = false;
     }
@@ -944,7 +944,7 @@ export class ActionItemComponent implements OnInit {
       this.taskDescriptionErrorInfo = 'Description should have minimum of 10 characters.';
       this.isTaskDescriptionValid = false;
     }
-    else if (this.add_Task.taskDescription.length >= 250) {
+    else if (this.add_Task.taskDescription.length > 250) {
       this.taskDescriptionErrorInfo = 'Description should not exceed more than 250 characters.';
       this.isTaskDescriptionValid = false;
     }

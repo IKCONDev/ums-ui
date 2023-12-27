@@ -230,6 +230,12 @@ export class PermissionComponent implements OnInit{
       }else if(regex2.test(this.addPermission.permissionValue) === false){
         this.permissionValueErrorInfo = 'Permission value cannot have special characters or numbers.';
         this.isPermissionValueValid = false;
+      }else if(this.addPermission.permissionValue.length < 3){
+        this.permissionValueErrorInfo = 'Permission value should have minimum of 3 characters.';
+        this.isPermissionValueValid = false;
+      }else if(this.addPermission.permissionValue.length > 50){
+        this.permissionValueErrorInfo = 'Permission value should not exceed more than 50 characters.';
+        this.isPermissionValueValid = false;
       }
       else{
         this.isPermissionValueValid = true;
@@ -249,7 +255,7 @@ export class PermissionComponent implements OnInit{
       }else if(this.addPermission.permissionDescription.length < 5){
         this.permissionDescriptionErrorInfo = 'Permission description should have minimum of 5 characters.';
         this.isPermissionDescriptionValid = false;
-      }else if(this.addPermission.permissionDescription.length >= 100){
+      }else if(this.addPermission.permissionDescription.length > 100){
         this.permissionDescriptionErrorInfo = 'Permission description should not exceed more than 100 characters.';
         this.isPermissionDescriptionValid = false;
       }else{

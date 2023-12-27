@@ -325,7 +325,7 @@ export class AppMenuItemsComponent {
     else if(this.menuItem.menuItemName.length < 2){
       this.menuItemNameErrorInfo = 'Menu item name should have minimum of 2 characters.';
       this.isMenuItemNameValid = false;
-    }else if(this.menuItem.menuItemName.length >= 50){
+    }else if(this.menuItem.menuItemName.length > 50){
       this.menuItemNameErrorInfo = 'Menu item name should not exceed more than 50 characters';
       this.isMenuItemNameValid = false;
     }else{
@@ -346,7 +346,7 @@ export class AppMenuItemsComponent {
     }else if(this.menuItem.menuItemPath.length < 3){
       this.menuItemPathErrorInfo = 'Menu item path should have minimum of 3 characters.';
       this.isMenuItemPathValid = false;
-    }else if(this.menuItem.menuItemPath.length >= 50){
+    }else if(this.menuItem.menuItemPath.length > 50){
       this.menuItemPathErrorInfo = 'Menu item path should not exceed more than 50 characters';
       this.isMenuItemPathValid = false;
     }else{
@@ -367,7 +367,7 @@ export class AppMenuItemsComponent {
     }else if(this.menuItem.menuItemDescription.length < 5){
       this.menuItemDescErrorInfo = 'Menu item description should have minimum of 5 characters.';
       this.isMenuItemDescValid = false;
-    }else if(this.menuItem.menuItemDescription.length >= 100){
+    }else if(this.menuItem.menuItemDescription.length > 100){
       this.menuItemDescErrorInfo = 'Menu item description should not exceed more than 100 characters';
       this.isMenuItemDescValid = false;
     }else{
