@@ -130,6 +130,7 @@
                 <input id="categoryName" type="text"  class="deptInput form-control" placeholder="Permission value" minlength="3"
                 [(ngModel)]="addPermission.permissionValue" (keyup)="validatePermissionValue()"
                     maxlength="50" />
+                    &nbsp;
                 <span *ngIf="permissionValueErrorInfo != ''">
                         <p id="errorMessage">{{permissionValueErrorInfo}}</p>
                  </span>

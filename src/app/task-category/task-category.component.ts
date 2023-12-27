@@ -233,7 +233,7 @@ export class TaskCategoryComponent implements OnInit {
         next: response => {
           if(response.status === HttpStatusCode.Created){
             this.closeModal();
-            this.toastrService.success("Task category updated successfully.");
+            this.toastrService.success("Task category has been updated successfully.");
             setTimeout(() => {
               window.location.reload();
             },1000)
