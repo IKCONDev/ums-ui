@@ -920,6 +920,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param eventId 
    * @param index 
    */
+  hideActionItem:boolean=false;
   toggleSubmitAndDeleteButtons(meetingId: number, index: number) {
     var count = 0;
     var table = document.getElementById("myTable" + meetingId)
@@ -944,11 +945,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         var buttons = document.getElementById('submitAndDelete' + meetingId);
         buttons.style.display = 'table-cell'
+        this.hideActionItem=true;
         var emptyCell = document.getElementById('emptycell' + meetingId);
         emptyCell.style.display = 'none'
 
       } else {
         if (count < 1) {
+          this.hideActionItem=false;
           var buttons = document.getElementById('submitAndDelete' + meetingId);
           buttons.style.display = 'none'
           var emptyCell = document.getElementById('emptycell' + meetingId);
