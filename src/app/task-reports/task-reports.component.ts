@@ -115,11 +115,11 @@ export class TaskReportsComponent implements OnInit {
           this.viewPermission = true;
           //get logged in user details
           this.getLoggedInUserDetails(this.loggedInUser);
-    //get active users list
-    this.getActiveUsersList();
-    this.getDepartments();
-    this.getAllTasksByDepartment();
-    this.selectedTaskOwner = this.loggedInUser;
+         //get active users list
+         this.getActiveUsersList();
+         this.getDepartments();
+         this.getAllTasksByDepartment();
+         this.selectedTaskOwner = this.loggedInUser;
     // if(this.reportType === null){
     //   this.getTasks();
     // }
