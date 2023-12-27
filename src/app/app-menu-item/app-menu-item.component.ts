@@ -339,14 +339,14 @@ export class AppMenuItemsComponent {
   isMenuItemPathValid:boolean = false;
   validateMenuItemPath(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.menuItem.menuItemName === '' || this.menuItem.menuItemName.trim()==="" || 
-    regex.exec(this.menuItem.menuItemName)===null){
+    if(this.menuItem.menuItemPath === '' || this.menuItem.menuItemPath.trim()==="" || 
+    regex.exec(this.menuItem.menuItemPath)===null){
       this.menuItemPathErrorInfo = 'Menu item path is required';
       this.isMenuItemPathValid = false;
-    }else if(this.menuItem.menuItemName.length < 3){
+    }else if(this.menuItem.menuItemPath.length < 3){
       this.menuItemPathErrorInfo = 'Menu item path should have minimum of 3 characters.';
       this.isMenuItemPathValid = false;
-    }else if(this.menuItem.menuItemName.length >= 50){
+    }else if(this.menuItem.menuItemPath.length >= 50){
       this.menuItemPathErrorInfo = 'Menu item path should not exceed more than 50 characters';
       this.isMenuItemPathValid = false;
     }else{
@@ -381,12 +381,15 @@ export class AppMenuItemsComponent {
   clearErrorMessages(){
     this.menuItem.menuItemName = '';
     this.menuItem.menuItemDescription = '';
+    this.menuItem.menuItemPath = '';
 
     this.isMenuItemNameValid = false;
     this.isMenuItemDescValid = false;
-
+    this.isMenuItemPathValid=false;
+    
     this.menuItemNameErrorInfo = '';
     this.menuItemDescErrorInfo = '';
+    this.menuItemPathErrorInfo = '';
     
   }
 

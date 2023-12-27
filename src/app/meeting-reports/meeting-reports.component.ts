@@ -277,7 +277,7 @@ export class MeetingReportsComponent implements OnInit {
         xLabels: this.meetingsByOrgxlabels,
         datasets: [
           {
-            label: "Total meetings by organizer",
+            label: "Total meetings of an organizer",
             data: this.meetingsByOrg,
             backgroundColor: 'rgba(216, 175, 53, 0.8)', // Yellow
             borderColor: 'rgba(216, 175, 53, 1)',
@@ -332,7 +332,7 @@ export class MeetingReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total meetings by organizer',
+            text: 'Total meetings of an organizer',
             font: {
               size: 14,
             },
