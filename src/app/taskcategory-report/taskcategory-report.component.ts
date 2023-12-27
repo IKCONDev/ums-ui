@@ -265,6 +265,10 @@ export class TaskcategoryReportComponent implements OnInit {
               display: true,
 
             },
+            ticks: {
+              maxRotation: 0,    // Set the maximum rotation angle to 0 degrees
+              autoSkip: false, 
+            }
           },
           y: {
             beginAtZero:true,
@@ -343,6 +347,11 @@ export class TaskcategoryReportComponent implements OnInit {
               display: true,
 
             },
+            ticks: {
+              maxRotation: 0,    // Set the maximum rotation angle to 0 degrees
+              autoSkip: false, 
+            }
+            
           },
           y: {
             beginAtZero:true,
@@ -356,6 +365,7 @@ export class TaskcategoryReportComponent implements OnInit {
             },
           },
         },
+        
         plugins: {
           legend: {
             display: true,
