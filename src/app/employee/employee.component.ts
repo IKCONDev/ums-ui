@@ -537,7 +537,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isEmployeeFirstNameValid = false;
 
     }
-    else if (this.addEmployee.firstName.length > 30) {
+    else if (this.addEmployee.firstName.length >= 30) {
       this.employeeFirstNameErrorInfo = "First Name should not exceed more than 30 characters.";
       this.isEmployeeFirstNameValid = false;
 
@@ -561,7 +561,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.employeeLastNameErrorInfo = "Last Name cannot have special characters or numbers.";
       this.isEmployeeLasttNameValid = false;
     }
-    else if (this.addEmployee.lastName.length > 30) {
+    else if (this.addEmployee.lastName.length >= 30) {
       this.employeeLastNameErrorInfo = "Last Name should not exceed more than 30 characters.";
       this.isEmployeeFirstNameValid = false;
 
@@ -727,7 +727,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateFirstNameErrorInfo = "First Name should have min of 4 characters.";
       this.isUpdateFirstNameValid = false;
     }
-    else if (this.existingEmployee.firstName.length > 30) {
+    else if (this.existingEmployee.firstName.length >= 30) {
       this.updateFirstNameErrorInfo = "First Name should not exceed more than 30 characters.";
       this.isUpdateFirstNameValid = false;
 
@@ -754,7 +754,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateLastNameErrorInfo = "Last Name should have min of 1 character.";
       this.isUpdateLastNameValid = false;
     }
-    else if (this.existingEmployee.lastName.length > 30) {
+    else if (this.existingEmployee.lastName.length >= 30) {
       this.updateLastNameErrorInfo = "First Name should not exceed more than 30 characters.";
       this.isUpdateLastNameValid = false;
 
@@ -942,7 +942,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.addEmployee.employeeOrgId.length < 1) {
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters.';
-    } else if (this.addEmployee.employeeOrgId.length > 20) {
+    } else if (this.addEmployee.employeeOrgId.length >= 20) {
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters.';
     }
@@ -987,7 +987,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.existingEmployee.employeeOrgId.length < 1) {
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters.';
-    } else if (this.existingEmployee.employeeOrgId.length > 20) {
+    } else if (this.existingEmployee.employeeOrgId.length >= 20) {
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID should not  exceed  20 characters.';
     }

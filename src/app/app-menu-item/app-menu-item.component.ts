@@ -322,11 +322,11 @@ export class AppMenuItemsComponent {
       this.menuItemNameErrorInfo = 'Menu item name cannot have special characters or numbers.';
       this.isMenuItemNameValid = false;
     }
-    else if(this.menuItem.menuItemName.length < 3){
+    else if(this.menuItem.menuItemName.length < 2){
       this.menuItemNameErrorInfo = 'Menu item name should have minimum of 2 characters.';
       this.isMenuItemNameValid = false;
-    }else if(this.menuItem.menuItemName.length > 50){
-      this.menuItemNameErrorInfo = 'Menu item name should not exceed more than 25 characters';
+    }else if(this.menuItem.menuItemName.length >= 50){
+      this.menuItemNameErrorInfo = 'Menu item name should not exceed more than 50 characters';
       this.isMenuItemNameValid = false;
     }else{
       this.isMenuItemNameValid = true;
@@ -344,10 +344,10 @@ export class AppMenuItemsComponent {
       this.menuItemPathErrorInfo = 'Menu item path is required';
       this.isMenuItemPathValid = false;
     }else if(this.menuItem.menuItemName.length < 3){
-      this.menuItemPathErrorInfo = 'Menu item path should have minimum of 4 characters.';
+      this.menuItemPathErrorInfo = 'Menu item path should have minimum of 3 characters.';
       this.isMenuItemPathValid = false;
-    }else if(this.menuItem.menuItemName.length > 50){
-      this.menuItemPathErrorInfo = 'Menu item path should not exceed more than 30 characters';
+    }else if(this.menuItem.menuItemName.length >= 50){
+      this.menuItemPathErrorInfo = 'Menu item path should not exceed more than 50 characters';
       this.isMenuItemPathValid = false;
     }else{
       this.isMenuItemPathValid = true;
@@ -367,7 +367,7 @@ export class AppMenuItemsComponent {
     }else if(this.menuItem.menuItemDescription.length < 5){
       this.menuItemDescErrorInfo = 'Menu item description should have minimum of 5 characters.';
       this.isMenuItemDescValid = false;
-    }else if(this.menuItem.menuItemDescription.length > 50){
+    }else if(this.menuItem.menuItemDescription.length >= 100){
       this.menuItemDescErrorInfo = 'Menu item description should not exceed more than 100 characters';
       this.isMenuItemDescValid = false;
     }else{
