@@ -357,7 +357,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addDetails.actionItemTitle === '' || this.addDetails.actionItemTitle.trim() === "" || regex.exec(this.addDetails.actionItemTitle) === null) {
       this.actionItemTitleErrorInfo = "Title is required";
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length <= 5) {
+    } else if (this.addDetails.actionItemTitle.length < 5) {
       this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters';
       this.isActionItemTitleValid = false;
     } else if (this.addDetails.actionItemTitle.length >= 50) {
@@ -380,7 +380,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim() === "" || regex.exec(this.addDetails.actionItemDescription) === null) {
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
-    } else if (this.addDetails.actionItemDescription.length <= 10) {
+    } else if (this.addDetails.actionItemDescription.length < 10) {
       this.actionItemDescriptionErrorInfo = 'Description should have a minimum of 10 characters';
       this.isActionItemDescriptionValid = false;
     } else if (this.addDetails.actionItemDescription.length >= 250) {
@@ -491,9 +491,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingEndDateErrorInfo = '';
     this.meetingAttendeesErrorInfo = '';
 
+
     //reset the SendMOM 
     this.isemailforSendMoMEmailValid = false;
     this.emailListErrorInfo = '';
+    this.discussionPoints = '';
   }
 
   /**
@@ -918,6 +920,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param eventId 
    * @param index 
    */
+  hideActionItem:boolean=false;
   toggleSubmitAndDeleteButtons(meetingId: number, index: number) {
     var count = 0;
     var table = document.getElementById("myTable" + meetingId)
@@ -942,11 +945,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         var buttons = document.getElementById('submitAndDelete' + meetingId);
         buttons.style.display = 'table-cell'
+        this.hideActionItem=true;
         var emptyCell = document.getElementById('emptycell' + meetingId);
         emptyCell.style.display = 'none'
 
       } else {
         if (count < 1) {
+          this.hideActionItem=false;
           var buttons = document.getElementById('submitAndDelete' + meetingId);
           buttons.style.display = 'none'
           var emptyCell = document.getElementById('emptycell' + meetingId);
@@ -1145,7 +1150,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.updatedetails.actionItemTitle === '' || this.updatedetails.actionItemTitle.trim() === "" || regex.exec(this.updatedetails.actionItemTitle) === null) {
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length <= 5) {
+    } else if (this.updatedetails.actionItemTitle.length < 5) {
       this.updateActionItemTitleErrorInfo = 'Title should have minimum of 5 characters';
       this.isUpdateActionItemTitleValid = false;
     } else if (this.updatedetails.actionItemTitle.length >= 50) {
@@ -1167,7 +1172,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim() === "" || regex.exec(this.updatedetails.actionItemDescription) === null) {
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
-    } else if (this.updatedetails.actionItemDescription.length <= 10) {
+    } else if (this.updatedetails.actionItemDescription.length < 10) {
       this.updateActionItemDescErrorInfo = 'Description should have minimum of 10 characters';
       this.isUpdateActionItemDescValid = false;
     } else if (this.updatedetails.actionItemDescription.length >= 250) {
@@ -1549,7 +1554,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.addMeeting.subject === '' || this.addMeeting.subject.trim() === "" || regex.exec(this.addMeeting.subject) === null) {
       this.meetingSubjectErrorInfo = 'Meeting subject is required';
       this.isMeetingSubjectValid = false;
-    } else if (this.addMeeting.subject.length <= 4) {
+    } else if (this.addMeeting.subject.length < 4) {
       this.meetingSubjectErrorInfo = 'Meeting subject should have minimum of 4 characters';
       this.isMeetingSubjectValid = false;
     } else if (this.addMeeting.subject.length >= 100) {

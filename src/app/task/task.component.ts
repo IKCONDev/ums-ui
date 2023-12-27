@@ -464,7 +464,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isTaskTitleValid = false;
 
     }
-    else if (this.update_Task.taskTitle.length <= 5) {
+    else if (this.update_Task.taskTitle.length < 5) {
       this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters.';
       this.isTaskTitleValid = false;
     }
@@ -493,7 +493,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.taskDescriptionErrorInfo = 'Description is required.';
       this.isTaskDescriptionValid = false;
     }
-    else if (this.update_Task.taskDescription.length <= 10) {
+    else if (this.update_Task.taskDescription.length < 10) {
       this.taskDescriptionErrorInfo = 'Description should have a minimum of 10 characters.';
       this.isTaskDescriptionValid = false;
     }
