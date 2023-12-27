@@ -123,9 +123,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           pageLength: 10,
           order: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
-          scrollX: true,
-          orderCellsTop: true,
-          scrollCollapse: true,
+          
           
           // Add other options here as needed
         });
@@ -159,9 +157,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           pageLength: 10,
           order: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-          scrollX: true,
-          orderCellsTop: true,
-          scrollCollapse: true,
+        
           // Add other options here as needed
         });
       });
