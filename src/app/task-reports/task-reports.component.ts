@@ -435,10 +435,10 @@ export class TaskReportsComponent implements OnInit {
   createTaskListByTaskOwnerChart() {
     if(this.ChartType==='line'){
       this.taskListByTaskOwnerData=[0,this.taskListByTaskOwnerCount,];
-      this.xLabelForTaskListByTaskOwner=['','Total tasks','']
+      this.xLabelForTaskListByTaskOwner=['','Total task list of a task owner','']
   }else{
     this.taskListByTaskOwnerData=[this.taskListByTaskOwnerCount];
-    this.xLabelForTaskListByTaskOwner=['Total tasks'];
+    this.xLabelForTaskListByTaskOwner=['Total task list of a task owner'];
   }
     this.taskListByTaskOwnerChart = new Chart("taskListByTaskOwnerChart", {
       type: this.ChartType,
@@ -446,7 +446,7 @@ export class TaskReportsComponent implements OnInit {
         xLabels: this.xLabelForTaskListByTaskOwner,
         datasets: [
           {
-            label: "Total tasks of a task owner",
+            label: "Total task list of a task owner",
             data:  this.taskListByTaskOwnerData,
             backgroundColor: 'rgba(159, 134, 105, 0.8)', // Dark blue
             borderColor: 'rgba(159, 134, 105, 1)',
@@ -493,7 +493,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list for a task  owner',
+            text: 'Total task list of a task owner',
             font: {
               size: 14,
             },
@@ -530,10 +530,10 @@ export class TaskReportsComponent implements OnInit {
   createTaskListByTaskSeverityChart() {
     if(this.ChartType==='line'){
       this.taskListByTaskSeverityData=[0,this.taskListByTaskSeverityCount,];
-      this.xLabelByTaskSeverity=['','Total tasks','']
+      this.xLabelByTaskSeverity=['','Total task list based on severity','']
   }else{
     this.taskListByTaskSeverityData=[this.taskListByTaskSeverityCount];
-    this.xLabelByTaskSeverity=['Total tasks'];
+    this.xLabelByTaskSeverity=['Total task list based on severity'];
   }
     this.taskListByTaskSeverityChart = new Chart("taskListByTaskSeverityChart", {
       type: this.ChartType,
@@ -541,7 +541,7 @@ export class TaskReportsComponent implements OnInit {
         xLabels: this.xLabelByTaskSeverity,
         datasets: [
           {
-            label: "Total Tasks by severity level",
+            label: "Total task list based on severity",
             data: this.taskListByTaskSeverityData,
             backgroundColor: 'rgba(37, 128, 101, 0.8)', // Dark Green
             borderColor: 'rgba(37, 128, 101, 1)',
@@ -587,7 +587,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list by severity',
+            text: 'Total task list based on severity',
             font: {
               size: 14,
             },
@@ -623,10 +623,10 @@ export class TaskReportsComponent implements OnInit {
   createTaskListByTaskStatusChart() {
     if(this.ChartType==='line'){
       this.taskListByTaskStatusData=[0,this.taskListByTaskStatusCount,];
-      this.xLabelsForTaskListStatus=['','Total tasks','']
+      this.xLabelsForTaskListStatus=['','Total task list based on status','']
   }else{
     this.taskListByTaskStatusData=[this.taskListByTaskStatusCount];
-    this.xLabelsForTaskListStatus=['Total tasks'];
+    this.xLabelsForTaskListStatus=['Total task list based on status'];
   }
     this.taskListByTaskStatusChart = new Chart("taskListByTaskStatusChart", {
       type: this.ChartType,
@@ -634,7 +634,7 @@ export class TaskReportsComponent implements OnInit {
         xLabels: this.xLabelsForTaskListStatus,
         datasets: [
           {
-            label: "Total Tasks by status",
+            label: "Total task list based on status",
             data: this.taskListByTaskStatusData,
             backgroundColor: 'rgba(31, 190, 189, 0.8)', // Dark Blue
             borderColor: 'rgba(31, 190, 189, 1)',
@@ -689,7 +689,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list by status',
+            text: 'Total task list based on status',
             font: {
               size: 14,
             },
@@ -729,10 +729,10 @@ export class TaskReportsComponent implements OnInit {
   createAgedTaskListChart() {
     if(this.ChartType==='line'){
       this.agedTaskListData=[0,this.agedTaskListCount,];
-      this.xLabelsTaskListData=['','Total tasks','']
+      this.xLabelsTaskListData=['','Total task list based on age','']
   }else{
     this.agedTaskListData=[this.agedTaskListCount];
-    this.xLabelsTaskListData=['Total tasks'];
+    this.xLabelsTaskListData=['Total task list based on age'];
   }
     this.agedTaskListChart = new Chart("taskListByAge", {
       type: this.ChartType,
@@ -740,7 +740,7 @@ export class TaskReportsComponent implements OnInit {
         xLabels:  this.xLabelsTaskListData,
         datasets: [
           {
-            label: "Aged Tasks",
+            label: "Total task list based on age",
             data:  this.agedTaskListData,
             backgroundColor: 'rgba(169, 180, 185, 0.8)', // grey
             borderColor: 'rgba(169, 180, 185, 1)',
@@ -786,7 +786,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list by age',
+            text: 'Total task list based on age',
             font: {
               size: 14,
             },

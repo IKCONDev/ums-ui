@@ -139,7 +139,7 @@
                 <input id="categoryName" type="text" class="deptInput form-control" placeholder="Menu Item Path"
                     [(ngModel)]="menuItem.menuItemPath" (keyup)="validateMenuItemPath()" minlength="3"
                     maxlength="50" /><br />
-                <span *ngIf="menuItemNameErrorInfo != ''">
+                <span *ngIf="menuItemPathErrorInfo != ''">
                     <p id="errorMessage">{{menuItemPathErrorInfo}}</p>
                 </span>
                 <!--  -->
