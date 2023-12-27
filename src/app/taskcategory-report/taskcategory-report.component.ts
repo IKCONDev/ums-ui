@@ -224,8 +224,11 @@ export class TaskcategoryReportComponent implements OnInit {
   }
   taskByDepartmentData : any[]
   taskByDepartmentXLabels : any[]
+  taskCategoryType : string[];
   createTaskListByDepartmentChart() {
     console.log("create task category chart entered");
+    this.taskCategoryType =  this.reportType.split(',')
+    console.log(this.taskCategoryType[0])
     if(this.type === 'line'){
       this.taskByDepartmentData = [0,this.categoryOfTaskCount,];
       this.taskByDepartmentXLabels = ['',this.selectedtaskCategoryName,''];
@@ -240,7 +243,7 @@ export class TaskcategoryReportComponent implements OnInit {
         xLabels: this.taskByDepartmentXLabels,
         datasets: [
           {
-            label: "Total Tasks of a task category",
+            label: "Total Tasks of "+this.taskCategoryType[0]+" category",
             data: this.taskByDepartmentData,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             // backgroundColor: 'rgb(153, 102, 255)', // Red
@@ -292,7 +295,7 @@ export class TaskcategoryReportComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list for a category',
+            text: 'Total tasks for the '+this.taskCategoryType[0]+' category',
             font: {
               size: 14,
             },

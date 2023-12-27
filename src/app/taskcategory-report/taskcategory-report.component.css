@@ -94,7 +94,7 @@
 
   table tr th{
     color: white;
-    font-size: 11px;
+    font-size: 15px;
     background-color: #134E69D9;
   }
 
@@ -116,13 +116,14 @@
   display: flex;
   justify-content: space-between;
   height: 56px;
-  padding-top: 15px;
+  padding-top: 10px;
 }
 #chartType{
 
   display: flex;
   justify-content: space-between;
 }
+
 
 
 
