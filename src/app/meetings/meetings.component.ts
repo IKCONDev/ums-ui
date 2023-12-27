@@ -491,9 +491,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingEndDateErrorInfo = '';
     this.meetingAttendeesErrorInfo = '';
 
+
     //reset the SendMOM 
     this.isemailforSendMoMEmailValid = false;
     this.emailListErrorInfo = '';
+    this.discussionPoints = '';
   }
 
   /**
