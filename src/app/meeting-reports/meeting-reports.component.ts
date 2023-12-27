@@ -302,6 +302,10 @@ export class MeetingReportsComponent implements OnInit {
             grid: {
               display: false,
             },
+            ticks: {
+              maxRotation: 0,    // Set the maximum rotation angle to 0 degrees
+              autoSkip: false, 
+            }
           },
           y: {
             beginAtZero: true,
@@ -385,6 +389,10 @@ export class MeetingReportsComponent implements OnInit {
             grid: {
               display: false,
             },
+            ticks: {
+              maxRotation: 0,    // Set the maximum rotation angle to 0 degrees
+              autoSkip: false, 
+            }
           },
           y: {
             beginAtZero: true,
@@ -467,6 +475,10 @@ export class MeetingReportsComponent implements OnInit {
             grid: {
               display: false,
             },
+            ticks: {
+              maxRotation: 0,    // Set the maximum rotation angle to 0 degrees
+              autoSkip: false, 
+            }
           },
           y: {
             beginAtZero: true,
@@ -677,6 +689,10 @@ export class MeetingReportsComponent implements OnInit {
             grid: {
               display: false,
             },
+            ticks: {
+              maxRotation: 0,    // Set the maximum rotation angle to 0 degrees
+              autoSkip: false, 
+            }
           },
           y: {
             beginAtZero: true,
