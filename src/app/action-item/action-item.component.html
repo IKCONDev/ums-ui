@@ -411,7 +411,7 @@
                             <li>Title should have minimum of 5 charcters.</li>
                             <li>Title should not exceed more than 50 characters.</li>
                             <li>Description should have minimum of 10 characters.</li>
-                            <li>Description should not exceed more than 100 characters.</li>
+                            <li>Description should not exceed more than 250 characters.</li>
                             <li>Select owner.</li>
                             <li>Select category.</li>
                         </ol></span>
@@ -470,7 +470,7 @@
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
-                                    <label style="font-size: 20px;margin:5px;margin-left: -3px;"><b
+                                    <label style="font-size: 18px;margin:5px;margin-left: -3px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
 
                                     <!--Showing the Assigned task description criteria-->        
@@ -523,7 +523,7 @@
                                                 <span>
                                                     <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
-                                                        style="margin-top: 4px;padding-left: 10px;width: 348px;font-size: 1rem;"
+                                                        style="margin-top: 4px;padding-left: 10px;width: 348px;font-size: 14px;"
                                                         [(ngModel)]="add_Task.taskOwner">
                                                         <ng-option disabled selected value>choose</ng-option>
                                                         <ng-option [value]="emailId"
@@ -541,7 +541,7 @@
                                             <td>
                                                 <span>
                                                     <ng-select id="taskCategory" 
-                                                        style="width: 348px;margin-top: 6px;padding-left: 10px;padding-top: 7px;font-size:1rem;" [(ngModel)]="add_Task.taskCategoryId"
+                                                        style="width: 348px;margin-top: 6px;padding-left: 10px;padding-top: 7px;font-size:14px;" [(ngModel)]="add_Task.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
                                                         (change)="validateTaskCategory()">
                                                         <ng-option disabled selected value [value]="0">select</ng-option>
@@ -570,7 +570,7 @@
                                                     </select> -->
                                                     <input type="text" id="taskPriority" class="form-control"
                                                         [(ngModel)]="add_Task.taskPriority" name="taskPriority"
-                                                        #taskPriority="ngModel" readonly style="width: 338px"/>
+                                                        #taskPriority="ngModel" readonly style="width: 338px;font-size: 14px;"/>
                                                 </span>
                                                 <!-- <div *ngIf="taskPriorityErrorInfo!=''">
                                                     <span id="errorSpan">{{taskPriorityErrorInfo}}</span>
@@ -611,7 +611,7 @@
                                                         [(ngModel)]="add_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true"
                                                         [class.invalid]="taskPlannedStartDate.invalid && taskPlannedStartDate.touched"
-                                                        (change)="validateTaskDueDate()" disabled style="width: 338px"></span>
+                                                        (change)="validateTaskDueDate()" disabled style="width: 338px;font-size: 14px;"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -621,7 +621,7 @@
                                                         [(ngModel)]="add_Task.plannedEndDate"
                                                         #taskPlannedDueDate="ngModel" required="true"
                                                         [class.invalid]="taskPlannedDueDate.invalid && taskPlannedDueDate.touched"
-                                                        (change)="validateTaskDueDate()" disabled style="width: 338px"></span>
+                                                        (change)="validateTaskDueDate()" disabled style="width: 338px;font-size: 14px;"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -629,7 +629,7 @@
                                             <td>
                                                 <span>
                                                     <input type="text" class="form-control" [value]="add_Task.status"
-                                                        readonly style="width: 338px" />
+                                                        readonly style="width: 338px;font-size: 14px;" />
                                                 </span>
                                             </td>
                                         </tr>

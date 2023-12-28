@@ -51,6 +51,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   isTaskDueDateValid = false;
   isTaskStatusValid = false;
   isSaveButtonDisabled = true;
+  isOrganizedCriteria:boolean=false;
 
 
   update_Task = {
@@ -771,6 +772,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         });
       }
 
+    }else{
+        this.isOrganizedCriteria=true;
     }
   }
 
@@ -788,6 +791,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     this.taskOwnerErrorInfo = "";
     this.taskDueDateErrorInfo = "";
 
+    this.isOrganizedCriteria=false;
   }
 
   /**
