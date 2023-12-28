@@ -799,7 +799,6 @@ b {
   text-shadow: 0px 0px 0px transparent;
 }
 
-/* Popup container - can be anything you want */
 .popup {
   position: relative;
   cursor: pointer;
@@ -810,6 +809,66 @@ b {
 }
  
 /* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 360px;
+  background-color: rgba(0, 0, 0, 0.57);
+  color: white;;
+  text-align: left;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: -550%;
+  left: 2vw;
+  font-size: 12px;
+  padding-top: 4px;
+  backdrop-filter: blur(12px);
+
+}
+ 
+.popup .popuptext::after {
+  content: "";
+  rotate: -90deg;
+  position: absolute;
+  top: 24%;
+  left: -0%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #575151 transparent transparent transparent;
+  color: #202224;
+} 
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 0.2s;
+  animation: fadeIn 0.2s;
+
+}
+ 
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1.5;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1.5 ;}
+}
+
+/* Popup container - can be anything you want */
+/* .popup {
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+ 
+
 .popup .popuptext {
   visibility: hidden;
   width: 360px;
@@ -839,14 +898,14 @@ b {
   border-color: #555 transparent transparent transparent;
 } 
 
-/* Toggle this class - hide and show the popup */
+
 .popup .show {
   visibility: visible;
   -webkit-animation: fadeIn 0.2s;
   animation: fadeIn 0.2s;
 }
  
-/* Add animation (fade in the popup) */
+
 @-webkit-keyframes fadeIn {
   from {opacity: 0;} 
   to {opacity: 1;}
@@ -857,7 +916,7 @@ b {
   to {opacity:1 ;}
 }
 
-/* Popup container - can be anything you want */
+
 .popup2 {
   position: relative;
   cursor: pointer;
@@ -867,7 +926,7 @@ b {
   user-select: none;
 }
  
-/* The actual popup */
+
 .popup2 .popuptext2 {
   visibility: hidden;
   width: 360px;
@@ -897,14 +956,14 @@ b {
   border-color: #555 transparent transparent transparent;
 } 
 
-/* Toggle this class - hide and show the popup */
+
 .popup2 .show {
   visibility: visible;
   -webkit-animation: fadeIn 0.2s;
   animation: fadeIn 0.2s;
 }
  
-/* Add animation (fade in the popup) */
+
 @-webkit-keyframes fadeIn {
   from {opacity: 0;} 
   to {opacity: 1.5;}
@@ -913,7 +972,7 @@ b {
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1.5;}
-}
+} */
 
 
 .orgMeetingOuterDiv {

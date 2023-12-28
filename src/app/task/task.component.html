@@ -304,6 +304,34 @@
             <!-- Modal Header -->
             <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
                 <h5 class="modal-title" id="xlModalLabel">Update Task</h5>
+                <!-- Showing the organized task criteria -->
+                <span *ngIf="isOrganizedCriteria===true" style="margin-left: 2px;">
+                    <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()">
+                        <svg width="33" height="33" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg" id="svgColor">
+                            <g clip-path="url(#clip0_962_516)">
+                                <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="red" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_962_516">
+                                    <rect width="48" height="48" fill="white" />
+                                </clipPath>
+                            </defs>
+                            <!-- Animation -->
+                            <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.3s" repeatCount="indefinite" />
+                        </svg>
+                        
+                        <span class="popuptext" id="myPopup"><ol>
+                            <li>Title should have minimum of 5 charcters.</li>
+                            <li>Title should not exceed more than 50 characters.</li>
+                            <li>Description should have minimum of 10 characters.</li>
+                            <li>Description should not exceed more than 250 characters.</li>
+                            <li>Select owner.</li>
+                            <li>Select category.</li>
+                            <li>Select priority.</li>
+                            <li>Select status.</li>
+                        </ol></span>
+                    </b> 
+                </span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                     (click)="clearErrorMessages(form)">
                     <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
@@ -321,7 +349,7 @@
                                 <label style="padding-top: 4px; font-size: 18px;"><b id="title-label">Task
                                         Title</b><span id="required">*</span></label>
                                 <!--Showing the Organized task title criteria-->
-                                <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()"
+                                <!-- <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()"
                                     style="margin-left: 376px;">
                                     <svg width="31" height="51" viewBox="0 0 78 78" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -342,7 +370,7 @@
                                             <li>Title should not exceed more than 50 characters.</li>
                                         </ol>
                                     </span>
-                                </b>
+                                </b> -->
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
@@ -366,7 +394,7 @@
                                     <label style="padding-top: 4px;font-size: 18px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
                                     <!--Showing the organized task description criteria-->
-                                    <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()"
+                                    <!-- <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()"
                                         style="margin-left: 363px;">
                                         <svg width="31" height="51" viewBox="0 0 78 78" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -387,7 +415,7 @@
                                                 <li>Description should not exceed more than 250 characters.</li>
                                             </ol>
                                         </span>
-                                    </b>
+                                    </b> -->
                                 </div>
                                 <textarea
                                     style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
@@ -605,7 +633,7 @@
                                 <label style="padding-top: 4px; font-size: 18px;"><b id="title-label">Task
                                         Title</b><span id="required">*</span></label>
                                 <!--Showing the Assigned task title criteria-->
-                                <b class="popup" (mouseover)="getPOPUPMessage3()" (mouseout)="getPOPUPMessage3()"
+                                <!-- <b class="popup" (mouseover)="getPOPUPMessage3()" (mouseout)="getPOPUPMessage3()"
                                     style="margin-left: 374px;">
                                     <svg width="31" height="51" viewBox="0 0 78 78" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -626,7 +654,7 @@
                                             <li>Title should not exceed more than 50 characters.</li>
                                         </ol>
                                     </span>
-                                </b>
+                                </b> -->
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;min-height: 55px;max-height: 55px;background-color: #ecf7fc;"
@@ -651,7 +679,7 @@
                                     <label style="padding-top: 4px;font-size: 18px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
                                     <!--Showing the Assigned task description criteria-->
-                                    <b class="popup2" (mouseover)="getPOPUPMessage4()" (mouseout)="getPOPUPMessage4()"
+                                    <!-- <b class="popup2" (mouseover)="getPOPUPMessage4()" (mouseout)="getPOPUPMessage4()"
                                         style="margin-left: 360px;">
                                         <svg width="31" height="51" viewBox="0 0 78 78" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -672,7 +700,7 @@
                                                 <li>Description should not exceed more than 250 characters.</li>
                                             </ol>
                                         </span>
-                                    </b>
+                                    </b> -->
                                 </div>
                                 <textarea
                                     style="width: 530px; min-height:220px;max-height:220px;background-color:#ecf7fc;"
