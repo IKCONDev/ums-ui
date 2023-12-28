@@ -1800,16 +1800,30 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param meetingEndDateTime 
    */
   filterAttendedMeetingList(meetingTitle, meetingStartDateTime, meetingEndDateTime) {
+    let StartDateTimestampUTC: string | null = "";
+    let endDateTimestampUTC: string | null = "";
+    if (meetingStartDateTime != "") {
+      console.log('not null for start')
+      const StartDateTimestamp = new Date(meetingStartDateTime);
+      StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+    }
+
+    if (meetingEndDateTime != "") {
+      console.log('not null for enddate')
+      const endDateTimestamp = new Date(meetingEndDateTime);
+      endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+    }
     this.attendedMeetingTitleFilter = meetingTitle;
     this.attendedMeetingStartDateFilter = meetingStartDateTime;
     this.attendedMeetingEndDateFilter = meetingEndDateTime;
-
+    console.log(this.attendedMeetingStartDateFilter);
+    console.log(this.attendedMeetingEndDateFilter);
     localStorage.setItem('attendedMeetingTitleFilter', meetingTitle);
     localStorage.setItem('attendedMeetingStartDateFilter', meetingStartDateTime);
     localStorage.setItem('attendedMeetingEndDateFilter', meetingEndDateTime);
 
     this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting,
-      this.attendedMeetingTitleFilter, this.attendedMeetingStartDateFilter, this.attendedMeetingEndDateFilter).subscribe({
+      this.attendedMeetingTitleFilter, StartDateTimestampUTC, endDateTimestampUTC).subscribe({
         next: response => {
           if (response.status === HttpStatusCode.Ok) {
             this.attendedMeetings = response.body;
@@ -1818,7 +1832,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       })
     this.closeFilterModal();
-    window.location.reload();
+    //window.location.reload();
   }
 
 
