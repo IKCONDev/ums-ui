@@ -338,11 +338,13 @@ export class OrganizationComponent implements OnInit {
  * @returns 
  */
   validateWebsite() {
+    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}[.]{1}[A-Za-z0-9._]{2,6}$/;
+
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.org.orgWebsite === ''|| this.org.orgWebsite === null) {
       this.isUpdateWebsiteNameValid = true;
       this.updatedOrgWebsiteErrorInfo = '';
-    }else if(this.org.orgWebsite.trim() === "" || regex.exec(this.org.orgWebsite) === null){
+    }else if(this.org.orgWebsite.trim() === "" || regex.exec(this.org.orgWebsite) === null||emailRegExp.test(this.org.orgWebsite)===false){
       this.isUpdateWebsiteNameValid = false;
       this.updatedOrgWebsiteErrorInfo = 'Website required.';
     }
