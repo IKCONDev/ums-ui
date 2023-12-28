@@ -1832,7 +1832,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       })
     this.closeFilterModal();
-    //window.location.reload();
+    window.location.reload();
   }
 
 
