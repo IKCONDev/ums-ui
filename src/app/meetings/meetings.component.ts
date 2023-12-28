@@ -44,7 +44,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   //isTransriptIconDisabled:boolean = true;
   actionItemsOfMeeting = [];
   currentMeetingId: number;
-
+  colon:string="  :"
   response: Object;
   actions_details: Object
 
