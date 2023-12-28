@@ -126,15 +126,15 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Task Category Name</b><span id="required">*</span></label>
-                <input id="categoryName" type="text"  class="deptInput form-control" placeholder="Category name"
+                <input id="categoryName" type="text"  class="deptInput form-control" placeholder="Category Name"
                     [(ngModel)]="taskCategory.taskCategoryTitle" (keyup)="validateTaskCategoryTitle()" minlength="3"
-                    maxlength="51" /><br />
+                    maxlength="51" style="text-transform: capitalize;"/><br />
                 <span *ngIf="categoryTitleErrorInfo != ''">
                     <p id="errorMessage">{{categoryTitleErrorInfo}}</p>
                 </span>
                 <!--   -->
                 <label><b>Task Category Description</b><span id="required">*</span></label><br/>
-                <textarea id="categoryDesc" class="form-control" placeholder="Category description"
+                <textarea id="categoryDesc" class="form-control" placeholder="Category Description"
                     [(ngModel)]="taskCategory.taskCategoryDescription" (keyup)="validateTaskCategoryDescription()"  minlength="5" maxlength="101"
                     rows="5" cols="10" style="width: 400px;">
                 </textarea><br />
