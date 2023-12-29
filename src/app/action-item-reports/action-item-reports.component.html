@@ -172,7 +172,7 @@
     <!-- report 2 -->
     <div class="card-body" *ngIf="reportType === 'organized';">
         <div class="row">
-            <div class="col-sm-2" style="margin-left: 100px;">
+            <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedUser" style="float: right; width: 250px;"
                     placeholder="choose" (change)="chooseUser()">
                     <ng-option *ngFor="let user of employeeListAsUser" value="{{user.email}}">{{user.firstName}}
@@ -182,7 +182,7 @@
         </div>
         <br />
         <div class="row">
-            <div class="col-sm-5" style="margin-left: 50px;">
+            <div class="col-sm-5" style="margin-left: 51px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>
@@ -336,7 +336,7 @@
     <!-- report 2 -->
     <div class="card-body" *ngIf="reportType === 'priority';">
         <div class="row">
-            <div class="col-sm-2" style="margin-left: 100px;">
+            <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedPriority" style="float: right; width: 250px;"
                     placeholder="choose" (change)="choosePriority()">
                     <ng-option value="High">High</ng-option>
@@ -347,7 +347,7 @@
         </div>
         <br />
         <div class="row">
-            <div class="col-sm-5" style="margin-left: 50px;">
+            <div class="col-sm-5" style="margin-left: 51px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>
@@ -504,7 +504,7 @@
     </div>
     <div class="card-body" *ngIf="reportType === 'all'">
         <div class="row">
-            <div class="col-sm-2" style="margin-left: 100px;">
+            <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                     placeholder="Departments" (change)="chooseDepartment()">
                     <ng-option *ngFor="let department of departmentList"
@@ -514,7 +514,7 @@
         </div>
         <br />
         <div class="row">
-            <div class="col-sm-5" style="margin-left: 50px;">
+            <div class="col-sm-5" style="margin-left: 51px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>

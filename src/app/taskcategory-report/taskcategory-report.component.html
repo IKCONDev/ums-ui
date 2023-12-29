@@ -8,7 +8,7 @@
 <div class="container-fluid" *ngIf="viewPermission === true">
     <div class="card-body" *ngIf="reportType === 'all'">
         <div class="row">
-            <div class="col-sm-2" style="margin-left: 80px;">
+            <div class="col-sm-2" style="margin-left: 139px;padding-top: 7px;">
                 <ng-select id="select" style="float: right; width: 250px;" placeholder="Task Category"
                     [(ngModel)]="selectedTaskCategory" (change)="getchoosenCategory(selectedTaskCategory)">
                     <ng-option *ngFor="let task of taskCategoryList"
@@ -19,7 +19,7 @@
         <br />
         <div class="row">
 
-            <div class="col-sm-5" style="margin-left: 40px;">
+            <div class="col-sm-5" style="margin-left: 53px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>
