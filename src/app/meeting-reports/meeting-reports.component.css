@@ -122,4 +122,8 @@
   display: flex;
   justify-content: space-between;
 }
-  
+
+thead th{
+  white-space:nowrap ;
+}
+ 
