@@ -604,6 +604,10 @@ numberValidation(event: KeyboardEvent) {
 }
 selectedOrgPic:Blob;
 onFileChanged(event:any){
+  if(this.org.orgAddress===null&& this.org.orgName===null){
+    this.toast.warning("Please save organization mandatory details first");
+  }
+  else{
   console.log("entered the onfilechanged")
   this.selectedOrgPic = event.target.files[0];
   if (this.selectedOrgPic.size < this.fileSize) {
@@ -631,6 +635,7 @@ onFileChanged(event:any){
     } else {
       this.toast.error('File size is greater than 2 MB')
     }
+  }
   }
 
 
