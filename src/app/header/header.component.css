@@ -227,8 +227,9 @@ a :hover{
 }
 
 .profile-pic {
-  object-fit: contain;
-  background-size: contain;
+  object-fit: cover;
+  background-size: cover;
+  vertical-align: middle;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
