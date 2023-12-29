@@ -92,7 +92,7 @@
 
                         <div class="modal-body">
                             <div class="container" *ngIf="userDetails != null">
-                                <div class="profile-pic" *ngIf="userDetails.profilePic != null">
+                                <div class="profile-picImage" *ngIf="userDetails.profilePic != null">
                                     <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic"  style="height: 110px;width: 110px;" alt="profile pic" />
                                 </div>
                                 <div *ngIf="userDetails.profilePic === null">
