@@ -134,7 +134,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit{
           // Add other options here as needed
         });
       });
-    },500)
+    },900)
   }
 
    currentMenuItem: MenuItem;

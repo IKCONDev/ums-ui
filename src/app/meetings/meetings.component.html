@@ -47,7 +47,7 @@
                 data-target="#organizedFilterModal">
                 <svg width="29" height="26" viewBox="0 0 36 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path id="Vector" d="M14 24H22V20H14V24ZM0 0V4H36V0H0ZM6 14H30V10H6V14Z" fill="#E5EEF1"/>
-                    </svg>
+                </svg>
                     
             </div>
         </div>
@@ -160,7 +160,7 @@
                             <!--<button type="submit"  data-toggle="modal" data-target="#mommodal">send
 
                             </button>-->
-                            <span id="email{{meeting.meetingId}}" data-toggle="modal" data-target="#mommodal"
+                            <span id="email{{meeting.meetingId}}"  data-toggle="modal" data-target="#mommodal"
                                 (click)="fetchUserOrganizedMeetings(meeting)"
                                 (click)="getAddReceiptientsForMOMEmail(meeting.attendees)"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)" (click)="getDuration(meeting)"
@@ -420,8 +420,9 @@
                 <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
                     <h4 class="modal-title" style="text-align: center;">Add Action Item</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
-                            (click)="clearErrorMessages(form)">&times;</span>
+                        <!-- <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+                            (click)="clearErrorMessages(form)">&times;</span> -->
+                            &times;
                     </button>
                 </div>
                 <br>
@@ -527,8 +528,9 @@
                 <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
                     <h4 class="modal-title" style="text-align: center;">Update Action Item</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
-                            (click)="clearErrorMessages(form)">&times;</span>
+                        <!-- <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+                            (click)="clearErrorMessages(form)">&times;</span> -->
+                            &times;
                     </button>
                 </div>
                 <br>
@@ -639,10 +641,15 @@
                 <div class="modal-header" style="background-color: #134E69D9; padding-left: 11x; color: #ffffff"
                     *ngIf="meetingData!=null">
                     <h4 class="modal-title" style="text-align: center;">Meeting Minutes - {{meetingData.subject}}</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                         (click)="clearErrorMessages(form)">
                         <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
-                    </button>
+                    </button> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearErrorMessages(form)">
+                  <b> &times;</b>
+                </button>
+
                 </div>
                 <br>
                 <!-- modal body/form -->
@@ -752,8 +759,9 @@
                     <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
                         <h4 class="modal-title" style="text-align: center;">Create Meeting</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
-                                (click)="clearErrorMessages(form)">&times;</span>
+                            <!-- <span aria-hidden="true" style="color:white; text-decoration: none; padding: 5px; padding-top: 0px;"
+                                (click)="clearErrorMessages(form)">&times;</span> -->
+                                &times;    
                         </button>
                     </div>
                     <br>
@@ -859,17 +867,24 @@
                             </div>
 
                             <div class="date-range">
+                                <div style="font-size: 14px;padding-left: 11px;"><b>From</b></div>
+                                <div>:</div>
                                 <div class="date-parent">
-                                    <input type="datetime-local" style="width: 130px;" class="form-control"
+                                    <input type="datetime-local" style="width: 210px;" class="form-control"
                                         id="fromDate" #boxOrganizedStartdate
                                         [(ngModel)]="organizedMeetingStartDateFilter" />
                                 </div>
-                                <div style="font-size: 12px;">To</div>
+                                 </div>
+                               
+                                <div class="date-range">
+                                    <div style="font-size: 14px;padding-left: 13px"><b>To</b></div>
+                                    <div style="padding-left: 14px;">{{colon}}</div>
                                 <div class="date-parent">
-                                    <input type="datetime-local" style="width: 130px;" class="form-control"
+                                    <input type="datetime-local" style="width: 210px;" class="form-control"
                                         #boxOrganizedEndDate [(ngModel)]="organizedMeetingEndDateFilter" />
                                 </div>
                             </div>
+                            
 
                             <div class="date-range">
                                 <button type="button" style="margin: 9px;" class="submit-button"
@@ -893,7 +908,7 @@
                     <div class="filters-action-item">
                         <div class="filters-parent">
                             <div class="filters">Filters</div>
-                            <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="filterModal"
+                            <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="addfilterModal"
                                 data-dismiss="modal" style="cursor: pointer;">
                         </div>
                         <div class="orgMeetingOuterDiv">
@@ -919,16 +934,23 @@
                       </div>
                   </div> -->
                             <div class="date-range">
+                                <div style="font-size: 14px;padding-left: 11px;"><b>From</b></div>
+                                <div>:</div>
                                 <div class="date-parent">
-                                    <input type="datetime-local" style="width: 130px;" class="form-control"
+                                    <input type="datetime-local" style="width: 210px;" class="form-control"
                                         #boxAttendedStartdate [(ngModel)]="attendedMeetingStartDateFilter" />
                                 </div>
-                                <div style="font-size: 12px;">To</div>
+                            </div>
+                            
+                            <div class="date-range">
+                                <div style="font-size: 14px;padding-left: 13px"><b>To</b></div>
+                                    <div style="padding-left: 14px;">{{colon}}</div>
                                 <div class="date-parent">
-                                    <input type="datetime-local" style="width: 130px;" class="form-control"
+                                    <input type="datetime-local" style="width: 210px;" class="form-control"
                                         #boxAttendedEndDate [(ngModel)]="attendedMeetingEndDateFilter" />
                                 </div>
                             </div>
+                        
                         
 
                         <div class="date-range">
