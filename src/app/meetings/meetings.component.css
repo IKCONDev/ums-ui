@@ -992,3 +992,7 @@ input[type="datetime-local"] {
   transform: translateY(-50%);
   cursor: pointer;
 }
+.disabled {
+  opacity: 0.5; 
+  pointer-events: none; 
+}

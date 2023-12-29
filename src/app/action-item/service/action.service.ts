@@ -171,4 +171,12 @@ export class ActionService {
     })
     }
   }
+  getAllActionItemsByMeetingId(meetingId : number){
+    return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/meeting-actions/${meetingId}`, {
+      observe: 'response', headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+      }
+      )
+    })
+  }
 }
