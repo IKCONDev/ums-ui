@@ -1775,6 +1775,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   closeFilterModal() {
     document.getElementById('filterModal').click();
+    document.getElementById('addfilterModal').click();
+    //window.location.reload()
   }
 
   resetOrganizedMeetingsFilter() {
@@ -1805,6 +1807,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (meetingStartDateTime != "") {
       console.log('not null for start')
       const StartDateTimestamp = new Date(meetingStartDateTime);
+      
       StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
 
@@ -1823,16 +1826,19 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     localStorage.setItem('attendedMeetingEndDateFilter', meetingEndDateTime);
 
     this.meetingsService.getUserAttendedMeetingsByUserId(this.selectedReporteeAssignedMeeting,
-      this.attendedMeetingTitleFilter, StartDateTimestampUTC, endDateTimestampUTC).subscribe({
+      this.attendedMeetingTitleFilter, StartDateTimestampUTC.toString(), endDateTimestampUTC.toString()).subscribe({
         next: response => {
           if (response.status === HttpStatusCode.Ok) {
+            console.log("executed")
             this.attendedMeetings = response.body;
+            console.log(this.attendedMeetings)
             this.attendedMeetingCount = response.body.length;
+            this.closeFilterModal();
           }
         }
       })
-    this.closeFilterModal();
-    window.location.reload();
+    
+   // window.location.reload();
   }
 
 
