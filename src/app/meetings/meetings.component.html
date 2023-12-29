@@ -160,7 +160,7 @@
                             <!--<button type="submit"  data-toggle="modal" data-target="#mommodal">send
 
                             </button>-->
-                            <span id="email{{meeting.meetingId}}" data-toggle="modal" data-target="#mommodal"
+                            <span id="email{{meeting.meetingId}}"  data-toggle="modal" data-target="#mommodal"
                                 (click)="fetchUserOrganizedMeetings(meeting)"
                                 (click)="getAddReceiptientsForMOMEmail(meeting.attendees)"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)" (click)="getDuration(meeting)"
@@ -420,8 +420,9 @@
                 <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
                     <h4 class="modal-title" style="text-align: center;">Add Action Item</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
-                            (click)="clearErrorMessages(form)">&times;</span>
+                        <!-- <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+                            (click)="clearErrorMessages(form)">&times;</span> -->
+                            &times;
                     </button>
                 </div>
                 <br>
@@ -527,8 +528,9 @@
                 <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
                     <h4 class="modal-title" style="text-align: center;">Update Action Item</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
-                            (click)="clearErrorMessages(form)">&times;</span>
+                        <!-- <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
+                            (click)="clearErrorMessages(form)">&times;</span> -->
+                            &times;
                     </button>
                 </div>
                 <br>
@@ -639,10 +641,15 @@
                 <div class="modal-header" style="background-color: #134E69D9; padding-left: 11x; color: #ffffff"
                     *ngIf="meetingData!=null">
                     <h4 class="modal-title" style="text-align: center;">Meeting Minutes - {{meetingData.subject}}</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                         (click)="clearErrorMessages(form)">
                         <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
-                    </button>
+                    </button> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearErrorMessages(form)">
+                  <b> &times;</b>
+                </button>
+
                 </div>
                 <br>
                 <!-- modal body/form -->
@@ -752,8 +759,9 @@
                     <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
                         <h4 class="modal-title" style="text-align: center;">Create Meeting</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;"
-                                (click)="clearErrorMessages(form)">&times;</span>
+                            <!-- <span aria-hidden="true" style="color:white; text-decoration: none; padding: 5px; padding-top: 0px;"
+                                (click)="clearErrorMessages(form)">&times;</span> -->
+                                &times;    
                         </button>
                     </div>
                     <br>

@@ -69,6 +69,7 @@
 
 #tablehead {
   background: var(--side-text, #ECF7FC);
+  white-space: nowrap;
 }
 
 #cell {
@@ -990,4 +991,8 @@ input[type="datetime-local"] {
   right: 20px; /* Adjust the value based on your desired position */
   transform: translateY(-50%);
   cursor: pointer;
+}
+.disabled {
+  opacity: 0.5; 
+  pointer-events: none; 
 }

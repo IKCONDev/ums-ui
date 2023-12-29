@@ -1873,8 +1873,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   actionItemsErrorMessage = '';
   actionItemList: ActionItems[];
   meetingList: Meeting[];
+  disabled : any;
   //newActionItemList: ActionItems[] = [];
-  enableOrDisableSendMOM() {
+  async enableOrDisableSendMOM() :Promise<void> {
     this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, '', '', '').subscribe({
       next: response => {
         this.meetingList = response.body;
@@ -1898,6 +1899,19 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               console.error('Error fetching action items:', error);
             }
           });
+          // this.actionItemService.getAllActionItemsByMeetingId(meeting.meetingId).subscribe({
+          //     next : response =>{
+          //        this.actionItemList = response.body;
+          //        console.log("action Item List:"+this.actionItemList.length +"meeting Id is:"+ meeting.meetingId)
+          //        if(this.actionItemList.length ===0){
+          //        // var momBTN = document.getElementById('email' + meeting.meetingId);
+          //        // momBTN.style.pointerEvents = 'none'
+          //         //momBTN.style.opacity = '0.5'
+          //         this.disableMomButton(meeting.meetingId);
+          //        }
+          //     }
+              
+          // })
         });
       },
       error: error => {
@@ -1906,7 +1920,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  disableMomButton(meetingId: number) {
+  async disableMomButton(meetingId: number):Promise<void> {
     var momBTN = document.getElementById('email' + meetingId);
     if (momBTN) {
       momBTN.style.pointerEvents = 'none';
