@@ -180,7 +180,7 @@ export class ActionItemsReportsComponent implements OnInit {
     })
   }
 
-  getAllDepartments(){
+  async getAllDepartments(): Promise<void>{
     this.deprtmentService.getDepartmentList().subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
@@ -590,7 +590,7 @@ deptValueCount : DepartmentCount[] = [];
   }
   allActionItemsCount : number;
   allActionItems : ActionItems[]
-  getAllActionItemsCount(){
+ async getAllActionItemsCount() : Promise<void>{
     this.actionService.getAllActionItems().subscribe({
        next : response =>{
          this.allActionItems= response.body;
