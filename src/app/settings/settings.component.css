@@ -94,3 +94,28 @@ a:hover{
    display:  flex;
    justify-content: space-between;
 }
+
+/*  */
+#updateHeading{
+  color: #2AA3D9;
+}
+
+.modal-body{
+  margin-left: 35px;
+}
+
+#modalHeader{
+  background-color: #134E69D9; 
+  color: #ecf7fc;
+}
+
+#errorMessage{
+  color: red;
+  font-size: 12px;
+}
+
+#errorInfo{
+  color: red;
+  font-size: 12px;
+}
+

@@ -8,7 +8,7 @@
             <div id="generalDiv" class="col-sm-2">
                 <h4><b>General</b></h4>
                 <a routerLink="/organization">Company Details</a><br />
-                <!-- <a routerLink="/batch-report">Batch Process Report</a><br/> -->
+                <a data-toggle="modal" data-target="#updateModal">Batch Process Time</a><br/>
                 <!-- <a>Domain</a><br />
                 <a>Rebranding</a><br />
                 <a>From Address</a><br /> -->
@@ -78,6 +78,48 @@
 <div class="container-fluid" *ngIf="viewPermission===false">
     <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
   </div>
+
+
+  <!-- Batch process time modal -->
+<div class="modal" tabindex="-1" id="updateModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header" id="modalHeader">
+                <h5 class="modal-title">Batch Process Time</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="clearErrorMessages()">
+                    <span aria-hidden="true" style="color:white; padding: 5px; padding-top: 0px;">&times;</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div>
+                    <label><b>Choose Time</b><span id="required">*</span></label><br />
+                    <select id="batchtime" [(ngModel)]="batchProcessTime" class="form-control-sm"
+                        placeholder="choose time" (change)="validateBatchProcessTime()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <!-- <option value=0>Choose permission</option> -->
+                        <!-- <option *ngFor="let permission of permissionList" value="{{permission.permissionId}}">
+                            {{permission.permissionValue}}</option> -->
+                    </select> (HOURS)
+                    <span id="errorInfo"
+                        *ngIf="updateBatchTimeErrorInfo != ''">{{updateBatchTimeErrorInfo}}</span>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="updateBatchProcessTime()">Save</button>
+                <button id="closeUpdateModal" type="button" class="btn btn-outline-danger" data-dismiss="modal"
+                    (click)="clearErrorMessages()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
   <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
 </div> -->

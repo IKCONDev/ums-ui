@@ -4,6 +4,9 @@ import { MenuItem } from '../model/MenuItem.model';
 import { lastValueFrom } from 'rxjs';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 import { HttpStatusCode } from '@angular/common/http';
+import { BatchDetailsService } from '../batch-details/service/batch-details.service';
+import { ToastrService } from 'ngx-toastr';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-settings',
@@ -20,12 +23,14 @@ export class SettingsComponent implements OnInit {
   updatePermission: boolean;
   deletePermission: boolean;
   noPermissions: boolean;
+  batchProcessTime: string = '';
 
 
   /**
    * 
    */
-  constructor(private router: Router, private menuItemService: AppMenuItemService){
+  constructor(private router: Router, private menuItemService: AppMenuItemService,
+    private batchProcessService: BatchDetailsService, private toastr: ToastrService){
     
   }
 
@@ -98,5 +103,31 @@ export class SettingsComponent implements OnInit {
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
+
+  updateBatchTimeErrorInfo: string = '';
+  validateBatchProcessTime(){
+  }
+
+  updateBatchProcessTime(){
+    this.batchProcessService.updateBatchProcessTime(this.batchProcessTime).subscribe({
+      next: (response) => {
+        if(response.status === HttpStatusCode.PartialContent){
+          this.toastr.success('Batch Process scheduler is scheduled to run for every '+this.batchProcessTime+' hour(s)');
+          setTimeout(() => {
+            window.location.reload();
+          },1000);
+        }
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('session-timeout');
+        }
+      }
+    })
+    }
+
+  clearErrorMessages(){
+
+  }
+
 
 }

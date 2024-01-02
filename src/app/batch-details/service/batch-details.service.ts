@@ -12,6 +12,7 @@ export class BatchDetailsService{
      private gateWayURL="http://localhost:8012";
      private teamsbatchProcessMicroserviceURL="teams";
      private getAllBatchDetailsURL="batch-details";
+    
 
      /**
       * 
@@ -19,5 +20,14 @@ export class BatchDetailsService{
       */
      getAllBatchProcessDetails(){
          return this.http.get<BatchDetails[]>(`${this.gateWayURL}/${this.teamsbatchProcessMicroserviceURL}/${this.getAllBatchDetailsURL}`,{observe:'response'})   
+     }
+
+     /**
+      * 
+      * @param batchProcessTime 
+      * @returns 
+      */
+     updateBatchProcessTime(batchProcessTime: string){
+        return this.http.put<boolean>(`${this.gateWayURL}/${this.teamsbatchProcessMicroserviceURL}/crontime/${batchProcessTime}`,{},{observe: 'response'});
      }
 }
