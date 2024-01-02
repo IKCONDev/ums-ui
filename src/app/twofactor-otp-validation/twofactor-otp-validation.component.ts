@@ -20,6 +20,7 @@ export class TwofactorOtpValidationComponent {
   isValidOtp: boolean = false;
   OtpResponseMessage:string='';
   verifyButtonDisabled:boolean=false;
+  jwtToken: string = null;
 
   constructor(private router: Router, private elementRef: ElementRef, 
     private renderer: Renderer2,
@@ -28,7 +29,8 @@ export class TwofactorOtpValidationComponent {
     private toastr: ToastrService) {
 
       this.email = this.router.getCurrentNavigation().extras.state['email']
-
+      this.jwtToken = this.router.getCurrentNavigation().extras.state['jwtToken']
+      console.log(this.jwtToken);
       this.startTimer();
   }
 
@@ -138,7 +140,8 @@ export class TwofactorOtpValidationComponent {
           this.startTimer();
           let navigationExtras: NavigationExtras = {
             state: {
-              email: this.email
+              email: this.email,
+              jwtToken: this.jwtToken
             }
           }
           this.router.navigate(['/verify-twostep'], navigationExtras);
@@ -147,6 +150,9 @@ export class TwofactorOtpValidationComponent {
      )
   }
   
+  /**
+   * 
+   */
   verifyAndValidateOtp() {
     this.isValidOtp = false;
     this.otpValidationService.verifyUserOtp(this.email, this.otpCode)
@@ -158,9 +164,11 @@ export class TwofactorOtpValidationComponent {
         this.OtpResponseMessage ="valid OTP";
         let navigationExtras: NavigationExtras = {
           state: {
-            email: this.email
+            email: this.email,
+            jwtToken: this.jwtToken
           }
         }
+        localStorage.setItem('jwtToken',this.jwtToken);
         this.toastr.success('Login Success')
         this.router.navigateByUrl("/home", navigationExtras)
       }else{
@@ -169,13 +177,19 @@ export class TwofactorOtpValidationComponent {
         this.verifyButtonDisabled=true;
         let navigationExtras: NavigationExtras = {
           state: {
-            email: this.email
+            email: this.email,
+            jwtToken: this.jwtToken
           }
         }
         this.router.navigateByUrl("/verify-twostep", navigationExtras)
       }
     }))
   }
+
+  /**
+   * 
+   * @param event 
+   */
   otpValidation(event:KeyboardEvent){
     const invalidChars =['+','-','.','e'];
     const inputElement= event.target as HTMLInputElement;
