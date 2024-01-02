@@ -1,4 +1,4 @@
-import { Component, Output, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Output, OnInit, AfterViewInit, OnDestroy, numberAttribute } from '@angular/core';
 import { EmployeeService } from './service/employee.service';
 import { Employee } from '../model/Employee.model';
 import { HttpStatusCode } from '@angular/common/http';
@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
 import { DesignationService } from '../designation/service/designation.service';
 import { Designation } from '../model/Designation.model';
 import { MenuItem } from '../model/MenuItem.model';
-import { lastValueFrom } from 'rxjs';
+import { count, lastValueFrom } from 'rxjs';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
+import { EmployeeVO } from '../model/EmployeeVO.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-employee',
@@ -56,7 +58,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private employeeservice: EmployeeService, private toastr: ToastrService,
     private departmentservice: DepartmentService, private router: Router, private designationService: DesignationService,
-    private menuItemService: AppMenuItemService) { }
+    private menuItemService: AppMenuItemService,private chRef: ChangeDetectorRef) { }
 
   viewPermission: boolean;
   createPermission: boolean;
@@ -163,6 +165,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.employeeservice.getAll().subscribe({
       next: response => {
           this.employeeData = response.body;
+          this.chRef.detectChanges()
           this.employeeCopyData = this.employeeData;
           this.employeeData.map(employee =>{
            for(var i=0; i< this.employeeCopyData.length; i++){
@@ -880,31 +883,68 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    * @param employee 
    */
-  deleteEmployeesById(ids: any[]) {
-    var isconfirmed = window.confirm("Are you sure, you really want to delete selected employees ?");
-    if (isconfirmed) {
-
-      this.employeeservice.deleteAllEmployee(ids).subscribe(
-        response => {
-          if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success('Employees deleted successfully.');
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000)
+  employeeDataView : EmployeeVO;
+  employeeDataView1 : any[] = []
+  employeeRecordCount : number =0;
+  data : any =0;
+  count1 : any;
+  countedData : any =0;
+  async deleteEmployeesById(ids: any[]): Promise<void> {
+    const isConfirmed = window.confirm("Are you sure, you really want to delete selected employees?");
+    if (isConfirmed) {
+      this.countedData =0;
+      try {
+        const promises: Promise<void>[] = ids.map(async (id) => {
+          const response = await this.employeeservice.getEmployeeWithDepartment(id).toPromise();
+          const employeeDataView = response.body;
+   
+          console.log(employeeDataView);
+   
+          if (employeeDataView.user === true) {
+            console.log("Active user");
+            this.countedData = this.countedData + 1;
           }
-          else {
-            this.toastr.error("Error occured while deleting employees. Please try again !");
-          }
+        });
+   
+        await Promise.all(promises);
+        console.log("overall count is", this.countedData);
+        if(this.countedData >0){
+          this.toastr.warning("Please delete user profile of the employees before you delete employee");
+          console.log("you can't delete employee because there are user profiles");
         }
-      )
-
-    }
-    else {
+        else{
+          console.log("you can delete employee because there are no user profiles linked");
+          this.employeeservice.deleteAllEmployee(ids).subscribe(
+              response => {
+                if (response.status == HttpStatusCode.Ok) {
+                  this.toastr.success('Employees deleted successfully.');
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
+                } else {
+                  this.toastr.error("Error occurred while deleting employees. Please try again !");
+                }
+              }
+            );
+        }
+      } catch (error) {
+        console.error("Error occurred:", error);
+      }
+    } else {
       this.toastr.warning("Employees not deleted.");
-
     }
   }
+  
+  getCountOfUsersActive(value : boolean){
+    if(value === true){
+      console.log("Active user");
+      this.countedData = this.countedData+1;
 
+    }
+    console.log(this.countedData)
+    return this.countedData
+
+  }
 
   /**
    * 
