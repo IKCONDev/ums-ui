@@ -348,7 +348,7 @@ export class LoginComponent {
             console.log(navigationExtras + ' extras')
           } else if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true') {
             this.errorInfo = ''
-            localStorage.setItem('jwtToken', this.loginInfo.token);
+           // localStorage.setItem('jwtToken', this.loginInfo.token);
             console.log(response.headers.get('token'));
             localStorage.setItem('userRole', this.loginInfo.userRole);
             localStorage.setItem('email', this.loginInfo.email);

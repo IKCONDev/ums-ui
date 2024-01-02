@@ -1,6 +1,6 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, fromEvent } from 'rxjs';
 import { ForgotPasswordEmailVerificationService } from './service/forgot-password-email-verification.service';
 import { error } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +21,7 @@ export class ForgotPasswordEmailVerificationComponent {
   verificationResponse: string;
   isError: boolean = true;
   result: number;
+  subscription: any;
 
   /**
    * 
@@ -43,6 +44,11 @@ export class ForgotPasswordEmailVerificationComponent {
       $('#emailLabel').hide();
       $('#passwordLabel').hide();
     });
+    history.pushState(null, null, location.href);
+
+   this.subscription = fromEvent(window, 'popstate').subscribe(_ => {
+      history.pushState(null, null, location.href);
+   });
   }
 
   /**
@@ -170,6 +176,7 @@ export class ForgotPasswordEmailVerificationComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    this.subscription.unsubscribe();
   }
 }
 

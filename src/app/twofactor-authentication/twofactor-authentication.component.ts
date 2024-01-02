@@ -17,6 +17,7 @@ export class TwofactorAuthenticationComponent {
   //loginInfo:{}
   email:string = ''
   typeError: boolean =true;
+  jwtToken : string = null;
 
   /**
    * 
@@ -28,6 +29,8 @@ export class TwofactorAuthenticationComponent {
     private router: Router, private toastr: ToastrService){
       //get email from current navigation (this is provided while navigating from pervious page)
       this.email = this.router.getCurrentNavigation().extras.state['loginInfo'].email;
+      this.jwtToken = this.router.getCurrentNavigation().extras.state['loginInfo'].token;
+      console.log(this.jwtToken)
   }
 
   /**
@@ -60,7 +63,8 @@ export class TwofactorAuthenticationComponent {
           
           let navigationExtras: NavigationExtras = {
             state: {
-              email: this.email
+              email: this.email,
+              jwtToken: this.jwtToken
             }
           }
           this.router.navigate(['/verify-twostep'], navigationExtras);

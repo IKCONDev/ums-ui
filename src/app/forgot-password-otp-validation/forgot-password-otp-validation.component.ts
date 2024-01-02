@@ -45,16 +45,23 @@ export class ForgotPasswordOtpValidationComponent {
     //   this.resetTimer();
     // }, 120000);
     const isRefreshed = this.router.routerState.toString();
-    this.countPageRefresh = Number(localStorage.getItem("countPageRefresh"));
     console.log(this.countPageRefresh);
+    this.countPageRefresh=0;
     if(isRefreshed){
+    this.countPageRefresh = Number(localStorage.getItem("countPageRefresh"));
      this.countPageRefresh+=1;
      localStorage.setItem("countPageRefresh",String(this.countPageRefresh))
      console.log(this.countPageRefresh);
      if(this.countPageRefresh>1){
        this.router.navigate(['/verify-email'])
-       //this.countPageRefresh = 0;
-       localStorage.clear();
+       this.countPageRefresh = 0;
+       localStorage.setItem("countPageRefresh",String(this.countPageRefresh))
+        sessionStorage.clear();
+        localStorage.clear();
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+        history.go(-1);
+      };
      }
     }
   }
@@ -77,6 +84,7 @@ export class ForgotPasswordOtpValidationComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    localStorage.clear();
   }
 
   time: number = 120; // 120 seconds = 2 minutes
