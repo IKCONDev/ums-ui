@@ -111,6 +111,7 @@ export class PermissionComponent implements OnInit{
           paging: true,
           searching: true, // Enable search feature
           pageLength: 10,
+          stateSave:true,
           order: [[0,'asc']],
           lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
           // Add other options here as needed

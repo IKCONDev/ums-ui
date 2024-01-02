@@ -49,7 +49,7 @@
                                 aria-hidden="true">&times;</span></button>
                       </div>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="padding: 0px 0px 20px;">
                         <!-- notification component -->
                         <app-notifications></app-notifications>
                     </div>
@@ -92,9 +92,8 @@
 
                         <div class="modal-body">
                             <div class="container" *ngIf="userDetails != null">
-                                <div class="profile-pic" *ngIf="userDetails.profilePic != null">
-                                    <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic" width="110px"
-                                        height="110px" alt="profile pic" />
+                                <div class="profile-picImage" *ngIf="userDetails.profilePic != null">
+                                    <img [src]="'data:image/png/jpg/jpeg;base64,'+userDetails.profilePic"  style="height: 110px;width: 110px;" alt="profile pic" />
                                 </div>
                                 <div *ngIf="userDetails.profilePic === null">
                                     <svg id="profile-icon" xmlns="http://www.w3.org/2000/svg" width="110px" height="110px" viewBox="0 0 512 512">

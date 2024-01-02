@@ -18,9 +18,9 @@
                             </div>
                     </div>
                     <div class="col-7" id="message">{{notification.message}}</div>
-                    <div class="col-2"  id="statusUnread" *ngIf="notification.status === 'Unread'">{{notification.status}}</div>
+                    <div class="col-2" style="padding-left: 0px;" id="statusUnread" *ngIf="notification.status === 'Unread'">{{notification.status}}</div>
                     <div class="col-2"  id="statusRead" *ngIf="notification.status === 'Read'">{{notification.status}}</div>
-                    <div id="dateTimeAgo">{{notification.createdDateTime | dateAgo}}</div>
+                    <div id="dateTimeAgo" style="padding-left: 90px;">{{notification.createdDateTime | dateAgo}}</div>
                 </div>
                 <hr/>
             </div>

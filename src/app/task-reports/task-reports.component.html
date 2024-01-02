@@ -173,7 +173,7 @@
     <!-- report -2 -->
     <div class="card-body" *ngIf="reportType === 'organized';">
         <div class="row">
-            <div class="col-sm-2" style="margin-left: 100px;">
+            <div class="col-sm-2" style="margin-left: 131px;margin-top: 1px;">
                 <ng-select id="select" [(ngModel)]="selectedTaskOwner" style="float: right; width: 250px;"
                 placeholder="choose" (change)="chooseUser()">
                 <ng-option *ngFor="let user of umsUsersList" value="{{user}}">{{user}}</ng-option>
@@ -182,7 +182,7 @@
         </div>
         <br/>
         <div class="row">
-            <div class="col-sm-5" style="margin-left: 50px;">
+            <div class="col-sm-5" style="margin-left: 41px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>
@@ -321,7 +321,7 @@
     <!--  -->
     <div class="card-body" *ngIf="reportType === 'severity';">
         <div class="row">
-            <div class="col-sm-2" style="margin-left: 50px;">
+            <div class="col-sm-2" style="margin-left: 68px;">
                 <ng-select id="select" [(ngModel)]="selectedTaskSeverity" style="float: right; width: 190px;"
                             placeholder="choose" (change)="chooseSeverity()">
                             <ng-option value="High">High</ng-option>
@@ -332,7 +332,7 @@
         </div>
         <br/>
         <div class="row">
-            <div class="col-sm-5" style="margin-left: 50px;">
+            <div class="col-sm-5" style="margin-left: 41px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>
@@ -490,7 +490,7 @@
         </div>-->
         <div class="card-body" *ngIf="reportType === 'status';">
             <div class="row">
-                <div class="col-sm-2" style="margin-left: 50px;">
+                <div class="col-sm-2" style="margin-left: 71px;">
                     <ng-select id="select" [(ngModel)]="selectedTaskStatus" style="float: right; width: 190px;"
                     placeholder="choose" (change)="chooseStatus()">
                     <ng-option value="Yet to start">Yet to start</ng-option>
@@ -501,7 +501,7 @@
             </div>
             <br/>
             <div class="row">
-                <div class="col-sm-5" style="margin-left: 50px;">
+                <div class="col-sm-5" style="margin-left: 41px;">
                     <div class="card">
                         <div class="card-header" style="background-color: #134E69D9;">
                             <h4 style="text-align: center;color: white;">Report Summary</h4>
@@ -780,7 +780,7 @@
     </div>
     <div class="card-body" *ngIf="reportType === 'all';">
         <div class="row">
-            <div class="col-sm-2" style="margin-left: 100px;">
+            <div class="col-sm-2" style="margin-left: 130px;">
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                 placeholder="Departments" (change)="chooseDepartment()">
                 <ng-option *ngFor="let department of departmentList"
@@ -790,7 +790,7 @@
         </div>
          <br/>
         <div class="row">
-            <div class="col-sm-5" style="margin-left: 50px;">
+            <div class="col-sm-5" style="margin-left: 41px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>

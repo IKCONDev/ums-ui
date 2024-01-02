@@ -29,6 +29,8 @@
 
 #thead {
     background: var(--side-text, #ECF7FC);
+    white-space:nowrap ;
+
 }
 
 #tablehead{

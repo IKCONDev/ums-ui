@@ -161,7 +161,7 @@
         </div>
         <div *ngIf="reportType === 'employee'">
             <div class="row">
-             <div class="col-sm-2" style="margin-left: 100px;">
+             <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedEmployee" style="float: right; width: 250px;  margin-left: 0px;"
                                 placeholder="choose" (change)="chooseEmployee()">
                                 <ng-option *ngFor="let employee of employeeListAsUser"
@@ -171,7 +171,7 @@
             </div>
             <br/>
             <div class="row">
-                <div class="col-sm-5" style="margin-left: 50px;">
+                <div class="col-sm-5" style="margin-left: 51px;">
                     <div class="card">
                         <div class="card-header" style="background-color: #134E69D9;">
                             <h4 style="text-align: center;color: white;">Report Summary</h4>
@@ -313,7 +313,7 @@
     </div>
     <div *ngIf="reportType === 'attended'">
         <div class="row">
-            <div class="col-sm-2" style="margin-left: 100px;;">
+            <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedAttendeeUser" style="float: right; width: 250px;"
                 placeholder="choose" (change)="chooseAttendedMeetingUser()">
                 <ng-option *ngFor="let employee of employeeListAsUser"
@@ -323,7 +323,7 @@
         </div>
         <br/>
         <div class="row">
-            <div class="col-sm-5" style="margin-left: 50px;">
+            <div class="col-sm-5" style="margin-left: 51px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>
@@ -467,7 +467,7 @@
     <div *ngIf="reportType === 'all'">
         <div class="row">
             <div>
-                <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: left; width: 250px; margin-left: 0px;"
+                <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: left; width: 250px; margin-left: 51px;margin-top: 9px;margin-bottom: 22px"
                 placeholder="Departments" (change)="chooseDepartment()">
                 <!-- <ng-option  value="all">All</ng-option> -->
                 <ng-option *ngFor="let department of departmentList"
@@ -475,7 +475,7 @@
               </ng-select>
             </div>
             <br/><br/>
-            <div class="col-sm-5" style="margin-left: 50px;">
+            <div class="col-sm-5" style="margin-left: 51px;">
                 <div class="card">
                     <div class="card-header" style="background-color: #134E69D9;">
                         <h4 style="text-align: center;color: white;">Report Summary</h4>

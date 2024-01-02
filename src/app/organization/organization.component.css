@@ -9,7 +9,9 @@
     justify-content: center;
     align-items: center;
 }
-
+#svgOpacity{
+  fill: lightblue;
+}
 
 .card-header{
 
@@ -99,6 +101,7 @@ input[type='file'] {
     position: relative;
     display: inline-block;
     cursor: pointer;
+    border: 1px solid black;
 }
 
 .image-preview {
