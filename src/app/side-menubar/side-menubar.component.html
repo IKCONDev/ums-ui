@@ -72,7 +72,6 @@
       </li>
 
       <li
-        *ngIf="loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN' || loggedInUserRole === 'MANAGER' || loggedInUserRole === 'DEPARTMENT_HEAD'"
         class="nav-item" id="reportActive">
         <!-- <a class="nav-link" [ngClass]="{'active-link':isActive('/reports')}" routerLink="/reports" > -->
         <a class="nav-link" [ngClass]="{'active-link':isActive('/report-settings')}" routerLink="/report-settings">
