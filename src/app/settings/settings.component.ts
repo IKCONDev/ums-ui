@@ -25,7 +25,9 @@ export class SettingsComponent implements OnInit {
   deletePermission: boolean;
   noPermissions: boolean;
   batchProcessTime: string = '';
+  batchProcessTimeMinute: string = '';
   cronDetails = new CronDetails();
+  minutesArray: number[] = Array.from({ length: 60 }, (_, index) => index);
 
 
   /**
@@ -111,14 +113,29 @@ export class SettingsComponent implements OnInit {
   validateBatchProcessTime(){
   }
 
+  /**
+   * 
+   * @returns 
+   */
   updateBatchProcessTime(){
-    if(this.cronDetails.hour === this.batchProcessTime){
-      this.toastr.warning('No changes in batch process time.')
+    if(this.cronDetails.hour === this.batchProcessTime && this.cronDetails.minute === this.batchProcessTimeMinute){
+      this.toastr.warning('No changes in batch process time.');
+      return;
     }
-    this.batchProcessService.updateBatchProcessTime(this.batchProcessTime).subscribe({
+    if(parseInt(this.batchProcessTime) === 0 && parseInt(this.batchProcessTimeMinute) < 5){
+      this.toastr.warning("The minimum time that can be scheduled for batch processing is '5' minutes.");
+      return;
+    }
+    if(parseInt(this.batchProcessTime) === 24 && parseInt(this.batchProcessTimeMinute) > 0){
+      this.toastr.warning("The maximum time that can be scheduled for batch processing is '24' hours.");
+      return;
+    }
+    this.cronDetails.hour = this.batchProcessTime;
+    this.cronDetails.minute = this.batchProcessTimeMinute;
+    this.batchProcessService.updateBatchProcessTime(this.cronDetails).subscribe({
       next: (response) => {
         if(response.status === HttpStatusCode.PartialContent){
-          this.toastr.success('Batch Process scheduler is scheduled to run for every '+this.batchProcessTime+' hour(s)');
+          this.toastr.success('Batch Process scheduler is scheduled to run after every '+this.batchProcessTime+' hour(s) : '+this.batchProcessTimeMinute+' minute(s).');
           setTimeout(() => {
             window.location.reload();
           },1000);
@@ -144,6 +161,7 @@ export class SettingsComponent implements OnInit {
         if(response.status === HttpStatusCode.Ok){
           this.cronDetails = response.body;
           this.batchProcessTime = this.cronDetails.hour;
+          this.batchProcessTimeMinute = this.cronDetails.minute;
           console.log(this.cronDetails);
         }
       }
