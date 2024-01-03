@@ -111,7 +111,7 @@ import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permis
     HttpClientModule,
     ToastrModule.forRoot({
       preventDuplicates:true,
-      timeOut: 1100
+      timeOut: 2000
     }),
     BrowserAnimationsModule,
     NgSelectModule,

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient , HttpHeaders,HttpResponse} from "@angular/common/http";
 import { BatchDetails } from "src/app/model/BatchDetails.model";
+import { CronDetails } from "src/app/model/CronDetails.model";
 
 @Injectable({
     providedIn : 'root'
@@ -29,5 +30,12 @@ export class BatchDetailsService{
       */
      updateBatchProcessTime(batchProcessTime: string){
         return this.http.put<boolean>(`${this.gateWayURL}/${this.teamsbatchProcessMicroserviceURL}/crontime/${batchProcessTime}`,{},{observe: 'response'});
+     }
+
+     /**
+      * 
+      */
+     getBatchProcessTimeDetails(){
+        return this.http.get<CronDetails>(`${this.gateWayURL}/${this.teamsbatchProcessMicroserviceURL}/crontime`,{observe: 'response'});
      }
 }

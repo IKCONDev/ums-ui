@@ -7,6 +7,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { BatchDetailsService } from '../batch-details/service/batch-details.service';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'jquery';
+import { CronDetails } from '../model/CronDetails.model';
 
 @Component({
   selector: 'app-settings',
@@ -24,6 +25,7 @@ export class SettingsComponent implements OnInit {
   deletePermission: boolean;
   noPermissions: boolean;
   batchProcessTime: string = '';
+  cronDetails = new CronDetails();
 
 
   /**
@@ -60,6 +62,7 @@ export class SettingsComponent implements OnInit {
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
           this.viewPermission = true;
+          this.getBatchProcessTimeDetails();
         }else{
           this.viewPermission = false;
         }
@@ -109,6 +112,9 @@ export class SettingsComponent implements OnInit {
   }
 
   updateBatchProcessTime(){
+    if(this.cronDetails.hour === this.batchProcessTime){
+      this.toastr.warning('No changes in batch process time.')
+    }
     this.batchProcessService.updateBatchProcessTime(this.batchProcessTime).subscribe({
       next: (response) => {
         if(response.status === HttpStatusCode.PartialContent){
@@ -129,5 +135,19 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  /**
+   * 
+   */
+  getBatchProcessTimeDetails(){
+    this.batchProcessService.getBatchProcessTimeDetails().subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.cronDetails = response.body;
+          this.batchProcessTime = this.cronDetails.hour;
+          console.log(this.cronDetails);
+        }
+      }
+    })
+  }
 
 }
