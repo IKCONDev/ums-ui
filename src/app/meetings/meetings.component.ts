@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -28,6 +28,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
 })
 export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  @ViewChildren("itemElement") private itemElements: QueryList<ElementRef>;
   private table: any;
 
   eventId: number;
@@ -1875,64 +1876,47 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   meetingList: Meeting[];
   disabled : any;
   //newActionItemList: ActionItems[] = [];
-  async enableOrDisableSendMOM() :Promise<void> {
-    this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, '', '', '').subscribe({
+  enableOrDisableSendMOM() {
+    // Fetch all action items outside the loop
+    this.actionItemService.getAllActionItems().subscribe({
       next: response => {
-        this.meetingList = response.body;
-        this.meetingList.forEach(meeting => {
-          var newActionItemList = [];
-          this.actionItemService.getAllActionItems().subscribe({
-            next: response => {
-              this.actionItemList = response.body;
-              for (var i = 0; i < this.actionItemList.length; i++) {
-                var actionItem = this.actionItemList[i];
-                if (meeting.meetingId === actionItem.meetingId) {
-                  newActionItemList.push(actionItem);
-                  break;
-                }
-              }
+        this.actionItemList = response.body;
+  
+        // Process each meeting
+        this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, '', '', '').subscribe({
+          next: response => {
+            this.meetingList = response.body;
+  
+            this.meetingList.forEach(meeting => {
+              var newActionItemList = this.actionItemList.filter(actionItem => actionItem.meetingId === meeting.meetingId);
+
+                console.log(newActionItemList+"------"+meeting.meetingId)
               if (newActionItemList.length === 0) {
+                newActionItemList===null;
+                console.log("entered"+'===='+meeting.meetingId)
                 this.disableMomButton(meeting.meetingId);
               }
-            },
-            error: error => {
-              console.error('Error fetching action items:', error);
-            }
-          });
-          // this.actionItemService.getAllActionItemsByMeetingId(meeting.meetingId).subscribe({
-          //     next : response =>{
-          //        this.actionItemList = response.body;
-          //        console.log("action Item List:"+this.actionItemList.length +"meeting Id is:"+ meeting.meetingId)
-          //        if(this.actionItemList.length ===0){
-          //        // var momBTN = document.getElementById('email' + meeting.meetingId);
-          //        // momBTN.style.pointerEvents = 'none'
-          //         //momBTN.style.opacity = '0.5'
-          //         this.disableMomButton(meeting.meetingId);
-          //        }
-          //     }
-              
-          // })
+            });
+          },
+          error: error => {
+            console.error('Error fetching meetings:', error);
+          }
         });
       },
       error: error => {
-        console.error('Error fetching meetings:', error);
+        console.error('Error fetching action items:', error);
       }
     });
   }
 
-  async disableMomButton(meetingId: number):Promise<void> {
-    var momBTN = document.getElementById('email' + meetingId);
-    if (momBTN) {
-      momBTN.style.pointerEvents = 'none';
-      momBTN.style.fill = 'lightgrey';
-      momBTN.style.cursor = 'pointer'
-      momBTN.title = 'This button is disabled because there are no action items.';
-      var svgPath = momBTN.querySelector('svg path') as HTMLInputElement;
-      if (svgPath) {
-        svgPath.style.fill = 'lightgrey';
-        svgPath.setAttribute('title', 'This button is disabled because there are no action items.');
-      }
-    }
+  disableMomButton(meetingId: number) {
+    console.log("entered disable for--- "+meetingId)
+    this.itemElements.changes.subscribe(() => {
+      console.log("Item elements are now in the DOM!", this.itemElements.length);
+      const htmlElement = document.getElementById('email'+meetingId);
+      htmlElement.classList.add("disabled")
+      console.log(htmlElement)
+    });
   }
   receiptientsList: string[] = [];
   updatedreceiptientsList: string[] = [];
