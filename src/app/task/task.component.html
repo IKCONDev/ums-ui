@@ -105,7 +105,7 @@
                         <td>{{item.plannedEndDate|date:'MMM d, y'}}</td>
                         <td>{{item.taskPriority}}</td>
                         <td>{{item.status}}</td>
-                        <td style="width: 150px;">
+                        <td>
                             <button [disabled]="!updatePermission" id="editIcon" data-target="#xlModal"
                                 data-toggle="modal" (click)="editTask(item.taskId)"
                                 (click)="getActiveUsersEmailIdList()">
