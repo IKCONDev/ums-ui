@@ -932,7 +932,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-
+      var mainCheckBox=document.getElementById("actionItemMainCheck"+ meetingId) as HTMLInputElement
+      let mcount=0;
+      if(mainCheckBox.checked===true){
+        mcount=1;
+      }
       let value;
       if (checkbox) {
         value = checkbox.checked
@@ -941,7 +945,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (value === true) {
         console.log(checkbox)
         console.log(value)
-        count = count + 1;
+        count = (count + 1);
         console.log(count);
 
         var buttons = document.getElementById('submitAndDelete' + meetingId);
@@ -950,7 +954,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         var emptyCell = document.getElementById('emptycell' + meetingId);
         emptyCell.style.display = 'none'
 
-      } else {
+      } 
+      
+      else {
         if (count < 1) {
           this.hideActionItem=false;
           var buttons = document.getElementById('submitAndDelete' + meetingId);
@@ -959,7 +965,15 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           emptyCell.style.display = 'table-cell'
         }
       }
-    }
+      if(value=== false && mainCheckBox.checked===true){
+        this.hideActionItem=false;
+        var buttons = document.getElementById('submitAndDelete' + meetingId);
+        buttons.style.display = 'none'
+        var emptyCell = document.getElementById('emptycell' + meetingId);
+        emptyCell.style.display = 'table-cell'
+      }
+    
+  }
   }
 
   //edit action items data
