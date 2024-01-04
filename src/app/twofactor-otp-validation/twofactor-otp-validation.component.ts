@@ -51,9 +51,13 @@ export class TwofactorOtpValidationComponent {
           history.pushState(null, null, location.href);
           window.onpopstate = function () {
           localStorage.clear()
+          }
         }
       }
-    }
+      this.subscription = fromEvent(window, 'popstate').subscribe(_ => {
+        history.pushState(null, null, location.href);
+        localStorage.setItem("countPageRefresh1",String(0));
+     });
   }
 
 

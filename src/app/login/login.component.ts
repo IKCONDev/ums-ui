@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, Output, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subject, lastValueFrom } from 'rxjs';
+import { Subject, fromEvent, lastValueFrom } from 'rxjs';
 import { LoginService } from './service/login.service';
 import { NavigationExtras } from '@angular/router';
 import { HttpStatusCode } from '@angular/common/http';
@@ -17,11 +17,13 @@ import { UserRoleMenuItemPermissionService } from '../user-role-menuitem-permiss
 })
 
 export class LoginComponent {
+  subscription: any;
 
   constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
     @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService,
     private notificationService: NotificationService, private userRoleMenuItemPermissionMapService: UserRoleMenuItemPermissionService) {
     this.myMSALObj = new PublicClientApplication(this.msalConfig);
+    history.pushState(null,null,location.href)
   }
 
   /**
