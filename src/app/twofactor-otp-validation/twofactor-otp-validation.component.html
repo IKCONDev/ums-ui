@@ -33,14 +33,14 @@
                     <!-- col -->
                     <br />
                     <div class="col-sm-6" style="text-align: end;padding-right: 40px;">
-                        <p *ngIf="display !='00:00'" style="color: red;"><label style="color: black;">OTP Expires In:</label> {{display}}</p> 
+                        <p *ngIf="display !='00:00'" style="color: red;"><label style="color: black;">OTP expires in:</label> {{display}}</p> 
                     </div>
                     <div class="row justify-content-center my-2">
                         <div id="emailDiv" class="col-sm-9">
                             <label id="emailLabel">Enter OTP</label>
-                            <input type="number" id="otp" name="otp"  placeholder="Enter OTP" class="form-control"
+                            <input type="number" id="otp" name="otp" ncopy="return false" onpaste="return false" oncut="return false" placeholder="Enter OTP" class="form-control"
                                 (click)="setupOtpInputPlaceholder()" (keyup)="setOtp($event)"
-                                (keydown)="otpValidation($event)"/>
+                                (keydown)="otpValidation($event)"/> 
                         </div>
                     </div>
                     <!-- row -->
