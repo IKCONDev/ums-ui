@@ -1,6 +1,6 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, fromEvent } from 'rxjs';
 import { ForgotPasswordOtpValidationService } from '../forgot-password-otp-validation/service/forgot-password-otp-validation.service';
 import { ForgotPasswordEmailVerificationService } from '../forgot-password-email-verification/service/forgot-password-email-verification.service';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +21,8 @@ export class TwofactorOtpValidationComponent {
   OtpResponseMessage:string='';
   verifyButtonDisabled:boolean=false;
   jwtToken: string = null;
+  countPageRefresh:number=0;
+  subscription: any;
 
   constructor(private router: Router, private elementRef: ElementRef, 
     private renderer: Renderer2,
@@ -32,6 +34,26 @@ export class TwofactorOtpValidationComponent {
       this.jwtToken = this.router.getCurrentNavigation().extras.state['jwtToken']
       console.log(this.jwtToken);
       this.startTimer();
+      // if page refreshed it navigaes to back page
+      const isRefreshed = this.router.routerState.toString();
+      console.log(this.countPageRefresh);
+      this.countPageRefresh=0;
+      if(isRefreshed){
+      this.countPageRefresh = Number(localStorage.getItem("countPageRefresh1"));
+      this.countPageRefresh+=1;
+      localStorage.setItem("countPageRefresh1",String(this.countPageRefresh))
+      console.log(this.countPageRefresh);
+      if(this.countPageRefresh>1){
+        this.router.navigate(['/login'])
+        this.countPageRefresh = 0;
+        localStorage.setItem("countPageRefresh1",String(this.countPageRefresh))
+          sessionStorage.clear();
+          history.pushState(null, null, location.href);
+          window.onpopstate = function () {
+          localStorage.clear()
+        }
+      }
+    }
   }
 
 

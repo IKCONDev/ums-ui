@@ -31,6 +31,7 @@ export class TwofactorAuthenticationComponent {
       this.email = this.router.getCurrentNavigation().extras.state['loginInfo'].email;
       this.jwtToken = this.router.getCurrentNavigation().extras.state['loginInfo'].token;
       console.log(this.jwtToken)
+      localStorage.removeItem("countPageRefresh1")
   }
 
   /**
