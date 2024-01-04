@@ -366,12 +366,16 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
           setTimeout(()=>{
             window.location.reload();
           },1000)
-        }else{
-          this.toastr.error('Error occured while deleting department ' + departmentId  +'. Please try again !')
         }
       },error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
+        }
+        else if(error.status === HttpStatusCode.ImUsed){
+          this.toastr.error("department is already in usage by a 'employee' ! Cannot be deleted.");
+        }
+        else{
+          this.toastr.error('Error occured while deleting department ' + departmentId  +'. Please try again !')
         }
       }
    })
