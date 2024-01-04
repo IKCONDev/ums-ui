@@ -389,8 +389,8 @@ export class HomeComponent implements OnInit {
       const startDate = new Date();
       const endDate = new Date();
       //add dynamic year
-      startDate.setFullYear(new Date().getFullYear(), 0, 1);
-      endDate.setFullYear(new Date().getFullYear(), 11, 31);
+       startDate.setFullYear(new Date().getFullYear(), 0, 1);
+      endDate.setFullYear(new Date().getFullYear(), 11, 31);          
       console.log(endDate);
       this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
         next: response => {
@@ -440,10 +440,9 @@ export class HomeComponent implements OnInit {
       const startDate = new Date();
       const endDate = new Date();
 
-      startDate.setFullYear(2023, 0, 1);
+      startDate.setFullYear(new Date().getFullYear(), 0, 1);
+      endDate.setFullYear(new Date().getFullYear(), 11, 31);
       startDate.setHours(0, 0, 0, 0);
-
-      endDate.setFullYear(2023, 11, 31);
       endDate.setHours(23, 59, 59, 999);
       console.log(startDate + " " + endDate);
       this.homeService.fetchMeetingStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
@@ -462,13 +461,14 @@ export class HomeComponent implements OnInit {
         this.myChart2.destroy();
       }
       const startDate = new Date();
+      console.log(startDate)
       const endDate = new Date();
 
-      startDate.setFullYear(2023, 0, 1);
+      startDate.setFullYear(new Date().getFullYear(), 0, 1);
+      endDate.setFullYear(new Date().getFullYear(), 11, 31);
       startDate.setHours(0, 0, 0, 0);
-
-      endDate.setFullYear(2023, 11, 31);
       endDate.setHours(23, 59, 59, 999);
+      
       console.log(startDate + " " + endDate);
       this.homeService.fetchMeetingStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
