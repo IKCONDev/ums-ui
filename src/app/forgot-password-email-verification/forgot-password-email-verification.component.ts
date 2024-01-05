@@ -33,6 +33,7 @@ export class ForgotPasswordEmailVerificationComponent {
    */
   constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
     private emailVerificationService: ForgotPasswordEmailVerificationService, private toastr: ToastrService) {
+      localStorage.removeItem("countPageRefresh")
   }
 
   /**
