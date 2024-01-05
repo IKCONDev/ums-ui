@@ -68,6 +68,7 @@ label#adjustTextBox{
 #errorMessage{
     color: red;
     font-size: 12px;
+    padding-left: 30px;
 }
 
 input::-webkit-outer-spin-button,
@@ -230,4 +231,9 @@ input[type='file'] {
 .image-container:hover .delete-icon {
   display: block;
   
+}
+
+.companyDetails{
+  display: flex;
+  flex-direction: row;
 }
