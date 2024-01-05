@@ -702,7 +702,10 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
 
-  transformToTitleCase(text: string): string {
+  transformToTitleCase(text: string | undefined | null): string {
+    if (!text) {
+      return ''; // Or handle null/undefined case appropriately
+    }
     return text.toLowerCase().split(' ').map(word => {
       return word.charAt(0).toUpperCase() + word.slice(1);
     }).join(' ');
