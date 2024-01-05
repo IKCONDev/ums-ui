@@ -98,13 +98,13 @@
                 </thead>
                 <tbody *ngFor="let meeting of meetings;let i = index">
                     <tr *ngIf="isOrganizedMeetingDataText===false">
-                        <td style="padding-left: 30px;">{{meeting.meetingId}}</td>
+                        <td >{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{meeting.endDateTime+'z'| date:'MMM d, y, h:mm a'}}</td>
-                        <td style="padding-left: 22px;">{{meeting.attendees.length}}</td>
+                        <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
                         <td style="padding-left: 22px;">
 
                             <!-- transcript data Modal start -->
