@@ -196,6 +196,7 @@ export class TwofactorOtpValidationComponent {
         }
         localStorage.setItem('jwtToken',this.jwtToken);
         this.toastr.success('Login Success')
+        localStorage.setItem('count',String(1))
         this.router.navigateByUrl("/home", navigationExtras)
       }else{
         console.log(' invalid otp please enter a valid one or request for resend otp')
