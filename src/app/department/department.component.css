@@ -107,7 +107,7 @@ html{
 }
 
 table th{
-    background: var(--side-text, #ECF7FC);
+    /* background: var(--side-text, #ECF7FC); */
     font-size: 11px;
     white-space: nowrap;
 }
