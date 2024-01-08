@@ -103,6 +103,7 @@ export class ForgotPasswordResetComponent {
       const spaceAtFrontAndLast = /^\s|\s$/.test(this.newPassword);
       if(!spaceAtFrontAndLast===false){
         this.passwordCriteria = "Your password can’t start or end with a blank space";
+        this.result_value=false
       }
       else{
       this.result_value = this.isPasswordvalid(this.newPassword);
