@@ -413,13 +413,18 @@ export class LoginComponent {
             setTimeout(()=>{
               this.disableLoginButton=false;
             },1200)
-          } else if (error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('UserInactiveException')) {
+          } else if ( error.status === HttpStatusCode.InternalServerError &&
+            error.error &&
+            error.error.trace &&
+            error.error.trace.includes('UserInactiveException')) {
             //dont even generate a jwt token for inactive user.
             this.toastr.error('Provided user account is inactive', 'Account Disabled')
             setTimeout(()=>{
               this.disableLoginButton=false;
             },1200)
-          } else if (error.status === HttpStatusCode.InternalServerError && error.error.trace.includes('LoginAttemptsExceededException')) {
+          } else if (error.status === HttpStatusCode.InternalServerError &&  error.error &&
+            error.error.trace &&
+            error.error.trace.includes('LoginAttemptsExceededException')) {
             this.toastr.error('Account locked due to 3 continuous failed attempts');
             setTimeout(()=>{
               this.disableLoginButton=false;
