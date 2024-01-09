@@ -1639,10 +1639,16 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param index 
    */
   toggleMainCheckbox(index: number) {
-    if (!$('#ac-check' + index).is(':checked')) {
-      $('.mainCheckBox').prop('checked', false)
+    if ($('#ac-check' + index).is(':checked')) {
+      $('.mainCheckBox').prop('checked', true)
+    }else{
+
+    const anyUnchecked = $('.ac-check:not(:checked)').length > 0;
+    console.log(anyUnchecked);
+    $('.mainCheckBox').prop('checked', !anyUnchecked);
     }
   }
+  
   //Duration of meeting
   hoursDiff: any
   minutesDiff: any
