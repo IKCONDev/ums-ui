@@ -60,6 +60,7 @@ export class MyProfileComponent {
    * 
    */
   fetchUserProfile() {
+    if(localStorage.getItem('email')!=null){
     this.profileService.getUserprofile(localStorage.getItem('email')).subscribe(
       (response) => {
         this.user = response.body;
@@ -68,6 +69,10 @@ export class MyProfileComponent {
         this.getEmployee(this.user.employee.reportingManager);
       }
     )
+  }
+    else {
+      this.router.navigateByUrl('/session-timeout');
+    }
   }
 
   /**
