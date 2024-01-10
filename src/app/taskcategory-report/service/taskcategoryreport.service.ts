@@ -9,7 +9,8 @@ export class TaskCategoryReport{
 
     constructor( private http: HttpClient){}
     private gateWayURL="http://localhost:8012";
-    private reportMicroservicePathUrl = "reports";
+    //private reportMicroservicePathUrl = "reports";
+    private reportMicroservicePathUrl = "taskCategoryReports";
 
     getAllTasksByTaskCategoryId(taskCategoryId : number){
      let params = new HttpParams()
