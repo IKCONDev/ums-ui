@@ -269,7 +269,7 @@
                     (click)="clearUpdateErrorMessages()"><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
-            <div class="modal-body">
+            <div class="modal-body" style="height: 400px ;overflow-y: scroll;">
                 <label><b>First Name</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="First Name" minlength="4" maxlength="31"
                     [(ngModel)]="existingEmployee.firstName" id="updateFirstName" name="updateFirstName" required="true"
