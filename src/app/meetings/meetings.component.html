@@ -299,8 +299,11 @@
                                                         (click)="submitActionItems(meeting)"
                                                         [disabled]="disableSubmit">Submit</button></a>
 
-                                                <a style="padding-left:24px ;cursor: pointer;"
-                                                    (click)="checkCheckboxes(meeting.meetingId)"><button
+                                                <a style="padding-left:24px ;cursor: pointer;"*ngIf="deletePermission===true" 
+                                                    (click)="checkCheckboxes(meeting.meetingId)"><button 
+                                                        class="btn btn-outline-danger deleteButton">Delete</button></a>
+                                                <a style="padding-left:24px ;pointer-events: none;"*ngIf="deletePermission===false" 
+                                                     (click)="checkCheckboxes(meeting.meetingId)"><button style="color: gray;border-color: gray;"
                                                         class="btn btn-outline-danger deleteButton">Delete</button></a>
                                             </td>
                                         </tr>
