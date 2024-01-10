@@ -82,11 +82,11 @@
     outline: none;
 }
 
-/* .loginLink {
-    flex-shrink: 0;
-    color: #74c4e8;
+.loginLink {
+    /* flex-shrink: 0;
+    color: #74c4e8; */
     font-size: 15px;
-} */
+} 
 
 /* a:link {
     text-decoration: none;
