@@ -24,6 +24,9 @@ export class LoginComponent {
     private notificationService: NotificationService, private userRoleMenuItemPermissionMapService: UserRoleMenuItemPermissionService) {
     this.myMSALObj = new PublicClientApplication(this.msalConfig);
     history.pushState(null,null,location.href)
+    this.subscription = fromEvent(window, 'popstate').subscribe(_ => {
+      history.pushState(null, null, location.href);
+   });
   }
 
   /**
@@ -289,6 +292,7 @@ export class LoginComponent {
           if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
 
             //login success popup
+            localStorage.setItem('count1',String(1))
             this.toastr.success('Login Success')
             this.errorInfo = ''
             localStorage.setItem('jwtToken', this.loginInfo.token);
