@@ -352,6 +352,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   getAllDepartments() {
+    var deptId;
     this.departmentservice.getDepartmentList().subscribe(
       response => {
         this.departmentList = response.body;
@@ -362,7 +363,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
             if (employee.departmentId === department.departmentId) {
               console.log(true)
               employee.departmentName = department.departmentName
-              this.existingEmployee.departmentId = department.departmentId
             }
           })
         })
