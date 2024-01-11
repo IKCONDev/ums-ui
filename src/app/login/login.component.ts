@@ -423,6 +423,7 @@ export class LoginComponent {
             error.error.trace.includes('UserInactiveException')) {
             //dont even generate a jwt token for inactive user.
             this.toastr.error('Provided user account is inactive', 'Account Disabled')
+            console.log(error.error.trace.includes('UserInactiveException'))
             setTimeout(()=>{
               this.disableLoginButton=false;
             },1200)
