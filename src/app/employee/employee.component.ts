@@ -324,11 +324,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param employeeid 
    */
   fetchoneEmployeewithDepartment(employeeid: number) {
+    console.log(employeeid)
 
     this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe({
       next: response => {
         this.existingEmployee = response.body;
-        console.log(this.existingEmployee);
+        console.log(this.existingEmployee.departmentId);
       },
       error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -361,6 +362,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
             if (employee.departmentId === department.departmentId) {
               console.log(true)
               employee.departmentName = department.departmentName
+              this.existingEmployee.departmentId = department.departmentId
             }
           })
         })
@@ -700,7 +702,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.updateDesignationErrorInfo = "";
     this.isUpdateDateofJoinErrorInfo = "";
     this.isUpdateEmployeeIDErrorInfo = "";
-
   }
   /**
    * update employee Validations
