@@ -18,6 +18,8 @@ import { TaskService } from '../task/service/task.service';
 import { MenuItem } from '../model/MenuItem.model';
 import { lastValueFrom } from 'rxjs';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
+import { Employee } from '../model/Employee.model';
+import { EmployeeService } from '../employee/service/employee.service';
 
 @Component({
   selector: 'app-report',
@@ -81,7 +83,7 @@ export class TaskReportsComponent implements OnInit {
     private headerService: HeaderService,
     private meetingService: MeetingService,
     private router: Router, private taskService: TaskService,
-    private menuItemService: AppMenuItemService) {
+    private menuItemService: AppMenuItemService, private employeeService:EmployeeService) {
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
       console.log(this.reportType)
@@ -117,6 +119,7 @@ export class TaskReportsComponent implements OnInit {
           this.getLoggedInUserDetails(this.loggedInUser);
          //get active users list
          this.getActiveUsersList();
+         this.getEmployeeAsUserList();
          this.getDepartments();
          this.getAllTasksByDepartment();
          this.selectedTaskOwner = this.loggedInUser;
@@ -420,6 +423,19 @@ export class TaskReportsComponent implements OnInit {
       next: response => {
         this.umsUsersList = response.body;
         console.log(this.umsUsersList)
+      }
+    })
+  }
+
+  employeeListAsUser: Employee[];
+  getEmployeeAsUserList(){
+    this.employeeService.getUserStatusEmployees(true).subscribe({
+      next: response => {
+        this.employeeListAsUser = response.body;
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
     })
   }

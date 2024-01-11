@@ -176,7 +176,7 @@
             <div class="col-sm-2" style="margin-left: 131px;margin-top: 1px;">
                 <ng-select id="select" [(ngModel)]="selectedTaskOwner" style="float: right; width: 250px;"
                 placeholder="choose" (change)="chooseUser()">
-                <ng-option *ngFor="let user of umsUsersList" value="{{user}}">{{user}}</ng-option>
+                <ng-option *ngFor="let user of employeeListAsUser" value="{{user.email}}">{{user.firstName}} {{user.lastName}}</ng-option>
             </ng-select>
             </div>
         </div>
