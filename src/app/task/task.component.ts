@@ -113,7 +113,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           }]
         });
       });
-    }, 600);
+    }, 900);
 
     setTimeout(() => {
       $(document).ready(() => {
@@ -129,7 +129,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 600);
+    }, 900);
   }
 
   ngAfterViewInit(): void {
