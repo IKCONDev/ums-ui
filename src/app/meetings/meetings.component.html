@@ -299,8 +299,11 @@
                                                         (click)="submitActionItems(meeting)"
                                                         [disabled]="disableSubmit">Submit</button></a>
 
-                                                <a style="padding-left:24px ;cursor: pointer;"
-                                                    (click)="checkCheckboxes(meeting.meetingId)"><button
+                                                <a style="padding-left:24px ;cursor: pointer;"*ngIf="deletePermission===true" 
+                                                    (click)="checkCheckboxes(meeting.meetingId)"><button 
+                                                        class="btn btn-outline-danger deleteButton">Delete</button></a>
+                                                <a style="padding-left:24px ;pointer-events: none;"*ngIf="deletePermission===false" 
+                                                     (click)="checkCheckboxes(meeting.meetingId)"><button style="color: gray;border-color: gray;"
                                                         class="btn btn-outline-danger deleteButton">Delete</button></a>
                                             </td>
                                         </tr>
@@ -535,8 +538,8 @@
                 </div>
                 <br>
                 <!-- modal body/form -->
-                <form #form="ngForm" id="formId" method="POST" style="margin: 10px;height:400px;
-                overflow:scroll;overflow-x:hidden;">
+                <div class="modal-body" style="height: 400px ;overflow-y: scroll;padding-left: 0px;padding-top: 0px;">
+                <form #form="ngForm" id="formId" method="POST">
                     <!-- title -->
                     <label><b>Action Item Title</b><span id="required">*</span></label>
                     <input type="text" class="form-control" style="width: 400px;"
@@ -620,7 +623,7 @@
                         <span id="errorSpan">{{updateActionItemEndDateErrorInfo}}</span>
                     </div>
                 </form>
-
+                </div>
                 <!--footer-->
                 <div class="modal-footer">
                     <button type="submit" id="saveActionItem" class="btn btn-primary updateButton"
@@ -767,6 +770,7 @@
                     <br>
                     <!-- modal body/form -->
                     <form #form="ngForm" id="formId" method="POST">
+                        <div class="modal-body" style="height: 400px ;overflow-y: scroll;padding-left: 0px;padding-top: 0px;"> 
                         <!-- title -->
                         <label><b>Meeting Title</b><span id="required">*</span></label>
                         <input type="text" class="form-control" style="width: 400px;" [(ngModel)]="addMeeting.subject"
@@ -828,6 +832,7 @@
                         <p>{{meetingOrganizerNameErrorInfo}}</p>
                     </span>
                 </div> -->
+                </div>
                         <!--footer-->
                         <br>
                         <div class="modal-footer">

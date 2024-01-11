@@ -14,7 +14,8 @@ export class TaskReportService{
      private teamsbatchProcessMicroserviceURL="teams";
      private getAllBatchDetailsURL="batch-details";
 
-     private reportMicroservicePathUrl = "reports";
+     //private reportMicroservicePathUrl = "reports";
+     private reportMicroservicePathUrl = "taskReports";
 
      /**
       * 

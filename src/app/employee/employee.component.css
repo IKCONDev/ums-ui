@@ -214,3 +214,6 @@ td {
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
 }
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 8px 18px;
+}

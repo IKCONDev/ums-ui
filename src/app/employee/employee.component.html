@@ -10,16 +10,16 @@
             <div class="col-sm-8 d-flex">
                 <h3 id="heading">Employees</h3>
             </div>
-            <div id="addBtnDiv" class="col-sm-1 d-flex">
-                <button  [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control" id="addBtn" type="submit" data-toggle="modal"
+            <div  class="col-sm-4 d-flex" style="padding-top: 8px;justify-content: flex-end;padding-left: 20px;">
+                <button id="addBtnDiv" [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control" id="addBtn" type="submit" data-toggle="modal"
                     data-target="#addEmployeeModal" (click)="getAllDesignations()" (click)="getAllDepartments()"
                     style="width: 80px;">
                     <p>Add</p>
                 </button>
-            </div>
-            <div id="deleteBtnDiv" class="col-sm-2">
-                <button [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" type="submit" class=" form-control" id="deleteBtn" name="deleteBtn" (click)="checkCheckBoxes()"
-                    style="width: 80px;">Delete</button>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            
+                <button id="deleteBtnDiv" [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" type="submit" class=" form-control" id="deleteBtn" name="deleteBtn" (click)="checkCheckBoxes()"
+                    style="width: 80px;margin-right: 22px;">Delete</button>
             </div>
             <!-- <div class="col-sm-1 d-flex" id="filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
@@ -36,7 +36,7 @@
                 <table class="table table-hover" id="table">
                     <thead id="thead">
                         <tr>
-                            <th style="padding-left: 10px;">
+                            <th style="padding-left: 18px;">
                                 <input type="checkbox" id="mainCheckBox" class="mainCheckBox"
                                     (click)="checkSubCheckBoxes()" />
                             </th>
@@ -134,7 +134,7 @@
                     (click)="clearErrorMessages()"><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
-            <div class="modal-body" style="height: 400px ;overflow: scroll;">
+            <div class="modal-body" style="height: 400px ;overflow-y: scroll;">
 
                 <label><b>First Name</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="First Name"
@@ -269,7 +269,7 @@
                     (click)="clearUpdateErrorMessages()"><span aria-hidden="true">×</span></button>
             </div>
             <!-- Modal body -->
-            <div class="modal-body">
+            <div class="modal-body" style="height: 400px ;overflow-y: scroll;">
                 <label><b>First Name</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="addEmployeeInput form-control" placeholder="First Name" minlength="4" maxlength="31"
                     [(ngModel)]="existingEmployee.firstName" id="updateFirstName" name="updateFirstName" required="true"

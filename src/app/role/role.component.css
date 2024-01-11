@@ -32,10 +32,10 @@ html{
 #thead {
     background: var(--side-text, #ECF7FC);
 }
-
+/* 
 table th{
     padding-bottom: 20px;
-}
+} */
 
 #tablehead{
     background: var(--side-text, #ECF7FC);

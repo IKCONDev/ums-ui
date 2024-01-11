@@ -892,6 +892,10 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   count1 : any;
   countedData : any =0;
   async deleteEmployeesById(ids: any[]): Promise<void> {
+    if(ids.length<1){
+      this.toastr.error("Please select atleast one employee to delete")
+    }
+    else{
     const isConfirmed = window.confirm("Are you sure, you really want to delete selected employees?");
     if (isConfirmed) {
       this.countedData =0;
@@ -935,6 +939,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.toastr.warning("Employees not deleted.");
     }
+  }
   }
   
   getCountOfUsersActive(value : boolean){

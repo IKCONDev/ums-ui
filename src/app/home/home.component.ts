@@ -257,8 +257,9 @@ export class HomeComponent implements OnInit {
     
     //get noti count
     this.getNotificationCount(this.loggedInUser);
-    if(localStorage.getItem('count')==='1'){
+    if(localStorage.getItem('count')==='1' || localStorage.getItem('count1')==='1'){
       localStorage.setItem('count',String(0));
+      localStorage.setItem('count1',String(0));
       window.location.reload();
     }
   }
