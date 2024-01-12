@@ -524,11 +524,11 @@
                         <!-- <p>Report Type : <b>Pie Chart</b></p> -->
                         <div *ngIf="selectedDepartment != null; else allMeetings">
                             <p>Department Name : <b>{{selectedDepartmentName}}</b></p>
-                            <p>Total Meetings : <b>{{actionItemsCountOfDepartment}}</b></p>
+                            <p>Total action items of all department : : <b>{{actionItemsCountOfDepartment}}</b></p>
                         </div>
                         <ng-template #allMeetings>
                             <p>Department Name : <b>{{"All"}}</b></p>
-                            <p>Total Meetings : <b>{{allActionItemsCount}}</b></p>
+                            <p>Total action items of all department : <b>{{allActionItemsCount}}</b></p>
                         </ng-template>
                         <!-- <p>Department ID : <b>{{selectedDepartment}}</b></p>
                     <p>Department Name : <b>{{selectedDepartmentName}}</b></p>

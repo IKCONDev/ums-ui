@@ -567,7 +567,7 @@ deptValueCount : DepartmentCount[] = [];
            this.actionItemsByDepartmentReportChart.destroy()
           // this.createActionItemsAllDepartmentReportChart()
          }
-         this.createActionItemsAllDepartmentReportChart()
+        
          this.getAllDepartmentNames()
          
        }
@@ -595,7 +595,7 @@ deptValueCount : DepartmentCount[] = [];
        next : response =>{
          this.allActionItems= response.body;
          this.allActionItemsCount = response.body.length;
-
+         this.createActionItemsAllDepartmentReportChart()
        }
     })
     //this.actionItemsAllDepartmentReportChart()
