@@ -161,7 +161,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 1500)
+    }, 2000)
 
     setTimeout(() => {
       $(document).ready(() => {
@@ -323,7 +323,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
             // Add other options here as needed
           });
         });
-      }, 1500)
+      }, 2000)
     }
   }
 

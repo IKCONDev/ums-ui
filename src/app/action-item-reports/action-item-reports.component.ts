@@ -262,8 +262,12 @@ export class ActionItemsReportsComponent implements OnInit {
     if(this.actionItemsByDepartmentReportChart != null){
       this.actionItemsByDepartmentReportChart.destroy();
     }
+    if(this.selectedDepartment!=null){
     this.getActionItemsReportByDepartment(this.selectedDepartment)
   }
+  else
+  this.getAllActionItemsCount();
+}
 
   actionItemsByPriorityReportChart = null;
 
