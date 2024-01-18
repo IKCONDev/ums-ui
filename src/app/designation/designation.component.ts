@@ -457,6 +457,9 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     if(!$('#subCheckBox'+index).is(':checked')){
       $('#mainCheckBox').prop('checked',false);
     }
+
+    const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
+    $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
 
   transformToTitleCase(text: string | undefined | null): string {
