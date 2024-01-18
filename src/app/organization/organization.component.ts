@@ -338,8 +338,8 @@ export class OrganizationComponent implements OnInit {
  * @returns 
  */
   validateWebsite() {
-    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}[.]{1}[A-Za-z0-9._]{2,6}$/;
-
+   // var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}[.]{1}[A-Za-z0-9._]{2,6}$/;
+   var emailRegExp = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/gm;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     if (this.org.orgWebsite === ''|| this.org.orgWebsite === null) {
       this.isUpdateWebsiteNameValid = true;
