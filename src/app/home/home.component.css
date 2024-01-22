@@ -150,3 +150,7 @@ span svg{
   ng-select{
     margin: 5px;
   }
+
+  #colorTag{
+    color: #134E69D9;
+  }
