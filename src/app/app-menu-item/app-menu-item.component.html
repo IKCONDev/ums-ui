@@ -10,15 +10,14 @@
             <div class="col-sm-8 d-flex">
                 <h3 id="heading">Menu Item List</h3>
             </div>
-            <div id="addBtnDiv" class="col-sm-1 d-flex">
+            <div  class="col-sm-4 d-flex" style="padding-top: 8px;justify-content: flex-end;padding-left: 20px;">
                 <button [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control d-flex" id="addBtn" type="submit" data-toggle="modal" data-target="#addModal"
-                style="width: 60px;">
-                    <p>Add</p>
+                style="width: 80px;">
+                    <p style="padding-left: 10px;">Add</p>
                 </button>
-            </div>
-            <div id="deleteBtnDiv" class="col-sm-2 d-flex">
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <button [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" type="submit" class=" form-control" id="deleteBtn" name="deleteBtn"
-                (click)="removeAllSelectedmenuItems()"  style="width: 80px;" >Delete</button>
+                (click)="removeAllSelectedmenuItems()"  style="width: 80px;margin-right: 20px;" >Delete</button>
              </div>
             <!-- <div class="col-sm-1 d-flex" id="filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
