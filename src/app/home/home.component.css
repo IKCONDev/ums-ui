@@ -61,10 +61,15 @@ body {
     padding-left: 13px;
     margin-bottom: -4px;
     margin-top: 4px;
+    margin-left: 0px;
+    margin-right: 20px;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
 }
  
 span svg{
-    padding-left: 10px;
+    padding-left: 0px;
  
 }
 .cardbody{
