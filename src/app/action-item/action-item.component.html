@@ -202,9 +202,13 @@
                         <th>EndDate</th>
                     </thead>
                 </table>
-                <p id="no-meetings" *ngIf="displayText===false">No Action Items Yet ! </p>
+                
             </ng-template>
+            <div *ngIf="displayText===false">
+                <p id="no-meetings">No Action Items Yet ! </p>
+            </div>
         </div>
+        
     </div>
 </div>
 <div class="container-fluid" *ngIf="viewPermission === false">
