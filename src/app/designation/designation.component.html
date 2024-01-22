@@ -11,16 +11,16 @@
             <div class="col-sm-8 d-flex">
                 <h3 id="heading">Designation</h3>
             </div>
-            <div id="addBtnDiv" class="col-sm-1 d-flex">
+            <div  class="col-sm-4 d-flex" style="padding-top: 8px;justify-content: flex-end;padding-left: 20px;">
                 <button [disabled]="!createPermission" [style.background-color]="addButtonColor" 
-                class="form-control" id="addBtn" type="submit" data-toggle="modal" data-target="#addModal" style="width: 60px;">
-                    <p>Add</p>
+                class="form-control" id="addBtn" type="submit" data-toggle="modal" data-target="#addModal" style="width: 80px;">
+                    <p >Add</p>
                 </button>
-            </div>
-            <div id="deleteBtnDiv" class="col-sm-2 d-flex">
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            
                 <button  [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" 
                   type="submit" class="form-control" id="deleteBtn" name="deleteBtn" value="Delete"
-                    (click)="removeAllSelectedDesignations()" style="width: 80px;" >
+                    (click)="removeAllSelectedDesignations()"  style="width: 80px;margin-right: 20px;" >
                     <p>Delete</p>
                 </button>
             </div>
