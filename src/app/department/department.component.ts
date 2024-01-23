@@ -372,7 +372,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
           this.router.navigateByUrl('/session-timeout')
         }
         else if(error.status === HttpStatusCode.ImUsed){
-          this.toastr.error("Department is already in usage by an employee! so it cannot be deleted.");
+          this.toastr.error("Department is already in usage by an employee, cannot be deleted.");
         }
         else{
           this.toastr.error('Error occured while deleting department ' + departmentId  +'. Please try again !')
