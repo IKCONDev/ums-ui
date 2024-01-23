@@ -262,7 +262,7 @@ export class TaskcategoryReportComponent implements OnInit {
             display: true,
             //stacked: true,
             grid: {
-              display: true,
+              display: false,
 
             },
             ticks: {
@@ -344,7 +344,7 @@ export class TaskcategoryReportComponent implements OnInit {
             display: true,
             //stacked: true,
             grid: {
-              display: true,
+              display: false,
 
             },
             ticks: {

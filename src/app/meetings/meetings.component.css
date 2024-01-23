@@ -297,7 +297,7 @@ select {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-width: 200px;
+  max-width: 130px;
   cursor: pointer;
   word-wrap: break-word;
 }
