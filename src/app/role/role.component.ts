@@ -420,6 +420,8 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastr.error('Role already in usage by "Users" ! Could not be deleted.');
           }
         }
     })
@@ -478,6 +480,8 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastr.error('Role already in usage by "Users" ! Could not be deleted.');
           }
         }
       })

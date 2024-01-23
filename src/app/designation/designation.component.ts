@@ -256,7 +256,10 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
       error : (error) =>{
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
-        }else{
+        }else if(error.status === HttpStatusCode.ImUsed){
+          this.toastr.error("Designation is already in usage by 'Employees' ! Cannot be deleted.")
+        }
+        else{
           this.toastr.warning('Error occured while deleting designation '+ designationId+ '. Please try again !')
         }
       }
@@ -409,8 +412,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     var isconfirmed = window.confirm('Are you sure you want to permanently delete these designations ?')
     if(isconfirmed){
       console.log(this.designationIdsToBeDeleted)
-      this.designationService.deleteAllSelectedDesignationsById(this.designationIdsToBeDeleted).subscribe(
-        (response => {
+      this.designationService.deleteAllSelectedDesignationsById(this.designationIdsToBeDeleted).subscribe({
+        next: response => {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             if(this.designationIdsToBeDeleted.length > 1){
@@ -421,11 +424,17 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
             setTimeout(()=>{
               window.location.reload();
             },1000)  
-          }else{
+          }else {
             this.toastr.error('Error occurred while deleting designations. Please try again !');
           }
-        })
-      )
+        },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastr.error("Designation is already in usage by 'Employees' ! please try again.")
+          }
+        }
+      })
     }else{
       this.toastr.warning('Designations not deleted.')
     }
