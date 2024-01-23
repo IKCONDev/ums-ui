@@ -257,7 +257,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
         }else if(error.status === HttpStatusCode.ImUsed){
-          this.toastr.error("Designation is already in usage by 'Employees' ! Cannot be deleted.")
+          this.toastr.error("Designation is already in usage by an employee, cannot be deleted.")
         }
         else{
           this.toastr.warning('Error occured while deleting designation '+ designationId+ '. Please try again !')
@@ -431,7 +431,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error("Designation is already in usage by 'Employees' ! please try again.")
+            this.toastr.error("Designation is already in usage by an employee, cannot be deleted.")
           }
         }
       })
