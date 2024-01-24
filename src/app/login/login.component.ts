@@ -348,7 +348,7 @@ export class LoginComponent {
             var active = response.headers.get('userActive');
             if(parseInt(loginAttempts) > 3 || active === 'false'){
               this.router.navigateByUrl('/login')
-              this.toastr.error('Provided user account is inactive', 'User Inactive')
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
               localStorage.clear();
               return;
             }else{
@@ -414,7 +414,7 @@ export class LoginComponent {
             var active = response.headers.get('userActive');
             if(parseInt(loginAttempts) > 3 || active === 'false'){
               this.router.navigateByUrl('/login')
-              this.toastr.error('Provided user account is inactive', 'User Inactive')
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
               localStorage.clear();
               return;
             }
@@ -433,12 +433,13 @@ export class LoginComponent {
           } else if (error.status === HttpStatusCode.Unauthorized) {
             var loginAttempts = error.headers.get('loginAttempts');
             var active = error.headers.get('userActive');
+            console.log(loginAttempts)
             if(parseInt(loginAttempts) > 3 || active === 'false'){
-              this.toastr.error('Provided user account is inactive', 'Login Failure')
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
             }
             else{
               this.errorInfo = 'Invalid Credentials'
-              this.toastr.error('Incorrect username or password', 'Login Failure')
+              this.toastr.error('Incorrect username or password. '+(4-loginAttempts)+' attempts remaining', 'Login Failure')
             }
             setTimeout(()=>{
               this.disableLoginButton=false;
