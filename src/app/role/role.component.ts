@@ -481,7 +481,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error('Role already in usage by an user, could not be deleted.');
+            this.toastr.error('Role already in usage by an user, can not be deleted.');
           }
         }
       })
