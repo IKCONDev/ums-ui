@@ -686,8 +686,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.displayText = false;
               } else {
                 //set default time for loading
-                this.isComponentLoading = false;
-                this.isOrganizedMeetingDataText = false;
+                setTimeout(() => {
+                 this.isComponentLoading = false;
+                 this.isOrganizedMeetingDataText = false;
+                },1500)
                 this.meetings = response.body;
               }
               localStorage.setItem('meetingCount', this.meetingCount.toString());
@@ -776,8 +778,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.isComponentLoading = false;
                 this.displayText = false;
               } else {
-                this.isComponentLoading = false;
-                this.isAttendedMeetingDataText = false;
+                setTimeout(() => {
+                  this.isComponentLoading = false;
+                  this.isAttendedMeetingDataText = false;
+                },1500)
                 this.attendedMeetings = response.body;
               }
               localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
