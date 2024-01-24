@@ -289,12 +289,10 @@
                                                 (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                                </div>
                                                  <ng-template #noCreatePermission>
-                                                   <a  style="padding-left: 250px; font-size: 13px;color: lightgray"
-                                                    >Add Action Item</a>
-                                                  </ng-template>
-                                                <a *ngIf="hideActionItem===true" 
+                                                    <a *ngIf="hideActionItem===true" 
                                                     style="padding-left: 250px; font-size: 13px;"
                                                 ></a>
+                                                </ng-template>
                                             </td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
