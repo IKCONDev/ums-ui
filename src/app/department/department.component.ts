@@ -1,4 +1,4 @@
-import { AfterViewInit, Component,OnDestroy,Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component,OnDestroy,Output } from '@angular/core';
 import { Department } from '../model/Department.model';
 import { DepartmentService } from './service/department.service';
 import { OnInit } from '@angular/core';
@@ -17,7 +17,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.css']
 })
-export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
+export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private table: any;
   loggedInUserRole = localStorage.getItem('userRole');
@@ -53,6 +53,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
 
     
   }
+ 
 
   /**
    * ngOnInit() executes on component initialization everytime
@@ -123,22 +124,21 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          stateSave:true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[1,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
-          // Add other options here as needed
-        });
-      });
-    },200)
+  dataTableInitialized:boolean=false;
+  ngAfterViewChecked(): void {
+    if(this.departmentDataLoaded&&!this.dataTableInitialized){
+    this.table = $('#table').DataTable({
+      paging: true,
+      stateSave:true,
+      searching: true, // Enable search feature
+      pageLength: 10,
+      order: [[1,'asc']],
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+      // Add other options here as needed
+    });
+    this.dataTableInitialized=true;
   }
+}
 
   ngOnDestroy(): void {
     if (this.table) {
@@ -150,6 +150,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * get list of all departments from Database and display to admin in UI
    */
+  departmentDataLoaded:boolean=false;
   getAllDepartments(){
     this.isComponentLoading=true;
     this.isDepartmentDataText=true;
@@ -160,6 +161,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewInit {
     this.departmentService.getDepartmentList().subscribe({
       next: (response)=>{
         this.departmentList = response.body;
+        this.departmentDataLoaded=true;
           this.isComponentLoading=false;
           this.isDepartmentDataText=false;
         console.log(this.departmentList)

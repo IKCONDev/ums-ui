@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, OnDestroy, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnDestroy, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { BatchDetails } from '../model/BatchDetails.model';
 import { BatchDetailsService } from './service/batch-details.service';
@@ -13,7 +13,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
   templateUrl: './batch-details.component.html',
   styleUrls: ['./batch-details.component.css']
 })
-export class BatchDetailsComponent implements OnInit,AfterViewInit{
+export class BatchDetailsComponent implements OnInit,AfterViewChecked{
 
 
   private table : any;
@@ -27,6 +27,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit{
     * @param reportservice 
     */
      constructor (private batchService:BatchDetailsService, private router: Router, private menuItemService: AppMenuItemService){}
+ 
 
   // initializeJqueryDataTable(){
   //   setTimeout(() => {
@@ -43,6 +44,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit{
   isBatchDetailsText:boolean=false;
   displayText:boolean=false;
   isComponentLoading:boolean=false;
+  batchDetailsDataLoded:boolean=false;
 
 
    /**
@@ -76,6 +78,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit{
           this.batchService.getAllBatchProcessDetails().subscribe({
             next :   res=>{
               this.batchDetails = res.body;
+              this.batchDetailsDataLoded=true;
               this.batchRecordsCount = res.body.length;
               if(this.batchRecordsCount===0){
                   this.displayText=false;
@@ -122,19 +125,26 @@ export class BatchDetailsComponent implements OnInit,AfterViewInit{
      //this.initializeJqueryDataTable();
    }
 
-   ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[0,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-          // Add other options here as needed
-        });
-      });
-    },900)
+   
+  ngAfterViewChecked(): void {
+    this.initializeJqueryTable();
+  }
+
+  dataTableInitialized:boolean=false;
+  initializeJqueryTable(){
+    
+    if(this.batchDetailsDataLoded&&!this.dataTableInitialized){
+    this.table = $('#table').DataTable({
+      paging: true,
+      searching: true, // Enable search feature
+      pageLength: 10,
+      order: [[0,'asc']],
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      // Add other options here as needed
+    });
+    this.dataTableInitialized = true;
+  
+}
   }
 
    currentMenuItem: MenuItem;
