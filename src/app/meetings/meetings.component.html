@@ -283,12 +283,18 @@
                                         <tr style="background-color: white;">
                                             
                                             <td style="display: table-cell;" id="actionItemhide" style="text-align: center;color:#007bff" colspan="7" >
+                                               <div *ngIf="createPermission === true; else noCreatePermission">
                                                 <a *ngIf="hideActionItem===false" data-toggle="modal" data-target="#myModal_add"
-                                                    style="cursor: pointer;padding-left: 250px; font-size: 14px;"
-                                                    (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
-                                                    <a *ngIf="hideActionItem===true" 
+                                                style="cursor: pointer;padding-left: 250px; font-size: 14px;"
+                                                (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
+                                               </div>
+                                                 <ng-template #noCreatePermission>
+                                                   <a  style="padding-left: 250px; font-size: 13px;color: lightgray"
+                                                    >Add Action Item</a>
+                                                  </ng-template>
+                                                <a *ngIf="hideActionItem===true" 
                                                     style="padding-left: 250px; font-size: 13px;"
-                                                    ></a>
+                                                ></a>
                                             </td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>
                                             <td id="emptycell{{meeting.meetingId}}" style="display: table-cell;"></td>

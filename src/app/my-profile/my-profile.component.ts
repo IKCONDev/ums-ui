@@ -20,7 +20,7 @@ export class MyProfileComponent {
   title = 'My Profile'
   user: Users
   selectedUserProfilePic: Blob;
-  reportingManagerName: string;
+  reportingManagerName: string = '';
   isHovered:boolean=false;
 
   /**
