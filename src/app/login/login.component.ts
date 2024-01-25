@@ -293,7 +293,6 @@ export class LoginComponent {
 
             //login success popup
             localStorage.setItem('count1',String(1))
-            this.toastr.success('Login Success')
             this.errorInfo = ''
             localStorage.setItem('jwtToken', this.loginInfo.token);
             console.log(response.headers.get('token'));
@@ -345,11 +344,21 @@ export class LoginComponent {
                 loginInfo: this.loginInfo
               }
             }
-            this.router.navigate(['home'], {
-              //queryParams: {
-              //'user_token': localStorage.getItem('jwtToken')
-              //}
-            })
+            var loginAttempts = response.headers.get('loginAttempts');
+            var active = response.headers.get('userActive');
+            if(parseInt(loginAttempts) > 3 || active === 'false'){
+              this.router.navigateByUrl('/login')
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+              localStorage.clear();
+              return;
+            }else{
+              this.toastr.success('Login Success')
+              this.router.navigate(['home'], {
+                //queryParams: {
+                //'user_token': localStorage.getItem('jwtToken')
+                //}
+              })
+            }    
             //this.getNotificationCount(this.loginInfo.email);
             console.log(navigationExtras + ' extras')
           } else if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true') {
@@ -401,7 +410,17 @@ export class LoginComponent {
                 loginInfo: this.loginInfo
               }
             }
-            this.router.navigate(['two-step'], navigationExtras);
+            var loginAttempts = response.headers.get('loginAttempts');
+            var active = response.headers.get('userActive');
+            if(parseInt(loginAttempts) > 3 || active === 'false'){
+              this.router.navigateByUrl('/login')
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+              localStorage.clear();
+              return;
+            }
+            else{
+              this.router.navigate(['two-step'], navigationExtras);
+            }
             //this.getNotificationCount(this.loginInfo.email);
             console.log(navigationExtras + ' extras')
           }
@@ -412,27 +431,20 @@ export class LoginComponent {
               this.disableLoginButton=false;
             },1200)
           } else if (error.status === HttpStatusCode.Unauthorized) {
-            this.errorInfo = 'Invalid Credentials'
-            this.toastr.error('Incorrect username or password', 'Login Failure')
+            var loginAttempts = error.headers.get('loginAttempts');
+            var active = error.headers.get('userActive');
+            console.log(loginAttempts)
+            if(parseInt(loginAttempts) > 3 || active === 'false'){
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+            }
+            else{
+              this.errorInfo = 'Invalid Credentials'
+              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempt(s) remaining', 'Login Failure')
+            }
             setTimeout(()=>{
               this.disableLoginButton=false;
             },1200)
-          } else if ( error.status === HttpStatusCode.InternalServerError &&
-            error.error &&
-            error.error.trace &&
-            error.error.trace.includes('UserInactiveException')) {
-            //dont even generate a jwt token for inactive user.
-            this.toastr.error('Provided user account is inactive', 'Account Disabled')
-            setTimeout(()=>{
-              this.disableLoginButton=false;
-            },1200)
-          } else if (error.status === HttpStatusCode.InternalServerError &&  error.error &&
-            error.error.trace &&
-            error.error.trace.includes('LoginAttemptsExceededException')) {
-            this.toastr.error('Account locked due to 3 continuous failed attempts');
-            setTimeout(()=>{
-              this.disableLoginButton=false;
-            },1200)
+        
           }
           // on error clear localstorage
           window.localStorage.clear();
@@ -445,8 +457,6 @@ export class LoginComponent {
       },1200)
     }
   }
-
-  
 
   /**
    * set the email input place holder

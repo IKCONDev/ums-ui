@@ -140,13 +140,11 @@ td {
 
 }
 
-.sorting {
-  background-color: black;
-}
 
-table th {
+
+/* table th {
   background: var(--side-text, #ECF7FC);
-}
+} */
 
 tr.detail {
   display: none;
