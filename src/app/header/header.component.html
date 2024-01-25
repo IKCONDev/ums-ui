@@ -147,7 +147,8 @@
                         </div>
                         <div id="divContent">
                             <p id="heading">Reporting Manager</p>
-                            <p id="headingData">{{reportingManagerName}}</p>
+                            <p *ngIf="reportingManagerName != ''" id="headingData">{{reportingManagerName}}</p>
+                            <p *ngIf="reportingManagerName === ''" id="headingData">NA</p>
                         </div>
                         <div id="divContent">
                             <p id="heading">Two factor authentication</p>

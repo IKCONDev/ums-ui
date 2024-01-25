@@ -24,7 +24,7 @@ export class HeaderComponent implements OnChanges {
   authStatusUpdated: number;
   //user/employee profile property
   userDetails: Users;
-  reportingManagerName: string;
+  reportingManagerName: string = '';
   @Input() unreadNotificationCount = parseInt(localStorage.getItem('notificationCount'));
   loggedInUserId: string;
   userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[];
