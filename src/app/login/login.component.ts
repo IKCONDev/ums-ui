@@ -439,7 +439,7 @@ export class LoginComponent {
             }
             else{
               this.errorInfo = 'Invalid Credentials'
-              this.toastr.error('Incorrect username or password. '+(4-loginAttempts)+' attempts remaining', 'Login Failure')
+              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempt(s) remaining', 'Login Failure')
             }
             setTimeout(()=>{
               this.disableLoginButton=false;
@@ -457,8 +457,6 @@ export class LoginComponent {
       },1200)
     }
   }
-
-  
 
   /**
    * set the email input place holder
