@@ -84,3 +84,48 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
   .no-data-available {
     text-align: center;
   }
+  .ngx-pagination .disabled {
+    padding: 0.1875rem 0.625rem !important;
+    color: #cacaca !important;
+    cursor: default !important;
+}
+.ngx-pagination  {
+    color: black !important;
+    
+}
+.ngx-pagination .current {
+    color: #333 !important;
+    border: 1px solid #979797 !important;
+    background-color: white !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #dcdcdc)) !important;
+    background: -webkit-linear-gradient(top, white 0%, #dcdcdc 100%) !important;
+    background: -moz-linear-gradient(top, white 0%, #dcdcdc 100%) !important;
+    background: -ms-linear-gradient(top, white 0%, #dcdcdc 100%) !important;
+    background: -o-linear-gradient(top, white 0%, #dcdcdc 100%) !important;
+    background: linear-gradient(to bottom, white 0%, #dcdcdc 100%) !important;
+    min-width: 1.5em !important;
+    
+    padding-top: .2em !important;
+    padding-bottom: 1.5em !important;
+    margin-left: 2px !important;
+    border-radius: 2px !important;
+    height: 30px !important;
+
+}
+.ngx-pagination a:not([href]):not([class]):hover {
+    color: white;
+    background-color: black;
+    text-decoration: none;
+}
+
+.ngx-pagination .pagination-previous a:before, .ngx-pagination .pagination-previous.disabled:before {
+    content: "" !important;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.ngx-pagination .pagination-next a:after, .ngx-pagination .pagination-next.disabled:after {
+    content: "" !important;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
