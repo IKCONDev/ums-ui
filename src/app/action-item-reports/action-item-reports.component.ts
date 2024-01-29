@@ -53,7 +53,6 @@ export class ActionItemsReportsComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
-      console.log(this.reportType)
     }) 
   }
 
@@ -71,12 +70,9 @@ export class ActionItemsReportsComponent implements OnInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -157,7 +153,6 @@ export class ActionItemsReportsComponent implements OnInit {
         if(response.status === HttpStatusCode.Ok){
           this.loggedInUserPrincipalObject = response.body;
           this.selectedUserFullName = this.loggedInUserPrincipalObject.employee.firstName+" "+this.loggedInUserPrincipalObject.employee.lastName;
-          console.log(this.selectedUserFullName)
         }
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
@@ -375,7 +370,6 @@ export class ActionItemsReportsComponent implements OnInit {
       this.actionItemsByDepartmentData=[this.actionItemsCountOfDepartment];
         this.actionItemsByDepartmentXLabels=['Total Action items of a department'];
     }
-    console.log(" created graph entered")
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
       type: this.type,
       data: {// values on X-Axis
@@ -554,19 +548,15 @@ deptValueCount : DepartmentCount[] = [];
        next : response =>{
          this.deptMeetingCount = response.body;
         // this.deptValueCount = new  DepartmentCount[this.deptMeetingCount.length];
-         console.log(this.deptMeetingCount);
          var i =0;
          this.deptMeetingCount.forEach(deptCount =>{
            var deptCountString = (String)(deptCount);
-           console.log(deptCountString)
            this.meetingDepartmentCount = deptCountString.split(',');
-           console.log(this.meetingDepartmentCount)
             var deptObject = new DepartmentCount();
             deptObject.deptId = this.meetingDepartmentCount[0]
             deptObject.meetingCount = this.meetingDepartmentCount[1]
            this.deptValueCount.push(deptObject);
          })
-         console.log(this.deptValueCount)
          if(this.actionItemsByDepartmentReportChart ! = null){
            this.actionItemsByDepartmentReportChart.destroy()
           // this.createActionItemsAllDepartmentReportChart()
@@ -582,7 +572,6 @@ deptValueCount : DepartmentCount[] = [];
      this.getAllDepartments();
      //this.deptValueCount1 = new DepartmentCount[this.deptValueCount.length]
      this.departmentList.map(deptList =>{
-      console.log(deptList);
        this.deptValueCount.forEach(deptValue=>{
          if(deptList.departmentId === parseInt(deptValue.deptId) ){
             deptValue.departmentName = deptList.departmentName;
@@ -610,7 +599,6 @@ deptValueCount : DepartmentCount[] = [];
   createActionItemsAllDepartmentReportChart(){
     if(this.type==='line'){
       this.actionItemsAllDepartmentData=[0,this.allActionItemsCount,];
-      console.log(this.allActionItemsCount)
       this.actionItemsAllDepartmentXLabels=['','Total action items of all departments','']
     }else{
       this.actionItemsAllDepartmentData=[this.allActionItemsCount];
@@ -696,20 +684,15 @@ deptValueCount : DepartmentCount[] = [];
   colorOfChartType : any = 'line'
   setChartType(value : any){
     this.type = value;
-    console.log(this.type)
     if(this.reportType == 'department'){
       this.colorOfChartType = value
-      console.log("selected if condition is")
          this.actionItemsByDepartmentReportChart.destroy()
          this.createActionItemsByDepartmentReportChart()
-         console.log("graph created")
     }
     if(this.reportType == 'all' && this.selectedDepartment != null){
       this.colorOfChartType = value
-      console.log("selected if condition is")
          this.actionItemsByDepartmentReportChart.destroy()
          this.createActionItemsByDepartmentReportChart()
-         console.log("graph created")
     }
     
     if(this.reportType == 'all' && this.selectedDepartment== null){
@@ -729,8 +712,6 @@ deptValueCount : DepartmentCount[] = [];
        this.colorOfChartType = value
        this.actionItemsByOrganizerReportChart.destroy()
        this.createActionItemsOfOrganizerReportChart()
-       console.log(this.selectedUser)
-       console.log(this.type)
     }
     
   }
@@ -740,9 +721,7 @@ deptValueCount : DepartmentCount[] = [];
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Action Item Reports')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -751,7 +730,6 @@ deptValueCount : DepartmentCount[] = [];
       }
     }
     )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 

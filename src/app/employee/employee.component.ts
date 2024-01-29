@@ -85,12 +85,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
     if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
       //this.noPermissions = false;
       //provide permission to access this component for the logged in user if view permission exists
-      console.log('exe')
       //get permissions of this component for the user
       var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
       if (menuItemPermissions.includes('View')) {
@@ -171,7 +168,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           this.employeeData.map(employee =>{
            for(var i=0; i< this.employeeCopyData.length; i++){
                if(employee.reportingManager === this.employeeCopyData[i].email){
-                 console.log("matched email is"+ employee.email)
                   employee.reportingManager = this.employeeCopyData[i].firstName+" "+this.employeeCopyData[i].lastName
                 }
           }
@@ -180,8 +176,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           this.getAllDepartments()
           this.isEmployeeDataText = false;
           this.isComponentLoading = false;
-        console.log(this.employeeData);
-        console.log(this.employeeCopyData)
       },
       error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -259,8 +253,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.addEmployee.lastName = this.transformToTitleCase(this.addEmployee.lastName);
       this.addEmployee.employeeOrgId = this.addEmployee.employeeOrgId.toUpperCase();
       this.addEmployee.email = this.addEmployee.email.toLowerCase();
-
-      console.log(this.addEmployee);
       this.addEmployee.createdBy = this.transformToTitleCase(localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'));
       this.addEmployee.createdByEmailId = localStorage.getItem('email').toLowerCase();
       this.employeeservice.createEmployee(this.addEmployee).subscribe({
@@ -324,12 +316,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param employeeid 
    */
   fetchoneEmployeewithDepartment(employeeid: number) {
-    console.log(employeeid)
-
     this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe({
       next: response => {
         this.existingEmployee = response.body;
-        console.log(this.existingEmployee.departmentId);
       },
       error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -341,7 +330,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       for(let department of this.departmentList){
         if(employee.department.departmentId == department.departmentId ){
              employee.department.departmentName = department.departmentName;
-             console.log(employee.department.departmentName);
         }
       }
     } */
@@ -356,12 +344,10 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.departmentservice.getDepartmentList().subscribe(
       response => {
         this.departmentList = response.body;
-        console.log(this.departmentList);
         this.employeeData = this.employeeCopyData;
         this.employeeData.forEach(employee => {
           this.departmentList.forEach(department => {
             if (employee.departmentId === department.departmentId) {
-              console.log(true)
               employee.departmentName = department.departmentName
             }
           })
@@ -374,14 +360,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    */
   getAllDesignations() {
-    console.log("method started");
     this.designationService.getDesignationList().subscribe({
       next: (response) => {
 
         if (response.status === HttpStatusCode.Ok) {
           this.designationList = response.body;
-          console.log(this.designationList);
-
         }
       }
     });
@@ -392,8 +375,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   removeEmployee(employeeOrgId:string,employeeId : number, user : boolean,email:string ) {
-    
-   console.log("the user status is:"+user);
    if(user === true){
       this.toastr.warning("Please delete user with '"+ email+"' to delete employee")
    }else{
@@ -412,7 +393,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
         },
         error: error => {
           this.toastr.error("Error occured while deleting employee '" + employeeOrgId+ "'. Please try again !");
-          console.log("error occured");
         }
       }
       );
@@ -850,34 +830,24 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    */
   checkCheckBoxes() {
-
     var employeeIdsToBeDeleted = [];
     var table = document.getElementById("table");
-    console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByClassName("trbody");
     var value: number[];
     // Loop through each row
     for (var i = 0; i < rows.length; i++) {
-
       var row = rows[i];
-      console.log("the value is" + rows[i]);
-
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-      console.log(checkbox)
       // Check if the checkbox exists in the row
       if (checkbox) {
-
-        console.log("value of checkbox is " + checkbox.value);
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
-          console.log("the checkbox is selected");
           employeeIdsToBeDeleted.push(checkbox.value);
         }
       }
 
     }
-    console.log(employeeIdsToBeDeleted);
     this.deleteEmployeesById(employeeIdsToBeDeleted);
   }
 
@@ -903,23 +873,16 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
         const promises: Promise<void>[] = ids.map(async (id) => {
           const response = await this.employeeservice.getEmployeeWithDepartment(id).toPromise();
           const employeeDataView = response.body;
-   
-          console.log(employeeDataView);
-   
           if (employeeDataView.user === true) {
-            console.log("Active user");
             this.countedData = this.countedData + 1;
           }
         });
    
         await Promise.all(promises);
-        console.log("overall count is", this.countedData);
         if(this.countedData >0){
           this.toastr.warning("Please delete user profile of the employees before you delete employee");
-          console.log("you can't delete employee because there are user profiles");
         }
         else{
-          console.log("you can delete employee because there are no user profiles linked");
           this.employeeservice.deleteAllEmployee(ids).subscribe(
               response => {
                 if (response.status == HttpStatusCode.Ok) {
@@ -944,11 +907,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
   
   getCountOfUsersActive(value : boolean){
     if(value === true){
-      console.log("Active user");
       this.countedData = this.countedData+1;
-
     }
-    console.log(this.countedData)
     return this.countedData
 
   }
@@ -973,7 +933,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       $('.mainCheckBox').prop('checked', false);
     }
     const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
-    console.log(anyUnchecked);
     $('#mainCheckBox').prop('checked', !anyUnchecked);
 
   }
@@ -1096,9 +1055,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Employees')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -1107,7 +1064,6 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 

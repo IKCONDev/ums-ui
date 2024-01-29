@@ -88,13 +88,10 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
-      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+        if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
-        //get permissions of this component for the user
+           //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
           this.viewPermission = true;
@@ -142,8 +139,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         this.designationList = response.body;
           this.isComponentLoading=false;
           this.isDesignationDataText=false;
-        console.log(this.designationList)
-      },
+             },
       error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
@@ -192,7 +188,6 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
         }else if(error.status === HttpStatusCode.Found){
-          console.log(error)
           this.toastr.error("Designation name '"+this.addDesignation.designationName+"' already exists.");
           //document.getElementById('closeAddModal').click();
         }else{
@@ -244,7 +239,6 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    if(isConfirmed){
     this.designationService.deleteDesignation(designationId).subscribe({
       next: (response) => {
-        console.log('exuected')
         if(response.status === HttpStatusCode.Ok){
           var result = response.body;
           this.toastr.success('Designation '+designationId+' deleted successfully.')
@@ -288,12 +282,10 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param departmentId 
    */
   fetchOneDesignation(designationId: number){
-    console.log(designationId)
     this.designationService.getDesignation(designationId).subscribe({
       next: (response)=>{
         if(response.status === HttpStatusCode.Ok){
          this.existingDesignation = response.body;
-         console.log(this.existingDesignation)
         }
       },
       error: (error) => {
@@ -328,10 +320,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.existingDesignation.createdBy = this.transformToTitleCase(this.existingDesignation.createdBy);
 
     this.existingDesignation.modifiedBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
-    console.log(this.existingDesignation)
     this.designationService.updateDesignation(this.existingDesignation).subscribe({
       next: (response) => {
-        console.log('exec')
         if(response.status === HttpStatusCode.PartialContent){
           this.toastr.success('Designation '+this.existingDesignation.id+' updated successfully.')
           document.getElementById('closeUpdateModal').click();
@@ -404,14 +394,12 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
    for(var i=0; i<subCheckBoxes.length; i++){
     if(subCheckBoxes[i].checked){
       this.designationIdsToBeDeleted.push(subCheckBoxes[i].value);
-      console.log(this.designationIdsToBeDeleted);
     }
    }
    //delete the selected departments
    if(this.designationIdsToBeDeleted.length>0){
     var isconfirmed = window.confirm('Are you sure you want to permanently delete these designations ?')
     if(isconfirmed){
-      console.log(this.designationIdsToBeDeleted)
       this.designationService.deleteAllSelectedDesignationsById(this.designationIdsToBeDeleted).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Ok){
@@ -485,9 +473,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
       const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Designations')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
         }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
           this.router.navigateByUrl('/session-timeout');
         }
       },reason => {
@@ -496,7 +482,6 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
       )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 

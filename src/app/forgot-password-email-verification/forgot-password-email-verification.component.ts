@@ -40,7 +40,6 @@ export class ForgotPasswordEmailVerificationComponent {
    * 
    */
   ngOnInit() {
-    console.log('init-Login')
     $(document).ready(function () {
       $('#emailLabel').hide();
       $('#passwordLabel').hide();
@@ -69,7 +68,6 @@ export class ForgotPasswordEmailVerificationComponent {
 
         // Execute when the focus is outside the textbox 
         this.renderer.setAttribute(emailInput, 'placeholder', 'Email ID');
-        console.log('Focus is outside the textbox');
         //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#emailDiv'), 'group');
         //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
       }
@@ -84,26 +82,21 @@ export class ForgotPasswordEmailVerificationComponent {
   setUserEmail(event: any) {
     this.isError = true;
     this.email = event.target.value;
-    console.log(this.email);
     if(this.email.length===0){
       this.disableGetOtp=false;
     }else    
     this.disableGetOtp=true;
     
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
-    console.log(emailRegExp.test(this.email))
     if(emailRegExp.test(this.email)){
       this.emailVerificationService.VerifyEmailAddress(this.email.toLowerCase()).subscribe(
         (response) => {
           this.value = response;
-          console.log("the result is:" + this.value);
           if (this.value == 1) {
-            console.log("Entered email id is a valid one hi");
             this.isError=false;
             this.verificationResponse = "";
             this.disableGetOtp=false;
           }else {
-            console.log("Entered email address is not a registred email address hrllo");
             this.isError = true;
             this.verificationResponse = "Enter valid credentials";
             this.disableGetOtp=true;
@@ -129,20 +122,15 @@ export class ForgotPasswordEmailVerificationComponent {
    */
   disableGetOtp:boolean=false;
   constructOtp() {
-    this.disableGetOtp=true;
-    console.log(this.email);
-    
+    this.disableGetOtp=true;    
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
-    console.log(emailRegExp)
     if(emailRegExp.test(this.email)){
     
     this.isError=false;  
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
         this.result = response;
-        console.log(this.result)
         if (this.result > 0) {
-          console.log('an otp has been sent to your e-mail ' + this.result);
           this.toastr.success("OTP has been sent to your email");
           let navigationExtras: NavigationExtras = {
             state: {
@@ -151,8 +139,6 @@ export class ForgotPasswordEmailVerificationComponent {
           }
           this.router.navigate(['/verify-otp'], navigationExtras);
         } else {
-         
-          console.log('couldnt generate otp please try again or check your email address')
           this.router.navigateByUrl("/verify-email");
         }
       }

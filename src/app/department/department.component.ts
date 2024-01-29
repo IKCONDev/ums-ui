@@ -72,12 +72,9 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -119,7 +116,6 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.employeesAsUser = response.body;
-          console.log(this.employeesAsUser)
         }
       }
     })
@@ -164,7 +160,6 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
         this.departmentDataLoaded=true;
           this.isComponentLoading=false;
           this.isDepartmentDataText=false;
-        console.log(this.departmentList)
       },error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
@@ -231,7 +226,6 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
         }else if(error.status === HttpStatusCode.Found){
-          console.log(error)
           this.toastr.error("Department name '"+this.addDepartment.departmentName+ "' already exists.")
           //document.getElementById('closeAddModal').click();
         }else{
@@ -361,7 +355,6 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
    if(isConfirmed){
     this.departmentService.deleteDepartment(departmentId).subscribe({
       next:(response) => {
-        console.log('exuected')
         if(response.status === HttpStatusCode.Ok){
           var result = response.body;
           this.toastr.success('Department '+departmentId+' deleted successfully.')
@@ -408,12 +401,10 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
    * @param departmentId 
    */
   fetchOneDepartment(departmentId: number){
-    console.log(departmentId)
     this.departmentService.getDepartment(departmentId).subscribe({
       next: (response)=>{
         if(response.status === HttpStatusCode.Ok){
          this.existingDepartment = response.body;
-         console.log(this.existingDepartment)
         }
       },error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){
@@ -467,10 +458,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
 
 
     this.existingDepartment.modifiedBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
-    console.log(this.existingDepartment)
     this.departmentService.updateDepartment(this.existingDepartment).subscribe({
       next: (response) => {
-        console.log('exec')
         if(response.status === HttpStatusCode.Created){
           this.toastr.success("Department "+this.existingDepartment.departmentId +" updated successfully.")
           document.getElementById('closeUpdateModal').click();
@@ -483,7 +472,6 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
           this.router.navigateByUrl('/session-timeout')
         }
         else if(error.status === HttpStatusCode.Found){
-          console.log(error)
           this.toastr.error("Department name '" +this.existingDepartment.departmentName+ "' already exists.")
       }
       }
@@ -654,7 +642,6 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
    for(var i=0; i<subCheckBoxes.length; i++){
     if(subCheckBoxes[i].checked){
       this.departmentIdsToBeDeleted.push(subCheckBoxes[i].value);
-      console.log(this.departmentIdsToBeDeleted);
     }
    }
    //delete the selected departments
@@ -704,7 +691,6 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
       $('#mainCheckBox').prop('checked',false);
     }
     const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
-    console.log(anyUnchecked);
     $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
 
@@ -722,9 +708,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
       const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Departments')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
         }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
           this.router.navigateByUrl('/session-timeout');
         }
       },reason => {
@@ -733,7 +717,6 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
         }
       }
       )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
