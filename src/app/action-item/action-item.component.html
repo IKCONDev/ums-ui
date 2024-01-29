@@ -74,8 +74,14 @@
                     <!-- <th></th> -->
 
                 </thead>
-                <tbody *ngFor="let actionItem of actionItems, let i = index">
-                    <tr *ngIf="isActionItemDataText===false && actionItem.actionStatus === 'Submitted'">
+                <tbody *ngFor="let actionItem of actionItems | paginate
+                : {
+                    itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems: count
+                  };
+                let i = index">
+                    <tr *ngIf="isActionItemDataText===false">
                         <!-- <td><input type="checkbox" class="checkbox" id="modal_checkbox" style="padding-top:10px;"
                                 value="{{actionItem.actionItemId}}"></td>-->
                         <!--<td>{{actionItem.actionItemId}}</td>-->
@@ -188,9 +194,9 @@
                         </td>
                     </tr>
                 </tbody>
-
             </table>
         </div>
+        
         <div>
             <ng-template #noMeetings>
                 <table class="table table-hover">
@@ -211,6 +217,12 @@
         
     </div>
 </div>
+<div style="margin-left: 930px;" class="d-flex justify-content-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)">
+</pagination-controls>
 <div class="container-fluid" *ngIf="viewPermission === false||viewPermission=== null">
     <h2 style="text-align: center;margin-top: 120px;">You don't have permission to view this page</h2>
 </div>

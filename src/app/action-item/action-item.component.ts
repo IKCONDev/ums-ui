@@ -158,6 +158,10 @@ export class ActionItemComponent implements OnInit {
 
   }
 
+  showTasks(actionItemId: number){
+    document.getElementById('table'+actionItemId).style.display = 'block';
+  }
+
   /**
    * 
    */
@@ -171,6 +175,32 @@ export class ActionItemComponent implements OnInit {
   noPermissions: boolean;
   
   buttoncolor: string;
+
+  private table: any;
+
+  /**
+   * 
+   */
+  // InitailizeJqueryDataTable() {
+  //   if(this.table!=null){
+  //     this.table.destroy();
+  //   }
+  //   setTimeout(() => {
+  //     $(document).ready(() => {
+  //       this.table = $('#myTable').DataTable({
+  //         paging: true,
+  //         searching: true, // Enable search feature
+  //         pageLength: 10,
+  //         ordering: true,
+  //         stateSave:true,
+  //         order: [[0, 'asc']],
+  //         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+  //         // Add other options here as needed
+  //       });
+  //     });
+  //   }, 400)
+  // }
+
   async ngOnInit(): Promise<void> {
 
     if (localStorage.getItem('jwtToken') === null) {
@@ -219,6 +249,7 @@ export class ActionItemComponent implements OnInit {
 
           //disable past dates  
           this.pastDateTime();
+          //this.InitailizeJqueryDataTable();
         } else{
           //this.isComponentLoading=false;
           this.viewPermission = false;
@@ -270,7 +301,7 @@ export class ActionItemComponent implements OnInit {
     if (this.selectedReporteeOrganizedActionItem != '') {
       this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
         next: (response) => {
-          console.log(this.actionItems + "--sele")
+          console.log(this.actionItems + "--sele");
           this.actionItems = response.body;
           this.actionItemCount = response.body.length;
           if (this.actionItemCount === 0) {
@@ -1319,6 +1350,20 @@ export class ActionItemComponent implements OnInit {
   //   var popup = document.getElementById("myPopup2");
   //   popup.classList.toggle("show");
   // }
+
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 4;
+  tableSizes: any = [3, 6, 9, 12];
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.getActionItemsOfUser();
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.getActionItemsOfUser();
+  }
 
 }
 

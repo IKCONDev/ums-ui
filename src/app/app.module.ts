@@ -56,6 +56,7 @@ import { ActionItemsReportsComponent } from './action-item-reports/action-item-r
 import { TaskcategoryReportComponent } from './taskcategory-report/taskcategory-report.component';
 import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-map.component';
 import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permission/user-role-menuitem-permission.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -117,10 +118,11 @@ import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permis
     NgSelectModule,
     ReactiveFormsModule,
     NgxUiLoaderModule,
-    DatePipe
+    DatePipe,
     // NgxUiLoaderHttpModule.forRoot({
     //   showForeground:true,
     // }),
+    NgxPaginationModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
