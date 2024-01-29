@@ -70,3 +70,6 @@ a{
     justify-content: space-between ; 
   }
  
+  #chartType:hover{
+    cursor: pointer;
+  }
