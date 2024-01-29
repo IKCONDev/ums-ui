@@ -414,14 +414,14 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
             setTimeout(() => {
               window.location.reload();
             }, 1000);
-          } else {
-            this.toastr.error('Error while deleting role '+id+ '... Please try again !');
           }
         },error: error =>{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
             this.toastr.error('Role already in usage by an user, cannot be deleted.');
+          } else {
+            this.toastr.error('Error while deleting role '+id+ '... Please try again !');
           }
         }
     })
