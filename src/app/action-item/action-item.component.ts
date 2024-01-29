@@ -190,11 +190,9 @@ export class ActionItemComponent implements OnInit {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
       //get menu item  details of home page
       var currentMenuItem = await this.getCurrentMenuItemDetails();
-      console.log(currentMenuItem)
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
        // this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -206,14 +204,12 @@ export class ActionItemComponent implements OnInit {
           this.initializeSlider();
           if (this.selectedReporteeOrganizedActionItem === '') {
             this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
-            console.log(this.selectedReporteeOrganizedActionItem)
           }
 
           this.headerService.fetchUserProfile(this.selectedReporteeOrganizedActionItem).subscribe({
             next: response => {
               this.selectedUserDetails = response.body;
               this.selectedUserdepartmentId = response.body.employee.departmentId;
-              console.log(this.selectedUserdepartmentId);
             }
           })
 
@@ -237,7 +233,6 @@ export class ActionItemComponent implements OnInit {
         if (menuItemPermissions.includes('Create')) {
           this.createPermission = true;
           this.buttoncolor = '#007bff';
-          console.log('create true')
         }else{
           this.createPermission = false;
           this.buttoncolor = 'lightgray'
@@ -274,11 +269,9 @@ export class ActionItemComponent implements OnInit {
   initializeSlider(){
     //show action items slider control code
     $(function () {
-      console.log('function one called');
       var previousRow;
       //  var targetrow=null;
       $('table').on('click', 'a.showmore', function () {
-        console.log('function two called');
         // e.preventDefault();
         //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
         var targetrow = $(this).closest('tr').next('.detail');
@@ -307,7 +300,6 @@ export class ActionItemComponent implements OnInit {
     if (this.selectedReporteeOrganizedActionItem != '') {
       this.service.getUserActionItemsByUserId(this.selectedReporteeOrganizedActionItem).subscribe({
         next: (response) => {
-          console.log(this.actionItems + "--sele");
           this.actionItems = response.body;
           this.actionItemCount = response.body.length;
           if (this.actionItemCount === 0) {
@@ -326,7 +318,6 @@ export class ActionItemComponent implements OnInit {
     } else {
       this.service.getUserActionItemsByUserId(this.loggedInUser).subscribe({
         next: (response) => {
-          console.log(this.actionItems + "def")
           this.actionItems = response.body;
           this.actionItemCount = response.body.length;
           if (this.actionItemCount === 0) {
@@ -352,19 +343,16 @@ export class ActionItemComponent implements OnInit {
   editData(id: number) {
     this.service.getActionItemById(id).subscribe(response => {
       this.actionItems_new = response.body;
-      console.log(this.actionItems_new);
       this.updatedetails.actionItemId = this.actionItems_new.actionItemId;
       this.updatedetails.actionItemDescription = this.actionItems_new.actionItemDescription;
       this.updatedetails.meetingId = this.actionItems_new.meetingId;
       this.updatedetails.actionStatus = this.actionItems_new.actionStatus;
-      console.log(this.actionItems_new.actionItemDescription);
       this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
       this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
       this.updatedetails.startDate = this.actionItems_new.startDate;
       this.updatedetails.endDate = this.actionItems_new.endDate;
 
     });
-    console.log("data fetching");
   }
 
 
@@ -374,12 +362,8 @@ export class ActionItemComponent implements OnInit {
    */
   updateDetails(event: any) {
     this.id = this.updatedetails.actionItemId;
-    console.log(this.updatedetails.actionPriority);
-    console.log(this.id);
-    console.log(this.updatedetails);
     this.service.updateActionItem(this.updatedetails).subscribe(response => {
       this.data = response.body;
-      console.log(this.data);
     });
   }
 
@@ -388,19 +372,15 @@ export class ActionItemComponent implements OnInit {
    */
   ViewTaskDetails(actionItemId: number) {
     this.currentActionItemId = actionItemId;
-    console.log("fetching task details");
     this.service.getAlltasks().subscribe({
       next: (response) => {
         this.task_array = response.body;
-        console.log(this.task_array);
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl('/session-timeout')
         }
       }
     });
-    console.log("request success");
-
   }
 
   /**
@@ -426,12 +406,10 @@ export class ActionItemComponent implements OnInit {
     let isStartDateValid = true;
     if (this.isActionItemTitleValid === false) {
       var valid = this.validateActionTitle();
-      console.log(valid)
       isTitlevalid = valid;
     }
     if (this.isActionItemDescriptionValid === false) {
       var valid = this.validateActionDescription();
-      console.log(valid)
       isDescriptionValid = valid;
     }
     if (!this.isActionItemPriorityValid) {
@@ -450,16 +428,13 @@ export class ActionItemComponent implements OnInit {
       var valid = this.validateActionEndDate();
       isEndDateValid = valid;
     }
-    console.log(isTitlevalid + '' + isDescriptionValid + '' + isEndDateValid + '' + isStartDateValid + '' + isPriorityValid + '' + isOwnervalid)
     if (isTitlevalid === true && isDescriptionValid === true
       && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
-      console.log(this.addDetails);
       this.addDetails.emailId = localStorage.getItem('email');
       this.service.saveActionItem(this.addDetails).subscribe(response => {
         this.response = response.body;
         this.actions_details = response.body;
-        console.log(this.response);
       });
     }
   }
@@ -470,33 +445,22 @@ export class ActionItemComponent implements OnInit {
   checkCheckBoxes() {
     var actionItemsToBeDeleted = [];
     var table = document.getElementById("myTable")
-    console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
     var value: number[];
     // Loop through each row
     for (var i = 0; i < rows.length; i++) {
-
       var row = rows[i];
-      console.log("the value is" + rows[i]);
-
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-      console.log(checkbox)
       // Check if the checkbox exists in the row
       if (checkbox) {
-
-        console.log("value of checkbox is " + checkbox.value);
-
-
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
-          console.log("the checkbox is selected");
           actionItemsToBeDeleted.push(checkbox.value);
         }
       }
 
     }
-    console.log(actionItemsToBeDeleted);
     this.deleteActionItems(actionItemsToBeDeleted);
   }
 
@@ -508,14 +472,11 @@ export class ActionItemComponent implements OnInit {
 
     this.service.deleteSelectedActionItemsByIds(actionItemList).subscribe(res => {
       this.isActionsDeleted = res.body;
-      console.log(this.isActionsDeleted);
       if (this.isActionsDeleted) {
-        console.log("actions deleted");
         this.toastr.success("Action Items deleted");
         window.location.reload();
       }
       else {
-        console.log("actions not deleted");
         this.toastr.error("Action Items are not deleted. Please try again !");
       }
     });
@@ -530,16 +491,13 @@ export class ActionItemComponent implements OnInit {
    */
   deleteData(id: number): any {
     this.actionItem_id = id;
-    console.log("the id is:" + id);
     this.service.deleteActionItem(this.actionItem_id).subscribe(res => {
       this.temp_data = res.body;
-      console.log("the returned value is:", this.temp_data);
       if (this.temp_data === 1) {
-        console.log("record deleted deleted");
         window.location.reload();
       }
       else {
-        console.log("record not deleted");
+        //console.log("record not deleted");
       }
 
     });
@@ -689,7 +647,6 @@ export class ActionItemComponent implements OnInit {
    * @returns 
    */
   validateActionItemOwner() {
-    console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
     if (this.addDetails.actionItemOwner === null) {
       this.actionItemOwnerErrorInfo = 'Owner is required.';
@@ -708,7 +665,6 @@ export class ActionItemComponent implements OnInit {
    */
   validateActionEndDate() {
     // var actionItemEndDate = event.target.value;
-    //console.log(actionItemEndDate);
     if (this.addDetails.endDate === '') {
       this.actionItemEndDateErrorInfo = 'End Date cannot be blank.'
       this.isActionItemEndDateValid = false;
@@ -826,7 +782,6 @@ export class ActionItemComponent implements OnInit {
    */
   validateUpdateActionEndDate() {
     // var actionItemEndDate = event.target.value;
-    //console.log(actionItemEndDate);
     if (this.updatedetails.endDate === '') {
       this.updateActionItemEndDateErrorInfo = 'End Date cannot be blank.'
       this.isUpdateActionItemEndDateValid = false;
@@ -853,12 +808,10 @@ export class ActionItemComponent implements OnInit {
     let isStartDateValid = true;
     if (this.isUpdateActionItemTitleValid === false) {
       var valid = this.validateUpdateActionTitle();
-      console.log(valid)
       isTitlevalid = valid;
     }
     if (this.isUpdateActionItemDescValid === false) {
       var valid = this.validateUpdateActionDescription();
-      console.log(valid)
       isDescriptionValid = valid;
     }
     if (!this.isUpdateActionItemPriorityValid) {
@@ -877,15 +830,12 @@ export class ActionItemComponent implements OnInit {
       var valid = this.validateUpdateActionEndDate();
       isEndDateValid = valid;
     }
-    console.log(isTitlevalid + '' + isDescriptionValid + '' + isEndDateValid + '' + isStartDateValid + '' + isPriorityValid + '' + isOwnervalid)
     if (isTitlevalid === true && isDescriptionValid === true
       && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
-      this.id = this.updatedetails.actionItemId;
-      console.log(this.updatedetails);
+      this.id = this.updatedetails.actionItemId; 
       this.service.updateActionItem(this.updatedetails).subscribe(response => {
         this.data = response.body;
-        console.log(this.data);
       });
       this.toastr.success('Action item updated successfully');
       //need to change this later
@@ -901,14 +851,10 @@ export class ActionItemComponent implements OnInit {
     var isActive: boolean = true;
     // $.ajax({url:"http://localhost:8012/users/getEmail-list/", success: function(result){
     //   this.userEmailIdList = result;
-    //   console.log(result);
-    //   console.log(this.userEmailIdList[0]);
     // }});
     this.meetingsService.getActiveUserEmailIdList().subscribe(
       (response) => {
         this.userEmailIdList = response.body;
-        console.log(response.body);
-        console.log(this.userEmailIdList);
       }
     )
   }
@@ -1103,7 +1049,6 @@ export class ActionItemComponent implements OnInit {
   }
 
   addTask(task: any) {
-    console.log(this.add_Task.taskCategoryId)
     let isTitleValid = true;
     let isDescriptionValid = true;
     let isOwnerValid = true;
@@ -1196,7 +1141,6 @@ export class ActionItemComponent implements OnInit {
     var hours: any = tdate.getHours();
     var minutes: any = tdate.getMinutes();
     this.min = year + "-" + month + "-" + date + "T" + hours + ":" + minutes;
-    console.log(this.min);
   }
 
   /**
@@ -1237,13 +1181,11 @@ export class ActionItemComponent implements OnInit {
    */
   storeReporteeDataOfOrganizedActionItems() {
     localStorage.setItem('selectedReporteeOrganizedActionItem', this.selectedReporteeOrganizedActionItem);
-    console.log(this.selectedReporteeOrganizedActionItem);
     this.selectedReporteeOrganizedActionItem = localStorage.getItem('selectedReporteeOrganizedActionItem')
     if (this.selectedReporteeOrganizedActionItem === 'null') {
       localStorage.setItem('selectedReporteeOrganizedActionItem', this.loggedInUser)
       this.selectedReporteeOrganizedActionItem = localStorage.getItem('selectedReporteeOrganizedActionItem');
     }
-    console.log(this.selectedReporteeOrganizedActionItem)
     window.location.reload();
   }
   /**
@@ -1281,8 +1223,6 @@ export class ActionItemComponent implements OnInit {
     this.isComponentLoading=true;
     this.isActionItemDataText=true;
 
-    console.log(actionItemTitle)
-
     localStorage.setItem("actionItemNameFilter", actionItemTitle);
     localStorage.setItem("actionItemOwnerFilter", actionItemOwner);
     localStorage.setItem("actionItemStartDateFilter", actionItemStartDate);
@@ -1305,19 +1245,16 @@ export class ActionItemComponent implements OnInit {
   getCurrentActionItemDetails(actionItem: ActionItems) {
     localStorage.setItem('currentActionItemPriority', actionItem.actionPriority)
     this.add_Task.taskPriority = localStorage.getItem('currentActionItemPriority');
-    console.log(localStorage.getItem('currentActionItemPriority'));
     localStorage.setItem('currentActionItemPlannedStartDate', actionItem.startDate);
     this.add_Task.plannedStartDate = localStorage.getItem('currentActionItemPlannedStartDate');
     localStorage.setItem('currentActionItemPlannedEndDate', actionItem.endDate);
     this.add_Task.plannedEndDate = localStorage.getItem('currentActionItemPlannedEndDate');
-    console.log(localStorage.getItem('currentActionItemPlannedEndDate'))
   }
 
   getTaskcategories() {
     this.taskService.findTaskCategories().subscribe({
       next: response => {
         this.taskCategoryList = response.body;
-        console.log(response.body)
       }
     })
   }
@@ -1331,9 +1268,7 @@ export class ActionItemComponent implements OnInit {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Action Items')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -1342,8 +1277,6 @@ export class ActionItemComponent implements OnInit {
       }
     }
     )
-
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
@@ -1373,7 +1306,6 @@ export class ActionItemComponent implements OnInit {
   }
   public setItemsPerPage(event) {
     this.tableSize = event;
-    console.log(event);
     localStorage.setItem('actionItemTableSize', event);
 
 }

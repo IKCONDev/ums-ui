@@ -97,13 +97,10 @@ export class LoginComponent {
    */
   async ngOnInit() {
     //check if user is logged in
-    console.log(localStorage.getItem('jwtToken') + "-------------------")
     if (localStorage.getItem('jwtToken') != null) {
       this.router.navigateByUrl('/home')
       //   //this.toastr.warning('You are already logged in. Please logout to login again')
     }
-
-    console.log(this.router.url);
     this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
     this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
     this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordEye'), 'display', 'none');
@@ -112,7 +109,6 @@ export class LoginComponent {
 
     try {
       await this.myMSALObj.handleRedirectPromise();
-      console.log("MSAL initialized.");
     } catch (error) {
       console.error("MSAL initialization error:", error);
     }
@@ -270,7 +266,7 @@ export class LoginComponent {
     setTimeout(()=>{
       this.disableLoginButton=false;
     },2000)
-    console.log('submitted')
+    console.log('Login Process Started')
     if (localStorage.getItem('jwtToken') === null || localStorage.getItem('jwtToken') === "") {
       this.checkLogin();
       this.loginService.logUserIfValid(this.user).subscribe({
@@ -286,8 +282,6 @@ export class LoginComponent {
           const userRPMJSONMap = response.headers.get('userRoleMenuItemsPermissionMap');
           // var userRoleMenuItemPermissionMap = response.headers.get('userRoleMenuItemsPermissionMap');
           // const map = new Map(Object.entries(JSON.parse(userRoleMenuItemPermissionMap)));
-          // console.log(userRoleMenuItemPermissionMap)
-          // console.log(map)
 
           if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
 
@@ -295,7 +289,6 @@ export class LoginComponent {
             localStorage.setItem('count1',String(1))
             this.errorInfo = ''
             localStorage.setItem('jwtToken', this.loginInfo.token);
-            console.log(response.headers.get('token'));
             localStorage.setItem('userRole', this.loginInfo.userRole);
             localStorage.setItem('email', this.loginInfo.email);
             localStorage.setItem('firstName', this.loginInfo.firstName);
@@ -329,7 +322,6 @@ export class LoginComponent {
             localStorage.setItem('attendedMeetingStartDateFilter', '');
             localStorage.setItem('attendedMeetingEndDateFilter', '');
 
-
             //set default values for action item filters
             localStorage.setItem("actionItemNameFilter", '');
             localStorage.setItem("actionItemOwnerFilter", '');
@@ -342,7 +334,6 @@ export class LoginComponent {
 
             localStorage.setItem('selectedUser', localStorage.getItem('email'));
 
-            console.log(localStorage.getItem('userRole'))
             let navigationExtras: NavigationExtras = {
               state: {
                 loginInfo: this.loginInfo
@@ -364,11 +355,9 @@ export class LoginComponent {
               })
             }    
             //this.getNotificationCount(this.loginInfo.email);
-            console.log(navigationExtras + ' extras')
           } else if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true') {
             this.errorInfo = ''
            // localStorage.setItem('jwtToken', this.loginInfo.token);
-            console.log(response.headers.get('token'));
             localStorage.setItem('userRole', this.loginInfo.userRole);
             localStorage.setItem('email', this.loginInfo.email);
             localStorage.setItem('firstName', this.loginInfo.firstName);
@@ -430,7 +419,6 @@ export class LoginComponent {
               this.router.navigate(['two-step'], navigationExtras);
             }
             //this.getNotificationCount(this.loginInfo.email);
-            console.log(navigationExtras + ' extras')
           }
         }, error: error => {
           if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
@@ -441,7 +429,6 @@ export class LoginComponent {
           } else if (error.status === HttpStatusCode.Unauthorized) {
             var loginAttempts = error.headers.get('loginAttempts');
             var active = error.headers.get('userActive');
-            console.log(loginAttempts)
             if(parseInt(loginAttempts) > 3 || active === 'false'){
               this.toastr.error('Provided user account is inactive', 'Account Disabled')
             }
@@ -452,7 +439,6 @@ export class LoginComponent {
             setTimeout(()=>{
               this.disableLoginButton=false;
             },1200)
-        
           }
           // on error clear localstorage
           window.localStorage.clear();
@@ -482,7 +468,6 @@ export class LoginComponent {
       if (!emailInput.contains(event.target)) {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(emailInput, 'placeholder', 'Email Id');
-        console.log('Focus is outside the textbox');
         //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#emailDiv'), 'group');
         //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
       }
