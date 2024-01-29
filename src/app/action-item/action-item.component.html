@@ -56,14 +56,14 @@
                 </ng-option>
             </ng-select>
         </div>
-        <div>
+        <div style="padding-left: 20px;">
             Show<select [(ngModel)]="tableSize" (change)="setItemsPerPage(pageVal.value)" #pageVal>
-                    <option  selected value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="{{actionItemCount}}">All</option>
-                </select>entries
-            </div>
+                <option selected value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="{{actionItemCount}}">All</option>
+            </select>entries
+        </div>
         <!-- reportee dropdown end -->
         <div class="row d-flex" style="margin: 10px;">
             <table class="table table-hover" id="myTable" style="margin: 0px;">
@@ -208,15 +208,13 @@
                     <p style="color: black;">Showing 1 to {{3}} of {{actionItemCount}} entries</p>
                 </div>
                 <div *ngIf="isActionItemDataText===false" class="col d-flex justify-content-end">
-                    <pagination-controls
-                      previousLabel="Previous"
-                      nextLabel="Next"
-                      (pageChange)="onTableDataChange($event)">
-                </pagination-controls>
+                    <pagination-controls previousLabel="Previous" nextLabel="Next"
+                        (pageChange)="onTableDataChange($event)">
+                    </pagination-controls>
                 </div>
             </div>
         </div>
-        
+
         <div>
             <ng-template #noMeetings>
                 <table class="table table-hover">
@@ -228,13 +226,13 @@
                         <th>EndDate</th>
                     </thead>
                 </table>
-                
+
             </ng-template>
             <div *ngIf="displayText===false">
                 <p id="no-meetings">No Action Items Yet ! </p>
             </div>
         </div>
-        
+
     </div>
 </div>
 <div class="container-fluid" *ngIf="viewPermission === false||viewPermission=== null">
@@ -424,9 +422,12 @@
                 <!-- Showing the task criteria -->
                 <span *ngIf="isCriteria===true" style="margin-left: 2px;">
                     <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()">
-                        <svg width="33" height="33" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg" id="svgColor">
+                        <svg width="33" height="33" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            id="svgColor">
                             <g clip-path="url(#clip0_962_516)">
-                                <path d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z" fill="red" />
+                                <path
+                                    d="M22 34H26V22H22V34ZM24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.18 40 8 32.82 8 24C8 15.18 15.18 8 24 8C32.82 8 40 15.18 40 24C40 32.82 32.82 40 24 40ZM22 18H26V14H22V18Z"
+                                    fill="red" />
                             </g>
                             <defs>
                                 <clipPath id="clip0_962_516">
@@ -434,18 +435,21 @@
                                 </clipPath>
                             </defs>
                             <!-- Animation -->
-                            <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.3s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.3s"
+                                repeatCount="indefinite" />
                         </svg>
-                        
-                        <span class="popuptext" id="myPopup"><ol>
-                            <li>Title should have minimum of 5 charcters.</li>
-                            <li>Title should not exceed more than 50 characters.</li>
-                            <li>Description should have minimum of 10 characters.</li>
-                            <li>Description should not exceed more than 250 characters.</li>
-                            <li>Select owner.</li>
-                            <li>Select category.</li>
-                        </ol></span>
-                    </b> 
+
+                        <span class="popuptext" id="myPopup">
+                            <ol>
+                                <li>Title should have minimum of 5 charcters.</li>
+                                <li>Title should not exceed more than 50 characters.</li>
+                                <li>Description should have minimum of 10 characters.</li>
+                                <li>Description should not exceed more than 250 characters.</li>
+                                <li>Select owner.</li>
+                                <li>Select category.</li>
+                            </ol>
+                        </span>
+                    </b>
                 </span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                     (click)="clearErrorMessages(form)">
@@ -461,7 +465,7 @@
                                 style="background-color: #134E69D9; height: 40px;margin-left:30px;width: 530px;">
                                 <label style=" font-size: 18px;margin: 5px;margin-left: -3px;"><b
                                         id="title-label">Title</b><span id="required">*</span></label>
-                                <!--Showing the Assigned task title criteria-->     
+                                <!--Showing the Assigned task title criteria-->
                                 <!-- <b class="popup" (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()" style="margin-left: 421px;">
                                     <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_962_516)">
@@ -503,7 +507,7 @@
                                     <label style="font-size: 18px;margin:5px;margin-left: -3px;"><b
                                             id="description-label">Description</b><span id="required">*</span></label>
 
-                                    <!--Showing the Assigned task description criteria-->        
+                                    <!--Showing the Assigned task description criteria-->
                                     <!-- <b class="popup2" (mouseover)="getPOPUPMessage2()" (mouseout)="getPOPUPMessage2()" style="margin-left: 354px;">
                                         <svg width="31" height="51" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_962_516)">
@@ -526,8 +530,8 @@
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="add_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description"
-                                    minlength="10" maxlength="251"></textarea>
+                                    (keyup)="validateTaskDescription()" placeholder="Enter description" minlength="10"
+                                    maxlength="251"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="errorSpan" style="padding-left: 2px;">{{taskDescriptionErrorInfo}}</span>
                                 </div>
@@ -570,11 +574,12 @@
                                             <td><b>Category</b><span id="required">*</span></td>
                                             <td>
                                                 <span>
-                                                    <ng-select id="taskCategory" 
-                                                        style="width: 348px;margin-top: 6px;padding-left: 10px;padding-top: 7px;font-size:14px;" [(ngModel)]="add_Task.taskCategoryId"
-                                                        name="taskCategory" #taskCategory="ngModel"
-                                                        (change)="validateTaskCategory()">
-                                                        <ng-option disabled selected value [value]="0">select</ng-option>
+                                                    <ng-select id="taskCategory"
+                                                        style="width: 348px;margin-top: 6px;padding-left: 10px;padding-top: 7px;font-size:14px;"
+                                                        [(ngModel)]="add_Task.taskCategoryId" name="taskCategory"
+                                                        #taskCategory="ngModel" (change)="validateTaskCategory()">
+                                                        <ng-option disabled selected value
+                                                            [value]="0">select</ng-option>
                                                         <ng-option *ngFor="let taskCategory of taskCategoryList"
                                                             value="{{taskCategory.taskCategoryId}}">
                                                             {{taskCategory.taskCategoryTitle}}</ng-option>
@@ -583,11 +588,11 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                    
-                                        
+
+
                                         <tr>
                                             <td><b>Priority</b><span id="required"></span></td>
-                                            <td style="padding-left: 0px;padding-top: -6px;" ><span>
+                                            <td style="padding-left: 0px;padding-top: -6px;"><span>
                                                     <!-- <select id="taskPriority" class="form-control form-select"
                                                         [(ngModel)]="add_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
@@ -600,7 +605,8 @@
                                                     </select> -->
                                                     <input type="text" id="taskPriority" class="form-control"
                                                         [(ngModel)]="add_Task.taskPriority" name="taskPriority"
-                                                        #taskPriority="ngModel" readonly style="width: 338px;font-size: 14px;"/>
+                                                        #taskPriority="ngModel" readonly
+                                                        style="width: 338px;font-size: 14px;" />
                                                 </span>
                                                 <!-- <div *ngIf="taskPriorityErrorInfo!=''">
                                                     <span id="errorSpan">{{taskPriorityErrorInfo}}</span>
@@ -641,7 +647,8 @@
                                                         [(ngModel)]="add_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true"
                                                         [class.invalid]="taskPlannedStartDate.invalid && taskPlannedStartDate.touched"
-                                                        (change)="validateTaskDueDate()" disabled style="width: 338px;font-size: 14px;"></span>
+                                                        (change)="validateTaskDueDate()" disabled
+                                                        style="width: 338px;font-size: 14px;"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -651,7 +658,8 @@
                                                         [(ngModel)]="add_Task.plannedEndDate"
                                                         #taskPlannedDueDate="ngModel" required="true"
                                                         [class.invalid]="taskPlannedDueDate.invalid && taskPlannedDueDate.touched"
-                                                        (change)="validateTaskDueDate()" disabled style="width: 338px;font-size: 14px;"></span>
+                                                        (change)="validateTaskDueDate()" disabled
+                                                        style="width: 338px;font-size: 14px;"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -671,8 +679,8 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer" role="alert" style="margin-top:-10px;margin-left: 20px; margin-bottom: -6px;">
-                    <button type="submit" class="btn btn-primary saveButton" (click)="addTask(add_Task)" [disabled]="disableSaveButton"
-                        style="margin-bottom:3px; margin-top: -5px;">Save</button>
+                    <button type="submit" class="btn btn-primary saveButton" (click)="addTask(add_Task)"
+                        [disabled]="disableSaveButton" style="margin-bottom:3px; margin-top: -5px;">Save</button>
                     <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
                     <button type="button" id="closeAddModal" class="btn btn-outline-danger closeButton"
@@ -689,13 +697,13 @@
     <div class="modal-dialog" id="dialog">
         <div class="modal-content">
             <div>
-            <div class="filters-action-item">
-                <div class="filters-parent">
-                    <div class="filters">Filters</div>
-                    <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
-                        data-dismiss="modal" (click)="CloseFilterActionItemModal()" style="cursor: pointer;">
-                </div>
-                <div class="orgMeetingOuterDiv">
+                <div class="filters-action-item">
+                    <div class="filters-parent">
+                        <div class="filters">Filters</div>
+                        <img class="cross-icon" alt="" src="../../assets/images/cross.svg" id="closeModal"
+                            data-dismiss="modal" (click)="CloseFilterActionItemModal()" style="cursor: pointer;">
+                    </div>
+                    <div class="orgMeetingOuterDiv">
                         <!-- <div class="meeting-title-dd">
                       <div class="meeting-title-filter">
                           <input type ="text" #box placeholder="ActionItem Name" name="actitemName" />
@@ -705,15 +713,17 @@
                         <div class="meeting-title-dd">
                             <div class="meeting-title-filter">
                                 <div class="input-container">
-                                    <input type="text" style="width: 298px;" class="form-control" [(ngModel)]="actionItemNameFilter" #boxTitle placeholder="Action item title"
+                                    <input type="text" style="width: 298px;" class="form-control"
+                                        [(ngModel)]="actionItemNameFilter" #boxTitle placeholder="Action item title"
                                         name="taskName" />
                                     <img class="search-icon" alt="" src="../../assets/images/search.svg">
                                 </div>
                             </div>
                         </div>
                         <div class="Organizer">
-                            <div >
-                                <select style="width: 297px;" [(ngModel)]="actionItemOwnerFilter" #boxOwner class="form-control form-select">
+                            <div>
+                                <select style="width: 297px;" [(ngModel)]="actionItemOwnerFilter" #boxOwner
+                                    class="form-control form-select">
                                     <option value="" hidden>Select Organizer</option>
                                     <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">
                                         {{userEmail}}</option>
@@ -722,30 +732,32 @@
                         </div>
                         <div class="date-range">
                             <div class="date-parent">
-                                <input type="date" class="form-control"style="width: 130px;" #boxStart [(ngModel)]="actionItemStartDateFilter" />
+                                <input type="date" class="form-control" style="width: 130px;" #boxStart
+                                    [(ngModel)]="actionItemStartDateFilter" />
                             </div>
                             <div style="font-size: 12px;">To</div>
                             <div class="date-parent">
-                                <input type="date" class="form-control"style="width: 130px;" #boxEnd [(ngModel)]="actionItemEndDateFilter" />
+                                <input type="date" class="form-control" style="width: 130px;" #boxEnd
+                                    [(ngModel)]="actionItemEndDateFilter" />
                             </div>
                         </div>
-                        <div class="date-range"  style="padding-top: 10px;">
+                        <div class="date-range" style="padding-top: 10px;">
                             <div class="date-parent" style="padding-left: 11px;">
-                            <button type="button"   class="submit-button "
-                                (click)="filterActionItemList(boxTitle.value, boxOwner.value, boxStart.value, boxEnd.value)">Apply</button>
+                                <button type="button" class="submit-button "
+                                    (click)="filterActionItemList(boxTitle.value, boxOwner.value, boxStart.value, boxEnd.value)">Apply</button>
                             </div>
                             <div class="date-parent" style="padding-right: 11px;">
-                            <button type="button"   class="delete-button" (click)="resetFilterModal()">Clear</button>
-                        </div>
+                                <button type="button" class="delete-button" (click)="resetFilterModal()">Clear</button>
+                            </div>
                         </div>
                     </div>
-                    
+
                 </div>
-                
-            </div>
+
             </div>
         </div>
     </div>
+</div>
 
 
 

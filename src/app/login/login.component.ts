@@ -336,6 +336,10 @@ export class LoginComponent {
             localStorage.setItem("actionItemStartDateFilter", '');
             localStorage.setItem("actionItemEndDateFilter", '');
 
+            //set default table size for meetings table and action items table
+            localStorage.setItem('actionItemTableSize', "10");
+            localStorage.setItem('meetingTableSize', "10");
+
             localStorage.setItem('selectedUser', localStorage.getItem('email'));
 
             console.log(localStorage.getItem('userRole'))
@@ -402,6 +406,10 @@ export class LoginComponent {
             localStorage.setItem("actionItemOwnerFilter", '');
             localStorage.setItem("actionItemStartDateFilter", '');
             localStorage.setItem("actionItemEndDateFilter", '');
+
+             //set default table size for meetings table and action items table
+            localStorage.setItem('actionItemTableSize', "10");
+            localStorage.setItem('meetingTableSize', "10");
 
             localStorage.setItem('selectedUser', localStorage.getItem('email'));
 

@@ -430,7 +430,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     }
   }
 
-
   /**
    * 
    * @param mainCheckBox check subcheckbox if main checkbox is checked
