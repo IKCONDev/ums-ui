@@ -1987,5 +1987,20 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
+
+  //Pagination code
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 7;
+  tableSizes: any = [3, 6, 9, 12];
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.getMeetings(this.tabOpened);
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.getMeetings(this.tabOpened);
+  }
 }
 

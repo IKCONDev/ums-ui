@@ -195,6 +195,13 @@
                     </tr>
                 </tbody>
             </table>
+            <div *ngIf="isActionItemDataText===false" style="padding-top: 20px;" class="d-flex justify-content-end">
+                <pagination-controls
+                  previousLabel="Prev"
+                  nextLabel="Next"
+                  (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
+            </div>
         </div>
         
         <div>
@@ -217,12 +224,6 @@
         
     </div>
 </div>
-<div style="margin-left: 930px;" class="d-flex justify-content-center">
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      (pageChange)="onTableDataChange($event)">
-</pagination-controls>
 <div class="container-fluid" *ngIf="viewPermission === false||viewPermission=== null">
     <h2 style="text-align: center;margin-top: 120px;">You don't have permission to view this page</h2>
 </div>

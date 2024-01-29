@@ -96,7 +96,13 @@
                         <th id="thead">Send MOM</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let meeting of meetings;let i = index">
+                <tbody *ngFor="let meeting of meetings| paginate
+                : {
+                    itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems: count
+                  };
+                let i = index">
                     <tr *ngIf="isOrganizedMeetingDataText===false">
                         <td >{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
@@ -318,7 +324,13 @@
                     </tr>
                 </tbody>
             </table>
-
+            <div *ngIf="isOrganizedMeetingDataText===false" class="d-flex justify-content-end">
+                <pagination-controls
+                  previousLabel="Prev"
+                  nextLabel="Next"
+                  (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
+            </div>
             <!-- <div id="meeting-headings"></div> -->
             <!-- <div class="col-sm-1">Id</div>
             <div class="col-sm-3">Title</div>
@@ -338,7 +350,6 @@
             <hr style="width: 1340px;"/>
         </div> -->
         </div>
-
         <div *ngIf="displayText===false">
             <p id="no-meetings" *ngIf="meetingCount === 0">No Meetings Organized Yet ! </p>
         </div>

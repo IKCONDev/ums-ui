@@ -1357,9 +1357,10 @@ export class ActionItemComponent implements OnInit {
   //   popup.classList.toggle("show");
   // }
 
+  //Pagination code
   page: number = 1;
   count: number = 0;
-  tableSize: number = 4;
+  tableSize: number = 10;
   tableSizes: any = [3, 6, 9, 12];
   onTableDataChange(event: any) {
     this.page = event;
