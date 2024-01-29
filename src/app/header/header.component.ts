@@ -53,9 +53,7 @@ export class HeaderComponent implements OnChanges {
     this.loggedInUserId = localStorage.getItem('email');
     //get users latest permissions
    var userRoleMenuItemPermissionMap = await this.getLatestUserRoleMenuItemPermissionMapofUser();
-    console.log(userRoleMenuItemPermissionMap)
     var userRPMJSONMap = JSON.stringify(Object.fromEntries(userRoleMenuItemPermissionMap));
-    console.log(userRPMJSONMap)
     localStorage.setItem('userRoleMenuItemPermissionMap',userRPMJSONMap);
     
     this.userProfileDetails();
@@ -68,7 +66,6 @@ export class HeaderComponent implements OnChanges {
       this.userDetails.twoFactorAuthentication = savedState === 'active';
     }
     },1000)
-    console.log('header')
   }
 
  /**
@@ -80,13 +77,11 @@ export class HeaderComponent implements OnChanges {
       response => {
         if(response.status === HttpStatusCode.Ok){
           this.userRoleMenuItemPermissionList = response.body;
-          console.log(response.body);
-          console.log('exe on init' )
         } else if(response.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
         }
       }, reason => {
-        console.log(reason)
+        //console.log(reason)
       }
     )
     var userRoleMenuItemPermissionMap =  await this.prepareUserRoleMenuItemPermissionMapFromList(this.userRoleMenuItemPermissionList);
@@ -113,16 +108,13 @@ export class HeaderComponent implements OnChanges {
    */
   toggleSlider() {
       this.userDetails.twoFactorAuthentication = !this.userDetails.twoFactorAuthentication;
-      console.log(this.userDetails.twoFactorAuthentication)
        // Save the state to local storage
       this.currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
       localStorage.setItem('sliderState', this.currentState);
-      console.log(localStorage.setItem('sliderState', this.currentState));
       //save the updatedauthStatus to db
     this.headerService.updateTwofactorAuthenticationStatus(this.userDetails.twoFactorAuthentication,this.userDetails.email).subscribe(
       (response) =>{
         this.authStatusUpdated = response
-        console.log(response)
       }
     )
   }
@@ -150,12 +142,9 @@ export class HeaderComponent implements OnChanges {
    * 
    */
   userProfileDetails(): any{
-   // console.log(localStorage.getItem('email'));
     this.headerService.fetchUserProfile(localStorage.getItem('email')).subscribe(
       response=>{
         this.userDetails= response.body
-        console.log(this.userDetails)
-        console.log(this.userDetails.userRoles[0].roleName)
         localStorage.setItem('userRole',this.userDetails.userRoles[0].roleName);
        // localStorage.setItem('userRoleMenuItemsPermissionMap',JSON.parse())
         //get reporting manager of employee

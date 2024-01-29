@@ -45,13 +45,11 @@ export class ForgotPasswordOtpValidationComponent {
     //   this.resetTimer();
     // }, 120000);
     const isRefreshed = this.router.routerState.toString();
-    console.log(this.countPageRefresh);
     this.countPageRefresh=0;
     if(isRefreshed){
     this.countPageRefresh = Number(localStorage.getItem("countPageRefresh"));
      this.countPageRefresh+=1;
      localStorage.setItem("countPageRefresh",String(this.countPageRefresh))
-     console.log(this.countPageRefresh);
      if(this.countPageRefresh>1){
        this.router.navigate(['/verify-email'])
        this.countPageRefresh = 0;
@@ -71,7 +69,6 @@ export class ForgotPasswordOtpValidationComponent {
    * 
    */
   ngOnInit() {
-    console.log('init-Login')
     $(document).ready(function () {
       $('#emailLabel').hide();
       $('#passwordLabel').hide();
@@ -152,7 +149,6 @@ export class ForgotPasswordOtpValidationComponent {
       if (!emailInput.contains(event.target)) {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(emailInput, 'placeholder', 'Enter OTP');
-        console.log('Focus is outside the textbox');
         this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#emailDiv'), 'group');
         this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
       }
@@ -180,9 +176,7 @@ export class ForgotPasswordOtpValidationComponent {
     this.emailVerificationService.generateOtpForUser(this.email, 'ForgotPassword').subscribe(
       (response) => {
         this.result = response;
-        console.log(this.result)
         if (this.result > 0) {
-          console.log('otp has been re-sent to your e-mail ' + this.result);
           this.toastr.success("OTP has been sent to your email and is valid for 2 minutes.");
           this.resetTimer();
           this.startTimer();
@@ -193,7 +187,6 @@ export class ForgotPasswordOtpValidationComponent {
           }
           this.router.navigate(['/verify-otp'], navigationExtras);
         } else {
-          console.log('couldnt generate otp please try again or check your email address')
           this.router.navigateByUrl("/verify-email");
         }
       }
@@ -205,14 +198,12 @@ export class ForgotPasswordOtpValidationComponent {
    */
   verifyAndValidateOtp() {
     this.isValidOtp = false;
-    console.log("the otp code is:"+this.otpCode)
     if(this.otpCode != 0 && this.otpCode != undefined){
       this.otpValidationService.verifyUserOtp(this.email, this.otpCode)
       .subscribe((response => {
         this.result = response.body;
         
         if (this.result === 1) {
-          console.log('valid otp - navigate to reset password page')
           this.isValidOtp = true;
           this.OtpResponseMessage = "Valid OTP";
 
@@ -224,7 +215,6 @@ export class ForgotPasswordOtpValidationComponent {
           this.router.navigateByUrl("/reset-password", navigationExtras)
         } 
         else {
-          console.log('Invalid otp please enter a valid one or request for resend otp')
           this.OtpResponseMessage = "Invalid OTP";
           this.verifyButtonDisabled = true;
           let navigationExtras: NavigationExtras = {

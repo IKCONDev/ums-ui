@@ -29,8 +29,6 @@ export class ForgotPasswordResetComponent {
   }
 
   ngOnInit() {
-    console.log(this.router.url);
-    console.log('init-Login')
     this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#newPasswordEye'), 'display','none')
     this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#confirmPasswordEye'), 'display','none')
     $(document).ready(function () {
@@ -61,7 +59,6 @@ export class ForgotPasswordResetComponent {
       if (!emailInput.contains(event.target)) {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(emailInput, 'placeholder', 'New Password');
-        console.log('Focus is outside the textbox');
         //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#nPasswordDiv'), 'group');
         //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#nPasswordLabel'), 'display', 'none');
       }
@@ -82,7 +79,6 @@ export class ForgotPasswordResetComponent {
       if (!emailInput.contains(event.target)) {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(emailInput, 'placeholder', 'Confirm Password');
-        console.log('Focus is outside the textbox');
         //this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#passwordDiv'), 'group');
         //this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#passwordLabel'), 'display', 'none');
       }
@@ -107,13 +103,9 @@ export class ForgotPasswordResetComponent {
       }
       else{
       this.result_value = this.isPasswordvalid(this.newPassword);
-      console.log(this.newPassword);
-  
       if (this.result_value === true) {
-        console.log("Strong password");
         this.passwordCriteria = "Strong Password";
       } else {
-        console.log("Weak password");
         this.passwordCriteria = "Weak Password";
       }
       // Checking the new password and confirm password match or not
@@ -130,7 +122,6 @@ export class ForgotPasswordResetComponent {
         } else {
           this.verificationResponse = "";
         }
-        console.log("password doesn't match");
       }
     }
   }
@@ -139,7 +130,6 @@ export class ForgotPasswordResetComponent {
   setConfirmPassword(event: any) {
     this.isUpdate = true;
     this.confirmPassword = event.target.value;
-    console.log(this.confirmPassword);
   
     if (this.newPassword === this.confirmPassword) {
       if(this.result_value!=false){
@@ -154,7 +144,6 @@ export class ForgotPasswordResetComponent {
     } else {
       if (this.newPassword !== '' && this.confirmPassword !== '') {
         this.verificationResponse = "Password doesn't match";
-        console.log("password doesn't match");
       } else {
         this.verificationResponse = "";
       }
