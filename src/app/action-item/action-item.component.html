@@ -56,6 +56,14 @@
                 </ng-option>
             </ng-select>
         </div>
+        <div>
+            Show<select [(ngModel)]="tableSize" (change)="setItemsPerPage(pageVal.value)" #pageVal>
+                    <option  selected value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="{{actionItemCount}}">All</option>
+                </select>entries
+            </div>
         <!-- reportee dropdown end -->
         <div class="row d-flex" style="margin: 10px;">
             <table class="table table-hover" id="myTable" style="margin: 0px;">
@@ -195,12 +203,17 @@
                     </tr>
                 </tbody>
             </table>
-            <div *ngIf="isActionItemDataText===false" style="padding-top: 20px;" class="d-flex justify-content-end">
-                <pagination-controls
-                  previousLabel="Prev"
-                  nextLabel="Next"
-                  (pageChange)="onTableDataChange($event)">
-            </pagination-controls>
+            <div class="row" style="padding-top: 10px;">
+                <div *ngIf="isActionItemDataText===false" class="col d-flex justify-content-start">
+                    <p style="color: black;">Showing 1 to {{3}} of {{actionItemCount}} entries</p>
+                </div>
+                <div *ngIf="isActionItemDataText===false" class="col d-flex justify-content-end">
+                    <pagination-controls
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      (pageChange)="onTableDataChange($event)">
+                </pagination-controls>
+                </div>
             </div>
         </div>
         

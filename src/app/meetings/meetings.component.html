@@ -84,7 +84,7 @@
                 <option  selected value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
-                <option value="meetingCount">All</option>
+                <option value="{{meetingCount}}">All</option>
             </select>entries
         </div>
         <!-- reportee dropdown end -->
@@ -338,7 +338,7 @@
                 </div>
                 <div *ngIf="isOrganizedMeetingDataText===false" class="col d-flex justify-content-end">
                     <pagination-controls
-                      previousLabel="Prev"
+                      previousLabel="Previous"
                       nextLabel="Next"
                       (pageChange)="onTableDataChange($event)">
                 </pagination-controls>

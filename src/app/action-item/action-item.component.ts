@@ -1360,7 +1360,7 @@ export class ActionItemComponent implements OnInit {
   //Pagination code
   page: number = 1;
   count: number = 0;
-  tableSize: number = 10;
+  tableSize: number = parseInt(localStorage.getItem('actionItemTableSize'));
   tableSizes: any = [3, 6, 9, 12];
   onTableDataChange(event: any) {
     this.page = event;
@@ -1371,6 +1371,12 @@ export class ActionItemComponent implements OnInit {
     this.page = 1;
     this.getActionItemsOfUser();
   }
+  public setItemsPerPage(event) {
+    this.tableSize = event;
+    console.log(event);
+    localStorage.setItem('actionItemTableSize', event);
+
+}
 
 }
 
