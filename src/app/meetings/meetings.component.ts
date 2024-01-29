@@ -1991,7 +1991,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   //Pagination code
   page: number = 1;
   count: number = 0;
-  tableSize: number = 7;
+  tableSize: number = parseInt(localStorage.getItem('tableSize'));
   tableSizes: any = [3, 6, 9, 12];
   onTableDataChange(event: any) {
     this.page = event;
@@ -2002,5 +2002,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.page = 1;
     this.getMeetings(this.tabOpened);
   }
+  public setItemsPerPage(event) {
+    console.log(event)
+    this.tableSize = event;
+    localStorage.setItem('tableSize', event);
+    console.log(localStorage.getItem('tableSize'))
+}
 }
 

@@ -79,6 +79,14 @@
             </ng-select>
         </div>
         <br />
+        <div>
+        Show<select [(ngModel)]="tableSize" (change)="setItemsPerPage(pageVal.value)" #pageVal>
+                <option  selected value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="meetingCount">All</option>
+            </select>entries
+        </div>
         <!-- reportee dropdown end -->
         <div class="row d-flex">
             <!-- id="orgTable" -->
@@ -324,12 +332,17 @@
                     </tr>
                 </tbody>
             </table>
-            <div *ngIf="isOrganizedMeetingDataText===false" class="d-flex justify-content-end">
-                <pagination-controls
-                  previousLabel="Prev"
-                  nextLabel="Next"
-                  (pageChange)="onTableDataChange($event)">
-            </pagination-controls>
+            <div class="row">
+                <div *ngIf="isOrganizedMeetingDataText===false" class="col d-flex justify-content-start">
+                    <p style="color: black;">Showing 1 to {{3}} of {{meetingCount}} entries</p>
+                </div>
+                <div *ngIf="isOrganizedMeetingDataText===false" class="col d-flex justify-content-end">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      (pageChange)="onTableDataChange($event)">
+                </pagination-controls>
+                </div>
             </div>
             <!-- <div id="meeting-headings"></div> -->
             <!-- <div class="col-sm-1">Id</div>

@@ -335,12 +335,12 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
           setTimeout(() => {
             window.location.reload();
           }, 1000);
-        } else {
-          this.toastr.error("Role not updated. Please try again.")
         }
       },error: error =>{
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
+        }else{
+          this.toastr.error("Error occured while updating role. Please try again.")
         }
       }
     })
