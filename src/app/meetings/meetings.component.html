@@ -217,7 +217,7 @@
                                                         <input type="checkbox" id="ac-check{{i}}" class="ac-check"
                                                             value="{{actionItem.actionItemId}}"
                                                             (change)="toggleSubmitAndDeleteButtons(meeting.meetingId,i)"
-                                                            (change)="toggleMainCheckbox(i)" />
+                                                            (change)="toggleMainCheckbox(meeting.meetingId, i)" />
                                                     </ng-template>
                                                 </td>
                                             </ng-container>

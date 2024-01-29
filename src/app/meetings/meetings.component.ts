@@ -138,7 +138,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
     private headerService: HeaderService, private datePipe: DatePipe, private menuItemService: AppMenuItemService) {
     console.log(this.organizedMeetingTitleFilter + "-----------empty");
-    console.log(this.attendedMeetingTitleFilter + "------------empty")
+    console.log(this.attendedMeetingTitleFilter + "------------empty")  
   }
 
   /**
@@ -163,6 +163,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }, 2000)
 
+    
     setTimeout(() => {
       $(document).ready(() => {
         this.table = $('#orgTable').DataTable({
@@ -175,7 +176,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           // Add other options here as needed
         });
       });
-    }, 100)
+    }, 1000)
   }
 
   /**
@@ -1638,17 +1639,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    * @param index 
    */
-  toggleMainCheckbox(index: number) {
-    if ($('#ac-check' + index).is(':checked')) {
-      $('.mainCheckBox').prop('checked', true)
-    }else{
+  toggleMainCheckbox(meetingId, index: number) {
+    const uncheckedCount = $('#myTable' + meetingId + ' .ac-check:not(:checked)').length;
+    console.log(`Unchecked count for Meeting ID ${meetingId}: ${uncheckedCount}`);
 
-    const anyUnchecked = $('.ac-check:not(:checked)').length > 0;
-    console.log(anyUnchecked);
-    $('.mainCheckBox').prop('checked', !anyUnchecked);
-    }
-  }
-  
+    $('.mainCheckBox').prop('checked', uncheckedCount === 0);
+}
+
   //Duration of meeting
   hoursDiff: any
   minutesDiff: any
