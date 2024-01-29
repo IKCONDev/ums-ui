@@ -128,6 +128,10 @@ thead th{
   white-space:nowrap ;
 }
 
+#chartType:hover{
+  cursor: pointer;
+}
+
 
 
   
