@@ -133,28 +133,7 @@ export class ActionItemComponent implements OnInit {
     private headerService: HeaderService, private notificationService: NotificationService,
     private menuItemService: AppMenuItemService) {
 
-    //show action items slider control code
-    $(function () {
-      console.log('function one called');
-      var previousRow;
-      //  var targetrow=null;
-      $('table').on('click', 'a.showmore', function () {
-        console.log('function two called');
-        // e.preventDefault();
-        //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
-        var targetrow = $(this).closest('tr').next('.detail');
-        if (previousRow && previousRow[0] !== targetrow[0]) {
-          previousRow.hide(500).find('div').slideUp('slow');
-        }
-        else if (previousRow && previousRow[0] === targetrow[0]) {
-          targetrow.hide(500).find('div').slideUp('slow');
-          previousRow = null;
-          return;
-        }
-        targetrow.show(1000).find('div').slideDown('slow');
-        previousRow = targetrow;
-      });
-    });
+    
 
   }
 
@@ -168,7 +147,7 @@ export class ActionItemComponent implements OnInit {
   userRoleMenuItemsPermissionMap: Map<string, string>
   @Output() notificationCount: number = 0;
 
-  viewPermission:boolean = true;
+  viewPermission:boolean ;
   createPermission: boolean = false;
   updatePermission: boolean = false;
   deletePermission: boolean = false;
@@ -224,6 +203,7 @@ export class ActionItemComponent implements OnInit {
           this.getActiveUMSUsersEmailIdList();
           //get action items of user
           this.getActionItemsOfUser();
+          this.initializeSlider();
           if (this.selectedReporteeOrganizedActionItem === '') {
             this.selectedReporteeOrganizedActionItem = localStorage.getItem('email');
             console.log(this.selectedReporteeOrganizedActionItem)
@@ -290,6 +270,32 @@ export class ActionItemComponent implements OnInit {
 
   }
 
+
+  initializeSlider(){
+    //show action items slider control code
+    $(function () {
+      console.log('function one called');
+      var previousRow;
+      //  var targetrow=null;
+      $('table').on('click', 'a.showmore', function () {
+        console.log('function two called');
+        // e.preventDefault();
+        //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
+        var targetrow = $(this).closest('tr').next('.detail');
+        if (previousRow && previousRow[0] !== targetrow[0]) {
+          previousRow.hide(500).find('div').slideUp('slow');
+        }
+        else if (previousRow && previousRow[0] === targetrow[0]) {
+          targetrow.hide(500).find('div').slideUp('slow');
+          previousRow = null;
+          return;
+        }
+        targetrow.show(1000).find('div').slideDown('slow');
+        previousRow = targetrow;
+      });
+    });
+
+  }
 
   /**
    * Get action items of logged in user

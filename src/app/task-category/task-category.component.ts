@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, Component, OnInit, Output } from '@angular/core';
 import { TaskCategory } from '../model/TaskCategory.model';
 import { TaskCategoryService } from './service/task-category.service';
 import { HttpStatusCode } from '@angular/common/http';
@@ -14,7 +14,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
   templateUrl: './task-category.component.html',
   styleUrls: ['./task-category.component.css']
 })
-export class TaskCategoryComponent implements OnInit {
+export class TaskCategoryComponent implements OnInit,AfterViewChecked{
  
   @Output() title = 'Task Categories';
   taskCategory: TaskCategory = new TaskCategory();
@@ -91,20 +91,25 @@ export class TaskCategoryComponent implements OnInit {
       }
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          stateSave:true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[1,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-          // Add other options here as needed
-        });
-      });
-    },300)
+  ngAfterViewChecked(): void {
+    this.initializeJqueryTable();
+  }
+
+  dataTableInitialized:boolean=false;
+  initializeJqueryTable(){
+    
+    if(this.taskCategoryDataLoaded&&!this.dataTableInitialized){
+    this.table = $('#table').DataTable({
+      paging: true,
+      searching: true, // Enable search feature
+      pageLength: 10,
+      order: [[0,'asc']],
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      // Add other options here as needed
+    });
+    this.dataTableInitialized = true;
+  
+}
   }
 
   createOrUpdateTaskCategory(){
@@ -115,7 +120,7 @@ export class TaskCategoryComponent implements OnInit {
     }
   }
 
-
+  taskCategoryDataLoaded:boolean=false;
   getAllTaskcategories(){
     this.isComponentLoading=true;
     this.isTaskCategoryDataText=true;
@@ -126,6 +131,7 @@ export class TaskCategoryComponent implements OnInit {
     this.taskCategoryService.getAllTaskCategories().subscribe({
       next: response => {
         this.taskCategoryList = response.body;
+        this.taskCategoryDataLoaded=true;
           this.isComponentLoading=false;
           this.isTaskCategoryDataText=false;
         console.log(response.body)

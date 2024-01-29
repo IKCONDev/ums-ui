@@ -78,9 +78,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     text-align: right;
     padding-top: 0.50em;
 }
-.dataTables_empty {
+/* .dataTables_empty {
     display: none;
-  }
+  } */
   .no-data-available {
     text-align: center;
   }
