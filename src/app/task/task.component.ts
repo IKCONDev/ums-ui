@@ -211,11 +211,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
       //get menu item  details of home page
       var currentMenuItem = await this.getCurrentMenuItemDetails();
-      console.log(currentMenuItem)
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -245,31 +243,21 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             next: response => {
               this.selectedUserDetailsOrganized = response.body;
               this.selectedUserDepartmentIdOrganized = response.body.employee.departmentId;
-              console.log(this.selectedUserDepartmentIdOrganized)
             }
           });
-
           this.selectedUserDepartmentIdOrganized = parseInt(localStorage.getItem('selectedUserDepartmentId'));
-          console.log(this.selectedUserDepartmentIdOrganized)
-          console.log(this.selectedReporteeOrganized)
-
           //get user details of selected assigned user
           this.headerService.fetchUserProfile(this.selectedReporteeAssigned).subscribe({
             next: response => {
               this.selectedUserDetailsOrganized = response.body;
               this.selectedUserDepartmentIdOrganized = response.body.employee.departmentId;
-              console.log(this.selectedUserDepartmentIdOrganized)
             }
           });
 
           this.selectedUserDepartmentIdOrganized = parseInt(localStorage.getItem('selectedUserDepartmentId'));
-          console.log(this.selectedUserDepartmentIdOrganized)
-          console.log(this.selectedReporteeOrganized)
-
           //set default tab to Organized Task when application is opened
           //localStorage.setItem('taskTabOpened', 'OrganizedTask');
           this.tabOpened = localStorage.getItem('taskTabOpened')
-          console.log(this.tabOpened)
           this.getTasks(this.tabOpened);
 
           //get reportees data of logged in user
@@ -331,14 +319,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     this.displayText = true;
     this.isAssignedDataText = true;
     this.isOrganizedDataText = true;
-
     //check logged in user role
     //if (this.loggedInUserRole != 'ADMIN') {
-    console.log(tabOpened)
     localStorage.setItem('taskTabOpened', tabOpened);
     this.tabOpened = localStorage.getItem('taskTabOpened')
-    console.log(localStorage.getItem('taskTabOpened'))
-
     if (this.tabOpened === 'AssignedTask') {
       if (this.selectedReporteeAssigned != '') {
         this.service.getAssignedTasksOfUser(this.selectedReporteeAssigned,
@@ -352,7 +336,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("AssignedTask").style.width = 'fit-content';
               document.getElementById("AssignedTask").style.paddingBottom = '2px';
               document.getElementById("OrganizedTask").style.borderBottom = 'none';
-              console.log(response.body)
               //extract the meetings from response object
               this.assignedTasks = response.body;
               this.assignedTasksCount = response.body.length
@@ -378,7 +361,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           this.assignedTaskStartDateFilter,
           this.assignedTaskEndDateFilter).subscribe({
             next: (response) => {
-              console.log(response.body)
               //extract the meetings from response object
               this.assignedTasks = response.body;
               this.assignedTasksCount = response.body.length
@@ -392,10 +374,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     else {
-      console.log(this.selectedReporteeOrganized)
       //get taskList default without any filters
       if (this.selectedReporteeOrganized != '' && this.selectedReporteeOrganized != null) {
-        console.log('executed selected repportee')
         this.service.getTaskByUserId(this.selectedReporteeOrganized,
           this.filter_Taskname,
           this.filter_Priority,
@@ -416,7 +396,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
                   this.isComponentLoading = false;
                   this.isOrganizedDataText = false;
               }
-              console.log(this.task);
             }, error: (error) => {
               if (error.status === HttpStatusCode.Unauthorized) {
                 this.router.navigateByUrl('/session-timeout');
@@ -426,7 +405,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         //this.InitailizeJqueryDataTable();
       } else {
-        console.log('executed default repportee')
         this.service.getTaskByUserId(localStorage.getItem('email'),
           this.filter_Taskname,
           this.filter_Priority,
@@ -436,7 +414,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             next: (res) => {
               this.task = res.body;
               this.taskCount = res.body.length;
-              console.log(this.task);
             }, error: (error) => {
               if (error.status === HttpStatusCode.Unauthorized) {
                 this.router.navigateByUrl('/session-timeout');
@@ -674,13 +651,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param form 
    */
   updateTaskDetails(form: NgForm) {
-    console.log("entered the update task details");
     var currentDate = new Date();
     var year = currentDate.getFullYear();
     var month = currentDate.getMonth() + 1;
     var day = currentDate.getDate();
     var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
-    console.log(formattedStartDate)
     if (this.update_Task.status === 'Completed') {
       if (this.update_Task.startDate === null || this.update_Task.startDate === "") {
         this.update_Task.startDate = formattedStartDate;
@@ -690,8 +665,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.update_Task.status === 'Inprogress') {
       this.update_Task.startDate = formattedStartDate;
     }
-    console.log(this.update_Task.startDate)
-    console.log(this.update_Task.dueDate)
     let isTitleValid = true;
     let isDescriptionValid = true;
     let isPriorityValid = true;
@@ -727,8 +700,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.update_Task.dueDate < this.update_Task.plannedEndDate && this.update_Task.status === 'Completed' && this.update_Task.dueDate != null) {
         var isConfirmed = window.confirm('This task is being completed before the planned end date, Are you sure you want to proceed ?');
         if (isConfirmed) {
-          console.log(this.update_Task.taskCategoryId);
-          console.log(this.update_Task.taskCategory.taskCategoryId)
           //this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
           this.service.updateTask(this.update_Task).subscribe({
             next: (response) => {
@@ -750,7 +721,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         }
       } else {
-        console.log(this.update_Task.startDate)
         // this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
         this.service.updateTask(this.update_Task).subscribe({
           next: (response) => {
@@ -800,31 +770,22 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   checkCheckBoxes() {
     var tasksToBeDeleted = [];
     var table = document.getElementById("table")
-    console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByClassName("trbody");
     var value: number[];
     // Loop through each row
     for (var i = 0; i < rows.length; i++) {
-
       var row = rows[i];
-      console.log("the value is" + rows[i]);
-
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-      console.log(checkbox)
       // Check if the checkbox exists in the row
       if (checkbox) {
-
-        console.log("value of checkbox is " + checkbox.value);
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
-          console.log("the checkbox is selected");
           tasksToBeDeleted.push(checkbox.value);
         }
       }
 
     }
-    console.log(tasksToBeDeleted);
     this.deleteTasks(tasksToBeDeleted);
 
   }
@@ -860,7 +821,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       for (var i = 0; i < subCheckBoxes.length; i++) {
         if (subCheckBoxes[i].checked) {
           this.tasksTobeDeleted.push(subCheckBoxes[i].value);
-          console.log(this.tasksTobeDeleted);
         }
       }
       if (taskIds.length < 1) {
@@ -870,7 +830,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.service.deleteAllTasksByTaskIds(this.tasksTobeDeleted).subscribe({
         next: (res) => {
           this.istaskDeleted = res.body;
-          console.log(this.istaskDeleted);
           if (this.istaskDeleted) {
             if (taskIds.length > 1) {
               this.toastr.success("Tasks deleted.");
@@ -882,7 +841,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             }, 1000)
           }
           else {
-            console.log("tasks not deleted");
             this.toastr.error("Tasks not deleted. Please try again !");
           }
         }, error: (error) => {
@@ -902,9 +860,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   checkAllCheckBoxes(event: any) {
     var checkbox = event.target.value;
-    console.log("the value is:" + checkbox);
     if (checkbox === 'on') {
-      console.log("checked");
       var table = document.getElementById('myTable1');
       var rows = table.getElementsByTagName('tr')
       for (var i = 0; i < rows.length; i++) {
@@ -927,7 +883,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingService.getActiveUserEmailIdList().subscribe({
       next: (response) => {
         this.userEmailIdList = response.body;
-        console.log(this.userEmailIdList);
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl('/session-timeout');
@@ -1041,25 +996,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param taskOrganizer 
    */
   filterOrganizedTaskList(taskName: string, taskOrganizer: string, taskPriority: string, taskStartDate: string, taskEndDate: string) {
-
-    console.log(this.filter_Taskname + "popop")
-    console.log(this.filter_Priority + "popop")
-    console.log(this.filter_Email_Organizer + "popop")
-    console.log(this.filter_StartDate + "popop")
-    console.log(this.filter_EndDate + "popop")
-
     //close filter modal
     localStorage.setItem('taskNameFilter', taskName);
     localStorage.setItem('taskPriorityFilter', taskPriority);
     localStorage.setItem('taskStartDateFilter', taskStartDate);
     localStorage.setItem('taskEndDateFilter', taskEndDate);
     localStorage.setItem('taskOrganizerFilter', taskOrganizer);
-
-    console.log(localStorage.getItem('taskNameFilter'));
-    console.log(localStorage.getItem('taskPriorityFilter'));
-    console.log(localStorage.getItem('taskStartDateFilter'));
-    console.log(localStorage.getItem('taskEndDateFilter'));
-    console.log(localStorage.getItem('taskOrganizerFilter'));
 
     this.isComponentLoading = true;
     this.isOrganizedDataText = true;
@@ -1085,8 +1027,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     if (localStorage.getItem('taskOrganizerFilter')) {
       this.filter_Email_Organizer = localStorage.getItem('taskOrganizerFilter');
     }
-
-    console.log(this.filter_Taskname + "--------")
     this.service.getTaskByUserId(localStorage.getItem('email'), this.filter_Taskname,
       this.filter_Priority,
       this.filter_Email_Organizer,
@@ -1095,9 +1035,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         next: response => {
           this.isComponentLoading = false;
           this.isOrganizedDataText = false;
-          console.log(response)
         }, error: error => {
-          console.log(error)
+          //console.log(error)
         }
       })
 
@@ -1114,26 +1053,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param taskOrganizer 
    */
   filterAssignedTaskList(taskName: string, taskPriority: string, taskStartDate: string, taskEndDate: string) {
-
-    console.log(taskName)
-    console.log(this.assignedTaskTitleFilter + "popop")
-    console.log(this.assignedTaskPriorityFilter + "popop")
-    //console.log(this.assignedTaskOrganizerFilter + "popop")
-    console.log(this.assignedTaskStartDateFilter + "popop")
-    console.log(this.assignedTaskEndDateFilter + "popop")
-
     //close filter modal
     localStorage.setItem('assignedTaskTitleFilter', taskName);
     localStorage.setItem('assignedTaskPriorityFilter', taskPriority);
     localStorage.setItem('assignedTaskStartDateFilter', taskStartDate);
     localStorage.setItem('assignedTaskEndDateFilter', taskEndDate);
     //localStorage.setItem('assignedTaskOrganizerFilter', taskOrganizer);
-
-    console.log(localStorage.getItem('assignedTaskTitleFilter'));
-    console.log(localStorage.getItem('assignedTaskPriorityFilter'));
-    console.log(localStorage.getItem('assignedTaskStartDateFilter'));
-    console.log(localStorage.getItem('assignedTaskEndDateFilter'));
-    console.log(localStorage.getItem('assignedTaskOrganizerFilter'));
 
     this.isComponentLoading = true;
     this.isAssignedDataText = true;
@@ -1159,8 +1084,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     // if (localStorage.getItem('assignedTaskOrganizerFilter')) {
     //   this.assignedTaskOrganizerFilter = localStorage.getItem('assignedTaskOrganizerFilter');
     // }
-
-    console.log(this.assignedTaskTitleFilter + "--------")
     this.service.getAssignedTasksOfUser(localStorage.getItem('email'), this.assignedTaskTitleFilter,
       this.assignedTaskPriorityFilter,
       //this.assignedTaskOrganizerFilter,
@@ -1169,9 +1092,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
         next: response => {
           this.isComponentLoading = false;
           this.isAssignedDataText = false;
-          console.log(response)
         }, error: error => {
-          console.log(error)
         }
       })
 
@@ -1217,13 +1138,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   storeReporteeDataOfOrganizedTask() {
     localStorage.setItem('selectedReporteeOrganized', this.selectedReporteeOrganized);
-    console.log(this.selectedReporteeOrganized);
     this.selectedReporteeOrganized = localStorage.getItem('selectedReporteeOrganized')
     if (this.selectedReporteeOrganized === 'null') {
       localStorage.setItem('selectedReporteeOrganized', this.loggedInUser)
       this.selectedReporteeOrganized = localStorage.getItem('selectedReporteeOrganized');
     }
-    console.log(this.selectedReporteeOrganized)
     window.location.reload();
   }
 
@@ -1237,13 +1156,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   */
   storeReporteeDataOfAssignedTask() {
     localStorage.setItem('selectedReporteeAssigned', this.selectedReporteeAssigned);
-    console.log(this.selectedReporteeAssigned);
     this.selectedReporteeAssigned = localStorage.getItem('selectedReporteeAssigned')
     if (this.selectedReporteeAssigned === 'null') {
       localStorage.setItem('selectedReporteeAssigned', this.loggedInUser)
       this.selectedReporteeAssigned = localStorage.getItem('selectedReporteeAssigned');
     }
-    console.log(this.selectedReporteeAssigned)
     window.location.reload();
   }
 
@@ -1252,7 +1169,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     this.service.findTaskCategories().subscribe({
       next: response => {
         this.taskCategoryList = response.body;
-        console.log(response.body)
       }
     })
   }
@@ -1262,9 +1178,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Tasks')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -1273,8 +1187,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     )
-
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
@@ -1282,7 +1194,6 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   getPOPUPMessage(){
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
-    console.log("is method executing")
   }
 
   getPOPUPMessage2(){

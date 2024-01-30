@@ -103,12 +103,9 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -258,7 +255,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    * create a new role
    */
   createRole() {
-    console.log('executed')
     let isNameValid = true;
     let isPermissionValid = true;
     //validate on submit
@@ -270,13 +266,11 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
       var valid = this.validatePermissionValue();
       isPermissionValid = valid;
     }
-    console.log(isNameValid)
     //if no form errors submit the form
     if (isNameValid && isPermissionValid) {
       this.addRoleObj.roleName=this.addRoleObj.roleName.toUpperCase();
       this.addRoleObj.createdBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName')); 
       this.addRoleObj.createdByEmailId = localStorage.getItem('email');
-      console.log(this.addRoleObj)
       this.roleService.createRole(this.addRoleObj).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Created) {
@@ -313,7 +307,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     //validate on submit
     if (this.isUpdatedRoleNameValid === false) {
       var valid = this.validateUpdatedRoleName();
-      console.log(valid)
       isNameValid =valid;
     }
     if(this.isUpdatePermissionValueValid === false){
@@ -354,17 +347,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
   getRoleById(id: number) {
     this.roleService.getRole(id).subscribe({
      next: (response) => {
-        // this.existingRole = response.body;
-        // this.existingRole.roleId = this.existingRole.roleId;
-        // this.existingRole.roleName = this.existingRole.roleName;
-        // this.existingRole.createdBy = this.existingRole.createdBy;
-        // this.existingRole.createdByEmailId = this.existingRole.createdByEmailId;
-        // this.existingRole.createdDateTime = this.existingRole.createdDateTime.toString();
-        // this.existingRole.modifiedBy = this.existingRole.modifiedBy;
-        // this.existingRole.modifiedByEmailId = this.existingRole.modifiedByEmailId;
-        // this.existingRole.modifiedDateTime = new Date(this.existingRole.modifiedDateTime).toISOString();
         this.existingRole = response.body;
-        console.log(this.existingRole);
       },error: error =>{
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
@@ -390,7 +373,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
           this.roleList = response.body;
             this.isRoleDataText=false;
             this.isComponentLoading=false;
-          console.log(response.body)
         }
       },error: error =>{
         if(error.status === HttpStatusCode.Unauthorized){
@@ -453,7 +435,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
    for(var i=0; i<subCheckBoxes.length; i++){
     if(subCheckBoxes[i].checked){
       this.roleIdsToBeDeleted.push(subCheckBoxes[i].value);
-      console.log(this.roleIdsToBeDeleted);
     }
    }
    //delete the selected roles
@@ -521,7 +502,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
       //$('#mainCheckBox').css
     }
     const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
-    console.log(anyUnchecked);
     $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
 
@@ -536,9 +516,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
       const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Roles')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
         }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
           this.router.navigateByUrl('/session-timeout');
         }
       },reason => {
@@ -547,7 +525,6 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
         }
       }
       )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 }

@@ -65,12 +65,9 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -121,7 +118,6 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
           this.roleList = response.body;
             this.isRoleDataText=false;
             this.isComponentLoading=false;
-          console.log(response.body)
         }
       },error: error =>{
         if(error.status === HttpStatusCode.Unauthorized){
@@ -136,11 +132,9 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
    * @param id 
    */
    getRoleById(id: number) {
-    console.log(this.menuItemCheckboxes)
     this.roleService.getRole(id).subscribe({
      next: (response) => {
         this.existingRole = response.body;
-        console.log(this.existingRole.menuItems)
         if(this.existingRole.menuItems.length > 0){
           this.existingRole.menuItems.forEach(item => {
             //set existing menu item checkboxes to checked/true
@@ -185,17 +179,14 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
    * @param index 
    */
   storeSelectedMenuItems(event: any, index: number){
-    console.log(event.target.value)
     //if a menu item is checked store the menu item in menuItems array.
     if(event.target.checked === true){
       this.selectedMenuItemIds.push(event.target.value);
-      console.log(this.selectedMenuItemIds)
       this.menuItemList.forEach(menuItem => {
         if(menuItem.menuItemId === parseInt(event.target.value)){
           this.menuItems.push(menuItem);
         }
       })
-      console.log(this.menuItems)
     }else{
       //if a menu item is unchecked, remove the menu item from the menuItems array.
       var unCheckedMenuID = this.selectedMenuItemIds.pop();
@@ -206,17 +197,14 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
         }
         i=i+1;
       })
-      console.log(this.menuItems);
     }
     this.existingRole.menuItems = this.menuItems;
-    console.log(this.existingRole.menuItems);
   }
 
   /**
    * 
    */
   updateRoleWithMenuItems(){
-   console.log(this.existingRole)
     this.roleService.updateRole(this.existingRole).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Created){
@@ -251,9 +239,7 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
       const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Role Menu Items')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
         }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
           this.router.navigateByUrl('/session-timeout');
         }
       },reason => {
@@ -262,7 +248,6 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
         }
       }
       )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 

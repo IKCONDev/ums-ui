@@ -85,12 +85,9 @@ export class OrganizationComponent implements OnInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -132,7 +129,6 @@ export class OrganizationComponent implements OnInit {
     this.orgService.getOrganization(10).subscribe({
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
-          console.log(response.body)
           setTimeout(()=>{
             this.isComponentLoading=false;
             this.isorganizationDataText=false;
@@ -152,8 +148,6 @@ export class OrganizationComponent implements OnInit {
    */
   editInfo() {
     this.isDisable = true
-    console.log(this.isDisable)
-   
   }
 
   /**
@@ -274,7 +268,6 @@ export class OrganizationComponent implements OnInit {
       isOrgContactPersonNumberValid === true && isOrgAddressValid === true && isOrgCountryValid === true && isOrgContactNumberValid === true
       && isOrgContactPersonEmailValid === true && isOrgSuperAdminEmailValid === true && isCompanyEmailValid === true) {
       this.isDisable = false;
-      console.log(isOrgFunctionValid)
       localStorage.setItem('countryCode',this.countryCode)
       if (this.org.orgId === null) {
         this.orgService.saveOrganization(this.org).subscribe({
@@ -290,7 +283,6 @@ export class OrganizationComponent implements OnInit {
       }
       else if (this.org.orgId != 0) {
         localStorage.setItem('countryCode',this.countryCode)
-        console.log('update')
         this.orgService.updateOrganization(this.org).subscribe({
           next: (response) => {
             this.org = response.body;
@@ -608,19 +600,15 @@ onFileChanged(event:any){
     this.toast.warning("Please save organization mandatory details first");
   }
   else{
-  console.log("entered the onfilechanged")
   this.selectedOrgPic = event.target.files[0];
   if (this.selectedOrgPic.size < this.fileSize) {
-      console.log(localStorage.getItem('email'));
       this.orgService.saveOrgPic(this.selectedOrgPic).subscribe(
         (response) => {
           if (response.status === HttpStatusCode.Ok) {
             this.selectedOrgPic = response.body.organizationImage;
             this.org.organizationImage=this.selectedOrgPic;
-            console.log(this.org.organizationImage)
             this.toast.success('Profile pic uploaded succesfully');
-            
-            setTimeout(() => {
+          setTimeout(() => {
               window.location.reload();
             }, 1000);
           } else if (response.status === HttpStatusCode.Unauthorized) {
@@ -652,9 +640,7 @@ onFileChanged(event:any){
       const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Organization')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
         }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
           this.router.navigateByUrl('/session-timeout');
         }
       },reason => {
@@ -663,13 +649,11 @@ onFileChanged(event:any){
         }
       }
       )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
 
   deleteImage(event:Event){
-    console.log("deleted");
     var isConfirmed = window.confirm('Are you sure you want to delete your organization picture ? ');
     event.preventDefault();
     if(isConfirmed){

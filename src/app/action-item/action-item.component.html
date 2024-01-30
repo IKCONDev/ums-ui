@@ -205,7 +205,7 @@
             </table>
             <div class="row" style="padding-top: 10px;">
                 <div *ngIf="isActionItemDataText===false" class="col d-flex justify-content-start">
-                    <p style="color: black;">Showing 1 to {{3}} of {{actionItemCount}} entries</p>
+                    <p style="color: black;">{{entriesInfo}}</p>
                 </div>
                 <div *ngIf="isActionItemDataText===false" class="col d-flex justify-content-end">
                     <pagination-controls previousLabel="Previous" nextLabel="Next"

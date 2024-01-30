@@ -52,12 +52,9 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -134,7 +131,6 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
         this.taskCategoryDataLoaded=true;
           this.isComponentLoading=false;
           this.isTaskCategoryDataText=false;
-        console.log(response.body)
       }
     })
   }
@@ -147,7 +143,6 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
    for(var i=0; i<subCheckBoxes.length; i++){
     if(subCheckBoxes[i].checked){
       this.taskcategoriesToBeDeleted.push(subCheckBoxes[i].value);
-      console.log(this.taskcategoriesToBeDeleted);
     }
    }
    if(this.taskcategoriesToBeDeleted.length>0){
@@ -261,8 +256,6 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
 
 
   createTaskCategory(taskCategory: TaskCategory){
-    console.log(taskCategory.taskCategoryId)
-    console.log('true')
     let isTitleValid = true;
     let isDescriptionValid = true;
     
@@ -372,7 +365,6 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       $('#mainCheckBox').prop('checked', false);
     }
     const anyUnchecked = $('.subCheckBox:not(:checked)').length > 0;
-    console.log(anyUnchecked);
     $('#mainCheckBox').prop('checked', !anyUnchecked);
 
   }
@@ -399,9 +391,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Task Categories')).then(response => {
         if (response.status === HttpStatusCode.Ok) {
           this.currentMenuItem = response.body;
-          console.log(this.currentMenuItem)
         }else if(response.status === HttpStatusCode.Unauthorized){
-          console.log('eit')
           this.router.navigateByUrl('/session-timeout');
         }
       },reason => {
@@ -410,7 +400,6 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
         }
       }
       )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
