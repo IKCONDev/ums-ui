@@ -42,7 +42,6 @@ export class OrganizationService {
      * @returns 
      */
     saveOrganization(org) {
-        console.log(org)
         return this.http.post<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.saveOrganisationUrl}`, org, {
             observe: 'response', headers: new HttpHeaders({
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -57,7 +56,6 @@ export class OrganizationService {
      * @returns 
      */
     updateOrganization(org) {
-        console.log(org)
         return this.http.put<Organization>(`${this.apiGatewayUrl}/${this.adminMicroserviceOrganizationPathUrl}${this.updateOrganisationUrl}`, org, {
             observe: 'response', headers: new HttpHeaders({
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -65,6 +63,12 @@ export class OrganizationService {
             )
         });
     }
+
+    /**
+     * 
+     * @param orgPic 
+     * @returns 
+     */
     saveOrgPic(orgPic:any){
     const userdata = new FormData();
      userdata.append('orgPic',orgPic)

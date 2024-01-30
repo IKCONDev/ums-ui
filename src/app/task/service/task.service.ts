@@ -90,7 +90,6 @@ export class TaskService {
         ), params: params
       })
     } else {
-      console.log('executed - else')
       return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/getall/${email}`, {
         observe: 'response', headers: new HttpHeaders({
           'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -138,7 +137,6 @@ export class TaskService {
     //assignedTaskOrganizerFilter: string,
     assignedTaskStartDateFilter: string,
     assignedTaskEndDateFilter: string) {
-      console.log(assignedTaskTitleFilter)
     if (
       (assignedTaskTitleFilter !== '' && assignedTaskTitleFilter !== 'null') ||
       (assignedTaskPriorityFilter !== '' && assignedTaskPriorityFilter !== 'null') ||
@@ -161,7 +159,6 @@ export class TaskService {
         ), params: params
       })
     }else {
-      console.log('executed - else')
       return this.http.get<Task[]>(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/assigned/${email}`, {
         observe: 'response', headers: new HttpHeaders({
           'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
