@@ -293,6 +293,9 @@ export class ActionItemComponent implements OnInit {
   /**
    * Get action items of logged in user
    */
+
+  reloadPageCount:number;
+  numberCountPerPage:number=0;
   getActionItemsOfUser() {
     this.isComponentLoading = true;
     this.displayText = true;
@@ -306,6 +309,22 @@ export class ActionItemComponent implements OnInit {
             this.isComponentLoading = false;
             this.displayText = false;
           } else {
+
+            if(this.numberCountPerPage===0){
+              if(localStorage.getItem('actionItemTableSize')!=null){
+                this.onTableDataChange(1);
+                this.setItemsPerPage(parseInt(localStorage.getItem('actionItemTableSize')));
+                console.log(parseInt(localStorage.getItem('actionItemTableSize')))
+                this.numberCountPerPage=1;
+                this.reloadPageCount=2
+              }
+            else{
+              this.onTableDataChange(1);
+                this.setItemsPerPage(10);
+                this.numberCountPerPage=1;
+                this.reloadPageCount=0;
+            }
+          }
               this.isComponentLoading = false;
               this.isActionItemDataText = false;
           }
@@ -1298,6 +1317,7 @@ export class ActionItemComponent implements OnInit {
   onTableDataChange(event: any) {
     this.page = event;
     this.getActionItemsOfUser();
+    this.calculateEntriesInfo();
   }
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
@@ -1307,6 +1327,15 @@ export class ActionItemComponent implements OnInit {
   public setItemsPerPage(event) {
     this.tableSize = event;
     localStorage.setItem('actionItemTableSize', event);
+    if(this.reloadPageCount===2){
+      window.location.reload()
+    }
+}
+entriesInfo:string='';
+calculateEntriesInfo() {
+  const start = (this.page - 1) * this.tableSize + 1;
+  const end = Math.min(start + this.tableSize - 1, this.actionItemCount); 
+  this.entriesInfo = `Showing ${start} to ${end} of ${this.actionItemCount} entries`;
 
 }
 
