@@ -658,6 +658,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * 
    * @param tabOpened 
    */
+  numberCountPerPage:number=0;
+  reloadPageCount:number;
   getMeetings(tabOpened: string) {
     this.isComponentLoading = true;
     this.displayText = true;
@@ -686,12 +688,26 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.isComponentLoading = false;
                 this.displayText = false;
               } else {
+                if(this.numberCountPerPage===0){
+                 if(localStorage.getItem('meetingTableSize')!=null){
+                this.onTableDataChange(1);
+                this.setItemsPerPage(parseInt(localStorage.getItem('meetingTableSize')));
+                console.log(parseInt(localStorage.getItem('meetingTableSize')))
+                this.numberCountPerPage=1;
+                this.reloadPageCount=2
+                 }else{
+                  this.onTableDataChange(1);
+                this.setItemsPerPage(10);
+                this.numberCountPerPage=1;
+                this.reloadPageCount=0;
+                 }
+                }
                 //set default time for loading
                 setTimeout(() => {
                  this.isComponentLoading = false;
                  this.isOrganizedMeetingDataText = false;
                 },1500)
-                this.meetings = response.body;
+                this.meetings = response.body;      
               }
               localStorage.setItem('meetingCount', this.meetingCount.toString());
               console.log(this.meetings);
@@ -1996,6 +2012,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   onTableDataChange(event: any) {
     this.page = event;
     this.getMeetings(this.tabOpened);
+   this.calculateEntriesInfo();
   }
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
@@ -2007,6 +2024,15 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tableSize = event;
     localStorage.setItem('meetingTableSize', event);
     console.log(localStorage.getItem('tableSize'))
+    if(this.reloadPageCount===2){
+      window.location.reload()
+    }
+}
+entriesInfo:string='';
+calculateEntriesInfo() {
+  const start = (this.page - 1) * this.tableSize + 1;
+  const end = Math.min(start + this.tableSize - 1, this.meetingCount); 
+  this.entriesInfo = `Showing ${start} to ${end} of ${this.meetingCount} entries`;
 }
 }
 
