@@ -72,7 +72,6 @@ export class ReportComponent implements OnInit {
     this.reportservice.getAllBatchProcessDetails().subscribe(
       res => {
         this.batchDetails = res.body;
-        console.log(this.batchDetails);
         this.batchDetails.filter(batchDetail => {
 
         })
@@ -101,15 +100,12 @@ export class ReportComponent implements OnInit {
     //if(this.taskListByDepartmentChart === null){
       this.chooseDepartment();
     //}
-    console.log('finished')
-    
   }
 
   getDepartments(){
     this.departmentService.getDepartmentList().subscribe({
       next: response => {
         this.departmentList = response.body;
-        console.log(this.departmentList)
       }
     })
   }
@@ -132,13 +128,9 @@ export class ReportComponent implements OnInit {
         startDate.setHours(0,0,0,0);
         endDate.setFullYear(new Date().getFullYear(),11,31);
         endDate.setHours(23,59,59,999);
-        console.log(startDate);
-        console.log(endDate);
       this.reportservice.findAllTasks(startDate.toISOString(),endDate.toISOString()).subscribe({
       next: response => {
-        console.log(response)
         this.taskListCount = response.body;
-        console.log(this.taskListCount)
         if(this.taskListChart != null){
           this.taskListChart.destroy();
         }
@@ -215,13 +207,11 @@ export class ReportComponent implements OnInit {
       next: response => {
         this.taskListByDepartment = response.body;
         this.taskListByDepartmentCount = response.body.length;
-        console.log(response.body)
       }
     })
   }
 
   chooseDepartment() {
-    console.log(this.selectedDepartment)
     if (this.taskListByDepartmentChart != null) {
       this.taskListByDepartmentChart.destroy();
     }
@@ -295,7 +285,6 @@ export class ReportComponent implements OnInit {
     this.reportservice.findAllTasksByTaskOwner(selectedTaskOwner).subscribe({
       next: response => {
         this.taskListByTaskOwner = response.body;
-        console.log(this.taskListByTaskOwner)
         this.taskListByTaskOwnerCount = response.body.length;
       }
     });
@@ -305,7 +294,6 @@ export class ReportComponent implements OnInit {
     this.meetingService.getActiveUserEmailIdList().subscribe({
       next: response => {
         this.umsUsersList = response.body;
-        console.log(this.umsUsersList)
       }
     })
   }
@@ -384,7 +372,6 @@ export class ReportComponent implements OnInit {
       next: response => {
         this.taskListByTaskSeverity = response.body;
         this.taskListByTaskSeverityCount = response.body.length;
-        console.log(this.taskListByTaskSeverityCount)
       }
     })
   }
@@ -393,7 +380,6 @@ export class ReportComponent implements OnInit {
     if (this.taskListByTaskSeverityChart != null) {
       this.taskListByTaskSeverityChart.destroy();
     }
-    console.log(this.selectedTaskSeverity)
     this.getTasksByTaskSeverity(this.selectedTaskSeverity);
     setTimeout(() => {
       this.createTaskListByTaskSeverityChart();
@@ -463,8 +449,6 @@ export class ReportComponent implements OnInit {
       next: response => {
         this.taskListByTaskStatus = response.body;
         this.taskListByTaskStatusCount = response.body.length;
-        console.log(this.taskListByTaskStatus)
-        console.log(this.taskListByTaskStatusCount)
       }
     })
   }
@@ -557,12 +541,10 @@ export class ReportComponent implements OnInit {
 
    // Format the date as a string (optional)
     var formattedDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
-    console.log(formattedDate)
     this.reportservice.findAllAgedTasks(formattedDate).subscribe({
       next: response => {
         this.agedTaskList = response.body;
         this.agedTaskListCount = response.body.length;
-        console.log(response.body)
         setTimeout(() => {
           this.createAgedTaskListChart();
         },300)

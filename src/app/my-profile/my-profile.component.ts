@@ -64,7 +64,6 @@ export class MyProfileComponent {
     this.profileService.getUserprofile(localStorage.getItem('email')).subscribe(
       (response) => {
         this.user = response.body;
-        console.log(this.user);
         //get reporting manager of employee
         this.getEmployee(this.user.employee.reportingManager);
       }
@@ -82,9 +81,6 @@ export class MyProfileComponent {
   onFileChanged(event: any) {
     this.selectedUserProfilePic = event.target.files[0];
     if (this.selectedUserProfilePic.size < this.fileSize) {
-      
-      //execute
-      console.log(localStorage.getItem('email'));
       this.profileService.updateUserProfilePic(localStorage.getItem('email'), this.selectedUserProfilePic).subscribe(
         (response) => {
           if (response.status === HttpStatusCode.Ok) {
@@ -121,7 +117,6 @@ export class MyProfileComponent {
    */
   updateUserInfo() {
     if (this.user.employee != null) {
-      console.log(this.user.employee)
       this.profileService.updateUserInformation(this.user.employee).subscribe({
         next: (response) => {
           if (response.status === HttpStatusCode.Created) {
@@ -148,7 +143,6 @@ export class MyProfileComponent {
   }
 
   deleteImage(event:Event){
-    console.log("deleted");
     var isConfirmed = window.confirm('Are you sure you want to delete your profile picture ? ');
     event.preventDefault();
     if(isConfirmed){

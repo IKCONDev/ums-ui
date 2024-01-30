@@ -40,15 +40,11 @@ export class NotificationsComponent implements OnInit {
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.notificationList = response.body;
-          console.log(this.notificationList);
           this.notificationCount = response.body.length;
           localStorage.setItem('notificationCount',this.notificationCount.toString())
-          console.log(this.notificationCount);
           // this.notificationList.forEach(notification => {
           //    console.log(notification.profilepic)
-      
           //    });
-
           //for each notification set time ago
           // this.notificationList.forEach(notification => {
           //   notification.timeAgoDateTime = new TimeAgo('en-US')
@@ -73,7 +69,6 @@ export class NotificationsComponent implements OnInit {
       this.notificationService.updateNotification(notification).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.PartialContent){
-            console.log(response.body)
           }
         },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
