@@ -86,7 +86,6 @@ export class TaskReportsComponent implements OnInit {
     private menuItemService: AppMenuItemService, private employeeService:EmployeeService) {
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
-      console.log(this.reportType)
     })
   }
 
@@ -105,12 +104,10 @@ export class TaskReportsComponent implements OnInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
 
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -176,7 +173,6 @@ export class TaskReportsComponent implements OnInit {
     this.departmentService.getDepartmentList().subscribe({
       next: response => {
         this.departmentList = response.body;
-        console.log(this.departmentList)
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl('/session-timeout')
@@ -309,12 +305,10 @@ export class TaskReportsComponent implements OnInit {
 
   getTasksByDepartment(selectedDepartment: number) {
     if (selectedDepartment != null) {
-      console.log(selectedDepartment)
       this.taskreportsService.findAllTasksByDepartment(selectedDepartment).subscribe({
         next: response => {
           this.taskListByDepartment = response.body;
           this.taskListByDepartmentCount = response.body.length;
-          console.log(response.body)
           setTimeout(() => {
             this.createTaskListByDepartmentChart();
           }, 400)
@@ -324,7 +318,6 @@ export class TaskReportsComponent implements OnInit {
   }
 
   chooseDepartment() {
-    console.log(this.selectedDepartment)
     if (this.taskListByDepartmentChart != null) {
       this.taskListByDepartmentChart.destroy();
       this.getDepartmentById(parseInt(this.selectedDepartment));
@@ -412,7 +405,6 @@ export class TaskReportsComponent implements OnInit {
     this.taskreportsService.findAllTasksByTaskOwner(selectedTaskOwner).subscribe({
       next: response => {
         this.taskListByTaskOwner = response.body;
-        console.log(this.taskListByTaskOwner)
         this.taskListByTaskOwnerCount = response.body.length;
       }
     });
@@ -422,7 +414,6 @@ export class TaskReportsComponent implements OnInit {
     this.meetingService.getActiveUserEmailIdList().subscribe({
       next: response => {
         this.umsUsersList = response.body;
-        console.log(this.umsUsersList)
       }
     })
   }
@@ -532,7 +523,6 @@ export class TaskReportsComponent implements OnInit {
       next: response => {
         this.taskListByTaskSeverity = response.body;
         this.taskListByTaskSeverityCount = response.body.length;
-        console.log(this.taskListByTaskSeverityCount)
       }
     })
   }
@@ -541,7 +531,6 @@ export class TaskReportsComponent implements OnInit {
     if (this.taskListByTaskSeverityChart != null) {
       this.taskListByTaskSeverityChart.destroy();
     }
-    console.log(this.selectedTaskSeverity)
     this.getTasksByTaskSeverity(this.selectedTaskSeverity);
     setTimeout(() => {
       this.createTaskListByTaskSeverityChart();
@@ -630,8 +619,6 @@ export class TaskReportsComponent implements OnInit {
       next: response => {
         this.taskListByTaskStatus = response.body;
         this.taskListByTaskStatusCount = response.body.length;
-        console.log(this.taskListByTaskStatus)
-        console.log(this.taskListByTaskStatusCount)
       }
     })
   }
@@ -741,12 +728,10 @@ export class TaskReportsComponent implements OnInit {
 
     // Format the date as a string (optional)
     var formattedDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
-    console.log(formattedDate)
     this.taskreportsService.findAllAgedTasks(formattedDate).subscribe({
       next: response => {
         this.agedTaskList = response.body;
         this.agedTaskListCount = response.body.length;
-        console.log(response.body)
         setTimeout(() => {
           this.createAgedTaskListChart();
         }, 300)
@@ -842,19 +827,15 @@ export class TaskReportsComponent implements OnInit {
       next: response => {
         this.deptMeetingCount = response.body;
         // this.deptValueCount = new  DepartmentCount[this.deptMeetingCount.length];
-        console.log(this.deptMeetingCount);
         var i = 0;
         this.deptMeetingCount.forEach(deptCount => {
           var deptCountString = (String)(deptCount);
-          console.log(deptCountString)
           this.meetingDepartmentCount = deptCountString.split(',');
-          console.log(this.meetingDepartmentCount)
           var deptObject = new DepartmentCount();
           deptObject.deptId = this.meetingDepartmentCount[0]
           deptObject.meetingCount = this.meetingDepartmentCount[1]
           this.deptValueCount.push(deptObject);
         })
-        console.log(this.deptValueCount)
         this.getAllDepartmentNames()
 
       }
@@ -865,7 +846,6 @@ export class TaskReportsComponent implements OnInit {
     //this.deptValueCount1 = new DepartmentCount[this.deptValueCount.length]
     this.getDepartments();
     this.departmentList.forEach(deptList => {
-      console.log(deptList);
       this.deptValueCount.forEach(deptValue => {
         if (deptList.departmentId === parseInt(deptValue.deptId)) {
           deptValue.departmentName = deptList.departmentName;
@@ -891,7 +871,6 @@ export class TaskReportsComponent implements OnInit {
   setChartType(value: any) {
     this.ChartType = value;
     this.colorOfChartType = value;
-    console.log(value)
 
     if (this.reportType === "department") {
       this.ChartType = value;
@@ -938,7 +917,6 @@ export class TaskReportsComponent implements OnInit {
     }
     else if (this.reportType === "all") {
       this.ChartType = value;
-      console.log("department is null")
       if (this.taskListByDepartmentChart != null) {
         this.taskListByDepartmentChart.destroy();
         
@@ -1032,9 +1010,7 @@ export class TaskReportsComponent implements OnInit {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Task Reports')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -1043,7 +1019,6 @@ export class TaskReportsComponent implements OnInit {
       }
     }
     )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
