@@ -308,10 +308,11 @@ export class ActionItemComponent implements OnInit {
           if (this.actionItemCount === 0) {
             this.isComponentLoading = false;
             this.displayText = false;
+            console.log("entered if action item count =0")
           } else {
-
             if(this.numberCountPerPage===0){
               if(localStorage.getItem('actionItemTableSize')!=null){
+                console.log("entered if part")
                 this.onTableDataChange(1);
                 this.setItemsPerPage(parseInt(localStorage.getItem('actionItemTableSize')));
                 console.log(parseInt(localStorage.getItem('actionItemTableSize')))
@@ -319,6 +320,7 @@ export class ActionItemComponent implements OnInit {
                 this.reloadPageCount=2
               }
             else{
+              console.log("entered elese part")
               this.onTableDataChange(1);
                 this.setItemsPerPage(10);
                 this.numberCountPerPage=1;
@@ -343,6 +345,23 @@ export class ActionItemComponent implements OnInit {
             this.isComponentLoading = false;
             this.displayText = false;
           } else {
+            if(this.numberCountPerPage===0){
+              if(localStorage.getItem('actionItemTableSize')!=null){
+                console.log("entered if part")
+                this.onTableDataChange(1);
+                this.setItemsPerPage(parseInt(localStorage.getItem('actionItemTableSize')));
+                console.log(parseInt(localStorage.getItem('actionItemTableSize')))
+                this.numberCountPerPage=1;
+                this.reloadPageCount=2
+              }
+            else{
+              console.log("entered elese part")
+              this.onTableDataChange(1);
+                this.setItemsPerPage(10);
+                this.numberCountPerPage=1;
+                this.reloadPageCount=0;
+            }
+          }
               this.isComponentLoading = false;
               this.isActionItemDataText = false;
           }
@@ -1325,9 +1344,11 @@ export class ActionItemComponent implements OnInit {
     this.getActionItemsOfUser();
   }
   public setItemsPerPage(event) {
+    console.log("tis method is called")
     this.tableSize = event;
     localStorage.setItem('actionItemTableSize', event);
     if(this.reloadPageCount===2){
+      console.log("entered for reload count 2")
       window.location.reload()
     }
 }
