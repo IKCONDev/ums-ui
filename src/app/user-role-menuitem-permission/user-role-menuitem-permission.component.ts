@@ -73,12 +73,10 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
 
     if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
       //this.noPermissions = false;
       //provide permission to access this component for the logged in user if view permission exists
-      console.log('exe')
       //get permissions of this component for the user
       var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
       if (menuItemPermissions.includes('View')) {
@@ -184,7 +182,6 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
           this.isComponentLoading = false;
           this.isUserRoleMenuItemPermissionText = false;
           this.roleId = this.userRPMMapList[0].roleId;
-          console.log(this.userRPMMapList)
           this.getRoleDetails(this.roleId);
           // setTimeout(() => {
           //   window.location.reload();
@@ -251,7 +248,6 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     this.addUserRPMMap.permissionIdList = null;
     this.addUserRPMMap.menuItemIdList = null;
     this.unassignedMenuItemList = [];
-    console.log(this.unassignedMenuItemList)
     window.location.reload();
   }
 
@@ -259,13 +255,10 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
    * 
    */
   createUserRoleMenuItemPermissionMapForUser() {
-    console.log(this.addPermissionIdListString);
     if( this.addPermissionIdListString != null  && this.addPermissionIdListString.includes('View')){
-       console.log("menu item contains view permission ");
        this.addUserRPMMap.email = this.selectedUserId;
        this.addUserRPMMap.permissionIdList = this.addPermissionIdListString;
        this.addUserRPMMap.roleId = this.roleId;
-       console.log(this.addUserRPMMap)
        this.userRPMService.createUserRoleMenuItemPermissionMap(this.addUserRPMMap).subscribe({
          next: response => {
            if (response.status === HttpStatusCode.Created) {
@@ -286,7 +279,6 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
        })
     }
     else{
-       console.log("menu item not contains view permission");
        this.toastr.warning("Please select 'View' permission")
     }
     
@@ -345,9 +337,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Assign Menu Items & Permissions')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -356,7 +346,6 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
       }
     }
     )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 

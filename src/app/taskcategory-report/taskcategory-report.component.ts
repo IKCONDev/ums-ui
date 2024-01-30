@@ -48,12 +48,10 @@ export class TaskcategoryReportComponent implements OnInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
 
     if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
       //this.noPermissions = false;
       //provide permission to access this component for the logged in user if view permission exists
-      console.log('exe')
       //get permissions of this component for the user
       var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
       if (menuItemPermissions.includes('View')) {
@@ -103,9 +101,7 @@ export class TaskcategoryReportComponent implements OnInit {
   ) {
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
-      console.log(this.reportType);
       this.value = this.reportType.split(',')
-      console.log(this.value[1])
       this.valueoftaskCategory = this.value[1]
     })
   }
@@ -137,7 +133,6 @@ export class TaskcategoryReportComponent implements OnInit {
   selectedtaskCategoryName: string;
   getchoosenCategory(selectedCategory: string) {
     this.selectedTaskCategory = selectedCategory;
-    console.log(this.selectedTaskCategory);
     if (this.taskListByCategoryChart != null) {
       this.taskListByCategoryChart.destroy();
 
@@ -146,7 +141,6 @@ export class TaskcategoryReportComponent implements OnInit {
     this.taskCategoryReportservice.getAllTasksByTaskCategoryId(parseInt(this.selectedTaskCategory)).subscribe({
       next: response => {
         this.taskListByCategory = response.body;
-        console.log(this.taskListByCategory);
         this.categoryOfTaskCount = response.body.length;
         setTimeout(() => {
           this.createTaskListByDepartmentChart();
@@ -174,7 +168,6 @@ export class TaskcategoryReportComponent implements OnInit {
     this.taskCategoryReportservice.getAllTasksByCategoryCount().subscribe({
       next: response => {
         this.taskCategoryCount = response.body;
-        console.log(this.taskCategoryCount);
         this.taskCategoryCount.forEach(taskCategory1 => {
           var taskCategoryString = (String)(taskCategory1);
           this.taskObjectString = taskCategoryString.split(',')
@@ -203,7 +196,6 @@ export class TaskcategoryReportComponent implements OnInit {
   colorOfChartType: any = 'line';
   setChartType(value: any) {
     this.type = value;
-    console.log(this.type);
 
     if (this.selectedtaskCategoryName == null) {
       this.colorOfChartType = value;
@@ -226,9 +218,7 @@ export class TaskcategoryReportComponent implements OnInit {
   taskByDepartmentXLabels : any[]
   taskCategoryType : string[];
   createTaskListByDepartmentChart() {
-    console.log("create task category chart entered");
     this.taskCategoryType =  this.reportType.split(',')
-    console.log(this.taskCategoryType[0])
     if(this.type === 'line'){
       this.taskByDepartmentData = [0,this.categoryOfTaskCount,];
       this.taskByDepartmentXLabels = ['',this.selectedtaskCategoryName,''];
@@ -311,7 +301,6 @@ export class TaskcategoryReportComponent implements OnInit {
   taskByAllDepartmentData : any[];
   taskByAllDepartmentXLabel : any[];
   createTaskListAllDepartmentChart() {
-    console.log("create task category chart entered");
     if(this.type === 'line'){
        this.taskByAllDepartmentData = [0,this.alltasksCount,];
        this.taskByAllDepartmentXLabel =['','all',''];
@@ -398,9 +387,7 @@ export class TaskcategoryReportComponent implements OnInit {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Task Category Report')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -409,7 +396,6 @@ export class TaskcategoryReportComponent implements OnInit {
       }
     }
     )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 

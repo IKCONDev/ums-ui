@@ -32,17 +32,14 @@ export class TwofactorOtpValidationComponent {
 
       this.email = this.router.getCurrentNavigation().extras.state['email']
       this.jwtToken = this.router.getCurrentNavigation().extras.state['jwtToken']
-      console.log(this.jwtToken);
       this.startTimer();
       // if page refreshed it navigaes to back page
       const isRefreshed = this.router.routerState.toString();
-      console.log(this.countPageRefresh);
       this.countPageRefresh=0;
       if(isRefreshed){
       this.countPageRefresh = Number(localStorage.getItem("countPageRefresh1"));
       this.countPageRefresh+=1;
       localStorage.setItem("countPageRefresh1",String(this.countPageRefresh))
-      console.log(this.countPageRefresh);
       if(this.countPageRefresh>1){
         this.router.navigate(['/login'])
         this.countPageRefresh = 0;
@@ -62,7 +59,6 @@ export class TwofactorOtpValidationComponent {
 
 
   ngOnInit() {
-    console.log('init-Login')
     $(document).ready(function () {
       $('#emailLabel').hide();
       $('#passwordLabel').hide();
@@ -137,7 +133,6 @@ export class TwofactorOtpValidationComponent {
       if (!emailInput.contains(event.target)) {
         // Execute when the focus is outside the textbox
         this.renderer.setAttribute(emailInput, 'placeholder', 'Enter OTP');
-        console.log('Focus is outside the textbox');
         this.renderer.removeClass(this.elementRef.nativeElement.querySelector('#emailDiv'), 'group');
         this.renderer.setStyle(this.elementRef.nativeElement.querySelector('#emailLabel'), 'display', 'none');
       }
@@ -158,9 +153,7 @@ export class TwofactorOtpValidationComponent {
     this.emailVerificationService.generateOtpForUser(this.email,'TwoFactorAuth').subscribe(
       (response) => {
         this.result = response;
-        console.log(this.result)
         if(this.result > 0){
-          console.log('otp has been re-sent to your e-mail '+this.result);
           this.toastr.success("OTP has been sent to your email");
           this.resetTimer();
           this.startTimer();
@@ -185,7 +178,6 @@ export class TwofactorOtpValidationComponent {
     .subscribe((response => {
       this.result = response.body;
       if(this.result === 1){
-        console.log('valid otp - navigate to reset password page')
         this.isValidOtp = true;
         this.OtpResponseMessage ="valid OTP";
         let navigationExtras: NavigationExtras = {
@@ -199,7 +191,6 @@ export class TwofactorOtpValidationComponent {
         localStorage.setItem('count',String(1))
         this.router.navigateByUrl("/home", navigationExtras)
       }else{
-        console.log(' invalid otp please enter a valid one or request for resend otp')
         this.OtpResponseMessage ="Invalid OTP";
         this.verifyButtonDisabled=true;
         let navigationExtras: NavigationExtras = {

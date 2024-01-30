@@ -30,7 +30,6 @@ export class TwofactorAuthenticationComponent {
       //get email from current navigation (this is provided while navigating from pervious page)
       this.email = this.router.getCurrentNavigation().extras.state['loginInfo'].email;
       this.jwtToken = this.router.getCurrentNavigation().extras.state['loginInfo'].token;
-      console.log(this.jwtToken)
       localStorage.removeItem("countPageRefresh1")
   }
 
@@ -53,13 +52,10 @@ export class TwofactorAuthenticationComponent {
    */
   constructOtp() {
     this.typeError=true;
-    console.log(this.email)
     this.twofactorAuthService.generateTfOtpForUser(this.email,'TwoFactorAuth').subscribe(
       (response) => {
         this.result = response;
-        console.log(this.result)
         if (this.result > 0) {
-          console.log('an otp has been sent to your e-mail ' + this.result);
           this.toastr.success("OTP has been sent to your email");
           
           let navigationExtras: NavigationExtras = {
@@ -70,7 +66,6 @@ export class TwofactorAuthenticationComponent {
           }
           this.router.navigate(['/verify-twostep'], navigationExtras);
         } else {
-          console.log('couldnt generate otp please try again or check your email address')
           this.router.navigateByUrl("/two-step");
         }
       }
