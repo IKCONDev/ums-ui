@@ -137,8 +137,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
     private headerService: HeaderService, private datePipe: DatePipe, private menuItemService: AppMenuItemService) {
-    console.log(this.organizedMeetingTitleFilter + "-----------empty");
-    console.log(this.attendedMeetingTitleFilter + "------------empty")  
   }
 
   /**
@@ -184,11 +182,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   */
   initializeActionItemsSlider() {
     $(function () {
-      console.log('function one called');
       var previousRow;
       //  var targetrow=null;
       $('table').on('click', 'a.showmore', function () {
-        console.log('function two called');
         // e.preventDefault();
         //select thec closest tr of where the showmore link is present, and thats where th action items should be displayed
         var targetrow = $(this).closest('tr').next('.detail');
@@ -231,7 +227,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -246,13 +241,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               this.selectedReporteeDepartment = response.body.employee.department.departmentId;
               this.addMeeting.organizerName = this.selectedReporteeName;
               this.addMeeting.departmentId = this.selectedReporteeDepartment;
-              console.log(this.selectedReporteeDepartment)
             }
           });
           //generate action items for user meetings automatically upon component initialization
           this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
             (response => {
-              console.log(response.body)
+             // console.log(response.body)
             })
           )
 
@@ -266,7 +260,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           //set default tab to OrganizedMeetings tab when application is opened
           //localStorage.setItem('tabOpened', 'OrganizedMeeting');
           this.tabOpened = localStorage.getItem('tabOpened')
-          console.log(this.tabOpened)
           this.getMeetings(this.tabOpened);
 
           //disable actionItem btn default
@@ -310,7 +303,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * executes after the initialization of component
    */
   ngAfterViewInit(): void {
-    console.log('executed - After View Init')
     if (this.table = null) {
       setTimeout(() => {
         $(document).ready(() => {
@@ -507,7 +499,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   validateActionStartDate() {
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
-    console.log(this.actionItemStartDate);
     if (this.addDetails.startDate === '') {
       this.actionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isActionItemStartDateValid = false;
@@ -530,7 +521,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @returns 
    */
   validateActionItemOwner() {
-    console.log(this.addDetails.actionItemOwner)
     //var actionItemOwner = event.target.value;
     if (this.addDetails.actionItemOwner === null || this.addDetails.actionItemOwner.length === 0) {
       this.actionItemOwnerErrorInfo = 'Owner is required';
@@ -548,8 +538,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param event 
    */
   validateActionEndDate() {
-    // var actionItemEndDate = event.target.value;
-    //console.log(actionItemEndDate);
     if (this.addDetails.endDate === '') {
       this.actionItemEndDateErrorInfo = 'End Date cannot be blank'
       this.isActionItemEndDateValid = false;
@@ -577,12 +565,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     let isStartDateValid = true;
     if (this.isActionItemTitleValid === false) {
       var valid = this.validateActionTitle();
-      console.log(valid)
       isTitlevalid = valid;
     }
     if (this.isActionItemDescriptionValid === false) {
       var valid = this.validateActionDescription();
-      console.log(valid)
       isDescriptionValid = valid;
     }
     if (!this.isActionItemPriorityValid) {
@@ -601,11 +587,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       var valid = this.validateActionEndDate();
       isEndDateValid = valid;
     }
-    console.log(isTitlevalid + '' + isDescriptionValid + '' + isEndDateValid + '' + isStartDateValid + '' + isPriorityValid + '' + isOwnervalid)
     if (isTitlevalid === true && isDescriptionValid === true
       && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
-      console.log(this.addDetails);
       this.addDetails.meetingId = this.currentMeetingId;
       this.addDetails.emailId = this.selectedReporteeOrganizedMeeting != null ? this.selectedReporteeOrganizedMeeting : this.loggedInUser;
       this.addDetails.departmentId = this.selectedReporteeDepartment;
@@ -613,7 +597,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         next: (response) => {
           this.response = response.body;
           this.actions_details = response.body;
-          console.log(this.response);
           if (response.status === HttpStatusCode.Ok) {
             this.toastr.success('Action item added sucessfully !');
             document.getElementById('closeAddModal').click();
@@ -638,7 +621,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   fetchActionItemsOfEvent(meetingId: number) {
     this.currentMeetingId = meetingId;
-    console.log(meetingId)
     //this.router.navigateByUrl('/meeting-actionitems/'+eventid);
     this.meetingsService.getActionItems().subscribe({
       next: (response => {
@@ -667,13 +649,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isAttendedMeetingDataText = true;
     //re-initailze slider
     this.initializeActionItemsSlider();
-    console.log(tabOpened)
     localStorage.setItem('tabOpened', tabOpened);
     this.tabOpened = localStorage.getItem('tabOpened')
-    console.log(localStorage.getItem('tabOpened'))
-
     if (tabOpened === 'OrganizedMeeting') {
-      console.log(document.getElementById('organizedMeeting'))
       //get user organized meetings
       if (this.selectedReporteeOrganizedMeeting != '') {
         this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, this.organizedMeetingTitleFilter,
@@ -710,22 +688,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.meetings = response.body;      
               }
               localStorage.setItem('meetingCount', this.meetingCount.toString());
-              console.log(this.meetings);
               this.meetings.forEach(meeting => {
                 if (meeting.meetingTranscripts.length > 0) {
                   //enable the transcript icon, if transcript is not available for the meeting
                   meeting.isTranscriptDisabled = false;
-                  console.log('transcript found for the meeting')
-
                   //store the count of transcripts available for the meeting
                   this.transcriptsCount = meeting.meetingTranscripts.length;
-
                   //iterate through transcripts of the meeting and merge it into a single transcript
                   meeting.meetingTranscripts.forEach(transcript => {
                     //split the transcript data properly to display to the user 
                     //get all transcripts of the meeting and display it as single transcript
                     meeting.transcriptData = transcript.transcriptContent.split('\n');
-                    console.log(meeting.transcriptData)
                   })
                 } else {
                   //disable the transcript icon, if transcript is not available for the meeting
@@ -748,22 +721,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               this.meetings = response.body;
               this.meetingCount = response.body.length
               localStorage.setItem('meetingCount', this.meetingCount.toString());
-              console.log(this.meetings);
               this.meetings.forEach(meeting => {
                 if (meeting.meetingTranscripts.length > 0) {
                   //enable the transcript icon, if transcript is not available for the meeting
                   meeting.isTranscriptDisabled = false;
-                  console.log('transcript found for the meeting')
-
                   //store the count of transcripts available for the meeting
                   this.transcriptsCount = meeting.meetingTranscripts.length;
-
                   //iterate through transcripts of the meeting and merge it into a single transcript
                   meeting.meetingTranscripts.forEach(transcript => {
                     //split the transcript data properly to display to the user 
                     //get all transcripts of the meeting and display it as single transcript
                     meeting.transcriptData = transcript.transcriptContent.split('\n');
-                    console.log(meeting.transcriptData)
                   })
                 } else {
                   //disable the transcript icon, if transcript is not available for the meeting
@@ -802,7 +770,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.attendedMeetings = response.body;
               }
               localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
-              console.log(this.attendedMeetings);
             },//next
             error: (error) => {
               if (error.status === HttpStatusCode.Unauthorized) {
@@ -823,7 +790,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               this.attendedMeetings = response.body;
               this.attendedMeetingCount = response.body.length
               localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
-              console.log(this.attendedMeetings);
             },//next
             error: (error) => {
               if (error.status === HttpStatusCode.Unauthorized) {
@@ -863,9 +829,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param meetingId 
    */
   checkCheckboxes(meetingId: number) {
-    console.log(meetingId)
     var table = document.getElementById("myTable" + meetingId)
-    console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
     var value: number[];
@@ -874,17 +838,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       var row = rows[i];
 
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-      console.log(checkbox)
       // Check if the checkbox exists in the row
       if (checkbox) {
-        console.log("value of checkbox is " + checkbox.value);
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
           this.actionItemsToBeDeleted.push(checkbox.value)
         }
       }
     }
-    console.log(" action item's to be deleted are " + this.actionItemsToBeDeleted)
     this.deleteActionItems(this.actionItemsToBeDeleted, meetingId);
   }
 
@@ -901,12 +862,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     var isConfirmed = window.confirm('Are you sure, you really want to delete the selected action items ?');
     if (isConfirmed) {
-      console.log('deleteActionItems()')
       //subscribe to the response
       this.meetingsService.deleteActionItemsOfMeeting(actionItemIds, meetingId).subscribe({
         next: (response) => {
           this.isMetingActionItemsDeleted = response.body;
-          console.log(this.isMetingActionItemsDeleted);
           if (this.isMetingActionItemsDeleted) {
             if (actionItemIds.length > 1) {
               this.toastr.success('Action items are deleted')
@@ -960,11 +919,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       if (value === true) {
-        console.log(checkbox)
-        console.log(value)
         count = (count + 1);
-        console.log(count);
-
         var buttons = document.getElementById('submitAndDelete' + meetingId);
         buttons.style.display = 'table-cell'
         this.hideActionItem=true;
@@ -1004,12 +959,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.actionItemService.getActionItemById(id).subscribe({
       next: (response) => {
         this.actionItems_new = response.body;
-        console.log(this.actionItems_new);
         this.updatedetails.actionItemId = this.actionItems_new.actionItemId;
         this.updatedetails.actionItemDescription = this.actionItems_new.actionItemDescription;
         this.updatedetails.meetingId = this.actionItems_new.meetingId;
         this.updatedetails.actionStatus = this.actionItems_new.actionStatus;
-        console.log(this.actionItems_new.actionItemDescription);
         this.updatedetails.actionItemTitle = this.actionItems_new.actionItemTitle;
         this.updatedetails.actionPriority = this.actionItems_new.actionPriority;
         this.updatedetails.actionItemOwner = this.actionItems_new.actionItemOwner;
@@ -1022,7 +975,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }//error
     });
-    console.log("data fetching");
   }
 
   meetingData: Meeting
@@ -1033,10 +985,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   disableSubmit: Boolean = false;
   submitActionItems(meeting: Meeting) {
-    console.log(meeting.meetingId)
     //this.meetingData = meeting;
     var table = document.getElementById("myTable" + meeting.meetingId)
-    console.log(table)
     //for(var i=0; i<tables.length; i++){
     var rows = table.getElementsByTagName("tr");
     var value: number[];
@@ -1045,34 +995,26 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       var row = rows[i];
 
       var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
-      console.log(checkbox)
       // Check if the checkbox exists in the row
       if (checkbox && checkbox != checkbox[1]) {
-        console.log("value of checkbox is " + checkbox.value);
         // Check the 'checked' property to get the state (true or false)
         if (checkbox.checked) {
           this.actionItemsToBeSubmittedIds.push(checkbox.value)
         }
       }
     }
-    console.log(" action item's to be submitted are " + this.actionItemsToBeSubmittedIds)
     this.actionItemsOfMeeting.filter((action) => {
       //if(action.status === 'NotConverted'){
       var acitems = this.actionItemsToBeSubmittedIds.forEach((acId) => {
-        console.log(acId + " to be submitted")
         if (acId == action.actionItemId) {
-          console.log(acId + " to be submitted")
           this.actionItemsToBeSubmitted.push(action);
         }
       })
       //}
     });
-    console.log(this.actionItemsToBeSubmitted);
-
     this.meetingsService.submitActionItems(this.actionItemsToBeSubmitted, meeting).subscribe({
       next: (response) => {
         this.disableSubmit = true;
-        console.log(response.body)
         var isActionItemsSubmitted = response.body;
         this.toastr.success('Action items submitted successfully')
         setTimeout(() => {
@@ -1098,7 +1040,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.transcriptMeetingId = meetingId;
     this.meetingSubject = meetingSubject;
     this.meetingTrasncriptData = meetingTransriptData;
-    console.log(this.meetingSubject);
   }
 
   userEmailIdList: string[];
@@ -1258,7 +1199,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateUpdateActionStartDate() {
     //var actionItemStartDate = event.target.value;
-    console.log(this.actionItemStartDate);
     if (this.updatedetails.startDate === '') {
       this.updateActionItemStartDateErrorInfo = 'Start Date cannot be blank'
       this.isUpdateActionItemStartDateValid = false;
@@ -1308,12 +1248,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     let isStartDateValid = true;
     if (this.isUpdateActionItemTitleValid === false) {
       var valid = this.validateUpdateActionTitle();
-      console.log(valid)
       isTitlevalid = valid;
     }
     if (this.isUpdateActionItemDescValid === false) {
       var valid = this.validateUpdateActionDescription();
-      console.log(valid)
       isDescriptionValid = valid;
     }
     if (!this.isUpdateActionItemPriorityValid) {
@@ -1332,7 +1270,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       var valid = this.validateUpdateActionEndDate();
       isEndDateValid = valid;
     }
-    console.log(isTitlevalid + '' + isDescriptionValid + '' + isEndDateValid + '' + isStartDateValid + '' + isPriorityValid + '' + isOwnervalid)
     if (isTitlevalid === true && isDescriptionValid === true
       && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
@@ -1341,7 +1278,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.actionItemService.updateActionItem(this.updatedetails).subscribe({
         next: (response) => {
           this.data = response.body;
-          console.log(this.data);
           //var modal = document.getElementById('myModal');
           //modal.setAttribute('data-dismiss','modal');
           document.getElementById('closeUpdateModal').click();
@@ -1370,9 +1306,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     //var mainChekckBox = event.checked;
     var mainCheckBox = document.getElementById('actionItemMainCheck' + meetingId) as HTMLInputElement;
     if (mainCheckBox.checked === true) {
-      console.log(mainCheckBox.checked + " in if")
       var table = document.getElementById("myTable" + meetingId)
-      console.log(table)
       var rows = table.getElementsByTagName("tr");
       // Loop through each row
       for (var i = 0; i < rows.length; i++) {
@@ -1384,21 +1318,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
 
       var buttons = document.getElementById('submitAndDelete' + meetingId);
-      console.log('executed')
       buttons.style.display = 'table-cell'
       var emptyCell = document.getElementById('emptycell' + meetingId);
       emptyCell.style.display = 'none'
     } else {
-
-      console.log(mainCheckBox.checked + " in else")
       var table = document.getElementById("myTable" + meetingId)
-      console.log(table)
       var rows = table.getElementsByTagName("tr");
       if (mainCheckBox.checked === false) {
-        console.log("entering the if method")
-        console.log("te length of the row " + rows.length)
         for (var j = 0; j < rows.length; j++) {
-          console.log('in for loop ' + j)
           var row = rows[j];
           var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
           if (checkbox.checked) {
@@ -1436,7 +1363,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   // }
 
   onMaterialGroupChange(event) {
-    console.log(event);
+   // console.log(event);
   }
 
   /**
@@ -1445,7 +1372,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   meetingToCompare: Meeting;
   fetchUserOrganizedMeetings(meeting: any) {
-
     /*this.meetingsService.getMeetingObject(meeting.meetingId).subscribe(
          response =>{
            console.log(response.body);
@@ -1456,7 +1382,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
          }
      )*/
     this.meetingData = meeting;
-    console.log(this.meetingData);
   }
 
 
@@ -1475,17 +1400,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
         //console.log("loop executed successfully"+i);
       }
     }
-    console.log("the entered discussion points:" + this.discussionPoints);
-    console.log(this.SendActionItemList);
-    console.log("entered sendmom email method");
-    // let isEmailvalid = true;
-
-    // if(!this.isemailforSendMoMEmailValid){
-    //   var valid = this.validateMoMEmail();
-    //   isEmailvalid = valid;
-
-    // }
-    //  if (isEmailvalid == true) {
     this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints, this.hoursDiff, this.minutesDiff).subscribe({
       next: (response) => {
         if (response.status == HttpStatusCode.Ok) {
@@ -1558,13 +1472,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid) {
       //create meeting
       this.createButtonDisabled=true;
-      console.log(this.addMeeting)
       this.meetingsService.createMeeting(this.addMeeting).subscribe({
         next: (response) => {
           if (response.status === HttpStatusCode.Created) {
             //get the created meeting
             this.createdMeeting = response.body;
-            console.log(response.body);
             this.toastr.success('Meeting created successfully');
             document.getElementById('closeCreateMeetingModal').click();
             setTimeout(() => {
@@ -1657,8 +1569,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   toggleMainCheckbox(meetingId, index: number) {
     const uncheckedCount = $('#myTable' + meetingId + ' .ac-check:not(:checked)').length;
-    console.log(`Unchecked count for Meeting ID ${meetingId}: ${uncheckedCount}`);
-
     $('.mainCheckBox').prop('checked', uncheckedCount === 0);
 }
 
@@ -1678,18 +1588,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   
     this.hoursDiff = Math.floor(timeDifference / millisecondsInHour);
     this.minutesDiff = Math.floor((timeDifference % millisecondsInHour) / millisecondsInMinute);
-    console.log(this.hoursDiff);
-    console.log(this.minutesDiff);
   }
   emailListErrorInfo = '';
   isemailforSendMoMEmailValid = false;
   validateMoMEmail() {
-
     if (this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0) {
       this.emailListErrorInfo = 'choose the emailId to send Email';
       this.isemailforSendMoMEmailValid = false;
-      console.log("Email List is" + this.emailListForsendingMOM);
-
     }
     else {
       this.isemailforSendMoMEmailValid = true;
@@ -1727,13 +1632,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   storeReporteeDataOfOrganizedMeeting() {
     localStorage.setItem('selectedReporteeOrganizedMeeting', this.selectedReporteeOrganizedMeeting);
-    console.log(this.selectedReporteeOrganizedMeeting);
     this.selectedReporteeOrganizedMeeting = localStorage.getItem('selectedReporteeOrganizedMeeting')
     if (this.selectedReporteeOrganizedMeeting === 'null') {
       localStorage.setItem('selectedReporteeOrganizedMeeting', this.loggedInUser)
       this.selectedReporteeOrganizedMeeting = localStorage.getItem('selectedReporteeOrganizedMeeting');
     }
-    console.log(this.selectedReporteeOrganizedMeeting)
     window.location.reload();
   }
 
@@ -1742,13 +1645,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   */
   storeReporteeDataOfAssignedMeeting() {
     localStorage.setItem('selectedReporteeAssignedMeeting', this.selectedReporteeAssignedMeeting);
-    console.log(this.selectedReporteeAssignedMeeting);
     this.selectedReporteeAssignedMeeting = localStorage.getItem('selectedReporteeAssignedMeeting')
     if (this.selectedReporteeAssignedMeeting === 'null') {
       localStorage.setItem('selectedReporteeAssignedMeeting', this.loggedInUser)
       this.selectedReporteeAssignedMeeting = localStorage.getItem('selectedReporteeAssignedMeeting');
     }
-    console.log(this.selectedReporteeAssignedMeeting)
     window.location.reload();
   }
 
@@ -1761,31 +1662,21 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   newStartDate: Date;
   newEndDate: Date;
   filterOrganizedMeetingList(meetingTitle: string, startDate: string, endDate: string) {
-    console.log(meetingTitle + " " + startDate + " " + endDate);
     // this.newStartDate = new Date(startDate);
     let StartDateTimestampUTC: string | null = "";
     let endDateTimestampUTC: string | null = "";
 
     if (startDate != "") {
-      console.log('not null for start')
       const StartDateTimestamp = new Date(startDate);
       StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
 
     if (endDate != "") {
-      console.log('not null for enddate')
       const endDateTimestamp = new Date(endDate);
       endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
-
-    console.log(StartDateTimestampUTC);
-    console.log(endDateTimestampUTC)
-
-    console.log(this.newStartDate);
     this.organizedMeetingTitleFilter = meetingTitle;
     this.organizedMeetingStartDateFilter = startDate;
-
-    console.log(this.organizedMeetingStartDateFilter);
     this.organizedMeetingEndDateFilter = endDate;
 
     localStorage.setItem('organizedMeetingTitleFilter', meetingTitle);
@@ -1839,22 +1730,17 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     let StartDateTimestampUTC: string | null = "";
     let endDateTimestampUTC: string | null = "";
     if (meetingStartDateTime != "") {
-      console.log('not null for start')
       const StartDateTimestamp = new Date(meetingStartDateTime);
-      
       StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
 
     if (meetingEndDateTime != "") {
-      console.log('not null for enddate')
       const endDateTimestamp = new Date(meetingEndDateTime);
       endDateTimestampUTC = this.datePipe.transform(endDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
     }
     this.attendedMeetingTitleFilter = meetingTitle;
     this.attendedMeetingStartDateFilter = meetingStartDateTime;
     this.attendedMeetingEndDateFilter = meetingEndDateTime;
-    console.log(this.attendedMeetingStartDateFilter);
-    console.log(this.attendedMeetingEndDateFilter);
     localStorage.setItem('attendedMeetingTitleFilter', meetingTitle);
     localStorage.setItem('attendedMeetingStartDateFilter', meetingStartDateTime);
     localStorage.setItem('attendedMeetingEndDateFilter', meetingEndDateTime);
@@ -1863,9 +1749,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.attendedMeetingTitleFilter, StartDateTimestampUTC.toString(), endDateTimestampUTC.toString()).subscribe({
         next: response => {
           if (response.status === HttpStatusCode.Ok) {
-            console.log("executed")
             this.attendedMeetings = response.body;
-            console.log(this.attendedMeetings)
             this.attendedMeetingCount = response.body.length;
             this.closeFilterModal();
           }
@@ -1888,12 +1772,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     //attendeeEmailList.push('dhanush.akunuri@ikcontech.com')
     //attendeeEmailList.push('dhanush.akunuri@ikcontech.com')
-    console.log(attendeeEmailList);
     // Call the service to get employee names based on email IDs
     this.employeeService.getAllEmployeesByAttendeeEmailId(attendeeEmailList).subscribe({
       next: (response) => {
         this.attendeeEmployeeName = response.body;
-        console.log(this.attendeeEmployeeName);
         // Perform further actions with retrieved attendee names if needed
       },
       error: (err) => {
@@ -1922,11 +1804,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   
             this.meetingList.forEach(meeting => {
               var newActionItemList = this.actionItemList.filter(actionItem => actionItem.meetingId === meeting.meetingId);
-
-                console.log(newActionItemList+"------"+meeting.meetingId)
               if (newActionItemList.length === 0) {
                 newActionItemList===null;
-                console.log("entered"+'===='+meeting.meetingId)
                 this.disableMomButton(meeting.meetingId);
               }
             });
@@ -1943,12 +1822,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   disableMomButton(meetingId: number) {
-    console.log("entered disable for--- "+meetingId)
     this.itemElements.changes.subscribe(() => {
-      console.log("Item elements are now in the DOM!", this.itemElements.length);
       const htmlElement = document.getElementById('email'+meetingId);
       htmlElement.classList.add("disabled")
-      console.log(htmlElement)
     });
   }
   receiptientsList: string[] = [];
@@ -1958,7 +1834,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.meetingsService.getActiveUserEmailIdList().subscribe({
       next: (response) => {
         this.receiptientsList = response.body;
-        console.log(this.receiptientsList);
         this.updatedreceiptientsList = [];
         meetingAttendees.forEach(attendee => {
           // Check  attendee's email is not in the user email list
@@ -1989,9 +1864,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Meetings')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -2000,7 +1873,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
@@ -2020,7 +1892,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getMeetings(this.tabOpened);
   }
   public setItemsPerPage(event) {
-    console.log(event)
     this.tableSize = event;
     localStorage.setItem('meetingTableSize', event);
     console.log(localStorage.getItem('tableSize'))
@@ -2033,6 +1904,7 @@ calculateEntriesInfo() {
   const start = (this.page - 1) * this.tableSize + 1;
   const end = Math.min(start + this.tableSize - 1, this.meetingCount); 
   this.entriesInfo = `Showing ${start} to ${end} of ${this.meetingCount} entries`;
+
 }
 }
 

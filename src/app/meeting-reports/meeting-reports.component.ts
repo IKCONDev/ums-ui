@@ -71,7 +71,6 @@ export class MeetingReportsComponent implements OnInit {
       //get current router param
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
-      console.log(this.reportType)
     })
   }
 
@@ -86,12 +85,9 @@ export class MeetingReportsComponent implements OnInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
-
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
-        console.log('exe')
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
@@ -166,7 +162,6 @@ export class MeetingReportsComponent implements OnInit {
           this.choosenDepartment = response.body;
           this.selectedDepartmentName = this.choosenDepartment.departmentName;
            this.selectedDepartmentID= this.choosenDepartment.departmentId;
-          console.log(this.choosenDepartment)
         }
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
@@ -188,7 +183,6 @@ export class MeetingReportsComponent implements OnInit {
     this.departmentService.getDepartmentList().subscribe({
       next: response => {
         this.departmentList = response.body;
-        console.log(response.body)
       }
     })
   }
@@ -348,7 +342,6 @@ export class MeetingReportsComponent implements OnInit {
   meetingByDepartmentdata:any[];
   meetingLabelforxLabels:any[];
   createMeetingsByDepartmentReportChart(){
-    console.log(" draw chart")
     if(this.type==='line'){
       this.meetingByDepartmentdata=[0,this.meetingsByDepartmentListCount,];
       this.meetingLabelforxLabels=['','Total meetings of a department','']
@@ -536,7 +529,6 @@ export class MeetingReportsComponent implements OnInit {
   // constructor(private router: Router, private activatedRoute: ActivatedRoute) {
   //   this.activatedRoute.queryParams.subscribe(param => {
   //     this.reportType = param['reportType'];
-  //     console.log(this.reportType)
   //   })
   // }
 
@@ -595,7 +587,6 @@ export class MeetingReportsComponent implements OnInit {
      this.meetingReportService.findAllMeetings().subscribe({ 
       next: response => {
         this.OrganizedMeetingList = response.body;
-        console.log(this.OrganizedMeetingList);
         this.OrganizedMeetingCount = response.body.length;
         setTimeout(() => {
           //this.createMeetingsByDepartmentReportChart();
@@ -611,19 +602,15 @@ export class MeetingReportsComponent implements OnInit {
        next : response =>{
          this.deptMeetingCount = response.body;
         // this.deptValueCount = new  DepartmentCount[this.deptMeetingCount.length];
-         console.log(this.deptMeetingCount);
          var i =0;
          this.deptMeetingCount.forEach(deptCount =>{
            var deptCountString = (String)(deptCount);
-           console.log(deptCountString)
            this.meetingDepartmentCount = deptCountString.split(',');
-           console.log(this.meetingDepartmentCount)
             var deptObject = new DepartmentCount();
             deptObject.deptId = this.meetingDepartmentCount[0]
             deptObject.meetingCount = this.meetingDepartmentCount[1]
            this.deptValueCount.push(deptObject);
          })
-         console.log(this.deptValueCount)
          this.getAllDepartmentNames()
          
        }
@@ -634,7 +621,6 @@ export class MeetingReportsComponent implements OnInit {
      this.getAllDepartments();
      //this.deptValueCount1 = new DepartmentCount[this.deptValueCount.length]
      this.departmentList.forEach(deptList =>{
-      console.log(deptList);
        this.deptValueCount.forEach(deptValue=>{
          if(deptList.departmentId === parseInt(deptValue.deptId) ){
             deptValue.departmentName = deptList.departmentName;
@@ -736,7 +722,6 @@ export class MeetingReportsComponent implements OnInit {
   colorOfChartType: any = 'line';
   setChartType(value : any){
     this.type = value;
-    console.log(this.type)
     if(this.reportType =='all' ){
       this.colorOfChartType = value;
       if(this.meetingsByDepartmentListChart!= null){
@@ -780,9 +765,7 @@ export class MeetingReportsComponent implements OnInit {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Meeting Reports')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -791,7 +774,6 @@ export class MeetingReportsComponent implements OnInit {
       }
     }
     )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
