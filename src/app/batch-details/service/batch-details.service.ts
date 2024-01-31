@@ -29,7 +29,6 @@ export class BatchDetailsService{
       * @returns 
       */
      updateBatchProcessTime(cronDetailsObj: CronDetails){
-        console.log(cronDetailsObj)
         return this.http.put<CronDetails>(`${this.gateWayURL}/${this.teamsbatchProcessMicroserviceURL}/crontime`,cronDetailsObj,{observe: 'response'});
      }
 

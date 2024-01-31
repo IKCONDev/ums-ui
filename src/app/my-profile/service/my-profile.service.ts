@@ -46,8 +46,6 @@ export class MyProfileService{
      * @returns 
      */
     updateUserProfilePic(email: string,profilePic:any){
-      console.log(email);
-      console.log(profilePic);
       /*
       let profilePicObjectDetails = {
         email: email,
@@ -71,7 +69,6 @@ export class MyProfileService{
      */
     updateUserInformation(employee:Employee){
       if (employee!=null){
-        console.log(employee.firstName);
       return this.http.put<Employee>(this.finalUrlForUpdating,employee, {observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
       }

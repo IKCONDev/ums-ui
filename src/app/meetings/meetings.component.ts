@@ -243,42 +243,35 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
               this.addMeeting.departmentId = this.selectedReporteeDepartment;
             }
           });
+          /**
+           * This featue is under implementation for future versions: please do not remove this commented code
+           */
           //generate action items for user meetings automatically upon component initialization
-          this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
-            (response => {
-             // console.log(response.body)
-            })
-          )
-
+          // this.meetingsService.generateActionItemsByNlp(localStorage.getItem('email')).subscribe(
+          //   (response => {
+          //    // console.log(response.body)
+          //   })
+          // )
           if (this.selectedReporteeOrganizedMeeting === '') {
             this.selectedReporteeOrganizedMeeting = localStorage.getItem('email');
           }
           if (this.selectedReporteeAssignedMeeting === '') {
             this.selectedReporteeAssignedMeeting = localStorage.getItem('email');
           }
-
-          //set default tab to OrganizedMeetings tab when application is opened
-          //localStorage.setItem('tabOpened', 'OrganizedMeeting');
           this.tabOpened = localStorage.getItem('tabOpened')
           this.getMeetings(this.tabOpened);
-
           //disable actionItem btn default
           this.isActionItemSaveButtonDisabled = true;
           // this.pastDateTime();
-
           //get reportees data of logged in user
           if (this.loggedInUserRole === 'ADMIN' || this.loggedInUserRole === 'SUPER_ADMIN') {
             this.getAllEmployees();
           } else {
             this.getEmployeeReportees();
           }
-
-          //initialize jquery datatable meetings table
           this.InitailizeJqueryDataTable();
-
           this.enableOrDisableSendMOM();
         } else {
-          //this.isComponentLoading = false;
           this.viewPermission = false;
         }
         if (menuItemPermissions.includes('Create')) {
@@ -670,7 +663,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                  if(localStorage.getItem('meetingTableSize')!=null){
                 this.onTableDataChange(1);
                 this.setItemsPerPage(parseInt(localStorage.getItem('meetingTableSize')));
-                console.log(parseInt(localStorage.getItem('meetingTableSize')))
                 this.numberCountPerPage=1;
                 this.reloadPageCount=2
                  }else{
@@ -1893,7 +1885,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   public setItemsPerPage(event) {
     this.tableSize = event;
     localStorage.setItem('meetingTableSize', event);
-    console.log(localStorage.getItem('tableSize'))
     if(this.reloadPageCount===2){
       window.location.reload()
     }

@@ -39,7 +39,6 @@ export class DesignationService {
      * @returns 
      */
     createDesignation(designation: any) {
-        console.log(designation)
         return this.http.post<Designation>(`${this.gatewayMicroservicePathUrl}/${this.designationMicroservicepathUrl}/create`, designation, {
             observe: 'response', headers: new HttpHeaders({
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
@@ -82,7 +81,6 @@ export class DesignationService {
      * @returns 
      */
     getDesignation(designationId: number) {
-        console.log(designationId)
         return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.designationMicroservicepathUrl}/get/${designationId}`, {
             observe: 'response', headers: new HttpHeaders({
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')

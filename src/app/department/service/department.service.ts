@@ -36,7 +36,6 @@ export class DepartmentService{
      * @returns 
      */
     saveDepartment(newDepartment: any){
-        console.log(newDepartment)
         return this.http.post<Department>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/save`,newDepartment,{observe:'response',headers: new HttpHeaders({
             'Authorization':'Bearer '+localStorage.getItem('jwtToken')
           }
@@ -73,7 +72,6 @@ export class DepartmentService{
      * @returns 
      */
     getDepartment(departmentId: number){
-        console.log(departmentId)
         return this.http.get<any>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/${departmentId}`,{observe:'response',headers: new HttpHeaders({
             'Authorization':'Bearer '+localStorage.getItem('jwtToken')
           }

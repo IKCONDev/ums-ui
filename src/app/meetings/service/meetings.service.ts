@@ -38,14 +38,12 @@ export class MeetingService {
      * @returns 
      */
     getUserOraganizedMeetingsByUserId(emailId: string, meetingTitleFilter: string, meetingStartDateFilter: string, meetingEndDateFilter: string ){
-      console.log('executed if')
       if(meetingTitleFilter === '' && meetingStartDateFilter === '' && meetingEndDateFilter === ''){
         return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/`+emailId, {observe:'response',headers: new HttpHeaders({
           'Authorization':'Bearer '+localStorage.getItem('jwtToken')
         }
         )});
       }else{
-        console.log('executed else')
         var params = new HttpParams()
         .set('meetingTitle',meetingTitleFilter)
         .set('startDate',meetingStartDateFilter)
@@ -99,7 +97,6 @@ export class MeetingService {
         meeting: meeting,
         actionItems: actionItems
       }
-      console.log(this.gatewayUrl+"/"+this.tasksMicroservicePathUrl+"/convert-task"+"/"+meeting.meetingId);
       return this.http.post(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/convert-task/${meeting.meetingId}`,actionItems,{observe:'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')
       }
@@ -178,7 +175,6 @@ export class MeetingService {
     }
     
     sendMinutesofMeeting(emailList: String[],meeting: Meeting,discussionPoints:string,hoursDiff:string,minutesDiff:string){
-      console.log("the email List is"+emailList);
       var momObject ={
         meeting: meeting,
         emailList: emailList,
@@ -187,7 +183,6 @@ export class MeetingService {
         minutesDiff :minutesDiff
         
       }
-      console.log("discussion points"+discussionPoints);
       return this.http.post<any>(`${this.gatewayUrl}/${this.actionsMicroservicePathUrl}/send-momdata/`,momObject,{observe: 'response',headers: new HttpHeaders({
         'Authorization':'Bearer '+localStorage.getItem('jwtToken')})
        })
