@@ -429,12 +429,15 @@ export class LoginComponent {
           } else if (error.status === HttpStatusCode.Unauthorized) {
             var loginAttempts = error.headers.get('loginAttempts');
             var active = error.headers.get('userActive');
-            if(parseInt(loginAttempts) > 3 || active === 'false'){
+            if(parseInt(loginAttempts) === 2){
+              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempt remaining', 'Login Failure')
+            }
+            else if(parseInt(loginAttempts) > 3 || active === 'false'){
               this.toastr.error('Provided user account is inactive', 'Account Disabled')
             }
             else{
               this.errorInfo = 'Invalid Credentials'
-              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempt(s) remaining', 'Login Failure')
+              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempts remaining', 'Login Failure')
             }
             setTimeout(()=>{
               this.disableLoginButton=false;
