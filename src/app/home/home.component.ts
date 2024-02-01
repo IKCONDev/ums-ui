@@ -199,7 +199,8 @@ export class HomeComponent implements OnInit {
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != "" && localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
       //if user has access to the Batchdetails menu item show BatchReport link in Quick links
-      var batchDetailsMenuItem = await this.getCurrentMenuItemDetails('Batch Details');
+      var batchDetailsMenuItemName = 'Batch Details';
+      var batchDetailsMenuItem = await this.getCurrentMenuItemDetails(batchDetailsMenuItemName);
       if(this.userRoleMenuItemsPermissionMap.has(batchDetailsMenuItem.menuItemId.toString().trim())){
         this.batchDetailsQuickLinkPermission = true;
       }
