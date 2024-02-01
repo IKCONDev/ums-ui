@@ -47,7 +47,7 @@ html{
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.05);
 }
 
-#addBtn{
+.addBtn{
     border-radius: 4px;
     background: var(--side-text, #ECF7FC);
 }
@@ -58,7 +58,7 @@ html{
 
 }
 
-#deleteBtn{
+.deleteBtn{
     border-radius: 4px;
     background: var(--side-text, #ECF7FC);
 }
@@ -86,11 +86,11 @@ html{
 }
 
 
-#trashIcon{
+.trashIcon{
     cursor: pointer;
 }
 
-#editIcon{
+.editIcon{
     cursor: pointer;
 }
 
@@ -203,7 +203,7 @@ table td{
     }
   }
 
-  #trashIcon, #editIcon {
+  .trashIcon, .editIcon {
     cursor: pointer;
     background: none;
     box-shadow: 0px 0px 0px transparent;

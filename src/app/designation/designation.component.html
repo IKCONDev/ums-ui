@@ -13,13 +13,13 @@
             </div>
             <div  class="col-sm-4 d-flex" style="padding-top: 8px;justify-content: flex-end;padding-left: 20px;">
                 <button [disabled]="!createPermission" [style.background-color]="addButtonColor" 
-                class="form-control" id="addBtn" type="submit" data-toggle="modal" data-target="#addModal" style="width: 80px;">
+                class="form-control addBtn" id="addDesgBtn" type="submit" data-toggle="modal" data-target="#addModal" style="width: 80px;">
                     <p >Add</p>
                 </button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             
                 <button  [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" 
-                  type="submit" class="form-control" id="deleteBtn" name="deleteBtn" value="Delete"
+                  type="submit" class="form-control deleteBtn" id="deleteDesgBtn" name="deleteDesgBtn" value="Delete"
                     (click)="removeAllSelectedDesignations()"  style="width: 80px;margin-right: 20px;" >
                     <p>Delete</p>
                 </button>
@@ -52,7 +52,7 @@
                 <tbody *ngIf="isDesignationDataText===false">
                     <tr class="trbody" *ngFor="let designation of designationList; let i = index;">
                         <td>
-                            <input id="subCheckBox{{i}}" class="subCheckBox" type="checkbox" value="{{designation.id}}"
+                            <input id="subCheckBox{{i}}" name="subCheckBox" class="subCheckBox" type="checkbox" value="{{designation.id}}"
                                 (click)="toggleMainCheckBox(i)" />
                         </td>
                         <td>{{designation.id}}</td>
@@ -62,8 +62,8 @@
                         <td>{{designation.modifiedBy}}</td>
                         <td>{{designation.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
-                            <button [disabled]="!updatePermission" id="editIcon" (click)="fetchOneDesignation(designation.id)" data-toggle="modal"
-                                data-target="#updateModal">
+                            <button [disabled]="!updatePermission" id="editDesgIcon" name="editIcon" (click)="fetchOneDesignation(designation.id)" data-toggle="modal"
+                                data-target="#updateModal" class="editIcon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
                                     <g [style.fill]="updateButtonColor" id="edit">
@@ -75,7 +75,7 @@
                             </button>
                         </td>
                         <td>
-                            <button [disabled]="!deletePermission" id="trashIcon" (click)="removeDesignation(designation.id)">
+                            <button [disabled]="!deletePermission" id="trashDesgIcon" name="trashIcon" class="trashIcon" (click)="removeDesignation(designation.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                     viewBox="0 0 482.428 482.429" xml:space="preserve">
@@ -124,7 +124,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Designation Name</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize" class="deptInput form-control"
+                <input type="text" style="text-transform: capitalize" id="addDesgName" name="desgName" class="deptInput form-control"
                     placeholder="Designation name" [(ngModel)]="addDesignation.designationName"
                     (keyup)="validateDesignationName()" minlength="5" maxlength="51" /><br />
                 <span *ngIf="designationNameErrorInfo != ''">
@@ -159,7 +159,7 @@
             <div class="modal-body">
                 <label><b>Designation Name</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="deptInput form-control"
-                    placeholder="designation name" [(ngModel)]="existingDesignation.designationName"
+                    placeholder="designation name" id="updateDesgName" name="desgName" [(ngModel)]="existingDesignation.designationName"
                     (keyup)="validateUpdatedDesignationName()" minlength="5" maxlength="51" /><br />
                 <span *ngIf="updatedDesignationNameErrorInfo != ''">
                     <p id="errorMessage">{{updatedDesignationNameErrorInfo}}</p>

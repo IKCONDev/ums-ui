@@ -13,13 +13,15 @@
             </div>
             <div  class="col-sm-4 d-flex" style="padding-top: 8px;justify-content: flex-end;padding-left: 20px;">
            
-                <button  id="addBtnDiv" [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control d-flex" id="addBtn" type="submit" data-toggle="modal" data-target="#addModal"
+                <button  id="addBtnDiv" [disabled]="!createPermission" [style.background-color]="addButtonColor" 
+                class="form-control d-flex" name="addDeptBtn" type="submit" data-toggle="modal" data-target="#addModal"
                 style="width: 80px;">
                     <p style="padding-left: 10px;">Add</p>
                 </button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             
-                <button id="deleteBtnDiv" [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" type="submit" class=" form-control" id="deleteBtn" name="deleteBtn"
+                <button id="deleteBtnDiv" id="" [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" 
+                type="submit" class=" form-control" name="deleteDeptBtn"
                 (click)="removeAllSelectedDepartments()"  style="width: 80px;margin-right: 20px;"  >Delete</button>
              
             </div>

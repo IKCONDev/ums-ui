@@ -184,6 +184,9 @@ export class HomeComponent implements OnInit {
   createPermission: boolean;
   updatePermission: boolean;
   deletePermission: boolean;
+  batchDetailsQuickLinkPermission: boolean = false;
+  menuItem = 'Overview';
+  
   async ngOnInit(): Promise<void> {
 
     this.isComponentLoading = true;
@@ -194,8 +197,13 @@ export class HomeComponent implements OnInit {
 
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != "" && localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
+      //if user has access to the Batchdetails menu item show BatchReport link in Quick links
+      var batchDetailsMenuItem = await this.getCurrentMenuItemDetails('Batch Details');
+      if(this.userRoleMenuItemsPermissionMap.has(batchDetailsMenuItem.menuItemId.toString().trim())){
+        this.batchDetailsQuickLinkPermission = true;
+      }
       //get menu item  details of home page
-      var currentMenuItem = await this.getCurrentMenuItemDetails();
+      var currentMenuItem = await this.getCurrentMenuItemDetails(this.menuItem);
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //provide permission to access this component for the logged in user if view permission exists
         this.isComponentLoading = false;
@@ -268,8 +276,8 @@ export class HomeComponent implements OnInit {
   */
 
   currentMenuItem: MenuItem;
-  async getCurrentMenuItemDetails(): Promise<MenuItem> {
-    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Overview')).then(response => {
+  async getCurrentMenuItemDetails(menuItem: string): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName(menuItem)).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
       } else if (response.status === HttpStatusCode.Unauthorized) {

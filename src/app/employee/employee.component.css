@@ -30,7 +30,7 @@
   border: 1px solid var(--brand-color-1, #2AA3D9);
 }
 
-#addBtn {
+.addBtn {
   border-radius: 4px;
   background: var(--side-text, #ECF7FC);
 }
@@ -41,7 +41,7 @@
 
 }
 
-#deleteBtn {
+.deleteBtn {
   border-radius: 4px;
   background: var(--side-text, #ECF7FC);
 }
