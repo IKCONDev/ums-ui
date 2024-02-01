@@ -30,8 +30,8 @@ export class HomeComponent implements OnInit {
   loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole');
   title: string = 'Overview';
-  organizedMeetingsCount: string;
-  attendedMeetingsCount: string;
+  organizedMeetingsCount: number = 0;
+  attendedMeetingsCount: number = 0;
   actionItemsCount: number = 0;
   organizedTasksCount: number = 0;
   assignedTasksCount: number = 0;
@@ -151,7 +151,8 @@ export class HomeComponent implements OnInit {
   getUserorganizedMeetingCount() {
     this.homeService.getUserorganizedMeetingCount().subscribe({
       next: (response) => {
-        this.organizedMeetingsCount = response.body.toString();
+        this.organizedMeetingsCount =   parseInt (response.body.toString());
+
         // localStorage.setItem('totalMeetingsOrganized',response.body.toString())
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -167,7 +168,7 @@ export class HomeComponent implements OnInit {
   getUserAttendedMeetingCount() {
     this.homeService.getUserAttendedMeetingCount().subscribe({
       next: (response) => {
-        this.attendedMeetingsCount = response.body.toString();
+        this.attendedMeetingsCount = parseInt (response.body.toString());
         //localStorage.setItem('attenedMeetingsCount',response.body.toString());
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
