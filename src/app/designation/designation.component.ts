@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { Designation } from '../model/Designation.model';
 import { DesignationService } from './service/designation.service';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
   templateUrl: './designation.component.html',
   styleUrls: ['./designation.component.css']
 })
-export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
+export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   loggedInUserRole = localStorage.getItem('userRole');
   @Output() title:string='Designations';
@@ -28,9 +28,10 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private table: any;
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
+  dataTableInitialized:boolean=false;
+  ngAfterViewChecked(): void {
+    console.log(this.designationDataLoaded+" "+"designationDataLoaded")
+    if(this.designationDataLoaded&&!this.dataTableInitialized){
         this.table = $('#table').DataTable({
           paging: true,
           searching: true, // Enable search feature
@@ -40,8 +41,8 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
           lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
           // Add other options here as needed
         });
-      });
-    },70)
+        this.dataTableInitialized=true;
+      }
   }
 
   ngOnDestroy(): void {
@@ -127,6 +128,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * get list of all departments from Database and display to admin in UI
    */
+  designationDataLoaded:boolean=false;
   getAllDesignations(){
     this.isComponentLoading=true;
     this.isDesignationDataText=true;
@@ -137,8 +139,12 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.designationService.getDesignationList().subscribe({
       next: (response)=>{
         this.designationList = response.body;
+        
           this.isComponentLoading=false;
           this.isDesignationDataText=false;
+          setTimeout(() => {
+            this.designationDataLoaded=!!this.designationList;
+          }, 150);
              },
       error: (error) => {
         if(error.status === HttpStatusCode.Unauthorized){

@@ -1,4 +1,4 @@
-import { Component, Output, OnInit, AfterViewInit, OnDestroy, numberAttribute } from '@angular/core';
+import { Component, Output, OnInit, AfterViewInit, OnDestroy, numberAttribute, AfterViewChecked } from '@angular/core';
 import { EmployeeService } from './service/employee.service';
 import { Employee } from '../model/Employee.model';
 import { HttpStatusCode } from '@angular/common/http';
@@ -20,7 +20,7 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   loggedInUserRole = localStorage.getItem('userRole');
   @Output() title: string = 'Employees';
@@ -124,9 +124,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
+  dataTableInitialized:boolean=false;
+  ngAfterViewChecked(): void {
+   if(this.employeeDataLoaded&&!this.dataTableInitialized){
         this.table = $('#table').DataTable({
           paging: true,
           searching: true, // Enable search feature
@@ -136,8 +136,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
           // Add other options here as needed
         });
-      });
-    }, 400)
+        this.dataTableInitialized=true;
+      }  
   }
 
   ngOnDestroy(): void {
@@ -153,6 +153,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   departmentList: Department[] = [];
   employeeCopyData : Employee[]
+  employeeDataLoaded:boolean=false;
   getAllEmployees() {
     this.isEmployeeDataText = true;
     this.isComponentLoading = true;
@@ -171,7 +172,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewInit {
                   employee.reportingManager = this.employeeCopyData[i].firstName+" "+this.employeeCopyData[i].lastName
                 }
           }
-            
+          this.employeeDataLoaded=true
           })
           this.getAllDepartments()
           this.isEmployeeDataText = false;
