@@ -1,5 +1,5 @@
 
-import { Component, AfterViewInit, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, OnInit, Output, AfterViewChecked } from '@angular/core';
 import * as $ from 'jquery';
 import 'datatables.net';
 import { RoleService } from './service/role.service';
@@ -21,7 +21,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
   styleUrls: ['./role.component.css']
 })
 
-export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
+export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
 
   private table: any;
   loggedInUserRole = localStorage.getItem('userRole')
@@ -154,21 +154,25 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
     })
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#dataTable').DataTable({
-          paging: true,
-          stateSave:true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[1,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-          // Add other options here as needed
-        });
-      });
-    },400)
+  initializeDataTable:boolean=false;
+  ngAfterViewChecked(): void {
+    this.initializeJqueryTable();
+
   }
+  initializeJqueryTable(){
+    if(this.roleDataLoaded&&!this.initializeDataTable){
+    this.table = $('#dataTable').DataTable({
+      paging: true,
+      stateSave:true,
+      searching: true, // Enable search feature
+      pageLength: 10,
+      order: [[1,'asc']],
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      // Add other options here as needed
+    });
+    this.initializeDataTable=true;
+  }
+}
 
   ngOnDestroy(): void {
     if (this.table) {
@@ -360,6 +364,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
   /**
    * get all roles
    */
+  roleDataLoaded:boolean=false;
   getRoleList() {
     this.isRoleDataText=true;
     this.isComponentLoading=true;
@@ -371,6 +376,7 @@ export class RoleComponent implements OnInit,AfterViewInit,OnDestroy {
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           this.roleList = response.body;
+          this.roleDataLoaded=true;
             this.isRoleDataText=false;
             this.isComponentLoading=false;
         }
