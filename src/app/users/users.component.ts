@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UserService } from './service/users.service';
 import { Users } from '../model/Users.model';
 import { MsalInterceptorAuthRequest } from '@azure/msal-angular';
@@ -21,7 +21,7 @@ import { error } from 'jquery';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
+export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   private table: any;
   loggedInUser: string = localStorage.getItem('email');
@@ -158,31 +158,35 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * 
    */
+  userDataLoaded:boolean=false;
   getAllUsers() {
 
     this.userService.getAll().subscribe(
       response => {
 
         this.userList = response.body;
+        this.userDataLoaded=true;
 
       });
 
   }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#myTable').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          stateSave:true,
-          order: [[1, 'asc']],
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
-          // Add other options here as needed
-        });
+  dataTableInitialized:boolean=false;
+  ngAfterViewChecked(): void {
+   this.initializeJqueryTable();
+  }
+  initializeJqueryTable(){
+    if(this.userDataLoaded&&!this.dataTableInitialized){
+      this.table = $('#myTable').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'asc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        // Add other options here as needed
       });
-    }, 400)
+      this.dataTableInitialized=true;
+    }
   }
 
   ngOnDestroy(): void {

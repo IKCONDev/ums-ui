@@ -166,7 +166,7 @@
                   </svg> -->
                   Action Items</span></a><br>
                   <!-- *ngIf="loggedInUserRole === 'ADMIN' || loggedInUserRole=== 'SUPER_ADMIN'"  -->
-              <a 
+              <a *ngIf="batchDetailsQuickLinkPermission === true"
                 [routerLink]="'/batch-report'">
                 <span>
                   <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

@@ -300,7 +300,6 @@
     aria-labelledby="xlModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-
             <!-- Modal Header -->
             <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
                 <h5 class="modal-title" id="xlModalLabel">Update Task</h5>
@@ -319,7 +318,6 @@
                             <!-- Animation -->
                             <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.3s" repeatCount="indefinite" />
                         </svg>
-                        
                         <span class="popuptext" id="myPopup"><ol>
                             <li>Title should have minimum of 5 charcters.</li>
                             <li>Title should not exceed more than 50 characters.</li>
@@ -374,7 +372,7 @@
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px ;max-height: 55px;"
-                                placeholder="Enter title" class="form-control" name="taskTitle" required="true"
+                                placeholder="Enter title" class="form-control" id="addTaskTitle" name="taskTitle" required="true"
                                 [(ngModel)]="update_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
                                 minlength="5" maxlength="51"></textarea>
@@ -419,7 +417,7 @@
                                 </div>
                                 <textarea
                                     style="width: 530px;height: 220px;min-height: 220px; max-height:220px;background-color: #ecf7fc;"
-                                    class="form-control" name="taskDescription" #taskDescription="ngModel"
+                                    class="form-control" id="addTaskDescription" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="update_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
                                     (keyup)="validateTaskDescription()" placeholder="Enter description" minlength="10"
@@ -461,7 +459,7 @@
                                             </td> -->
                                             <td>
                                                 <div>
-                                                    <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
+                                                    <ng-select [searchable]="true" [clearable]="true" id="addTaskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
                                                         style="margin-top: 4px;" [(ngModel)]="update_Task.taskOwner">
                                                         <ng-option disabled selected value>choose</ng-option>
@@ -481,7 +479,7 @@
                                             <td><b>Category</b><span id="required">*</span></td>
                                             <td style="padding-left: 18px;">
                                                 <span>
-                                                    <select id="taskCategory" class="form-control form-select"
+                                                    <select id="addTaskCategory" class="form-control form-select"
                                                         style="width: 314px;font-size: 14px;"
                                                         [(ngModel)]="update_Task.taskCategory.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
@@ -498,7 +496,7 @@
                                         <tr>
                                             <td><label for="prority"><b>Priority</b><span id="required">*</span></label>
                                             </td>
-                                            <td><span><select id="priority" class="form-control form-select"
+                                            <td><span><select id="addTaskPriority" class="form-control form-select"
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
                                                         [class.invalid]="taskPriority.invalid && taskPriority.touched"
@@ -516,7 +514,7 @@
                                         <tr>
                                             <td><b>Planned Start Date</b><span id="required">*</span></td>
                                             <td><span><input type="date" min="{{min}}" class="form-control"
-                                                        id="taskStartDate" name="taskStartDate"
+                                                        id="addTaskStartDate" name="taskStartDate"
                                                         [(ngModel)]="update_Task.plannedStartDate"
                                                         disabled="true"></span>
                                                 <!-- <div *ngIf="taskStartDateErrorInfo!=''">
@@ -527,7 +525,7 @@
                                         <tr>
                                             <td><b>Planned End Date</b><span id="required">*</span></td>
                                             <td><span> <input type="date" class="form-control" name="taskDueDate"
-                                                        [(ngModel)]="update_Task.plannedEndDate" disabled="true"></span>
+                                                       id="addtaskDueDate" [(ngModel)]="update_Task.plannedEndDate" disabled="true"></span>
                                                 <!-- <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
                                                 </div> -->
@@ -536,7 +534,7 @@
                                         <tr>
                                             <td><b>Actual Start Date</b></td>
                                             <td><span><input type="date" min="{{min}}" class="form-control"
-                                                        name="taskActualStartDate" [(ngModel)]="update_Task.startDate"
+                                                        name="taskActualStartDate" id="addTaskActualStartDate" [(ngModel)]="update_Task.startDate"
                                                         required="true" (change)="validateTaskStartDate()"
                                                         disabled="true"></span>
                                                 <span *ngIf="taskStartDateErrorInfo!=''"
@@ -546,7 +544,7 @@
                                         <tr>
                                             <td><b>Actual End Date</b></td>
                                             <td><span> <input type="date" min="{{min}}" class="form-control"
-                                                        name="taskActualEndDate" [(ngModel)]="update_Task.dueDate"
+                                                        name="taskActualEndDate" id="addTaskActualEndDate" [(ngModel)]="update_Task.dueDate"
                                                         required="true" (change)="validateTaskDueDate()"
                                                         disabled="true"></span>
                                                 <span *ngIf="taskDueDateErrorInfo!=''"
@@ -570,7 +568,7 @@
                                         <tr>
                                             <td><b>Status</b><span id="required">*</span></td>
                                             <td> <span><select value="Yet To Start" class="form-control form-select"
-                                                        name="taskStatus" placeholder="select" #taskStatus="ngModel"
+                                                        name="taskStatus" id="addtaskStatus" placeholder="select" #taskStatus="ngModel"
                                                         [(ngModel)]="update_Task.status" required="true"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
@@ -658,7 +656,7 @@
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;min-height: 55px;max-height: 55px;background-color: #ecf7fc;"
-                                class="form-control" name="taskTitle" required="true"
+                                class="form-control" name="taskTitle" required="true" id="taskTitle"
                                 [(ngModel)]="update_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
                                 disabled></textarea>
@@ -705,7 +703,7 @@
                                 <textarea
                                     style="width: 530px; min-height:220px;max-height:220px;background-color:#ecf7fc;"
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
-                                    [(ngModel)]="update_Task.taskDescription"
+                                    [(ngModel)]="update_Task.taskDescription" id="taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
                                     (keyup)="validateTaskDescription()" placeholder="Enter description !..."
                                     minlength="10" maxlength="251" disabled></textarea>
@@ -778,14 +776,14 @@
                                         <tr>
                                             <td><b>Planned Start Date</b></td>
                                             <td><span><input type="date" min="{{min}}" class="form-control"
-                                                        name="taskPlannedStartDate"
+                                                        name="taskPlannedStartDate" id="taskPlannedStartDate"
                                                         [(ngModel)]="update_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true" disabled></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="date" id="taskPlannedEndDate" min="{{min}}" class="form-control"
                                                         name="taskPlannedEndDate"
                                                         [(ngModel)]="update_Task.plannedEndDate"
                                                         #taskPlannedEndDate="ngModel" required="true" disabled></span>
@@ -794,7 +792,7 @@
                                         <tr>
                                             <td><b>Actual Start Date</b><span id="required">*</span></td>
                                             <td><span><input type="date" min="{{min}}" class="form-control"
-                                                        name="taskStartDate" [(ngModel)]="update_Task.startDate"
+                                                        name="taskStartDate" id="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
                                                         (change)="validateTaskStartDate()" disabled="true"></span>
                                                 <span *ngIf="taskStartDateErrorInfo!=''"
@@ -804,7 +802,7 @@
                                         <tr>
                                             <td><b>Actual End Date</b><span id="required">*</span></td>
                                             <td><span> <input type="date" min="{{min}}" class="form-control"
-                                                        name="taskDueDate" [(ngModel)]="update_Task.dueDate"
+                                                        name="taskDueDate" id="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
                                                         (change)="validateTaskDueDate()" disabled="true"></span>
@@ -815,7 +813,7 @@
                                         <tr>
                                             <td><b>Status</b> <span id="required">*</span></td>
                                             <td> <span><select value="Yet To Start" class="form-control form-select"
-                                                        name="taskStatus" [(ngModel)]="update_Task.status"
+                                                        name="taskStatus" id="taskStatus" [(ngModel)]="update_Task.status"
                                                         required="true" #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
                                                         (click)="validateTaskStatus()">
@@ -956,8 +954,8 @@
                   <div class="meeting-title-dd" >
                     <div class="meeting-title-filter" style="padding-top: 15px;">
                         <div class="input-container">
-                                <input type="text" style="width: 298px;" class="form-control"[(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle
-                                    placeholder="Task title" name="taskName" />
+                                <input type="text" id="titleFilter" style="width: 298px;" class="form-control"[(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle
+                                    placeholder="Task title" name="taskNameFilter" />
                                 <img class="search-icon" alt="" src="../../assets/images/search.svg">
                             </div>
                         </div>
@@ -981,11 +979,11 @@
                         <div class="date-range" style="padding-top: 15px;"><h6>Planned start date</h6></div>
                         <div class="date-range" style="padding-top: 5px;">
                             <div class="date-parent">
-                                <input type="date" style="width: 130px;" #boxAssignedStart [(ngModel)]="assignedTaskStartDateFilter" class="form-control" />
+                                <input type="date" id="startDateFilter" style="width: 130px;" #boxAssignedStart [(ngModel)]="assignedTaskStartDateFilter" class="form-control" />
                             </div>
                             <div style="font-size: 12px;">To</div>
                             <div class="date-parent">
-                                <input type="date" style="width: 130px;" #boxAssignedEnd [(ngModel)]="assignedTaskEndDateFilter" class="form-control" />
+                                <input type="date" id="startDateFilter" style="width: 130px;" #boxAssignedEnd [(ngModel)]="assignedTaskEndDateFilter" class="form-control" />
                             </div>
                         </div>
                         <div class="date-range" style="padding-top: 15px;">

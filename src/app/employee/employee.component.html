@@ -11,14 +11,13 @@
                 <h3 id="heading">Employees</h3>
             </div>
             <div  class="col-sm-4 d-flex" style="padding-top: 8px;justify-content: flex-end;padding-left: 20px;">
-                <button id="addBtnDiv" [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control" id="addBtn" type="submit" data-toggle="modal"
+                <button id="addBtnDiv" [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control addBtn" name="addEmpButton" type="submit" data-toggle="modal"
                     data-target="#addEmployeeModal" (click)="getAllDesignations()" (click)="getAllDepartments()"
                     style="width: 80px;">
                     <p>Add</p>
                 </button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            
-                <button id="deleteBtnDiv" [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" type="submit" class=" form-control" id="deleteBtn" name="deleteBtn" (click)="checkCheckBoxes()"
+                <button id="deleteBtnDiv" [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" type="submit" class=" form-control deleteBtn"  name="deleteEmpButton" (click)="checkCheckBoxes()"
                     style="width: 80px;margin-right: 22px;">Delete</button>
             </div>
             <!-- <div class="col-sm-1 d-flex" id="filter">

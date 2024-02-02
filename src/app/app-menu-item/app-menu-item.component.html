@@ -11,12 +11,12 @@
                 <h3 id="heading">Menu Item List</h3>
             </div>
             <div  class="col-sm-4 d-flex" style="padding-top: 8px;justify-content: flex-end;padding-left: 20px;">
-                <button [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control d-flex" id="addBtn" type="submit" data-toggle="modal" data-target="#addModal"
+                <button [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control d-flex addBtn" id="addMenuBtn" type="submit" data-toggle="modal" data-target="#addModal"
                 style="width: 80px;">
                     <p style="padding-left: 10px;">Add</p>
                 </button>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                <button [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" type="submit" class=" form-control" id="deleteBtn" name="deleteBtn"
+                <button [disabled]="!deletePermission" [style.background-color]="deleteButtonColor" type="submit" class=" form-control deleteBtn" id="deleteMenuBtn" name="deleteBtn"
                 (click)="removeAllSelectedmenuItems()"  style="width: 80px;margin-right: 20px;" >Delete</button>
              </div>
             <!-- <div class="col-sm-1 d-flex" id="filter">
@@ -65,7 +65,7 @@
                         <td>{{menuItem.modifiedBy}}</td>
                         <td>{{menuItem.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td>
                         <td>
-                            <button [disabled]="!updatePermission" id="editIcon" (click)="getMenuItem(menuItem.menuItemId)"
+                            <button [disabled]="!updatePermission" id="editMenuIcon" name="editMenuIcon" class="editIcon" (click)="getMenuItem(menuItem.menuItemId)"
                                 data-toggle="modal" data-target="#addModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                     fill="none">
@@ -78,7 +78,7 @@
                             </button>
                         </td>
                         <td>
-                            <button [disabled]="!deletePermission" id="trashIcon" (click)="removeMenuItem(menuItem.menuItemId)">
+                            <button [disabled]="!deletePermission" id="trashmenuIcon" name="trashmenuIcon" class="trashIcon" (click)="removeMenuItem(menuItem.menuItemId)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
                                     viewBox="0 0 482.428 482.429" xml:space="preserve">
@@ -127,7 +127,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Menu Item Name</b><span id="required">*</span></label>
-                <input id="categoryName" type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Menu Item Name"
+                <input id="categoryName" name="categoryName" type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Menu Item Name"
                     [(ngModel)]="menuItem.menuItemName" (keyup)="validateMenuItemName()" minlength="2"
                     maxlength="51" /><br />
                 <span *ngIf="menuItemNameErrorInfo != ''">
@@ -135,7 +135,7 @@
                 </span>
                 <!--   -->
                 <label><b>Menu Item Path</b><span id="required">*</span></label>
-                <input id="categoryName" type="text" class="deptInput form-control" placeholder="Menu Item Path"
+                <input id="categoryPath" name="categoryPath" type="text" class="deptInput form-control" placeholder="Menu Item Path"
                     [(ngModel)]="menuItem.menuItemPath" (keyup)="validateMenuItemPath()" minlength="3"
                     maxlength="51" /><br />
                 <span *ngIf="menuItemPathErrorInfo != ''">
@@ -143,7 +143,7 @@
                 </span>
                 <!--  -->
                 <label><b>Menu Item Description</b><span id="required">*</span></label><br/>
-                <textarea id="categoryDesc" class="form-control" placeholder="Menu Item Description"
+                <textarea id="menuDesc" name="menuDesc" class="form-control" placeholder="Menu Item Description"
                     [(ngModel)]="menuItem.menuItemDescription" (keyup)="validateMenuItemDescription()"  minlength="5" maxlength="101"
                     rows="5" cols="10" style="width: 400px;">
                 </textarea><br />
@@ -154,7 +154,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer" role="alert">
-                <button type="submit" class="btn btn-primary saveButton" (click)="createOrUpdateMenuItem()">Save</button>
+                <button type="submit" id="saveButton" class="btn btn-primary saveButton" (click)="createOrUpdateMenuItem()">Save</button>
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal"
                         (click)=" clearErrorMessages(form)">Close</button> -->
                 <button type="button" id="closeModal" class="btn btn-outline-danger closeButton" data-dismiss="modal"

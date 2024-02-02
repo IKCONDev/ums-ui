@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { MeetingService } from './service/meetings.service';
 import { Meeting } from '../model/Meeting.model';
 import { Attendee } from '../model/Attendee.model';
@@ -26,7 +26,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
   templateUrl: './meetings.component.html',
   styleUrls: ['./meetings.component.css']
 })
-export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @ViewChildren("itemElement") private itemElements: QueryList<ElementRef>;
   private table: any;
@@ -137,45 +137,46 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private meetingsService: MeetingService, private actionItemService: ActionService,
     private router: Router, private toastr: ToastrService, private employeeService: EmployeeService,
     private headerService: HeaderService, private datePipe: DatePipe, private menuItemService: AppMenuItemService) {
+      localStorage.setItem("AttendedMeetingReloadCount","0")
   }
 
   /**
    * 
    */
-  InitailizeJqueryDataTable() {
-    if(this.table!=null){
-      this.table.destroy();
-    }
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#assignedTable').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          ordering: true,
-          stateSave:true,
-          order: [[0, 'asc']],
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-          // Add other options here as needed
-        });
-      });
-    }, 2000)
+  // InitailizeJqueryDataTable() {
+  //   if(this.table!=null){
+  //     this.table.destroy();
+  //   }
+  //   setTimeout(() => {
+  //     $(document).ready(() => {
+  //       this.table = $('#assignedTable').DataTable({
+  //         paging: true,
+  //         searching: true, // Enable search feature
+  //         pageLength: 10,
+  //         ordering: true,
+  //         stateSave:true,
+  //         order: [[0, 'asc']],
+  //         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+  //         // Add other options here as needed
+  //       });
+  //     });
+  //   }, 2000)
 
     
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#orgTable').DataTable({
-          paging: true,
-          stateSave:true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[1, 'asc']],
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-          // Add other options here as needed
-        });
-      });
-    }, 1000)
-  }
+  //   setTimeout(() => {
+  //     $(document).ready(() => {
+  //       this.table = $('#orgTable').DataTable({
+  //         paging: true,
+  //         stateSave:true,
+  //         searching: true, // Enable search feature
+  //         pageLength: 10,
+  //         order: [[1, 'asc']],
+  //         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+  //         // Add other options here as needed
+  //       });
+  //     });
+  //   }, 1000)
+  // }
 
   /**
    * 
@@ -269,7 +270,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
           } else {
             this.getEmployeeReportees();
           }
-          this.InitailizeJqueryDataTable();
+         
           this.enableOrDisableSendMOM();
         } else {
           this.viewPermission = false;
@@ -295,23 +296,29 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * executes after the initialization of component
    */
-  ngAfterViewInit(): void {
-    if (this.table = null) {
-      setTimeout(() => {
-        $(document).ready(() => {
-          this.table = $('#assignedTable').DataTable({
-            paging: true,
-            stateSave:true,
-            searching: true, // Enable search feature
-            pageLength: 10,
-            order: [[1, 'asc']],
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            // Add other options here as needed
-          });
-        });
-      }, 2000)
-    }
+  initalizeDataTable:boolean=false;
+  ngAfterViewChecked(): void {
+   this.initializeJqueryDataTable();
   }
+  attendedMeetingReloadCount:number=0;
+  initializeJqueryDataTable(){
+    if(this.attendedMeetingDataLoaded&&!this.initalizeDataTable){
+      if(this.table!=null){
+        this.table.destroy();
+      }
+      
+        this.table = $('#assignedTable').DataTable({
+          paging: true,
+          stateSave:true,
+          searching: true, // Enable search feature
+          pageLength: 10,
+          order: [[1, 'asc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+          // Add other options here as needed
+        });
+        this.initalizeDataTable=true;
+      }
+}
 
   /**
    * executes after the un-initialization of component
@@ -635,6 +642,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   numberCountPerPage:number=0;
   reloadPageCount:number;
+  attendedMeetingDataLoaded:boolean=false
   getMeetings(tabOpened: string) {
     this.isComponentLoading = true;
     this.displayText = true;
@@ -758,8 +766,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewInit {
                 setTimeout(() => {
                   this.isComponentLoading = false;
                   this.isAttendedMeetingDataText = false;
+                  this.attendedMeetingDataLoaded=true;
+                  this.initalizeDataTable=false;
                 },1500)
                 this.attendedMeetings = response.body;
+                
               }
               localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
             },//next
