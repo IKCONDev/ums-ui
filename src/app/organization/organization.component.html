@@ -103,7 +103,7 @@
                     </svg>&nbsp;&nbsp;&nbsp;
                     <b
                         *ngIf="org.orgWebsite === null&& isDisable == false || org.orgWebsite === '' && isDisable == false">-</b>
-                    <label *ngIf="org.orgWebsite !== null && isDisable==false"><a href={{org.orgWebsite}}>
+                    <label *ngIf="org.orgWebsite !== null && isDisable==false"><a href={{org.orgWebsite}} (click)="navigateToLink($event)">
                             {{org.orgWebsite}}</a></label>
                     <input type="text" placeholder="Enter Company Website Url" [(ngModel)]="org.orgWebsite"
                         *ngIf="isDisable==true" class="form-control" minlength="6" maxlength="51"

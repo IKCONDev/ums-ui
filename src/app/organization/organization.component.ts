@@ -21,7 +21,7 @@ export class OrganizationComponent implements OnInit {
   org: Organization;
   isDisable: boolean = false;
   loggedInUserRole = localStorage.getItem('userRole');
-  countryCode:string = localStorage.getItem('countryCode');
+  countryCode: string = localStorage.getItem('countryCode');
 
   //error validation properties
   updatedOrgNameErrorInfo: string = '';
@@ -47,8 +47,8 @@ export class OrganizationComponent implements OnInit {
   updatedCompanyEmailErrorInfo: string = '';
   isUpdateCompanyEmailValid: boolean = false;
 
-  isComponentLoading:boolean=false;
-  isorganizationDataText:boolean=false;
+  isComponentLoading: boolean = false;
+  isorganizationDataText: boolean = false;
   /**
    * 
    * @param orgService 
@@ -59,9 +59,9 @@ export class OrganizationComponent implements OnInit {
     private router: Router, private menuItemService: AppMenuItemService) { }
 
 
-    /**
-     * 
-     */
+  /**
+   * 
+   */
   viewPermission: boolean;
   createPermission: boolean;
   updatePermission: boolean;
@@ -76,47 +76,47 @@ export class OrganizationComponent implements OnInit {
     //   this.router.navigateByUrl('/unauthorized')
     // }
 
-    if(localStorage.getItem('jwtToken') === null){
+    if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
-    
+
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-      if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
-        //this.noPermissions = false;
-        //provide permission to access this component for the logged in user if view permission exists
-        //get permissions of this component for the user
-        var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
-        if (menuItemPermissions.includes('View')) {
-          this.viewPermission = true;
-          this.getOrganization();
-        }else{
-          this.viewPermission = false;
-        }
-        if (menuItemPermissions.includes('Create')) {
-          this.createPermission = true;
-        }else{
-          this.createPermission = false;
-        }
-        if (menuItemPermissions.includes('Update')) {
-          this.updatePermission = true;
-          this.editButtonColor = '#5590AA';
-        }else{
-          this.updatePermission = false;
-          this.editButtonColor = 'lightgray';
-        }
-        if (menuItemPermissions.includes('Delete')) {
-          this.deletePermission = true;
-        }else{
-          this.deletePermission = false;
-        }
-      }else{
-        //this.noPermissions = true;
-        this.router.navigateByUrl('/unauthorized');
+    if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
+      //this.noPermissions = false;
+      //provide permission to access this component for the logged in user if view permission exists
+      //get permissions of this component for the user
+      var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
+      if (menuItemPermissions.includes('View')) {
+        this.viewPermission = true;
+        this.getOrganization();
+      } else {
+        this.viewPermission = false;
       }
+      if (menuItemPermissions.includes('Create')) {
+        this.createPermission = true;
+      } else {
+        this.createPermission = false;
+      }
+      if (menuItemPermissions.includes('Update')) {
+        this.updatePermission = true;
+        this.editButtonColor = '#5590AA';
+      } else {
+        this.updatePermission = false;
+        this.editButtonColor = 'lightgray';
+      }
+      if (menuItemPermissions.includes('Delete')) {
+        this.deletePermission = true;
+      } else {
+        this.deletePermission = false;
+      }
+    } else {
+      //this.noPermissions = true;
+      this.router.navigateByUrl('/unauthorized');
+    }
   }
 
   /**
@@ -124,15 +124,15 @@ export class OrganizationComponent implements OnInit {
    */
   getOrganization() {
     //returns null if no org details are present in DB.
-    this.isComponentLoading=true;
-    this.isorganizationDataText=true;
+    this.isComponentLoading = true;
+    this.isorganizationDataText = true;
     this.orgService.getOrganization(10).subscribe({
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
-          setTimeout(()=>{
-            this.isComponentLoading=false;
-            this.isorganizationDataText=false;
-          },1500)
+          setTimeout(() => {
+            this.isComponentLoading = false;
+            this.isorganizationDataText = false;
+          }, 1500)
           this.org = response.body;
         }
       }, error: error => {
@@ -155,29 +155,29 @@ export class OrganizationComponent implements OnInit {
    */
   cancelCompanyDetails() {
     this.isDisable = false;
-    this.updatedOrgNameErrorInfo= '';
-    this.isUpdateorgNameValid= false;
-    this.updatedOrgWebsiteErrorInfo= ''
+    this.updatedOrgNameErrorInfo = '';
+    this.isUpdateorgNameValid = false;
+    this.updatedOrgWebsiteErrorInfo = ''
     this.isUpdateWebsiteNameValid = false;
-    this.updatedorgFunctionalTypeErrorInfo= ''
+    this.updatedorgFunctionalTypeErrorInfo = ''
     this.isUpdateOrgFunctionValid = false;
     this.updatedorgContactPersonNameErrorInfo = ''
     this.isUpdateOrgContactPersonNameValid = false;
-    this.updatedorgContactPersonNumberErrorInfo= '';
+    this.updatedorgContactPersonNumberErrorInfo = '';
     this.isUpdateOrgContactPersonNumberValid = false;
     this.updatedOrgAddressErrorInfo = '';
     this.isUpdateOrgAddressValid = false;
-   this. updatedOrgContactNumberErrorInfo = '';
+    this.updatedOrgContactNumberErrorInfo = '';
     this.isupdatedOrgContactNumberValid = false;
     this.updatedOrgCountryErrorInfo = '';
     this.isupdatedOrgCountryValid = false;
-    this.updatedorgContactPersonEmailErrorInfo= '';
-    this.isUpdateOrgContactPersonEmailValid= false;
+    this.updatedorgContactPersonEmailErrorInfo = '';
+    this.isUpdateOrgContactPersonEmailValid = false;
     this.updatedOrgSuperAdminEmailErrorInfo = '';
     this.isUpdateOrgSuperAdminEmailValid = false;
-    this.updatedCompanyEmailErrorInfo= '';
+    this.updatedCompanyEmailErrorInfo = '';
     this.isUpdateCompanyEmailValid = false;
-    this.org.orgName = '' ;
+    this.org.orgName = '';
     this.org.orgWebsite = '';
     this.org.orgFunctionalType = '';
     this.org.orgContactPersonName = '';
@@ -268,7 +268,7 @@ export class OrganizationComponent implements OnInit {
       isOrgContactPersonNumberValid === true && isOrgAddressValid === true && isOrgCountryValid === true && isOrgContactNumberValid === true
       && isOrgContactPersonEmailValid === true && isOrgSuperAdminEmailValid === true && isCompanyEmailValid === true) {
       this.isDisable = false;
-      localStorage.setItem('countryCode',this.countryCode)
+      localStorage.setItem('countryCode', this.countryCode)
       if (this.org.orgId === null) {
         this.orgService.saveOrganization(this.org).subscribe({
           next: (response) => {
@@ -282,7 +282,7 @@ export class OrganizationComponent implements OnInit {
         })
       }
       else if (this.org.orgId != 0) {
-        localStorage.setItem('countryCode',this.countryCode)
+        localStorage.setItem('countryCode', this.countryCode)
         this.orgService.updateOrganization(this.org).subscribe({
           next: (response) => {
             this.org = response.body;
@@ -308,16 +308,16 @@ export class OrganizationComponent implements OnInit {
   validateOrgName() {
     // var deptName=  event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.org.orgName=== "" || this.org.orgName.trim() === "" || regex.exec(this.org.orgName) === null|| this.org.orgName===null){
+    if (this.org.orgName === "" || this.org.orgName.trim() === "" || regex.exec(this.org.orgName) === null || this.org.orgName === null) {
       this.isUpdateorgNameValid = false;
       this.updatedOrgNameErrorInfo = 'Organization name is required.';
     }
     else if (this.org.orgName.length < 3) {
       this.updatedOrgNameErrorInfo = 'Organisation name should have minimum of 3 characters.';
-      this.isUpdateorgNameValid=false;
+      this.isUpdateorgNameValid = false;
     } else if (this.org.orgName.length > 50) {
       this.updatedOrgNameErrorInfo = 'Organisation name should not exceed more than 50 characters.';
-      this.isUpdateorgNameValid=false;
+      this.isUpdateorgNameValid = false;
     } else {
       this.isUpdateorgNameValid = true;
       this.updatedOrgNameErrorInfo = '';
@@ -325,18 +325,18 @@ export class OrganizationComponent implements OnInit {
     return this.isUpdateorgNameValid;
   }
 
-/**
- * 
- * @returns 
- */
+  /**
+   * 
+   * @returns 
+   */
   validateWebsite() {
-   // var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}[.]{1}[A-Za-z0-9._]{2,6}$/;
-   var emailRegExp = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/gm;
+    // var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}[.]{1}[A-Za-z0-9._]{2,6}$/;
+    var emailRegExp = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/gm;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.org.orgWebsite === ''|| this.org.orgWebsite === null) {
+    if (this.org.orgWebsite === '' || this.org.orgWebsite === null) {
       this.isUpdateWebsiteNameValid = true;
       this.updatedOrgWebsiteErrorInfo = '';
-    }else if(this.org.orgWebsite.trim() === "" || regex.exec(this.org.orgWebsite) === null||emailRegExp.test(this.org.orgWebsite)===false){
+    } else if (this.org.orgWebsite.trim() === "" || regex.exec(this.org.orgWebsite) === null || emailRegExp.test(this.org.orgWebsite) === false) {
       this.isUpdateWebsiteNameValid = false;
       this.updatedOrgWebsiteErrorInfo = 'Website required.';
     }
@@ -363,10 +363,10 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgFunctionalType === '' || this.org.orgFunctionalType === null) {
       this.isUpdateOrgFunctionValid = true;
       this.updatedorgFunctionalTypeErrorInfo = '';
-    }else if(this.org.orgFunctionalType.trim() === "" || regex.exec(this.org.orgFunctionalType) === null){
+    } else if (this.org.orgFunctionalType.trim() === "" || regex.exec(this.org.orgFunctionalType) === null) {
       this.isUpdateOrgFunctionValid = false;
       this.updatedorgFunctionalTypeErrorInfo = 'Company type required';
-    }else if (regex2.test(this.org.orgFunctionalType) === false) {
+    } else if (regex2.test(this.org.orgFunctionalType) === false) {
       this.updatedorgFunctionalTypeErrorInfo = "Company type cannot have special characters or numbers.";
       this.isUpdateOrgFunctionValid = false;
     }
@@ -382,7 +382,7 @@ export class OrganizationComponent implements OnInit {
     }
     return this.isUpdateOrgFunctionValid;
   }
- 
+
   /**
    * 
    * @returns 
@@ -392,7 +392,7 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgContactPersonName === '' || this.org.orgContactPersonName === null) {
       this.isUpdateOrgContactPersonNameValid = true;
       this.updatedorgContactPersonNameErrorInfo = '';
-    }else if(this.org.orgContactPersonName.trim() === "" || regex.exec(this.org.orgContactPersonName) === null ){
+    } else if (this.org.orgContactPersonName.trim() === "" || regex.exec(this.org.orgContactPersonName) === null) {
       this.isUpdateOrgContactPersonNameValid = false;
       this.updatedorgContactPersonNameErrorInfo = 'Organisation Contact person name required.';
     }
@@ -419,7 +419,7 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgContactPersonNumber === '') {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
-    }else if(this.org.orgContactPersonNumber === null){
+    } else if (this.org.orgContactPersonNumber === null) {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
     }
@@ -442,7 +442,7 @@ export class OrganizationComponent implements OnInit {
    */
   validateOrgAddress() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.org.orgAddress === ''|| this.org.orgAddress.trim() ==="" ||  regex.exec(this.org.orgAddress)===null || this.org.orgAddress===null) {
+    if (this.org.orgAddress === '' || this.org.orgAddress.trim() === "" || regex.exec(this.org.orgAddress) === null || this.org.orgAddress === null) {
       this.updatedOrgAddressErrorInfo = 'Organization address is required.';
       this.isUpdateOrgAddressValid = false;
     }
@@ -469,7 +469,7 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgContactNumber === '') {
       this.updatedOrgContactNumberErrorInfo = '';
       this.isupdatedOrgContactNumberValid = true;
-    }else if(this.org.orgContactNumber === null){
+    } else if (this.org.orgContactNumber === null) {
       this.updatedOrgContactNumberErrorInfo = '';
       this.isupdatedOrgContactNumberValid = true;
     }
@@ -495,7 +495,7 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgCountry === '') {
       this.updatedOrgCountryErrorInfo = '';
       this.isupdatedOrgCountryValid = true;
-    }else if(this.org.orgCountry === null){
+    } else if (this.org.orgCountry === null) {
       this.updatedOrgCountryErrorInfo = '';
       this.isupdatedOrgCountryValid = true;
     }
@@ -521,7 +521,7 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgContactPersonEmail === '') {
       this.updatedorgContactPersonEmailErrorInfo = '';
       this.isUpdateOrgContactPersonEmailValid = true;
-    }else if(this.org.orgContactPersonEmail === null){
+    } else if (this.org.orgContactPersonEmail === null) {
       this.updatedorgContactPersonEmailErrorInfo = '';
       this.isUpdateOrgContactPersonEmailValid = true;
     }
@@ -545,7 +545,7 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgSuperAdminEmailId === '') {
       this.updatedOrgSuperAdminEmailErrorInfo = '';
       this.isUpdateOrgSuperAdminEmailValid = true;
-    }else if(this.org.orgSuperAdminEmailId === null){
+    } else if (this.org.orgSuperAdminEmailId === null) {
       this.updatedOrgSuperAdminEmailErrorInfo = '';
       this.isUpdateOrgSuperAdminEmailValid = true;
     }
@@ -569,7 +569,7 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgEmailId === '') {
       this.updatedCompanyEmailErrorInfo = '';
       this.isUpdateCompanyEmailValid = true;
-    }else if(this.org.orgEmailId === null){
+    } else if (this.org.orgEmailId === null) {
       this.updatedCompanyEmailErrorInfo = '';
       this.isUpdateCompanyEmailValid = true;
     }
@@ -583,98 +583,99 @@ export class OrganizationComponent implements OnInit {
     }
     return this.isUpdateCompanyEmailValid;
   }
-numberValidation(event: KeyboardEvent) {
-  const invalidChars = ['+', '-', '.','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 
-  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',' ','A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-   'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-   var specials=/[^a-zA-Z0-9\s]/g;//matches with all special character
-  const inputElement = event.target as HTMLInputElement;
-  if(invalidChars.includes(event.key)||specials.test(event.key)||(inputElement.value.length==10 && event.key!='Backspace')||event.keyCode===40||event.keyCode===38)
-  {
+  numberValidation(event: KeyboardEvent) {
+    const invalidChars = ['+', '-', '.', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+      'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+      'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    var specials = /[^a-zA-Z0-9\s]/g;//matches with all special character
+    const inputElement = event.target as HTMLInputElement;
+    if (invalidChars.includes(event.key) || specials.test(event.key) || (inputElement.value.length == 10 && event.key != 'Backspace') || event.keyCode === 40 || event.keyCode === 38) {
       event.preventDefault();
-  }
-}
-selectedOrgPic:Blob;
-onFileChanged(event:any){
-  if(this.org.orgAddress===null&& this.org.orgName===null){
-    this.toast.warning("Please save organization mandatory details first");
-  }
-  else{
-  this.selectedOrgPic = event.target.files[0];
-  if (this.selectedOrgPic.size < this.fileSize) {
-      this.orgService.saveOrgPic(this.selectedOrgPic).subscribe(
-        (response) => {
-          if (response.status === HttpStatusCode.Ok) {
-            this.selectedOrgPic = response.body.organizationImage;
-            this.org.organizationImage=this.selectedOrgPic;
-            this.toast.success('Profile pic uploaded succesfully');
-          setTimeout(() => {
-              window.location.reload();
-            }, 1000);
-          } else if (response.status === HttpStatusCode.Unauthorized) {
-            //TODO: SHOW UNAUTHORIZED PAGE
-          }
-          else if(response.status===HttpStatusCode.NoContent){
-            this.toast.error('Please select a valid image file')
-          }
-          
-        }
-      )
-    } else {
-      this.toast.error('File size is greater than 2 MB')
     }
   }
-  }
-
-
-    viewCountryCode(){
-      var selectedCountry = $('#country-dropdown option:selected');
-      var countryCode = selectedCountry.data('code');
-      $('#dial-code-input').val(countryCode);
-      this.org.orgCountryCode=countryCode;
+  selectedOrgPic: Blob;
+  onFileChanged(event: any) {
+    if (this.org.orgAddress === null && this.org.orgName === null) {
+      this.toast.warning("Please save organization mandatory details first");
     }
+    else {
+      this.selectedOrgPic = event.target.files[0];
+      if (this.selectedOrgPic.size < this.fileSize) {
+        this.orgService.saveOrgPic(this.selectedOrgPic).subscribe(
+          (response) => {
+            if (response.status === HttpStatusCode.Ok) {
+              this.selectedOrgPic = response.body.organizationImage;
+              this.org.organizationImage = this.selectedOrgPic;
+              this.toast.success('Profile pic uploaded succesfully');
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            } else if (response.status === HttpStatusCode.Unauthorized) {
+              //TODO: SHOW UNAUTHORIZED PAGE
+            }
+            else if (response.status === HttpStatusCode.NoContent) {
+              this.toast.error('Please select a valid image file')
+            }
 
-    
-  currentMenuItem: MenuItem;
-  async getCurrentMenuItemDetails() : Promise<MenuItem> {
-      const response =  await lastValueFrom(this.menuItemService.findMenuItemByName('Organization')).then(response => {
-        if (response.status === HttpStatusCode.Ok) {
-          this.currentMenuItem = response.body;
-        }else if(response.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout');
-        }
-      },reason => {
-        if(reason.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout')
-        }
+          }
+        )
+      } else {
+        this.toast.error('File size is greater than 2 MB')
       }
-      )
+    }
+  }
+
+
+  viewCountryCode() {
+    var selectedCountry = $('#country-dropdown option:selected');
+    var countryCode = selectedCountry.data('code');
+    $('#dial-code-input').val(countryCode);
+    this.org.orgCountryCode = countryCode;
+  }
+
+
+  currentMenuItem: MenuItem;
+  async getCurrentMenuItemDetails(): Promise<MenuItem> {
+    const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Organization')).then(response => {
+      if (response.status === HttpStatusCode.Ok) {
+        this.currentMenuItem = response.body;
+      } else if (response.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout');
+      }
+    }, reason => {
+      if (reason.status === HttpStatusCode.Unauthorized) {
+        this.router.navigateByUrl('/session-timeout')
+      }
+    }
+    )
     return this.currentMenuItem;
   }
 
 
-  deleteImage(event:Event){
+  deleteImage(event: Event) {
     var isConfirmed = window.confirm('Are you sure you want to delete your organization picture ? ');
     event.preventDefault();
-    if(isConfirmed){
-    this.orgService.deleteOrgPic(this.org.orgId).subscribe({
-      next: (response) => {
+    if (isConfirmed) {
+      this.orgService.deleteOrgPic(this.org.orgId).subscribe({
+        next: (response) => {
           this.toast.success('Organization pic deleted successfully');
           setTimeout(() => {
             window.location.reload();
-          },200 );
-      }, error: (error) => {
-        this.toast.error('Error while deleting organization pic');
-      }
-    })
+          }, 200);
+        }, error: (error) => {
+          this.toast.error('Error while deleting organization pic');
+        }
+      })
+    }
+  }
+
+  /**
+   * 
+   * @param event 
+   */
+  navigateToLink(event: Event): void {
+    event.preventDefault();
+    const externalUrl = this.org.orgWebsite;
+    window.open(`https://${externalUrl}`, '_blank');
   }
 }
-
-}
-
-
-
-
-
-
-
