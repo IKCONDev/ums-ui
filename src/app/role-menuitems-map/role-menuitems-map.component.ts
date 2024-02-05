@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { RoleService } from '../role/service/role.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { Role } from '../model/Role.model';
@@ -14,7 +14,7 @@ import { lastValueFrom } from 'rxjs';
   templateUrl: './role-menuitems-map.component.html',
   styleUrls: ['./role-menuitems-map.component.css']
 })
-export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
+export class RoleMenuitemsMapComponent implements OnInit, AfterViewChecked {
 
   private table: any;
   @Output() title = 'Role Menu Items'
@@ -42,10 +42,13 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
     private toastr: ToastrService){
   }
 
+  initializeDataTable:boolean=false;
+  ngAfterViewChecked(): void {
+    this.initializeJqueryTable();
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
+  }
+  initializeJqueryTable(){
+    if(this.roleMenuItemsDataLoaded&&!this.initializeDataTable){
         this.table = $('#dataTable').DataTable({
           paging: true,
           stateSave:true,
@@ -55,8 +58,8 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
           lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
           // Add other options here as needed
         });
-      });
-    },500)
+        this.initializeDataTable=true;
+      }
   }
 
   async ngOnInit(): Promise<void> {
@@ -105,6 +108,7 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
   /**
    * get all roles
    */
+  roleMenuItemsDataLoaded:boolean=false;
   getRoleList() {
     this.isRoleDataText=true;
     this.isComponentLoading=true;
@@ -116,6 +120,7 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewInit {
       next: (response) => {
         if (response.status === HttpStatusCode.Ok) {
           this.roleList = response.body;
+          this.roleMenuItemsDataLoaded=true
             this.isRoleDataText=false;
             this.isComponentLoading=false;
         }

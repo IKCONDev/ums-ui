@@ -1,4 +1,4 @@
-import { Component, OnInit,Output } from '@angular/core';
+import { AfterViewChecked, Component, OnInit,Output } from '@angular/core';
 import { PermissionService } from './service/permission.service';
 import { Permission } from '../model/Permission.model';
 import { HttpStatusCode } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { lastValueFrom } from 'rxjs';
   templateUrl: './permission.component.html',
   styleUrls: ['./permission.component.css']
 })
-export class PermissionComponent implements OnInit{
+export class PermissionComponent implements OnInit,AfterViewChecked{
   @Output() title = 'Permissions';
   private table: any;
   addPermission: Permission = new Permission();
@@ -84,7 +84,7 @@ export class PermissionComponent implements OnInit{
     private menuItemService: AppMenuItemService){
 
   }
-
+  permissionDataLoaded:boolean=false;
   getAllPermissions(){
     this.isComponentLoading=true;
     this.isPermissionDataText=true;
@@ -95,25 +95,32 @@ export class PermissionComponent implements OnInit{
     this.permissionService.getAllPermissions().subscribe({
       next: response => {
         this.permissionsList = response.body;
+        this.permissionDataLoaded=true;
           this.isComponentLoading=false;
           this.isPermissionDataText=false;
       }
     })
   }
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          stateSave:true,
-          order: [[0,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-          // Add other options here as needed
-        });
-      });
-    },200)
+
+  initializedataTable:boolean=false;
+  ngAfterViewChecked(): void {
+    this.initializeJqueryTable();
+  }
+
+  initializeJqueryTable(){
+    if(this.permissionDataLoaded&&!this.initializedataTable){
+    this.table = $('#table').DataTable({
+      paging: true,
+      searching: true, // Enable search feature
+      pageLength: 10,
+      stateSave:true,
+      order: [[0,'asc']],
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      // Add other options here as needed
+    });
+    this.initializedataTable=true;
+  }
+           
   }
 
   createOrUpdateTaskCategory(){

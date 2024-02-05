@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { AfterViewChecked, Component, Output } from '@angular/core';
 import { MenuItem } from '../model/MenuItem.model';
 import { AppMenuItemService } from './service/app-menu-item.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { error } from 'jquery';
   templateUrl: './app-menu-item.component.html',
   styleUrls: ['./app-menu-item.component.css']
 })
-export class AppMenuItemsComponent {
+export class AppMenuItemsComponent implements AfterViewChecked {
 
   @Output() title = 'Menu Items';
 
@@ -84,21 +84,23 @@ export class AppMenuItemsComponent {
         this.router.navigateByUrl('/unauthorized');
       }
   }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          stateSave:true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[1,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-          // Add other options here as needed
-        });
-      });
-    },200)
+  initializeDataTable:boolean=false;
+  ngAfterViewChecked(): void {
+    this.initializeJqueryTable();
+  }
+   initializeJqueryTable(){
+    if(this.menuItemsDataLoaded&&!this.initializeDataTable){
+    this.table = $('#table').DataTable({
+      paging: true,
+      stateSave:true,
+      searching: true, // Enable search feature
+      pageLength: 10,
+      order: [[1,'asc']],
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      // Add other options here as needed
+    });
+    this.initializeDataTable=true;
+   }      
   }
 
   createOrUpdateMenuItem(){
@@ -109,13 +111,14 @@ export class AppMenuItemsComponent {
     }
   }
 
-
+  menuItemsDataLoaded:boolean=false;
   getMenuItems(){
     this.isComponentLoading=true;
     this.isMenuItemDataText=true;
     this.menuItemService.findMenuItems().subscribe({
       next: response => {
         this.menuItemList = response.body;
+        this.menuItemsDataLoaded = true;
         this.isComponentLoading=false;
         this.isMenuItemDataText=false;
       },error: error => {
