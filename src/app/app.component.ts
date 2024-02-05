@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {LocationStrategy} from '@angular/common';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,6 +9,10 @@ import {LocationStrategy} from '@angular/common';
 export class AppComponent {
   title = 'ums-ui';
   constructor(private Location: LocationStrategy ) {
-
+     if(environment.production){
+      console.log('PRODUCTION')
+     }else{
+      console.log('DEVELOPMENT')
+     }
     }
 }
