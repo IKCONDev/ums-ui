@@ -68,7 +68,8 @@ label#adjustTextBox{
 #errorMessage{
     color: red;
     font-size: 12px;
-    padding-left: 30px;
+    padding-left: 0px;
+    margin-bottom: 0px;
 }
 
 input::-webkit-outer-spin-button,
