@@ -71,6 +71,10 @@ label#adjustTextBox{
     padding-left: 0px;
     margin-bottom: 0px;
 }
+#orgNameId p {
+  margin-top: 0;
+  margin-bottom: 0.78rem;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
