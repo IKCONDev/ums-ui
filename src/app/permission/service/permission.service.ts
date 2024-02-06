@@ -3,20 +3,24 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { Task } from 'src/app/model/Task.model';
 import { TaskCategory } from 'src/app/model/TaskCategory.model';
 import { Permission } from 'src/app/model/Permission.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PermissionService {
 
+  private gatewayMicroservicePathUrl : string;
+  private permissionMicroservicePathUrl : string;
+
   /**
    * 
    * @param http 
    */
-  constructor(private http: HttpClient) { }
-
-  private gatewayMicroservicePathUrl = "http://localhost:8012";
-  private permissionMicroservicePathUrl = "permission";
+  constructor(private http: HttpClient) {
+    this.gatewayMicroservicePathUrl = environment.apiURL
+    this.permissionMicroservicePathUrl = "permission";
+   }
 
   getAllPermissions(){
     return this.http.get<Permission[]>(`${this.gatewayMicroservicePathUrl}/${this.permissionMicroservicePathUrl}/all`,{observe: 'response', headers: new HttpHeaders({

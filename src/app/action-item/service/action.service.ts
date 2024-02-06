@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { ActionItems } from 'src/app/model/Actionitem.model';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/model/Task.model';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,15 +12,19 @@ import { Task } from 'src/app/model/Task.model';
 })
 export class ActionService {
 
-  private gatewayUrl = 'http://localhost:8012'
-  private actionItemsMicroservicePathUrl = 'actions';
-  private taskMicroServicePathUrl = 'task'
+  private gatewayUrl: string;
+  private actionItemsMicroservicePathUrl: string;
+  private taskMicroServicePathUrl: string;
 
   /**
    * 
    * @param http 
    */
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.gatewayUrl = environment.apiURL;
+    this.actionItemsMicroservicePathUrl = 'actions';
+    this.taskMicroServicePathUrl = 'task'
+  }
 
   /**
    * 
@@ -147,29 +152,29 @@ export class ActionService {
       (actionItemNameFilter === '' && actionItemOwnerFilter === "" && actionItemStartDateFilter === '' &&
       actionItemEndDateFilter === '') {
 
-        return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`, {
-          observe: 'response', headers: new HttpHeaders({
-            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-          }
-          )
-        })
-        
+      return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`, {
+        observe: 'response', headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+        }
+        )
+      })
+
     } else {
       let params = new HttpParams()
-      .set('actionItemTitle', actionItemNameFilter)
-      .set('actionItemOwner', actionItemOwnerFilter)
-      .set('actionItemStartDate', actionItemStartDateFilter)
-      .set('actionItemEndDate', actionItemEndDateFilter)
+        .set('actionItemTitle', actionItemNameFilter)
+        .set('actionItemOwner', actionItemOwnerFilter)
+        .set('actionItemStartDate', actionItemStartDateFilter)
+        .set('actionItemEndDate', actionItemEndDateFilter)
 
-    return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`, {
-      observe: 'response', headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-      }
-      ),params:params
-    })
+      return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/all/${email}`, {
+        observe: 'response', headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+        }
+        ), params: params
+      })
     }
   }
-  getAllActionItemsByMeetingId(meetingId : number){
+  getAllActionItemsByMeetingId(meetingId: number) {
     return this.http.get<ActionItems[]>(`${this.gatewayUrl}/${this.actionItemsMicroservicePathUrl}/meeting-actions/${meetingId}`, {
       observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')

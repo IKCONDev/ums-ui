@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Department } from "src/app/model/Department.model";
 import { Designation } from "src/app/model/Designation.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -9,15 +10,16 @@ import { Designation } from "src/app/model/Designation.model";
 
 export class DesignationService {
 
-    gatewayMicroservicePathUrl: string = 'http://localhost:8012';
-    designationMicroservicepathUrl: string = 'designations';
+    gatewayMicroservicePathUrl: string;
+    designationMicroservicepathUrl: string;
 
     /**
      * 
      * @param http 
      */
     constructor(private http: HttpClient) {
-
+        this.gatewayMicroservicePathUrl = environment.apiURL;
+        this.designationMicroservicepathUrl = 'designations';
     }
 
     /**

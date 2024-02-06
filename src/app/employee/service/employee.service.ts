@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Employee } from "src/app/model/Employee.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -8,11 +9,12 @@ import { Employee } from "src/app/model/Employee.model";
 
 export class EmployeeService {
 
-    gatewayMicroservicePathUrl: string = 'http://localhost:8012';
-    employeeMicroservicepathUrl: string = 'employees';
+    gatewayMicroservicePathUrl: string;
+    employeeMicroservicepathUrl: string;
 
     constructor(private http: HttpClient) {
-
+    this.gatewayMicroservicePathUrl= environment.apiURL;
+    this.employeeMicroservicepathUrl = 'employees';
     }
     
     /**

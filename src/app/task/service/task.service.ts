@@ -2,20 +2,24 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Task } from 'src/app/model/Task.model';
 import { TaskCategory } from 'src/app/model/TaskCategory.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
+  private gatewayMicroservicePathUrl: string;
+  private taskMicroservicePathUrl: string;
   /**
    * 
    * @param http 
    */
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.gatewayMicroservicePathUrl = environment.apiURL;
+    this.taskMicroservicePathUrl = "task";
+   }
 
-  private gatewayMicroservicePathUrl = "http://localhost:8012";
-  private taskMicroservicePathUrl = "task";
 
   /**
    * 

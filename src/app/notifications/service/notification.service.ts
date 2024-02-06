@@ -1,18 +1,20 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Notification } from "src/app/model/Notification.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn:'root'
 })
 export class NotificationService{
 
+    private apiGatewayUrl: string;
+    private notificationMicroservicePathUrl: string;
+
     constructor(private http: HttpClient){
-
+        this.apiGatewayUrl = environment.apiURL;
+        this.notificationMicroservicePathUrl = 'notification';
     }
-
-    private apiGatewayUrl = 'http://localhost:8012';
-    private notificationMicroservicePathUrl = 'notification';
 
     /**
      * 

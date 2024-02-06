@@ -4,6 +4,7 @@ import { Employee } from 'src/app/model/Employee.model';
 import { HeaderService } from 'src/app/header/service/header.service';
 import { Observable } from 'rxjs';
 import { Users } from 'src/app/model/Users.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,24 +12,32 @@ import { Users } from 'src/app/model/Users.model';
 
 export class MyProfileService{
 
+  gatewayMicroservicepathUrl: string;
+  usersMicroservicePathUrl: string;
+  employeesMicroservicePathUrl: string;
+  userProfilepathUrl: string;
+  updateProfilepathUrl: string;
+  finalUrl: string;
+  finalUrlForDeletingPic: string;
+  finalUrlForUpdating: string;
   /**
    * 
    * @param http 
    * @param headerService 
    */
     constructor(private http: HttpClient, private headerService: HeaderService){
-      
+      this.gatewayMicroservicepathUrl = environment.apiURL;
+      this.usersMicroservicePathUrl = '/users'
+      this.employeesMicroservicePathUrl = '/employees'
+      this.userProfilepathUrl ='/profile-pic';
+      this.updateProfilepathUrl='/update';
+      this.finalUrl=this.gatewayMicroservicepathUrl+this.usersMicroservicePathUrl+this.userProfilepathUrl;
+      this.finalUrlForDeletingPic=this.gatewayMicroservicepathUrl+this.usersMicroservicePathUrl+"/deleteProfilePic";
+      this.finalUrlForUpdating=this.gatewayMicroservicepathUrl+this.employeesMicroservicePathUrl
+     +this.updateProfilepathUrl;
     }
 
-     gatewayMicroservicepathUrl = 'http://localhost:8012';
-     usersMicroservicePathUrl = '/users'
-     employeesMicroservicePathUrl = '/employees'
-    userProfilepathUrl ='/profile-pic';
-    updateProfilepathUrl='/update';
-    finalUrl=this.gatewayMicroservicepathUrl+this.usersMicroservicePathUrl+this.userProfilepathUrl;
-    finalUrlForDeletingPic=this.gatewayMicroservicepathUrl+this.usersMicroservicePathUrl+"/deleteProfilePic";
-    finalUrlForUpdating=this.gatewayMicroservicepathUrl+this.employeesMicroservicePathUrl
-    +this.updateProfilepathUrl;
+
     
     /**
      * 

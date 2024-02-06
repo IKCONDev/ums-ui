@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Meeting } from 'src/app/model/Meeting.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeetingReportsService {
 
-    private apiGatewayPathUrl = 'http://localhost:8012';
-    private reportMicroservicePathUrl = 'reports';
+    private apiGatewayPathUrl: string;
+    private reportMicroservicePathUrl: string;
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient){
+      this.apiGatewayPathUrl = environment.apiURL;
+      this.reportMicroservicePathUrl = 'reports';
+    }
 
     /**
      * 

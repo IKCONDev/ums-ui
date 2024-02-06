@@ -2,23 +2,28 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Employee } from 'src/app/model/Employee.model';
 import { Users } from 'src/app/model/Users.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeaderService {
-
-    gatewayUrl:string = "http://localhost:8012"
-    authenticationMicroservicePathUrl:string = '/users';
-    finalHttpUrl:string = this.gatewayUrl+this.authenticationMicroservicePathUrl;
-    userProfileUrl:string = '/user-profile'
-    twofactorAuthUpdateUrl:string = '/update-auth'
-    
+  gatewayUrl: string;
+  authenticationMicroservicePathUrl: string;
+  finalHttpUrl: string;
+  userProfileUrl:string
+  twofactorAuthUpdateUrl:string
     /**
      * 
      * @param http 
      */
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient){
+    this.gatewayUrl = environment.apiURL;
+    this.authenticationMicroservicePathUrl = '/users';
+    this.finalHttpUrl = this.gatewayUrl+this.authenticationMicroservicePathUrl;
+    this.userProfileUrl = '/user-profile'
+    this.twofactorAuthUpdateUrl = '/update-auth'
+    }
     //username and email both are same, any wording can be used
     //fetches user profile details
 

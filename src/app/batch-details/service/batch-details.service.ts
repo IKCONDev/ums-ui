@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient , HttpHeaders,HttpResponse} from "@angular/common/http";
 import { BatchDetails } from "src/app/model/BatchDetails.model";
 import { CronDetails } from "src/app/model/CronDetails.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn : 'root'
@@ -9,10 +10,15 @@ import { CronDetails } from "src/app/model/CronDetails.model";
 
 export class BatchDetailsService{
 
-     constructor (private http:HttpClient){}
-     private gateWayURL="http://localhost:8012";
-     private teamsbatchProcessMicroserviceURL="teams";
-     private getAllBatchDetailsURL="batch-details";
+    private gateWayURL: string;
+     private teamsbatchProcessMicroserviceURL: string;
+     private getAllBatchDetailsURL: string;
+
+     constructor (private http:HttpClient){
+       this.gateWayURL = environment.apiURL;
+       this.teamsbatchProcessMicroserviceURL="teams";
+       this.getAllBatchDetailsURL="batch-details";
+     }
     
 
      /**

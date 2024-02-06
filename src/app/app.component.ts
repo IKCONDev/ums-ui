@@ -11,8 +11,10 @@ export class AppComponent {
   constructor(private Location: LocationStrategy ) {
      if(environment.production){
       console.log('PRODUCTION')
+      console.log(environment.apiURL)
      }else{
       console.log('DEVELOPMENT')
+      console.log(environment.apiURL)
      }
     }
 }

@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { TaskStatusModel } from 'src/app/model/taskStatus.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HomeService {
 
-  gatewayUrl = "http://localhost:8012"
-  meetingsMicroservicePathUrl = 'meetings';
-  actionItemsMicroservicePathUrl = 'actions';
-  tasksMicroservicePathUrl = 'task'
+  gatewayUrl: string;
+  meetingsMicroservicePathUrl: string;
+  actionItemsMicroservicePathUrl: string;
+  tasksMicroservicePathUrl: string;
 
   constructor(private http: HttpClient) { 
-  
+    this.gatewayUrl = environment.apiURL;
+    this.meetingsMicroservicePathUrl = 'meetings';
+    this.actionItemsMicroservicePathUrl = 'actions';
+    this.tasksMicroservicePathUrl = 'task'
   }
 
   /*

@@ -1,18 +1,22 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root',
   })
   export class TwofactorAuthenticationService {
 
-    private gatewayUrl = 'http://localhost:8012'
-    private authenticationMicroservicePathUrl = '/users';
-    private finalHttpUrl = this.gatewayUrl+this.authenticationMicroservicePathUrl;
-    private generateOtpPathUrl = 'generate-otp';
+    private gatewayUrl: string;
+    private authenticationMicroservicePathUrl: string;
+    private finalHttpUrl: string;
+    private generateOtpPathUrl: string;
 
     constructor(private http: HttpClient){
-
+      this.gatewayUrl = environment.apiURL;
+      this.authenticationMicroservicePathUrl = '/users';
+      this.finalHttpUrl = this.gatewayUrl+this.authenticationMicroservicePathUrl;
+      this.generateOtpPathUrl = 'generate-otp';
     }
 
     /**

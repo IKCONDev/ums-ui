@@ -2,16 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Meeting } from 'src/app/model/Meeting.model';
 import { ActionItems } from 'src/app/model/Actionitem.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActionItemsReportsService {
 
-    private apiGatewayPathUrl = 'http://localhost:8012';
-    private actionItemReportsControllerPathUrl = 'actionReports';
+    private apiGatewayPathUrl: string;
+    private actionItemReportsControllerPathUrl;
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient){
+      this.apiGatewayPathUrl = environment.apiURL;
+      this.actionItemReportsControllerPathUrl = 'actionReports';
+    }
 
     findOrganizedActionItemsReportByUserId(organizerEmail: string){
         var params = new HttpParams()

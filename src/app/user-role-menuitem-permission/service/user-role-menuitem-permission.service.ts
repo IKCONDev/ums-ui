@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { UserRoleMenuItemPermissionMap } from "src/app/model/UserRoleMenuItemPermissionMap.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn : "root"
@@ -8,10 +9,13 @@ import { UserRoleMenuItemPermissionMap } from "src/app/model/UserRoleMenuItemPer
 
 export class UserRoleMenuItemPermissionService{
 
-    private gatewayUrl = 'http://localhost:8012';
-    private adminMicroserviceUserRPMControllerPathUrl = 'userRoleMenuPermissionMap';
+    gatewayUrl: string;
+    adminMicroserviceUserRPMControllerPathUrl: string;
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient){
+       this.gatewayUrl = environment.apiURL;
+       this.adminMicroserviceUserRPMControllerPathUrl = 'userRoleMenuPermissionMap';
+    }
 
 
     /**

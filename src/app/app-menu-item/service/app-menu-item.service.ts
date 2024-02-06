@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient , HttpHeaders,HttpResponse} from "@angular/common/http";
 import { BatchDetails } from "src/app/model/BatchDetails.model";
 import { MenuItem } from "src/app/model/MenuItem.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn : 'root'
@@ -12,10 +13,13 @@ export class AppMenuItemService {
    * 
    * @param http 
    */
-  constructor(private http: HttpClient) { }
+     gatewayMicroservicePathUrl: string;
+     menuItemMicroservicePathUrl: string;
+  constructor(private http: HttpClient) {
+      this.gatewayMicroservicePathUrl = environment.apiURL;
+      this.menuItemMicroservicePathUrl = "menuitem";
+   }
 
-  private gatewayMicroservicePathUrl = "http://localhost:8012";
-  private menuItemMicroservicePathUrl = "menuitem";
 
   findMenuItems(){
     return this.http.get<MenuItem[]>(`${this.gatewayMicroservicePathUrl}/${this.menuItemMicroservicePathUrl}/all`,{observe: 'response', headers: new HttpHeaders({

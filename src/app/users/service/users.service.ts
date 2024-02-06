@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Users } from "src/app/model/Users.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn : "root"
@@ -8,10 +9,13 @@ import { Users } from "src/app/model/Users.model";
 
 export class UserService{
 
-    private gatewayMicroservicePathUrl: string = 'http://localhost:8012';
-    private userMicroservicepathUrl: string = 'user';
+    gatewayMicroservicePathUrl: string;
+    userMicroservicepathUrl: string;
 
-    constructor(private http:HttpClient){}
+    constructor(private http:HttpClient){
+       this.gatewayMicroservicePathUrl = environment.apiURL;
+       this.userMicroservicepathUrl  = 'user';
+    }
 
     getAll(){
         return this.http.get<Users[]>(`${this.gatewayMicroservicePathUrl}/${this.userMicroservicepathUrl}/all`,{observe:'response'}); 

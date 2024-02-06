@@ -1,25 +1,33 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Organization } from "src/app/model/Organization.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class OrganizationService {
 
-    private apiGatewayUrl = 'http://localhost:8012';
-    private adminMicroserviceOrganizationPathUrl = 'org';
-    private saveOrganisationUrl = '/save';
-    private updateOrganisationUrl = '/update';
-    private saveOrganizationPic='/saveOrgPic';
-    private deleteOrganizationPic='/deleteOrgPic';
+    private apiGatewayUrl: string;
+    private adminMicroserviceOrganizationPathUrl: string;
+    private saveOrganisationUrl: string;
+    private updateOrganisationUrl: string;
+    private saveOrganizationPic: string;
+    private deleteOrganizationPic: string;
+    private finalUrlForDeletingPic: string;
 
     /**
      * 
      * @param http 
      */
     constructor(private http: HttpClient) {
-
+    this.apiGatewayUrl = environment.apiURL;
+    this.adminMicroserviceOrganizationPathUrl = 'org';
+    this.saveOrganisationUrl = '/save';
+    this.updateOrganisationUrl = '/update';
+    this.saveOrganizationPic='/saveOrgPic';
+    this.deleteOrganizationPic='/deleteOrgPic';
+    this.finalUrlForDeletingPic =this.apiGatewayUrl+"/"+this.adminMicroserviceOrganizationPathUrl+this.deleteOrganizationPic;
     }
 
     /**
@@ -80,7 +88,6 @@ export class OrganizationService {
     });
     }
 
-    finalUrlForDeletingPic:any=this.apiGatewayUrl+"/"+this.adminMicroserviceOrganizationPathUrl+this.deleteOrganizationPic;
     deleteOrgPic(orgId){
         return this.http.delete<any>(this.finalUrlForDeletingPic ,{
           params: { orgId: orgId },
