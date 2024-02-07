@@ -426,22 +426,29 @@ export class LoginComponent {
             setTimeout(()=>{
               this.disableLoginButton=false;
             },1200)
-          } else if (error.status === HttpStatusCode.Unauthorized) {
+          }else if(error.status == HttpStatusCode.InternalServerError){
+            this.toastr.error('Incorrect username or passoword.','Login Failure');
+          }
+           else if (error.status === HttpStatusCode.Unauthorized) {
             var loginAttempts = error.headers.get('loginAttempts');
             var active = error.headers.get('userActive');
             if(parseInt(loginAttempts) === 2){
               this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempt remaining', 'Login Failure')
             }
-            else if(parseInt(loginAttempts) > 3 || active === 'false'){
-              this.toastr.error('Provided user account is inactive', 'Account Disabled')
-            }
-            else{
+            else if(parseInt(loginAttempts) === 1 || active === 'false'){
               this.errorInfo = 'Invalid Credentials'
               this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempts remaining', 'Login Failure')
             }
-            setTimeout(()=>{
-              this.disableLoginButton=false;
-            },1200)
+            else if(parseInt(loginAttempts) === 3 || active === 'false'){
+              this.errorInfo = 'Invalid Credentials'
+              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempts remaining', 'Login Failure')
+            }
+            else if(parseInt(loginAttempts) > 3 || active === 'false'){
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+            }
+            // setTimeout(()=>{
+            //   this.disableLoginButton=false;
+            // },1200)
           }
           // on error clear localstorage
           window.localStorage.clear();
