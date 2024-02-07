@@ -307,7 +307,7 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
 
     }
     else{
-       this.toastrService.warning('Permission '+ permissionId +' not deleted.')
+      // this.toastrService.warning('Permission '+ permissionId +' not deleted.')
     }
   }   
 

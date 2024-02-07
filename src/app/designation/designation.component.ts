@@ -265,7 +265,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
       }
    })
    }else{
-    this.toastr.warning('Designation '+designationId+' not deleted.');
+   // this.toastr.warning('Designation '+designationId+' not deleted.');
    }
   }
 
@@ -430,7 +430,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
         }
       })
     }else{
-      this.toastr.warning('Designations not deleted.')
+     // this.toastr.warning('Designations not deleted.')
     }
    }else{
     this.toastr.error('Please select atleast one designation to delete.')

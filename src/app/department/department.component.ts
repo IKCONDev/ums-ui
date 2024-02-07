@@ -375,7 +375,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
       }
    })
    }else{
-    this.toastr.warning('Department '+departmentId+' not deleted.')
+   // this.toastr.warning('Department '+departmentId+' not deleted.')
    }
   }
 
@@ -674,7 +674,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
         }
       })
     }else{
-      this.toastr.warning('Departments not deleted.')
+     // this.toastr.warning('Departments not deleted.')
     }
    }else{
     this.toastr.error('Please select atleast one department to delete.')

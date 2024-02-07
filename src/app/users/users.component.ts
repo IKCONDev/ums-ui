@@ -376,7 +376,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
     }
     else {
-      this.toastr.warning("User '" + useremailId + "' not deleted.");
+     // this.toastr.warning("User '" + useremailId + "' not deleted.");
     }
 
 

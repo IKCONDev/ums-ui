@@ -414,7 +414,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
         }
     })
     } else {
-      this.toastr.warning('Role '+id+' not deleted.');
+     // this.toastr.warning('Role '+id+' not deleted.');
     }
   }
 
@@ -472,7 +472,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
         }
       })
     }else{
-      this.toastr.warning('Roles not deleted')
+      //this.toastr.warning('Roles not deleted')
     }
    }else{
     this.toastr.error('Please select atleast one role to delete.')

@@ -168,7 +168,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
         }
       })
     }else{
-      this.toastrService.warning('Menu items not deleted.')
+      //this.toastrService.warning('Menu items not deleted.')
     }
    }else{
     this.toastrService.error('Please select atleast one Menu item to delete.')
@@ -199,7 +199,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
         }
       })
     }else{
-      this.toastrService.warning('Menu item not deleted.')
+     // this.toastrService.warning('Menu item not deleted.')
     }
   }
 

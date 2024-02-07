@@ -399,7 +399,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
       );
     }
     else {
-      this.toastr.warning("Employee '" + employeeOrgId + "' not deleted.");
+     // this.toastr.warning("Employee '" + employeeOrgId + "' not deleted.");
     }
   }
 
@@ -901,7 +901,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
         console.error("Error occurred:", error);
       }
     } else {
-      this.toastr.warning("Employees not deleted.");
+      //this.toastr.warning("Employees not deleted.");
     }
   }
   }

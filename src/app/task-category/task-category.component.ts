@@ -170,7 +170,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
         }
       })
     }else{
-      this.toastrService.warning('Task categories not deleted.')
+      //this.toastrService.warning('Task categories not deleted.')
     }
    }else{
     this.toastrService.error('Please select atleast one task category to delete.')
@@ -199,7 +199,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
         }
       })
     }else{
-      this.toastrService.warning('Task category not deleted.')
+      //this.toastrService.warning('Task category not deleted.')
     }
   }
 

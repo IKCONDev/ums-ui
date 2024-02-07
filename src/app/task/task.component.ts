@@ -813,6 +813,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   tasksTobeDeleted = [];
   deleteTasks(taskIds: any[]) {
     //initialize to empty array on clikck from second time
+    if (taskIds.length < 1) {
+      this.toastr.error('Select atleast one task to delete')
+      return;
+    }
     var isconfirmed = window.confirm("Are you sure, you really want to delete these records ?")
     if (isconfirmed) {
 
@@ -852,7 +856,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
     else {
-      this.toastr.warning("No tasks deleted.");
+    //  this.toastr.warning("No tasks deleted.");
 
     }
 
