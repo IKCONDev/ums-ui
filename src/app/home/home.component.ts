@@ -195,7 +195,7 @@ export class HomeComponent implements OnInit {
     if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
-
+   
     if (localStorage.getItem('userRoleMenuItemPermissionMap') != "" && localStorage.getItem('userRoleMenuItemPermissionMap') != null) {
       this.userRoleMenuItemsPermissionMap = new Map(Object.entries(JSON.parse(localStorage.getItem('userRoleMenuItemPermissionMap'))));
       //if user has access to the Batchdetails menu item show BatchReport link in Quick links
@@ -250,6 +250,7 @@ export class HomeComponent implements OnInit {
       } else {
         this.router.navigateByUrl('/unauthorized');
       }
+      console.log(localStorage.getItem('jwtToken'));
     }
 
     
