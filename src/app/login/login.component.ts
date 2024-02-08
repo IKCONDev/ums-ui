@@ -550,7 +550,7 @@ export class LoginComponent {
     var emailRegExp=/^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
     if(emailRegExp.test(this.user.email)===false){
       this.errorInfo = 'Invalid Credentials'
-      this.toastr.error('Incorrect username or password', 'Login Failure')
+      //this.toastr.error('Incorrect username or password', 'Login Failure')
       setTimeout(()=>{
         this.disableLoginButton=false;
       },1200)

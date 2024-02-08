@@ -191,7 +191,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.isComponentLoading = true;
-
+    console.log(localStorage.getItem('jwtToken') );
     if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
@@ -747,7 +747,7 @@ export class HomeComponent implements OnInit {
           labels: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
           datasets: [
             {
-              label: "Organised meetings",
+              label: "Organized meetings",
               data: this.TotalMeetingStatus[1],
               backgroundColor: dayColors,
               
@@ -826,7 +826,7 @@ export class HomeComponent implements OnInit {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
-              label: "Organised meetings",
+              label: "Organized meetings",
               data: this.TotalMeetingStatusForYear[1],
               backgroundColor: mildColors,
               borderColor:mildColors,
@@ -893,7 +893,7 @@ export class HomeComponent implements OnInit {
           labels: [currentMonth],
           datasets: [
             {
-              label: "Organised meetings",
+              label: "Organized meetings",
               data: [this.TotalMeetingStatusForMonth[1][currentMonthNumber]],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
               hoverOffset:10,
@@ -1388,7 +1388,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'Yet to start status of current year',
+              text: 'Yet to start status for the current year',
               align: 'center',
               font: {
                 size: 14,
@@ -1455,7 +1455,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'Yet to start status of current month',
+              text: 'Yet to start status for the current month',
               align: 'center',
               font: {
                 size: 14,
