@@ -23,9 +23,9 @@ export class ForgotPasswordResetComponent {
   constructor(private router: Router, private elementRef: ElementRef, private renderer: Renderer2,
    private resetPasswordService: ForgotPasswordResetService, private toastr:ToastrService) {
     this.email = this.router.getCurrentNavigation().extras.state['email']
-    window.onpopstate = () => {
-       history.go(-3)
-     };
+    window.addEventListener('popstate', (event: PopStateEvent) => {
+      window.location.href = '/login'
+  });
   }
 
   ngOnInit() {
