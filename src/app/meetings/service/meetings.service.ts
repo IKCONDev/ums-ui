@@ -58,7 +58,7 @@ export class MeetingService {
         observe: 'response', headers: new HttpHeaders({
           'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
         }
-        )
+        ) 
       });
     } else {
       var params = new HttpParams()
@@ -145,8 +145,15 @@ export class MeetingService {
    * @param meetingId 
    * @returns 
    */
+  newActionItemId:any[];
   deleteActionItemsOfMeeting(actionItemIds: any[], meetingId: number) {
-    return this.http.get(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/delete/ac-items/` + meetingId + '/' + actionItemIds, {
+    // console.log(actionItemIds);
+    if(actionItemIds!=null){
+      // Assuming actionItemIds is your array
+    this.newActionItemId = actionItemIds.filter(element => !element.includes('on'));
+    }
+    // console.log(this.newActionItemId)
+    return this.http.get(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/delete/ac-items/` + meetingId + '/' + this.newActionItemId, {
       observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
       }
