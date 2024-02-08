@@ -309,7 +309,7 @@ export class LoginComponent {
             localStorage.setItem('selectedReporteeAssignedMeeting', '');
             localStorage.setItem('selectedReporteeOrganized', '');
             localStorage.setItem('selectedReporteeAssigned', '');
-
+            console.log(localStorage.getItem('jwtToken'));
             //set default values for organized meeting filters
             localStorage.setItem('organizedMeetingTitleFilter', '');
             localStorage.setItem('organizedMeetingOganizerFilter', '');
