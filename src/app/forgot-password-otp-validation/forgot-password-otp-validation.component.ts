@@ -239,9 +239,13 @@ export class ForgotPasswordOtpValidationComponent {
     this.OtpResponseMessage = "";
     this.isValidOtp = false;
 
-    if (invalidChars.includes(event.key) || (inputElement.value.length == 6 && event.key != 'Backspace'||event.keyCode===40||event.keyCode===38)) {
-        event.preventDefault();
-        this.verifyButtonDisabled = false;
+    if (invalidChars.includes(event.key)  ) {
+      event.preventDefault();
+      this.verifyButtonDisabled=false
+    }
+    if((inputElement.value.length == 6 && event.key != 'Backspace'||event.keyCode===40||event.keyCode===38)){
+      event.preventDefault();
+      
     }
   }
 }
