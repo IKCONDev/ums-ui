@@ -951,7 +951,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
     else {
-      this.toastr.warning("Task " + id + " is not deleted.");
+     // this.toastr.warning("Task " + id + " is not deleted.");
 
     }
 
