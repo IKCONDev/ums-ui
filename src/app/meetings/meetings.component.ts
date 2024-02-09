@@ -888,7 +888,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
         }//error
       })
     } else {
-      this.toastr.warning('Action items not deleted.');
+      //this.toastr.warning('Action items not deleted.');
     }
     this.actionItemsToBeDeleted =  [];
   }

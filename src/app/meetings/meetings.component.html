@@ -719,7 +719,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Date & Time :</b></td>
-                                        <td>{{meetingData. startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                                        <td>{{meetingData. startDateTime+'z'|date:'MMM d, y ; h:mm a'}}</td>
                                     </tr>
 
                                 </tbody>
@@ -750,7 +750,7 @@
                     <textarea
                         style="width: 750px;height: 100px;min-height: 150px; max-height:220px;background-color: #ecf7fc;"
                         class="form-control" name="discussionpoints" [(ngModel)]="discussionPoints"
-                        #discussionpoints="ngModel" placeholder="Enter discussion points !..." minlength="10"
+                        #discussionpoints="ngModel" placeholder="Enter discussion points" minlength="10"
                         maxlength="250"></textarea>
                     <hr>
                     <label for="attendees"><b>Attendees</b></label>
