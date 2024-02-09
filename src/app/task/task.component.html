@@ -886,7 +886,7 @@
                         <div class="Organizer"style="padding-top: 15px;">
                             <div>
                                 <select style="width: 297px;" [(ngModel)]="filter_Email_Organizer" #boxOrg class="form-control form-select">
-                                    <option value="null" hidden>Select Organizer</option>
+                                    <option value="null" hidden>Select Assignee</option>
                                     <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">
                                         {{userEmail}}</option>
                                 </select>
@@ -956,7 +956,7 @@
                     <div class="meeting-title-filter" style="padding-top: 15px;">
                         <div class="input-container">
                                 <input type="text" id="titleFilter" style="width: 298px;" class="form-control"[(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle
-                                    placeholder="Task title" name="taskNameFilter" />
+                                    placeholder="Task Title" name="taskNameFilter" />
                                 <img class="search-icon" alt="" src="../../assets/images/search.svg">
                             </div>
                         </div>
