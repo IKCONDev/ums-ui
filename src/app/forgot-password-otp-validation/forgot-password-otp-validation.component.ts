@@ -239,8 +239,9 @@ export class ForgotPasswordOtpValidationComponent {
     this.OtpResponseMessage = "";
     this.isValidOtp = false;
 
-    if (invalidChars.includes(event.key) || (inputElement.value.length == 6 && event.key != 'Backspace'||event.keyCode===40||event.keyCode===38)) {
+    if (invalidChars.includes(event.key) || (inputElement.value.length == 6 && event.keyCode!=8||event.keyCode===40||event.keyCode===38)) {
         event.preventDefault();
+        console.log("hi")
         this.verifyButtonDisabled = false;
     }
   }

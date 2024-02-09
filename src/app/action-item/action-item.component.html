@@ -33,7 +33,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
             id="headDiv">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganizedActionItem" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeOrganizedActionItem" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfOrganizedActionItems()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 

@@ -189,7 +189,6 @@ export class HomeComponent implements OnInit {
   menuItem = 'Overview';
   
   async ngOnInit(): Promise<void> {
-
     this.isComponentLoading = true;
     console.log(localStorage.getItem('jwtToken') );
     if (localStorage.getItem('jwtToken') === null) {
