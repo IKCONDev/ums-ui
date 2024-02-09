@@ -461,7 +461,7 @@
                                                 <div>
                                                     <ng-select [searchable]="true" [clearable]="true" id="addTaskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
-                                                        style="margin-top: 4px;" [(ngModel)]="update_Task.taskOwner">
+                                                        style="margin-top: 4px;font-size: 15px;" [(ngModel)]="update_Task.taskOwner">
                                                         <ng-option disabled selected value>choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
@@ -480,7 +480,7 @@
                                             <td style="padding-left: 18px;">
                                                 <span>
                                                     <select id="addTaskCategory" class="form-control form-select"
-                                                        style="width: 314px;font-size: 14px;"
+                                                        style="width: 314px;font-size: 15px;"
                                                         [(ngModel)]="update_Task.taskCategory.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
                                                         (change)="validateTaskCategory()">
@@ -574,7 +574,7 @@
                                                         (click)="validateTaskStatus()">
                                                         <!--- <option default>Select</option>-->
                                                         <option>Yet to start</option>
-                                                        <option>Inprogress</option>
+                                                        <option>In progress</option>
                                                         <option>Completed</option>
                                                     </select>
                                                     <div *ngIf="taskStatusErrorInfo !=''">
@@ -819,7 +819,7 @@
                                                         (click)="validateTaskStatus()">
                                                         <option disabled selected value>Select</option>
                                                         <option>Yet to start</option>
-                                                        <option>Inprogress</option>
+                                                        <option>In progress</option>
                                                         <option>Completed</option>
                                                     </select>
 
