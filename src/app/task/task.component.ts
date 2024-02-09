@@ -971,18 +971,17 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   resetFilterModal() {
     localStorage.setItem('taskNameFilter', '');
-    localStorage.setItem('taskPriorityFilter', '');
+    localStorage.setItem('taskPriorityFilter', null);
     localStorage.setItem('taskStartDateFilter', '');
     localStorage.setItem('taskEndDateFilter', '');
-    localStorage.setItem('taskOrganizerFilter', '');
-
+    localStorage.setItem('taskOrganizerFilter', null);
     this.CloseFilterTaskModal();
     window.location.reload();
   }
 
   resetAssignedFilterModal() {
     localStorage.setItem('assignedTaskTitleFilter', '');
-    localStorage.setItem('assignedTaskPriorityFilter', '');
+    localStorage.setItem('assignedTaskPriorityFilter', null);
     localStorage.setItem('assignedTaskStartDateFilter', '');
     localStorage.setItem('assignedTaskEndDateFilter', '');
     localStorage.setItem('assignedTaskOrganizerFilter', '');
