@@ -48,7 +48,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeOrganized" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfOrganizedTask()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -62,7 +62,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeOrganized" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfOrganizedTask()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -171,7 +171,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeAssigned" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfAssignedTask()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -183,7 +183,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeAssigned" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfAssignedTask()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -886,7 +886,7 @@
                         <div class="Organizer"style="padding-top: 15px;">
                             <div>
                                 <select style="width: 297px;" [(ngModel)]="filter_Email_Organizer" #boxOrg class="form-control form-select">
-                                    <option value="" hidden>Select Organizer</option>
+                                    <option value="null" hidden>Select Assignee</option>
                                     <option *ngFor="let userEmail of userEmailIdList" value="{{userEmail}}">
                                         {{userEmail}}</option>
                                 </select>
@@ -896,7 +896,7 @@
                             <div>
                                 <select style="width: 297px;" [(ngModel)]="filter_Priority" #boxPri
                                  class="form-control form-select" >
-                                    <option value="" hidden>Select Priority</option>
+                                 <option value="null">Select Priority</option>
                                     <option>High</option>
                                     <option>Medium</option>
                                     <option>Low</option>
@@ -956,7 +956,7 @@
                     <div class="meeting-title-filter" style="padding-top: 15px;">
                         <div class="input-container">
                                 <input type="text" id="titleFilter" style="width: 298px;" class="form-control"[(ngModel)]="assignedTaskTitleFilter" #boxAssignedTaskTitle
-                                    placeholder="Task title" name="taskNameFilter" />
+                                    placeholder="Task Title" name="taskNameFilter" />
                                 <img class="search-icon" alt="" src="../../assets/images/search.svg">
                             </div>
                         </div>

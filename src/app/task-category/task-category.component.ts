@@ -166,6 +166,10 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
         },error: (error) => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout')
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastrService.error('Task Category in usage cannot be deleted');
+          }else {
+            this.toastrService.error('Error occured while deleting task category . Please try again !')
           }
         }
       })
@@ -193,6 +197,8 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
         },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastrService.error('Task Category is in usage! Cannot be deleted');
           }else {
             this.toastrService.error('Error occured while deleting task category . Please try again !')
           }
