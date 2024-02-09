@@ -48,7 +48,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeOrganized" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfOrganizedTask()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -62,7 +62,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganized" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeOrganized" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfOrganizedTask()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -171,7 +171,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeAssigned" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfAssignedTask()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -183,7 +183,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssigned" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeAssigned" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfAssignedTask()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
