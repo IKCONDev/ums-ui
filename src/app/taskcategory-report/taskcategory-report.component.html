@@ -33,12 +33,12 @@
                         <div *ngIf="selectedTaskCategory == null; else noTaskCategory ">
                             <p>Report Module : <b>Task category</b></p>
                             <p>Task Category Name : <b>All</b></p>
-                            <p>Total tasks: <b>{{alltasksCount}}</b></p>
+                            <p>Total Tasks: <b>{{alltasksCount}}</b></p>
                         </div>
                         <ng-template #noTaskCategory>
                             <p>Report Module : <b>Task category</b></p>
                             <p>Task Category Name : <b>{{selectedtaskCategoryName}}</b></p>
-                            <p>Total tasks: <b>{{categoryOfTaskCount}}</b></p>
+                            <p>Total Tasks: <b>{{categoryOfTaskCount}}</b></p>
                         </ng-template>
 
 
@@ -229,7 +229,7 @@
                         </div> -->
                         <p>Report Module : <b>Task category</b></p>
                         <p>Task Category Name : <b>{{selectedtaskCategoryName}}</b></p>
-                        <p>Total tasks:<b>{{categoryOfTaskCount}}</b></p>
+                        <p>Total Tasks:<b>{{categoryOfTaskCount}}</b></p>
 
                     </div>
                 </div>
@@ -363,8 +363,8 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>Start Date Time</th>
-                        <th>End Date Time</th>
+                        <th>Start Date & Time</th>
+                        <th>End Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-sm-2" style="margin-left: 100px;">
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
-                    placeholder="choose" (change)="chooseDepartment()">
+                    placeholder="Choose" (change)="chooseDepartment()">
                     <ng-option *ngFor="let department of departmentList"
                         value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                 </ng-select>
@@ -160,8 +160,8 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>Start Date Time</th>
-                        <th>End Date Time</th>
+                        <th>Start Date & Time</th>
+                        <th>End Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -174,7 +174,7 @@
         <div class="row">
             <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedUser" style="float: right; width: 250px;"
-                    placeholder="choose" (change)="chooseUser()">
+                    placeholder="Choose" (change)="chooseUser()">
                     <ng-option *ngFor="let user of employeeListAsUser" value="{{user.email}}">{{user.firstName}}
                         {{user.lastName}}</ng-option>
                 </ng-select>
@@ -190,7 +190,7 @@
                     <div style="margin-left: 30px;margin-top: 20px;">
                         <p>Report Module : <b>Action Items</b></p>
                         <!-- <p>Report Type : <b>Bar Chart</b></p> -->
-                        <p>Organizer Email Id : <b>{{selectedUser}}</b></p>
+                        <p>Organizer Email ID : <b>{{selectedUser}}</b></p>
                         <p>Organizer Name : <b>{{selectedUserFullName}}</b></p>
                         <p>Total action items of the organizer : <b>{{actionItemsCountOforganizer}}</b></p>
                     </div>
@@ -324,8 +324,8 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>Start Date Time</th>
-                        <th>End Date Time</th>
+                        <th>Start Date & Time</th>
+                        <th>End Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -338,7 +338,7 @@
         <div class="row">
             <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedPriority" style="float: right; width: 250px;"
-                    placeholder="choose" (change)="choosePriority()">
+                    placeholder="Choose" (change)="choosePriority()">
                     <ng-option value="High">High</ng-option>
                     <ng-option value="Medium">Medium</ng-option>
                     <ng-option value="Low">Low</ng-option>
@@ -493,8 +493,8 @@
                         <th>Title</th>
                         <th>Organizer</th>
                         <th>Priority</th>
-                        <th>Start Date Time</th>
-                        <th>End Date Time</th>
+                        <th>Start Date & Time</th>
+                        <th>End Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -695,8 +695,8 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Organizer</th>
-                        <th>Start Date Time</th>
-                        <th>End Date Time</th>
+                        <th>Start Date & Time</th>
+                        <th>End Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>
