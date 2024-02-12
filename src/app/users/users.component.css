@@ -234,7 +234,7 @@ input:checked+.slider:before {
 
 .modal-body {
   margin-left: 35px;
-  height: 800px;
+  /* height: 800px; */
 }
 
 #required {

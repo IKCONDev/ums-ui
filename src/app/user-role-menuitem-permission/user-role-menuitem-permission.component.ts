@@ -174,7 +174,14 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   getRoleMenuItemPermissionListByUserId() {
     this.isComponentLoading = true;
     this.isUserRoleMenuItemPermissionText = true;
-    localStorage.setItem('selectedUser', this.selectedUserId);
+    var previousUserId = localStorage.getItem('selectedUser');
+    console.log(previousUserId)
+    console.log(this.selectedUserId)
+    if(this.selectedUserId === null || this.selectedUserId === ''){
+      localStorage.setItem('selectedUser',previousUserId);
+    }else{
+      localStorage.setItem('selectedUser', this.selectedUserId);
+    }
     this.userRPMService.findUserRoleMenuitemPermissionMapsByUserId(this.selectedUserId).subscribe({
       next: response => {
         if (response.status === HttpStatusCode.Ok) {

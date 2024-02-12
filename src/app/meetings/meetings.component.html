@@ -59,7 +59,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="Choose Reportee"
+                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -71,7 +71,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="Choose Reportee"
+                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
@@ -79,7 +79,7 @@
                 </ng-option>
             </ng-select>
         </div>
-        <div *ngIf="this.meetings!=null" style="padding-top: 8px;padding-bottom: 8px;">
+        <div style="padding-top: 8px;padding-bottom: 8px;">
             Show<select [(ngModel)]="tableSize" (change)="setItemsPerPage(pageVal.value)" #pageVal>
                 <option selected value="10">10</option>
                 <option value="25">25</option>
@@ -376,7 +376,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole != 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="Choose Reportee"
+                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -388,7 +388,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="Choose Reportee"
+                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
@@ -909,7 +909,7 @@
                             </div>
                             <div  class="date-range"style="padding-top: 15px;padding-left: 10px;"><h6> Start Date & Time</h6></div>
                             <div class="date-range">
-                                <div style="font-size: 14px;padding-left: 11px;"><b>From</b></div>
+                                <div style="font-size: 14px;padding-left: 11px;">From</div>
                                 <div>:</div>
                                 <div class="date-parent">
                                     <input type="datetime-local" style="width: 210px;" class="form-control"
@@ -919,7 +919,7 @@
                             </div>
 
                             <div class="date-range">
-                                <div style="font-size: 14px;padding-left: 13px"><b>To</b></div>
+                                <div style="font-size: 14px;padding-left: 13px">To</div>
                                 <div style="padding-left: 14px;">{{colon}}</div>
                                 <div class="date-parent">
                                     <input type="datetime-local" style="width: 210px;" class="form-control"

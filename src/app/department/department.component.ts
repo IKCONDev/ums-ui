@@ -653,7 +653,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             if(this.departmentIdsToBeDeleted.length > 1){
-              this.toastr.success('Departments deleted sucessfully.') 
+              this.toastr.success('Departments deleted successfully.') 
             } else{
               this.toastr.success('Department '+this.departmentIdsToBeDeleted+' is deleted.') 
             }
