@@ -460,7 +460,7 @@
                 </div>
                 <br>
                 <!-- modal body / form -->
-                <form #form="ngForm" id="formId" method="POST">
+                <form #form="ngForm" id="formId" style="height: 400px ;overflow-y: scroll;padding-left: 0px;padding-top: 0px;" method="POST">
                     <!-- title -->
                     <label><b>Action Item Title</b><span id="required">*</span></label>
                     <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
@@ -544,13 +544,14 @@
                         <span id="errorSpan">{{actionItemEndDateErrorInfo}}</span>
                     </div>
                     <!--footer-->
-                    <div class="modal-footer" role="alert">
-                        <button type="submit" class="btn btn-primary saveButton"
-                            (click)="saveActionItem(form)">Save</button>
-                        <button id="closeAddModal" type="button" class="btn btn-outline-danger cancelButton"
-                            id="closeAddModal" (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
-                    </div>
+                   
                 </form>
+                <div class="modal-footer" role="alert">
+                    <button type="submit" class="btn btn-primary saveButton"
+                        (click)="saveActionItem(form)">Save</button>
+                    <button id="closeAddModal" type="button" class="btn btn-outline-danger cancelButton"
+                        id="closeAddModal" (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
