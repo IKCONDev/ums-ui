@@ -237,7 +237,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
         })
       }
     } else {
-      this.toastr.warning('Permission not updated.')
+     // this.toastr.warning('Permission not updated.')
       if (event.target.checked === true) {
         event.target.checked = false;
       } else {
