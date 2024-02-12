@@ -167,7 +167,11 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
       searching: true, // Enable search feature
       pageLength: 10,
       order: [[1,'asc']],
-      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+      columnDefs:[{
+        "targets": [0,8,9],
+        "orderable":false
+      }]
       // Add other options here as needed
     });
     this.initializeDataTable=true;
