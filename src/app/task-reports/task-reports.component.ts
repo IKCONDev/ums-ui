@@ -322,8 +322,7 @@ export class TaskReportsComponent implements OnInit {
       this.taskListByDepartmentChart.destroy();
       setTimeout(() => {
         this.createTaskListAllDepartmentChart();
-      }, 100);
-      
+      }, 100);    
     }
     else{
     if (this.taskListByDepartmentChart != null) {
@@ -359,7 +358,7 @@ export class TaskReportsComponent implements OnInit {
 
       },
       options: {
-        aspectRatio: 2.2,
+        aspectRatio: 2.3,
         scales: {
           x: {
             display: true,
@@ -372,14 +371,14 @@ export class TaskReportsComponent implements OnInit {
             }
           },
           y: {
-            beginAtZero:true,
-            min:0,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
             },
-            ticks: {
-              stepSize: 1,
+            ticks:{
+              stepSize :1
             },
           },
         },
@@ -476,7 +475,7 @@ export class TaskReportsComponent implements OnInit {
 
       },
       options: {
-        aspectRatio: 2.2,
+        aspectRatio: 2.3,
         scales: {
           x: {
             display: true,
@@ -489,14 +488,14 @@ export class TaskReportsComponent implements OnInit {
             }
           },
           y: {
-            beginAtZero:true,
-            min:0,
+            beginAtZero: true,
+            min :0,
             display: true,
             grid: {
               display: true,
             },
-            ticks: {
-              stepSize: 1,
+            ticks:{
+              stepSize :1
             },
           },
         },
@@ -572,7 +571,7 @@ export class TaskReportsComponent implements OnInit {
         ]
       },
       options: {
-        aspectRatio: 2.2,
+        aspectRatio: 2.3,
         scales: {
           x: {
             display: true,
@@ -667,16 +666,7 @@ export class TaskReportsComponent implements OnInit {
         ]
       },
       options: {
-        animations: {
-          tension: {
-            duration: 1000,
-            easing: 'easeOutExpo',
-            from: 1,
-            to: 0,
-            loop: true
-          }
-        },
-        aspectRatio: 2.2,
+        aspectRatio: 2.3,
         scales: {
           x: {
             display: true,
@@ -690,13 +680,13 @@ export class TaskReportsComponent implements OnInit {
           },
           y: {
             beginAtZero: true,
-            min:0,
+            min :0,
             display: true,
             grid: {
               display: true,
             },
-            ticks: {
-              stepSize: 1,
+            ticks:{
+              stepSize :1
             },
           },
         },
@@ -775,7 +765,7 @@ export class TaskReportsComponent implements OnInit {
         ]
       },
       options: {
-        aspectRatio: 2.2,
+        aspectRatio: 2.3,
         scales: {
           x: {
             display: true,
@@ -963,7 +953,7 @@ export class TaskReportsComponent implements OnInit {
 
       },
       options: {
-        aspectRatio: 2.2,
+        aspectRatio: 2.3,
         scales: {
           x: {
             display: true,
