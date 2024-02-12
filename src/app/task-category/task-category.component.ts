@@ -100,8 +100,12 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       paging: true,
       searching: true, // Enable search feature
       pageLength: 10,
-      order: [[0,'asc']],
-      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      order: [[1,'asc']],
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+      columnDefs:[{
+        "targets": [0,8,9],
+        "orderable":false
+      }]
       // Add other options here as needed
     });
     this.dataTableInitialized = true;
