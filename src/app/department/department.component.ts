@@ -130,6 +130,10 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
       pageLength: 10,
       order: [[1,'asc']],
       lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+      columnDefs:[{
+        "targets": [0,10,11],
+        "orderable":false
+      }]
       // Add other options here as needed
     });
     this.dataTableInitialized=true;

@@ -182,7 +182,11 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         pageLength: 10,
         stateSave:true,
         order: [[1, 'asc']],
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        columnDefs:[{
+          "targets": [4,5],
+          "orderable":false
+        }]
         // Add other options here as needed
       });
       this.dataTableInitialized=true;

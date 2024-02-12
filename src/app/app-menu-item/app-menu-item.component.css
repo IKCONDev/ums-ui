@@ -109,6 +109,7 @@ html{
 table th{
     /* background: var(--side-text, #ECF7FC); */
     font-size: 11px;
+    white-space: nowrap;
 }
 
 table td{
@@ -220,3 +221,7 @@ table td{
   textarea{
     border: 1px solid #2AA3D9;
   }
+
+  .row{
+    overflow: overlay;
+ }

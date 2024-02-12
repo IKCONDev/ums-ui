@@ -108,7 +108,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
           columnDefs:[{
-            "targets": 0,
+            "targets": [0,9,10],
             "orderable":false
           }]
         });
@@ -123,7 +123,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           stateSave:true,
           pageLength: 10,
           order: [[0, 'asc']],
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+          columnDefs:[{
+            "targets": [0,9,10],
+            "orderable":false
+          }] // Set the options for the "Show entries" dropdown
           
           
           // Add other options here as needed
@@ -143,7 +147,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           stateSave:true,
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           columnDefs:[{
-            "targets": 0,
+            "targets": [0,9,10],
             "orderable":false
           }],
           // Add other options here as needed
@@ -157,7 +161,12 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true, // Enable search feature
           pageLength: 10,
           order: [[0, 'asc']],
+          stateSave:true,
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+          columnDefs:[{
+            "targets": [0,9,10],
+            "orderable":false
+          }],
         
           // Add other options here as needed
         });
