@@ -318,13 +318,22 @@ export class TaskReportsComponent implements OnInit {
   }
 
   chooseDepartment() {
+    if(this.selectedDepartment===null){
+      this.taskListByDepartmentChart.destroy();
+      setTimeout(() => {
+        this.createTaskListAllDepartmentChart();
+      }, 100);
+      
+    }
+    else{
     if (this.taskListByDepartmentChart != null) {
       this.taskListByDepartmentChart.destroy();
       this.getDepartmentById(parseInt(this.selectedDepartment));
     }
     this.getTasksByDepartment(parseInt(this.selectedDepartment));
   }
-  taskListByDepartmentData:any[];
+}
+  taskListByDepartmentData:any[]
   xlabelsForTaskListByDepartment:any[];
   createTaskListByDepartmentChart() {
     if(this.ChartType==='line'){

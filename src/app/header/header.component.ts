@@ -124,15 +124,18 @@ export class HeaderComponent implements OnChanges {
    * @param emailId 
    */
   getEmployee(emailId: string){
-    this.employeeService.getEmployee(emailId).subscribe({
-      next: reponse => {
-        this.reportingManagerName = reponse.body.firstName+" "+reponse.body.lastName;
-      },error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout');
+    console.log(emailId)
+    if(emailId != null && emailId != ''){
+      this.employeeService.getEmployee(emailId).subscribe({
+        next: reponse => {
+          this.reportingManagerName = reponse.body.firstName+" "+reponse.body.lastName;
+        },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }
         }
-      }
-    })
+      })
+    }
   }
 
 

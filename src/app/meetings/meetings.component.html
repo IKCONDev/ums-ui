@@ -265,7 +265,7 @@
                                             <td class="actionItemRows"
                                                 *ngIf="actionItem.actionStatus==='Not Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                <button [disabled]="!updatePermission" class="edit-icon"
+                                                <button [disabled]="!updatePermission" class="edit-icon" style="padding-left: 8px;"
                                                     (click)="editActionItem(actionItem.actionItemId)"
                                                     (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
                                                     data-target="#myModal">
@@ -280,7 +280,7 @@
                                             </td>
                                             <td class="actionItemRows" *ngIf="actionItem.actionStatus==='Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                <span class="edit-icon">
+                                                <span class="edit-icon" style="padding-left: 10px;">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                         viewBox="0 0 20 20" fill="none">
                                                         <g id="edit">
