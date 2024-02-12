@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-sm-2" style="margin-left: 100px;">
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
-                placeholder="choose" (change)="chooseDepartment()">
+                placeholder="Choose" (change)="chooseDepartment()">
                 <ng-option *ngFor="let department of departmentList"
                     value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
             </ng-select>
@@ -161,8 +161,8 @@
                     <th>Title</th>
                     <th>Organizer</th>
                     <th>Priority</th>
-                    <th>Start Date Time</th>
-                    <th>End Date Time</th>
+                    <th>Start Date & Time</th>
+                    <th>End Date & Time</th>
                 </tr>
             </thead>
             <tbody>
@@ -175,7 +175,7 @@
         <div class="row">
             <div class="col-sm-2" style="margin-left: 131px;margin-top: 1px;">
                 <ng-select id="select" [(ngModel)]="selectedTaskOwner" style="float: right; width: 250px;"
-                placeholder="choose" (change)="chooseUser()">
+                placeholder="Choose" (change)="chooseUser()">
                 <ng-option *ngFor="let user of employeeListAsUser" value="{{user.email}}">{{user.firstName}} {{user.lastName}}</ng-option>
             </ng-select>
             </div>
@@ -191,7 +191,7 @@
                     <p>Report Module : <b>Tasks</b></p>
                     <!-- <p>Report Type : <b>Bar Chart</b></p> -->
                     <p>Report For : <b>{{"Organizer"}}</b></p>
-                    <p>Task Owner email ID : <b>{{selectedTaskOwner}}</b></p>
+                    <p>Task Owner Email ID : <b>{{selectedTaskOwner}}</b></p>
                     <!-- <p>Task Owner Name : <b>{{departmentName}}</b></p> -->
                     <p>Total tasks of organizer : <b>{{taskListByTaskOwnerCount}}</b></p>
                     </div>
@@ -309,8 +309,8 @@
                     <th>Title</th>
                     <th>Organizer</th>
                     <th>Priority</th>
-                    <th>Start Date Time</th>
-                    <th>End Date Time</th>
+                    <th>Start Date & Time</th>
+                    <th>End Date & Time</th>
                 </tr>
             </thead>
             <tbody>
@@ -323,7 +323,7 @@
         <div class="row">
             <div class="col-sm-2" style="margin-left: 68px;">
                 <ng-select id="select" [(ngModel)]="selectedTaskSeverity" style="float: right; width: 190px;"
-                            placeholder="choose" (change)="chooseSeverity()">
+                            placeholder="Choose" (change)="chooseSeverity()">
                             <ng-option value="High">High</ng-option>
                             <ng-option value="Medium">Medium</ng-option>
                             <ng-option value="Low">Low</ng-option>
@@ -340,7 +340,7 @@
                     <div style="margin-left: 30px;margin-top: 20px;">
                     <p>Report Module : <b>Tasks</b></p>
                     <!-- <p>Report Type : <b>Pie Chart</b></p> -->
-                    <p>Report For : <b>{{"Severity (Priority)"}}</b></p>
+                    <p>Report For : <b>{{"Priority"}}</b></p>
                     <p>Task Priority : <b>{{selectedTaskSeverity}}</b></p>
                     <p>Total tasks for the severity : <b>{{taskListByTaskSeverityCount}}</b></p>
                     </div>
@@ -460,8 +460,8 @@
                     <th>Title</th>
                     <th>Organizer</th>
                     <th>Priority</th>
-                    <th>Start Date Time</th>
-                    <th>End Date Time</th>
+                    <th>Start Date & Time</th>
+                    <th>End Date & Time</th>
                 </tr>
             </thead>
             <tbody>
@@ -492,9 +492,9 @@
             <div class="row">
                 <div class="col-sm-2" style="margin-left: 71px;">
                     <ng-select id="select" [(ngModel)]="selectedTaskStatus" style="float: right; width: 190px;"
-                    placeholder="choose" (change)="chooseStatus()">
+                    placeholder="Choose" (change)="chooseStatus()">
                     <ng-option value="Yet to start">Yet to start</ng-option>
-                    <ng-option value="Inprogress">In progress</ng-option>
+                    <ng-option value="In progress">In progress</ng-option>
                     <ng-option value="Completed">Completed</ng-option>
                 </ng-select>
                 </div>
@@ -631,8 +631,8 @@
                         <th>Title</th>
                         <th>Organizer</th>
                         <th>Priority</th>
-                        <th>Start Date Time</th>
-                        <th>End Date Time</th>
+                        <th>Start Date & Time</th>
+                        <th>End Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -769,8 +769,8 @@
                     <th>Title</th>
                     <th>Organizer</th>
                     <th>Priority</th>
-                    <th>Start Date Time</th>
-                    <th>End Date Time</th>
+                    <th>Start Date & Time</th>
+                    <th>End Date & Time</th>
                 </tr>
             </thead>
             <tbody>
@@ -979,8 +979,8 @@
                     <th>Title</th>
                     <th>Organizer</th>
                     <th>Priority</th>
-                    <th>Start Date Time</th>
-                    <th>End Date Time</th>
+                    <th>Start Date & Time</th>
+                    <th>End Date & Time</th>
                 </tr>
             </thead>
             <tbody>

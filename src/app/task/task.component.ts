@@ -662,7 +662,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       this.update_Task.dueDate = formattedStartDate;
     }
-    if (this.update_Task.status === 'Inprogress') {
+    if (this.update_Task.status === 'In progress') {
       this.update_Task.startDate = formattedStartDate;
     }
     let isTitleValid = true;
@@ -706,7 +706,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               this.response = response.body;
               //this.data = response.body;
               if (response.status === HttpStatusCode.Ok) {
-                this.toastr.success('Task updated successfully.');
+                this.toastr.success('Task updated successfully');
                 document.getElementById('closeUpdateModal').click();
                 document.getElementById('closeAssignedUpdateModal').click();
                 setTimeout(() => {
@@ -727,7 +727,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             this.response = response.body;
             //this.data = response.body;
             if (response.status === HttpStatusCode.Ok) {
-              this.toastr.success('Task updated successfully.');
+              this.toastr.success('Task updated successfully');
               document.getElementById('closeUpdateModal').click();
               document.getElementById('closeAssignedUpdateModal').click();
               setTimeout(() => {
@@ -836,9 +836,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           this.istaskDeleted = res.body;
           if (this.istaskDeleted) {
             if (taskIds.length > 1) {
-              this.toastr.success("Tasks deleted.");
+              this.toastr.success("Tasks deleted");
             } else {
-              this.toastr.success('Task ' + taskIds + ' is deleted.');
+              this.toastr.success('Task ' + taskIds + ' is deleted');
             }
             setTimeout(() => {
               window.location.reload();
@@ -938,7 +938,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       this.service.deleteTaskById(id).subscribe({
         next: (response) => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success("Task deleted successfully.");
+            this.toastr.success("Task deleted successfully");
             setTimeout(() => {
               window.location.reload();
             }, 1000)

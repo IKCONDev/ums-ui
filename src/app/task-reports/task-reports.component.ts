@@ -318,13 +318,22 @@ export class TaskReportsComponent implements OnInit {
   }
 
   chooseDepartment() {
+    if(this.selectedDepartment===null){
+      this.taskListByDepartmentChart.destroy();
+      setTimeout(() => {
+        this.createTaskListAllDepartmentChart();
+      }, 100);
+      
+    }
+    else{
     if (this.taskListByDepartmentChart != null) {
       this.taskListByDepartmentChart.destroy();
       this.getDepartmentById(parseInt(this.selectedDepartment));
     }
     this.getTasksByDepartment(parseInt(this.selectedDepartment));
   }
-  taskListByDepartmentData:any[];
+}
+  taskListByDepartmentData:any[]
   xlabelsForTaskListByDepartment:any[];
   createTaskListByDepartmentChart() {
     if(this.ChartType==='line'){
@@ -508,7 +517,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list of a task owner',
+            text: 'Total Task of selected task owner',
             font: {
               size: 14,
             },
@@ -543,10 +552,10 @@ export class TaskReportsComponent implements OnInit {
   createTaskListByTaskSeverityChart() {
     if(this.ChartType==='line'){
       this.taskListByTaskSeverityData=[0,this.taskListByTaskSeverityCount,];
-      this.xLabelByTaskSeverity=['','Total task list based on severity','']
+      this.xLabelByTaskSeverity=['','Total task list based on priority','']
   }else{
     this.taskListByTaskSeverityData=[this.taskListByTaskSeverityCount];
-    this.xLabelByTaskSeverity=['Total task list based on severity'];
+    this.xLabelByTaskSeverity=['Total task list based on priority'];
   }
     this.taskListByTaskSeverityChart = new Chart("taskListByTaskSeverityChart", {
       type: this.ChartType,
@@ -554,7 +563,7 @@ export class TaskReportsComponent implements OnInit {
         xLabels: this.xLabelByTaskSeverity,
         datasets: [
           {
-            label: "Total task list based on severity",
+            label: "Total task list based on priority",
             data: this.taskListByTaskSeverityData,
             backgroundColor: 'rgba(37, 128, 101, 0.8)', // Dark Green
             borderColor: 'rgba(37, 128, 101, 1)',
@@ -604,7 +613,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list based on severity',
+            text: 'Total Task based on selected priority',
             font: {
               size: 14,
             },
@@ -649,7 +658,7 @@ export class TaskReportsComponent implements OnInit {
         xLabels: this.xLabelsForTaskListStatus,
         datasets: [
           {
-            label: "Total task list based on status",
+            label: "Total Task based on status",
             data: this.taskListByTaskStatusData,
             backgroundColor: 'rgba(31, 190, 189, 0.8)', // Dark Blue
             borderColor: 'rgba(31, 190, 189, 1)',
@@ -708,7 +717,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list based on status',
+            text: 'Total Task based on status',
             font: {
               size: 14,
             },
@@ -807,7 +816,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list based on age',
+            text: 'Total Task based on aged',
             font: {
               size: 14,
             },
@@ -995,7 +1004,7 @@ export class TaskReportsComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list of all departments',
+            text: 'Total Task of all departments',
             font: {
               size: 14,
             },

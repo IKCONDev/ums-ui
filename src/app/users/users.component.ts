@@ -603,7 +603,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (isConfirmed) {
       this.unAssignedRoles.push(userRole)
       this.display = 'none'
-      this.toastr.warning('Please assign a new role for this user !. Previous role will be assigned automcatically, if new role is not assigned.')
+      this.toastr.warning('Please assign a new role for this user. Previous role will be assigned automatically, if new role is not assigned.')
     } else {
       this.toastr.warning('Operation cancelled.')
     }

@@ -195,14 +195,18 @@ export class MeetingReportsComponent implements OnInit {
   }
 
   chooseDepartment(){
+    if(this.selectedDepartment!=null){
+    console.log(this.selectedDepartment)
     if(this.meetingsByDepartmentListChart != null){
       this.meetingsByDepartmentListChart.destroy();
       //get department details
       this.getDepartmentById(parseInt(this.selectedDepartment))
     }
     this.getmeetingsByDepartmentReport(parseInt(this.selectedDepartment));
+  }else{
+    this.setChartType('line')
   }
-
+  }
 
   chooseAttendedMeetingUser(){
     if(this.attendedMeetingListChart != null){
@@ -722,7 +726,7 @@ export class MeetingReportsComponent implements OnInit {
   colorOfChartType: any = 'line';
   setChartType(value : any){
     this.type = value;
-    if(this.reportType =='all' ){
+    if(this.reportType =='all'&& this.selectedDepartment===null ){
       this.colorOfChartType = value;
       if(this.meetingsByDepartmentListChart!= null){
         this.meetingsByDepartmentListChart.destroy()
