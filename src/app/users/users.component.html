@@ -212,7 +212,7 @@
                     <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br/>-->
                 <label><b>Role</b><span id="required">*</span></label>
-                <select id="userId" class="updateUserInput form-control form-select" placeholder="role"
+                <select id="userId" class="updateUserInput form-control form-select" placeholder="Role"
                     [(ngModel)]="existingUserObj.userRoles[0].roleId" id="updateRole" name="updateRole"
                     #updateRole="ngModel" [class.invalid]="updateRole.invalid && updateRole.touched"
                     (change)="validateUpdateUserRole()">
@@ -268,7 +268,7 @@
                             </div>
                             <div style="padding-top: 15px;">Role
                                 <select #boxPri class="actitem-organizer-filter">
-                                    <option value="">select</option>
+                                    <option value="">Select</option>
                                     <option></option>
                                 </select>
                             </div>

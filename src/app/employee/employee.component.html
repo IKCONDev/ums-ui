@@ -195,7 +195,7 @@
                     #reportingManager="ngModel" (keyup)="validateEmployeeReportingManager()" />-->
                 <ng-select [searchable]="true" [clearable]="true" id="reportingManager"
                     name="reportingManager" style="width: 400px;" 
-                    [(ngModel)]="addEmployee.reportingManager" placeholder="choose Reporting Manager">
+                    [(ngModel)]="addEmployee.reportingManager" placeholder="Choose Reporting Manager">
                     <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
                     <ng-option [value]="employee.email" *ngFor="let employee of employeeData">
@@ -208,10 +208,10 @@
                 </span>-->
                 <br />
                 <label><b>Department</b><span id="required">*</span></label>
-                <select id="employeeDept" class="addEmployeeInput form-control form-select" placeholder="department"
+                <select id="employeeDept" class="addEmployeeInput form-control form-select" placeholder="Department"
                     [(ngModel)]="addEmployee.departmentId"  name="employeeDept" #employeeDept="ngModel"
                     (change)="validateEmployeeDepartment()">
-                    <option hidden value="0">select</option>
+                    <option hidden value="0">Select</option>
                     <option *ngFor="let department of departmentList" [value]="department.departmentId">
                         {{department.departmentName}}</option>
 
@@ -223,10 +223,10 @@
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b><span id="required">*</span></label>
                 
-                <select id="mydropdown" class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
+                <select id="mydropdown" class="addEmployeeInput form-control form-select" placeholder="Designation" id="employeeDesgn"
                     name="employeeDesgn" (change)="validateEmployeeDesignation()"
                     [(ngModel)]="addEmployee.empDesignation.id">
-                    <option hidden value="0">select</option>
+                    <option hidden value="0">Select</option>
                     <option *ngFor="let designation of designationList" [value]="designation.id">
                         {{designation.designationName}}
                     </option>
@@ -236,7 +236,7 @@
                 </span>
                 <br />
                 <label><b>Microsoft Teams ID</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="teams Id"
+                <input type="text" class="addEmployeeInput form-control" placeholder="Teams ID"
                     [(ngModel)]="addEmployee.teamsUserId" id="employeeTeamsId" name="employeeTeamsId"
                     #employeeTeamsId="ngModel">
                 <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="addEmployee.designation"
@@ -327,7 +327,7 @@
                     (keyup)="validateUpdateReportingManager()" /> -->
                 <ng-select [searchable]="true" [clearable]="true" id="updateReportingManager"
                     name="updateReportingManager" style="width: 400px;"
-                    [(ngModel)]="existingEmployee.reportingManager" placeholder="choose Reporting Manager">
+                    [(ngModel)]="existingEmployee.reportingManager" placeholder="Choose Reporting Manager">
                     <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
                     <ng-option [value]="employee.email" *ngFor="let employee of employeeData">
@@ -353,7 +353,7 @@
                 </span><br />
                 <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId" /><br/>-->
                 <label><b>Designation</b><span id="required">*</span></label>
-                <select class="addEmployeeInput form-control form-select" placeholder="designation" id="updateDesgn"
+                <select class="addEmployeeInput form-control form-select" placeholder="Designation" id="updateDesgn"
                     name="updateDesgn" #updateDesgn="ngModel" (change)="validateUpdateDesignation()"
                     [(ngModel)]="existingEmployee.empDesignation.id">
                     <!--<option default value="0">select</option>-->
@@ -364,7 +364,7 @@
                     <p id="errorMessage">{{updateDesignationErrorInfo}}</p>
                 </span><br />
                 <label><b>Microsoft Teams ID</b></label>
-                <input type="text" class="addEmployeeInput form-control" placeholder="teams Id"
+                <input type="text" class="addEmployeeInput form-control" placeholder="Teams ID"
                     [(ngModel)]="existingEmployee.teamsUserId" id="updateTeamsId" name="updateTeamsId"
                     #updateTeamsId="ngModel">
             </div>

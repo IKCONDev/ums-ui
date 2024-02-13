@@ -698,7 +698,7 @@
                         <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM" #sendMOM="ngModel"
                             [multiple]="true" style="width: 400px;" [(ngModel)]="emailListForsendingMOM "
                             (change)="validateMoMEmail()">
-                            <ng-option disabled="true" [value]="">choose</ng-option>
+                            <ng-option disabled="true" [value]="">Choose</ng-option>
                             <ng-option [value]="emailId" *ngFor="let emailId of receiptientsList">
                                 {{emailId}}
                             </ng-option>
