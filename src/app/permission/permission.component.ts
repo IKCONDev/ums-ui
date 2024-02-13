@@ -300,7 +300,7 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastrService.error("Permission is already in usage by a 'Role' Cannot be deleted.");
+            this.toastrService.error("Permission is already in usage by a 'Role' ! Cannot be deleted.");
           }
           else {
             this.toastrService.error('Error occured while deleting '+ permissionId+' permission. Please try again !')

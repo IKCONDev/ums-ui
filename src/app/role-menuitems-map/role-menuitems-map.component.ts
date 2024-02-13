@@ -260,5 +260,10 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewChecked {
     return this.currentMenuItem;
   }
 
+  selectAllMenuItemCheckBoxes(){
+    console.log(true)
+    $('.menuItems').prop('checked', true);  
+  }
+
 
 }

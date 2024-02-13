@@ -153,7 +153,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
             if(this.menuItemsToBeDeleted.length > 1){
               this.toastrService.success('Menu items deleted sucessfully') 
             } else{
-              this.toastrService.success('Menu items '+this.menuItemsToBeDeleted+' are deleted.') 
+              this.toastrService.success('Menu item '+this.menuItemsToBeDeleted+' is deleted successfully') 
             }
             setTimeout(()=>{
               window.location.reload();
