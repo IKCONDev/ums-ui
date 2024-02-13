@@ -204,7 +204,7 @@
                                 <table id="myTable{{meeting.meetingId}}" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th id="tablehead"><input type="checkbox" class="mainCheckBox"
+                                            <th id="tablehead"><input type="checkbox"  class="mainCheckBox"
                                                     id="actionItemMainCheck{{meeting.meetingId}}"
                                                     (change)="checkAllcheckBoxesOfCurrentMeeting(meeting.meetingId, $event)" />
                                             </th>
@@ -302,7 +302,7 @@
                                                     <a *ngIf="hideActionItem===false" data-toggle="modal"
                                                         data-target="#myModal_add"
                                                         style="cursor: pointer;padding-left: 250px; font-size: 14px;"
-                                                        (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
+                                                    (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                                 </div>
                                                 <ng-template #noCreatePermission>
                                                     <a *ngIf="hideActionItem===true"
