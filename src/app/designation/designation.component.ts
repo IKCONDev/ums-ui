@@ -39,6 +39,10 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
           stateSave:true,
           order: [[1,'asc']],
           lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+          columnDefs:[{
+            "targets": [0,7,8],
+            "orderable":false
+          }]
           // Add other options here as needed
         });
         this.dataTableInitialized=true;

@@ -185,8 +185,8 @@
   </div>
 
   <div class="container-fluid" *ngIf="viewPermission === false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
-  </div>
+    <app-no-permission></app-no-permission>
+</div>
 
   <div *ngIf="isComponentLoading===true" style="padding-top:260px;color: #134E69D9;">
     <!-- <span *ngIf="isComponentLoading===true">

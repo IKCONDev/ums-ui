@@ -100,8 +100,12 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       paging: true,
       searching: true, // Enable search feature
       pageLength: 10,
-      order: [[0,'asc']],
-      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      order: [[1,'asc']],
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+      columnDefs:[{
+        "targets": [0,8,9],
+        "orderable":false
+      }]
       // Add other options here as needed
     });
     this.dataTableInitialized = true;
@@ -167,7 +171,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout')
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastrService.error('Task Category in usage cannot be deleted');
+            this.toastrService.error('Task Category is in usage ! cannot be deleted');
           }else {
             this.toastrService.error('Error occured while deleting task category . Please try again !')
           }
@@ -198,7 +202,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastrService.error('Task Category is in usage! Cannot be deleted');
+            this.toastrService.error('Task Category is in usage ! Cannot be deleted');
           }else {
             this.toastrService.error('Error occured while deleting task category . Please try again !')
           }

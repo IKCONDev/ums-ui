@@ -96,7 +96,11 @@ export class AppMenuItemsComponent implements AfterViewChecked {
       searching: true, // Enable search feature
       pageLength: 10,
       order: [[1,'asc']],
-      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+      columnDefs:[{
+        "targets": [0,9,10],
+        "orderable":false
+      }]
       // Add other options here as needed
     });
     this.initializeDataTable=true;
@@ -149,7 +153,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
             if(this.menuItemsToBeDeleted.length > 1){
               this.toastrService.success('Menu items deleted sucessfully') 
             } else{
-              this.toastrService.success('Menu items '+this.menuItemsToBeDeleted+' are deleted.') 
+              this.toastrService.success('Menu item '+this.menuItemsToBeDeleted+' is deleted successfully') 
             }
             setTimeout(()=>{
               window.location.reload();

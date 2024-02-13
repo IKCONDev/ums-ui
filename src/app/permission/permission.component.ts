@@ -115,7 +115,11 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
       pageLength: 10,
       stateSave:true,
       order: [[0,'asc']],
-      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+      columnDefs:[{
+        "targets": [4,5],
+        "orderable":false
+      }]
       // Add other options here as needed
     });
     this.initializedataTable=true;
@@ -296,7 +300,7 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastrService.error("Permission is already in usage by a 'Role' Cannot be deleted.");
+            this.toastrService.error("Permission is already in usage by a 'Role' ! Cannot be deleted.");
           }
           else {
             this.toastrService.error('Error occured while deleting '+ permissionId+' permission. Please try again !')

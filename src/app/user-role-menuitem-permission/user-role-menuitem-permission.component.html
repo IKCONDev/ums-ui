@@ -25,7 +25,7 @@
         <div class="col-sm-1"><b>User :</b></div>
         <div class="col-sm-3">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedUserId" placeholder="Choose user"
+                [(ngModel)]="selectedUserId" placeholder="Select user"
                 (change)="getRoleMenuItemPermissionListByUserId()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="employee.email" *ngFor="let employee of employeeList">
@@ -86,13 +86,14 @@
 </div>
 
 <div class="container-fluid" *ngIf="viewPermission === false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+    <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
 </div> -->
 
-<!-- Add User Role Menu Permission Item Modal -->
+<div *ngIf="isUserSelected === true">
+    <!-- Add User Role Menu Permission Item Modal -->
 <div class="modal" tabindex="-1" id="addModal" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -164,6 +165,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <div *ngIf="isComponentLoading===true"  style="padding-top:10px;color: #134E69D9;">

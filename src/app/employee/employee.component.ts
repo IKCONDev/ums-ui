@@ -133,7 +133,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
           pageLength: 10,
           stateSave:true,
           order: [[1, 'asc']],
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+          columnDefs:[{
+            "targets": [0,9,10],
+            "orderable":false
+          }]
           // Add other options here as needed
         });
         this.dataTableInitialized=true;
@@ -275,6 +279,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
             //document.getElementById('closeAddModal').click();
           } else if (error.status === HttpStatusCode.NotAcceptable) {
             this.toastr.error("Employee '"+ this.addEmployee.employeeOrgId +"' already exists.");
+          }else if(error.status === HttpStatusCode.ImUsed){
+            this.toastr.error("EmployeeID '"+ this.addEmployee.employeeOrgId +"' is already assigned to another employee.");
           }
 
           else {
@@ -471,8 +477,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.existingEmployee.employeeOrgId = this.existingEmployee.employeeOrgId.toUpperCase();
 
       this.existingEmployee.modifiedBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
-      this.employeeservice.updateEmployee(this.existingEmployee).subscribe(
-        response => {
+      this.employeeservice.updateEmployee(this.existingEmployee).subscribe({
+        next: response => {
           var employeerecord = response.body;
           if (response.status == HttpStatusCode.Created) {
             this.toastr.success("Employee '"+ this.existingEmployee.employeeOrgId +"' updated successfully.");
@@ -487,11 +493,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
           else {
             this.toastr.error("Error occured while updating employee '" + this.existingEmployee.id+"'. Please try again !");
           }
+        },
+        error: error => {
+          if(error.status === HttpStatusCode.ImUsed){
+            this.toastr.error("EmployeeID '"+ this.existingEmployee.employeeOrgId +"' is already assigned to another employee.");
+          }
         }
-      )
-
+      })
     }
-
   }
 
   /**

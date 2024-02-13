@@ -55,7 +55,11 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewChecked {
           searching: true, // Enable search feature
           pageLength: 10,
           order: [[0,'asc']],
-          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+          lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+          columnDefs:[{
+            "targets": 8,
+            "orderable":false
+          }]
           // Add other options here as needed
         });
         this.initializeDataTable=true;
@@ -254,6 +258,11 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewChecked {
       }
       )
     return this.currentMenuItem;
+  }
+
+  selectAllMenuItemCheckBoxes(){
+    console.log(true)
+    $('.menuItems').prop('checked', true);  
   }
 
 

@@ -57,6 +57,7 @@ import { TaskcategoryReportComponent } from './taskcategory-report/taskcategory-
 import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-map.component';
 import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permission/user-role-menuitem-permission.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NoPermissionComponent } from './no-permission/no-permission.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TaskcategoryReportComponent,
     RoleMenuitemsMapComponent,
     UserRoleMenuitemPermissionComponent,
+    NoPermissionComponent,
   ],
   imports: [
     BrowserModule,

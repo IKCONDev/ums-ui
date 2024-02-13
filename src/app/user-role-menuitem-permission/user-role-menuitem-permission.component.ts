@@ -174,7 +174,15 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   getRoleMenuItemPermissionListByUserId() {
     this.isComponentLoading = true;
     this.isUserRoleMenuItemPermissionText = true;
-    localStorage.setItem('selectedUser', this.selectedUserId);
+    var previousUserId = localStorage.getItem('selectedUser');
+    console.log(previousUserId)
+    console.log(this.selectedUserId)
+    if(this.selectedUserId === null || this.selectedUserId === ''){
+      this.roleName = '';
+      localStorage.setItem('selectedUser',previousUserId);
+    }else{
+      localStorage.setItem('selectedUser', this.selectedUserId);
+    }
     this.userRPMService.findUserRoleMenuitemPermissionMapsByUserId(this.selectedUserId).subscribe({
       next: response => {
         if (response.status === HttpStatusCode.Ok) {
@@ -183,9 +191,6 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
           this.isUserRoleMenuItemPermissionText = false;
           this.roleId = this.userRPMMapList[0].roleId;
           this.getRoleDetails(this.roleId);
-          // setTimeout(() => {
-          //   window.location.reload();
-          // },1000)
         }
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -232,7 +237,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
         })
       }
     } else {
-      this.toastr.warning('Permission not updated.')
+     // this.toastr.warning('Permission not updated.')
       if (event.target.checked === true) {
         event.target.checked = false;
       } else {
@@ -316,7 +321,13 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
   /**
    * 
    */
+  isUserSelected: boolean = false;
   async showUnAssignedMenuItemsForUser() {
+    if(this.selectedUserId === '' || this.selectedUserId === null){
+      this.toastr.warning('Select a user');
+      return;
+    }
+    this.isUserSelected = true;
     this.unassignedMenuItemList = await this.getAllMenuItems();
     for (var i = 0; i < this.userRPMMapList.length; i++) {
       for (var j = 0; j < this.unassignedMenuItemList.length; j++) {

@@ -441,7 +441,7 @@ export class LoginComponent {
             }
             else if(parseInt(loginAttempts) === 3 || active === 'false'){
               this.errorInfo = 'Invalid Credentials'
-              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempts remaining', 'Login Failure')
+              this.toastr.error('Incorrect username or password. No attempts remaining', 'Login Failure')
             }
             else if(parseInt(loginAttempts) > 3 || active === 'false'){
               this.toastr.error('Provided user account is inactive', 'Account Disabled')

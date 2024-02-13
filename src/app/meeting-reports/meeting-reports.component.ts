@@ -284,15 +284,6 @@ export class MeetingReportsComponent implements OnInit {
         ]
       },
       options: {
-        animations: {
-          tension: {
-            duration: 1000,
-            easing: 'easeOutExpo',
-            from: 1,
-            to: 0,
-            loop: true
-          }
-        },
         aspectRatio: 2.3,
         scales: {
           x: {
@@ -370,15 +361,6 @@ export class MeetingReportsComponent implements OnInit {
         ]
       },
       options: {
-        animations: {
-          tension: {
-            duration: 1000,
-            easing: 'easeOutExpo',
-            from: 1,
-            to: 0,
-            loop: true
-          }
-        },
         aspectRatio: 2.3,
         scales: {
           x: {
@@ -456,15 +438,6 @@ export class MeetingReportsComponent implements OnInit {
         ]
       },
       options: {
-        animations: {
-          tension: {
-            duration: 1000,
-            easing: 'easeOutExpo',
-            from: 1,
-            to: 0,
-            loop: true
-          }
-        },
         aspectRatio: 2.3,
         scales: {
           x: {
@@ -663,15 +636,6 @@ export class MeetingReportsComponent implements OnInit {
         ]
       },
       options: {
-        animations: {
-          tension: {
-            duration: 1000,
-            easing: 'easeOutExpo',
-            from: 1,
-            to: 0,
-            loop: true
-          }
-        },
         aspectRatio: 2.3,
         scales: {
           x: {

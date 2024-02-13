@@ -59,7 +59,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="Choose Reportee"
+                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -71,7 +71,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="Choose Reportee"
+                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
@@ -79,7 +79,7 @@
                 </ng-option>
             </ng-select>
         </div>
-        <div *ngIf="this.meetings!=null" style="padding-top: 8px;padding-bottom: 8px;">
+        <div style="padding-top: 8px;padding-bottom: 8px;">
             Show<select [(ngModel)]="tableSize" (change)="setItemsPerPage(pageVal.value)" #pageVal>
                 <option selected value="10">10</option>
                 <option value="25">25</option>
@@ -265,7 +265,7 @@
                                             <td class="actionItemRows"
                                                 *ngIf="actionItem.actionStatus==='Not Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                <button [disabled]="!updatePermission" class="edit-icon"
+                                                <button [disabled]="!updatePermission" class="edit-icon" style="padding-left: 8px;"
                                                     (click)="editActionItem(actionItem.actionItemId)"
                                                     (click)="getActiveUMSUsersEmailIdList()" data-toggle="modal"
                                                     data-target="#myModal">
@@ -280,7 +280,7 @@
                                             </td>
                                             <td class="actionItemRows" *ngIf="actionItem.actionStatus==='Submitted'">
                                                 <!--<button (click)="editData(actionItem.id)"  data-toggle="modal" data-target="#myModal">edit</button>&nbsp;<button (click)="deleteData(actionItem.id)">delete</button>-->
-                                                <span class="edit-icon">
+                                                <span class="edit-icon" style="padding-left: 10px;">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                         viewBox="0 0 20 20" fill="none">
                                                         <g id="edit">
@@ -376,7 +376,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole != 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="Choose Reportee"
+                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -388,7 +388,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="Choose Reportee"
+                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
@@ -437,7 +437,7 @@
 </div>
 
 <div class="container-fluid" *ngIf="viewPermission === false">
-    <h2 style="text-align: center;margin-top: 50px;">You dont have permission to view this page</h2>
+    <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
@@ -460,7 +460,7 @@
                 </div>
                 <br>
                 <!-- modal body / form -->
-                <form #form="ngForm" id="formId" method="POST">
+                <form #form="ngForm" id="formId" style="height: 400px ;overflow-y: scroll;padding-left: 0px;padding-top: 0px;" method="POST">
                     <!-- title -->
                     <label><b>Action Item Title</b><span id="required">*</span></label>
                     <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
@@ -544,13 +544,14 @@
                         <span id="errorSpan">{{actionItemEndDateErrorInfo}}</span>
                     </div>
                     <!--footer-->
-                    <div class="modal-footer" role="alert">
-                        <button type="submit" class="btn btn-primary saveButton"
-                            (click)="saveActionItem(form)">Save</button>
-                        <button id="closeAddModal" type="button" class="btn btn-outline-danger cancelButton"
-                            id="closeAddModal" (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
-                    </div>
+                   
                 </form>
+                <div class="modal-footer" role="alert">
+                    <button type="submit" class="btn btn-primary saveButton"
+                        (click)="saveActionItem(form)">Save</button>
+                    <button id="closeAddModal" type="button" class="btn btn-outline-danger cancelButton"
+                        id="closeAddModal" (click)="clearErrorMessages(form)" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
@@ -909,7 +910,7 @@
                             </div>
                             <div  class="date-range"style="padding-top: 15px;padding-left: 10px;"><h6> Start Date & Time</h6></div>
                             <div class="date-range">
-                                <div style="font-size: 14px;padding-left: 11px;"><b>From</b></div>
+                                <div style="font-size: 14px;padding-left: 11px;">From</div>
                                 <div>:</div>
                                 <div class="date-parent">
                                     <input type="datetime-local" style="width: 210px;" class="form-control"
@@ -919,7 +920,7 @@
                             </div>
 
                             <div class="date-range">
-                                <div style="font-size: 14px;padding-left: 13px"><b>To</b></div>
+                                <div style="font-size: 14px;padding-left: 13px">To</div>
                                 <div style="padding-left: 14px;">{{colon}}</div>
                                 <div class="date-parent">
                                     <input type="datetime-local" style="width: 210px;" class="form-control"

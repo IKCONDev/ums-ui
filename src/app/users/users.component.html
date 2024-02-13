@@ -43,7 +43,7 @@
                         <th>User Status</th>
                         <th>Account Status</th>
                         <th>Enable / Disable</th>
-                        <th>Actions</th>
+                        <th style="padding-left: 35px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isUserDataText===false">
@@ -116,11 +116,11 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
-<div class="container-fluid" *ngIf="viewPermission===false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
@@ -148,7 +148,7 @@
                     <select class="form-control form-select" id="userEmail" name="userEmail"
                         #userEmail="ngModel" style="width: 400px; height: 50px;"[(ngModel)]="addUserObj.email"
                         (change)=" validateUserEmailId()">
-                        <option [value]="">select</option>
+                        <option [value]="">Select User</option>
                         <option [value]="employee.email" *ngFor="let employee of employeeWithStatus">
                             {{employee.email}}
                         </option>
@@ -161,10 +161,10 @@
                     <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br />
                 <label><b>Role</b><span id="required">*</span></label>
-                <select class="adduserInput form-control form-select" placeholder="select"
+                <select class="adduserInput form-control form-select" placeholder="Select"
                     [(ngModel)]="addUserObj.userRoles.at(0).roleId" id="userRole" name="userRole" #userRole="ngModel"
                     [class.invalid]="userRole.invalid && userRole.touched" (change)="validateuserRole()">
-                    <option [value]="" default>select</option>
+                    <option [value]="0" default>Select Role</option>
                     <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
 
                 </select>
@@ -347,7 +347,7 @@
             </div>
             <form #form="ngForm" method="POST">
                 <!-- Modal body -->
-                <div class="modal-body">
+                <div class="modal-body" style="height: auto;">
                     <div class=" row">
                         <div class=" card col-sm-7" style="padding-top: 10px;padding-bottom: 10px;">
                             <h4>User Details</h4>
@@ -473,7 +473,7 @@
                                         <b>Role</b>
                                     </p>
                                 </div>
-                                <div style="background-color: aliceblue;height: 50px;" class="col-sm-6">
+                                <!-- <div style="background-color: aliceblue;height: 50px;" class="col-sm-6">
                                     <p style="padding-top: 10px;">
                                         <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_4250_106353)">
@@ -488,7 +488,8 @@
                                              &nbsp;
                                         <b>Description</b>
                                     </p>
-                                </div>
+                                </div> -->
+                                <div class="col-sm-6" style="background-color: aliceblue;height: 50px;"></div>
                                 <div style="background-color: aliceblue;height: 50px;" class="col-sm-2">
                                     <p style="padding-top: 10px;">
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -524,11 +525,12 @@
                                         <p style="color: black;">{{role.roleName}}</p>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <!-- <div class="col-sm-6">
                                     <div >
                                         <p style="color: black;">{{role.roleDescription}}</p>
                                     </div>
-                                </div>
+                                </div> -->
+                                <div class="col-sm-6" style="background-color: aliceblue;"></div>
                                 <div class="col-sm-2">
                                     <div>
                                         <button class="btn-success" (click)="updateUserObj(role)">
