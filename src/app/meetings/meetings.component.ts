@@ -1798,7 +1798,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.actionItemService.getAllActionItems().subscribe({
       next: response => {
         this.actionItemList = response.body;
-  
+        
         // Process each meeting
         this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, '', '', '').subscribe({
           next: response => {
@@ -1809,6 +1809,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
               if (newActionItemList.length === 0) {
                 newActionItemList===null;
                 this.disableMomButton(meeting.meetingId);
+              }
+              var actionItemLisTOfParticularMeeting =this.actionItemList.filter(actionItem => actionItem.meetingId === meeting.meetingId);
+              var newactionItemLisTOfParticularMeeting= actionItemLisTOfParticularMeeting.filter(actionItem=> actionItem.actionStatus==="Not Submitted");
+              if(newactionItemLisTOfParticularMeeting.length ===0){
+                this.allSubCheckboxChecked(meeting.meetingId)
               }
             });
           },
@@ -1906,6 +1911,12 @@ calculateEntriesInfo() {
   const end = Math.min(start + this.tableSize - 1, this.meetingCount); 
   this.entriesInfo = `Showing ${start} to ${end} of ${this.meetingCount} entries`;
 
+}
+allSubCheckboxChecked(meetingId){
+  this.itemElements.changes.subscribe(() => {
+    const htmlElement = document.getElementById('actionItemMainCheck'+meetingId);
+    htmlElement.classList.add("disabled")
+  });
 }
 }
 

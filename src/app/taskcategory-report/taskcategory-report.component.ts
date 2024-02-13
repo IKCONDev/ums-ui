@@ -132,11 +132,14 @@ export class TaskcategoryReportComponent implements OnInit {
   categoryOfTaskCount: number;
   selectedtaskCategoryName: string;
   getchoosenCategory(selectedCategory: string) {
+    console.log(selectedCategory);
+    if(parseInt(this.selectedTaskCategory) > 0 ||selectedCategory != null){
     this.selectedTaskCategory = selectedCategory;
     if (this.taskListByCategoryChart != null) {
       this.taskListByCategoryChart.destroy();
 
     }
+    
     this.getTaskCategoryId(parseInt(this.selectedTaskCategory))
     this.taskCategoryReportservice.getAllTasksByTaskCategoryId(parseInt(this.selectedTaskCategory)).subscribe({
       next: response => {
@@ -147,6 +150,16 @@ export class TaskcategoryReportComponent implements OnInit {
         }, 400)
       }
     })
+  }else{
+    this.categoryOfTaskCount = this.alltasksCount;
+    if (this.taskListByCategoryChart1 != null) {
+       this.taskListByCategoryChart1.destroy();
+
+    }
+     window.location.reload();
+    this.createTaskListAllDepartmentChart();
+  }
+
   }
   selectedCategoryObject: TaskCategory
   getTaskCategoryId(selectedTaskCategory: number) {
@@ -168,6 +181,7 @@ export class TaskcategoryReportComponent implements OnInit {
     this.taskCategoryReportservice.getAllTasksByCategoryCount().subscribe({
       next: response => {
         this.taskCategoryCount = response.body;
+
         this.taskCategoryCount.forEach(taskCategory1 => {
           var taskCategoryString = (String)(taskCategory1);
           this.taskObjectString = taskCategoryString.split(',')
@@ -177,7 +191,7 @@ export class TaskcategoryReportComponent implements OnInit {
           this.finaltaskCategoryObject.push(taskCategoryObject);
 
         })
-        this.createTaskListAllDepartmentChart();
+       this.createTaskListAllDepartmentChart();
         this.getAllTaskCategoryNames();
       }
     })
@@ -233,7 +247,7 @@ export class TaskcategoryReportComponent implements OnInit {
         xLabels: this.taskByDepartmentXLabels,
         datasets: [
           {
-            label: "Total Tasks of "+this.taskCategoryType[0]+" category",
+            label: "Total Task of "+this.taskCategoryType[0]+" category",
             data: this.taskByDepartmentData,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             // backgroundColor: 'rgb(153, 102, 255)', // Red
@@ -289,7 +303,7 @@ export class TaskcategoryReportComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total tasks for the '+this.taskCategoryType[0]+' category',
+            text: 'Total Task for the '+this.taskCategoryType[0]+' category',
             font: {
               size: 14,
             },
@@ -372,7 +386,7 @@ export class TaskcategoryReportComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total task list for a category',
+            text: 'Total Task for a category',
             font: {
               size: 14,
             },

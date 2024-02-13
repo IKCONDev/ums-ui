@@ -59,7 +59,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole !== 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -71,7 +71,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
@@ -112,7 +112,7 @@
                   };
                 let i = index">
                     <tr *ngIf="isOrganizedMeetingDataText===false">
-                        <td>{{meeting.meetingId}}</td>
+                        <td style="text-align: center;">{{meeting.meetingId}}</td>
                         <!-- <td>{{meeting.id}}</td> -->
                         <td id="meeting-subject">{{meeting.subject}}</td>
                         <td>{{meeting.organizerName}}</td>
@@ -204,7 +204,7 @@
                                 <table id="myTable{{meeting.meetingId}}" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th id="tablehead"><input type="checkbox" class="mainCheckBox"
+                                            <th id="tablehead"><input type="checkbox"  class="mainCheckBox"
                                                     id="actionItemMainCheck{{meeting.meetingId}}"
                                                     (change)="checkAllcheckBoxesOfCurrentMeeting(meeting.meetingId, $event)" />
                                             </th>
@@ -302,7 +302,7 @@
                                                     <a *ngIf="hideActionItem===false" data-toggle="modal"
                                                         data-target="#myModal_add"
                                                         style="cursor: pointer;padding-left: 250px; font-size: 14px;"
-                                                        (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
+                                                    (click)="getActiveUMSUsersEmailIdList()">Add Action Item</a>
                                                 </div>
                                                 <ng-template #noCreatePermission>
                                                     <a *ngIf="hideActionItem===true"
@@ -376,7 +376,7 @@
         <div *ngIf="(loggedInUserRole !== 'ADMIN' && loggedInUserRole != 'SUPER_ADMIN') && reporteeCount > 0"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
@@ -388,7 +388,7 @@
         <div *ngIf="(loggedInUserRole === 'ADMIN' || loggedInUserRole === 'SUPER_ADMIN')"
             style="padding-top: 9px; ">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="choose reportee"
+                [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
@@ -410,7 +410,7 @@
                 </thead>
                 <tbody *ngIf="isAttendedMeetingDataText===false">
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
-                        <td id="cell">{{meeting.meetingId}}</td>
+                        <td style="text-align: center; padding-right: 55px;">{{meeting.meetingId}}</td>
                         <td id="cell">{{meeting.subject}}</td>
                         <td id="cell">{{meeting.organizerName}}</td>
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
@@ -464,7 +464,7 @@
                     <!-- title -->
                     <label><b>Action Item Title</b><span id="required">*</span></label>
                     <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
-                        placeholder="Enter title !..." [(ngModel)]="addDetails.actionItemTitle" required="true"
+                        placeholder="Enter Title" [(ngModel)]="addDetails.actionItemTitle" required="true"
                         name="actionItemTitle" id="actionItemTitle" minlength="5" maxlength="51"
                         #actionItemTitle="ngModel" [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
                         (keyup)="validateActionTitle()">
@@ -476,7 +476,7 @@
                     <label><b>Action Item Description</b><span id="required">*</span></label>
                     <div style="padding-left: 10px; margin-top:10px;">
                         <textarea type="text" rows="3" cols="3" class="form-control"
-                            placeholder="Enter description !..." style="width:400px;max-height:200px"
+                            placeholder="Enter Description" style="width:400px;max-height:200px"
                             [(ngModel)]="addDetails.actionItemDescription" required="true" name="actionItemDescription"
                             #actionItemDescription="ngModel" minlength="10" maxlength="251" id="actionItemDescription"
                             [class.invalid]="actionItemDescription.invalid && actionItemDescription.touched"
@@ -513,7 +513,7 @@
                     <div style="padding-left: 10px;">
                         <ng-select [multiple]="true" [searchable]="true" [clearable]="true" id="actionItemOwner"
                             name="actionItemOwner" style="width: 400px;" (change)="validateActionItemOwner()"
-                            [(ngModel)]="addDetails.actionItemOwner" placeholder="choose owner">
+                            [(ngModel)]="addDetails.actionItemOwner" placeholder="Choose Owner">
                             <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
                             <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
@@ -616,7 +616,7 @@
                             <ng-select [multiple]="true" [searchable]="true" [clearable]="true" id="uAcItemOwner"
                                 [selectableGroup]="true" name="uAcItemOwner" style="width:400px;margin-left: 10px;
                     margin-top:3px;margin-bottom: 3px;" (change)="validateUpdateActionItemOwner()"
-                                [(ngModel)]="updatedetails.actionItemOwner" placeholder="choose owner">
+                                [(ngModel)]="updatedetails.actionItemOwner" placeholder="Choose Owner">
                                 <!--- <ng-option [value]="" disabled selected value>choose</ng-option>-->
                                 <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                                     {{emailId}}
@@ -698,7 +698,7 @@
                         <ng-select [searchable]="true" [clearable]="true" id="sendMOM" name="sendMOM" #sendMOM="ngModel"
                             [multiple]="true" style="width: 400px;" [(ngModel)]="emailListForsendingMOM "
                             (change)="validateMoMEmail()">
-                            <ng-option disabled="true" [value]="">choose</ng-option>
+                            <ng-option disabled="true" [value]="">Choose</ng-option>
                             <ng-option [value]="emailId" *ngFor="let emailId of receiptientsList">
                                 {{emailId}}
                             </ng-option>
@@ -751,7 +751,7 @@
                     <textarea
                         style="width: 750px;height: 100px;min-height: 150px; max-height:220px;background-color: #ecf7fc;"
                         class="form-control" name="discussionpoints" [(ngModel)]="discussionPoints"
-                        #discussionpoints="ngModel" placeholder="Enter discussion points" minlength="10"
+                        #discussionpoints="ngModel" placeholder="Enter Discussion Points" minlength="10"
                         maxlength="1000"></textarea>
                     <hr>
                     <label for="attendees"><b>Attendees</b></label>
@@ -812,7 +812,7 @@
                             <input type="text" class="form-control" style="width: 400px;"
                                 [(ngModel)]="addMeeting.subject" required="true" name="subject" id="subject"
                                 minlength="4" maxlength="251" (keyup)="validateMeetingSubject()"
-                                placeholder="Enter subject">
+                                placeholder="Enter Subject">
                             <div>
                                 <span id="errorSpan" *ngIf="meetingSubjectErrorInfo != ''">
                                     <p>{{meetingSubjectErrorInfo}}</p>
@@ -844,7 +844,7 @@
                                 [selectableGroup]="true" name="meetingAttendees"
                                 style="width: 411px;padding-left: 10px;padding-bottom: 10px;"
                                 [(ngModel)]="addMeeting.attendees" (change)="validateMeetingAttendees()"
-                                placeholder="choose attendees">
+                                placeholder="Choose Attendees">
                                 <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdListForAttendees">
                                     {{emailId}}
                                 </ng-option>

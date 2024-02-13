@@ -284,7 +284,7 @@
                 <ng-select class="form-control" [searchable]="true" [clearable]="true" id="actionItemOwner"
                     name="actionItemOwner" style="width: 400px;" (change)="validateUpdateActionItemOwner()"
                     [(ngModel)]="updatedetails.actionItemOwner">
-                    <ng-option [value]="">choose</ng-option>
+                    <ng-option [value]="">Choose</ng-option>
                     <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                         {{emailId}}
                     </ng-option>
@@ -373,7 +373,7 @@
                         <ng-select class="form-control" [searchable]="true" [clearable]="true" id="actionItemOwner"
                             name="actionItemOwner" style="width: 400px;" (change)="validateActionItemOwner()"
                             [(ngModel)]="addDetails.actionItemOwner">
-                            <ng-option [value]="">choose</ng-option>
+                            <ng-option [value]="">Choose</ng-option>
                             <ng-option [value]="emailId" *ngFor="let emailId of userEmailIdList">
                                 {{emailId}}
                             </ng-option>
@@ -487,7 +487,7 @@
                             </div>
                             <textarea type="text"
                                 style="margin-left: 30px;width: 530px;background-color: #ecf7fc;min-height:55px;max-height: 55px;"
-                                placeholder="Enter title" class="form-control" name="taskTitle" required="true"
+                                placeholder="Enter Title" class="form-control" name="taskTitle" required="true"
                                 [(ngModel)]="add_Task.taskTitle" #taskTitle="ngModel"
                                 [class.invalid]="taskTitle.invalid && taskTitle.touched" (keyup)="validateTaskTitle()"
                                 minlength="5" maxlength="51"></textarea>
@@ -530,7 +530,7 @@
                                     class="form-control" name="taskDescription" #taskDescription="ngModel"
                                     [(ngModel)]="add_Task.taskDescription"
                                     [class.invalid]="taskDescription.invalid && taskDescription.touched"
-                                    (keyup)="validateTaskDescription()" placeholder="Enter description" minlength="10"
+                                    (keyup)="validateTaskDescription()" placeholder="Enter Description" minlength="10"
                                     maxlength="251"></textarea>
                                 <div *ngIf="taskDescriptionErrorInfo!=''">
                                     <span id="errorSpan" style="padding-left: 2px;">{{taskDescriptionErrorInfo}}</span>
@@ -559,7 +559,7 @@
                                                         name="taskOwner" (change)="validateTaskOwner()"
                                                         style="margin-top: 4px;padding-left: 10px;width: 348px;font-size: 14px;"
                                                         [(ngModel)]="add_Task.taskOwner">
-                                                        <ng-option disabled selected value>choose</ng-option>
+                                                        <ng-option disabled selected value>Choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
                                                         </ng-option>
@@ -579,7 +579,7 @@
                                                         [(ngModel)]="add_Task.taskCategoryId" name="taskCategory"
                                                         #taskCategory="ngModel" (change)="validateTaskCategory()">
                                                         <ng-option disabled selected value
-                                                            [value]="0">select</ng-option>
+                                                            [value]="0">Select</ng-option>
                                                         <ng-option *ngFor="let taskCategory of taskCategoryList"
                                                             value="{{taskCategory.taskCategoryId}}">
                                                             {{taskCategory.taskCategoryTitle}}</ng-option>
