@@ -410,7 +410,7 @@
                 </thead>
                 <tbody *ngIf="isAttendedMeetingDataText===false">
                     <tr *ngFor="let meeting of attendedMeetings; let i = index">
-                        <td id="cell">{{meeting.meetingId}}</td>
+                        <td style="text-align: center; padding-right: 55px;">{{meeting.meetingId}}</td>
                         <td id="cell">{{meeting.subject}}</td>
                         <td id="cell">{{meeting.organizerName}}</td>
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
