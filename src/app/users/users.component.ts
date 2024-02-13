@@ -188,7 +188,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
           // Add other options here as needed
         });
       });
-    }, 400)
+    }, 700)
   }
 
   ngOnDestroy(): void {
@@ -615,7 +615,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
     } else {
-      this.toastr.warning('Role not updated.')
+     // this.toastr.warning('Role not updated.')
     }
   }
 
