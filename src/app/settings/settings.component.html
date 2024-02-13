@@ -30,7 +30,7 @@
                 <a routerLink="/permission">Permissions</a><br />
                 <a routerLink="/menu-item">Menu Items</a><br />
                 <a routerLink="/role-menuitems-map">Role Menu Items</a><br/>
-                <a routerLink="/modify-permissions">Assign MenuItems & Permisisons</a>
+                <a routerLink="/modify-permissions">Assign Menu Items & Permisisons</a>
             </div>
             <div class="col-sm-3">
                 <h4><b>Customization</b></h4>
@@ -75,9 +75,10 @@
     <div class="card-body"></div>
     <div class="card-footer"></div>
 </div>
-<div class="container-fluid" *ngIf="viewPermission===false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
-  </div>
+
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <app-no-permission></app-no-permission>
+</div>
 
 
   <!-- Batch process time modal -->
