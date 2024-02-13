@@ -594,7 +594,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
       )
     } else {
-      this.toastr.warning('Role not updated.')
+      //this.toastr.warning('Role not updated.')
     }
   }
 
