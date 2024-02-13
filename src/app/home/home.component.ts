@@ -798,7 +798,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: '   Meeting status of current week',
+              text: '   Meeting status for the current week',
               align: 'center',
               font: {
                 size: 14,
@@ -867,7 +867,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: '   Meeting status of current year',
+              text: '   Meeting status for the current year',
               align: 'center',
               font: {
                 size: 14,
@@ -935,7 +935,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: '   Meeting status of current month',
+              text: '   Meeting status for the current month',
               align: 'center',
               font: {
                 size: 14,
@@ -1636,7 +1636,7 @@ export class HomeComponent implements OnInit {
             },
             title: {
               display: true,
-              text: 'In progress status of current year',
+              text: 'In progress status for the current year',
               align: 'center',
               font: {
                 size: 14,

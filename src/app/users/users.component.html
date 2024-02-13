@@ -43,7 +43,9 @@
                         <th>User Status</th>
                         <th>Account Status</th>
                         <th>Enable / Disable</th>
-                        <th style="padding-left: 35px;">Actions</th>
+                        <!-- <th style="padding-left: 35px;">Actions</th> -->
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isUserDataText===false">
@@ -78,7 +80,7 @@
                             </label>
                            
                         </td>
-                        <td>
+                        <td style="padding: 13px;">
                             <button [disabled]="!updatePermission" class="edit-icon" data-target="#userUpdateModal"
                                 data-toggle="modal" (click)="fetchOneUser(user.email)" (click)="getAllRoles()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -89,10 +91,11 @@
                                     </g>
                                 </svg>
                             </button>
-                            &nbsp;
+                            </td>
+                            <td>
                             <span *ngIf="user.email === loggedInUser">
                             </span>
-                            <button [disabled]="!deletePermission" *ngIf="user.email != loggedInUser" id="trashIcon"
+                            <button [disabled]="!deletePermission" *ngIf="user.email != loggedInUser && user.userRoles[0].roleName != 'SUPER_ADMIN'" id="trashIcon"
                                 (click)="removeUser(user.email)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
