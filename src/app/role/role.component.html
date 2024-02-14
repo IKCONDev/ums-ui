@@ -106,9 +106,9 @@
         </div>
     </div>
 </div>
-<div class="container-fluid" *ngIf="viewPermission===false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
-  </div>
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <app-no-permission></app-no-permission>
+</div>
   <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
 </div> -->
@@ -138,8 +138,8 @@
                 <div>
                     <label><b>Assign Permission</b><span id="required">*</span></label><br />
                     <select id="addPermissions" name="permissions" [(ngModel)]="addRoleObj.permission.permissionId" class="form-control-sm"
-                        placeholder="choose permission" (change)="validatePermissionValue()">
-                        <option value=0>Choose permission</option>
+                        placeholder="Choose Permission" (change)="validatePermissionValue()">
+                        <option value=0>Choose Permission</option>
                         <option *ngFor="let permission of permissionList" value="{{permission.permissionId}}">
                             {{permission.permissionValue}}</option>
                     </select>
@@ -180,7 +180,7 @@
                 <div>
                     <label><b>Assign Permission</b><span id="required">*</span></label><br />
                     <select id="permissions" name="permissions" [(ngModel)]="existingRole.permission.permissionId" class="form-control-sm"
-                        placeholder="choose permission" (change)="validateUpdatePermissionValue()">
+                        placeholder="Choose Permission" (change)="validateUpdatePermissionValue()">
                         <!-- <option value=0>Choose permission</option> -->
                         <option *ngFor="let permission of permissionList" value="{{permission.permissionId}}">
                             {{permission.permissionValue}}</option>

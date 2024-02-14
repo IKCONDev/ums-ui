@@ -221,7 +221,7 @@
                         <p id="errorMessage">{{updatedOrgAddressErrorInfo}}</p>
                     </span>
                 </div>
-                <textarea style="margin-bottom: 40px;max-height:250px;" [(ngModel)]="org.orgAddress"
+                <textarea style="margin-bottom: 40px;max-height:250px;" [(ngModel)]="org.orgAddress" placeholder="Enter Company Address"
                     *ngIf="isDisable==true" rows="3" cols="10" class="form-control" (keyup)="validateOrgAddress()"
                     minlength="30" maxlength="301">
                 </textarea>
@@ -271,7 +271,7 @@
                         <div>
                             <select *ngIf="isDisable==true" [(ngModel)]="org.orgCountry" id="country-dropdown"
                                 (change)="viewCountryCode()" class="form-select" (keyup)="validateOrgCountry()"
-                                placeholder="choose Country">
+                                placeholder="Choose Country">
                                 <span *ngIf="updatedOrgCountryErrorInfo!= ''">
                                     <p id="errorMessage">{{updatedOrgCountryErrorInfo}}</p>
                                 </span>
@@ -556,7 +556,7 @@
                             <!-- <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone"
                                 class="form-control" placeholder="Enter TimeZone"> -->
                             <select *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone" class="form-select"
-                                placeholder="choose time zone">
+                                placeholder="Choose Time Zone">
                                 <option value="Indian Standard Time">Indian Standard Time (IST)</option>
                                 <option value="Universal Coordinated Time">Universal Coordinated Time (UTC)</option>
                                 <option value="Eastern Time">Eastern Time (ET)</option>
@@ -686,8 +686,8 @@
     </div>
 </div>
 
-<div class="container-fluid" *ngIf="viewPermission===false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <app-no-permission></app-no-permission>
 </div>
 
 <div class="container-fluid" *ngIf="noPermissions===true">

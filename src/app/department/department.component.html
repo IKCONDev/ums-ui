@@ -109,7 +109,7 @@
     </div>
 </div>
 <div class="container-fluid" *ngIf="viewPermission === false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+    <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
@@ -131,7 +131,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Department Name</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department name"
+                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Name"
                     [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName()" minlength="3"
                     maxlength="51" /><br />
                 <span *ngIf="departmentNameErrorInfo != ''">
@@ -139,7 +139,7 @@
                 </span>
                 <!--   -->
                 <label><b>Department Head</b><span id="required">*</span></label>
-                <ng-select id="deptHead" placeholder="Department head"
+                <ng-select id="deptHead" placeholder="Department Head"
                     [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()"  minlength="3" maxlength="51">
                    <ng-option *ngFor="let deptHead of employeesAsUser" value="{{deptHead.email}}">{{deptHead.firstName}} {{deptHead.lastName}}</ng-option>
                 </ng-select><br />
@@ -156,7 +156,7 @@
                 </span>
                 <!--  -->
                 <label><b>Department Location</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department location"
+                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Location"
                     [(ngModel)]="addDepartment.departmentAddress" (keyup)="validateDepartmentLocation()" minlength="3"
                     maxlength="21" />
                 <span *ngIf="departmentLocationErrorInfo != ''">
@@ -193,7 +193,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Department Name</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department name"
+                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Name"
                     [(ngModel)]="existingDepartment.departmentName" (keyup)="validateUpdatedDepartmentName()"
                     minlength="3" maxlength="51" /><br />
                 <span *ngIf="updatedDepartmentNameErrorInfo != ''">
@@ -201,9 +201,9 @@
                 </span>
                 <!--   -->
                 <label><b>Department Head</b><span id="required">*</span></label>
-                <ng-select type="search" id="updateDeptHead" placeholder="Department head"
+                <ng-select type="search" id="updateDeptHead" placeholder="Department Head"
                     [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateUpdatedDepartmentHead()" 
-                    minlength="3" maxlength="51" placeholder="Department head">
+                    minlength="3" maxlength="51">
                     <ng-option *ngFor="let deptHead of employeesAsUser" value="{{deptHead.email}}">{{deptHead.firstName}} {{deptHead.lastName}}</ng-option>
                 </ng-select><br />
                 <span *ngIf="updatedDepartmentHeadErrorInfo != ''">
@@ -219,7 +219,7 @@
                 </span>
                 <!--  -->
                 <label><b>Department Location</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department location"
+                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Location"
                     [(ngModel)]="existingDepartment.departmentAddress" (keyup)="validateUpdatedDepartmentLocation()"
                     minlength="3" maxlength="21" />
                 <span *ngIf="updatedDepartmentLocationErrorInfo != ''">

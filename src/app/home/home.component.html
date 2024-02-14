@@ -90,8 +90,8 @@
             <ng-select [(ngModel)]="MajorselectedOption" (change)="onSelectChange()" [searchable]="false" style="float: left; width: 150px;">
               <ng-option value="All">All</ng-option>
               <ng-option value="Total">Total</ng-option>
-              <ng-option value="Yet to start">Yet To Start</ng-option>
-              <ng-option value="Inprogress">In Progress</ng-option>
+              <ng-option value="Yet to start">Yet to start</ng-option>
+              <ng-option value="Inprogress">In progress</ng-option>
               <ng-option value="Completed">Completed</ng-option>
             </ng-select>
             <ng-select [(ngModel)]="selectedOption" (change)="onSelectChange()"[searchable]="false" style="float: right; width: 150px;">
@@ -185,8 +185,8 @@
   </div>
 
   <div class="container-fluid" *ngIf="viewPermission === false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
-  </div>
+    <app-no-permission></app-no-permission>
+</div>
 
   <div *ngIf="isComponentLoading===true" style="padding-top:260px;color: #134E69D9;">
     <!-- <span *ngIf="isComponentLoading===true">

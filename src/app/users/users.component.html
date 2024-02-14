@@ -43,7 +43,9 @@
                         <th>User Status</th>
                         <th>Account Status</th>
                         <th>Enable / Disable</th>
-                        <th style="padding-left: 35px;">Actions</th>
+                        <!-- <th style="padding-left: 35px;">Actions</th> -->
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isUserDataText===false">
@@ -78,7 +80,7 @@
                             </label>
                            
                         </td>
-                        <td>
+                        <td style="padding: 13px;">
                             <button [disabled]="!updatePermission" class="edit-icon" data-target="#userUpdateModal"
                                 data-toggle="modal" (click)="fetchOneUser(user.email)" (click)="getAllRoles()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -89,10 +91,11 @@
                                     </g>
                                 </svg>
                             </button>
-                            &nbsp;
+                            </td>
+                            <td>
                             <span *ngIf="user.email === loggedInUser">
                             </span>
-                            <button [disabled]="!deletePermission" *ngIf="user.email != loggedInUser" id="trashIcon"
+                            <button [disabled]="!deletePermission" *ngIf="user.email != loggedInUser && user.userRoles[0].roleName != 'SUPER_ADMIN'" id="trashIcon"
                                 (click)="removeUser(user.email)">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     fill="#000000" version="1.1" id="Capa_1" width="15px" height="15px"
@@ -116,11 +119,11 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
-<div class="container-fluid" *ngIf="viewPermission===false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
@@ -209,7 +212,7 @@
                     <span id="errorMessage">{{useremailIdErrorInfo}}</span>
                 </div><br/>-->
                 <label><b>Role</b><span id="required">*</span></label>
-                <select id="userId" class="updateUserInput form-control form-select" placeholder="role"
+                <select id="userId" class="updateUserInput form-control form-select" placeholder="Role"
                     [(ngModel)]="existingUserObj.userRoles[0].roleId" id="updateRole" name="updateRole"
                     #updateRole="ngModel" [class.invalid]="updateRole.invalid && updateRole.touched"
                     (change)="validateUpdateUserRole()">
@@ -265,7 +268,7 @@
                             </div>
                             <div style="padding-top: 15px;">Role
                                 <select #boxPri class="actitem-organizer-filter">
-                                    <option value="">select</option>
+                                    <option value="">Select</option>
                                     <option></option>
                                 </select>
                             </div>

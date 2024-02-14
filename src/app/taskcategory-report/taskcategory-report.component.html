@@ -9,7 +9,7 @@
     <div class="card-body" *ngIf="reportType === 'all'">
         <div class="row">
             <div class="col-sm-2" style="margin-left: 139px;padding-top: 7px;">
-                <ng-select id="select" style="float: right; width: 250px;" placeholder="Task Category"
+                <ng-select id="select" style="float: right; width: 250px;" value="0" placeholder="Task Category"
                     [(ngModel)]="selectedTaskCategory" (change)="getchoosenCategory(selectedTaskCategory)">
                     <ng-option *ngFor="let task of taskCategoryList"
                         value="{{task.taskCategoryId}}">{{task.taskCategoryTitle}}</ng-option>
@@ -375,8 +375,8 @@
     </div>
 </div>
 
-<div class="container-fluid" *ngIf="viewPermission===false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>

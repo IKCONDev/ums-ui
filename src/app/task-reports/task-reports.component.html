@@ -342,7 +342,7 @@
                     <!-- <p>Report Type : <b>Pie Chart</b></p> -->
                     <p>Report For : <b>{{"Priority"}}</b></p>
                     <p>Task Priority : <b>{{selectedTaskSeverity}}</b></p>
-                    <p>Total tasks for the severity : <b>{{taskListByTaskSeverityCount}}</b></p>
+                    <p>Total task for the Priority  : <b>{{taskListByTaskSeverityCount}}</b></p>
                     </div>
                 </div>
             </div>
@@ -994,9 +994,9 @@
 </div> -->
     </div>
 </div>
-<div class="container-fluid" *ngIf="viewPermission===false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
-  </div>
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <app-no-permission></app-no-permission>
+</div>
   <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
 </div> -->

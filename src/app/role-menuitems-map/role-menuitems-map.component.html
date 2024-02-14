@@ -69,9 +69,8 @@
     </div>
 </div>
 
-
 <div class="container-fluid" *ngIf="viewPermission === false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+    <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
@@ -95,7 +94,7 @@
                 <div>
                     <label><b>Role Name</b><span id="required">*</span></label>
                     <input type="text" id="roleName" style="text-transform: uppercase;" class="deptInput form-control"
-                        placeholder="Role name" [(ngModel)]="existingRole.roleName" minlength="3" maxlength="51"
+                        placeholder="Role Name" [(ngModel)]="existingRole.roleName" minlength="3" maxlength="51"
                         disabled="true" /><br />
                     <!-- <span id="errorInfo" *ngIf="updatedRoleNameErrorInfo != ''">{{updatedRoleNameErrorInfo}}</span> -->
                 </div>
@@ -110,6 +109,7 @@
                     ng-options="sort.menuItem as sort.menuItem for sort in menuItemList | unique : 'menuItem'">
                     <option *ngFor="let menuItem of menuItemList" value="{{menuItem.menuItemId}}">{{menuItem.menuItemName}}</option>
                 </select> -->
+                    Select All &nbsp;<input type="checkbox" id="selectAllMenuItems" (change)="selectAllMenuItemCheckBoxes()"/>
                     <div *ngFor="let menuItem of menuItemList;let i = index">
                         <input #checkboxes id="menuItems" class="menuItems" name="menuItems" type="checkbox"
                             value="{{menuItem.menuItemId}}"

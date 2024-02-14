@@ -86,7 +86,7 @@
 </div>
 
 <div class="container-fluid" *ngIf="viewPermission === false">
-    <h2 style="text-align: center;margin-top: 120px;">You dont have permission to view this page</h2>
+    <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
     <h2 style="text-align: center;margin-top: 120px;">Contact admin to get access for this page</h2>
@@ -123,7 +123,7 @@
                         <ng-select id="menuItemsBox" class="inputStyling" ng-model="menuItemIds"
                             [(ngModel)]="addUserRPMMap.menuItemIdList"
                             ng-options="sort.menuItem as sort.menuItem for sort in menuItemList | unique : 'menuItem'"
-                            placeholder="choose menu item">
+                            placeholder="Choose Menu Item">
                             <ng-option *ngFor="let menuItem of unassignedMenuItemList"
                                 value="{{menuItem.menuItemId}}">{{menuItem.menuItemName}}</ng-option>
                         </ng-select>
