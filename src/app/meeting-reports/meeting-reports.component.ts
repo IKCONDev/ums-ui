@@ -690,18 +690,19 @@ export class MeetingReportsComponent implements OnInit {
   colorOfChartType: any = 'line';
   setChartType(value : any){
     this.type = value;
-    if(this.reportType =='all'&& this.selectedDepartment===null ){
-      this.colorOfChartType = value;
-      if(this.meetingsByDepartmentListChart!= null){
-        this.meetingsByDepartmentListChart.destroy()
-        this.createMeetingsByAllDepartmentReportChart()
-      }
-    }
+    
     if(this.reportType =='all' && this.selectedDepartment!= null ){
       this.colorOfChartType = value;
       if(this.meetingsByDepartmentListChart!= null){
         this.meetingsByDepartmentListChart.destroy()
         this.createMeetingsByDepartmentReportChart()
+      }
+    }
+    if(this.reportType =='all'){
+      this.colorOfChartType = value;
+      if(this.meetingsByDepartmentListChart!= null){
+        this.meetingsByDepartmentListChart.destroy()
+        this.createMeetingsByAllDepartmentReportChart()
       }
     }
     if(this.reportType == 'department'){
