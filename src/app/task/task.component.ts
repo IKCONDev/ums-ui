@@ -94,12 +94,15 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   // assignedTaskOrganizerFilter = this.selectedReporteeAssigned
 
 
-  private table: any;
-
+  private organizedTaskTable: any;
+  private assignedTaskTable:any;
   InitailizeJqueryDataTable() {
     setTimeout(() => {
+      if(this.organizedTaskTable!=null){
+        this.organizedTaskTable.destroy();
+      }
       $(document).ready(() => {
-        this.table = $('#table').DataTable({
+        this.organizedTaskTable = $('#table').DataTable({
           paging: true,
           searching: true,
           pageLength: 10,
@@ -116,8 +119,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 900);
 
     setTimeout(() => {
+      if(this.assignedTaskTable!=null){
+        this.assignedTaskTable.destroy();
+      }
       $(document).ready(() => {
-        this.table = $('#assignedtaskTable').DataTable({
+        this.assignedTaskTable = $('#assignedtaskTable').DataTable({
           paging: true,
           searching: true,
           stateSave:true,
@@ -137,46 +143,50 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#table').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[1, 'asc']],
-          stateSave:true,
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-          columnDefs:[{
-            "targets": [0,9,10],
-            "orderable":false
-          }],
-          // Add other options here as needed
-        });
+    this.InitailizeJqueryDataTable();
+    // setTimeout(() => {
+    //   $(document).ready(() => {
+    //     this.table = $('#table').DataTable({
+    //       paging: true,
+    //       searching: true, // Enable search feature
+    //       pageLength: 10,
+    //       order: [[1, 'asc']],
+    //       stateSave:true,
+    //       lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    //       columnDefs:[{
+    //         "targets": [0,9,10],
+    //         "orderable":false
+    //       }],
+    //       // Add other options here as needed
+    //     });
 
-      });
+    //   });
 
-      $(document).ready(() => {
-        this.table = $('#assignedtaskTable').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[0, 'asc']],
-          stateSave:true,
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-          columnDefs:[{
-            "targets": [0,9,10],
-            "orderable":false
-          }],
+    //   $(document).ready(() => {
+    //     this.table = $('#assignedtaskTable').DataTable({
+    //       paging: true,
+    //       searching: true, // Enable search feature
+    //       pageLength: 10,
+    //       order: [[0, 'asc']],
+    //       stateSave:true,
+    //       lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    //       columnDefs:[{
+    //         "targets": [0,9,10],
+    //         "orderable":false
+    //       }],
         
-          // Add other options here as needed
-        });
-      });
-    }, 600)
+    //       // Add other options here as needed
+    //     });
+    //   });
+    // }, 600)
   }
 
   ngOnDestroy(): void {
-    if (this.table) {
-      this.table.destroy();
+    if (this.assignedTaskTable) {
+      this.assignedTaskTable.destroy();
+    }
+    if (this.organizedTaskTable) {
+      this.organizedTaskTable.destroy();
     }
   }
   isComponentLoading: boolean = false;
