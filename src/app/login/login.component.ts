@@ -267,14 +267,14 @@ export class LoginComponent {
       this.disableLoginButton=false;
     },2000)
     if(this.user.email===null||this.user.email===""||this.user.password===null||this.user.password===""){
-       if(this.user.email===null&&this.user.password===null||this.user.email===""&&this.user.password===""){
+       if(this.user.email===null&&this.user.password===null){
       this.toastr.error("Enter username and password");
        }
        else if(this.user.email===null||this.user.email===""){
         this.toastr.error("Enter username");
        }
-       else if(this.user.password===null||this.user.password===""){
-        this.toastr.error("Enter password");
+       else if(this.user.email===null||this.user.email===""){
+        this.toastr.error("Enter username");
        }
     }
     else{
@@ -449,14 +449,14 @@ export class LoginComponent {
             if(loginAttempts ===null &&error.status === HttpStatusCode.Unauthorized){
               this.toastr.error('Invalid username or password')
             }
-            if(parseInt(loginAttempts) === 2){
+            else if(parseInt(loginAttempts) === 2){
               this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempt remaining', 'Login Failure')
             }
-            else if(parseInt(loginAttempts) === 1 || active === 'false'){
+            else if(parseInt(loginAttempts) === 1 ){
               this.errorInfo = 'Invalid Credentials'
               this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempts remaining', 'Login Failure')
             }
-            else if(parseInt(loginAttempts) === 3 || active === 'false'){
+            else if(parseInt(loginAttempts) === 3 ){
               this.errorInfo = 'Invalid Credentials'
               this.toastr.error('Incorrect username or password. No attempts remaining', 'Login Failure')
             }
