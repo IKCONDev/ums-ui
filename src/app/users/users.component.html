@@ -151,7 +151,7 @@
                     <select class="form-control form-select" id="userEmail" name="userEmail"
                         #userEmail="ngModel" style="width: 400px; height: 50px;"[(ngModel)]="addUserObj.email"
                         (change)=" validateUserEmailId()">
-                        <option [value]="">Select User</option>
+                        <option value="">Select User</option>
                         <option [value]="employee.email" *ngFor="let employee of employeeWithStatus">
                             {{employee.email}}
                         </option>
