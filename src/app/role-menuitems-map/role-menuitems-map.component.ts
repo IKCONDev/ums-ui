@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { RoleService } from '../role/service/role.service';
 import { HttpStatusCode } from '@angular/common/http';
 import { Role } from '../model/Role.model';
@@ -259,10 +259,20 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewChecked {
       )
     return this.currentMenuItem;
   }
-
-  selectAllMenuItemCheckBoxes(){
-    console.log(true)
-    $('.menuItems').prop('checked', true);  
+  
+  @ViewChild("mainCheck") mainMenuItemCheckbox: any;
+  selectAllMenuItemCheckBoxes(event: Event){
+    const isChecked: boolean = this.mainMenuItemCheckbox.nativeElement.checked;
+    console.log(isChecked)
+    if(isChecked){
+      $('.menuItems').each(function(){
+        if(!$(this).is(':checked')){
+          $(this).prop('checked',true);
+        }
+      }) 
+    }else{
+      $('.menuItems').prop('checked', false); 
+    } 
   }
 
 

@@ -109,12 +109,19 @@
                     ng-options="sort.menuItem as sort.menuItem for sort in menuItemList | unique : 'menuItem'">
                     <option *ngFor="let menuItem of menuItemList" value="{{menuItem.menuItemId}}">{{menuItem.menuItemName}}</option>
                 </select> -->
-                    Select All &nbsp;<input type="checkbox" id="selectAllMenuItems" (change)="selectAllMenuItemCheckBoxes()"/>
+                <label class="container"><p style="font-size: 14px;margin-bottom: 6px;">Select All</p>
+                    <input type="checkbox" #mainCheck id="selectAllMenuItems" (change)="selectAllMenuItemCheckBoxes($event)"/>
+                    <span class="checkmark"></span>
+                  </label>
                     <div *ngFor="let menuItem of menuItemList;let i = index">
-                        <input #checkboxes id="menuItems" class="menuItems" name="menuItems" type="checkbox"
-                            value="{{menuItem.menuItemId}}"
-                            (change)="storeSelectedMenuItems($event,i)" />{{menuItem.menuItemName}}
+                        <label class="container"><p style="font-size: 14px;margin-bottom: 6px;">{{menuItem.menuItemName}}</p>
+                            <input #checkboxes id="menuItems" class="menuItems" name="menuItems" type="checkbox"
+                                value="{{menuItem.menuItemId}}"
+                                (change)="storeSelectedMenuItems($event,i)">
+                            <span class="checkmark"></span>
+                          </label>
                     </div>
+                    
                 </div>
             </div>
             <!-- Modal footer -->
