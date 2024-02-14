@@ -234,21 +234,22 @@ export class ForgotPasswordOtpValidationComponent {
   otpValidation(event: KeyboardEvent) {
     const validChars = /^[0-9\b]+$/;
     const inputElement = event.target as HTMLInputElement;
-
+    
     // Clear the error message when the user starts modifying the OTP
     this.OtpResponseMessage = "";
-    this.isValidOtp = false;
-
+    
     // Allow the backspace key without validation
     if (event.key === "Backspace") {
         return;
     }
-
+    
     // Validate the input using the regular expression
     if (!validChars.test(event.key)) {
         event.preventDefault(); // Prevent the input of invalid characters
-        console.log("hi");
-        this.verifyButtonDisabled = false;
+        console.log("Invalid character entered");
+        // this.verifyButtonDisabled = true; // Disable the verify button when input is invalid
+    } else {
+        this.verifyButtonDisabled = false; // Enable the verify button when input is valid
     }
 }
 }
