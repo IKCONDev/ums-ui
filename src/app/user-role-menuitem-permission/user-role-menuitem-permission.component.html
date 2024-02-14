@@ -25,7 +25,7 @@
         <div class="col-sm-1"><b>User :</b></div>
         <div class="col-sm-3">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedUserId" placeholder="Select user"
+                [(ngModel)]="selectedUserId" placeholder="Select User"
                 (change)="getRoleMenuItemPermissionListByUserId()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="employee.email" *ngFor="let employee of employeeList">
