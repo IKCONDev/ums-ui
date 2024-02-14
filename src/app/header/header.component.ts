@@ -171,7 +171,7 @@ export class HeaderComponent implements OnChanges {
     //sessionStorage.clear();
     localStorage.clear();
    // localStorage.setItem('tabOpened','OrganizedMeeting');
-    this.toastr.success('Hope you had a great experience','Logged out success')
+    this.toastr.success('Hope you had a great experience','Logged out successfully')
    // window.localStorage.clear ();
      window.localStorage.clear();
     this.router.navigateByUrl('/login');

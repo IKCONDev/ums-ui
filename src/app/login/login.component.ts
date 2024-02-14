@@ -143,7 +143,7 @@ export class LoginComponent {
       console.log(this.username + " " + this.accessToken)
       localStorage.setItem('jwtToken', this.accessToken);
       this.router.navigateByUrl("/home");
-      this.toastr.success('Login', 'login success')
+      this.toastr.success('Login', 'Logged in successfully')
     } else {
       this.selectAccount();
     }
@@ -273,8 +273,8 @@ export class LoginComponent {
        else if(this.user.email===null||this.user.email===""){
         this.toastr.error("Enter username");
        }
-       else if(this.user.email===null||this.user.email===""){
-        this.toastr.error("Enter username");
+       else if(this.user.password===null||this.user.password===""){
+        this.toastr.error("Enter password");
        }
     }
     else{
@@ -359,7 +359,7 @@ export class LoginComponent {
               localStorage.clear();
               return;
             }else{
-              this.toastr.success('Login Success')
+              this.toastr.success('','Logged in successfully')
               this.router.navigate(['home'], {
                 //queryParams: {
                 //'user_token': localStorage.getItem('jwtToken')
