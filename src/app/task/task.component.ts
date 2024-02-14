@@ -94,15 +94,15 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   // assignedTaskOrganizerFilter = this.selectedReporteeAssigned
 
 
-  private table: any;
-
+  private organizedTaskTable: any;
+  private assignedTaskTable:any;
   InitailizeJqueryDataTable() {
     setTimeout(() => {
-      if(this.table!=null){
-        this.table.destroy();
+      if(this.organizedTaskTable!=null){
+        this.organizedTaskTable.destroy();
       }
       $(document).ready(() => {
-        this.table = $('#table').DataTable({
+        this.organizedTaskTable = $('#table').DataTable({
           paging: true,
           searching: true,
           pageLength: 10,
@@ -119,8 +119,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 900);
 
     setTimeout(() => {
+      if(this.assignedTaskTable!=null){
+        this.assignedTaskTable.destroy();
+      }
       $(document).ready(() => {
-        this.table = $('#assignedtaskTable').DataTable({
+        this.assignedTaskTable = $('#assignedtaskTable').DataTable({
           paging: true,
           searching: true,
           stateSave:true,
@@ -179,8 +182,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    if (this.table) {
-      this.table.destroy();
+    if (this.assignedTaskTable) {
+      this.assignedTaskTable.destroy();
+    }
+    if (this.organizedTaskTable) {
+      this.organizedTaskTable.destroy();
     }
   }
   isComponentLoading: boolean = false;
