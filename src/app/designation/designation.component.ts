@@ -417,7 +417,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
             if(this.designationIdsToBeDeleted.length > 1){
               this.toastr.success('Designations deleted sucessfully.') 
             } else{
-              this.toastr.success('Designation '+this.designationIdsToBeDeleted+ ' is deleted sucessfully.') 
+              this.toastr.success('Designation '+this.designationIdsToBeDeleted+ ' is deleted sucessfully') 
             }
             setTimeout(()=>{
               window.location.reload();
@@ -429,7 +429,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error("Designation is already in usage by an employee, cannot be deleted.")
+            this.toastr.error("Designation is already in usage by an employee, cannot be deleted")
           }
         }
       })
@@ -437,7 +437,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
      // this.toastr.warning('Designations not deleted.')
     }
    }else{
-    this.toastr.error('Please select atleast one designation to delete.')
+    this.toastr.error('Please select atleast one designation to delete')
    }
    
   }

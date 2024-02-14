@@ -341,7 +341,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
         }else{
-          this.toastr.error("Error occured while updating role. Please try again.")
+          this.toastr.error("Error occured while updating role. Please try again")
         }
       }
     })
@@ -411,7 +411,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error('Role already in usage by an user, cannot be deleted.');
+            this.toastr.error('Role already in usage by an user, cannot be deleted');
           } else {
             this.toastr.error('Error while deleting role '+id+ '... Please try again !');
           }
@@ -459,7 +459,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
             if(this.roleIdsToBeDeleted.length > 1){
               this.toastr.success('Roles deleted sucessfully.')  
             }else{
-              this.toastr.success('Role '+this.roleIdsToBeDeleted+' is deleted.')
+              this.toastr.success('Role '+this.roleIdsToBeDeleted+' is deleted')
             }
             setTimeout(()=>{
               window.location.reload();
@@ -471,7 +471,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error('Role already in usage by an user, cannot be deleted.');
+            this.toastr.error('Role already in usage by an user, cannot be deleted');
           }
         }
       })
@@ -479,7 +479,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
       //this.toastr.warning('Roles not deleted')
     }
    }else{
-    this.toastr.error('Please select atleast one role to delete.')
+    this.toastr.error('Please select atleast one role to delete')
    }
   }
 
