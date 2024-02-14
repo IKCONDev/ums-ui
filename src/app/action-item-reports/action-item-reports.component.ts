@@ -659,7 +659,7 @@ deptValueCount : DepartmentCount[] = [];
          this.createActionItemsByDepartmentReportChart()
     }
     
-    if(this.reportType == 'all' && this.selectedDepartment== null){
+    if(this.reportType == 'all' ){
        this.colorOfChartType = value
        this.actionItemsByDepartmentReportChart.destroy()
        this.createActionItemsAllDepartmentReportChart() 
