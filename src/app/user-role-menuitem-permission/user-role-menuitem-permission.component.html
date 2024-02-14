@@ -64,22 +64,62 @@
         <tbody>
             <tr *ngFor="let userRPMMap of userRPMMapList">
                 <td>{{userRPMMap.menuItem.menuItemName}}</td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('View')"><input [disabled]="!updatePermission" id="viewcheckboxchecked" name="viewcheckboxchecked" type="checkbox" checked
-                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'View')" /></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('View')"><input type="checkbox"  [disabled]="!updatePermission" id="viewcheckbox" name="viewcheckbox"
-                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'View')" /></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" [disabled]="!updatePermission" id="createcheckboxchecked" name="createcheckboxchecked" checked
-                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Create')" /></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Create')"><input type="checkbox" [disabled]="!updatePermission"  id="createcheckbox" name="createcheckbox"
-                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Create')" /></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" [disabled]="!updatePermission"  id="updatecheckboxchecked" name="updatecheckboxchecked" checked
-                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Update')" /></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Update')"><input type="checkbox" [disabled]="!updatePermission" id="updatecheckbox" name="updatecheckbox"
-                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Update')" /></td>
-                <td *ngIf="userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" [disabled]="!updatePermission" id="deletecheckboxchecked" name="deletecheckboxchecked" checked
-                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Delete')" /></td>
-                <td *ngIf="!userRPMMap.permissionIdList.includes('Delete')"><input type="checkbox" [disabled]="!updatePermission" id="deletecheckbox" name="deletecheckbox"
-                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Delete')" /></td>
+                <td *ngIf="userRPMMap.permissionIdList.includes('View')">
+                    <label class="container">
+                        <input [disabled]="!updatePermission" id="viewcheckboxchecked" name="viewcheckboxchecked" type="checkbox" checked
+                            (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'View')" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                <td *ngIf="!userRPMMap.permissionIdList.includes('View')">
+                    <label class="container">
+                        <input type="checkbox"  [disabled]="!updatePermission" id="viewcheckbox" name="viewcheckbox"
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'View')" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                <td *ngIf="userRPMMap.permissionIdList.includes('Create')">
+                    <label class="container">
+                        <input type="checkbox" [disabled]="!updatePermission" id="createcheckboxchecked" name="createcheckboxchecked" checked
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Create')" />
+                        <span class="checkmark"></span>
+                      </label>
+                   </td>
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Create')">
+                    <label class="container">
+                        <input type="checkbox" [disabled]="!updatePermission"  id="createcheckbox" name="createcheckbox"
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Create')" />
+                        <span class="checkmark"></span>
+                      </label>
+                   </td>
+                <td *ngIf="userRPMMap.permissionIdList.includes('Update')">
+                    <label class="container">
+                        <input type="checkbox" [disabled]="!updatePermission"  id="updatecheckboxchecked" name="updatecheckboxchecked" checked
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Update')" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Update')">
+                    <label class="container">
+                        <input type="checkbox" [disabled]="!updatePermission" id="updatecheckbox" name="updatecheckbox"
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Update')" />
+                        <span class="checkmark"></span>
+                      </label>
+                   </td>
+                <td *ngIf="userRPMMap.permissionIdList.includes('Delete')">
+                    <label class="container">
+                        <input type="checkbox" [disabled]="!updatePermission" id="deletecheckboxchecked" name="deletecheckboxchecked" checked
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Delete')" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                <td *ngIf="!userRPMMap.permissionIdList.includes('Delete')">
+                    <label class="container">
+                        <input type="checkbox" [disabled]="!updatePermission" id="deletecheckbox" name="deletecheckbox"
+                        (change)="updateUserRoleMenuItemPermissionMap(userRPMMap,$event,'Delete')" />
+                        <span class="checkmark"></span>
+                      </label>
+                   </td>
             </tr>
         </tbody>
     </table>

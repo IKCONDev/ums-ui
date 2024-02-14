@@ -191,7 +191,8 @@
                         <p>Report Module : <b>Action Items</b></p>
                         <!-- <p>Report Type : <b>Bar Chart</b></p> -->
                         <p>Organizer Email ID : <b>{{selectedUser}}</b></p>
-                        <p>Organizer Name : <b>{{selectedUserFullName}}</b></p>
+                        <p *ngIf="selectedUser!= null">Organizer Name : <b>{{selectedUserFullName}}</b></p>
+                        <p *ngIf="selectedUser== null">Organizer Name : <b>{{null}}</b></p>
                         <p>Total action items of the organizer : <b>{{actionItemsCountOforganizer}}</b></p>
                     </div>
                 </div>
