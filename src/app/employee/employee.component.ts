@@ -264,7 +264,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
         next: response => {
           if (response.status == HttpStatusCode.Created) {
             this.createdEmployee = response.body;
-            this.toastr.success("Employee added successfully.");
+            this.toastr.success("Employee added successfully");
             document.getElementById('closeAddModal').click();
             setTimeout(() => {
               window.location.reload();
@@ -275,12 +275,12 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
           if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout');
           } else if (error.status === HttpStatusCode.Found) {
-            this.toastr.error("Employee email ID '"+ this.addEmployee.email +"' already exists.");
+            this.toastr.error("Employee email ID '"+ this.addEmployee.email +"' already exists");
             //document.getElementById('closeAddModal').click();
           } else if (error.status === HttpStatusCode.NotAcceptable) {
-            this.toastr.error("Employee '"+ this.addEmployee.employeeOrgId +"' already exists.");
+            this.toastr.error("Employee '"+ this.addEmployee.employeeOrgId +"' already exists");
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error("EmployeeID '"+ this.addEmployee.employeeOrgId +"' is already assigned to another employee.");
+            this.toastr.error("EmployeeID '"+ this.addEmployee.employeeOrgId +"' is already assigned to another employee");
           }
 
           else {
@@ -392,7 +392,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.employeeservice.deleteEmployee(employeeId).subscribe({
         next: response => {
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success("Employee '" + employeeOrgId + "' deleted successfully.");
+            this.toastr.success("Employee '" + employeeOrgId + "' deleted successfully");
             setTimeout(() => {
               window.location.reload();
             }, 1000)
@@ -481,14 +481,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
         next: response => {
           var employeerecord = response.body;
           if (response.status == HttpStatusCode.Created) {
-            this.toastr.success("Employee '"+ this.existingEmployee.employeeOrgId +"' updated successfully.");
+            this.toastr.success("Employee '"+ this.existingEmployee.employeeOrgId +"' updated successfully");
             document.getElementById('closeUpdateModal').click();
             setTimeout(() => {
               window.location.reload();
             }, 1000)
           }
           else if (response.status == HttpStatusCode.NotAcceptable) {
-            this.toastr.error("Employee '"+ this.existingEmployee.employeeOrgId +"' already exists.");
+            this.toastr.error("Employee '"+ this.existingEmployee.employeeOrgId +"' already exists");
           }
           else {
             this.toastr.error("Error occured while updating employee '" + this.existingEmployee.id+"'. Please try again !");
@@ -496,7 +496,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
         },
         error: error => {
           if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error("EmployeeID '"+ this.existingEmployee.employeeOrgId +"' is already assigned to another employee.");
+            this.toastr.error("EmployeeID '"+ this.existingEmployee.employeeOrgId +"' is already assigned to another employee");
           }
         }
       })
@@ -896,7 +896,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.employeeservice.deleteAllEmployee(ids).subscribe(
               response => {
                 if (response.status == HttpStatusCode.Ok) {
-                  this.toastr.success('Employees deleted successfully.');
+                  this.toastr.success('Employees deleted successfully');
                   setTimeout(() => {
                     window.location.reload();
                   }, 1000);

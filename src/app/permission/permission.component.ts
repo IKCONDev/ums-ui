@@ -156,7 +156,7 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
         next: response => {
           if(response.status === HttpStatusCode.Created){
             this.closeModal();
-            this.toastrService.success('Permission created successfully.');
+            this.toastrService.success('Permission created successfully');
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -195,7 +195,7 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
           next: response => {
             if(response.status === HttpStatusCode.PartialContent){
               this.closeModal();
-              this.toastrService.success('Permission '+ permission.permissionId+' updated successfully.');
+              this.toastrService.success('Permission '+ permission.permissionId+' updated successfully');
               setTimeout(() => {
                 window.location.reload();
               },1000)
@@ -290,7 +290,7 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
        this.permissionService.deleteSelectedPermission(permissionId).subscribe({
          next: response =>{
             if(response.status == HttpStatusCode.Ok){
-               this.toastrService.success("Permission "+ permissionId+" deleted successfully.");
+               this.toastrService.success("Permission "+ permissionId+" deleted successfully");
                setTimeout(() => {
                 window.location.reload();
               },1000)
@@ -300,7 +300,7 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastrService.error("Permission is already in usage by a 'Role' ! </br> Cannot be deleted."," ",{enableHtml:true});
+            this.toastrService.error("Permission is already in usage by a 'Role' ! Cannot be deleted");
           }
           else {
             this.toastrService.error('Error occured while deleting '+ permissionId+' permission. Please try again !')
