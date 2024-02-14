@@ -25,7 +25,7 @@
         <div class="col-sm-1"><b>User :</b></div>
         <div class="col-sm-3">
             <ng-select [searchable]="true" [clearable]="true" id="reportee" name="reportee" style="width: 400px;"
-                [(ngModel)]="selectedUserId" placeholder="Select user"
+                [(ngModel)]="selectedUserId" placeholder="Select User"
                 (change)="getRoleMenuItemPermissionListByUserId()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
                 <ng-option [value]="employee.email" *ngFor="let employee of employeeList">
@@ -123,7 +123,7 @@
                         <ng-select id="menuItemsBox" class="inputStyling" ng-model="menuItemIds"
                             [(ngModel)]="addUserRPMMap.menuItemIdList"
                             ng-options="sort.menuItem as sort.menuItem for sort in menuItemList | unique : 'menuItem'"
-                            placeholder="choose menu item">
+                            placeholder="Choose Menu Item">
                             <ng-option *ngFor="let menuItem of unassignedMenuItemList"
                                 value="{{menuItem.menuItemId}}">{{menuItem.menuItemName}}</ng-option>
                         </ng-select>

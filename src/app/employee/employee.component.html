@@ -208,7 +208,7 @@
                 </span>-->
                 <br />
                 <label><b>Department</b><span id="required">*</span></label>
-                <select id="employeeDept" class="addEmployeeInput form-control form-select" placeholder="department"
+                <select id="employeeDept" class="addEmployeeInput form-control form-select" placeholder="Department"
                     [(ngModel)]="addEmployee.departmentId"  name="employeeDept" #employeeDept="ngModel"
                     (change)="validateEmployeeDepartment()">
                     <option hidden value="0">Select</option>
@@ -223,7 +223,7 @@
                 <!--<input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="createdEmployee.department.departmentName" /><br/>-->
                 <label><b>Designation</b><span id="required">*</span></label>
                 
-                <select id="mydropdown" class="addEmployeeInput form-control form-select" placeholder="designation" id="employeeDesgn"
+                <select id="mydropdown" class="addEmployeeInput form-control form-select" placeholder="Designation" id="employeeDesgn"
                     name="employeeDesgn" (change)="validateEmployeeDesignation()"
                     [(ngModel)]="addEmployee.empDesignation.id">
                     <option hidden value="0">Select</option>
@@ -353,7 +353,7 @@
                 </span><br />
                 <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Department" [(ngModel)]="existingEmployee.departmentId" /><br/>-->
                 <label><b>Designation</b><span id="required">*</span></label>
-                <select class="addEmployeeInput form-control form-select" placeholder="designation" id="updateDesgn"
+                <select class="addEmployeeInput form-control form-select" placeholder="Designation" id="updateDesgn"
                     name="updateDesgn" #updateDesgn="ngModel" (change)="validateUpdateDesignation()"
                     [(ngModel)]="existingEmployee.empDesignation.id">
                     <!--<option default value="0">select</option>-->
