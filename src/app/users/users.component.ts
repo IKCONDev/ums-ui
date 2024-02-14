@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UserService } from './service/users.service';
 import { Users } from '../model/Users.model';
 import { MsalInterceptorAuthRequest } from '@azure/msal-angular';
@@ -21,7 +21,7 @@ import { error } from 'jquery';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
+export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   private table: any;
   loggedInUser: string = localStorage.getItem('email');
@@ -36,8 +36,8 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   employeeData: Employee[];
   employee: Employee;
   currentMenuItem: MenuItem;
-  initialRoleList: Role[]
-  unAssignedRoles: any[] 
+  initialRoleList: Role[] = [];
+  unAssignedRoles: any[] = [];
   previousRole: any;
   display: string = 'block'
   employeeWithStatus: Employee[]
@@ -116,12 +116,10 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
-    console.log(currentMenuItem)
 
     if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
       this.noPermissions = false;
       //provide permission to access this component for the logged in user if view permission exists
-      console.log('exe')
       //get permissions of this component for the user
       var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
       if (menuItemPermissions.includes('View')) {
@@ -160,35 +158,39 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * 
    */
+  userDataLoaded:boolean=false;
   getAllUsers() {
 
     this.userService.getAll().subscribe(
       response => {
 
         this.userList = response.body;
-        console.log(this.userList);
+        this.userDataLoaded=true;
 
       });
 
   }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      $(document).ready(() => {
-        this.table = $('#myTable').DataTable({
-          paging: true,
-          searching: true, // Enable search feature
-          pageLength: 10,
-          order: [[1, 'asc']],
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-          columnDefs:[{
-            "targets":[4,5,6] ,
-            "orderable":false
-          }]
-          // Add other options here as needed
-        });
+  dataTableInitialized:boolean=false;
+  ngAfterViewChecked(): void {
+   this.initializeJqueryTable();
+  }
+  initializeJqueryTable(){
+    if(this.userDataLoaded&&!this.dataTableInitialized){
+      this.table = $('#myTable').DataTable({
+        paging: true,
+        searching: true, // Enable search feature
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'asc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        columnDefs:[{
+          "targets": [4,5],
+          "orderable":false
+        }]
+        // Add other options here as needed
       });
-    }, 700)
+      this.dataTableInitialized=true;
+    }
   }
 
   ngOnDestroy(): void {
@@ -206,7 +208,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       var row = rows[i];
       //var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
       var checkbox = document.getElementById('slider' + i) as HTMLInputElement;
-      console.log(checkbox)
       if (checkbox.checked == true) {
 
         user.active = true;
@@ -214,7 +215,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       else {
         user.active = false;
-        console.log("de-selected")
       }
 
     }
@@ -230,7 +230,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     //var table = document.getElementById('myTable');
     // var rows = table.getElementsByTagName("tr");
     var checkbox = document.getElementById('slider' + i) as HTMLInputElement
-    console.log("checkbox method is executed" + "slider" + i + checkbox.checked);
     if (!checkbox.checked) {
       user.active = false;
       this.userService.update(user).subscribe(res => {
@@ -265,14 +264,10 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (isEmailId == true && isRoleName == true) {
-      console.log("create user Object" + this.addUserObj.userRoles[0]);
       //set role based on role id
-      console.log(this.addUserObj.userRoles[0].roleId)
       this.roles.filter(role => {
-        console.log(role.roleId)
         if (this.addUserObj.userRoles[0].roleId.toString() === role.roleId.toString()) {
           this.addUserObj.userRoles[0].roleName = role.roleName;
-          console.log(role.roleName);
         }
       })
       this.addUserObj.userRoles[0].roleStatus = 'Active';
@@ -297,13 +292,12 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   fetchOneUser(email: string) {
-    console.log(email);
     this.userService.getSingleUser(email).subscribe(
       response => {
         this.existingUserObj = response.body;
-        console.log(this.existingUserObj);
         //get employee details of the user
         this.getEmployee(this.existingUserObj.email);
+        this.getAllUnassignedRoles();
       }
     )
     //   this.roles.filter(role =>{
@@ -321,7 +315,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       response => {
         this.roles = response.body;
         // this.unAssignedRoles = response.body;
-        console.log(" roles:" + this.roles);
       }
     )
 
@@ -331,7 +324,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param user
    */
   updateUser(existinguser: any) {
-    console.log(existinguser)
     let isEmailIdValid = true;
     let isRoleValid = true;
     if (!this.isUpdateRoleNameValid) {
@@ -339,10 +331,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       isRoleValid = valid;
     }
     if (isRoleValid == true) {
-      console.log(this.existingUserObj)
-      console.log(this.existingUserObj.userRoles[0].roleId);
       this.roles.forEach(role => {
-        console.log('loop ---' + role.roleId + "--- " + role.roleName)
         //get role name of the role id and attach to existing user
         if (role.roleId == this.existingUserObj.userRoles[0].roleId) {
           this.existingUserObj.userRoles[0].roleName = role.roleName;
@@ -391,7 +380,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
     else {
-      this.toastr.warning("User '" + useremailId + "' not deleted.");
+     // this.toastr.warning("User '" + useremailId + "' not deleted.");
     }
 
 
@@ -454,8 +443,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.meetingsService.getActiveUserEmailIdList().subscribe({
       next: (response) => {
         this.userEmailIdList = response.body;
-        console.log(response.body);
-        console.log(this.userEmailIdList);
       }, error: (error) => {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl("/session-timeout")
@@ -471,7 +458,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.employeeservice.getAll().subscribe({
       next: response => {
         this.employeeData = response.body;
-        console.log(this.employeeData);
       },
       error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -507,7 +493,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         this.employeeWithStatus = response.body;
         this.isComponentLoading = false;
         this.isUserDataText = false;
-        console.log(this.employeeWithStatus)
       },
       error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -538,9 +523,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     const response = await lastValueFrom(this.menuItemService.findMenuItemByName('Users')).then(response => {
       if (response.status === HttpStatusCode.Ok) {
         this.currentMenuItem = response.body;
-        console.log(this.currentMenuItem)
       } else if (response.status === HttpStatusCode.Unauthorized) {
-        console.log('eit')
         this.router.navigateByUrl('/session-timeout');
       }
     }, reason => {
@@ -549,7 +532,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
     )
-    console.log(this.currentMenuItem);
     return this.currentMenuItem;
   }
 
@@ -562,8 +544,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
             if (this.existingUserObj.userRoles[0].roleId === this.initialRoleList[i].roleId) {
               this.initialRoleList.splice(i, 1);
               this.unAssignedRoles = this.initialRoleList;
-              console.log(this.unAssignedRoles)
-              console.log
             }
           }
         }
@@ -596,7 +576,6 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
             this.toastr.success('Role ' + this.existingUserObj.userRoles[0].roleName + ' updated for the user successfully.');
             document.getElementById('closeUpdateModal').click();
             for (var i = 0; i < this.unAssignedRoles.length; i++) {
-              console.log(previousRole)
               if (this.existingUserObj.userRoles[0].roleId === this.unAssignedRoles[i].roleId) {
                 this.unAssignedRoles.splice(i, 1);
                 this.unAssignedRoles.push(previousRole)
@@ -615,7 +594,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
     } else {
-      //this.toastr.warning('Role not updated.')
+      this.toastr.warning('Role not updated.')
     }
   }
 
@@ -626,10 +605,9 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   removeRoleTemporary(userRole: any) {
     var isConfirmed = window.confirm('Are you sure, you want to unassign this role ' + userRole.roleName + ' ?');
     if (isConfirmed) {
-      console.log(userRole)
       this.unAssignedRoles.push(userRole)
       this.display = 'none'
-      this.toastr.warning('Please assign a new role for this user !. Previous role will be assigned automcatically, if new role is not assigned.')
+      this.toastr.warning('Please assign a new role for this user. Previous role will be assigned automatically, if new role is not assigned.')
     } else {
       this.toastr.warning('Operation cancelled.')
     }
