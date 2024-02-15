@@ -963,7 +963,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             }, 1000)
           }
           else {
-            this.toastr.error("Error Occured While deleting Task.")
+            this.toastr.error("Error Occured While deleting Task")
           }
         }
       })
