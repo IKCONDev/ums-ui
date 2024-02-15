@@ -61,9 +61,10 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  /**
-   * 
-   */
+ /**
+  * 
+  * @param notification 
+  */
   updateNotificationStatus(notification: Notification){
     if(notification.status === 'Unread'){
       this.notificationService.updateNotification(notification).subscribe({
@@ -79,6 +80,11 @@ export class NotificationsComponent implements OnInit {
     }
     
   }
+
+  /**
+   * 
+   * @param email 
+   */
   getAssignedUserProfile(email : string){
     this.headerService.fetchUserProfile(email).subscribe({
       next : response =>{
@@ -88,6 +94,12 @@ export class NotificationsComponent implements OnInit {
     })
 
   }
+
+  /**
+   * 
+   * @param profilePic 
+   * @returns 
+   */
   getProfilePicUrl(profilePic: string): string {
      try {
       //Assuming profilePic is a valid Base64 string
