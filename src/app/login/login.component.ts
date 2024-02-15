@@ -267,7 +267,7 @@ export class LoginComponent {
       this.disableLoginButton=false;
     },2000)
     if(this.user.email===null||this.user.email===""||this.user.password===null||this.user.password===""){
-       if(this.user.email===null&&this.user.password===null){
+       if(this.user.email===null&&this.user.password===null || this.user.email===""&&this.user.password===""){
       this.toastr.error("Enter username and password");
        }
        else if(this.user.email===null||this.user.email===""){
