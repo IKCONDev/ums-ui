@@ -750,9 +750,12 @@
                     <br />
                     <textarea
                         style="width: 750px;height: 100px;min-height: 150px; max-height:220px;background-color: #ecf7fc;"
-                        class="form-control" name="discussionpoints" [(ngModel)]="discussionPoints"
+                        class="form-control" name="discussionpoints" [(ngModel)]="discussionPoints" (keyup)="validateDiscussionPoints()"
                         #discussionpoints="ngModel" placeholder="Enter Discussion Points" minlength="10"
                         maxlength="1000"></textarea>
+                        <div *ngIf="discussionPointErrorInfo != ''">
+                            <span id="errorSpan">{{discussionPointErrorInfo}}</span>
+                        </div>
                     <hr>
                     <label for="attendees"><b>Attendees</b></label>
                     <div *ngIf="meetingData!= null">

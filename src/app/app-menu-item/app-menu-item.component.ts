@@ -167,7 +167,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
           }else if(error.status === HttpStatusCode.ImUsed){
             this.toastrService.error("One of the menu item is already in usage by a 'Role' ! Cannot be deleted.");
           }else{
-            this.toastrService.error('Error while deleting Menu items.')
+            this.toastrService.error('Error while deleting Menu items')
           }
         }
       })
@@ -175,7 +175,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
       //this.toastrService.warning('Menu items not deleted.')
     }
    }else{
-    this.toastrService.error('Please select atleast one Menu item to delete.')
+    this.toastrService.error('Please select atleast one Menu item to delete')
    }
   }
 
@@ -196,7 +196,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastrService.error("Menu item is already in usage by a 'Role' ! Cannot be deleted.");
+            this.toastrService.error("Menu item is already in usage by a 'Role' ! Cannot be deleted");
           }else {
             this.toastrService.error('Error while deleting menu item. Please try again !')
           }

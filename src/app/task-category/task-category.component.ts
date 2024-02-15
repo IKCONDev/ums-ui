@@ -157,9 +157,9 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             if(this.taskcategoriesToBeDeleted.length > 1){
-              this.toastrService.success('Task categories deleted sucessfully.') 
+              this.toastrService.success('Task categories deleted sucessfully') 
             } else{
-              this.toastrService.success('Task category '+this.taskcategoriesToBeDeleted+' is deleted.') 
+              this.toastrService.success('Task category '+this.taskcategoriesToBeDeleted+' is deleted') 
             }
             setTimeout(()=>{
               window.location.reload();
@@ -181,7 +181,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       //this.toastrService.warning('Task categories not deleted.')
     }
    }else{
-    this.toastrService.error('Please select atleast one task category to delete.')
+    this.toastrService.error('Please select atleast one task category to delete')
    }
   }
 
@@ -193,7 +193,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       this.taskCategoryService.deleteSelectedTaskCategories(categoryIds).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Ok){
-            this.toastrService.success('Task category '+categoryId+' deleted successfully.');
+            this.toastrService.success('Task category '+categoryId+' deleted successfully');
             setTimeout(() => {
               window.location.reload();
             })
@@ -244,7 +244,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
         next: response => {
           if(response.status === HttpStatusCode.Created){
             this.closeModal();
-            this.toastrService.success("Task category has been updated successfully.");
+            this.toastrService.success("Task category has been updated successfully");
             setTimeout(() => {
               window.location.reload();
             },1000)
@@ -286,7 +286,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       this.taskCategoryService.createTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
-            this.toastrService.success('Task category created successfully.');
+            this.toastrService.success('Task category created successfully');
             this.closeModal();
             setTimeout(() => {
               window.location.reload();
@@ -296,7 +296,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.Found){
-            this.toastrService.error("Task category already exists.");
+            this.toastrService.error("Task category already exists");
             //this.closeModal();
           }
           else {

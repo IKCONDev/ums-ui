@@ -219,6 +219,7 @@ export class ActionItemsReportsComponent implements OnInit {
         if(response.status === HttpStatusCode.Ok){
           this.actionItemListByDepartment = response.body;
           this.actionItemsCountOfDepartment = response.body.length;
+          console.log(this.actionItemsCountOfDepartment)
           this.getDepartment();
           setTimeout(() => {
             this.createActionItemsByDepartmentReportChart();
@@ -258,10 +259,11 @@ export class ActionItemsReportsComponent implements OnInit {
       this.actionItemsByDepartmentReportChart.destroy();
     }
     if(this.selectedDepartment!=null){
+      console.log(this.selectedDepartment)
     this.getActionItemsReportByDepartment(this.selectedDepartment)
-  }
-  else
-  this.getAllActionItemsCount();
+    }
+    else
+    this.getAllActionItemsCount();
 }
 
   actionItemsByPriorityReportChart = null;
@@ -358,7 +360,9 @@ export class ActionItemsReportsComponent implements OnInit {
         this.actionItemsByDepartmentData=[0,this.actionItemsCountOfDepartment];
         this.actionItemsByDepartmentXLabels=['','Total Action items of a department','']
     }else{
+      console.log(this.actionItemsCountOfDepartment)
       this.actionItemsByDepartmentData=[this.actionItemsCountOfDepartment];
+      console.log(this.actionItemsByDepartmentData+" "+"actionitemdepartmentdata")
         this.actionItemsByDepartmentXLabels=['Total Action items of a department'];
     }
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
@@ -653,25 +657,26 @@ deptValueCount : DepartmentCount[] = [];
          this.actionItemsByDepartmentReportChart.destroy()
          this.createActionItemsByDepartmentReportChart()
     }
-    if(this.reportType == 'all' && this.selectedDepartment != null){
+    else if(this.reportType == 'all' && this.selectedDepartment != null){
+      console.log(this.selectedDepartment)
       this.colorOfChartType = value
          this.actionItemsByDepartmentReportChart.destroy()
          this.createActionItemsByDepartmentReportChart()
     }
     
-    if(this.reportType == 'all' ){
+    else if(this.reportType == 'all' ){
        this.colorOfChartType = value
        this.actionItemsByDepartmentReportChart.destroy()
        this.createActionItemsAllDepartmentReportChart() 
     }
     
-    if(this.reportType == 'priority'){
+    else if(this.reportType == 'priority'){
       this.colorOfChartType = value
       this.actionItemsByPriorityReportChart.destroy()
       this.createActionItemsByPriorityReportChart()
 
     }
-    if(this.reportType == 'organized'){
+    else if(this.reportType == 'organized'){
       //this.type = value
        this.colorOfChartType = value
        this.actionItemsByOrganizerReportChart.destroy()

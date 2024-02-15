@@ -196,7 +196,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
         if (error.status === HttpStatusCode.Unauthorized) {
           this.router.navigateByUrl('/session-timeout');
         } else {
-          this.toastr.error('Error while fetching permissions list.');
+          this.toastr.error('Error while fetching permissions list');
         }
       }
     })
