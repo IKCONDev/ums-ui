@@ -490,6 +490,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.isemailforSendMoMEmailValid = false;
     this.emailListErrorInfo = '';
     this.discussionPoints = '';
+    this.discussionPointErrorInfo = '';
   }
 
   /**
@@ -1918,5 +1919,17 @@ allSubCheckboxChecked(meetingId){
     htmlElement.classList.add("disabled")
   });
 }
+discussionPointErrorInfo : string;
+validDiscussionPoint = false
+validateDiscussionPoints(){
+   if(this.discussionPoints.length >=1000){
+     this.discussionPointErrorInfo ="Discussion points should not exceed maximum of 1000 characters"
+     this.validDiscussionPoint = false;
+   }else{
+     this.discussionPointErrorInfo = "";
+     this.validDiscussionPoint = true;
+   }
+}
+
 }
 
