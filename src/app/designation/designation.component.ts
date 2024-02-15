@@ -154,7 +154,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
         }else{
-          this.toastr.error('Error occured while showing designations data ! Please try again or reload the page.')
+          this.toastr.error('Error occured while showing designations data ! Please try again or reload the page')
         }
       }
    })
@@ -187,7 +187,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
       next: (response)=> {
         if(response.status === HttpStatusCode.Created){
           this.createdDesignation = response.body;
-        this.toastr.success('Designation added successfully.')
+        this.toastr.success('Designation added successfully')
         document.getElementById('closeAddModal').click();
           setTimeout(()=>{
             window.location.reload();
@@ -198,7 +198,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout');
         }else if(error.status === HttpStatusCode.Found){
-          this.toastr.error("Designation name '"+this.addDesignation.designationName+"' already exists.");
+          this.toastr.error("Designation name '"+this.addDesignation.designationName+"' already exists");
           //document.getElementById('closeAddModal').click();
         }else{
           this.toastr.error('Error occured while creating designation. Please try again !')
@@ -251,7 +251,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
       next: (response) => {
         if(response.status === HttpStatusCode.Ok){
           var result = response.body;
-          this.toastr.success('Designation '+designationId+' deleted successfully.')
+          this.toastr.success('Designation '+designationId+' deleted successfully')
           setTimeout(()=>{
             window.location.reload();
           },1000)
@@ -261,7 +261,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
         }else if(error.status === HttpStatusCode.ImUsed){
-          this.toastr.error("Designation is already in usage by an employee, cannot be deleted.")
+          this.toastr.error("Designation is already in usage by an employee, cannot be deleted")
         }
         else{
           this.toastr.warning('Error occured while deleting designation '+ designationId+ '. Please try again !')
@@ -333,7 +333,7 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
     this.designationService.updateDesignation(this.existingDesignation).subscribe({
       next: (response) => {
         if(response.status === HttpStatusCode.PartialContent){
-          this.toastr.success('Designation '+this.existingDesignation.id+' updated successfully.')
+          this.toastr.success('Designation '+this.existingDesignation.id+' updated successfully')
           document.getElementById('closeUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();

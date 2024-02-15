@@ -220,7 +220,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
       next: (response)=> {
         if(response.status === HttpStatusCode.Created){
           this.createdDepartment = response.body;
-        this.toastr.success('Department added successfully.')
+        this.toastr.success('Department added successfully')
         document.getElementById('closeAddModal').click();
           setTimeout(()=>{
             window.location.reload();
@@ -230,7 +230,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
         }else if(error.status === HttpStatusCode.Found){
-          this.toastr.error("Department name '"+this.addDepartment.departmentName+ "' already exists.")
+          this.toastr.error("Department name '"+this.addDepartment.departmentName+ "' already exists")
           //document.getElementById('closeAddModal').click();
         }else{
           this.toastr.error('Error occured while creating department. Please try again !')
@@ -361,7 +361,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
       next:(response) => {
         if(response.status === HttpStatusCode.Ok){
           var result = response.body;
-          this.toastr.success('Department '+departmentId+' deleted successfully.')
+          this.toastr.success('Department '+departmentId+' deleted successfully')
           setTimeout(()=>{
             window.location.reload();
           },1000)
@@ -465,7 +465,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
     this.departmentService.updateDepartment(this.existingDepartment).subscribe({
       next: (response) => {
         if(response.status === HttpStatusCode.Created){
-          this.toastr.success("Department "+this.existingDepartment.departmentId +" updated successfully.")
+          this.toastr.success("Department "+this.existingDepartment.departmentId +" updated successfully")
           document.getElementById('closeUpdateModal').click();
           setTimeout(()=>{
             window.location.reload();
@@ -476,7 +476,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
           this.router.navigateByUrl('/session-timeout')
         }
         else if(error.status === HttpStatusCode.Found){
-          this.toastr.error("Department name '" +this.existingDepartment.departmentName+ "' already exists.")
+          this.toastr.error("Department name '" +this.existingDepartment.departmentName+ "' already exists")
       }
       }
      })
@@ -659,7 +659,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
             if(this.departmentIdsToBeDeleted.length > 1){
               this.toastr.success('Departments deleted successfully.') 
             } else{
-              this.toastr.success('Department '+this.departmentIdsToBeDeleted+' is deleted.') 
+              this.toastr.success('Department '+this.departmentIdsToBeDeleted+' is deleted') 
             }
             setTimeout(()=>{
               window.location.reload();
@@ -670,7 +670,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
             this.router.navigateByUrl('/session-timeout')
           }
           else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error("Department is already in usage by an employee, cannot be deleted.");
+            this.toastr.error("Department is already in usage by an employee, cannot be deleted");
           }
           else{
             this.toastr.error('Error occured while deleting department  Please try again !')
@@ -681,7 +681,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
      // this.toastr.warning('Departments not deleted.')
     }
    }else{
-    this.toastr.error('Please select atleast one department to delete.')
+    this.toastr.error('Please select atleast one department to delete')
    }
    
   }
