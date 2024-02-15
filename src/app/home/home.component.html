@@ -87,14 +87,14 @@
             <b>Tasks</b>
           </div>
           <div class="chart">
-            <ng-select [(ngModel)]="MajorselectedOption" (change)="onSelectChange()" [searchable]="false" style="float: left; width: 150px;">
+            <ng-select [(ngModel)]="MajorselectedOption" (change)="onSelectChange()" [searchable]="false" [clearable]="false" style="float: left; width: 150px;">
               <ng-option value="All">All</ng-option>
               <ng-option value="Total">Total</ng-option>
               <ng-option value="Yet to start">Yet to start</ng-option>
               <ng-option value="Inprogress">In progress</ng-option>
               <ng-option value="Completed">Completed</ng-option>
             </ng-select>
-            <ng-select [(ngModel)]="selectedOption" (change)="onSelectChange()"[searchable]="false" style="float: right; width: 150px;">
+            <ng-select [(ngModel)]="selectedOption" (change)="onSelectChange()"[searchable]="false" [clearable]="false" style="float: right; width: 150px;">
               <ng-option value="Week">Week</ng-option>
               <ng-option value="months">Month</ng-option>
 
@@ -110,7 +110,7 @@
             <b>Meetings</b>
           </div>
           <div class="chart">
-            <ng-select id="select" [(ngModel)]="selectedOption2" [searchable]="false" (change)="onSelectChange2() "
+            <ng-select id="select" [(ngModel)]="selectedOption2" [searchable]="false" [clearable]="false" (change)="onSelectChange2() "
               style="float: right; width: 150px;">
               <ng-option value="Week">Week</ng-option>
               <ng-option value="months">Month</ng-option>
