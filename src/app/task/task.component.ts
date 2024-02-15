@@ -107,7 +107,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true,
           pageLength: 10,
           stateSave:true,
-          order: [[1, 'asc']],
+          orderFixed: [[1, 'desc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
           // Add other options here as needed
           columnDefs:[{
@@ -128,7 +128,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           searching: true,
           stateSave:true,
           pageLength: 10,
-          order: [[0, 'asc']],
+          orderFixed: [[0, 'desc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           columnDefs:[{
             "targets": [9,10],

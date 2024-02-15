@@ -135,7 +135,7 @@ export class BatchDetailsComponent implements OnInit,AfterViewChecked{
       paging: true,
       searching: true, // Enable search feature
       pageLength: 10,
-      order: [[0,'asc']],
+      order: [[0,'desc']],
       lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
       // Add other options here as needed
     });
