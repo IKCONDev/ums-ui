@@ -116,7 +116,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           }]
         });
       });
-    }, 900);
+    }, 1000);
 
     setTimeout(() => {
       if(this.assignedTaskTable!=null){
