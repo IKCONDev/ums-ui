@@ -341,7 +341,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         response => {
           var userRecord = response.body;
           if (response.status == HttpStatusCode.Created) {
-            this.toastr.success("User" + existinguser.roleId + " updated successfully.");
+            this.toastr.success("User" + existinguser.roleId + " updated successfully");
             document.getElementById('closeUpdateModal').click();
             setTimeout(() => {
               window.location.reload();
@@ -368,7 +368,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         response => {
           var userRecord = response.body;
           if (response.status == HttpStatusCode.Ok) {
-            this.toastr.success("User '" + useremailId + "' deleted successfully.");
+            this.toastr.success("User '" + useremailId + "' deleted successfully");
             setTimeout(() => {
               window.location.reload();
             }, 1000);
@@ -573,7 +573,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
           var userRecord = response.body;
           if (response.status == HttpStatusCode.Created) {
             //this.getAllRoles();
-            this.toastr.success('Role ' + this.existingUserObj.userRoles[0].roleName + ' updated for the user successfully.');
+            this.toastr.success('Role ' + this.existingUserObj.userRoles[0].roleName + ' updated for the user successfully');
             document.getElementById('closeUpdateModal').click();
             for (var i = 0; i < this.unAssignedRoles.length; i++) {
               if (this.existingUserObj.userRoles[0].roleId === this.unAssignedRoles[i].roleId) {
@@ -594,7 +594,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
       )
     } else {
-      this.toastr.warning('Role not updated.')
+      this.toastr.warning('Role not updated')
     }
   }
 
@@ -607,7 +607,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (isConfirmed) {
       this.unAssignedRoles.push(userRole)
       this.display = 'none'
-      this.toastr.warning('Please assign a new role for this user. Previous role will be assigned automatically, if new role is not assigned.')
+      this.toastr.warning('Please assign a new role for this user. Previous role will be assigned automatically, if new role is not assigned')
     } else {
       //this.toastr.warning('Operation cancelled.')
     }

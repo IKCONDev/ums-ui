@@ -219,7 +219,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
         this.userRPMService.updateUserRoleMenuItemPermissionMap(userRPMMap).subscribe({
           next: response => {
             if (response.status === HttpStatusCode.PartialContent) {
-              this.toastr.success('Permission updated.')
+              this.toastr.success('Permission updated')
             }
           }
         })
@@ -231,7 +231,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
         this.userRPMService.updateUserRoleMenuItemPermissionMap(userRPMMap).subscribe({
           next: response => {
             if (response.status === HttpStatusCode.PartialContent) {
-              this.toastr.success('Permission updated.')
+              this.toastr.success('Permission updated')
             }
           }
         })
@@ -278,7 +278,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
            if (error.status === HttpStatusCode.Unauthorized) {
              this.router.navigateByUrl('/session-timeout');
            } else {
-             this.toastr.error('Error while adding a menu item and permissions for user.');
+             this.toastr.error('Error while adding a menu item and permissions for user');
            }
          }
        })
