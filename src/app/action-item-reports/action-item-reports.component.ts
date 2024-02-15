@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from '../model/Department.model';
 import { DepartmentService } from '../department/service/department.service';
@@ -22,7 +22,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
   templateUrl: './action-item-reports.component.html',
   styleUrls: ['./action-item-reports.component.css']
 })
-export class ActionItemsReportsComponent implements OnInit {
+export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   reportType: string;
   @Output() title = 'Action Item Reports'
 
@@ -54,6 +54,11 @@ export class ActionItemsReportsComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(param => {
       this.reportType = param['reportType'];
     }) 
+  }
+  ngAfterViewInit(): void {
+    this.getAllDepartments();
+    this.getEmployeeAsUserList();
+    this.getAllActionItemsCount();
   }
 
   selectedUserFullName: string;

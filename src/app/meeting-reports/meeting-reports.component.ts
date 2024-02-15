@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // import * as d3 from 'd3';
 import { MeetingReportsService } from './service/meeting-reports.service';
@@ -23,7 +23,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
   templateUrl: './meeting-reports.component.html',
   styleUrls: ['./meeting-reports.component.css']
 })
-export class MeetingReportsComponent implements OnInit {
+export class MeetingReportsComponent implements OnInit, AfterViewInit {
 
   reportType: string;
   @Output() title = 'Meeting Reports'
@@ -73,6 +73,13 @@ export class MeetingReportsComponent implements OnInit {
       this.reportType = param['reportType'];
     })
   }
+  ngAfterViewInit(): void {
+    this.getEmployeeAsUserList();      
+      this.getAllDepartments();
+      this.getAllMeetings();
+      this.getAllDepartmentsCount();
+      this.getAllDepartmentNames();
+  }
 
  async  ngOnInit(): Promise<void> {
     if(localStorage.getItem('jwtToken') === null){
@@ -113,11 +120,7 @@ export class MeetingReportsComponent implements OnInit {
       }
     })
     //initial data load
-      this.getEmployeeAsUserList();      
-      this.getAllDepartments();
-      this.getAllMeetings();
-      this.getAllDepartmentsCount();
-      this.getAllDepartmentNames();
+     
         }else{
           this.viewPermission = false;
         }
