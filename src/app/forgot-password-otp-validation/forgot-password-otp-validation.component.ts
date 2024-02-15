@@ -19,7 +19,7 @@ export class ForgotPasswordOtpValidationComponent {
   email: string = '';
   isValidOtp: boolean = false;
   OtpResponseMessage: string = '';
-  verifyButtonDisabled: boolean = false;
+  verifyButtonDisabled: boolean = true;
   countPageRefresh:number=0;
 
   /**
@@ -233,23 +233,24 @@ export class ForgotPasswordOtpValidationComponent {
   }
   otpValidation(event: KeyboardEvent) {
     const validChars = /^[0-9\b]+$/;
+    // Get the input element
     const inputElement = event.target as HTMLInputElement;
-    
-    // Clear the error message when the user starts modifying the OTP
+    // Clear any existing error message
     this.OtpResponseMessage = "";
-    
-    // Allow the backspace key without validation
+    // Allow backspace without validation
     if (event.key === "Backspace") {
-        return;
+      return;
     }
-    
-    // Validate the input using the regular expression
+    // Validate against the pattern
     if (!validChars.test(event.key)) {
-        event.preventDefault(); // Prevent the input of invalid characters
-        console.log("Invalid character entered");
-        // this.verifyButtonDisabled = true; // Disable the verify button when input is invalid
-    } else {
-        this.verifyButtonDisabled = false; // Enable the verify button when input is valid
+      event.preventDefault(); // Block invalid input
+      return;
     }
-}
+    // Enable verify button on valid input and maximum length
+    if (inputElement.value.length === 6) {
+      this.verifyButtonDisabled = false;
+    } else {
+      //this.verifyButtonDisabled = true; // Keep disabled until valid length
+    }
+  }
 }
