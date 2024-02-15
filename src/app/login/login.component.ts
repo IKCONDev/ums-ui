@@ -268,10 +268,10 @@ export class LoginComponent {
     },2000)
     if(this.user.email===null||this.user.email===""||this.user.password===null||this.user.password===""){
        if(this.user.email===null&&this.user.password===null || this.user.email===""&&this.user.password===""){
-      this.toastr.error("Enter username and password");
+      this.toastr.error("Enter email ID and password");
        }
        else if(this.user.email===null||this.user.email===""){
-        this.toastr.error("Enter username");
+        this.toastr.error("Enter email ID");
        }
        else if(this.user.password===null||this.user.password===""){
         this.toastr.error("Enter password");
