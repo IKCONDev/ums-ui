@@ -7,16 +7,17 @@
 <div class="container-fluid" *ngIf="viewPermission === true">
     <div class="card-header">
         <div class="row">
-            <div class="col-sm-9 d-flex">
+            <div class="col-sm-8 d-flex">
                 <h3 id="heading">User List</h3>
             </div>
             <!-- <div class="col-sm-3 d-flex" id="searchDiv">
                     <input type="search" class="form-control" placeholder="Search user"/>
                 </div> -->
-            <div id="addBtnDiv" class="col-sm-1 d-flex">
+                <div  class="col-sm-4 d-flex" style="padding-top: 8px;justify-content: flex-end;padding-left: 20px;">
+                
                 <button [disabled]="!createPermission" [style.background-color]="addButtonColor" class="form-control"
                     id="addBtn" type="submit" data-toggle="modal" data-target="#addUserModal" (click)="getAllRoles()"
-                    (click)="getAllEmployeesWithStatus()" style="width: 80px;">
+                    (click)="getAllEmployeesWithStatus()" style="width: 80px;margin-right: 24px;">
                     <p>Add</p>
                 </button>
             </div>

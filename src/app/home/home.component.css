@@ -5,7 +5,8 @@
 }
  
 p{
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: 500;
 }
  
 .container-fluid {
@@ -158,4 +159,5 @@ span svg{
 
   #colorTag{
     color: #134E69D9;
+    font-weight: 1000;
   }
