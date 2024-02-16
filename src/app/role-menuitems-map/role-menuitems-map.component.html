@@ -109,10 +109,10 @@
                     ng-options="sort.menuItem as sort.menuItem for sort in menuItemList | unique : 'menuItem'">
                     <option *ngFor="let menuItem of menuItemList" value="{{menuItem.menuItemId}}">{{menuItem.menuItemName}}</option>
                 </select> -->
-                <label class="container"><p style="font-size: 14px;margin-bottom: 6px;">Select All</p>
+                <!-- <label class="container"><p style="font-size: 14px;margin-bottom: 6px;">Select All</p>
                     <input type="checkbox" #mainCheck id="selectAllMenuItems" (change)="selectAllMenuItemCheckBoxes($event)"/>
                     <span class="checkmark"></span>
-                  </label>
+                  </label> -->
                     <div *ngFor="let menuItem of menuItemList;let i = index">
                         <label class="container"><p style="font-size: 14px;margin-bottom: 6px;">{{menuItem.menuItemName}}</p>
                             <input #checkboxes id="menuItems" class="menuItems" name="menuItems" type="checkbox"
