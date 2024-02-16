@@ -286,10 +286,10 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   createActionItemsByPriorityReportChart(){
     if(this.type==='line'){
       this.actionItemsByPriorityData=[0,this.actionItemsCountByPriority];
-      this.actionItemsOfOrganizerXLabels=['','Total action items based on priority','']
+      this.actionItemsOfOrganizerXLabels=['','Total Action Items based on priority','']
     }else{
       this.actionItemsByPriorityData=[this.actionItemsCountByPriority];
-      this.actionItemsOfOrganizerXLabels=['Total action items based on priority']
+      this.actionItemsOfOrganizerXLabels=['Total Action Items based on priority']
     }
     this.actionItemsByPriorityReportChart = new Chart("actionItemsByPriorityReportChart", {
       type: this.type,
@@ -297,7 +297,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
         xLabels: this.actionItemsOfOrganizerXLabels,
         datasets: [
           {
-            label: "Total action items based on priority",
+            label: "Total Action Items based on priority",
             data: this.actionItemsByPriorityData,
             backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
             borderColor: 'rgba(175, 136, 245, 1)',
@@ -347,7 +347,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
           },
           title: {
             display: true,
-            text: 'Total action items based on priority',
+            text: 'Total Action Items based on priority',
             font: {
               size: 14,
             },
@@ -363,12 +363,12 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   createActionItemsByDepartmentReportChart(){
     if(this.type==='line'){
         this.actionItemsByDepartmentData=[0,this.actionItemsCountOfDepartment];
-        this.actionItemsByDepartmentXLabels=['','Total Action items of a department','']
+        this.actionItemsByDepartmentXLabels=['','Total Action Items of a department','']
     }else{
       console.log(this.actionItemsCountOfDepartment)
       this.actionItemsByDepartmentData=[this.actionItemsCountOfDepartment];
       console.log(this.actionItemsByDepartmentData+" "+"actionitemdepartmentdata")
-        this.actionItemsByDepartmentXLabels=['Total Action items of a department'];
+        this.actionItemsByDepartmentXLabels=['Total Action Items of a department'];
     }
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
       type: this.type,
@@ -376,7 +376,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
         xLabels: this.actionItemsByDepartmentXLabels,
         datasets: [
           {
-            label: "Total Action items of a department",
+            label: "Total Action Items of a department",
             data:this.actionItemsByDepartmentData,
             backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
             borderColor: 'rgba(175, 136, 245, 1)',
@@ -426,7 +426,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
           },
           title: {
             display: true,
-            text: 'Total action items of a departments',
+            text: 'Total Action Items of a departments',
             font: {
               size: 14,
             },
@@ -450,10 +450,10 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   createActionItemsOfOrganizerReportChart(){
     if(this.type==='line'){
         this.actionItemsOfOrganizerData=[0,this.actionItemsCountOforganizer];
-        this.actionItemsOfOrganizerXLabels=['','Total action items of an organizer',''];
+        this.actionItemsOfOrganizerXLabels=['','Total Action Items of an organizer',''];
     }else{
       this.actionItemsOfOrganizerData=[this.actionItemsCountOforganizer];
-      this.actionItemsOfOrganizerXLabels=['Total action items of an organizer'];
+      this.actionItemsOfOrganizerXLabels=['Total Action Items of an organizer'];
     }
     this.actionItemsByOrganizerReportChart = new Chart("actionItemsByOrganizerReportChart", {
       type: this.type,
@@ -461,7 +461,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
         xLabels: this.actionItemsOfOrganizerXLabels,
         datasets: [
           {
-            label: "Total action items of an organizer",
+            label: "Total Action Items of an organizer",
             data: this.actionItemsOfOrganizerData,
             backgroundColor: 'rgba(1255, 106, 149, 0.8)', // violet
             borderColor: 'rgba(255, 106, 149, 1)',
@@ -511,7 +511,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
           },
           title: {
             display: true,
-            text: 'Total action items of an organizer',
+            text: 'Total Action Items of an organizer',
             font: {
               size: 14,
             },
@@ -581,10 +581,10 @@ deptValueCount : DepartmentCount[] = [];
   createActionItemsAllDepartmentReportChart(){
     if(this.type==='line'){
       this.actionItemsAllDepartmentData=[0,this.allActionItemsCount,];
-      this.actionItemsAllDepartmentXLabels=['','Total action items of all departments','']
+      this.actionItemsAllDepartmentXLabels=['','Total Action Items of all departments','']
     }else{
       this.actionItemsAllDepartmentData=[this.allActionItemsCount];
-      this.actionItemsAllDepartmentXLabels=['Total action items of all departments']
+      this.actionItemsAllDepartmentXLabels=['Total Action Items of all departments']
     }
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
       type: this.type,
@@ -592,7 +592,7 @@ deptValueCount : DepartmentCount[] = [];
         xLabels: this.actionItemsAllDepartmentXLabels,
         datasets: [
           {
-            label: "Total action items of all departments",
+            label: "Total Action Items of all departments",
             data: this.actionItemsAllDepartmentData,
             backgroundColor: 'rgba(175, 136, 245, 0.8)', // violet
             borderColor: 'rgba(175, 136, 245, 1)',
@@ -642,7 +642,7 @@ deptValueCount : DepartmentCount[] = [];
           },
           title: {
             display: true,
-            text: 'Total action items of all departments',
+            text: 'Total Action Items of all departments',
             font: {
               size: 14,
             },
