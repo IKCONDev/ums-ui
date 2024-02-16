@@ -189,31 +189,34 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewChecked {
    */
   storeSelectedMenuItems(event: any, index: number){
     //if a menu item is checked store the menu item in menuItems array.
-    if(event.target.checked === true){
-      this.selectedMenuItemIds.push(event.target.value);
-      this.menuItemList.forEach(menuItem => {
-        if(menuItem.menuItemId === parseInt(event.target.value)){
-          this.menuItems.push(menuItem);
+        if(event.target.checked === true){
+            this.selectedMenuItemIds.push(event.target.value);
+            this.menuItemList.forEach(menuItem => {
+                if(menuItem.menuItemId === parseInt(event.target.value)){
+                    this.menuItems.push(menuItem);
+                }
+            })
+        } else {
+            //if a menu item is unchecked, remove the menu item from the menuItems array.
+            var unCheckedMenuID = this.selectedMenuItemIds.pop();
+            var i = 0;
+            this.menuItems.forEach(menuItem => {
+                if(menuItem.menuItemId === parseInt(event.target.value)){
+                    this.menuItems.splice(i,1);
+                }
+                i=i+1;
+            })
         }
-      })
-    }else{
-      //if a menu item is unchecked, remove the menu item from the menuItems array.
-      var unCheckedMenuID = this.selectedMenuItemIds.pop();
-      var i = 0;
-      this.menuItems.forEach(menuItem => {
-        if(menuItem.menuItemId === parseInt(event.target.value)){
-          this.menuItems.splice(i,1);
-        }
-        i=i+1;
-      })
-    }
-    this.existingRole.menuItems = this.menuItems;
+        this.existingRole.menuItems = this.menuItems;
+    
   }
 
   /**
    * 
    */
   updateRoleWithMenuItems(){
+    const atLeastOneChecked = this.menuItemCheckboxes.some(menuItem => menuItem.nativeElement.checked);
+    if(atLeastOneChecked){
     this.roleService.updateRole(this.existingRole).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Created){
@@ -232,6 +235,10 @@ export class RoleMenuitemsMapComponent implements OnInit, AfterViewChecked {
         }
       }
     })
+  }
+  else {
+   this.toastr.error("Please select atleast one field")
+}
   }
 
   clearErrorMessages(){
