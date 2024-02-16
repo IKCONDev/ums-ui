@@ -339,10 +339,14 @@ export class AppMenuItemsComponent implements AfterViewChecked {
   isMenuItemPathValid:boolean = false;
   validateMenuItemPath(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
+    const regex2 = /\\/;
     if(this.menuItem.menuItemPath === '' || this.menuItem.menuItemPath.trim()==="" || 
     regex.exec(this.menuItem.menuItemPath)===null){
       this.menuItemPathErrorInfo = 'Menu item path is required';
       this.isMenuItemPathValid = false;
+    }else if(regex2.test(this.menuItem.menuItemPath)===true){
+      this.menuItemPathErrorInfo="Menu item path cannot have backslash (instead use forwardslash)";
+      this.isMenuItemPathValid=false;
     }else if(this.menuItem.menuItemPath.length < 3){
       this.menuItemPathErrorInfo = 'Menu item path should have minimum of 3 characters.';
       this.isMenuItemPathValid = false;
