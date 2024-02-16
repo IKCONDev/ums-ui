@@ -525,7 +525,7 @@
                         <!-- <p>Report Type : <b>Pie Chart</b></p> -->
                         <div *ngIf="selectedDepartment != null; else allMeetings">
                             <p>Department Name : <b>{{selectedDepartmentName}}</b></p>
-                            <p>Total action items of all department : : <b>{{actionItemsCountOfDepartment}}</b></p>
+                            <p>Total Action Items of a department : <b>{{actionItemsCountOfDepartment}}</b></p>
                         </div>
                         <ng-template #allMeetings>
                             <p>Department Name : <b>{{"All"}}</b></p>

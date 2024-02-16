@@ -426,7 +426,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
           },
           title: {
             display: true,
-            text: 'Total action items of all departments',
+            text: 'Total action items of a departments',
             font: {
               size: 14,
             },
