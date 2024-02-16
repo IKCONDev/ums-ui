@@ -212,6 +212,7 @@ export class TaskcategoryReportComponent implements OnInit {
     this.type = value;
 
     if (this.selectedtaskCategoryName == null) {
+      console.log(this.reportType)
       this.colorOfChartType = value;
       if (this.taskListByCategoryChart1 != null) {
         this.taskListByCategoryChart1.destroy();
@@ -235,10 +236,10 @@ export class TaskcategoryReportComponent implements OnInit {
     this.taskCategoryType =  this.reportType.split(',')
     if(this.type === 'line'){
       this.taskByDepartmentData = [0,this.categoryOfTaskCount,];
-      this.taskByDepartmentXLabels = ['',this.selectedtaskCategoryName,''];
+      this.taskByDepartmentXLabels = ['',"Total Task of a category",''];
     }else{
        this.taskByDepartmentData = [this.categoryOfTaskCount];
-       this.taskByDepartmentXLabels = [this.selectedtaskCategoryName]
+       this.taskByDepartmentXLabels = ["Total Task of a category"]
     }
 
     this.taskListByCategoryChart = new Chart("taskListByCategoryChart", {
@@ -247,7 +248,7 @@ export class TaskcategoryReportComponent implements OnInit {
         xLabels: this.taskByDepartmentXLabels,
         datasets: [
           {
-            label: "Total Task of "+this.taskCategoryType[0]+" category",
+            label: "Total Task of a category",
             data: this.taskByDepartmentData,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             // backgroundColor: 'rgb(153, 102, 255)', // Red
@@ -303,7 +304,7 @@ export class TaskcategoryReportComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total Task for the '+this.taskCategoryType[0]+' category',
+            text: 'Total Task of a category',
             font: {
               size: 14,
             },
@@ -317,10 +318,10 @@ export class TaskcategoryReportComponent implements OnInit {
   createTaskListAllDepartmentChart() {
     if(this.type === 'line'){
        this.taskByAllDepartmentData = [0,this.alltasksCount,];
-       this.taskByAllDepartmentXLabel =['','all',''];
+       this.taskByAllDepartmentXLabel =['','Total Tasks for all category',''];
     }else{
       this.taskByAllDepartmentData = [this.alltasksCount,];
-      this.taskByAllDepartmentXLabel =['all'];
+      this.taskByAllDepartmentXLabel =['Total Tasks for all category'];
     }
     this.taskListByCategoryChart1 = new Chart("taskListByCategoryChart1", {
       type: this.type,
@@ -328,7 +329,7 @@ export class TaskcategoryReportComponent implements OnInit {
         xLabels: this.taskByAllDepartmentXLabel,
         datasets: [
           {
-            label: "Total Tasks of a task category",
+            label: "Total Tasks for all category",
             data: this.taskByAllDepartmentData,
             backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
             // backgroundColor: 'rgb(153, 102, 255)', // Red
@@ -386,7 +387,7 @@ export class TaskcategoryReportComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Total Task for a category',
+            text: 'Total Task for all category',
             font: {
               size: 14,
             },
