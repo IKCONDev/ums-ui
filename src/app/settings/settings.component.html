@@ -39,8 +39,8 @@
                 <a>Dashboard Widgets</a><br />
                 <a>Custom Action</a><br />
                 <a>templates</a><br /> -->
-                <a>Themes</a><br/>
-                <a>Email Templates</a>
+                <a routerLink="/themes">Themes</a><br/>
+                <a routerLink="/email-templates">Email Templates</a>
             </div>
         </div>
         <br /><br/>
@@ -60,9 +60,9 @@
             </div> -->
             <div id="automationDiv" class="col-sm-3">
                 <h4><b>Data Administration</b></h4>
-                <a>Import History</a><br/>
-                <a>Export History</a><br/>
-                <a>Activity Log</a>
+                <a routerLink="/import-history">Import History</a><br/>
+                <a routerLink="/export-history">Export History</a><br/>
+                <a routerLink="/activity-log">Activity Log</a>
             </div>
            <!--- <div class="col-sm-3">
                 <h4><b>Developer Space</b></h4>
@@ -95,7 +95,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <b style="color: red;font-size: 12px;">Currently scheduled to run for after every {{batchProcessTime}} hour(s) {{batchProcessTimeMinute}} minute(s).</b>
+                <b style="color: red;font-size: 12px;">Currently scheduled to run after every {{batchProcessTime}} hour(s) {{batchProcessTimeMinute}} minute(s).</b>
                 <div style="padding-top: 10px;">
                     <label><b>Choose Time</b><span id="required">*</span></label><br />
                     <select id="batchtime" [(ngModel)]="batchProcessTime" class="form-control-sm"

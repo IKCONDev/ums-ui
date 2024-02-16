@@ -1,0 +1,12 @@
+<div>
+    <app-side-menubar></app-side-menubar>
+</div>
+<div>
+    <app-header [title]="title"></app-header>
+</div>
+<div style="text-align: center;" *ngIf="viewPermission === true">
+    <p style="padding-top: 250px; font-size: 50px; padding-left: 40px;" >This page is under implementation</p>
+</div>
+<div class="container-fluid" *ngIf="viewPermission === false">
+    <app-no-permission></app-no-permission>
+</div>

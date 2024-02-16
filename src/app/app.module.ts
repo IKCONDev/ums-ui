@@ -58,6 +58,11 @@ import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-m
 import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permission/user-role-menuitem-permission.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NoPermissionComponent } from './no-permission/no-permission.component';
+import { EmailTemplatesComponent } from './email-templates/email-templates.component';
+import { ThemesComponent } from './themes/themes.component';
+import { ImportHistoryComponent } from './import-history/import-history.component';
+import { ExportHistoryComponent } from './export-history/export-history.component';
+import { ActivityLogComponent } from './activity-log/activity-log.component';
 
 
 @NgModule({
@@ -106,6 +111,11 @@ import { NoPermissionComponent } from './no-permission/no-permission.component';
     RoleMenuitemsMapComponent,
     UserRoleMenuitemPermissionComponent,
     NoPermissionComponent,
+    EmailTemplatesComponent,
+    ThemesComponent,
+    ImportHistoryComponent,
+    ExportHistoryComponent,
+    ActivityLogComponent,
   ],
   imports: [
     BrowserModule,

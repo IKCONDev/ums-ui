@@ -36,6 +36,11 @@ import { ActionItemsReportsComponent } from './action-item-reports/action-item-r
 import { RoleMenuitemsMapComponent } from './role-menuitems-map/role-menuitems-map.component';
 import { TaskcategoryReportComponent } from './taskcategory-report/taskcategory-report.component';
 import { UserRoleMenuitemPermissionComponent } from './user-role-menuitem-permission/user-role-menuitem-permission.component';
+import { EmailTemplatesComponent } from './email-templates/email-templates.component';
+import { ThemesComponent } from './themes/themes.component';
+import { ImportHistoryComponent } from './import-history/import-history.component';
+import { ExportHistoryComponent } from './export-history/export-history.component';
+import { ActivityLogComponent } from './activity-log/activity-log.component';
 
 
 /**
@@ -77,6 +82,11 @@ const routes: Routes = [
   {path:'role-menuitems-map', component:RoleMenuitemsMapComponent},
   {path :'taskcategory-report', component:TaskcategoryReportComponent},
   {path: 'modify-permissions', component: UserRoleMenuitemPermissionComponent},
+  {path :'email-templates', component : EmailTemplatesComponent},
+  {path : 'themes', component :ThemesComponent},
+  {path : 'import-history', component :ImportHistoryComponent},
+  {path : 'export-history', component :ExportHistoryComponent},
+  {path : 'activity-log', component : ActivityLogComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},
