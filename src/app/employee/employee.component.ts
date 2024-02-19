@@ -348,7 +348,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   getAllDepartments() {
     var deptId;
-    this.departmentservice.getDepartmentList().subscribe(
+    this.departmentservice.getActiveDepartmentList().subscribe(
       response => {
         this.departmentList = response.body;
         this.employeeData = this.employeeCopyData;

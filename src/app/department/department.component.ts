@@ -80,7 +80,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
         if (menuItemPermissions.includes('View')) {
           this.viewPermission = true;
           //get all departments List on component initialization
-          this.getAllDepartments();
+          this.getAllActiveDepartments();
           this.getUserStatusEmployees(true);
         }else{
           this.viewPermission = false;
@@ -151,14 +151,14 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
    * get list of all departments from Database and display to admin in UI
    */
   departmentDataLoaded:boolean=false;
-  getAllDepartments(){
+  getAllActiveDepartments(){
     this.isComponentLoading=true;
     this.isDepartmentDataText=true;
     setTimeout(()=>{
       this.isComponentLoading=false;
       this.isDepartmentDataText=false;
     },200)
-    this.departmentService.getDepartmentList().subscribe({
+    this.departmentService.getActiveDepartmentList().subscribe({
       next: (response)=>{
         this.departmentList = response.body;
         this.departmentDataLoaded=true;

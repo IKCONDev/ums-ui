@@ -33,6 +33,17 @@ export class DepartmentService{
 
     /**
      * 
+     * @returns 
+     */
+    getActiveDepartmentList(){
+        return this.http.get<Department[]>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/all/active`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
+    }
+
+    /**
+     * 
      * @param newDepartment 
      * @returns 
      */
