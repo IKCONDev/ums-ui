@@ -739,7 +739,7 @@ export class HomeComponent implements OnInit {
   myChart2 = null
   createChart2() {
     if (this.selectedOption2 === 'Week') {
-      var dayColors = ['mistyrose', 'lightsteelblue', 'palegreen', 'lightcoral', 'thistle', 'lightsalmon', 'mediumseagreen'];
+      var dayColors = ['mistyrose', 'lightsteelblue', 'palegreen', 'lightcoral', 'thistle', 'lightsalmon', 'lightgoldenrodyellow'];
       
       this.myChart2 = new Chart("myChart2", {
         type: 'pie',
