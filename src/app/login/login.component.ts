@@ -351,12 +351,6 @@ export class LoginComponent {
                 loginInfo: this.loginInfo
               }
             }
-            if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
-              document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
-            }
-            else {
-              document.title = "UMS";
-            }
             var loginAttempts = response.headers.get('loginAttempts');
             var active = response.headers.get('userActive');
             if(parseInt(loginAttempts) > 3 || active === 'false'){
@@ -425,12 +419,6 @@ export class LoginComponent {
                 loginInfo: this.loginInfo
               }
             }
-            if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
-              document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
-            }
-            else {
-              document.title = "UMS";
-            }
             var loginAttempts = response.headers.get('loginAttempts');
             var active = response.headers.get('userActive');
             if(parseInt(loginAttempts) > 3 || active === 'false'){
@@ -490,6 +478,14 @@ export class LoginComponent {
       },1200)
     }
   }
+  setTimeout(() => {
+    if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
+      document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
+    }
+    else {
+      document.title = "UMS";
+    }
+  },1500)
 }
 
   /**
