@@ -3,17 +3,19 @@
 
 <head>
   <meta charset="utf-8">
-  <script>
-    var firstName = localStorage.getItem('firstName')
-    var lastName = localStorage.getItem('lastName');
-    if(firstName != null && lastName != null){
-      document.title = "UMS - "+firstName+" "+lastName;
-    }
-    else{
-      document.title = "UMS";
-    }
-  </script>
-  <title></title>
+  <!-- <script>
+    setTimeout(() => {
+      var firstName = localStorage.getItem('firstName')
+      var lastName = localStorage.getItem('lastName');
+      if (firstName != null && lastName != null) {
+        document.title = "UMS - " + firstName + " " + lastName;
+      }
+      else {
+        document.title = "UMS";
+      }
+    }, 1000)
+  </script> -->
+  <title>UMS</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -42,16 +44,6 @@
 
 <body class="mat-typography">
   <app-root>
-    <script>
-      var firstName = localStorage.getItem('firstName')
-      var lastName = localStorage.getItem('lastName');
-      if (firstName != null && lastName != null) {
-        document.title = "UMS - " + firstName + " " + lastName;
-      }
-      else {
-        document.title = "UMS";
-      }
-    </script>
   </app-root>
 </body>
 
