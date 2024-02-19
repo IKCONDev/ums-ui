@@ -816,8 +816,8 @@ export class HomeComponent implements OnInit {
       });
     } if (this.selectedOption2 === 'Year') {
       var mildColors = [
-        'lavender', 'lightcyan', 'lightcoral', 'lightseagreen', 'lightpink', 'lightslategray',
-        'mistyrose', 'lightgoldenrodyellow', 'lightseashell', 'lightblue', 'lightgreen', 'lightsteelblue'
+        'hsl(195, 74%, 62%)', 'hsl(348, 100%, 68%)', ' hsl(145, 58%, 55%)', ' hsl(264, 64%, 52%)', ' hsl(43, 84%, 65%)', 'lightslategray',
+        '#A288A6', '#3F2F9C', 'lightseashell', 'lightblue', 'lightgreen', 'hsl(15, 100%, 70%)'
       ];
 
       this.myChart2 = new Chart("myChart2", {
@@ -829,14 +829,14 @@ export class HomeComponent implements OnInit {
               label: "Organized meetings",
               data: this.TotalMeetingStatusForYear[1],
               backgroundColor: mildColors,
-              borderColor:mildColors,
-              borderWidth: 3,
+              //borderColor:mildColors,
+              borderWidth: 1.5,
             },
             {
               label: "Attended meetings",
               data: this.TotalMeetingStatusForYear[0],
               backgroundColor: mildColors,
-              borderWidth: 3,
+              borderWidth: 1.5,
             }
           ]
         },
@@ -884,9 +884,14 @@ export class HomeComponent implements OnInit {
         }
       });
     } if (this.selectedOption2 === 'months') {
+      var mildColors = [
+        'hsl(195, 74%, 62%)', 'hsl(348, 100%, 68%)', ' hsl(145, 58%, 55%)', ' hsl(264, 64%, 52%)', ' hsl(43, 84%, 65%)', 'lightslategray',
+        '#A288A6', '#3F2F9C', 'lightseashell', 'lightblue', 'lightgreen', 'hsl(15, 100%, 70%)'
+      ];
       const currentDate = new Date();
       const currentMonth = currentDate.toLocaleString('en-US', { month: 'short' });
       const currentMonthNumber = currentDate.getMonth();
+      console.log(mildColors)
       this.myChart2 = new Chart("myChart2", {
         type: 'pie',
         data: {
@@ -895,15 +900,15 @@ export class HomeComponent implements OnInit {
             {
               label: "Organized meetings",
               data: [this.TotalMeetingStatusForMonth[1][currentMonthNumber]],
-              backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
-              hoverOffset:10,
+              backgroundColor: mildColors[currentMonthNumber], 
+             // hoverOffset:10,
               borderWidth: 1.5,
             },
             {
               label: "Attended meetings",
               data: [this.TotalMeetingStatusForMonth[0][currentMonthNumber]],
-              backgroundColor: 'rgba(255, 148, 112, 0.7) ', // darkOrang
-              hoverOffset:10,
+              backgroundColor: mildColors[currentMonthNumber], 
+             // hoverOffset:10,
               borderWidth: 1.5,
             }
           ]
