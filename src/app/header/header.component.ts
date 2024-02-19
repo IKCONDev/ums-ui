@@ -1,5 +1,5 @@
-import { Component ,Output, Input, SimpleChanges, OnChanges } from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, Output, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeaderService } from './service/header.service';
 import { error } from 'jquery';
 import { Employee } from '../model/Employee.model';
@@ -34,16 +34,16 @@ export class HeaderComponent implements OnChanges {
    * @param headerService 
    * @param router 
    */
-  constructor(private headerService: HeaderService, private router: Router, 
+  constructor(private headerService: HeaderService, private router: Router,
     private toastr: ToastrService, private employeeService: EmployeeService,
-    private notificationService: NotificationService, 
-    private userRoleMenuItemPermissionMapService: UserRoleMenuItemPermissionService){
+    private notificationService: NotificationService,
+    private userRoleMenuItemPermissionMapService: UserRoleMenuItemPermissionService) {
 
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    if(this.unreadNotificationCount != null)
-    localStorage.setItem('notificationCount',this.unreadNotificationCount.toString());
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.unreadNotificationCount != null)
+      localStorage.setItem('notificationCount', this.unreadNotificationCount.toString());
   }
 
   /**
@@ -52,39 +52,39 @@ export class HeaderComponent implements OnChanges {
   async ngOnInit() {
     this.loggedInUserId = localStorage.getItem('email');
     //get users latest permissions
-   var userRoleMenuItemPermissionMap = await this.getLatestUserRoleMenuItemPermissionMapofUser();
+    var userRoleMenuItemPermissionMap = await this.getLatestUserRoleMenuItemPermissionMapofUser();
     var userRPMJSONMap = JSON.stringify(Object.fromEntries(userRoleMenuItemPermissionMap));
-    localStorage.setItem('userRoleMenuItemPermissionMap',userRPMJSONMap);
-    
+    localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
+
     this.userProfileDetails();
 
     //due to this , the userDetails also gets initialized and you can
-    setTimeout(()=>{
-    // Check if there's a saved state and apply it
-    const savedState = localStorage.getItem('sliderState');
-    if (savedState) {
-      this.userDetails.twoFactorAuthentication = savedState === 'active';
-    }
-    },1000)
+    setTimeout(() => {
+      // Check if there's a saved state and apply it
+      const savedState = localStorage.getItem('sliderState');
+      if (savedState) {
+        this.userDetails.twoFactorAuthentication = savedState === 'active';
+      }
+    }, 1000)
   }
 
- /**
-  * 
-  * @returns 
-  */
+  /**
+   * 
+   * @returns 
+   */
   async getLatestUserRoleMenuItemPermissionMapofUser(): Promise<Map<string, string>> {
     await lastValueFrom(this.userRoleMenuItemPermissionMapService.findUserRoleMenuitemPermissionMapsByUserId(this.loggedInUserId)).then(
       response => {
-        if(response.status === HttpStatusCode.Ok){
+        if (response.status === HttpStatusCode.Ok) {
           this.userRoleMenuItemPermissionList = response.body;
-        } else if(response.status === HttpStatusCode.Unauthorized){
-            this.router.navigateByUrl('/session-timeout');
+        } else if (response.status === HttpStatusCode.Unauthorized) {
+          this.router.navigateByUrl('/session-timeout');
         }
       }, reason => {
         //console.log(reason)
       }
     )
-    var userRoleMenuItemPermissionMap =  await this.prepareUserRoleMenuItemPermissionMapFromList(this.userRoleMenuItemPermissionList);
+    var userRoleMenuItemPermissionMap = await this.prepareUserRoleMenuItemPermissionMapFromList(this.userRoleMenuItemPermissionList);
     return userRoleMenuItemPermissionMap;
   }
 
@@ -93,7 +93,7 @@ export class HeaderComponent implements OnChanges {
    * @param userRoleMenuItemPermissionList 
    * @returns 
    */
-  async prepareUserRoleMenuItemPermissionMapFromList(userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[]): Promise<Map<string,string>>{
+  async prepareUserRoleMenuItemPermissionMapFromList(userRoleMenuItemPermissionList: UserRoleMenuItemPermissionMap[]): Promise<Map<string, string>> {
     var userRoleMenuItemPermissionMap = new Map<string, string>();
     userRoleMenuItemPermissionList.forEach(userRPM => {
       userRoleMenuItemPermissionMap.set(userRPM.menuItemIdList, userRPM.permissionIdList);
@@ -107,13 +107,13 @@ export class HeaderComponent implements OnChanges {
    * 
    */
   toggleSlider() {
-      this.userDetails.twoFactorAuthentication = !this.userDetails.twoFactorAuthentication;
-       // Save the state to local storage
-      this.currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
-      localStorage.setItem('sliderState', this.currentState);
-      //save the updatedauthStatus to db
-    this.headerService.updateTwofactorAuthenticationStatus(this.userDetails.twoFactorAuthentication,this.userDetails.email).subscribe(
-      (response) =>{
+    this.userDetails.twoFactorAuthentication = !this.userDetails.twoFactorAuthentication;
+    // Save the state to local storage
+    this.currentState = this.userDetails.twoFactorAuthentication ? 'active' : 'inactive';
+    localStorage.setItem('sliderState', this.currentState);
+    //save the updatedauthStatus to db
+    this.headerService.updateTwofactorAuthenticationStatus(this.userDetails.twoFactorAuthentication, this.userDetails.email).subscribe(
+      (response) => {
         this.authStatusUpdated = response
       }
     )
@@ -123,14 +123,14 @@ export class HeaderComponent implements OnChanges {
    * 
    * @param emailId 
    */
-  getEmployee(emailId: string){
+  getEmployee(emailId: string) {
     console.log(emailId)
-    if(emailId != null && emailId != ''){
+    if (emailId != null && emailId != '') {
       this.employeeService.getEmployee(emailId).subscribe({
         next: reponse => {
-          this.reportingManagerName = reponse.body.firstName+" "+reponse.body.lastName;
-        },error: error => {
-          if(error.status === HttpStatusCode.Unauthorized){
+          this.reportingManagerName = reponse.body.firstName + " " + reponse.body.lastName;
+        }, error: error => {
+          if (error.status === HttpStatusCode.Unauthorized) {
             this.router.navigateByUrl('/session-timeout');
           }
         }
@@ -144,45 +144,46 @@ export class HeaderComponent implements OnChanges {
   /**
    * 
    */
-  userProfileDetails(): any{
+  userProfileDetails(): any {
     this.headerService.fetchUserProfile(localStorage.getItem('email')).subscribe(
-      response=>{
-        this.userDetails= response.body
-        localStorage.setItem('userRole',this.userDetails.userRoles[0].roleName);
-       // localStorage.setItem('userRoleMenuItemsPermissionMap',JSON.parse())
+      response => {
+        this.userDetails = response.body
+        localStorage.setItem('userRole', this.userDetails.userRoles[0].roleName);
+        // localStorage.setItem('userRoleMenuItemsPermissionMap',JSON.parse())
         //get reporting manager of employee
         this.getEmployee(this.userDetails.employee.reportingManager);
       }
     )
-   // console.log(this.userDetails.userRoles[0].roleName)
+    // console.log(this.userDetails.userRoles[0].roleName)
   }
 
   /**
    * 
    */
-  openProfilePanel(){
+  openProfilePanel() {
     this.router.navigateByUrl('/my-profile');
   }
 
   /**
    * 
    */
-  logout(){
+  async logout() {
     //sessionStorage.clear();
     localStorage.clear();
-   // localStorage.setItem('tabOpened','OrganizedMeeting');
-    this.toastr.success('Hope you had a great experience','Logged out successfully')
-   // window.localStorage.clear ();
-     window.localStorage.clear();
-    this.router.navigateByUrl('/login');
+    // localStorage.setItem('tabOpened','OrganizedMeeting');
+    this.toastr.success('Hope you had a great experience', 'Logged out successfully')
+    // window.localStorage.clear ();
+    window.localStorage.clear();
+    await this.router.navigateByUrl('/login');
+    this.refreshPage();
   }
 
-  refreshPage(){
+  refreshPage() {
     window.location.reload();
   }
-  
+
   // notificationCount(){
   // this.notificationService.getAllNotificationsCountByUserId(localStorage.getItem('email'));
-   
+
   // }
 }
