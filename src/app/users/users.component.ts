@@ -166,6 +166,8 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
 
         this.userList = response.body;
         this.userDataLoaded=true;
+        this.isComponentLoading = false;
+        this.isUserDataText = false;
 
       });
 
@@ -491,8 +493,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.employeeservice.getAllEmployeeStatus().subscribe({
       next: response => {
         this.employeeWithStatus = response.body;
-        this.isComponentLoading = false;
-        this.isUserDataText = false;
+
       },
       error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
