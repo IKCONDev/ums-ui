@@ -432,6 +432,17 @@ export class LoginComponent {
               }
               //this.getNotificationCount(this.loginInfo.email);
             }
+            setTimeout(() => {
+              var firstName = localStorage.getItem('firstName')
+              var lastName = localStorage.getItem('lastName');
+              //set window title
+              if (firstName != null && lastName != null && firstName != "null" && lastName != "null") {
+                document.title = "UMS - " + firstName + " " + lastName;
+              }
+              else {
+                document.title = "UMS";
+              }
+            }, 400)
           }, error: error => {
             if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
               this.router.navigate(['/service-unavailable'])
@@ -477,15 +488,6 @@ export class LoginComponent {
           this.disableLoginButton = false;
         }, 1200)
       }
-    }
-    var firstName = localStorage.getItem('firstName')
-    var lastName = localStorage.getItem('lastName');
-    //set window title
-    if (firstName != null && lastName != null && firstName != "null" && lastName != "null") {
-      document.title = "UMS - " + firstName + " " + lastName;
-    }
-    else {
-      document.title = "UMS";
     }
   }
 
