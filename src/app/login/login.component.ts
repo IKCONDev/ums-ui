@@ -442,7 +442,7 @@ export class LoginComponent {
               else {
                 document.title = "UMS";
               }
-            }, 400)
+            }, 800)
           }, error: error => {
             if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
               this.router.navigate(['/service-unavailable'])
