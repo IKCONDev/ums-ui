@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, Output, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subject, fromEvent, lastValueFrom } from 'rxjs';
+import { Subject, first, fromEvent, last, lastValueFrom } from 'rxjs';
 import { LoginService } from './service/login.service';
 import { NavigationExtras } from '@angular/router';
 import { HttpStatusCode } from '@angular/common/http';
@@ -305,6 +305,13 @@ export class LoginComponent {
               localStorage.setItem('email', this.loginInfo.email);
               localStorage.setItem('firstName', this.loginInfo.firstName);
               localStorage.setItem('lastName', this.loginInfo.lastName);
+              //set window title
+              if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
+                document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
+              }
+              else {
+                document.title = "UMS";
+              }
               localStorage.setItem('userId', this.loginInfo.userId);
               localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
               localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
@@ -372,6 +379,13 @@ export class LoginComponent {
               // localStorage.setItem('jwtToken', this.loginInfo.token);
               localStorage.setItem('firstName', this.loginInfo.firstName);
               localStorage.setItem('lastName', this.loginInfo.lastName);
+              //set window title
+              if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
+                document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
+              }
+              else {
+                document.title = "UMS";
+              }
               localStorage.setItem('userRole', this.loginInfo.userRole);
               localStorage.setItem('email', this.loginInfo.email);
               localStorage.setItem('userId', this.loginInfo.userId);
@@ -432,17 +446,6 @@ export class LoginComponent {
               }
               //this.getNotificationCount(this.loginInfo.email);
             }
-            setTimeout(() => {
-              var firstName = localStorage.getItem('firstName')
-              var lastName = localStorage.getItem('lastName');
-              //set window title
-              if (firstName != null && lastName != null && firstName != "null" && lastName != "null") {
-                document.title = "UMS - " + firstName + " " + lastName;
-              }
-              else {
-                document.title = "UMS";
-              }
-            }, 800)
           }, error: error => {
             if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
               this.router.navigate(['/service-unavailable'])
