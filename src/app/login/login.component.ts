@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, Output, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subject, first, fromEvent, last, lastValueFrom } from 'rxjs';
+import { Subject, fromEvent, lastValueFrom } from 'rxjs';
 import { LoginService } from './service/login.service';
 import { NavigationExtras } from '@angular/router';
 import { HttpStatusCode } from '@angular/common/http';
@@ -23,10 +23,10 @@ export class LoginComponent {
     @Inject(LoginService) private loginService: LoginService, private toastr: ToastrService,
     private notificationService: NotificationService, private userRoleMenuItemPermissionMapService: UserRoleMenuItemPermissionService) {
     this.myMSALObj = new PublicClientApplication(this.msalConfig);
-    history.pushState(null, null, location.href)
+    history.pushState(null,null,location.href)
     this.subscription = fromEvent(window, 'popstate').subscribe(_ => {
       history.pushState(null, null, location.href);
-    });
+   });
   }
 
   /**
@@ -83,7 +83,7 @@ export class LoginComponent {
   username = "";
   accessToken = "";
   myMSALObj;
-  disableLoginButton: boolean = false;
+  disableLoginButton:boolean=false;
 
   /**
    * initializes the MicrosoftAuthLibraryObject
@@ -262,237 +262,235 @@ export class LoginComponent {
    * Custom login of UMS application
    */
   async login(): Promise<void> {
-    this.disableLoginButton = true;
-    setTimeout(() => {
-      this.disableLoginButton = false;
-    }, 2000)
-    if (this.user.email === null || this.user.email === "" || this.user.password === null || this.user.password === "") {
-      if (this.user.email === null && this.user.password === null || this.user.email === "" && this.user.password === "") {
-        this.toastr.error("Enter email ID and password");
-      }
-      else if (this.user.email === null || this.user.email === "") {
+    this.disableLoginButton=true;
+    setTimeout(()=>{
+      this.disableLoginButton=false;
+    },2000)
+    if(this.user.email===null||this.user.email===""||this.user.password===null||this.user.password===""){
+       if(this.user.email===null&&this.user.password===null || this.user.email===""&&this.user.password===""){
+      this.toastr.error("Enter email ID and password");
+       }
+       else if(this.user.email===null||this.user.email===""){
         this.toastr.error("Enter email ID");
-      }
-      else if (this.user.password === null || this.user.password === "") {
+       }
+       else if(this.user.password===null||this.user.password===""){
         this.toastr.error("Enter password");
-      }
+       }
     }
-    else {
-      console.log('Login Process Started')
-      if (localStorage.getItem('jwtToken') === null || localStorage.getItem('jwtToken') === "") {
-        this.checkLogin();
-        this.loginService.logUserIfValid(this.user).subscribe({
-          next: response => {
-            this.loginInfo.firstName = response.headers.get('firstName');
-            this.loginInfo.lastName = response.headers.get('lastName');
-            this.loginInfo.token = response.headers.get('token');
-            this.loginInfo.userId = response.headers.get('userId');
-            this.loginInfo.userRole = response.headers.get('userRole');
-            this.loginInfo.email = response.headers.get('email');
-            this.loginInfo.twoFactorAuth = response.headers.get('twoFactorAuth');
-            this.loginInfo.jwtExpiry = response.headers.get('jwtExpiry').toString();
-            const userRPMJSONMap = response.headers.get('userRoleMenuItemsPermissionMap');
-            // var userRoleMenuItemPermissionMap = response.headers.get('userRoleMenuItemsPermissionMap');
-            // const map = new Map(Object.entries(JSON.parse(userRoleMenuItemPermissionMap)));
+    else{
+    console.log('Login Process Started')
+    if (localStorage.getItem('jwtToken') === null || localStorage.getItem('jwtToken') === "") {
+      this.checkLogin();
+      this.loginService.logUserIfValid(this.user).subscribe({
+        next: response => {
+          this.loginInfo.token = response.headers.get('token');
+          this.loginInfo.userId = response.headers.get('userId');
+          this.loginInfo.userRole = response.headers.get('userRole');
+          this.loginInfo.firstName = response.headers.get('firstName');
+          this.loginInfo.lastName = response.headers.get('lastName');
+          this.loginInfo.email = response.headers.get('email');
+          this.loginInfo.twoFactorAuth = response.headers.get('twoFactorAuth');
+          this.loginInfo.jwtExpiry = response.headers.get('jwtExpiry').toString();
+          const userRPMJSONMap = response.headers.get('userRoleMenuItemsPermissionMap');
+          // var userRoleMenuItemPermissionMap = response.headers.get('userRoleMenuItemsPermissionMap');
+          // const map = new Map(Object.entries(JSON.parse(userRoleMenuItemPermissionMap)));
 
-            if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
+          if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
 
-              //login success popup
-              localStorage.setItem('count1', String(1))
-              this.errorInfo = ''
-              localStorage.setItem('jwtToken', this.loginInfo.token);
-              localStorage.setItem('userRole', this.loginInfo.userRole);
-              localStorage.setItem('email', this.loginInfo.email);
-              localStorage.setItem('firstName', this.loginInfo.firstName);
-              localStorage.setItem('lastName', this.loginInfo.lastName);
-              //set window title
-              if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
-                document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
+            //login success popup
+            localStorage.setItem('count1',String(1))
+            this.errorInfo = ''
+            localStorage.setItem('jwtToken', this.loginInfo.token);
+            localStorage.setItem('userRole', this.loginInfo.userRole);
+            localStorage.setItem('email', this.loginInfo.email);
+            localStorage.setItem('firstName', this.loginInfo.firstName);
+            localStorage.setItem('lastName', this.loginInfo.lastName);
+            localStorage.setItem('userId', this.loginInfo.userId);
+            localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
+            localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
+            localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
+            this.disableLoginButton=false;
+            //set default tabs for meetings
+            localStorage.setItem('tabOpened', 'OrganizedMeeting');
+            //set default tabs for tasks
+            localStorage.setItem('taskTabOpened', 'OrganizedTask');
+
+            //set default values for reportees data
+            localStorage.setItem('selectedReporteeOrganizedActionItem', '');
+            localStorage.setItem('selectedReporteeOrganizedMeeting', '');
+            localStorage.setItem('selectedReporteeAssignedMeeting', '');
+            localStorage.setItem('selectedReporteeOrganized', '');
+            localStorage.setItem('selectedReporteeAssigned', '');
+            console.log(localStorage.getItem('jwtToken'));
+            //set default values for organized meeting filters
+            localStorage.setItem('organizedMeetingTitleFilter', '');
+            localStorage.setItem('organizedMeetingOganizerFilter', '');
+            localStorage.setItem('organizedMeetingStartDateFilter', '');
+            localStorage.setItem('organizedMeetingEndDateFilter', '');
+
+            //set default values for attended filters
+            localStorage.setItem('attendedMeetingTitleFilter', '');
+            localStorage.setItem('attendedMeetingOganizerFilter', '');
+            localStorage.setItem('attendedMeetingStartDateFilter', '');
+            localStorage.setItem('attendedMeetingEndDateFilter', '');
+
+            //set default values for action item filters
+            localStorage.setItem("actionItemNameFilter", '');
+            localStorage.setItem("actionItemOwnerFilter", '');
+            localStorage.setItem("actionItemStartDateFilter", '');
+            localStorage.setItem("actionItemEndDateFilter", '');
+
+            //set default table size for meetings table and action items table
+            localStorage.setItem('actionItemTableSize', "10");
+            localStorage.setItem('meetingTableSize', "10");
+
+            localStorage.setItem('selectedUser', localStorage.getItem('email'));
+
+            let navigationExtras: NavigationExtras = {
+              state: {
+                loginInfo: this.loginInfo
               }
-              else {
-                document.title = "UMS";
-              }
-              localStorage.setItem('userId', this.loginInfo.userId);
-              localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
-              localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
-              localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
-              this.disableLoginButton = false;
-              //set default tabs for meetings
-              localStorage.setItem('tabOpened', 'OrganizedMeeting');
-              //set default tabs for tasks
-              localStorage.setItem('taskTabOpened', 'OrganizedTask');
-
-              //set default values for reportees data
-              localStorage.setItem('selectedReporteeOrganizedActionItem', '');
-              localStorage.setItem('selectedReporteeOrganizedMeeting', '');
-              localStorage.setItem('selectedReporteeAssignedMeeting', '');
-              localStorage.setItem('selectedReporteeOrganized', '');
-              localStorage.setItem('selectedReporteeAssigned', '');
-              console.log(localStorage.getItem('jwtToken'));
-              //set default values for organized meeting filters
-              localStorage.setItem('organizedMeetingTitleFilter', '');
-              localStorage.setItem('organizedMeetingOganizerFilter', '');
-              localStorage.setItem('organizedMeetingStartDateFilter', '');
-              localStorage.setItem('organizedMeetingEndDateFilter', '');
-
-              //set default values for attended filters
-              localStorage.setItem('attendedMeetingTitleFilter', '');
-              localStorage.setItem('attendedMeetingOganizerFilter', '');
-              localStorage.setItem('attendedMeetingStartDateFilter', '');
-              localStorage.setItem('attendedMeetingEndDateFilter', '');
-
-              //set default values for action item filters
-              localStorage.setItem("actionItemNameFilter", '');
-              localStorage.setItem("actionItemOwnerFilter", '');
-              localStorage.setItem("actionItemStartDateFilter", '');
-              localStorage.setItem("actionItemEndDateFilter", '');
-
-              //set default table size for meetings table and action items table
-              localStorage.setItem('actionItemTableSize', "10");
-              localStorage.setItem('meetingTableSize', "10");
-
-              localStorage.setItem('selectedUser', localStorage.getItem('email'));
-
-              let navigationExtras: NavigationExtras = {
-                state: {
-                  loginInfo: this.loginInfo
-                }
-              }
-              var loginAttempts = response.headers.get('loginAttempts');
-              var active = response.headers.get('userActive');
-              if (parseInt(loginAttempts) > 3 || active === 'false') {
-                this.router.navigateByUrl('/login')
-                this.toastr.error('Provided user account is inactive', 'Account Disabled')
-                localStorage.clear();
-                return;
-              } else {
-                this.toastr.success('', 'Logged in successfully')
-                this.router.navigate(['home'], {
-                  //queryParams: {
-                  //'user_token': localStorage.getItem('jwtToken')
-                  //}
-                })
-              }
-              //this.getNotificationCount(this.loginInfo.email);
-            } else if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true') {
-              this.errorInfo = ''
-              // localStorage.setItem('jwtToken', this.loginInfo.token);
-              localStorage.setItem('firstName', this.loginInfo.firstName);
-              localStorage.setItem('lastName', this.loginInfo.lastName);
-              //set window title
-              if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
-                document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
-              }
-              else {
-                document.title = "UMS";
-              }
-              localStorage.setItem('userRole', this.loginInfo.userRole);
-              localStorage.setItem('email', this.loginInfo.email);
-              localStorage.setItem('userId', this.loginInfo.userId);
-              localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
-              localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
-              localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
-              this.disableLoginButton = false;
-              //set default tabs for meetings
-              localStorage.setItem('tabOpened', 'OrganizedMeeting');
-              //set default tabs for tasks
-              localStorage.setItem('taskTabOpened', 'OrganizedTask');
-
-              //set default values for reportees data
-              localStorage.setItem('selectedReporteeOrganizedActionItem', '');
-              localStorage.setItem('selectedReporteeOrganizedMeeting', '');
-              localStorage.setItem('selectedReporteeAssignedMeeting', '');
-              localStorage.setItem('selectedReporteeOrganized', '');
-              localStorage.setItem('selectedReporteeAssigned', '');
-
-              //set default values for filters
-              localStorage.setItem('organizedMeetingTitleFilter', '');
-              localStorage.setItem('organizedMeetingOganizerFilter', '');
-              localStorage.setItem('organizedMeetingStartDateFilter', '');
-              localStorage.setItem('organizedMeetingEndDateFilter', '');
-
-              //set default values for attended filters
-              localStorage.setItem('attendedMeetingTitleFilter', '');
-              localStorage.setItem('attendedMeetingOganizerFilter', '');
-              localStorage.setItem('attendedMeetingStartDateFilter', '');
-              localStorage.setItem('attendedMeetingEndDateFilter', '');
-
-              localStorage.setItem("actionItemNameFilter", '');
-              localStorage.setItem("actionItemOwnerFilter", '');
-              localStorage.setItem("actionItemStartDateFilter", '');
-              localStorage.setItem("actionItemEndDateFilter", '');
-
-              //set default table size for meetings table and action items table
-              localStorage.setItem('actionItemTableSize', "10");
-              localStorage.setItem('meetingTableSize', "10");
-
-              localStorage.setItem('selectedUser', localStorage.getItem('email'));
-
-              let navigationExtras: NavigationExtras = {
-                state: {
-                  loginInfo: this.loginInfo
-                }
-              }
-              var loginAttempts = response.headers.get('loginAttempts');
-              var active = response.headers.get('userActive');
-              if (parseInt(loginAttempts) > 3 || active === 'false') {
-                this.router.navigateByUrl('/login')
-                this.toastr.error('Provided user account is inactive', 'Account Disabled')
-                localStorage.clear();
-                return;
-              }
-              else {
-                this.router.navigate(['two-step'], navigationExtras);
-              }
-              //this.getNotificationCount(this.loginInfo.email);
             }
-          }, error: error => {
-            if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
-              this.router.navigate(['/service-unavailable'])
-              setTimeout(() => {
-                this.disableLoginButton = false;
-              }, 1200)
-            } else if (error.status == HttpStatusCode.InternalServerError) {
-              this.toastr.error('Incorrect username or passoword.', 'Login Failure');
+            if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
+              document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
             }
-            else if (error.status === HttpStatusCode.Unauthorized) {
+            else {
+              document.title = "UMS";
+            }
+            var loginAttempts = response.headers.get('loginAttempts');
+            var active = response.headers.get('userActive');
+            if(parseInt(loginAttempts) > 3 || active === 'false'){
+              this.router.navigateByUrl('/login')
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+              localStorage.clear();
+              return;
+            }else{
+              this.toastr.success('','Logged in successfully')
+              this.router.navigate(['home'], {
+                //queryParams: {
+                //'user_token': localStorage.getItem('jwtToken')
+                //}
+              })
+            }    
+            //this.getNotificationCount(this.loginInfo.email);
+          } else if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true') {
+            this.errorInfo = ''
+           // localStorage.setItem('jwtToken', this.loginInfo.token);
+            localStorage.setItem('userRole', this.loginInfo.userRole);
+            localStorage.setItem('email', this.loginInfo.email);
+            localStorage.setItem('firstName', this.loginInfo.firstName);
+            localStorage.setItem('lastName', this.loginInfo.lastName);
+            localStorage.setItem('userId', this.loginInfo.userId);
+            localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
+            localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
+           localStorage.setItem('userRoleMenuItemPermissionMap', userRPMJSONMap);
+            this.disableLoginButton=false;
+            //set default tabs for meetings
+            localStorage.setItem('tabOpened', 'OrganizedMeeting');
+            //set default tabs for tasks
+            localStorage.setItem('taskTabOpened', 'OrganizedTask');
 
-              var loginAttempts = error.headers.get('loginAttempts');
-              console.log(loginAttempts)
-              var active = error.headers.get('userActive');
-              if (loginAttempts === null && error.status === HttpStatusCode.Unauthorized) {
-                this.toastr.error('Invalid username or password')
+            //set default values for reportees data
+            localStorage.setItem('selectedReporteeOrganizedActionItem', '');
+            localStorage.setItem('selectedReporteeOrganizedMeeting', '');
+            localStorage.setItem('selectedReporteeAssignedMeeting', '');
+            localStorage.setItem('selectedReporteeOrganized', '');
+            localStorage.setItem('selectedReporteeAssigned', '');
+
+            //set default values for filters
+            localStorage.setItem('organizedMeetingTitleFilter', '');
+            localStorage.setItem('organizedMeetingOganizerFilter', '');
+            localStorage.setItem('organizedMeetingStartDateFilter', '');
+            localStorage.setItem('organizedMeetingEndDateFilter', '');
+
+            //set default values for attended filters
+            localStorage.setItem('attendedMeetingTitleFilter', '');
+            localStorage.setItem('attendedMeetingOganizerFilter', '');
+            localStorage.setItem('attendedMeetingStartDateFilter', '');
+            localStorage.setItem('attendedMeetingEndDateFilter', '');
+
+            localStorage.setItem("actionItemNameFilter", '');
+            localStorage.setItem("actionItemOwnerFilter", '');
+            localStorage.setItem("actionItemStartDateFilter", '');
+            localStorage.setItem("actionItemEndDateFilter", '');
+
+             //set default table size for meetings table and action items table
+            localStorage.setItem('actionItemTableSize', "10");
+            localStorage.setItem('meetingTableSize', "10");
+
+            localStorage.setItem('selectedUser', localStorage.getItem('email'));
+
+            let navigationExtras: NavigationExtras = {
+              state: {
+                loginInfo: this.loginInfo
               }
-              else if (parseInt(loginAttempts) === 2) {
-                this.toastr.error('Incorrect username or password. ' + (3 - loginAttempts) + ' attempt remaining', 'Login Failure')
-              }
-              else if (parseInt(loginAttempts) === 1) {
-                this.errorInfo = 'Invalid Credentials'
-                this.toastr.error('Incorrect username or password. ' + (3 - loginAttempts) + ' attempts remaining', 'Login Failure')
-              }
-              else if (parseInt(loginAttempts) === 3) {
-                this.errorInfo = 'Invalid Credentials'
-                this.toastr.error('Incorrect username or password. No attempts remaining', 'Login Failure')
-              }
-              else if (parseInt(loginAttempts) > 3 || active === 'false') {
-                this.toastr.error('Provided user account is inactive', 'Account Disabled')
-              }
-              // setTimeout(()=>{
-              //   this.disableLoginButton=false;
-              // },1200)
             }
-            // on error clear localstorage
-            window.localStorage.clear();
+            if (this.loginInfo.firstName != null && this.loginInfo.lastName != null && this.loginInfo.firstName != "null" && this.loginInfo.lastName != "null") {
+              document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
+            }
+            else {
+              document.title = "UMS";
+            }
+            var loginAttempts = response.headers.get('loginAttempts');
+            var active = response.headers.get('userActive');
+            if(parseInt(loginAttempts) > 3 || active === 'false'){
+              this.router.navigateByUrl('/login')
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+              localStorage.clear();
+              return;
+            }
+            else{
+              this.router.navigate(['two-step'], navigationExtras);
+            }
+            //this.getNotificationCount(this.loginInfo.email);
           }
-        })
-      } else {
-        this.toastr.error('Another session is already running, please navigate to the already opened UMS application tab');
-        setTimeout(() => {
-          this.disableLoginButton = false;
-        }, 1200)
-      }
+        }, error: error => {
+          if (error.status === HttpStatusCode.ServiceUnavailable || error.status === HttpStatusCode.NotFound) {
+            this.router.navigate(['/service-unavailable'])
+            setTimeout(()=>{
+              this.disableLoginButton=false;
+            },1200)
+          }else if(error.status == HttpStatusCode.InternalServerError){
+            this.toastr.error('Incorrect username or passoword.','Login Failure');
+          }
+           else if (error.status === HttpStatusCode.Unauthorized) {
+
+            var loginAttempts = error.headers.get('loginAttempts');
+            console.log(loginAttempts)
+            var active = error.headers.get('userActive');
+            if(loginAttempts ===null &&error.status === HttpStatusCode.Unauthorized){
+              this.toastr.error('Invalid username or password')
+            }
+            else if(parseInt(loginAttempts) === 2){
+              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempt remaining', 'Login Failure')
+            }
+            else if(parseInt(loginAttempts) === 1 ){
+              this.errorInfo = 'Invalid Credentials'
+              this.toastr.error('Incorrect username or password. '+(3-loginAttempts)+' attempts remaining', 'Login Failure')
+            }
+            else if(parseInt(loginAttempts) === 3 ){
+              this.errorInfo = 'Invalid Credentials'
+              this.toastr.error('Incorrect username or password. No attempts remaining', 'Login Failure')
+            }
+            else if(parseInt(loginAttempts) > 3 || active === 'false'){
+              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+            }
+            // setTimeout(()=>{
+            //   this.disableLoginButton=false;
+            // },1200)
+          }
+          // on error clear localstorage
+          window.localStorage.clear();
+        }
+      })
+    } else {
+      this.toastr.error('Another session is already running, please navigate to the already opened UMS application tab');
+      setTimeout(()=>{
+        this.disableLoginButton=false;
+      },1200)
     }
   }
+}
 
   /**
    * set the email input place holder
@@ -578,14 +576,14 @@ export class LoginComponent {
     this.destroy$.complete();
   }
 
-  checkLogin() {
-    var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
-    if (emailRegExp.test(this.user.email) === false) {
+  checkLogin(){
+    var emailRegExp=/^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
+    if(emailRegExp.test(this.user.email)===false){
       this.errorInfo = 'Invalid Credentials'
       //this.toastr.error('Incorrect username or password', 'Login Failure')
-      setTimeout(() => {
-        this.disableLoginButton = false;
-      }, 1200)
+      setTimeout(()=>{
+        this.disableLoginButton=false;
+      },1200)
     }
   }
 }
