@@ -283,11 +283,11 @@ export class LoginComponent {
       this.checkLogin();
       this.loginService.logUserIfValid(this.user).subscribe({
         next: response => {
+          this.loginInfo.firstName = response.headers.get('firstName');
+          this.loginInfo.lastName = response.headers.get('lastName');
           this.loginInfo.token = response.headers.get('token');
           this.loginInfo.userId = response.headers.get('userId');
           this.loginInfo.userRole = response.headers.get('userRole');
-          this.loginInfo.firstName = response.headers.get('firstName');
-          this.loginInfo.lastName = response.headers.get('lastName');
           this.loginInfo.email = response.headers.get('email');
           this.loginInfo.twoFactorAuth = response.headers.get('twoFactorAuth');
           this.loginInfo.jwtExpiry = response.headers.get('jwtExpiry').toString();
@@ -370,10 +370,10 @@ export class LoginComponent {
           } else if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'true') {
             this.errorInfo = ''
            // localStorage.setItem('jwtToken', this.loginInfo.token);
+           localStorage.setItem('firstName', this.loginInfo.firstName);
+           localStorage.setItem('lastName', this.loginInfo.lastName);
             localStorage.setItem('userRole', this.loginInfo.userRole);
             localStorage.setItem('email', this.loginInfo.email);
-            localStorage.setItem('firstName', this.loginInfo.firstName);
-            localStorage.setItem('lastName', this.loginInfo.lastName);
             localStorage.setItem('userId', this.loginInfo.userId);
             localStorage.setItem('twofactorAuth', this.loginInfo.twoFactorAuth);
             localStorage.setItem('jwtExpiry', this.loginInfo.jwtExpiry)
