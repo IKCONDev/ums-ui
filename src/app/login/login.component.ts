@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, Output, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subject, first, fromEvent, lastValueFrom } from 'rxjs';
+import { Subject, fromEvent, lastValueFrom } from 'rxjs';
 import { LoginService } from './service/login.service';
 import { NavigationExtras } from '@angular/router';
 import { HttpStatusCode } from '@angular/common/http';
@@ -294,16 +294,7 @@ export class LoginComponent {
           const userRPMJSONMap = response.headers.get('userRoleMenuItemsPermissionMap');
           // var userRoleMenuItemPermissionMap = response.headers.get('userRoleMenuItemsPermissionMap');
           // const map = new Map(Object.entries(JSON.parse(userRoleMenuItemPermissionMap)));
-          setTimeout(() => {
-            var firstName = response.headers.get('firstName');
-            var lastName = response.headers.get('lastName');
-            if (firstName != null && lastName != null || firstName != "" && lastName != "") {
-              document.title = "UMS - " + this.loginInfo.firstName + " " + this.loginInfo.lastName;
-            }
-            else {
-              document.title = "UMS";
-            }
-          },1000)
+
           if (response.status == HttpStatusCode.Ok && this.loginInfo.twoFactorAuth === 'false') {
 
             //login success popup
