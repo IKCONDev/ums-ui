@@ -17,7 +17,7 @@ import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.servi
 export class OrganizationComponent implements OnInit {
 
   @Output() title: string = 'Organization';
-  fileSize: number = 2000000; //2MB
+  fileSize: number = 2097152; //2MB
   org: Organization;
   isDisable: boolean = false;
   loggedInUserRole = localStorage.getItem('userRole');

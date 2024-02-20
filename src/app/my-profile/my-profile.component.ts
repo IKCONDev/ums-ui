@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class MyProfileComponent {
 
-  fileSize: number = 2000000; //2MB
+  fileSize: number = 2097152; //2MB
   retriveResponse: any;
   isDisable: boolean = true;
   title = 'My Profile'

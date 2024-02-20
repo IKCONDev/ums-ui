@@ -160,7 +160,8 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
    */
   userDataLoaded:boolean=false;
   getAllUsers() {
-
+    this.isComponentLoading = true;
+    this.isUserDataText = true;
     this.userService.getAll().subscribe(
       response => {
 
@@ -488,8 +489,6 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   getAllEmployeesWithStatus() {
-    this.isComponentLoading = true;
-    this.isUserDataText = true;
     this.employeeservice.getAllEmployeeStatus().subscribe({
       next: response => {
         this.employeeWithStatus = response.body;
