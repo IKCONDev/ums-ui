@@ -370,7 +370,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
    */
   validateActionDescription(): boolean {
     //var actionItemDescription = event.target.value;
-    const regex = /^\S.*[a-zA-Z\s]*$/;
+    const regex = /^(?!\s)[\s\S]*$/;
     if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim() === "" || regex.exec(this.addDetails.actionItemDescription) === null) {
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
@@ -1145,7 +1145,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
    * @returns 
    */
   validateUpdateActionDescription() {
-    const regex = /^\S.*[a-zA-Z\s]*$/;
+    const regex = /^(?!\s)[\s\S]*$/;
     if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim() === "" || regex.exec(this.updatedetails.actionItemDescription) === null) {
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;

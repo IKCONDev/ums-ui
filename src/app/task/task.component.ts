@@ -485,7 +485,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   validateTaskDescription() {
     // var taskDescription=event.target.value;
-    const regex = /^\S.*[a-zA-Z\s]*$/;
+    const regex = /^(?!\s)[\s\S]*$/;
     if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim() === "" || regex.exec(this.update_Task.taskDescription) === null) {
       this.taskDescriptionErrorInfo = 'Description is required.';
       this.isTaskDescriptionValid = false;
