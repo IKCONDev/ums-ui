@@ -264,6 +264,7 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
        this.addUserRPMMap.email = this.selectedUserId;
        this.addUserRPMMap.permissionIdList = this.addPermissionIdListString;
        this.addUserRPMMap.roleId = this.roleId;
+       if(this.addUserRPMMap.menuItemIdList!=null){
        this.userRPMService.createUserRoleMenuItemPermissionMap(this.addUserRPMMap).subscribe({
          next: response => {
            if (response.status === HttpStatusCode.Created) {
@@ -282,6 +283,9 @@ export class UserRoleMenuitemPermissionComponent implements OnInit {
            }
          }
        })
+      }else{
+        this.toastr.warning("Please select menu item")
+      }
     }
     else{
        this.toastr.warning("Please select 'View' permission")
