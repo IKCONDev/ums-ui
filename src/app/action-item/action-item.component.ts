@@ -924,21 +924,21 @@ export class ActionItemComponent implements OnInit {
   taskTitleErrrorInfo = '';
   validateTaskTitle() {
     //var taskTitle = event.target.value;
-    const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.add_Task.taskTitle == "" || this.add_Task.taskTitle.trim() === "" || regex.exec(this.add_Task.taskTitle) === null) {
-      this.taskTitleErrrorInfo = 'Title is required.';
+    const regex = /^(?!\s)[\s\S]*$/;
+    if (this.add_Task.taskTitle.trim() === "" || regex.test(this.add_Task.taskTitle) === false) {
+      if (this.add_Task.taskTitle.startsWith(" ")) {
+        this.taskTitleErrrorInfo = 'Title cannot start with a space.';
+      } else {
+        this.taskTitleErrrorInfo = 'Title is required.';
+      }
       this.isTaskTitleValid = false;
-
-    }
-    else if (this.add_Task.taskTitle.length < 5) {
+    } else if (this.add_Task.taskTitle.length < 5) {
       this.taskTitleErrrorInfo = 'Title should have minimum of 5 characters.';
       this.isTaskTitleValid = false;
-    }
-    else if (this.add_Task.taskTitle.length > 50) {
+    } else if (this.add_Task.taskTitle.length > 50) {
       this.taskTitleErrrorInfo = 'Title should not exceed more than 50 characters.';
       this.isTaskTitleValid = false;
-    }
-    else {
+    } else {
       this.taskTitleErrrorInfo = '';
       this.isTaskTitleValid = true;
     }
@@ -954,8 +954,12 @@ export class ActionItemComponent implements OnInit {
     // const regex = /^\S.*[a-zA-Z\s]*$/; 
     
     const regex = /^(?!\s)[\s\S]*$/;
-    if (this.add_Task.taskDescription === '' || this.add_Task.taskDescription.trim() === "" || regex.exec(this.add_Task.taskDescription) === null) {
-      this.taskDescriptionErrorInfo = 'Description is required.';
+    if (this.add_Task.taskDescription === '' || regex.test(this.add_Task.taskDescription) === false) {
+      if(this.add_Task.taskDescription.startsWith(" ")){
+        this.taskDescriptionErrorInfo = 'Description cannot start with a space';
+      }else{
+        this.taskDescriptionErrorInfo = 'Description is required.';
+      }
       this.isTaskDescriptionValid = false;
     }
     else if (this.add_Task.taskDescription.length < 10) {
