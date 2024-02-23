@@ -49,7 +49,16 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         roleId: 0,
         roleName: '',
         roleDescription: '',
-        roleStatus: ''
+        roleStatus: '',
+        menuItems: [
+          {
+            menuItemId: 0,
+            menuItemName: '',
+            menuItemPath: '',
+            menuItemDescription: '',
+          }
+
+        ]
       }
     ],
     active: false,
@@ -66,7 +75,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
       {
         roleId: 0,
         roleName: '',
-        roleStatus: 'Active'
+        roleStatus: 'Active',
       }
     ],
     active: false,
@@ -265,7 +274,8 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
       isRoleName = valid;
 
     }
-
+    var isMenuItemsAssigned =false;
+    var choosenRole = null;
     if (isEmailId == true && isRoleName == true) {
       //set role based on role id
       this.roles.filter(role => {
@@ -273,6 +283,18 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.addUserObj.userRoles[0].roleName = role.roleName;
         }
       })
+       //check is role has any menuitems
+       this.roles.filter(role => {
+        if(this.addUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
+          choosenRole = role.roleName;
+          isMenuItemsAssigned = role.menuItems.length > 0;
+        }
+      });
+      if(!isMenuItemsAssigned){
+        this.toastr.error('The role '+choosenRole+' is not assigned with menu items. Please assign another role for the user.')
+            // this.toastr.error('The role '+choosenRole+' is not assigned with menu items. Assign the required menu items for this role and try again or assign another role for this user.')
+            return;
+      }
       this.addUserObj.userRoles[0].roleStatus = 'Active';
       this.userService.createUser(this.addUserObj).subscribe(
         response => {
@@ -298,6 +320,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.userService.getSingleUser(email).subscribe(
       response => {
         this.existingUserObj = response.body;
+        console.log(this.existingUserObj)
         //get employee details of the user
         this.getEmployee(this.existingUserObj.email);
         this.getAllUnassignedRoles();
