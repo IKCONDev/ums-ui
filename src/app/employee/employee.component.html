@@ -169,7 +169,7 @@
                     [(ngModel)]="addEmployee.gender" id="genderFemale" name="gender2"
                     (change)="validateEmployeeGender()" value="Female"/>&nbsp;Female
                 <span *ngIf="employeeGenderErrorInfo != ''">
-                    <p id="errorMessage">{{employeeGenderErrorInfo}}</p>
+                    <p id="errorMessage" style="margin-bottom: 0;margin-top: 3px ;">{{employeeGenderErrorInfo}}</p>
                 </span>
                 <br /><br/>
                 <label><b>Email</b><span id="required">*</span></label>
