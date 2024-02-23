@@ -355,7 +355,7 @@ export class LoginComponent {
             var active = response.headers.get('userActive');
             if(parseInt(loginAttempts) > 3 || active === 'false'){
               this.router.navigateByUrl('/login')
-              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+              this.toastr.error('Provided user account is inactive, please contact administrator', 'Account Disabled')
               localStorage.clear();
               return;
             }else{
@@ -423,7 +423,7 @@ export class LoginComponent {
             var active = response.headers.get('userActive');
             if(parseInt(loginAttempts) > 3 || active === 'false'){
               this.router.navigateByUrl('/login')
-              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+              this.toastr.error('Provided user account is inactive, please contact administrator', 'Account Disabled')
               localStorage.clear();
               return;
             }
@@ -461,7 +461,7 @@ export class LoginComponent {
               this.toastr.error('Incorrect username or password. No attempts remaining', 'Login Failure')
             }
             else if(parseInt(loginAttempts) > 3 || active === 'false'){
-              this.toastr.error('Provided user account is inactive', 'Account Disabled')
+              this.toastr.error('Provided user account is inactive, please contact administrator', 'Account Disabled')
             }
             // setTimeout(()=>{
             //   this.disableLoginButton=false;
