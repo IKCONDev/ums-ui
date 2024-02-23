@@ -313,7 +313,11 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2=/^[A-Za-z ]+$/;
     if(this.taskCategory.taskCategoryTitle === '' || this.taskCategory.taskCategoryTitle.trim()==="" || 
-    regex.exec(this.taskCategory.taskCategoryTitle)===null){
+    regex.test(this.taskCategory.taskCategoryTitle)===false){
+      if(this.taskCategory.taskCategoryTitle.startsWith(" ")){
+        this.categoryTitleErrorInfo = 'Task category name cannot start with space.';
+      }
+      else
       this.categoryTitleErrorInfo = 'Task category name is required.';
       this.isCategoryTitleValid = false;
     }else if(regex2.test(this.taskCategory.taskCategoryTitle) === false){
@@ -338,7 +342,11 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
   validateTaskCategoryDescription(){
     const regex = /^(?!\s)[\s\S]*$/;
     if(this.taskCategory.taskCategoryDescription === '' || this.taskCategory.taskCategoryDescription.trim()==="" || 
-    regex.exec(this.taskCategory.taskCategoryDescription)===null){
+    regex.test(this.taskCategory.taskCategoryDescription)===false){
+      if(this.taskCategory.taskCategoryDescription.startsWith(" ")){
+        this.categoryDescErrorInfo = 'Task category description cannot start with space.';
+      }
+      else
       this.categoryDescErrorInfo = 'Task category description is required.';
       this.isCategoryDescValid = false;
     }else if(this.taskCategory.taskCategoryDescription.length < 5){
