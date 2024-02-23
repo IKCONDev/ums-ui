@@ -376,7 +376,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     const regex = /^(?!\s)[\s\S]*$/;
     if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim() === "" || regex.test(this.addDetails.actionItemDescription) === false) {
       if(this.addDetails.actionItemDescription.startsWith(" ")){
-        this.addDetails.actionItemDescription ="Description cannot start with space";
+        this.actionItemDescriptionErrorInfo ="Description cannot start with space";
       }else
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
