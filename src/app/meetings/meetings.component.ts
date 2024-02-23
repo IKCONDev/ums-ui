@@ -1597,7 +1597,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   isemailforSendMoMEmailValid = false;
   validateMoMEmail() {
     if (this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0) {
-      this.emailListErrorInfo = 'choose the emailId to send Email';
+      this.emailListErrorInfo = 'Choose an email ID for sending the email';
       this.isemailforSendMoMEmailValid = false;
     }
     else {
