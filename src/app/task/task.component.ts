@@ -456,9 +456,15 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskTitle() {
     //var taskTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim() === "" || regex.exec(this.update_Task.taskTitle) === null) {
-      this.taskTitleErrrorInfo = 'Title is required.';
+    if (this.update_Task.taskTitle == "" || this.update_Task.taskTitle.trim() === "" || regex.test(this.update_Task.taskTitle) === false) {
+      if(this.update_Task.taskTitle.startsWith(" ")){
+        this.taskTitleErrrorInfo = 'Title cannot start with space';
+      }
+     else{
+      this.taskTitleErrrorInfo = 'Title is required';
+     }
       this.isTaskTitleValid = false;
+
 
     }
     else if (this.update_Task.taskTitle.length < 5) {
@@ -486,7 +492,11 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   validateTaskDescription() {
     // var taskDescription=event.target.value;
     const regex = /^(?!\s)[\s\S]*$/;
-    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim() === "" || regex.exec(this.update_Task.taskDescription) === null) {
+    if (this.update_Task.taskDescription === '' || this.update_Task.taskDescription.trim() === "" || regex.test(this.update_Task.taskDescription) === false) {
+      if(this.update_Task.taskDescription.startsWith(" ")){
+        this.taskDescriptionErrorInfo = 'Description cannot start with space';
+      }
+      else
       this.taskDescriptionErrorInfo = 'Description is required.';
       this.isTaskDescriptionValid = false;
     }
