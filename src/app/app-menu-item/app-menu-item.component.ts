@@ -363,7 +363,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
   menuItemDescErrorInfo:string =''
   isMenuItemDescValid:boolean = false;
   validateMenuItemDescription(){
-    const regex = /^\S.*[a-zA-Z\s]*$/;
+    const regex = /^(?!\s)[\s\S]*$/;
     if(this.menuItem.menuItemDescription === '' || this.menuItem.menuItemDescription.trim()==="" || 
     regex.exec(this.menuItem.menuItemDescription)===null){
       this.menuItemDescErrorInfo = 'Menu item description is required';

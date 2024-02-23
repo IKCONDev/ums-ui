@@ -336,7 +336,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
   categoryDescErrorInfo:string =''
   isCategoryDescValid:boolean = false;
   validateTaskCategoryDescription(){
-    const regex = /^\S.*[a-zA-Z\s]*$/;
+    const regex = /^(?!\s)[\s\S]*$/;
     if(this.taskCategory.taskCategoryDescription === '' || this.taskCategory.taskCategoryDescription.trim()==="" || 
     regex.exec(this.taskCategory.taskCategoryDescription)===null){
       this.categoryDescErrorInfo = 'Task category description is required.';

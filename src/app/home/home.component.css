@@ -161,3 +161,10 @@ span svg{
     color: #134E69D9;
     font-weight: 1000;
   }
+
+  .chart{
+    cursor: pointer;
+  }
+  .my-chart{
+    cursor: pointer;
+  }

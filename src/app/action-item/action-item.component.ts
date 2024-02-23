@@ -949,7 +949,11 @@ export class ActionItemComponent implements OnInit {
   isTaskDescriptionValid = false;
   validateTaskDescription() {
     // var taskDescription=event.target.value;
-    const regex = /^\S.*[a-zA-Z\s]*$/;
+
+    // This one is restricting space in begining and also restricting the other line when you add numbers or special characters
+    // const regex = /^\S.*[a-zA-Z\s]*$/; 
+    
+    const regex = /^(?!\s)[\s\S]*$/;
     if (this.add_Task.taskDescription === '' || this.add_Task.taskDescription.trim() === "" || regex.exec(this.add_Task.taskDescription) === null) {
       this.taskDescriptionErrorInfo = 'Description is required.';
       this.isTaskDescriptionValid = false;

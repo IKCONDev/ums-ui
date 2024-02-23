@@ -124,8 +124,10 @@ export class ForgotPasswordEmailVerificationComponent {
   constructOtp() {
     this.disableGetOtp=true;    
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{3,6}$/;
-    if(emailRegExp.test(this.email)){
-    
+    if(this.email==="" || this.email===null){
+      this.toastr.error("Enter email ID")
+    }
+    else if(emailRegExp.test(this.email)){
     this.isError=false;  
     this.emailVerificationService.generateOtpForUser(this.email,'ForgotPassword').subscribe(
       (response) => {
