@@ -31,12 +31,12 @@
                         <p>Total Meetings of the Department : <b>{{meetingsByDepartmentListCount}}</b></p>
                         </div> -->
                         <div *ngIf="selectedTaskCategory == null; else noTaskCategory ">
-                            <p>Report Module : <b>Task category</b></p>
+                            <p>Report Module : <b>Task Category</b></p>
                             <p>Task Category Name : <b>All</b></p>
                             <p>Total Tasks: <b>{{alltasksCount}}</b></p>
                         </div>
                         <ng-template #noTaskCategory>
-                            <p>Report Module : <b>Task category</b></p>
+                            <p>Report Module : <b>Task Category</b></p>
                             <p>Task Category Name : <b>{{selectedtaskCategoryName}}</b></p>
                             <p>Total Tasks: <b>{{categoryOfTaskCount}}</b></p>
                         </ng-template>
@@ -227,7 +227,7 @@
                         <p>DepartmentName : <b>{{selectedDepartmentName}}</b></p>
                         <p>Total Meetings of the Department : <b>{{meetingsByDepartmentListCount}}</b></p>
                         </div> -->
-                        <p>Report Module : <b>Task category</b></p>
+                        <p>Report Module : <b>Task Category</b></p>
                         <p>Task Category Name : <b>{{selectedtaskCategoryName}}</b></p>
                         <p>Total Tasks:<b>{{categoryOfTaskCount}}</b></p>
 
