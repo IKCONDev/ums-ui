@@ -520,9 +520,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2 = /^[A-Za-z ]+$/;
 
-    if (this.addEmployee.firstName == '' || this.addEmployee.firstName.trim() === "" || regex.exec(this.addEmployee.firstName) === null) {
-      this.employeeFirstNameErrorInfo = "First Name is required.";
-      this.isEmployeeFirstNameValid = false;
+    if (this.addEmployee.firstName == '' || this.addEmployee.firstName.trim() === "" || regex.test(this.addEmployee.firstName)===false) {
+      if(this.addEmployee.firstName.startsWith(" ")){
+        this.employeeFirstNameErrorInfo = "First Name cannot start with space.";
+        this.isEmployeeFirstNameValid = false;
+      }else{
+        this.employeeFirstNameErrorInfo = "First Name is required.";
+        this.isEmployeeFirstNameValid = false;
+      }
     } else if (regex2.test(this.addEmployee.firstName) === false) {
       this.employeeFirstNameErrorInfo = "First Name cannot have special characters or numbers.";
       this.isEmployeeFirstNameValid = false;
@@ -549,9 +554,15 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2 = /^[A-Za-z ]+$/;
 
-    if (this.addEmployee.lastName == '' || this.addEmployee.lastName.trim() === "" || regex.exec(this.addEmployee.lastName) === null) {
-      this.employeeLastNameErrorInfo = "Last Name is required.";
-      this.isEmployeeLasttNameValid = false;
+    if (this.addEmployee.lastName == '' || this.addEmployee.lastName.trim() === "" || regex.test(this.addEmployee.lastName)===false) {
+      if(this.addEmployee.lastName.startsWith(" ")){
+        this.employeeLastNameErrorInfo = "Last Name cannot start with space.";
+        this.isEmployeeLasttNameValid = false;
+      }
+      else{
+        this.employeeLastNameErrorInfo = "Last Name is required.";
+        this.isEmployeeLasttNameValid = false;
+      }
     } else if (regex2.test(this.addEmployee.lastName) === false) {
       this.employeeLastNameErrorInfo = "Last Name cannot have special characters or numbers.";
       this.isEmployeeLasttNameValid = false;
@@ -592,8 +603,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
   validateEmployeeEmailId() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
     if (this.addEmployee.email == '' || emailRegExp.test(this.addEmployee.email) === false) {
-      this.employeeEmailIdErrorInfo = "Email ID is required.";
-      this.isEmployeeEmailIdValid = false;
+      if(this.addEmployee.email.startsWith(" ")){
+        this.employeeEmailIdErrorInfo = "Email ID cannot start with space.";
+        this.isEmployeeEmailIdValid = false;
+      }
+      else{
+        this.employeeEmailIdErrorInfo = "Email ID is required.";
+        this.isEmployeeEmailIdValid = false;
+      }
     }
     else {
       this.employeeEmailIdErrorInfo = "";
@@ -710,9 +727,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2 = /^[A-Za-z ]+$/;
 
-    if (this.existingEmployee.firstName == '' || this.existingEmployee.firstName.trim() === "" || regex.exec(this.existingEmployee.firstName) === null) {
-      this.updateFirstNameErrorInfo = "First Name is required.";
-      this.isUpdateFirstNameValid = false;
+    if (this.existingEmployee.firstName == '' || this.existingEmployee.firstName.trim() === "" || regex.test(this.existingEmployee.firstName)===false) {
+      if(this.existingEmployee.firstName.startsWith(" ")){
+        this.updateFirstNameErrorInfo = "First Name cannot start with space.";
+        this.isUpdateFirstNameValid = false;
+      }else{
+        this.updateFirstNameErrorInfo = "First Name is required.";
+        this.isUpdateFirstNameValid = false;
+      }
     } else if (regex2.test(this.existingEmployee.firstName) === false) {
       this.updateFirstNameErrorInfo = "First Name cannot have special characters or numbers.";
       this.isUpdateFirstNameValid = false;
@@ -737,9 +759,15 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2 = /^[A-Za-z ]+$/;
 
-    if (this.existingEmployee.lastName == '' || this.existingEmployee.lastName.trim() === "" || regex.exec(this.existingEmployee.lastName) === null) {
-      this.updateLastNameErrorInfo = "Last Name is required.";
-      this.isUpdateLastNameValid = false;
+    if (this.existingEmployee.lastName == '' || this.existingEmployee.lastName.trim() === "" || regex.test(this.existingEmployee.lastName)===false) {
+      if(this.existingEmployee.lastName.startsWith("")){
+        this.updateLastNameErrorInfo = "Last Name cannot start with space.";
+        this.isUpdateLastNameValid = false;
+      }
+      else{
+        this.updateLastNameErrorInfo = "Last Name is required.";
+        this.isUpdateLastNameValid = false;
+      }
     } else if (regex2.test(this.existingEmployee.lastName) === false) {
       this.updateLastNameErrorInfo = "Last Name cannot have special characters or numbers.";
       this.isUpdateLastNameValid = false;
@@ -777,12 +805,14 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
   validateUpdateEmailId() {
     var emailRegExp = /^[A-Za-z0-9._]{2,30}[0-9]{0,9}@[A-Za-z]{3,12}[.]{1}[A-Za-z.]{2,6}$/;
     if (this.existingEmployee.email == '' || emailRegExp.test(this.existingEmployee.email) === false) {
-      this.updateEmailIdErrorInfo = "Email ID is required.";
-      this.isUpdateEmailIdValid = false;
-    }
-    else if (this.existingEmployee.email.length < 10) {
-      this.updateEmailIdErrorInfo = "Email ID is required.";
-      this.isUpdateEmailIdValid = false;
+      if(this.existingEmployee.email.startsWith(" ")){
+        this.updateEmailIdErrorInfo = "Email ID cannot start with space.";
+        this.isUpdateEmailIdValid = false;
+      }
+      else{
+        this.updateEmailIdErrorInfo = "Email ID is required.";
+        this.isUpdateEmailIdValid = false;
+      }
     }
     else {
       this.updateEmailIdErrorInfo = "";
@@ -951,9 +981,15 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
   validateEmployeeID() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2 = /[a-zA-Z0-9]+/;
-    if (this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex.exec(this.addEmployee.employeeOrgId) === null || regex2.exec(this.addEmployee.employeeOrgId) === null) {
-      this.isEmployeeIDValid = false;
-      this.isEmployeeIDErrorInfo = 'Employee ID is required.';
+    if (this.addEmployee.employeeOrgId == '' || this.addEmployee.employeeOrgId.trim() === "" || regex2.exec(this.addEmployee.employeeOrgId) === null || regex.test(this.addEmployee.employeeOrgId)===false || regex2.test(this.addEmployee.employeeOrgId)===false ) {
+      if(this.addEmployee.employeeOrgId.startsWith(" ")){
+        this.isEmployeeIDValid = false;
+        this.isEmployeeIDErrorInfo = 'Employee ID cannot start with space.';
+      }else{
+        this.isEmployeeIDValid = false;
+        this.isEmployeeIDErrorInfo = 'Employee ID is required.';
+      }
+
     } else if (this.addEmployee.employeeOrgId.length < 1) {
       this.isEmployeeIDValid = false;
       this.isEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters.';
@@ -996,9 +1032,15 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
   validateUpdateEmployeeID() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2 = /[a-zA-Z0-9]+/;
-    if (this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.exec(this.existingEmployee.employeeOrgId) === null || regex2.exec(this.existingEmployee.employeeOrgId) === null) {
-      this.isUpdateEmployeeIDValid = false;
-      this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required.';
+    if (this.existingEmployee.employeeOrgId == '' || this.existingEmployee.employeeOrgId.trim() === "" || regex.test(this.existingEmployee.employeeOrgId) === false || regex2.test(this.existingEmployee.employeeOrgId) === false) {
+      if(this.existingEmployee.employeeOrgId.startsWith(" ")){
+        this.isUpdateEmployeeIDValid = false;
+        this.isUpdateEmployeeIDErrorInfo = 'Employee ID cannot start with space.';
+      }
+      else{
+        this.isUpdateEmployeeIDValid = false;
+        this.isUpdateEmployeeIDErrorInfo = 'Employee ID is required.';
+      }
     } else if (this.existingEmployee.employeeOrgId.length < 1) {
       this.isUpdateEmployeeIDValid = false;
       this.isUpdateEmployeeIDErrorInfo = 'Employee ID should have min of 1 characters.';

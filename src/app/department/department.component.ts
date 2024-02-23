@@ -250,9 +250,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
    // var deptName=  event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2=/^[A-Za-z ]+$/;
-    if(this.addDepartment.departmentName === '' || this.addDepartment.departmentName.trim()==="" || regex.exec(this.addDepartment.departmentName)===null){
-      this.departmentNameErrorInfo = 'Department name is required.';
-      this.isDepartmentNameValid = false;
+    if(this.addDepartment.departmentName === '' || this.addDepartment.departmentName.trim()==="" || regex.test(this.addDepartment.departmentName)===false){
+      if(this.addDepartment.departmentName.startsWith(" ")){
+        this.departmentNameErrorInfo = 'Department name cannot start with space.';
+        this.isDepartmentNameValid = false;
+      }
+      else{
+        this.departmentNameErrorInfo = 'Department name is required.';
+        this.isDepartmentNameValid = false;
+      }
     }else if(regex2.test(this.addDepartment.departmentName) === false){
       this.departmentNameErrorInfo = 'Department name cannot have special characters or numbers.';
       this.isDepartmentNameValid = false;
@@ -278,9 +284,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
   validateDepartmentHead(){
     //var deptHead = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.addDepartment.departmentHead === ''|| this.addDepartment.departmentHead.trim()==="" || regex.exec(this.addDepartment.departmentHead)===null){
-      this.departmentHeadErrorInfo = 'Department head is required.';
-      this.isDepartmentHeadValid = false;
+    if(this.addDepartment.departmentHead === ''|| this.addDepartment.departmentHead.trim()==="" || regex.test(this.addDepartment.departmentHead)===false){
+      if(this.addDepartment.departmentHead.startsWith(" ")){
+        this.departmentHeadErrorInfo = 'Department head cannot start with space.';
+        this.isDepartmentHeadValid = false;
+      }
+      else{
+        this.departmentHeadErrorInfo = 'Department head is required.';
+        this.isDepartmentHeadValid = false;
+      }
     }else if(this.addDepartment.departmentHead.length < 3){
         this.departmentHeadErrorInfo = 'Department head should have minimum of 3 characters.';
         this.isDepartmentHeadValid = false;
@@ -302,9 +314,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
   validateDepartmentCode(){
     //var deptCode = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.addDepartment.departmentCode === ''|| this.addDepartment.departmentCode.trim()==="" || regex.exec(this.addDepartment.departmentCode)===null){
-      this.departmentCodeErrorInfo = 'Department code is required.';
-      this.isDepartmentCodeValid = false;
+    if(this.addDepartment.departmentCode === ''|| this.addDepartment.departmentCode.trim()==="" || regex.test(this.addDepartment.departmentCode)===false){
+      if(this.addDepartment.departmentCode.startsWith(" ")){
+        this.departmentCodeErrorInfo = 'Department code cannot start with space.';
+        this.isDepartmentCodeValid = false;
+      }
+      else{
+        this.departmentCodeErrorInfo = 'Department code is required.';
+        this.isDepartmentCodeValid = false;
+      }
     }else if(this.addDepartment.departmentCode.length < 2){
       this.departmentCodeErrorInfo = 'Department code should be minimum of 2 characters.';
       this.isDepartmentCodeValid = false;
@@ -328,9 +346,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
    // var deptLocation = event.target.value;
    const regex = /^\S.*[a-zA-Z\s]*$/;
    const regex2=/^[A-Za-z ]+$/;
-    if(this.addDepartment.departmentAddress === ''|| this.addDepartment.departmentAddress.trim()==="" || regex.exec(this.addDepartment.departmentAddress)===null){
-      this.departmentLocationErrorInfo = 'Department location is required.';
-      this.isDepartmentLocationValid = false;
+    if(this.addDepartment.departmentAddress === ''|| this.addDepartment.departmentAddress.trim()==="" || regex.test(this.addDepartment.departmentAddress)===false){
+      if(this.addDepartment.departmentAddress.startsWith(" ")){
+        this.departmentLocationErrorInfo = 'Department location cannot start with space.';
+        this.isDepartmentLocationValid = false;
+      }
+      else{
+        this.departmentLocationErrorInfo = 'Department location is required.';
+        this.isDepartmentLocationValid = false;
+      }
     }else if(regex2.test(this.addDepartment.departmentAddress) === false){
       this.departmentLocationErrorInfo = 'Department location cannot have special characters or numbers.';
       this.isDepartmentLocationValid = false;
@@ -493,9 +517,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
     // var deptName=  event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2=/^[A-Za-z ]+$/;
-     if(this.existingDepartment.departmentName === ''|| this.existingDepartment.departmentName.trim()==="" || regex.exec(this.existingDepartment.departmentName)===null){
-       this.updatedDepartmentNameErrorInfo = 'Department name is required.';
+     if(this.existingDepartment.departmentName === ''|| this.existingDepartment.departmentName.trim()==="" || regex.test(this.existingDepartment.departmentName)===false){
+       if(this.existingDepartment.departmentName.startsWith(" ")){
+        this.updatedDepartmentNameErrorInfo = 'Department name cannot start with space.';
        this.isUpdatedDepartmentNameValid = false;
+       }
+       else{
+        this.updatedDepartmentNameErrorInfo = 'Department name is required.';
+       this.isUpdatedDepartmentNameValid = false;
+       }
      }else if(regex2.test(this.existingDepartment.departmentName) === false){
       this.updatedDepartmentNameErrorInfo = 'Department name cannot have special characters or numbers.';
       this.isUpdatedDepartmentNameValid = false;
@@ -521,9 +551,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
   validateUpdatedDepartmentHead(){
     //var deptHead = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.existingDepartment.departmentHead === '' || this.existingDepartment.departmentHead.trim()==="" || regex.exec(this.existingDepartment.departmentHead)===null){
-      this.updatedDepartmentHeadErrorInfo = 'Department head is required.';
-      this.isUpdatedDepartmentHeadValid=false;
+    if(this.existingDepartment.departmentHead === '' || this.existingDepartment.departmentHead.trim()==="" || regex.test(this.existingDepartment.departmentHead)===false){
+      if(this.existingDepartment.departmentHead.startsWith(" ")){
+        this.updatedDepartmentHeadErrorInfo = 'Department head cannot start with space.';
+        this.isUpdatedDepartmentHeadValid=false;
+      }
+      else{
+        this.updatedDepartmentHeadErrorInfo = 'Department head is required.';
+        this.isUpdatedDepartmentHeadValid=false;
+      }
     }else if(this.existingDepartment.departmentHead.length < 3){
       this.updatedDepartmentHeadErrorInfo = 'Department head should have minimum of 3 characters.';
       this.isUpdatedDepartmentHeadValid=false;
@@ -545,9 +581,15 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
   validateUpdatedDepartmentCode(){
     //var deptCode = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if(this.existingDepartment.departmentCode === '' || this.existingDepartment.departmentCode.trim()==="" || regex.exec(this.existingDepartment.departmentCode)===null){
-      this.updatedDepartmentCodeErrorInfo = 'Department code is required.';
-      this.isUpdatedDepartmentCodeValid=false;
+    if(this.existingDepartment.departmentCode === '' || this.existingDepartment.departmentCode.trim()==="" || regex.test(this.existingDepartment.departmentCode)===false){
+      if(this.existingDepartment.departmentCode.startsWith(" ")){
+        this.updatedDepartmentCodeErrorInfo = 'Department code cannot start with space.';
+        this.isUpdatedDepartmentCodeValid=false;
+      }
+      else{
+        this.updatedDepartmentCodeErrorInfo = 'Department code is required.';
+        this.isUpdatedDepartmentCodeValid=false;
+      }
     }else if(this.existingDepartment.departmentCode.length < 1){
       this.updatedDepartmentCodeErrorInfo = 'Department code should be minimum of 1 characters.';
       this.isUpdatedDepartmentCodeValid=false;
@@ -572,8 +614,14 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2=/^[A-Za-z .,]+$/;
      if(this.existingDepartment.departmentAddress === '' || this.existingDepartment.departmentAddress.trim()==="" || regex.exec(this.existingDepartment.departmentAddress)===null){
-       this.updatedDepartmentLocationErrorInfo = 'Department location is required.';
-       this.isUpdatedDepartmentLocationValid = false;
+      if(this.existingDepartment.departmentAddress.startsWith(" ")){
+        this.updatedDepartmentLocationErrorInfo = 'Department location cannot start with space.';
+        this.isUpdatedDepartmentLocationValid = false;
+      }
+      else{
+        this.updatedDepartmentLocationErrorInfo = 'Department location is required.';
+        this.isUpdatedDepartmentLocationValid = false;
+      }
      }else if(regex2.test(this.existingDepartment.departmentAddress) === false){
       this.updatedDepartmentLocationErrorInfo = 'Department location cannot have special characters or numbers.';
       this.isUpdatedDepartmentLocationValid = false;

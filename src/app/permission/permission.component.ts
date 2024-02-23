@@ -231,9 +231,15 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
     validatePermissionValue(){
       const regex = /^\S.*[a-zA-Z\s]*$/;
       const regex2=/^[A-Za-z ,]+$/;
-      if(this.addPermission.permissionValue =='' || this.addPermission.permissionValue.trim()==="" || regex.exec(this.addPermission.permissionValue)===null){
-        this.permissionValueErrorInfo = 'Permission Value is required.';
-        this.isPermissionValueValid = false;
+      if(this.addPermission.permissionValue =='' || this.addPermission.permissionValue.trim()==="" || regex.test(this.addPermission.permissionValue)===false){
+        if(this.addPermission.permissionValue.startsWith(" ")){
+          this.permissionValueErrorInfo = 'Permission Value cannot start with space.';
+          this.isPermissionValueValid = false;
+        }
+        else{
+          this.permissionValueErrorInfo = 'Permission Value is required.';
+          this.isPermissionValueValid = false;
+        }
       }else if(regex2.test(this.addPermission.permissionValue) === false){
         this.permissionValueErrorInfo = 'Permission value cannot have special characters or numbers.';
         this.isPermissionValueValid = false;
@@ -256,9 +262,15 @@ export class PermissionComponent implements OnInit,AfterViewChecked{
     validatePermissionDescription(){
       const regex = /^\S.*[a-zA-Z\s]*$/;
       if(this.addPermission.permissionDescription === '' || this.addPermission.permissionDescription.trim()==="" || 
-      regex.exec(this.addPermission.permissionDescription)===null){
-        this.permissionDescriptionErrorInfo = 'Permission description is required.';
-        this.isPermissionDescriptionValid = false;
+      regex.test(this.addPermission.permissionDescription)===false){
+        if(this.addPermission.permissionDescription.startsWith(" ")){
+          this.permissionDescriptionErrorInfo = 'Permission description cannot start with space.';
+          this.isPermissionDescriptionValid = false;
+        }
+        else{
+          this.permissionDescriptionErrorInfo = 'Permission description is required.';
+          this.isPermissionDescriptionValid = false;
+        }
       }else if(this.addPermission.permissionDescription.length < 5){
         this.permissionDescriptionErrorInfo = 'Permission description should have minimum of 5 characters.';
         this.isPermissionDescriptionValid = false;
