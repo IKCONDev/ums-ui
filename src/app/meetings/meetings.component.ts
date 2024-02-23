@@ -348,7 +348,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   validateActionTitle(): boolean {
     // var actionItemTitle = event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.addDetails.actionItemTitle === '' || this.addDetails.actionItemTitle.trim() === "" || regex.exec(this.addDetails.actionItemTitle) === null) {
+    if (this.addDetails.actionItemTitle === '' || this.addDetails.actionItemTitle.trim() === "" || regex.test(this.addDetails.actionItemTitle) === false) {
+      if(this.addDetails.actionItemTitle.startsWith(" ")){
+        this.actionItemTitleErrorInfo = "Title cannot start with space";
+      }else
       this.actionItemTitleErrorInfo = "Title is required";
       this.isActionItemTitleValid = false;
     } else if (this.addDetails.actionItemTitle.length < 5) {
@@ -371,7 +374,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   validateActionDescription(): boolean {
     //var actionItemDescription = event.target.value;
     const regex = /^(?!\s)[\s\S]*$/;
-    if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim() === "" || regex.exec(this.addDetails.actionItemDescription) === null) {
+    if (this.addDetails.actionItemDescription === '' || this.addDetails.actionItemDescription.trim() === "" || regex.test(this.addDetails.actionItemDescription) === false) {
+      if(this.addDetails.actionItemDescription.startsWith(" ")){
+        this.addDetails.actionItemDescription ="Description cannot start with space";
+      }else
       this.actionItemDescriptionErrorInfo = "Description is required";
       this.isActionItemDescriptionValid = false;
     } else if (this.addDetails.actionItemDescription.length < 10) {
@@ -1124,7 +1130,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
    */
   validateUpdateActionTitle() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.updatedetails.actionItemTitle === '' || this.updatedetails.actionItemTitle.trim() === "" || regex.exec(this.updatedetails.actionItemTitle) === null) {
+    if (this.updatedetails.actionItemTitle === '' || this.updatedetails.actionItemTitle.trim() === "" || regex.test(this.updatedetails.actionItemTitle) === false) {
+      if(this.updatedetails.actionItemTitle.startsWith(" ")){
+        this.updateActionItemTitleErrorInfo = 'Title cannot start with space';
+      }else
       this.updateActionItemTitleErrorInfo = 'Title is required';
       this.isUpdateActionItemTitleValid = false;
     } else if (this.updatedetails.actionItemTitle.length < 5) {
@@ -1146,7 +1155,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
    */
   validateUpdateActionDescription() {
     const regex = /^(?!\s)[\s\S]*$/;
-    if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim() === "" || regex.exec(this.updatedetails.actionItemDescription) === null) {
+    if (this.updatedetails.actionItemDescription === '' || this.updatedetails.actionItemDescription.trim() === "" || regex.test(this.updatedetails.actionItemDescription) === false) {
+      if(this,this.updatedetails.actionItemDescription.startsWith(" ")){
+        this.updateActionItemDescErrorInfo = 'Description cannot start with space';
+      }else
       this.updateActionItemDescErrorInfo = 'Description is required';
       this.isUpdateActionItemDescValid = false;
     } else if (this.updatedetails.actionItemDescription.length < 10) {
@@ -1503,7 +1515,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   isMeetingSubjectValid = false;
   validateMeetingSubject() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.addMeeting.subject === '' || this.addMeeting.subject.trim() === "" || regex.exec(this.addMeeting.subject) === null) {
+    if (this.addMeeting.subject === '' || this.addMeeting.subject.trim() === "" || regex.test(this.addMeeting.subject) === false) {
+      if(this.addMeeting.subject.startsWith(" ")){
+        this.meetingSubjectErrorInfo = 'Meeting subject cannot start with space';
+      }else
       this.meetingSubjectErrorInfo = 'Meeting subject is required';
       this.isMeetingSubjectValid = false;
     } else if (this.addMeeting.subject.length < 4) {
@@ -1597,7 +1612,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   isemailforSendMoMEmailValid = false;
   validateMoMEmail() {
     if (this.emailListForsendingMOM === null || this.emailListForsendingMOM.length === 0) {
-      this.emailListErrorInfo = 'choose the emailId to send Email';
+      this.emailListErrorInfo = 'Choose an email ID for sending the email';
       this.isemailforSendMoMEmailValid = false;
     }
     else {
