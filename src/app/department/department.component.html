@@ -158,7 +158,7 @@
                 <label><b>Department Location</b><span id="required">*</span></label>
                 <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Location"
                     [(ngModel)]="addDepartment.departmentAddress" (keyup)="validateDepartmentLocation()" minlength="3"
-                    maxlength="21" />
+                    maxlength="21" /><br>
                 <span *ngIf="departmentLocationErrorInfo != ''">
                     <p id="errorMessage">{{departmentLocationErrorInfo}}</p>
                 </span>

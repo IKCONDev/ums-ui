@@ -142,6 +142,7 @@
                      minlength="5" maxlength="101" (keyup)="validatePermissionDescription()"
                     rows="2" cols="5" style="width: 400px;">
                 </textarea>
+                <br>
                 <span *ngIf="permissionDescriptionErrorInfo != ''">
                     <p id="errorMessage">{{permissionDescriptionErrorInfo}}</p>
                 </span>

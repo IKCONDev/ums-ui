@@ -133,10 +133,13 @@ td{
 }
 
 #errorMessage{
+  margin-top: -20px;
     color: red;
     font-size: 12px;
 }
-
+p#errorMessage{
+  margin-bottom: 0px;
+}
 #required{
     color: red;
     padding-left: 2px;

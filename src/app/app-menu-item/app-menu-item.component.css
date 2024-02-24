@@ -131,8 +131,9 @@ table td{
 }
 
 #errorMessage{
-    color: red;
-    font-size: 12px;
+  margin-top: -20px;
+  color: red;
+  font-size: 12px;
 }
 
 #required{
@@ -225,3 +226,6 @@ table td{
   .row{
     overflow: overlay;
  }
+ .modal-body{
+  line-height: 1.5rem;
+}

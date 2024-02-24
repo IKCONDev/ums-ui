@@ -220,3 +220,6 @@ table.dataTable tbody th, table.dataTable tbody td {
 .modal-body{
   line-height: 1.5rem;
 }
+.modal-body p{
+  margin-bottom: 0px;
+}

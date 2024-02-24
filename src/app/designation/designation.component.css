@@ -118,6 +118,7 @@ table td{
 }
 
 #errorMessage{
+  margin-top: -20px;
     color: red;
     font-size: 12px;
 }

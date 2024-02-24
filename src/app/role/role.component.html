@@ -131,10 +131,11 @@
                     <label><b>Role Name</b><span id="required">*</span></label>
                     <input type="text" id="addRoleName" name="roleName" style="text-transform: uppercase;" class="deptInput form-control"
                         placeholder="Role Name" [(ngModel)]="addRoleObj.roleName" (keyup)="validateRoleName()"
-                        minlength="3" maxlength="51" /><br />
+                        minlength="3" maxlength="51" />
                     <span id="errorInfo" *ngIf="roleNameErrorInfo != ''">{{roleNameErrorInfo}}</span>
                 </div>
                 <br />
+                <br>
                 <div>
                     <label><b>Assign Permission</b><span id="required">*</span></label><br />
                     <select id="addPermissions" name="permissions" [(ngModel)]="addRoleObj.permission.permissionId" class="form-control-sm"
