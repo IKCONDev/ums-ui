@@ -1037,7 +1037,7 @@ export class HomeComponent implements OnInit {
           xLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
           datasets: [
             {
-              label: "Total(Including Yet to start,In progress,Completed)",
+              label: "Total ( Including Yet to start,In progress,Completed )",
               data: this.TotalTasks[0],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
               borderColor: 'rgba(255, 99, 132, 1)',
@@ -1097,7 +1097,7 @@ export class HomeComponent implements OnInit {
           xLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
-              label: "Total(Including Yet to start,In progress,Completed)",
+              label:"Total ( Including Yet to start,In progress,Completed )",
               data: this.TotalTasksForYear[0],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
               borderColor: 'rgba(255, 99, 132, 1)',
@@ -1165,7 +1165,7 @@ export class HomeComponent implements OnInit {
           xLabels: [currentMonth],
           datasets: [
             {
-              label: "Total(Including Yet to start,In progress,Completed)",
+              label: "Total ( Including Yet to start,In progress,Completed )",
               data: [this.TotalTasksForMonth[0][currentMonthNumber]],
               backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red
               borderColor: 'rgba(255, 99, 132, 1)',
