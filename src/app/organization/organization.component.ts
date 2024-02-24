@@ -308,9 +308,12 @@ export class OrganizationComponent implements OnInit {
   validateOrgName() {
     // var deptName=  event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.org.orgName === "" || this.org.orgName.trim() === "" || regex.exec(this.org.orgName) === null || this.org.orgName === null) {
-      this.isUpdateorgNameValid = false;
+    if (this.org.orgName === "" || this.org.orgName.trim() === "" || regex.test(this.org.orgName) === false || this.org.orgName === null) {
+      if(this.org.orgName.startsWith(" ")){
+        this.updatedOrgNameErrorInfo = 'Organization name cannot start with space.';
+      }else
       this.updatedOrgNameErrorInfo = 'Organization name is required.';
+      this.isUpdateorgNameValid = false;
     }
     else if (this.org.orgName.length < 3) {
       this.updatedOrgNameErrorInfo = 'Minimum 3 characters required.';
@@ -336,9 +339,16 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgWebsite === '' || this.org.orgWebsite === null) {
       this.isUpdateWebsiteNameValid = true;
       this.updatedOrgWebsiteErrorInfo = '';
-    } else if (this.org.orgWebsite.trim() === "" || regex.exec(this.org.orgWebsite) === null || emailRegExp.test(this.org.orgWebsite) === false) {
-      this.isUpdateWebsiteNameValid = false;
-      this.updatedOrgWebsiteErrorInfo = 'Website required.';
+    } else if (this.org.orgWebsite.trim() === "" || regex.test(this.org.orgWebsite) === false) {
+      if(this.org.orgWebsite.startsWith(" ")){
+        this.updatedOrgWebsiteErrorInfo ="Website cannot start with space"
+      }else
+       this.updatedOrgWebsiteErrorInfo = 'Website required.' 
+       this.isUpdateWebsiteNameValid = false;
+    }
+    else if (emailRegExp.test(this.org.orgWebsite)===false){
+      this.updatedOrgWebsiteErrorInfo = 'Website required.' 
+       this.isUpdateWebsiteNameValid = false;
     }
     else if (this.org.orgWebsite.length < 6) {
       this.isUpdateWebsiteNameValid = false;
@@ -363,9 +373,12 @@ export class OrganizationComponent implements OnInit {
     if (this.org.orgFunctionalType === '' || this.org.orgFunctionalType === null) {
       this.isUpdateOrgFunctionValid = true;
       this.updatedorgFunctionalTypeErrorInfo = '';
-    } else if (this.org.orgFunctionalType.trim() === "" || regex.exec(this.org.orgFunctionalType) === null) {
-      this.isUpdateOrgFunctionValid = false;
+    } else if (this.org.orgFunctionalType.trim() === "" || regex.test(this.org.orgFunctionalType) === false) {
+      if(this.org.orgFunctionalType.startsWith(" ")){
+        this.updatedorgFunctionalTypeErrorInfo = 'Company type cannot start with space';
+      }else
       this.updatedorgFunctionalTypeErrorInfo = 'Company type required';
+      this.isUpdateOrgFunctionValid = false;  
     } else if (regex2.test(this.org.orgFunctionalType) === false) {
       this.updatedorgFunctionalTypeErrorInfo = "Cannot have special characters or numbers.";
       this.isUpdateOrgFunctionValid = false;
@@ -388,13 +401,17 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgContactPersonNameFunction() {
-    const regex = /^\S.*[a-zA-Z\s]*$/;
+    //regex for only letters
+    const regex =/^[a-zA-Z]+$/;
     if (this.org.orgContactPersonName === '' || this.org.orgContactPersonName === null) {
       this.isUpdateOrgContactPersonNameValid = true;
       this.updatedorgContactPersonNameErrorInfo = '';
-    } else if (this.org.orgContactPersonName.trim() === "" || regex.exec(this.org.orgContactPersonName) === null) {
-      this.isUpdateOrgContactPersonNameValid = false;
+    } else if (this.org.orgContactPersonName.trim() === "" || regex.test(this.org.orgContactPersonName) === false) {
+      if(this.org.orgContactPersonName.startsWith(" ")){
+        this.updatedorgContactPersonNameErrorInfo = "Organisation Contact person name cannot start with space" ;
+      }else
       this.updatedorgContactPersonNameErrorInfo = 'Organisation Contact person name required.';
+      this.isUpdateOrgContactPersonNameValid = false; 
     }
     else if (this.org.orgContactPersonName.length < 3) {
       this.isUpdateOrgContactPersonNameValid = false;
@@ -442,7 +459,10 @@ export class OrganizationComponent implements OnInit {
    */
   validateOrgAddress() {
     const regex = /^(?!\s)[\s\S]*$/;
-    if (this.org.orgAddress === '' || this.org.orgAddress.trim() === "" || regex.exec(this.org.orgAddress) === null || this.org.orgAddress === null) {
+    if (this.org.orgAddress === '' || this.org.orgAddress.trim() === "" || regex.test(this.org.orgAddress) === false || this.org.orgAddress === null) {
+      if(this.org.orgAddress.startsWith(" ")){
+        this.updatedOrgAddressErrorInfo = 'Organization address cannot start with space.';
+      }else
       this.updatedOrgAddressErrorInfo = 'Organization address is required.';
       this.isUpdateOrgAddressValid = false;
     }
@@ -530,8 +550,12 @@ export class OrganizationComponent implements OnInit {
       this.isUpdateOrgContactPersonEmailValid = true;
     }
     else {
-      this.isUpdateOrgContactPersonEmailValid = false;
+      if(this.org.orgContactPersonEmail.startsWith(" ")){
+        this.updatedorgContactPersonEmailErrorInfo = 'Email cannot start with space';
+      }else
       this.updatedorgContactPersonEmailErrorInfo = 'Please enter correct email.';
+      this.isUpdateOrgContactPersonEmailValid = false;
+      
     }
     return this.isUpdateOrgContactPersonEmailValid;
   }
@@ -554,8 +578,12 @@ export class OrganizationComponent implements OnInit {
       this.isUpdateOrgSuperAdminEmailValid = true;
     }
     else {
-      this.isUpdateOrgSuperAdminEmailValid = false;
+      if(this.org.orgSuperAdminEmailId.startsWith(" ")){
+        this.updatedOrgSuperAdminEmailErrorInfo = 'Email cannot start with space.';
+      }else
       this.updatedOrgSuperAdminEmailErrorInfo = 'Please enter correct email.';
+      this.isUpdateOrgSuperAdminEmailValid = false;
+      
     }
     return this.isUpdateOrgSuperAdminEmailValid;
   }
@@ -578,8 +606,11 @@ export class OrganizationComponent implements OnInit {
       this.isUpdateCompanyEmailValid = true;
     }
     else {
-      this.isUpdateCompanyEmailValid = false;
+      if(this.org.orgEmailId.startsWith(" ")){
+        this.updatedCompanyEmailErrorInfo = 'Email cannot start with space.';
+      }else
       this.updatedCompanyEmailErrorInfo = 'Please enter correct email.';
+      this.isUpdateCompanyEmailValid = false;
     }
     return this.isUpdateCompanyEmailValid;
   }
