@@ -192,9 +192,15 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
    */
   validateRoleName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.addRoleObj.roleName === '' || this.addRoleObj.roleName.trim()==="" || regex.exec(this.addRoleObj.roleName)===null) {
-      this.roleNameErrorInfo = 'Role name is required';
-      this.isRoleNameValid=false;
+    if (this.addRoleObj.roleName === '' || this.addRoleObj.roleName.trim()==="" || regex.test(this.addRoleObj.roleName)===false) {
+      if(this.addRoleObj.roleName.startsWith(" ")){
+        this.roleNameErrorInfo = 'Role name cannot start with space';
+        this.isRoleNameValid=false;
+      }
+      else{
+        this.roleNameErrorInfo = 'Role name is required';
+        this.isRoleNameValid=false;
+      }
     } else if (this.addRoleObj.roleName.length < 3) {
       this.roleNameErrorInfo = 'Role name should have min of 3 characters'
       this.isRoleNameValid=false;
@@ -232,9 +238,15 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
    */
   validateUpdatedRoleName() {
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    if (this.existingRole.roleName === '' || this.existingRole.roleName.trim()==="" || regex.exec(this.existingRole.roleName)===null) {
-      this.updatedRoleNameErrorInfo = 'Role name is required';
-      this.isUpdatedRoleNameValid = false;
+    if (this.existingRole.roleName === '' || this.existingRole.roleName.trim()==="" || regex.test(this.existingRole.roleName)===false) {
+      if(this.existingRole.roleName.startsWith(" ")){
+        this.updatedRoleNameErrorInfo = 'Role name cannot start with space';
+        this.isUpdatedRoleNameValid = false;
+      }
+      else{
+        this.updatedRoleNameErrorInfo = 'Role name is required';
+        this.isUpdatedRoleNameValid = false;
+      }
     } else if (this.existingRole.roleName.length < 3) {
       this.updatedRoleNameErrorInfo = 'Role name should have min of 3 characters'
       this.isUpdatedRoleNameValid = false;

@@ -291,7 +291,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
       });
       if(!isMenuItemsAssigned){
-        this.toastr.error('The role '+choosenRole+' is not assigned with menu items. Please assign another role for the user.')
+        this.toastr.error('The role '+choosenRole+' is not assigned with any menu items. Please assign a different role to this user that is linked with menu items.')
             // this.toastr.error('The role '+choosenRole+' is not assigned with menu items. Assign the required menu items for this role and try again or assign another role for this user.')
             return;
       }

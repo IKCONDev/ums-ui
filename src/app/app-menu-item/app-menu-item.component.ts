@@ -315,9 +315,15 @@ export class AppMenuItemsComponent implements AfterViewChecked {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2=/^[A-Za-z &]+$/;
     if(this.menuItem.menuItemName === '' || this.menuItem.menuItemName.trim()==="" || 
-    regex.exec(this.menuItem.menuItemName)===null){
-      this.menuItemNameErrorInfo = 'Menu item name is required';
-      this.isMenuItemNameValid = false;
+    regex.test(this.menuItem.menuItemName)===false){
+      if(this.menuItem.menuItemName.startsWith(" ")){
+        this.menuItemNameErrorInfo = 'Menu item name cannot start with space';
+        this.isMenuItemNameValid = false;
+      }
+      else{
+        this.menuItemNameErrorInfo = 'Menu item name is required';
+        this.isMenuItemNameValid = false;
+      }
     }else if(regex2.test(this.menuItem.menuItemName) === false){
       this.menuItemNameErrorInfo = 'Menu item name cannot have special characters or numbers.';
       this.isMenuItemNameValid = false;
@@ -341,9 +347,15 @@ export class AppMenuItemsComponent implements AfterViewChecked {
     const regex = /^\S.*[a-zA-Z\s]*$/;
     const regex2 = /\\/;
     if(this.menuItem.menuItemPath === '' || this.menuItem.menuItemPath.trim()==="" || 
-    regex.exec(this.menuItem.menuItemPath)===null){
-      this.menuItemPathErrorInfo = 'Menu item path is required';
-      this.isMenuItemPathValid = false;
+    regex.test(this.menuItem.menuItemPath)===false){
+      if(this.menuItem.menuItemPath.startsWith(" ")){
+        this.menuItemPathErrorInfo = 'Menu item path cannot start with space';
+        this.isMenuItemPathValid = false;
+      }
+      else{
+        this.menuItemPathErrorInfo = 'Menu item path is required';
+        this.isMenuItemPathValid = false;
+      }
     }else if(regex2.test(this.menuItem.menuItemPath)===true){
       this.menuItemPathErrorInfo="Menu item path cannot have backslash (instead use forwardslash)";
       this.isMenuItemPathValid=false;
@@ -365,9 +377,15 @@ export class AppMenuItemsComponent implements AfterViewChecked {
   validateMenuItemDescription(){
     const regex = /^(?!\s)[\s\S]*$/;
     if(this.menuItem.menuItemDescription === '' || this.menuItem.menuItemDescription.trim()==="" || 
-    regex.exec(this.menuItem.menuItemDescription)===null){
-      this.menuItemDescErrorInfo = 'Menu item description is required';
-      this.isMenuItemDescValid = false;
+    regex.test(this.menuItem.menuItemDescription)===false){
+      if(this.menuItem.menuItemDescription.startsWith(" ")){
+        this.menuItemDescErrorInfo = 'Menu item description cannot start with space';
+        this.isMenuItemDescValid = false;
+      }
+      else{
+        this.menuItemDescErrorInfo = 'Menu item description is required';
+        this.isMenuItemDescValid = false;
+      }
     }else if(this.menuItem.menuItemDescription.length < 5){
       this.menuItemDescErrorInfo = 'Menu item description should have minimum of 5 characters.';
       this.isMenuItemDescValid = false;
