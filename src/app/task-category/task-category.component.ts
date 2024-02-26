@@ -317,9 +317,10 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       if(this.taskCategory.taskCategoryTitle.startsWith(" ")){
         this.categoryTitleErrorInfo = 'Task category name cannot start with space.';
       }
-      else
+      else{
       this.categoryTitleErrorInfo = 'Task category name is required.';
       this.isCategoryTitleValid = false;
+      }
     }else if(regex2.test(this.taskCategory.taskCategoryTitle) === false){
       this.categoryTitleErrorInfo = 'Task category name cannot have special characters or numbers.';
       this.isCategoryTitleValid = false;
@@ -345,10 +346,12 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
     regex.test(this.taskCategory.taskCategoryDescription)===false){
       if(this.taskCategory.taskCategoryDescription.startsWith(" ")){
         this.categoryDescErrorInfo = 'Task category description cannot start with space.';
+        this.isCategoryDescValid = false;
       }
-      else
+      else{
       this.categoryDescErrorInfo = 'Task category description is required.';
       this.isCategoryDescValid = false;
+      }
     }else if(this.taskCategory.taskCategoryDescription.length < 5){
       this.categoryDescErrorInfo = 'Task category description should have minimum of 5 characters.';
       this.isCategoryDescValid = false;
