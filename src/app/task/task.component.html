@@ -728,15 +728,21 @@
                                         </td>-->
                                             <td>
                                                 <div>
-                                                    <ng-select [searchable]="true" [clearable]="true" id="taskOwner"
+                                                    <!-- <select id="taskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
-                                                        style="margin-top: 3px;" [(ngModel)]="update_Task.taskOwner"
-                                                        disabled>
-                                                        <ng-option [value]="">Choose</ng-option>
-                                                        <ng-option [value]="emailId"
+                                                        style="margin-top: 3px;color: #999;" [(ngModel)]="update_Task.taskOwner"
+                                                        [disabled]="true">
+                                                        <option [value]="">Choose</option>
+                                                        <option [value]="emailId" [disabled]="true" style="color: #999"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
-                                                        </ng-option>
-                                                    </ng-select>
+                                                        </option>
+                                                    </select> -->
+
+                                                    <input type="text" disabled="true" id="taskOwner"
+                                                    class="form-control" style="width: 312px;"
+                                                    [(ngModel)]="update_Task.taskOwner"
+                                                    name="taskOwner"/>
+                    
                                                 </div>
                                                 <div *ngIf="taskOwnerErrorInfo != ''">
                                                     <span style="padding-top: 20px;"
