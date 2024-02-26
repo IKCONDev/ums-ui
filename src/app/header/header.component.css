@@ -313,8 +313,8 @@ div.circle-container {
   justify-content: center;
   align-items: center;
 }
-
-
-
-
+ #notificationModal .modal-dialog .modal-content{
+  height: 100%;
+  overflow:hidden;
+ }
 
