@@ -152,7 +152,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
     })
   }
 
-  async getUserDetails(){
+  getUserDetails(){
     this.headerService.fetchUserProfile(this.selectedUser).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
@@ -197,8 +197,8 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
 
   actionItemListOfOrganizer: ActionItems[]
   actionItemsCountOforganizer: number = 0;
-  async getActionItemsReportOfUser(selectedUser: string){
-    await this.getUserDetails();
+  getActionItemsReportOfUser(selectedUser: string){
+    this.getUserDetails();
     this.actionItemsReportService.findOrganizedActionItemsReportByUserId(selectedUser).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
@@ -206,7 +206,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
           this.actionItemsCountOforganizer = response.body.length;
           setTimeout(() => {
             this.createActionItemsOfOrganizerReportChart();
-          },400)
+          },700)
         }
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
