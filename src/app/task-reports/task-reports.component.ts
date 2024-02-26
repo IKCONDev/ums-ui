@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 
 import { BatchDetails } from '../model/BatchDetails.model';
@@ -26,7 +26,7 @@ import { EmployeeService } from '../employee/service/employee.service';
   templateUrl: './task-reports.component.html',
   styleUrls: ['./task-reports.component.css']
 })
-export class TaskReportsComponent implements OnInit {
+export class TaskReportsComponent implements OnInit,AfterViewInit {
   reportType: string;
   @Output() title = 'Task Reports'
   batchDetails: BatchDetails[];
@@ -88,6 +88,16 @@ export class TaskReportsComponent implements OnInit {
       this.reportType = param['reportType'];
     })
   }
+  ngAfterViewInit(): void {
+    this.getActiveUsersList();
+    this.getEmployeeAsUserList();
+    this.getDepartments();
+    this.getAllTasksByDepartment();
+    setTimeout(() => {
+      this.createTaskListAllDepartmentChart();
+    }, 500);
+   
+  }
 
   /**
    * 
@@ -115,15 +125,12 @@ export class TaskReportsComponent implements OnInit {
           //get logged in user details
           this.getLoggedInUserDetails(this.loggedInUser);
          //get active users list
-         this.getActiveUsersList();
-         this.getEmployeeAsUserList();
-         this.getDepartments();
-         this.getAllTasksByDepartment();
+       
          this.selectedTaskOwner = this.loggedInUser;
     // if(this.reportType === null){
     //   this.getTasks();
     // }
-    setTimeout(() => {
+    // setTimeout(() => {
       if (this.reportType === 'organized') {
         this.chooseUser();
       }
@@ -140,11 +147,12 @@ export class TaskReportsComponent implements OnInit {
         this.chooseDepartment();
       }
       if (this.reportType === 'all') {
+        console.log("entered to report Type is all")
         this.getAllDepartmentsCount();
         this.getAllDepartmentNames();
         this.createTaskListAllDepartmentChart()
       }
-    }, 400)
+    // }, 400)
         }else{
           this.viewPermission = false;
         }
