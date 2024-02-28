@@ -53,6 +53,7 @@ export class MeetingService {
    * @returns 
    */
   getUserOraganizedMeetingsByUserId(emailId: string, meetingTitleFilter: string, meetingStartDateFilter: string, meetingEndDateFilter: string) {
+   console.log(meetingEndDateFilter)
     if (meetingTitleFilter === '' && meetingStartDateFilter === '' && meetingEndDateFilter === '') {
       return this.http.get<Meeting[]>(`${this.gatewayUrl}/${this.meetingsMicroservicePathUrl}/organized/` + emailId, {
         observe: 'response', headers: new HttpHeaders({

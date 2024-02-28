@@ -650,6 +650,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   numberCountPerPage:number=0;
   reloadPageCount:number;
   attendedMeetingDataLoaded:boolean=false
+  StartDateTimestampUTC:string;
+  endDateTimestampUTC:string;
   getMeetings(tabOpened: string) {
     this.isComponentLoading = true;
     this.displayText = true;
@@ -662,8 +664,28 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (tabOpened === 'OrganizedMeeting') {
       //get user organized meetings
       if (this.selectedReporteeOrganizedMeeting != '') {
+        if(this.organizedMeetingStartDateFilter!=''||this.organizedMeetingEndDateFilter!=''){
+          if(localStorage.getItem('organizedMeetingStartDateFilter')!=''){
+          this.StartDateTimestampUTC = this.datePipe.transform(localStorage.getItem('organizedMeetingStartDateFilter'), 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+         console.log(this.StartDateTimestampUTC)
+          }else{
+            this.StartDateTimestampUTC=''
+          }
+         if(localStorage.getItem('organizedMeetingEndDateFilter')!=''){
+          this.endDateTimestampUTC = this.datePipe.transform(localStorage.getItem('organizedMeetingEndDateFilter'), 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+          console.log(this.endDateTimestampUTC)
+         }
+          else{
+            this.endDateTimestampUTC=''
+          }
+        }
+        else{
+          this.StartDateTimestampUTC='';
+          this.endDateTimestampUTC='';
+        }
+        
         this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting, this.organizedMeetingTitleFilter,
-          this.organizedMeetingStartDateFilter, this.organizedMeetingEndDateFilter).subscribe({
+          this.StartDateTimestampUTC, this.endDateTimestampUTC).subscribe({
             next: (response) => {
               document.getElementById("organizedMeeting").style.borderBottom = '2px solid white';
               document.getElementById("organizedMeeting").style.width = 'fit-content';
@@ -1686,8 +1708,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     let endDateTimestampUTC: string | null = "";
 
     if (startDate != "") {
+      console.log(startDate)
       const StartDateTimestamp = new Date(startDate);
+      console.log(StartDateTimestamp)
       StartDateTimestampUTC = this.datePipe.transform(StartDateTimestamp, 'yyyy-MM-ddTHH:mm:ss', 'UTC');
+      console.log(StartDateTimestampUTC)
     }
 
     if (endDate != "") {
@@ -1699,8 +1724,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.organizedMeetingEndDateFilter = endDate;
 
     localStorage.setItem('organizedMeetingTitleFilter', meetingTitle);
-    localStorage.setItem('organizedMeetingStartDateFilter', StartDateTimestampUTC);
-    localStorage.setItem('organizedMeetingEndDateFilter', endDateTimestampUTC);
+    localStorage.setItem('organizedMeetingStartDateFilter', startDate);
+    localStorage.setItem('organizedMeetingEndDateFilter', endDate);
+    console.log( localStorage.getItem('organizedMeetingStartDateFilter'))
 
     this.meetingsService.getUserOraganizedMeetingsByUserId(this.selectedReporteeOrganizedMeeting,
       this.organizedMeetingTitleFilter,
@@ -1710,7 +1736,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.meetings = response.body;
           this.meetingCount = response.body.length;
           this.closeFilterModal();
-          window.location.reload();
+         // window.location.reload();
         }
       });
 
@@ -1847,7 +1873,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   disableMomButton(meetingId: number) {
     this.itemElements.changes.subscribe(() => {
       const htmlElement = document.getElementById('email'+meetingId);
+      if(htmlElement!=null){
       htmlElement.classList.add("disabled")
+      }
     });
   }
   receiptientsList: string[] = [];
@@ -1931,7 +1959,9 @@ calculateEntriesInfo() {
 allSubCheckboxChecked(meetingId){
   this.itemElements.changes.subscribe(() => {
     const htmlElement = document.getElementById('actionItemMainCheck'+meetingId);
+    if(htmlElement!=null){
     htmlElement.classList.add("disabled")
+    }
   });
 }
 discussionPointErrorInfo : string;
