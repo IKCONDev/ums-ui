@@ -433,6 +433,7 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgContactPersonNumber() {
+    var phoneNmRegez=/^(?=.*\d{4})[0-9()+ -]+$/;
     if (this.org.orgContactPersonNumber === '') {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
@@ -440,11 +441,18 @@ export class OrganizationComponent implements OnInit {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
     }
+    else if(!phoneNmRegez.test(this.org.orgContactPersonNumber)){
+      if(this.org.orgContactPersonNumber.length < 10){
+        this.updatedorgContactPersonNumberErrorInfo = 'Should have minimum of 10 digits.';
+      }else
+      this.updatedorgContactPersonNumberErrorInfo = 'Please enter a valid phone number with allowable special characters such as ( ) + -';
+      this.isUpdateOrgContactPersonNumberValid = false;
+    }
     else if (this.org.orgContactPersonNumber.length < 10) {
       this.updatedorgContactPersonNumberErrorInfo = 'Should have minimum of 10 digits.';
       this.isUpdateOrgContactPersonNumberValid = false;
-    } else if (this.org.orgContactPersonNumber.length > 10) {
-      this.updatedorgContactPersonNumberErrorInfo = 'Should not exceed more than 10 digits.';
+    } else if (this.org.orgContactPersonNumber.length > 20) {
+      this.updatedorgContactPersonNumberErrorInfo = 'Should not exceed more than 20 digits.';
       this.isUpdateOrgContactPersonNumberValid = false;
     } else {
       this.isUpdateOrgContactPersonNumberValid = true;
