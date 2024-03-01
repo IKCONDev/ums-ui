@@ -266,7 +266,7 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
     else if(this.addDepartment.departmentName.length < 3){
       this.departmentNameErrorInfo = 'Department name should have minimum of 3 characters.';
       this.isDepartmentNameValid = false;
-    }else if(this.addDepartment.departmentName.length > 50){
+    }else if(this.addDepartment.departmentName.length > 25){
       this.departmentNameErrorInfo = 'Department name should not exceed more than 50 characters';
       this.isDepartmentNameValid = false;
     }else{

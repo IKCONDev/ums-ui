@@ -617,8 +617,8 @@
                             [(ngModel)]="org.orgCountryCode"  readonly>
                             <input type="text" placeholder="Enter Company Contact Number" *ngIf="isDisable==true"
                                 [(ngModel)]="org.orgContactNumber" class="form-control"
-                                (keyup)="validateOrgContactNumber()" (keydown)="numberValidation($event)" minlength="10"
-                                maxlength="11">
+                                (keyup)="validateOrgContactNumber()"  minlength="10"
+                                maxlength="21">
                         </div>
                         <span *ngIf="updatedOrgContactNumberErrorInfo!= ''">
                             <p id="errorMessage">{{updatedOrgContactNumberErrorInfo}}</p>

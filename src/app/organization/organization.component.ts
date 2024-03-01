@@ -494,6 +494,7 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgContactNumber() {
+    var phoneNmRegez=/^(?=.*\d{4})[0-9() -]+$/;
     if (this.org.orgContactNumber === '') {
       this.updatedOrgContactNumberErrorInfo = '';
       this.isupdatedOrgContactNumberValid = true;
@@ -501,12 +502,19 @@ export class OrganizationComponent implements OnInit {
       this.updatedOrgContactNumberErrorInfo = '';
       this.isupdatedOrgContactNumberValid = true;
     }
+    else if(!phoneNmRegez.test(this.org.orgContactNumber)){
+      if(this.org.orgContactNumber.length < 10){
+        this.updatedOrgContactNumberErrorInfo = 'Should have minimum of 10 digits.';
+      }else
+      this.updatedOrgContactNumberErrorInfo = 'Please enter a valid phone number with allowable special characters such as ( ) -';
+      this.isupdatedOrgContactNumberValid = false;
+    }
     else if (this.org.orgContactNumber.length < 10) {
       this.isupdatedOrgContactNumberValid = false;
       this.updatedOrgContactNumberErrorInfo = 'Minimum of 10 digits is required.';
-    } else if (this.org.orgContactNumber.length > 10) {
+    } else if (this.org.orgContactNumber.length > 20) {
       this.isupdatedOrgContactNumberValid = false;
-      this.updatedOrgContactNumberErrorInfo = 'Should not exceed more than 10 digits.';
+      this.updatedOrgContactNumberErrorInfo = 'Should not exceed more than 20 digits.';
     } else {
       this.isupdatedOrgContactNumberValid = true;
       this.updatedOrgContactNumberErrorInfo = '';
@@ -622,16 +630,16 @@ export class OrganizationComponent implements OnInit {
     }
     return this.isUpdateCompanyEmailValid;
   }
-  numberValidation(event: KeyboardEvent) {
-    const invalidChars = ['+', '-', '.', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-      'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-      'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    var specials = /[^a-zA-Z0-9\s]/g;//matches with all special character
-    const inputElement = event.target as HTMLInputElement;
-    if (invalidChars.includes(event.key) || specials.test(event.key) || (inputElement.value.length == 10 && event.key != 'Backspace') || event.keyCode === 40 || event.keyCode === 38) {
-      event.preventDefault();
-    }
-  }
+  // numberValidation(event: KeyboardEvent) {
+  //   const invalidChars = ['+', '-', '.', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+  //     'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+  //     'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+  //   var specials = /[^a-zA-Z0-9\s]/g;//matches with all special character
+  //   const inputElement = event.target as HTMLInputElement;
+  //   if (invalidChars.includes(event.key) || specials.test(event.key) || (inputElement.value.length == 10 && event.key != 'Backspace') || event.keyCode === 40 || event.keyCode === 38) {
+  //     event.preventDefault();
+  //   }
+  // }
   selectedOrgPic: Blob;
   onFileChanged(event: any) {
     if (this.org.orgAddress === null && this.org.orgName === null) {
