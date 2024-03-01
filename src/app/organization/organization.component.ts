@@ -402,15 +402,15 @@ export class OrganizationComponent implements OnInit {
    */
   validateOrgContactPersonNameFunction() {
     //regex for only letters
-    const regex =/^[a-zA-Z]+$/;
+    const regex = /^[a-zA-Z\s\.]+$/;
     if (this.org.orgContactPersonName === '' || this.org.orgContactPersonName === null) {
       this.isUpdateOrgContactPersonNameValid = true;
       this.updatedorgContactPersonNameErrorInfo = '';
     } else if (this.org.orgContactPersonName.trim() === "" || regex.test(this.org.orgContactPersonName) === false) {
       if(this.org.orgContactPersonName.startsWith(" ")){
-        this.updatedorgContactPersonNameErrorInfo = "Organisation Contact person name cannot start with space" ;
+        this.updatedorgContactPersonNameErrorInfo = "Organisation contact person name cannot start with space" ;
       }else
-      this.updatedorgContactPersonNameErrorInfo = 'Organisation Contact person name required.';
+      this.updatedorgContactPersonNameErrorInfo = 'Organisation contact person name required.';
       this.isUpdateOrgContactPersonNameValid = false; 
     }
     else if (this.org.orgContactPersonName.length < 3) {
