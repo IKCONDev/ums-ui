@@ -179,9 +179,9 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
     // }
     if(isNameValid === true){
     //set createdBy
-    this.addDesignation.designationName = this.transformToTitleCase(this.addDesignation.designationName);
+    // this.addDesignation.designationName = this.transformToTitleCase(this.addDesignation.designationName);
 
-    this.addDesignation.createdBy =this.transformToTitleCase( localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
+    this.addDesignation.createdBy =localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     this.addDesignation.createdByEmailId = localStorage.getItem('email');
     this.designationService.createDesignation(this.addDesignation).subscribe({
       next: (response)=> {
@@ -217,16 +217,16 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
   validateDesignationName(){
    // var deptName=  event.target.value;
    const regex = /^\S.*[a-zA-Z\s]*$/;
-   const regex2=/^[A-Za-z ]+$/;
+  //  const regex2=/^[A-Za-z ]+$/;
     if(this.addDesignation.designationName === '' || this.addDesignation.designationName.trim()==="" || regex.test(this.addDesignation.designationName)===false){
       if(this.addDesignation.designationName.startsWith(" ")){
         this.designationNameErrorInfo = 'Designation name cannot start with space.';
       }else
       this.designationNameErrorInfo = 'Designation name is required.';
       this.isDesignationNameValid = false;
-    }else if(regex2.test(this.addDesignation.designationName) === false){
-      this.designationNameErrorInfo = 'Designation name cannot have special characters or numbers.';
-      this.isDesignationNameValid = false;
+    // }else if(regex2.test(this.addDesignation.designationName) === false){
+    //   this.designationNameErrorInfo = 'Designation name cannot have special characters or numbers.';
+    //   this.isDesignationNameValid = false;
      }
     else if(this.addDesignation.designationName.length < 5){
       this.designationNameErrorInfo = 'Designation name should have minimum of 5 characters.';
@@ -329,10 +329,10 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
     // }
     if(isNameValid === true){
     
-    this.existingDesignation.designationName = this.transformToTitleCase(this.existingDesignation.designationName);
-    this.existingDesignation.createdBy = this.transformToTitleCase(this.existingDesignation.createdBy);
+    // this.existingDesignation.designationName = this.transformToTitleCase(this.existingDesignation.designationName);
+    // this.existingDesignation.createdBy = this.transformToTitleCase(this.existingDesignation.createdBy);
 
-    this.existingDesignation.modifiedBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
+    this.existingDesignation.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     this.designationService.updateDesignation(this.existingDesignation).subscribe({
       next: (response) => {
         if(response.status === HttpStatusCode.PartialContent){
@@ -363,16 +363,16 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
   validateUpdatedDesignationName(){
     // var deptName=  event.target.value;
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/^[A-Za-z ]+$/;
+    // const regex2=/^[A-Za-z ]+$/;
      if(this.existingDesignation.designationName === '' || this.existingDesignation.designationName.trim()==="" || regex.test(this.existingDesignation.designationName)===false){
       if(this.existingDesignation.designationName.startsWith(" ")){
         this.updatedDesignationNameErrorInfo = 'Designation name cannot start with space.';
       }else
        this.updatedDesignationNameErrorInfo = 'Designation name is required.';
        this.isUpdatedDesignationNameValid = false;
-     }else if(regex2.test(this.existingDesignation.designationName) === false){
-      this.updatedDesignationNameErrorInfo = 'Designation name cannot have special characters or numbers.';
-      this.isUpdatedDesignationNameValid = false;
+    //  }else if(regex2.test(this.existingDesignation.designationName) === false){
+    //   this.updatedDesignationNameErrorInfo = 'Designation name cannot have special characters or numbers.';
+    //   this.isUpdatedDesignationNameValid = false;
      }
      else if(this.existingDesignation.designationName.length < 5){
        this.updatedDesignationNameErrorInfo = 'Designation name should have minimum of 5 characters.';
@@ -475,14 +475,14 @@ export class DesignationComponent implements OnInit, OnDestroy, AfterViewChecked
     $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
 
-  transformToTitleCase(text: string | undefined | null): string {
-    if (!text) {
-      return ''; // Or handle null/undefined case appropriately
-    }
-    return text.toLowerCase().split(' ').map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join(' ');
-  }
+  // transformToTitleCase(text: string | undefined | null): string {
+  //   if (!text) {
+  //     return ''; // Or handle null/undefined case appropriately
+  //   }
+  //   return text.toLowerCase().split(' ').map(word => {
+  //     return word.charAt(0).toUpperCase() + word.slice(1);
+  //   }).join(' ');
+  // }
 
   currentMenuItem: MenuItem;
   async getCurrentMenuItemDetails() : Promise<MenuItem> {

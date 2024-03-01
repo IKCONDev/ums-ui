@@ -131,7 +131,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Department Name</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Name"
+                <input type="text" class="deptInput form-control" placeholder="Department Name"
                     [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName()" minlength="3"
                     maxlength="51" /><br />
                 <span *ngIf="departmentNameErrorInfo != ''">
@@ -148,17 +148,17 @@
                 </span>
                 <!--  -->
                 <label><b>Department Code</b><span id="required">*</span></label>
-                <input type="text"  id="departmentCode" style="text-transform: uppercase;" class="deptInput form-control" placeholder="Department Code"
+                <input type="text"  id="departmentCode" class="deptInput form-control" placeholder="Department Code"
                     [(ngModel)]="addDepartment.departmentCode" (keyup)="validateDepartmentCode()" minlength="1"
-                    maxlength="11" /><br />
+                    maxlength="16" /><br />
                 <span *ngIf="departmentCodeErrorInfo != ''">
                     <p id="errorMessage">{{departmentCodeErrorInfo}}</p>
                 </span>
                 <!--  -->
                 <label><b>Department Location</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Location"
+                <input type="text" class="deptInput form-control" placeholder="Department Location"
                     [(ngModel)]="addDepartment.departmentAddress" (keyup)="validateDepartmentLocation()" minlength="3"
-                    maxlength="21" /><br>
+                    maxlength="26" /><br>
                 <span *ngIf="departmentLocationErrorInfo != ''">
                     <p id="errorMessage">{{departmentLocationErrorInfo}}</p>
                 </span>
@@ -193,7 +193,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <label><b>Department Name</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Name"
+                <input type="text" class="deptInput form-control" placeholder="Department Name"
                     [(ngModel)]="existingDepartment.departmentName" (keyup)="validateUpdatedDepartmentName()"
                     minlength="3" maxlength="51" /><br />
                 <span *ngIf="updatedDepartmentNameErrorInfo != ''">
@@ -211,17 +211,17 @@
                 </span>
                 <!--  -->
                 <label><b>Department Code</b><span id="required">*</span></label>
-                <input type="text" id="departmentCode" style="text-transform: uppercase;" class="deptInput form-control" placeholder="Department Code"
+                <input type="text" id="departmentCode" class="deptInput form-control" placeholder="Department Code"
                     [(ngModel)]="existingDepartment.departmentCode" (keyup)="validateUpdatedDepartmentCode()"
-                    minlength="1" maxlength="11" /><br />
+                    minlength="1" maxlength="16" /><br />
                 <span *ngIf="updatedDepartmentCodeErrorInfo != ''">
                     <p id="errorMessage">{{updatedDepartmentCodeErrorInfo}}</p>
                 </span>
                 <!--  -->
                 <label><b>Department Location</b><span id="required">*</span></label>
-                <input type="text" style="text-transform: capitalize;" class="deptInput form-control" placeholder="Department Location"
+                <input type="text" class="deptInput form-control" placeholder="Department Location"
                     [(ngModel)]="existingDepartment.departmentAddress" (keyup)="validateUpdatedDepartmentLocation()"
-                    minlength="3" maxlength="21" />
+                    minlength="3" maxlength="26" />
                 <span *ngIf="updatedDepartmentLocationErrorInfo != ''">
                     <p id="errorMessage">{{updatedDepartmentLocationErrorInfo}}</p>
                 </span>
