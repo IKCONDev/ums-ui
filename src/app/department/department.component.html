@@ -133,7 +133,7 @@
                 <label><b>Department Name</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="Department Name"
                     [(ngModel)]="addDepartment.departmentName" (keyup)="validateDepartmentName()" minlength="3"
-                    maxlength="26" /><br />
+                    maxlength="31" /><br />
                 <span *ngIf="departmentNameErrorInfo != ''">
                     <p id="errorMessage">{{departmentNameErrorInfo}}</p>
                 </span>
@@ -195,7 +195,7 @@
                 <label><b>Department Name</b><span id="required">*</span></label>
                 <input type="text" class="deptInput form-control" placeholder="Department Name"
                     [(ngModel)]="existingDepartment.departmentName" (keyup)="validateUpdatedDepartmentName()"
-                    minlength="3" maxlength="51" /><br />
+                    minlength="3" maxlength="31" /><br />
                 <span *ngIf="updatedDepartmentNameErrorInfo != ''">
                     <p id="errorMessage">{{updatedDepartmentNameErrorInfo}}</p>
                 </span>

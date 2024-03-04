@@ -266,8 +266,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
     else if(this.addDepartment.departmentName.length < 3){
       this.departmentNameErrorInfo = 'Department name should have minimum of 3 characters.';
       this.isDepartmentNameValid = false;
-    }else if(this.addDepartment.departmentName.length > 25){
-      this.departmentNameErrorInfo = 'Department name should not exceed more than 50 characters';
+    }else if(this.addDepartment.departmentName.length > 30){
+      this.departmentNameErrorInfo = 'Department name should not exceed more than 30 characters';
       this.isDepartmentNameValid = false;
     }else{
       this.isDepartmentNameValid = true;
@@ -532,8 +532,8 @@ export class DepartmentComponent implements OnInit, OnDestroy, AfterViewChecked 
      else if(this.existingDepartment.departmentName.length < 3){
        this.updatedDepartmentNameErrorInfo = 'Department name should have minimum of 3 characters.';
        this.isUpdatedDepartmentNameValid = false;
-     }else if(this.existingDepartment.departmentName.length > 50){
-       this.updatedDepartmentNameErrorInfo = 'Department name should not exceed more than 50 characters.';
+     }else if(this.existingDepartment.departmentName.length > 30){
+       this.updatedDepartmentNameErrorInfo = 'Department name should not exceed more than 30 characters.';
        this.isUpdatedDepartmentNameValid = false;
      }else{
        this.isUpdatedDepartmentNameValid = true;
