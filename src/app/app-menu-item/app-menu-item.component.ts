@@ -241,7 +241,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
       isMenuItemPathValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true && isMenuItemPathValid === true){
-      menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
+      // menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
       menuItem.modifiedByEmailId = this.loggedInUser;
       menuItem.modifiedBy = this.loggedInUserFullName;
       this.menuItemService.updateMenuItem(menuItem).subscribe({
@@ -283,7 +283,7 @@ export class AppMenuItemsComponent implements AfterViewChecked {
       isMenuItemPathValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true && isMenuItemPathValid === true){
-      menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
+      // menuItem.menuItemName=this.transformToTitleCase(this.menuItem.menuItemName);
       menuItem.createdByEmailId = this.loggedInUser;
       menuItem.createdBy = this.loggedInUserFullName;
       this.menuItemService.createMenuItem(menuItem).subscribe({
@@ -438,11 +438,11 @@ export class AppMenuItemsComponent implements AfterViewChecked {
     }
   }
 
-  transformToTitleCase(text: string): string {
-    return text.toLowerCase().split(' ').map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join(' ');
-  }
+  // transformToTitleCase(text: string): string {
+  //   return text.toLowerCase().split(' ').map(word => {
+  //     return word.charAt(0).toUpperCase() + word.slice(1);
+  //   }).join(' ');
+  // }
 
   currentMenuItem: MenuItem;
   async getCurrentMenuItemDetails() : Promise<MenuItem> {

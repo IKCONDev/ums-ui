@@ -289,7 +289,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
     //if no form errors submit the form
     if (isNameValid && isPermissionValid) {
       this.addRoleObj.roleName=this.addRoleObj.roleName.toUpperCase();
-      this.addRoleObj.createdBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName')); 
+      this.addRoleObj.createdBy =localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'); 
       this.addRoleObj.createdByEmailId = localStorage.getItem('email');
       this.roleService.createRole(this.addRoleObj).subscribe({
         next: (response) => {
@@ -336,7 +336,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
       //if no errors in form, allow to submit
     if(isNameValid && isPermissionValid){
     this.existingRole.roleName=this.existingRole.roleName.toUpperCase();
-    this.existingRole.modifiedBy =this.transformToTitleCase(localStorage.getItem('firstName')+' '+localStorage.getItem('lastName'));
+    this.existingRole.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
     this.existingRole.modifiedByEmailId = localStorage.getItem('email');
     //this.updatedRole.modifiedDateTime = new Date(Date.now)
     this.roleService.updateRole(this.existingRole).subscribe({
@@ -527,11 +527,11 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
     $('#mainCheckBox').prop('checked', !anyUnchecked);
   }
 
-  transformToTitleCase(text: string): string {
-    return text.toLowerCase().split(' ').map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join(' ');
-  }
+  // transformToTitleCase(text: string): string {
+  //   return text.toLowerCase().split(' ').map(word => {
+  //     return word.charAt(0).toUpperCase() + word.slice(1);
+  //   }).join(' ');
+  // }
 
   currentMenuItem: MenuItem;
   async getCurrentMenuItemDetails() : Promise<MenuItem> {

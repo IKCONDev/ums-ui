@@ -236,10 +236,10 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
      isDescriptionValid = valid;
     }
     if(isTitleValid === true && isDescriptionValid === true){
-      taskCategory.taskCategoryTitle=this.transformToTitleCase(this.taskCategory.taskCategoryTitle);
+      // taskCategory.taskCategoryTitle=this.transformToTitleCase(this.taskCategory.taskCategoryTitle);
       
       taskCategory.modifiedByEmailId = this.loggedInUser;
-      taskCategory.modifiedBy = this.transformToTitleCase(this.loggedInUserFullName);
+      // taskCategory.modifiedBy = this.transformToTitleCase(this.loggedInUserFullName);
       this.taskCategoryService.updateTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
@@ -279,10 +279,10 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
     }
     if(isTitleValid === true && isDescriptionValid === true){
 
-      taskCategory.taskCategoryTitle=this.transformToTitleCase(this.taskCategory.taskCategoryTitle);
+      // taskCategory.taskCategoryTitle=this.transformToTitleCase(this.taskCategory.taskCategoryTitle);
 
       taskCategory.createdByEmailId = this.loggedInUser;
-      taskCategory.createdBy = this.transformToTitleCase(this.loggedInUserFullName);
+      // taskCategory.createdBy = this.transformToTitleCase(this.loggedInUserFullName);
       this.taskCategoryService.createTaskCategory(taskCategory).subscribe({
         next: response => {
           if(response.status === HttpStatusCode.Created){
@@ -401,11 +401,11 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
     }
   }
 
-  transformToTitleCase(text: string): string {
-    return text.toLowerCase().split(' ').map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join(' ');
-  }
+  // transformToTitleCase(text: string): string {
+  //   return text.toLowerCase().split(' ').map(word => {
+  //     return word.charAt(0).toUpperCase() + word.slice(1);
+  //   }).join(' ');
+  // }
 
   currentMenuItem: MenuItem;
   async getCurrentMenuItemDetails() : Promise<MenuItem> {

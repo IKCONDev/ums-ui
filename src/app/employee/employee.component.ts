@@ -254,11 +254,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (isFirstNameValid == true && isLastNameValid == true && isGenderValid == true
       && isEmailIdValid == true && isReportingManagerValid == true
       && isDepartmentValid == true && isDesignationValid == true && isEmployeeID == true && isDateofJoining == true) {
-      this.addEmployee.firstName = this.transformToTitleCase(this.addEmployee.firstName);
-      this.addEmployee.lastName = this.transformToTitleCase(this.addEmployee.lastName);
+      // this.addEmployee.firstName = this.transformToTitleCase(this.addEmployee.firstName);
+      // this.addEmployee.lastName = this.transformToTitleCase(this.addEmployee.lastName);
       this.addEmployee.employeeOrgId = this.addEmployee.employeeOrgId.toUpperCase();
       this.addEmployee.email = this.addEmployee.email.toLowerCase();
-      this.addEmployee.createdBy = this.transformToTitleCase(localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'));
+      this.addEmployee.createdBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       this.addEmployee.createdByEmailId = localStorage.getItem('email').toLowerCase();
       this.employeeservice.createEmployee(this.addEmployee).subscribe({
         next: response => {
@@ -472,8 +472,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
       && isLastNameValid == true && isDepartmentValid == true && isGenderValid == true &&
       isDesignationValid == true && isDateofJoiningValid == true && isEmployeeIDValid == true) {
 
-      this.existingEmployee.firstName = this.transformToTitleCase(this.existingEmployee.firstName);
-      this.existingEmployee.lastName = this.transformToTitleCase(this.existingEmployee.lastName);
+      // this.existingEmployee.firstName = this.transformToTitleCase(this.existingEmployee.firstName);
+      // this.existingEmployee.lastName = this.transformToTitleCase(this.existingEmployee.lastName);
       this.existingEmployee.employeeOrgId = this.existingEmployee.employeeOrgId.toUpperCase();
 
       this.existingEmployee.modifiedBy = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
@@ -1096,11 +1096,11 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     datePicker.setAttribute('max', maxDate.toISOString().split('T')[0]);
   }
 
-  transformToTitleCase(text: string): string {
-    return text.toLowerCase().split(' ').map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join(' ');
-  }
+  // transformToTitleCase(text: string): string {
+  //   return text.toLowerCase().split(' ').map(word => {
+  //     return word.charAt(0).toUpperCase() + word.slice(1);
+  //   }).join(' ');
+  // }
 
   currentMenuItem: MenuItem;
   async getCurrentMenuItemDetails(): Promise<MenuItem> {
