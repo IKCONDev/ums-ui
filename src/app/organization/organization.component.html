@@ -175,7 +175,7 @@
                         style="padding-bottom: 12px;">{{org.contactCountryCode}} {{org.orgContactPersonNumber}}</label>
                      <div  class="numberFieldFormat row">  
                             <div class="countryCode col-sm-3 "> 
-                                <select *ngIf="isDisable==true" placeholder="select country code" id="selectAdjust" [(ngModel)]="org.contactCountryCode"
+                                <select *ngIf="isDisable==true" placeholder="select country code" id="selectAdjust" [(ngModel)]="org.contactCountryCode" (change)="validateOrgContactPersonNumber()"
                                 class="form-control">
                                 <option value="+93">AFG</option> <!-- Afghanistan -->
                                 <option value="+355">ALB</option> <!-- Albania -->
@@ -526,7 +526,7 @@
                         </div>
                         <div>
                             <select *ngIf="isDisable==true" [(ngModel)]="org.orgCountry" id="country-dropdown"
-                                (change)="viewCountryCode()" class="form-select" (keyup)="validateOrgCountry()"
+                                (change)="viewCountryCode()" class="form-select" (keyup)="validateOrgCountry()"(change)="validateOrgContactNumber()"
                                 placeholder="Choose Country">
                                 <span *ngIf="updatedOrgCountryErrorInfo!= ''">
                                     <p id="errorMessage">{{updatedOrgCountryErrorInfo}}</p>
