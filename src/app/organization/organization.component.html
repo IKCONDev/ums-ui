@@ -426,7 +426,7 @@
                                 <option value="+263">ZWE</option> <!-- Zimbabwe -->                                
                                 </select>
                             </div> 
-                            <div class="mobileNumber col-sm-9">
+                            <div class="mobileNumber col-sm-9" style="padding-left:0;">
                                 <input type="text" placeholder="Enter Contact Number" 
                                     [(ngModel)]="org.orgContactPersonNumber" *ngIf="isDisable==true" minlength="10" maxlength="21"
                                     (keyup)="validateOrgContactPersonNumber()"
