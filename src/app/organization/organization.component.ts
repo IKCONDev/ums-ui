@@ -267,6 +267,14 @@ export class OrganizationComponent implements OnInit {
     if (isOrgNameValid === true && isWebsiteNameValid === true && isOrgFunctionValid === true && isOrgContactPersonNameValid === true &&
       isOrgContactPersonNumberValid === true && isOrgAddressValid === true && isOrgCountryValid === true && isOrgContactNumberValid === true
       && isOrgContactPersonEmailValid === true && isOrgSuperAdminEmailValid === true && isCompanyEmailValid === true) {
+      if(this.org.orgCountryCode==="+1"&&!this.org.orgContactNumber.includes("(")&&!(this.org.orgContactNumber==='')){
+        const formatted = `(${this.org.orgContactNumber.slice(0, 3)}) ${this.org.orgContactNumber.slice(3, 6)}-${this.org.orgContactNumber.slice(6)}`;
+        this.org.orgContactNumber=formatted;
+      }
+      if(this.org.contactCountryCode==="+1"&&!this.org.orgContactPersonNumber.includes("(")&&!(this.org.orgContactPersonNumber==="")){
+        const formatted = `(${this.org.orgContactPersonNumber.slice(0, 3)}) ${this.org.orgContactPersonNumber.slice(3, 6)}-${this.org.orgContactPersonNumber.slice(6)}`;
+        this.org.orgContactPersonNumber=formatted;
+      }
       this.isDisable = false;
       localStorage.setItem('countryCode', this.countryCode)
       if (this.org.orgId === null) {
@@ -433,7 +441,10 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgContactPersonNumber() {
-    var phoneNmRegez=/^(?=.*\d{4})[0-9()+ -]+$/;
+    var phoneNmRegez = /^\d+$/;
+    if(this.org.orgContactPersonNumber.includes("(")){
+      this.org.orgContactPersonNumber=this.org.orgContactPersonNumber.replaceAll(/\s|\(|\)|-/g,"")
+    }
     if (this.org.orgContactPersonNumber === '') {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
@@ -441,24 +452,29 @@ export class OrganizationComponent implements OnInit {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
     }
-    else if(!phoneNmRegez.test(this.org.orgContactPersonNumber)){
+   if(phoneNmRegez.test(this.org.orgContactPersonNumber)){
       if(this.org.orgContactPersonNumber.length < 10){
         this.updatedorgContactPersonNumberErrorInfo = 'Should have minimum of 10 digits.';
-      }else
-      this.updatedorgContactPersonNumberErrorInfo = 'Please enter a valid phone number with allowable special characters such as ( ) + -';
-      this.isUpdateOrgContactPersonNumberValid = false;
-    }
-    else if (this.org.orgContactPersonNumber.length < 10) {
-      this.updatedorgContactPersonNumberErrorInfo = 'Should have minimum of 10 digits.';
-      this.isUpdateOrgContactPersonNumberValid = false;
-    } else if (this.org.orgContactPersonNumber.length > 20) {
+        this.isUpdateOrgContactPersonNumberValid = false;
+      }
+     else if (this.org.orgContactPersonNumber.length > 20) {
       this.updatedorgContactPersonNumberErrorInfo = 'Should not exceed more than 20 digits.';
       this.isUpdateOrgContactPersonNumberValid = false;
     } else {
       this.isUpdateOrgContactPersonNumberValid = true;
       this.updatedorgContactPersonNumberErrorInfo = '';
     }
-    return this.isUpdateOrgContactPersonNumberValid;
+     
+  }else{
+    if(this.org.orgContactPersonNumber===''){
+      this.isUpdateOrgContactPersonNumberValid = true;
+      this.updatedorgContactPersonNumberErrorInfo = '';
+    }else{  
+      this.updatedorgContactPersonNumberErrorInfo = 'Enter only numbers';
+      this.isUpdateOrgContactPersonNumberValid = false;
+    }
+  }
+  return this.isUpdateOrgContactPersonNumberValid;
   }
 
   /**
@@ -494,7 +510,7 @@ export class OrganizationComponent implements OnInit {
    * @returns 
    */
   validateOrgContactNumber() {
-    var phoneNmRegez=/^(?=.*\d{4})[0-9() -]+$/;
+    var phoneNmRegez = /^\d+$/;
     if (this.org.orgContactNumber === '') {
       this.updatedOrgContactNumberErrorInfo = '';
       this.isupdatedOrgContactNumberValid = true;
@@ -502,25 +518,34 @@ export class OrganizationComponent implements OnInit {
       this.updatedOrgContactNumberErrorInfo = '';
       this.isupdatedOrgContactNumberValid = true;
     }
-    else if(!phoneNmRegez.test(this.org.orgContactNumber)){
+    if(this.org.orgContactNumber.includes("(")){
+      this.org.orgContactNumber=this.org.orgContactNumber.replaceAll(/\s|\(|\)|-/g,"")
+    }
+     if(phoneNmRegez.test(this.org.orgContactNumber)){
       if(this.org.orgContactNumber.length < 10){
         this.updatedOrgContactNumberErrorInfo = 'Should have minimum of 10 digits.';
-      }else
-      this.updatedOrgContactNumberErrorInfo = 'Please enter a valid phone number with allowable special characters such as ( ) -';
-      this.isupdatedOrgContactNumberValid = false;
-    }
-    else if (this.org.orgContactNumber.length < 10) {
-      this.isupdatedOrgContactNumberValid = false;
-      this.updatedOrgContactNumberErrorInfo = 'Minimum of 10 digits is required.';
-    } else if (this.org.orgContactNumber.length > 20) {
+      }
+     else if (this.org.orgContactNumber.length > 20) {
       this.isupdatedOrgContactNumberValid = false;
       this.updatedOrgContactNumberErrorInfo = 'Should not exceed more than 20 digits.';
     } else {
       this.isupdatedOrgContactNumberValid = true;
       this.updatedOrgContactNumberErrorInfo = '';
     }
-    return this.isupdatedOrgContactNumberValid;
+    
   }
+  else{
+    if(this.org.orgContactNumber===''){
+      this.isupdatedOrgContactNumberValid = true;
+      this.updatedOrgContactNumberErrorInfo = '';
+    }
+    else{
+    this.updatedOrgContactNumberErrorInfo = 'Enter only numbers';
+    this.isupdatedOrgContactNumberValid = false;
+    }
+  }
+  return this.isupdatedOrgContactNumberValid;
+}
 
 
   /**

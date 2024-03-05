@@ -22,4 +22,5 @@ export class Organization{
 	 modifiedByEmailId : string;
 	 organizationImage:Blob;
 	 orgCountryCode:string;
+	 contactCountryCode:string;
 }

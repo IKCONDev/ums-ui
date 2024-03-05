@@ -242,3 +242,9 @@ input[type='file'] {
   display: flex;
   flex-direction: row;
 }
+
+.numberFieldFormat{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
