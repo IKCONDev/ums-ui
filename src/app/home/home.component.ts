@@ -342,7 +342,8 @@ export class HomeComponent implements OnInit {
       const startDate = new Date(currentDate);
       startDate.setDate(currentDate.getDate() - currentDate.getDay())
       const endDate = new Date();
-      endDate.setDate(endDate.getDate() + 6);
+      endDate.setDate(startDate.getDate() + 6);//end of the week
+      endDate.setHours(23, 59, 59, 999);//end of the day
       this.homeService.fetchStatusforWeek(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
         next: response => {
           this.TotalTasks = response.body;
