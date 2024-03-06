@@ -267,9 +267,15 @@ export class OrganizationComponent implements OnInit {
     if (isOrgNameValid === true && isWebsiteNameValid === true && isOrgFunctionValid === true && isOrgContactPersonNameValid === true &&
       isOrgContactPersonNumberValid === true && isOrgAddressValid === true && isOrgCountryValid === true && isOrgContactNumberValid === true
       && isOrgContactPersonEmailValid === true && isOrgSuperAdminEmailValid === true && isCompanyEmailValid === true) {
+        if(this.org.orgCountryCode!=''&&this.org.orgContactNumber===''){
+          this.org.orgCountryCode=''
+        }
       if(this.org.orgCountryCode==="+1"&&!this.org.orgContactNumber.includes("(")&&!(this.org.orgContactNumber==='')){
         const formatted = `(${this.org.orgContactNumber.slice(0, 3)}) ${this.org.orgContactNumber.slice(3, 6)}-${this.org.orgContactNumber.slice(6)}`;
         this.org.orgContactNumber=formatted;
+      }
+      if(this.org.contactCountryCode!=''&&this.org.orgContactPersonNumber===''){
+        this.org.contactCountryCode=''
       }
       if(this.org.contactCountryCode==="+1"&&!this.org.orgContactPersonNumber.includes("(")&&!(this.org.orgContactPersonNumber==="")){
         const formatted = `(${this.org.orgContactPersonNumber.slice(0, 3)}) ${this.org.orgContactPersonNumber.slice(3, 6)}-${this.org.orgContactPersonNumber.slice(6)}`;
