@@ -255,7 +255,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
           if(response.status === HttpStatusCode.Ok){
            this.employeeStatus = response.body.employeeStatus;
             if(this.employeeStatus === 'InActive'){
-              this.toastr.warning("Please change this employee status to 'Active' ");
+              this.toastr.warning("Please change this employee status to 'Active' in the 'Employee profiles' page");
             }else{
               user.active = true;
               user.loginAttempts = 0;
