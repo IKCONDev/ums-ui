@@ -3,4 +3,5 @@ export class CronDetails{
 	cronTime: string = '';
 	hour: string = '';
     minute: string = '';
+    modifiedBy: string = '';
 }
