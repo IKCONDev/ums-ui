@@ -273,3 +273,19 @@ table.dataTable tbody th, table.dataTable tbody td {
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
+/* .ng-select {
+  
+} */
+:host ::ng-deep .ng-select {
+  border: 1px solid #2AA3D9!important;
+  border-radius: 5px!important;
+  height: 50px !important;
+}
+
+:host ::ng-deep .ng-select.ng-select-single .ng-select-container {
+  min-height: 48.5px !important;
+}
+
+:host ::ng-deep .ng-select .ng-select-container {
+  height: 48.5px !important;
+}
