@@ -211,6 +211,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
 
+  employeeStatus: string;
   checkToggleButton(user: Users, i: number) {
 
     var table = document.getElementById("myTable")
@@ -221,7 +222,6 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
       //var checkbox = row.querySelector("input[type='checkbox']") as HTMLInputElement;
       var checkbox = document.getElementById('slider' + i) as HTMLInputElement;
       if (checkbox.checked == true) {
-
         user.active = true;
 
       }
@@ -238,7 +238,6 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
    * @param i 
    */
   checkUserTogglebuttonEnabled(user: Users, i: number) {
-
     //var table = document.getElementById('myTable');
     // var rows = table.getElementsByTagName("tr");
     var checkbox = document.getElementById('slider' + i) as HTMLInputElement
@@ -248,14 +247,30 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.userDetails = res.body;
       })
       localStorage.setItem('slider', 'false')
+      var sliderState = localStorage.getItem('slider');
     }
     else {
-      user.active = true;
-      user.loginAttempts = 0;
-      this.userService.update(user).subscribe(res => {
-        this.userDetails = res.body;
+      this.employeeservice.getEmployee(user.email).subscribe({
+        next: response => {
+          if(response.status === HttpStatusCode.Ok){
+           this.employeeStatus = response.body.employeeStatus;
+            if(this.employeeStatus === 'InActive'){
+              this.toastr.warning("Please change this employee status to 'Active' ");
+            }else{
+              user.active = true;
+              user.loginAttempts = 0;
+              this.userService.update(user).subscribe(res => {
+                this.userDetails = res.body;
+              })
+            }
+          }
+        },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout');
+          }
+        }
       })
-
+      checkbox.checked = false;
     }
   }
 

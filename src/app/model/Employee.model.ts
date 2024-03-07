@@ -26,4 +26,6 @@ export class Employee{
     user: boolean;
     dateOfJoining:Date;
     reportingManagerName: string;
+    employeeStatus : string;
+
 }

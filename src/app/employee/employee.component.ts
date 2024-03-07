@@ -49,6 +49,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     createdByEmailId: '',
     modifiedByEmailId: '',
     dateOfJoining: '',
+    employeeStatus : ''
+
   }
 
   employeeData: Employee[];
@@ -315,7 +317,8 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     modifiedBy: '',
     createdByEmailId: '',
     modifiedByEmailId: '',
-    dateOfJoining: ''
+    dateOfJoining: '',
+    employeeStatus : ''
   }
 
   /**
