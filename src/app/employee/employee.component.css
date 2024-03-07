@@ -244,11 +244,11 @@ table.dataTable tbody th, table.dataTable tbody td {
   padding: 4px 0;
   position: absolute;
   z-index: 1;
-  top:109%;
+  top:180%;
   left: 20%;
   margin: -80;
-  margin-left: -44px;
-  backdrop-filter: blur(14); 
+  margin-left: -367px;
+  backdrop-filter: blur(4); 
   background-color:rgba(0, 0, 0, 0.7)
 }
 
@@ -259,7 +259,7 @@ table.dataTable tbody th, table.dataTable tbody td {
   position: absolute;
   top: -8.4%;
   left: 50%;
-  margin-left: -153.4px;
+  margin-left: 169.4px;
   border-width: 5px;
   border-style: solid;
   border-color: #575151 transparent transparent transparent;
