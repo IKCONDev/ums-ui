@@ -137,7 +137,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
           order: [[1, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           columnDefs:[{
-            "targets": [0,9,10],
+            "targets": [0,10,11],
             "orderable":false
           }]
           // Add other options here as needed
@@ -385,9 +385,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
    */
 
   removeEmployee(employeeOrgId:string,employeeId : number, user : boolean,email:string ) {
-  //  if(user === true){
-  //     this.toastr.warning("Please delete user with '"+ email+"' to delete employee")
-  //  }else{
+   if(user === true){
+      this.toastr.warning("Please delete user with '"+ email+"' to delete employee")
+   }else{
     var isconfirmed = window.confirm('Are you sure, you really want to delete the employee ?');
 
     if (isconfirmed) {
@@ -410,7 +410,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     else {
      // this.toastr.warning("Employee '" + employeeOrgId + "' not deleted.");
     }
-  
+  }
 
   }
   /**
@@ -922,10 +922,10 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
         });
    
         await Promise.all(promises);
-        // if(this.countedData >0){
-        //   this.toastr.warning("Please delete user profile of the employees before you delete employee");
-        // }
-        
+        if(this.countedData >0){
+          this.toastr.warning("Please delete user profile of the employees before you delete employee");
+        }
+        else{
           this.employeeservice.deleteAllEmployee(ids).subscribe(
               response => {
                 if (response.status == HttpStatusCode.Ok) {
@@ -938,7 +938,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
                 }
               }
             );
-        
+        }
       } catch (error) {
         console.error("Error occurred:", error);
       }
