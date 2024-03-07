@@ -223,3 +223,53 @@ table.dataTable tbody th, table.dataTable tbody td {
 .modal-body p{
   margin-bottom: 0px;
 }
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 400px;
+  color: white;
+  text-align: left;
+  border-radius: 6px;
+  padding: 4px 0;
+  position: absolute;
+  z-index: 1;
+  top:109%;
+  left: 20%;
+  margin: -80;
+  margin-left: -44px;
+  backdrop-filter: blur(14); 
+  background-color:rgba(0, 0, 0, 0.7)
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  /* rotate: -180deg; */
+  content: " ";
+  position: absolute;
+  top: -8.4%;
+  left: 50%;
+  margin-left: -153.4px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #575151 transparent transparent transparent;
+  color:#202224
+ 
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
