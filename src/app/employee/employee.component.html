@@ -331,7 +331,7 @@
                             </defs>
                         </svg>
                         <span class="popuptext" id="myPopup">
-                            <p style="padding-left: 10px;">The current email ID cannot be changed, Please create a new record for any updates</p>
+                            <p style="padding-left: 10px;">The current email ID cannot be changed. Please create a new record for any updates</p>
                         </span>
                     </span>
                 </div>
@@ -390,12 +390,12 @@
                     <p id="errorMessage">{{updateDesignationErrorInfo}}</p>
                 </span><br />
                 <label><b>Status</b></label>
-                <select class="addEmployeeInput form-control form-select" placeholder="Status" id="updateDesgn"
-                name="updateDesgn" #updateDesgn="ngModel" 
+                <select class="addEmployeeInput form-control form-select" placeholder="Status" id="updateStatus"
+                name="updateStatus" #updateStatus="ngModel" 
                 [(ngModel)]="existingEmployee.employeeStatus">
                 <!--<option default value="0">select</option>-->
                 <option>Active</option>
-                <option>InActive</option>
+                <option>Inactive</option>
             </select>
                 <br/>
 

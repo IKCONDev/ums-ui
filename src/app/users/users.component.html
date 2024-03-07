@@ -46,7 +46,7 @@
                         <th>Enable / Disable</th>
                         <!-- <th style="padding-left: 35px;">Actions</th> -->
                         <th>Edit</th>
-                        <th>Delete</th>
+                        <!-- <th>Delete</th> -->
                     </tr>
                 </thead>
                 <tbody *ngIf="isUserDataText===false">
@@ -93,7 +93,7 @@
                                 </svg>
                             </button>
                             </td>
-                            <td>
+                            <!-- <td>
                             <span *ngIf="user.email === loggedInUser">
                             </span>
                             <button [disabled]="!deletePermission" *ngIf="user.email != loggedInUser && user.userRoles[0].roleName != 'SUPER_ADMIN'" id="trashIcon"
@@ -115,7 +115,7 @@
                                     </g>
                                 </svg>
                             </button>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
