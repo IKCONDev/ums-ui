@@ -198,12 +198,12 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   actionItemListOfOrganizer: ActionItems[]
   actionItemsCountOforganizer: number = 0;
   getActionItemsReportOfUser(selectedUser: string){
-    this.getUserDetails();
     this.actionItemsReportService.findOrganizedActionItemsReportByUserId(selectedUser).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.actionItemListOfOrganizer = response.body;
           this.actionItemsCountOforganizer = response.body.length;
+          this.getUserDetails();
           setTimeout(() => {
             this.createActionItemsOfOrganizerReportChart();
           },700)

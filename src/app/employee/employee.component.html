@@ -308,8 +308,16 @@
                     <p id="errorMessage">{{updateGenderErrorInfo}}</p>
                 </span>
                 <br /><br />
-                <label><b>Email</b><span id="required" class="popup " (mouseover)="getPOPUPMessage()"
-                        (mouseout)="getPOPUPMessage()"> <svg style="margin-top: -4px;" width="20" height="17"
+                <label><b>Email</b>
+                </label>
+
+                <div style="position: relative;">
+                    <input type="text" class="addEmployeeInput form-control" placeholder="Email"
+                        [(ngModel)]="existingEmployee.email" id="updateEmail" name="updateEmail" required="true"
+                        #updateEmail="ngModel" (keyup)="validateUpdateEmailId()" disabled="true"
+                        [class.invalid]="updateEmail.invalid && updateEmail.touched" style="padding-right: 30px;">
+                    <span id="required" class="popup" style="position: absolute; right: 28px; top: 50%; transform: translateY(-50%);"
+                        (mouseover)="getPOPUPMessage()" (mouseout)="getPOPUPMessage()"> <svg width="23" height="20"
                             viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_962_516)">
                                 <path
@@ -324,15 +332,9 @@
                         </svg>
                         <span class="popuptext" id="myPopup">
                             <p style="padding-left: 10px;">The current email ID cannot be changed, Please create a new record for any updates</p>
-                            <!-- <li style="padding-left: 10px;"></li> -->
                         </span>
                     </span>
-                </label>
-
-                <input type="text" class="addEmployeeInput form-control" placeholder="Email"
-                    [(ngModel)]="existingEmployee.email" id="updateEmail" name="updateEmail" required="true"
-                    #updateEmail="ngModel" (keyup)="validateUpdateEmailId()" disabled="true"
-                    [class.invalid]="updateEmail.invalid && updateEmail.touched">
+                </div>
                 <span *ngIf="updateEmailIdErrorInfo != ''">
                     <p id="errorMessage">{{updateEmailIdErrorInfo}}</p>
                 </span><br />
