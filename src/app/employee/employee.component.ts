@@ -1118,5 +1118,10 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     )
     return this.currentMenuItem;
   }
+  getPOPUPMessage(){
+    console.log("hello")
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
 
 }
