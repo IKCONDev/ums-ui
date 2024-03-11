@@ -8,6 +8,9 @@ import { BatchDetailsService } from '../batch-details/service/batch-details.serv
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'jquery';
 import { CronDetails } from '../model/CronDetails.model';
+import { UserService } from '../users/service/users.service';
+import { EmployeeService } from '../employee/service/employee.service';
+import { Employee } from '../model/Employee.model';
 
 @Component({
   selector: 'app-settings',
@@ -34,8 +37,24 @@ export class SettingsComponent implements OnInit {
    * 
    */
   constructor(private router: Router, private menuItemService: AppMenuItemService,
-    private batchProcessService: BatchDetailsService, private toastr: ToastrService){
+    private batchProcessService: BatchDetailsService, private toastr: ToastrService,private employeeService: EmployeeService)
+    {
     
+  }
+
+  /**
+   * 
+   */
+  e = new Employee();
+  loggedInUserEmail = localStorage.getItem('email');
+  getLoggedInUserDetails(emailId: string){
+    this.employeeService.getEmployee(emailId).subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.e = response.body;
+        }
+      }
+    })
   }
 
   /**
@@ -62,6 +81,7 @@ export class SettingsComponent implements OnInit {
         if (menuItemPermissions.includes('View')) {
           this.viewPermission = true;
           this.getBatchProcessTimeDetails();
+          this.getLoggedInUserDetails(this.loggedInUserEmail);
         }else{
           this.viewPermission = false;
         }
@@ -102,6 +122,7 @@ export class SettingsComponent implements OnInit {
       )
     return this.currentMenuItem;
   }
+  
 
   updateBatchTimeErrorInfo: string = '';
   validateBatchProcessTime(){
@@ -126,6 +147,7 @@ export class SettingsComponent implements OnInit {
     }
     this.cronDetails.hour = this.batchProcessTime;
     this.cronDetails.minute = this.batchProcessTimeMinute;
+    this.cronDetails.modifiedBy = this.e.firstName+' '+this.e.lastName;
     this.batchProcessService.updateBatchProcessTime(this.cronDetails).subscribe({
       next: (response) => {
         if(response.status === HttpStatusCode.PartialContent){
