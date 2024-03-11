@@ -356,7 +356,7 @@
                     [(ngModel)]="existingEmployee.reportingManager" placeholder="Choose Reporting Manager">
                     <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-                    <ng-option [value]="employee.email" *ngFor="let employee of employeeData">
+                    <ng-option [value]="employee.email" *ngFor="let employee of employeeData |orderBy:'firstName'">
                         {{employee.firstName}} {{employee.lastName}}
                     </ng-option>
                 </ng-select>
