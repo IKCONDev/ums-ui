@@ -315,6 +315,25 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
           order: [[0, 'asc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           // Add other options here as needed
+          columnDefs:[{
+            "targets":[3,4],
+            "type":"date",
+            "render": function (data, type, row) {
+              // Create a new JavaScript Date object directly from the provided format
+              const dateObj = new Date(data);
+              console.log(dateObj)
+              // Format the date object for display using the desired format string
+              const formattedDate = dateObj.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                minute:'2-digit',
+                hour:'2-digit'
+              });
+      
+              return formattedDate;
+            }
+          }]
         });
         this.initalizeDataTable=true;
       }

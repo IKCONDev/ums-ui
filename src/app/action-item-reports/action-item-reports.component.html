@@ -10,7 +10,7 @@
             <div class="col-sm-2" style="margin-left: 100px;">
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                     placeholder="Choose" (change)="chooseDepartment()">
-                    <ng-option *ngFor="let department of departmentList"
+                    <ng-option *ngFor="let department of departmentList|orderBy:'departmentName'"
                         value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                 </ng-select>
             </div>
@@ -175,7 +175,7 @@
             <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedUser" style="float: right; width: 250px;"
                     placeholder="Choose" (change)="chooseUser()">
-                    <ng-option *ngFor="let user of employeeListAsUser" value="{{user.email}}">{{user.firstName}}
+                    <ng-option *ngFor="let user of employeeListAsUser|orderBy:'firstName'" value="{{user.email}}">{{user.firstName}}
                         {{user.lastName}}</ng-option>
                 </ng-select>
             </div>
@@ -508,7 +508,7 @@
             <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                     placeholder="Departments" (change)="chooseDepartment()">
-                    <ng-option *ngFor="let department of departmentList"
+                    <ng-option *ngFor="let department of departmentList|orderBy:'departmentName'"
                         value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                 </ng-select>
             </div>

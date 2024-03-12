@@ -63,7 +63,7 @@
                 (change)="storeReporteeDataOfOrganizedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList|orderBy:'firstName'">
                     {{reportee.firstName}} {{reportee.lastName}} - {{reportee.employeeOrgId}}
                 </ng-option>
             </ng-select>
@@ -74,7 +74,7 @@
                 [(ngModel)]="selectedReporteeOrganizedMeeting" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfOrganizedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
-                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList|orderBy:'firstName'">
                     {{reportee.firstName}} {{reportee.lastName}} - {{reportee.employeeOrgId}}
                 </ng-option>
             </ng-select>
@@ -380,7 +380,7 @@
                 (change)="storeReporteeDataOfAssignedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
 
-                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList|orderBy:'firstName'">
                     {{reportee.firstName}} {{reportee.lastName}} - {{reportee.employeeOrgId}}
                 </ng-option>
             </ng-select>
@@ -391,7 +391,7 @@
                 [(ngModel)]="selectedReporteeAssignedMeeting" placeholder="Choose Reportee"
                 (change)="storeReporteeDataOfAssignedMeeting()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
-                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList">
+                <ng-option [value]="reportee.email" *ngFor="let reportee of reporteeList|orderBy:'firstName'">
                     {{reportee.firstName}} {{reportee.lastName}} - {{reportee.employeeOrgId}}
                 </ng-option>
             </ng-select>
