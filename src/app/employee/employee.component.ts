@@ -54,6 +54,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   employeeData: Employee[];
+  employeeDataForReporting :Employee[]
   reportingManagerName: string;
   isComponentLoading: boolean = false;
   isEmployeeDataText: boolean = false;
@@ -95,6 +96,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
       if (menuItemPermissions.includes('View')) {
         this.viewPermission = true;
         this.getAllEmployees();
+        this.getEmployeeWithUserStatus();
         this.getAllDepartments();
         this.Date();
       } else {
@@ -1125,6 +1127,13 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     console.log("hello")
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
+  }
+  getEmployeeWithUserStatus(){
+    this.employeeservice.getAllEmployeeWithUserStatus().subscribe({
+      next : response =>{
+       this. employeeDataForReporting = response.body;
+      }
+    })
   }
 
 }

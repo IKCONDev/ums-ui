@@ -146,6 +146,16 @@ export class EmployeeService {
         });
         
     }
+    getAllEmployeeWithUserStatus(){
+        let isUser = true;
+        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/getemployee-status/${isUser}`, {
+            observe: 'response', headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+            )
+        });
+        
+    }
 
 }
 
