@@ -136,7 +136,26 @@ export class BatchDetailsComponent implements OnInit,AfterViewChecked{
       searching: true, // Enable search feature
       pageLength: 10,
       order: [[0,'desc']],
-      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+      columnDefs:[{
+        "targets":[1,2,3],
+        "type":"date",
+        "render": function (data, type, row) {
+          // Create a new JavaScript Date object directly from the provided format
+          const dateObj = new Date(data);
+          console.log(dateObj)
+          // Format the date object for display using the desired format string
+          const formattedDate = dateObj.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            minute:'2-digit',
+            hour:'2-digit'
+          });
+  
+          return formattedDate;
+        }
+      }]
       // Add other options here as needed
     });
     this.dataTableInitialized = true;
