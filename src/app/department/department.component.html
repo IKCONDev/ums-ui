@@ -141,7 +141,7 @@
                 <label><b>Department Head</b><span id="required">*</span></label>
                 <ng-select id="deptHead" placeholder="Department Head"
                     [(ngModel)]="addDepartment.departmentHead" (keyup)="validateDepartmentHead()"  minlength="3" maxlength="51">
-                   <ng-option *ngFor="let deptHead of employeesAsUser" value="{{deptHead.email}}">{{deptHead.firstName}} {{deptHead.lastName}}</ng-option>
+                   <ng-option *ngFor="let deptHead of employeesAsUser|orderBy:'firstName'" value="{{deptHead.email}}">{{deptHead.firstName}} {{deptHead.lastName}}</ng-option>
                 </ng-select><br />
                 <span *ngIf="departmentHeadErrorInfo != ''">
                     <p id="errorMessage">{{departmentHeadErrorInfo}}</p>
@@ -204,7 +204,7 @@
                 <ng-select type="search" id="updateDeptHead" placeholder="Department Head"
                     [(ngModel)]="existingDepartment.departmentHead" (keyup)="validateUpdatedDepartmentHead()" 
                     minlength="3" maxlength="51">
-                    <ng-option *ngFor="let deptHead of employeesAsUser" value="{{deptHead.email}}">{{deptHead.firstName}} {{deptHead.lastName}}</ng-option>
+                    <ng-option *ngFor="let deptHead of employeesAsUser|orderBy:'firstName'" value="{{deptHead.email}}">{{deptHead.firstName}} {{deptHead.lastName}}</ng-option>
                 </ng-select><br />
                 <span *ngIf="updatedDepartmentHeadErrorInfo != ''">
                     <p id="errorMessage">{{updatedDepartmentHeadErrorInfo}}</p>
