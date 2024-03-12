@@ -1866,11 +1866,14 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
             this.meetingList = response.body;
   
             this.meetingList.forEach(meeting => {
-              var newActionItemList = this.actionItemList.filter(actionItem => actionItem.meetingId === meeting.meetingId);
-              if (newActionItemList.length === 0) {
-                newActionItemList===null;
-                this.disableMomButton(meeting.meetingId);
-              }
+              // Check if meeting has any associated action items
+              const hasActionItems = this.actionItemList.some(actionItem => actionItem.meetingId === meeting.meetingId);
+          
+              // Disable the button if there are unsubmitted action items OR no associated action items
+              if (hasActionItems && this.actionItemList.some(item => item.meetingId === meeting.meetingId && item.actionStatus === "Not Submitted") ||
+                  !hasActionItems) {
+                  this.disableMomButton(meeting.meetingId);
+                }
               var actionItemLisTOfParticularMeeting =this.actionItemList.filter(actionItem => actionItem.meetingId === meeting.meetingId);
               var newactionItemLisTOfParticularMeeting= actionItemLisTOfParticularMeeting.filter(actionItem=> actionItem.actionStatus==="Not Submitted");
               if(newactionItemLisTOfParticularMeeting.length ===0){

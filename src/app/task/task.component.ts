@@ -148,7 +148,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           order: [[0, 'desc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           columnDefs:[{
-            "targets": [9,10],
+            "targets": 10,
             "orderable":false
           }, {
             // Configure date sorting for column 5 (index 4)
