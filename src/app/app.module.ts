@@ -64,6 +64,7 @@ import { ThemesComponent } from './themes/themes.component';
 import { ImportHistoryComponent } from './import-history/import-history.component';
 import { ExportHistoryComponent } from './export-history/export-history.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import { ActivityLogComponent } from './activity-log/activity-log.component';
     ImportHistoryComponent,
     ExportHistoryComponent,
     ActivityLogComponent,
+    ChangepasswordComponent,
   ],
   imports: [
     BrowserModule,

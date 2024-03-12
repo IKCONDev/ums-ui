@@ -182,6 +182,10 @@ export class HeaderComponent implements OnChanges {
     window.location.reload();
   }
 
+  navigateToChangePassword(){
+    this.router.navigateByUrl('/change-password');
+  }
+
   // notificationCount(){
   // this.notificationService.getAllNotificationsCountByUserId(localStorage.getItem('email'));
 

@@ -41,6 +41,7 @@ import { ThemesComponent } from './themes/themes.component';
 import { ImportHistoryComponent } from './import-history/import-history.component';
 import { ExportHistoryComponent } from './export-history/export-history.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 
 /**
@@ -87,6 +88,7 @@ const routes: Routes = [
   {path : 'import-history', component :ImportHistoryComponent},
   {path : 'export-history', component :ExportHistoryComponent},
   {path : 'activity-log', component : ActivityLogComponent},
+  {path : 'change-password',component:ChangepasswordComponent},
   //{path:"overview", component: OverviewComponent},
   {path: 'lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
   {path: '**', component:PageNotFoundComponent},
