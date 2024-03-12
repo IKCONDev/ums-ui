@@ -43,6 +43,7 @@ import { ServiceUnavailableComponent } from './service-unavailable/service-unava
 import { NotificationsComponent } from './notifications/notifications.component';
 //import  '../../fonts/general-sans/css/general-sans.css';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { OrderByPipe } from './pipes/orderBy.pipe';
 import { HelpcenterComponent } from './helpcenter/helpcenter.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule } from 'ngx-ui-loader';
@@ -98,6 +99,7 @@ import { ActivityLogComponent } from './activity-log/activity-log.component';
     ServiceUnavailableComponent,
     NotificationsComponent,
     DateAgoPipe,
+    OrderByPipe,
     HelpcenterComponent,
     UnauthorizedComponent,
     TaskCategoryComponent,

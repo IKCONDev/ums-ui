@@ -113,6 +113,23 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           columnDefs:[{
             "targets": [0,9,10],
             "orderable":false
+           } , {
+            // Configure date sorting for column 5 (index 4)
+            "targets": [5,6],
+            "type": "date", // Set internal data type for sorting
+            "render": function (data, type, row) {
+              // Create a new JavaScript Date object directly from the provided format
+              const dateObj = new Date(data);
+
+              // Format the date object for display using the desired format string
+              const formattedDate = dateObj.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              });
+      
+              return formattedDate;
+            }
           }]
         });
       });
@@ -133,7 +150,28 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           columnDefs:[{
             "targets": [9,10],
             "orderable":false
-          }] // Set the options for the "Show entries" dropdown
+          }, {
+            // Configure date sorting for column 5 (index 4)
+            "targets": [4,5,6,7],
+            "type": "date", // Set internal data type for sorting
+            "render": function (data, type, row) {
+              // Create a new JavaScript Date object directly from the provided format
+              if(data){
+              const dateObj = new Date(data);
+
+              // Format the date object for display using the desired format string
+              const formattedDate = dateObj.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              });
+      
+              return formattedDate;
+            }else{
+              return null
+            }
+          }
+          }]
           
           
           // Add other options here as needed
