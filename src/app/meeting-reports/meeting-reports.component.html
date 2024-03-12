@@ -11,7 +11,7 @@
                 <div class="col-sm-2" style="margin-left: 100px;">
                     <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
                                 placeholder="Choose" (change)="chooseDepartment()">
-                                <ng-option *ngFor="let department of departmentList"
+                                <ng-option *ngFor="let department of departmentList|orderBy:'departmentName'"
                                     value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
                             </ng-select>
                </div>
@@ -164,7 +164,7 @@
              <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedEmployee" style="float: right; width: 250px;  margin-left: 0px;"
                                 placeholder="Choose" (change)="chooseEmployee()">
-                                <ng-option *ngFor="let employee of employeeListAsUser"
+                                <ng-option *ngFor="let employee of employeeListAsUser|orderBy:'firstName'"
                                     value="{{employee.email}}">{{employee.firstName}} {{employee.lastName}}</ng-option>
                 </ng-select>
             </div>
@@ -316,7 +316,7 @@
             <div class="col-sm-2" style="margin-left: 136px;margin-top: 10px;">
                 <ng-select id="select" [(ngModel)]="selectedAttendeeUser" style="float: right; width: 250px;"
                 placeholder="Choose" (change)="chooseAttendedMeetingUser()">
-                <ng-option *ngFor="let employee of employeeListAsUser"
+                <ng-option *ngFor="let employee of employeeListAsUser|orderBy:'firstName'"
                     value="{{employee.email}}">{{employee.firstName}} {{employee.lastName}}</ng-option>
                </ng-select> 
             </div>
@@ -470,7 +470,7 @@
                 <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: left; width: 250px; margin-left: 51px;margin-top: 9px;margin-bottom: 22px"
                 placeholder="Departments" (change)="chooseDepartment()">
                 <!-- <ng-option  value="all">All</ng-option> -->
-                <ng-option *ngFor="let department of departmentList"
+                <ng-option *ngFor="let department of departmentList|orderBy:'departmentName'"
                     value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
               </ng-select>
             </div>

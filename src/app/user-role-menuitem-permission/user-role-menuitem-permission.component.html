@@ -28,7 +28,7 @@
                 [(ngModel)]="selectedUserId" placeholder="Select User"
                 (change)="getRoleMenuItemPermissionListByUserId()">
                 <!--<ng-option [value]="" disabled selected value>choose </ng-option>-->
-                <ng-option [value]="employee.email" *ngFor="let employee of employeeList">
+                <ng-option [value]="employee.email" *ngFor="let employee of employeeList|orderBy:'firstName'">
                     {{employee.firstName}} {{employee.lastName}}
                 </ng-option>
             </ng-select>
