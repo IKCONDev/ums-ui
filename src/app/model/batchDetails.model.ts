@@ -7,4 +7,5 @@ export interface BatchDetails{
      status:string;
      startDate: string;
      endDate: string;
+     batchProcessFailureReason: string;
 }

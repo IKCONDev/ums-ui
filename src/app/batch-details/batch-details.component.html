@@ -22,6 +22,7 @@
                         <th>End Date & Time</th>
                         <th>Last Successful Execution Date & Time</th>
                         <th>Status</th>
+                        <th>Failure Reason</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="isBatchDetailsText===false">
@@ -33,6 +34,7 @@
                             {{item.lastSuccessfullExecutionDateTime|date:'MMM d, y, h:mm a'}}
                         </td>
                         <td>{{item.status}}</td>
+                        <td class="word-wrap">{{item.batchProcessFailureReason}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -47,6 +49,7 @@
                         <th>End Time & Time</th>
                         <th>Last Successfull Execution Date & Time</th>
                         <th>Status</th>
+                        <th>Failure Reason</th>
                     </tr>
                 </thead>
             </table>

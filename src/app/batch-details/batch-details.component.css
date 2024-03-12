@@ -124,4 +124,19 @@ table tr td{
       box-shadow: .2em -.2em 0 0 currentcolor;
     }
   }
+
+  .word-wrap{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 310px;
+    cursor: pointer;
+    word-wrap: break-word;
+  }
+  
+  .word-wrap:hover {
+    overflow: visible;
+    white-space: normal;
+  }
+
   
