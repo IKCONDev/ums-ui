@@ -156,6 +156,16 @@ export class EmployeeService {
         });
         
     }
+    getUserStatusBasedOnDepartmentHead(emailId:string){
+        let isUser = false;
+        return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/employee-head/${emailId}`, {
+            observe: 'response', headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+            )
+        });
+        
+    }
 
 }
 
