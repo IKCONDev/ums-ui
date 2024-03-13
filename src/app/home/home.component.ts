@@ -1964,4 +1964,19 @@ export class HomeComponent implements OnInit {
       });
     }
   }
+
+  openOrganizedMeetingsTab(){
+    localStorage.setItem('tabOpened', 'OrganizedMeeting');
+    this.router.navigateByUrl('/meetings')
+  }
+
+  openAttendedMeetingsTab(){
+    localStorage.setItem('tabOpened', 'AttendedMeeting');
+    this.router.navigateByUrl('/meetings')
+  }
+
+  openAssignedTasksTab(){
+    localStorage.setItem('taskTabOpened', 'AssignedTask');
+    this.router.navigateByUrl('/task')
+  }
 }
