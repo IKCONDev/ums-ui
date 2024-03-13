@@ -98,7 +98,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
              //initialize data
             this.getAllDepartments();
             this.getEmployeeAsUserList();
-            this.getAllActionItemsCount();
+           // this.getAllActionItemsCount();
             // this.getAllDepartmentsCount();
             // this.getAllDepartmentNames();
             if(this.reportType === 'department'){
@@ -267,8 +267,9 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
       console.log(this.selectedDepartment)
     this.getActionItemsReportByDepartment(this.selectedDepartment)
     }
-    else
-    this.getAllActionItemsCount();
+    else{
+       this.getAllActionItemsCount();
+    }
 }
 
   actionItemsByPriorityReportChart = null;
