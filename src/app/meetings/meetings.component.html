@@ -98,6 +98,7 @@
                         <th id="thead">Organizer</th>
                         <th id="thead">Start Date & Time</th>
                         <th id="thead">End Date & Time</th>
+                        <th id="thead">Meeting Type</th>
                         <th id="thead">Attendees</th>
                         <th id="thead">Transcript</th>
                         <th id="thead">Action Items</th>
@@ -118,6 +119,9 @@
                         <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{meeting.endDateTime+'z'| date:'MMM d, y, h:mm a'}}</td>
+                        <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
+                        <td *ngIf="meeting.type =='singleInstance'">{{meetingType}}</td>
+                        <td *ngIf="meeting.type =='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
                         <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
                         <td style="padding-left: 22px;">
 
@@ -404,15 +408,19 @@
                         <th>Meeting ID</th>
                         <th style="width: 200px;">Title</th>
                         <th>Organizer</th>
+                        <th>Meeting Type</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
                     </tr>
                 </thead>
-                <tbody *ngIf="isAttendedMeetingDataText===false">
-                    <tr *ngFor="let meeting of attendedMeetings; let i = index">
+                <tbody   *ngFor="let meeting of attendedMeetings; let i = index">
+                    <tr *ngIf="isAttendedMeetingDataText===false" >
                         <td style=" padding-left: 30px;">{{meeting.meetingId}}</td>
                         <td id="cell">{{meeting.subject}}</td>
                         <td id="cell">{{meeting.organizerName}}</td>
+                        <td *ngIf="meeting.type ==='singleInstance'">{{meetingType}}</td>
+                        <td *ngIf="meeting.type ==='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
+                        <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                     </tr>
@@ -426,6 +434,7 @@
                         <th>ID</th>
                         <th>Title</th>
                         <th>Organizer</th>
+                        <th>Meeting Type</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
                     </thead>
@@ -757,7 +766,7 @@
                             <span id="errorSpan">{{discussionPointErrorInfo}}</span>
                         </div>
                     <hr>
-                    <p id="errorSpan">*By default all the attendees will receive MOM Email.</p>
+                    <p id="errorSpan">*By default, all the attendees will receive MOM Email.</p>
                     <label for="attendees"><b>Attendees</b></label>
                     <div *ngIf="meetingData!= null">
                         <div *ngFor="let attendees of attendeeEmployeeName">
