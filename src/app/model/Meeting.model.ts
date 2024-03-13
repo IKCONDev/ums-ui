@@ -25,6 +25,7 @@ export class Meeting{
     occurrenceId: string
     batchId: number;
     isManualMeeting: boolean;
+    type : string;
 
     /**
      *

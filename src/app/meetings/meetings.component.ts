@@ -32,7 +32,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   private table: any;
 
   eventId: number;
-
+  meetingType : string = "Single Instance";
+  meetingTypeOccurence : string = "Recurrence";
+  meetingTypeNormal : string = "Manual";
   //global varibales
   meetings: Meeting[];
   meetingCount: number = 0;
@@ -316,12 +318,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           // Add other options here as needed
           columnDefs:[{
-            "targets":[3,4],
+            "targets":[4,5],
             "type":"date",
             "render": function (data, type, row) {
               // Create a new JavaScript Date object directly from the provided format
               const dateObj = new Date(data);
-              console.log(dateObj)
+              //console.log(dateObj)
               // Format the date object for display using the desired format string
               const formattedDate = dateObj.toLocaleDateString('en-US', {
                 month: 'short',
@@ -733,7 +735,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
                  this.isComponentLoading = false;
                  this.isOrganizedMeetingDataText = false;
                 },1500)
-                this.meetings = response.body;      
+                this.meetings = response.body; 
+                console.log(this.meetings);     
               }
               localStorage.setItem('meetingCount', this.meetingCount.toString());
               this.meetings.forEach(meeting => {
@@ -818,6 +821,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
                   this.initalizeDataTable=false;
                 },1500)
                 this.attendedMeetings = response.body;
+                console.log(this.attendedMeetings);
                 
               }
               localStorage.setItem('attendedMeetingCount', this.attendedMeetingCount.toString());
