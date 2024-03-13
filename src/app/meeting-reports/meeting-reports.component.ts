@@ -167,28 +167,56 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
            this.selectedDepartmentID= this.choosenDepartment.departmentId;
         }
       },error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout');
-        }
+        this.navigateToSessionTimeout(error);
       }
     })
   }
 
   getEmployeeAsUserList(){
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.employeeService.getUserStatusEmployees(true).subscribe({
       next: response => {
         this.employeeListAsUser = response.body;
+      },error: error => {
+        this.navigateToSessionTimeout(error);
       }
     })
+  }else{
+    this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+      next: response => {
+        this.employeeListAsUser = response.body;
+      },error: error => {
+        this.navigateToSessionTimeout(error);
+      }
+    })
+  }
+}
+
+  navigateToSessionTimeout(error: any){
+    if(error.status === HttpStatusCode.Unauthorized){
+      this.router.navigateByUrl('/session-timeout');
+    }
   }
 
   getAllDepartments(){
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.departmentService.getDepartmentList().subscribe({
       next: response => {
         this.departmentList = response.body;
+      },error: error => {
+        this.navigateToSessionTimeout(error);
+      }
+    })
+  }else{
+    this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
+      next: response => {
+        this.departmentList = response.body;
+      },error: error => {
+        this.navigateToSessionTimeout(error);
       }
     })
   }
+}
 
   chooseEmployee(){
     if(this.organizedmeetingListChart != null){
@@ -229,9 +257,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
           },400)
         }
       },error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout');
-        }
+        this.navigateToSessionTimeout(error);
       }
     })
   }
