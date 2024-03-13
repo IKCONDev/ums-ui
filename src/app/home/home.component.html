@@ -25,7 +25,7 @@
           </div>
           <div class="row" id="cardRow">
             <div class="col-sm-12">
-              <b><p id="colorTag"> {{organizedMeetingsCount}}</p></b>
+              <b><p id="colorTag"> <a style="cursor: pointer;text-decoration: underline;" (click)="openOrganizedMeetingsTab()"> {{organizedMeetingsCount}} </a></p></b>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
           </div>
           <div class="row" id="cardRow">
             <div class="col-sm-12">
-              <b><p id="colorTag"> {{attendedMeetingsCount}}</p></b>
+              <b><p id="colorTag"><a style="cursor: pointer;text-decoration: underline;" (click)="openAttendedMeetingsTab()"> {{attendedMeetingsCount}}</a></p></b>
             </div>
           </div>
         </div>
@@ -71,7 +71,8 @@
           </div>
           <div class="row" id="cardRow">
             <div class="col-sm-12">
-              <b><p id="colorTag"> {{assignedTasksCount}}</p></b>
+              <b><p id="colorTag"><a style="cursor: pointer;text-decoration: underline;" (click)="openAssignedTasksTab()">{{assignedTasksCount}}
+              </a></p></b>
             </div>
           </div>
         </div>

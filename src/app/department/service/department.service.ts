@@ -101,5 +101,11 @@ export class DepartmentService{
           }
           )});
     }
+    getDepartmentByDepartmentHead(emailId:string){
+        return this.http.get<Department[]>(`${this.gatewayMicroservicePathUrl}/${this.departmentMicroservicepathUrl}/AssociateDepartment/${emailId}`,{observe:'response',headers: new HttpHeaders({
+            'Authorization':'Bearer '+localStorage.getItem('jwtToken')
+          }
+          )});
+    }
 
 }
