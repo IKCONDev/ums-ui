@@ -99,6 +99,7 @@
                         <th id="thead">Start Date & Time</th>
                         <th id="thead">End Date & Time</th>
                         <th id="thead">Meeting Type</th>
+                        <th id="thead">Meeting Location</th>
                         <th id="thead">Attendees</th>
                         <th id="thead">Transcript</th>
                         <th id="thead">Action Items</th>
@@ -122,6 +123,8 @@
                         <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
                         <td *ngIf="meeting.type =='singleInstance'">{{meetingType}}</td>
                         <td *ngIf="meeting.type =='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
+                        <td *ngIf="meeting.location != null">{{meeting.location}}</td>
+                        <td *ngIf="meeting.location == null">Normal Meeting</td>
                         <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
                         <td style="padding-left: 22px;">
 
