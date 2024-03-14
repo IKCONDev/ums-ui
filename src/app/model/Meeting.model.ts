@@ -26,6 +26,7 @@ export class Meeting{
     batchId: number;
     isManualMeeting: boolean;
     type : string;
+    momEmailCount:number;
 
     /**
      *
