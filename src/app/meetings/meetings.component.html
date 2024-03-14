@@ -856,6 +856,16 @@
                                     <p>{{meetingEndDateErrorInfo}}</p>
                                 </span>
                             </div>
+                            <label><b>Location</b></label>
+                            <select class="form-control form-select" style="width: 400px;"  placeholder ="Select"
+                            [(ngModel)]="addMeeting.location" name="meetingLocation"
+                            #meetingLocation="ngModel" id="meetingLocation">
+                              <option>Conference room</option>
+                              <option>Seminar Hall</option>
+                              <option>Client's office</option>
+                              <option>Virtual</option>
+                              <option>Outdoor</option>
+                            </select>
                             <!-- attendees -->
                             <label><b>Attendees</b><span id="required">*</span></label>
                             <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees"
@@ -882,11 +892,7 @@
                             <input type="text" class="form-control" [(ngModel)]="addMeeting.organizerEmailId"
                                 style="width: 400px;" id="meetingOrganizerEmailId" name="meetingOrganizerEmailId"
                                 readonly />
-
-                          <label><b>Meeting Location</b></label>
-                                <input type="text" class="form-control" [(ngModel)]="addMeeting.organizerEmailId"
-                                    style="width: 400px;" id="meetingOrganizerEmailId" name="meetingOrganizerEmailId"
-                                    readonly />
+                               
                             <!-- <div>
                     <span id="errorSpan" *ngIf="meetingOrganizerNameErrorInfo != ''">
                         <p>{{meetingOrganizerNameErrorInfo}}</p>

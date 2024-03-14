@@ -1494,6 +1494,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     attendees: [],
     //actionItems: 
     emailId: this.selectedReporteeOrganizedMeeting != '' ? this.selectedReporteeOrganizedMeeting : this.loggedInUser,
+    location : '',
     attendeeCount: 0,
     createdBy: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
     createByEmailId: localStorage.getItem('email'),
