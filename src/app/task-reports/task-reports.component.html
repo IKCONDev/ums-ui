@@ -804,7 +804,8 @@
                     </div>
                     <ng-template #allTasks>
                         <p>Department Name : <b>{{"All"}}</b></p>
-                        <p>Total Tasks : <b>{{alltasksCount}}</b></p>
+                        <p *ngIf="alltasksCount > 0">Total Tasks of all department : <b>{{alltasksCount}}</b></p>
+                        <p *ngIf="alltasksCount == null">Total Tasks of all department : <b>{{0}}</b></p>
                    </ng-template>
                     <!-- <p>Report For : <b>{{"Department"}}</b></p>
                     <p>Department ID : <b>{{selectedDepartment}}</b></p>
@@ -899,7 +900,7 @@
             </div>
         </div>
     <br/>
-    <table class="table table-hover" *ngIf="selectedDepartment==null ; else noPriMeetings">
+    <table class="table table-hover" *ngIf="selectedDepartment == null && deptValueCount.length > 0; else noDepTasks">
         <thead>
            <tr>
                <th>ID</th>
@@ -914,15 +915,32 @@
                <td>{{department.deptId}}</td>
                 <td>{{department.departmentName}}</td>
                <td>{{department.departmentHead}}</td>
-               <td>{{department.meetingCount}}</td>
-
-               
+               <td>{{department.meetingCount}}</td>               
            </tr>
         </tbody>
 
    </table>
+   <ng-template #noDepTasks>
+
+    <table class="table table-hover" *ngIf="selectedDepartment == null ; else noPriMeetings">
+        <thead>
+           <tr>
+               <th>ID</th>
+               <th>Department Name</th>
+               <th>Department Head</th>
+               <th>Count of Tasks</th>
+           </tr>
+       </thead>
+       <tbody>
+       
+        </tbody>
+         
+    </table>
+    <p *ngIf="selectedDepartment == null"  style="text-align: center;"><b>There are no Tasks for any department</b></p>
+   </ng-template>
+
    <ng-template #noPriMeetings>
-    <table class="table table-hover" *ngIf="taskListByDepartmentCount > 0; else noTasks">
+    <table class="table table-hover" *ngIf="selectedDepartment != null && taskListByDepartmentCount > 0; else noTasks">
         <thead>
             <tr >
                 <th>ID</th>
@@ -972,7 +990,7 @@
         </tbody>
     </table> -->
     <ng-template #noTasks>
-        <table class="table table-hover">
+        <table class="table table-hover" *ngIf="selectedDepartment != null">
             <thead>
                 <tr>
                     <th>ID</th>
