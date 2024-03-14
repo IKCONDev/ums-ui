@@ -490,7 +490,8 @@
                     </div>
                     <ng-template #allMeetings>
                             <p>Department Name : <b>{{"All"}}</b></p>
-                            <p>Total Meetings : <b>{{OrganizedMeetingCount}}</b></p>
+                            <p *ngIf="OrganizedMeetingCount > 0">Total Meetings of all department : <b>{{OrganizedMeetingCount}}</b></p>
+                            <p *ngIf="OrganizedMeetingCount == null">Total Meetings of all department : <b>{{0}}</b></p>
                        </ng-template>
 
                     <!-- <div *ngFor="let department of departmentList ">
@@ -583,7 +584,7 @@
             </div>
         </div>
         <br /><br />
-        <table class="table table-hover" *ngIf="selectedDepartment==null ; else noMeetings">
+        <table class="table table-hover" *ngIf="selectedDepartment==null && deptValueCount.length > 0 ; else noDepMeetings">
             <!-- <thead>
                 <tr>
                     <th>ID</th>
@@ -627,8 +628,28 @@
              </tbody>
 
         </table>
+
+       <ng-template  #noDepMeetings>
+        <table class="table table-hover" *ngIf="selectedDepartment==null ; else noMeetings">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Department Name</th>
+                    <th>Department Head</th>
+                    <th>Count of Meetings</th>
+                    <!-- <th>Department Head</th>
+                    <th>Total Meetings</th> -->
+                </tr>
+            </thead>
+            <tbody>
+             </tbody>
+
+        </table>
+        <p *ngIf="selectedDepartment == null" style="text-align: center;"><b>There are no meetings for any department</b></p>
+       </ng-template>
+
        <ng-template #noMeetings>
-        <table class="table table-hover" *ngIf="meetingsByDepartmentListCount > 0; else meetings">
+        <table class="table table-hover" *ngIf=" selectedDepartment != null &&  meetingsByDepartmentListCount > 0; else meetings">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -653,7 +674,7 @@
         <!-- <p style="text-align: center;"><b>No Meetings!</b></p> -->
        </ng-template>
        <ng-template #meetings>
-        <table class="table table-hover">
+        <table class="table table-hover" *ngIf="selectedDepartment != null">
             <thead>
                 <tr>
                     <th>ID</th>

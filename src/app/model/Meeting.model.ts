@@ -27,6 +27,8 @@ export class Meeting{
     isManualMeeting: boolean;
     type : string;
     momEmailCount:number;
+    actualMeetingDuration: string;
+
 
     /**
      *
