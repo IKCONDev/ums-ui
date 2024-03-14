@@ -98,13 +98,13 @@
                         <th id="thead">Organizer</th>
                         <th id="thead">Start Date & Time</th>
                         <th id="thead">End Date & Time</th>
-                        <th id="thead">Meeting Type</th>
-                        <th id="thead">Meeting Location</th>
+                        <th id="thead">Type</th>
+                        <th id="thead">Location</th>
                         <th id="thead">Attendees</th>
                         <th id="thead">Duration</th>
                         <th id="thead">Transcript</th>
                         <th id="thead">Action Items</th>
-                        <th id="thead">Send MOM</th>
+                        <th id="thead">MOM</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let meeting of meetings| paginate
@@ -413,7 +413,7 @@
                         <th>Meeting ID</th>
                         <th style="width: 200px;">Title</th>
                         <th>Organizer</th>
-                        <th>Meeting Type</th>
+                        <th>Type</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
                     </tr>
@@ -882,6 +882,11 @@
                             <input type="text" class="form-control" [(ngModel)]="addMeeting.organizerEmailId"
                                 style="width: 400px;" id="meetingOrganizerEmailId" name="meetingOrganizerEmailId"
                                 readonly />
+
+                          <label><b>Meeting Location</b></label>
+                                <input type="text" class="form-control" [(ngModel)]="addMeeting.organizerEmailId"
+                                    style="width: 400px;" id="meetingOrganizerEmailId" name="meetingOrganizerEmailId"
+                                    readonly />
                             <!-- <div>
                     <span id="errorSpan" *ngIf="meetingOrganizerNameErrorInfo != ''">
                         <p>{{meetingOrganizerNameErrorInfo}}</p>
