@@ -6,6 +6,8 @@ import { MenuItem } from '../model/MenuItem.model';
 import { lastValueFrom } from 'rxjs';
 import { HttpStatusCode } from '@angular/common/http';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
+import { EmployeeService } from '../employee/service/employee.service';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-report-settings',
@@ -22,9 +24,12 @@ export class ReportSettingsComponent implements OnInit {
   deletePermission: boolean;
   noPermissions: boolean;
   userRoleMenuItemsPermissionMap: Map<string, string>
+  loggedInUser = localStorage.getItem('email');
+  loggedInUserRole = localStorage.getItem('userRole');
+  loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private tastCategory: TaskCategoryService,
-    private menuItemService: AppMenuItemService){
+    private menuItemService: AppMenuItemService,private employeeService:EmployeeService){
 
   }
 
@@ -39,6 +44,7 @@ export class ReportSettingsComponent implements OnInit {
     }
     //get menu item  details of home page
     var currentMenuItem = await this.getCurrentMenuItemDetails();
+    this.hideAllDepartmentChartBasedOnDepHead()
       if (this.userRoleMenuItemsPermissionMap.has(currentMenuItem.menuItemId.toString().trim())) {
         //this.noPermissions = false;
         //provide permission to access this component for the logged in user if view permission exists
@@ -123,6 +129,25 @@ export class ReportSettingsComponent implements OnInit {
       }
       )
     return this.currentMenuItem;
+  }
+
+  departmentList:any;
+  hideAllDepartment:boolean=false
+  hideAllDepartmentChartBasedOnDepHead(){
+    this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+      next: response => {
+        this.departmentList = response.body;
+        if(this.departmentList.length>1){
+          this.hideAllDepartment=false
+        }else{
+          this.hideAllDepartment=true
+        }
+      },error:error=>{
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
+      }
+    })
   }
 
 }
