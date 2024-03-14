@@ -100,6 +100,7 @@
                         <th id="thead">End Date & Time</th>
                         <th id="thead">Meeting Type</th>
                         <th id="thead">Attendees</th>
+                        <th id="thead">Duration</th>
                         <th id="thead">Transcript</th>
                         <th id="thead">Action Items</th>
                         <th id="thead">Send MOM</th>
@@ -123,6 +124,7 @@
                         <td *ngIf="meeting.type =='singleInstance'">{{meetingType}}</td>
                         <td *ngIf="meeting.type =='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
                         <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
+                        <td>{{meeting.actualMeetingDuration}}</td>
                         <td style="padding-left: 22px;">
 
                             <!-- transcript data Modal start -->
