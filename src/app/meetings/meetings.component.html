@@ -101,6 +101,7 @@
                         <th id="thead">Meeting Type</th>
                         <th id="thead">Meeting Location</th>
                         <th id="thead">Attendees</th>
+                        <th id="thead">Duration</th>
                         <th id="thead">Transcript</th>
                         <th id="thead">Action Items</th>
                         <th id="thead">Send MOM</th>
@@ -126,6 +127,7 @@
                         <td *ngIf="meeting.location != null">{{meeting.location}}</td>
                         <td *ngIf="meeting.location == null">Normal Meeting</td>
                         <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
+                        <td>{{meeting.actualMeetingDuration}}</td>
                         <td style="padding-left: 22px;">
 
                             <!-- transcript data Modal start -->
