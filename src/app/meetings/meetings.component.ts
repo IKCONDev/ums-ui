@@ -217,14 +217,20 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   noPermissions: boolean;
   updateButtonColor: string;
 
+// timeZoneMappings = {
+//     "Asia/Calcutta": "Indian Standard Time",
+//     // Add more mappings as needed
+// };
+
+
   /**
    * executes when the component is initialized or loaded first time
    */
   async ngOnInit(): Promise<void> {
     //set time zone for create meeting
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    console.log(timezone); 
-    this.addMeeting.originalStartTimeZone = timezone;
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    //const formattedTimeZone = this.timeZoneMappings[timeZone] || timeZone;
+    this.addMeeting.originalStartTimeZone = timeZone;
     if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
@@ -1519,7 +1525,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     var isStartDateValid = true;
     var isEndDateValid = true;
     var isAttendeesValid = true;
-    var isTimezoneValid = true;
+    //var isTimezoneValid = true;
 
     if (this.isMeetingSubjectValid === false) {
       var valid = this.validateMeetingSubject();
@@ -1537,12 +1543,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
       var valid = this.validateMeetingAttendees();
       isAttendeesValid = valid;
     }
-    if(this.isMeetingTimezoneValid === false){
-      var valid = this.validateMeetingTimezone();
-      isTimezoneValid = valid;
-    }
+    // if(this.isMeetingTimezoneValid === false){
+    //   var valid = this.validateMeetingTimezone();
+    //   isTimezoneValid = valid;
+    // }
 
-    if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid && isTimezoneValid) {
+    if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid) {
       //create meeting
       this.createButtonDisabled=true;
       console.log(this.addMeeting.originalStartTimeZone)
