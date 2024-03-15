@@ -99,8 +99,8 @@
                         <td>
                             <p *ngFor="let owner of actionItem.actionItemOwner">{{owner}}</p>
                         </td>
-                        <td>{{actionItem.startDate|date:'MMM d, y'}}</td>
-                        <td>{{actionItem.endDate|date:'MMM d, y'}}</td>
+                        <td>{{actionItem.startDate+''|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{actionItem.endDate+''|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{actionItem.actionPriority}}</td>
                         <td>{{actionItem.actionStatus}}</td>
                         <!-- edit btn -->
@@ -178,8 +178,8 @@
                                             </td>
                                             <td class="taskRows">{{element.taskOwner}}</td>
                                             <td class="taskRows">{{element.taskCategory.taskCategoryTitle}}</td>
-                                            <td class="taskRows">{{element.plannedStartDate|date:'MMM d, y'}}</td>
-                                            <td class="taskRows">{{element.plannedEndDate|date:'MMM d, y'}}</td>
+                                            <td class="taskRows">{{element.plannedStartDate+''|date:'MMM d, y, h:mm a'}}</td>
+                                            <td class="taskRows">{{element.plannedEndDate+''|date:'MMM d, y, h:mm a'}}</td>
                                             <td class="taskRows">{{element.taskPriority}}</td>
                                             <td class="taskRows">{{element.status}}</td>
                                         </tr>
@@ -642,7 +642,7 @@
                                         </tr> -->
                                         <tr>
                                             <td><b>Planned Start Date</b></td>
-                                            <td><span> <input type="date" class="form-control" min="{{min}}"
+                                            <td><span> <input type="datetime-local" class="form-control" min="{{min}}"
                                                         id="taskPlannedStartDate" name="taskPlannedStartDate"
                                                         [(ngModel)]="add_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true"
@@ -653,7 +653,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b></td>
-                                            <td><span> <input type="date" class="form-control" min="{{min}}"
+                                            <td><span> <input type="datetime-local" class="form-control" min="{{min}}"
                                                         id="taskPlannedDueDate" name="taskPlannedDueDate"
                                                         [(ngModel)]="add_Task.plannedEndDate"
                                                         #taskPlannedDueDate="ngModel" required="true"
