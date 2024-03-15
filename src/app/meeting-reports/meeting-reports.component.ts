@@ -73,12 +73,24 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
       this.reportType = param['reportType'];
     })
   }
+  clearable:boolean=true;
+  searchable:boolean=true;
   ngAfterViewInit(): void {
     this.getEmployeeAsUserList();      
       this.getAllDepartments();
+      if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
       this.getAllMeetings();
       this.getAllDepartmentsCount();
       this.getAllDepartmentNames();
+      }else{
+        this.clearable=false;
+        this.searchable=false;
+        this.selectedDepartment=localStorage.getItem("deptID")
+        console.log("called choose dep on ng after")
+        this.chooseDepartment();
+
+        
+      }
   }
 
  async  ngOnInit(): Promise<void> {
@@ -103,6 +115,8 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
     this.headerService.fetchUserProfile(this.loggedInUser).subscribe({
       next: response => {
         this.loggedInUserObject = response.body;
+        console.log(this.loggedInUserObject)
+        localStorage.setItem("deptID",this.loggedInUserObject.employee.departmentId.toString())
         this.selectedEmployee = this.loggedInUserObject.email;
         //this.selectedDepartment = this.loggedInUserObject.employee.department.departmentId.toString();
         this.selectedDepartmentName = this.loggedInUserObject.employee.department.departmentName;
@@ -226,6 +240,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
   }
 
   chooseDepartment(){
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     if(this.selectedDepartment!=null){
     console.log(this.selectedDepartment)
     if(this.meetingsByDepartmentListChart != null){
@@ -237,6 +252,13 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
   }else{
     this.setChartType('line')
   }
+  }else{
+    if(this.meetingsByDepartmentListChart != null){
+      this.meetingsByDepartmentListChart.destroy();
+      //get department details
+      this.getDepartmentById(parseInt(this.selectedDepartment))
+    }
+    this.getmeetingsByDepartmentReport(parseInt(this.selectedDepartment));  }
   }
 
   chooseAttendedMeetingUser(){

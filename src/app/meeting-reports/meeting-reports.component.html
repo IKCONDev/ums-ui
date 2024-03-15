@@ -467,7 +467,7 @@
     <div *ngIf="reportType === 'all'">
         <div class="row">
             <div>
-                <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: left; width: 250px; margin-left: 51px;margin-top: 9px;margin-bottom: 22px"
+                <ng-select id="select" [(ngModel)]="selectedDepartment"[searchable]="searchable" [clearable]="clearable" style="float: left; width: 250px; margin-left: 51px;margin-top: 9px;margin-bottom: 22px"
                 placeholder="Departments" (change)="chooseDepartment()">
                 <!-- <ng-option  value="all">All</ng-option> -->
                 <ng-option *ngFor="let department of departmentList|orderBy:'departmentName'"
