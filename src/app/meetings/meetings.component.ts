@@ -227,10 +227,6 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
    * executes when the component is initialized or loaded first time
    */
   async ngOnInit(): Promise<void> {
-    //set time zone for create meeting
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    //const formattedTimeZone = this.timeZoneMappings[timeZone] || timeZone;
-    this.addMeeting.originalStartTimeZone = timeZone;
     if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
@@ -1131,6 +1127,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
         }
       }//error
     })
+    //set time zone of meeting
+    this.setTimeZone();
   }
 
   /**
@@ -1509,7 +1507,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     originalEndTimeZone: '',
     attendeeCount: 0,
     createdBy: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
-    createByEmailId: localStorage.getItem('email'),
+    createdByEmailId: localStorage.getItem('email'),
     //meetingTranscripts: [],
     //transcriptData:[],
     //isTranscriptDisabled: boolean;
@@ -2033,6 +2031,14 @@ validateDiscussionPoints(){
      this.discussionPointErrorInfo = "";
      this.validDiscussionPoint = true;
    }
+}
+
+setTimeZone(){
+  console.log('exe')
+  //set time zone for create meeting
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  //const formattedTimeZone = this.timeZoneMappings[timeZone] || timeZone;
+  this.addMeeting.originalStartTimeZone = timeZone;
 }
 
 }
