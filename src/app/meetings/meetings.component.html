@@ -418,6 +418,7 @@
                         <th>Type</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
+                        <th>Timezone</th>
                     </tr>
                 </thead>
                 <tbody   *ngFor="let meeting of attendedMeetings; let i = index">
@@ -430,6 +431,7 @@
                         <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td id="cell">{{meeting.originalStartTimeZone}}</td>
                     </tr>
                 </tbody>
             </table>
