@@ -311,7 +311,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
   isCategoryTitleValid:boolean = false;
   validateTaskCategoryTitle(){
     const regex = /^\S.*[a-zA-Z\s]*$/;
-    const regex2=/^[A-Za-z ]+$/;
+    // const regex2=/^[A-Za-z ]+$/;
     if(this.taskCategory.taskCategoryTitle === '' || this.taskCategory.taskCategoryTitle.trim()==="" || 
     regex.test(this.taskCategory.taskCategoryTitle)===false){
       if(this.taskCategory.taskCategoryTitle.startsWith(" ")){
@@ -321,11 +321,11 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       this.categoryTitleErrorInfo = 'Task category name is required.';
       this.isCategoryTitleValid = false;
       }
-    }else if(regex2.test(this.taskCategory.taskCategoryTitle) === false){
-      this.categoryTitleErrorInfo = 'Task category name cannot have special characters or numbers.';
-      this.isCategoryTitleValid = false;
-    }
-    else if(this.taskCategory.taskCategoryTitle.length < 3){
+    // }else if(regex2.test(this.taskCategory.taskCategoryTitle) === false){
+    //   this.categoryTitleErrorInfo = 'Task category name cannot have special characters or numbers.';
+    //   this.isCategoryTitleValid = false;
+    // }
+    }else if(this.taskCategory.taskCategoryTitle.length < 3){
       this.categoryTitleErrorInfo = 'Task category name should have minimum of 3 characters.';
       this.isCategoryTitleValid = false;
     }else if(this.taskCategory.taskCategoryTitle.length > 50){
