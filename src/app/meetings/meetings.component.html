@@ -861,15 +861,37 @@
                                 </span>
                             </div>
                             <label><b>Location</b></label>
-                            <select class="form-control form-select" style="width: 400px;"  placeholder ="Select"
+                            <select class="form-control form-select" style="width: 400px;"  placeholder ="Choose Location"
                             [(ngModel)]="addMeeting.location" name="meetingLocation"
                             #meetingLocation="ngModel" id="meetingLocation">
+                              <option value="" default="true">Choose Location</option>
                               <option>Conference room</option>
                               <option>Seminar Hall</option>
                               <option>Client's office</option>
                               <option>Virtual</option>
                               <option>Outdoor</option>
                             </select>
+                            <!-- timezone -->
+                            <label><b>Timezone</b><span id="required">*</span></label>
+                            <div>
+                                <!-- <input type="text" *ngIf="isDisable==true" [(ngModel)]="org.orgTimeZone"
+                                    class="form-control" placeholder="Enter TimeZone"> -->
+                                <select [(ngModel)]="addMeeting.originalStartTimeZone" class="form-control form-select"
+                                     placeholder="Choose Time Zone" name="originalStartTimeZone" style="width: 400px;">
+                                    <option value="" default="true">Choose Timezone</option>
+                                    <option value="Indian Standard Time">Indian Standard Time (IST)</option>
+                                    <option value="Universal Coordinated Time">Universal Coordinated Time (UTC)</option>
+                                    <option value="Eastern Time">Eastern Time (ET)</option>
+                                    <option value="Pacific Time">Pacific Time (PC)</option>
+                                    <option value="Mountain Time">Mountain Time (MT)</option>
+                                    <option value="Central Time">Central Time (CT)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span id="errorSpan" *ngIf="meetingTimezoneErrorInfo != ''">
+                                    <p>{{meetingTimezoneErrorInfo}}</p>
+                                </span>
+                            </div>
                             <!-- attendees -->
                             <label><b>Attendees</b><span id="required">*</span></label>
                             <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees"

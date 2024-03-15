@@ -1495,6 +1495,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     //actionItems: 
     emailId: this.selectedReporteeOrganizedMeeting != '' ? this.selectedReporteeOrganizedMeeting : this.loggedInUser,
     location : '',
+    originalStartTimeZone:'',
+    originalEndTimeZone: '',
     attendeeCount: 0,
     createdBy: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
     createByEmailId: localStorage.getItem('email'),
@@ -1513,6 +1515,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     var isStartDateValid = true;
     var isEndDateValid = true;
     var isAttendeesValid = true;
+    var isTimezoneValid = true;
 
     if (this.isMeetingSubjectValid === false) {
       var valid = this.validateMeetingSubject();
@@ -1530,10 +1533,16 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
       var valid = this.validateMeetingAttendees();
       isAttendeesValid = valid;
     }
+    if(this.isMeetingTimezoneValid === false){
+      var valid = this.validateMeetingTimezone();
+      isTimezoneValid = valid;
+    }
 
-    if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid) {
+    if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid && isTimezoneValid) {
       //create meeting
       this.createButtonDisabled=true;
+      console.log(this.addMeeting.originalStartTimeZone)
+      this.addMeeting.originalEndTimeZone = this.addMeeting.originalStartTimeZone;
       this.meetingsService.createMeeting(this.addMeeting).subscribe({
         next: (response) => {
           if (response.status === HttpStatusCode.Created) {
@@ -1626,6 +1635,19 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.isMeetingAttendeesValid = true;
     }
     return this.isMeetingAttendeesValid;
+  }
+
+  meetingTimezoneErrorInfo = '';
+  isMeetingTimezoneValid = false;
+  validateMeetingTimezone() {
+    if (this.addMeeting.originalStartTimeZone === '') {
+      this.meetingTimezoneErrorInfo = 'Meetings timezone is required';
+      this.isMeetingTimezoneValid = false;
+    } else {
+      this.meetingTimezoneErrorInfo = '';
+      this.isMeetingTimezoneValid = true;
+    }
+    return this.isMeetingTimezoneValid;
   }
 
   /**
