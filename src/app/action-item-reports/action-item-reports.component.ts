@@ -55,10 +55,20 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
       this.reportType = param['reportType'];
     }) 
   }
+  clearable:boolean=true;
+  searchable:boolean=true;
   ngAfterViewInit(): void {
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.getAllDepartments();
     this.getEmployeeAsUserList();
     this.getAllActionItemsCount();
+    }else{
+      this.clearable=false;
+        this.searchable=false;
+        this.selectedDepartment=localStorage.getItem("deptID")
+        console.log("called choose dep on ng after")
+        this.chooseDepartment();
+    }
   }
 
   selectedUserFullName: string;
@@ -89,6 +99,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
                 this.loggedInUserPrincipalObject = response.body;
                 this.selectedUser = this.loggedInUserPrincipalObject.email;
                 //this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
+                localStorage.setItem("deptID",this.loggedInUserPrincipalObject.employee.departmentId.toString())
                 this.selectedDepartmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
                 this.selectedPriority = 'High';
               }
