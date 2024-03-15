@@ -221,6 +221,10 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
    * executes when the component is initialized or loaded first time
    */
   async ngOnInit(): Promise<void> {
+    //set time zone for create meeting
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    console.log(timezone); 
+    this.addMeeting.originalStartTimeZone = timezone;
     if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
