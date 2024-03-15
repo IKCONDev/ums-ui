@@ -805,7 +805,7 @@
                     <ng-template #allTasks>
                         <p>Department Name : <b>{{"All"}}</b></p>
                         <p *ngIf="alltasksCount > 0">Total Tasks of all department : <b>{{alltasksCount}}</b></p>
-                        <p *ngIf="alltasksCount == null">Total Tasks of all department : <b>{{0}}</b></p>
+                        <p *ngIf="alltasksCount == 0">Total Tasks of all department : <b>{{0}}</b></p>
                    </ng-template>
                     <!-- <p>Report For : <b>{{"Department"}}</b></p>
                     <p>Department ID : <b>{{selectedDepartment}}</b></p>
