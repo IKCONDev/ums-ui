@@ -100,6 +100,7 @@
                         <th id="thead">End Date & Time</th>
                         <th id="thead">Type</th>
                         <th id="thead">Location</th>
+                        <th id="thead">Timezone</th>
                         <th id="thead">Attendees</th>
                         <th id="thead">Duration</th>
                         <th id="thead">Transcript</th>
@@ -126,6 +127,7 @@
                         <td *ngIf="meeting.type =='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
                         <td *ngIf="meeting.location != null">{{meeting.location}}</td>
                         <td *ngIf="meeting.location == null">Normal Meeting</td>
+                        <td>{{meeting.originalStartTimeZone}}</td>
                         <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
                         <td>{{meeting.actualMeetingDuration}}</td>
                         <td style="padding-left: 22px;">

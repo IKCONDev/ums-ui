@@ -28,6 +28,8 @@ export class Meeting{
     type : string;
     momEmailCount:number;
     actualMeetingDuration: string;
+    originalStartTimeZone: string;
+    originalEndTimeZone: string;
 
 
     /**
