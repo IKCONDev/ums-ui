@@ -43,7 +43,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   deletePermission: boolean;
   noPermissions: boolean;
   userRoleMenuItemsPermissionMap: Map<string, string>
-
+  loggedInUserRole = localStorage.getItem('userRole');
 
   constructor(private activatedRoute:ActivatedRoute, private deprtmentService: DepartmentService,
     private router: Router, private actionItemsReportService: ActionItemsReportsService, 
@@ -181,6 +181,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   }
 
   async getAllDepartments(): Promise<void>{
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.deprtmentService.getDepartmentList().subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
@@ -192,7 +193,18 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
         }
       }
     })
+  }else{
+    this.departmentService.getDepartmentByDepartmentHead(this.loggedInUserId).subscribe({
+      next: response => {
+        this.departmentList = response.body;
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+    })
   }
+}
 
 
   actionItemListOfOrganizer: ActionItems[]
