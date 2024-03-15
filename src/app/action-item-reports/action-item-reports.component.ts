@@ -169,6 +169,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
 
   employeeListAsUser: Employee[];
   getEmployeeAsUserList(){
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.employeeService.getUserStatusEmployees(true).subscribe({
       next: response => {
         this.employeeListAsUser = response.body;
@@ -178,7 +179,18 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
         }
       }
     })
+  }else{
+    this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUserId).subscribe({
+      next: response => {
+        this.employeeListAsUser = response.body;
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+  })
   }
+}
 
   async getAllDepartments(): Promise<void>{
     if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){

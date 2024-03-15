@@ -89,15 +89,24 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
       this.reportType = param['reportType'];
     })
   }
+  clearable=true;
+  searchable=true;
   ngAfterViewInit(): void {
     this.getActiveUsersList();
     this.getEmployeeAsUserList();
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.getDepartments();
     this.getAllTasksByDepartment();
     setTimeout(() => {
       this.createTaskListAllDepartmentChart();
     }, 500);
-   
+  }else{
+        this.clearable=false;
+        this.searchable=false;
+        this.selectedDepartment=localStorage.getItem("deptID")
+        console.log("called choose dep on ng after")
+        this.chooseDepartment();
+  }
   }
 
   /**
@@ -225,6 +234,7 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
       next: response => {
         this.loggedInUserPrincipalObject = response.body;
         //this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
+        localStorage.setItem("deptID",this.loggedInUserPrincipalObject.employee.departmentId.toString())
         this.departmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -449,15 +459,27 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
 
   employeeListAsUser: Employee[];
   getEmployeeAsUserList(){
-    this.employeeService.getUserStatusEmployees(true).subscribe({
-      next: response => {
-        this.employeeListAsUser = response.body;
-      },error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout')
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
+      this.employeeService.getUserStatusEmployees(true).subscribe({
+        next: response => {
+          this.employeeListAsUser = response.body;
+        },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout')
+          }
         }
-      }
+      })
+    }else{
+      this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+        next: response => {
+          this.employeeListAsUser = response.body;
+        },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout')
+          }
+        }
     })
+    }
   }
 
   chooseUser() {
