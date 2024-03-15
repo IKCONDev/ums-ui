@@ -72,6 +72,7 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
   deletePermission: boolean;
   noPermissions: boolean;
   userRoleMenuItemsPermissionMap: Map<string, string>
+  loggedInUserRole = localStorage.getItem('userRole');
 
   /**
    * 
@@ -178,6 +179,7 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
   }
 
   getDepartments() {
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.departmentService.getDepartmentList().subscribe({
       next: response => {
         this.departmentList = response.body;
@@ -187,7 +189,18 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
         }
       }
     })
+  }else{
+    this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
+      next: response => {
+        this.departmentList = response.body;
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+    })
   }
+}
 
   departmentName: string;
   department: Department;
