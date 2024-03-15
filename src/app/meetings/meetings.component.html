@@ -210,7 +210,7 @@
                                 (click)="getActiveUMSUsersEmailIdList()" (click)="fetchActionItemsOfEvent(meeting.meetingId)" >sendMoM</button></td>-->
                     </tr>
                     <tr class="detail">
-                        <td colspan="12">
+                        <td colspan="18">
                             <div>
                                 <table id="myTable{{meeting.meetingId}}" class="table table-hover">
                                     <thead>
@@ -418,6 +418,7 @@
                         <th>Type</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
+                        <th>Timezone</th>
                     </tr>
                 </thead>
                 <tbody   *ngFor="let meeting of attendedMeetings; let i = index">
@@ -430,6 +431,7 @@
                         <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td id="cell">{{meeting.originalStartTimeZone}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -858,16 +860,6 @@
                                     <p>{{meetingEndDateErrorInfo}}</p>
                                 </span>
                             </div>
-                            <label><b>Location</b></label>
-                            <select class="form-control form-select" style="width: 400px;"  placeholder ="Select"
-                            [(ngModel)]="addMeeting.location" name="meetingLocation"
-                            #meetingLocation="ngModel" id="meetingLocation">
-                              <option>Conference room</option>
-                              <option>Seminar Hall</option>
-                              <option>Client's office</option>
-                              <option>Virtual</option>
-                              <option>Outdoor</option>
-                            </select>
                             <!-- attendees -->
                             <label><b>Attendees</b><span id="required">*</span></label>
                             <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees"
@@ -883,6 +875,40 @@
                             <div>
                                 <span id="errorSpan" *ngIf="meetingAttendeesErrorInfo != ''">
                                     <p>{{meetingAttendeesErrorInfo}}</p>
+                                </span>
+                            </div>
+                            <label><b>Location</b></label>
+                            <select class="form-control form-select" style="width: 400px;"  placeholder ="Choose Location"
+                            [(ngModel)]="addMeeting.location" name="meetingLocation"
+                            #meetingLocation="ngModel" id="meetingLocation">
+                              <option value="" default="true">Choose Location</option>
+                              <option>Conference room</option>
+                              <option>Seminar Hall</option>
+                              <option>Client's office</option>
+                              <option>Virtual</option>
+                              <option>Outdoor</option>
+                            </select>
+                            <!-- timezone -->
+                            <label><b>Timezone</b><span id="required">*</span></label>
+                            <!-- <div>
+                                <select [(ngModel)]="addMeeting.originalStartTimeZone" class="form-control form-select"
+                                     placeholder="Choose Time Zone" name="originalStartTimeZone" style="width: 400px;">
+                                    <option value="" default="true">Choose Timezone</option>
+                                    <option value="Indian Standard Time">Indian Standard Time (IST)</option>
+                                    <option value="Universal Coordinated Time">Universal Coordinated Time (UTC)</option>
+                                    <option value="Eastern Time">Eastern Time (ET)</option>
+                                    <option value="Pacific Time">Pacific Time (PC)</option>
+                                    <option value="Mountain Time">Mountain Time (MT)</option>
+                                    <option value="Central Time">Central Time (CT)</option>
+                                </select>
+                            </div> -->
+                            <div>
+                                <input type="text" [(ngModel)]="addMeeting.originalStartTimeZone" class="form-control"
+                                name="originalStartTimeZone" style="width: 400px;" readonly/>
+                            </div>
+                            <div>
+                                <span id="errorSpan" *ngIf="meetingTimezoneErrorInfo != ''">
+                                    <p>{{meetingTimezoneErrorInfo}}</p>
                                 </span>
                             </div>
                             <!-- organizer Name-->

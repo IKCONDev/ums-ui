@@ -781,7 +781,7 @@
     <div class="card-body" *ngIf="reportType === 'all';">
         <div class="row">
             <div class="col-sm-2" style="margin-left: 130px;">
-                <ng-select id="select" [(ngModel)]="selectedDepartment" style="float: right; width: 250px;"
+                <ng-select id="select" [(ngModel)]="selectedDepartment" [searchable]="searchable" [clearable]="clearable" style="float: right; width: 250px;"
                 placeholder="Departments" (change)="chooseDepartment()">
                 <ng-option *ngFor="let department of departmentList|orderBy:'departmentName'"
                     value="{{department.departmentId}}">{{department.departmentName}}</ng-option>
