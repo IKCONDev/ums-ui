@@ -1464,7 +1464,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.meetingsService.sendMinutesofMeeting(this.emailListForsendingMOM, this.meetingData, this.discussionPoints, this.hoursDiff, this.minutesDiff).subscribe({
       next: (response) => {
         if (response.status == HttpStatusCode.Ok) {
-          this.toastr.success("MOM send successfully");
+          this.toastr.success("MOM sent successfully");
           this.isSendButtonDisabled=false;
           document.getElementById('closeSendMoMEmail').click();
         }
