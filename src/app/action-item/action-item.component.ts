@@ -65,6 +65,12 @@ export class ActionItemComponent implements OnInit {
     actionStatus: '',
     startDate: '',
     endDate: '',
+    createdBy: '',
+    createdByEmailId:'',
+    createdDateTime: '',
+    modifiedBy: '',
+    modifiedByEmailId: '',
+    modifiedDateTime: ''
   }
 
   //add action item object
@@ -79,7 +85,13 @@ export class ActionItemComponent implements OnInit {
     actionPriority: '',
     actionStatus: 'Not Converted',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    createdBy: '',
+    createdByEmailId:'',
+    createdDateTime: '',
+    modifiedBy: '',
+    modifiedByEmailId: '',
+    modifiedDateTime: ''
   }
 
   actionItemNameFilter = localStorage.getItem('actionItemNameFilter');
