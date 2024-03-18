@@ -378,8 +378,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     } else if (this.addDetails.actionItemTitle.length < 5) {
       this.actionItemTitleErrorInfo = 'Title should have a minimum of 5 characters';
       this.isActionItemTitleValid = false;
-    } else if (this.addDetails.actionItemTitle.length > 50) {
-      this.actionItemTitleErrorInfo = 'Title must not exceed 50 characters';
+    } else if (this.addDetails.actionItemTitle.length > 100) {
+      this.actionItemTitleErrorInfo = 'Title must not exceed 100 characters';
       this.isActionItemTitleValid = false;
     } else {
       this.actionItemTitleErrorInfo = '';
@@ -1184,8 +1184,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     } else if (this.updatedetails.actionItemTitle.length < 5) {
       this.updateActionItemTitleErrorInfo = 'Title should have minimum of 5 characters';
       this.isUpdateActionItemTitleValid = false;
-    } else if (this.updatedetails.actionItemTitle.length > 50) {
-      this.updateActionItemTitleErrorInfo = 'Title must not exceed 50 characters';
+    } else if (this.updatedetails.actionItemTitle.length > 100) {
+      this.updateActionItemTitleErrorInfo = 'Title must not exceed 100 characters';
       this.isUpdateActionItemTitleValid = false;
     } else {
       this.updateActionItemTitleErrorInfo = '';
@@ -2001,6 +2001,12 @@ validateDiscussionPoints(){
      this.discussionPointErrorInfo = "";
      this.validDiscussionPoint = true;
    }
+}
+
+
+getPOPUPMessage(){
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
 }
 
 }

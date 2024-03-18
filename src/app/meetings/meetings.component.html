@@ -481,7 +481,7 @@
                     <label><b>Action Item Title</b><span id="required">*</span></label>
                     <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
                         placeholder="Enter Title" [(ngModel)]="addDetails.actionItemTitle" required="true"
-                        name="actionItemTitle" id="actionItemTitle" minlength="5" maxlength="51"
+                        name="actionItemTitle" id="actionItemTitle" minlength="5" maxlength="101"
                         #actionItemTitle="ngModel" [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
                         (keyup)="validateActionTitle()">
                     <div *ngIf="actionItemTitleErrorInfo != ''">
@@ -593,7 +593,7 @@
                         <label><b>Action Item Title</b><span id="required">*</span></label>
                         <input type="text" class="form-control" style="width: 400px;"
                             [(ngModel)]="updatedetails.actionItemTitle" required="true" name="uAcItemTitle"
-                            id="uAcItemTitle" minlength="5" maxlength="51" #uAcItemTitle="ngModel"
+                            id="uAcItemTitle" minlength="5" maxlength="101" #uAcItemTitle="ngModel"
                             [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched"
                             (keyup)="validateUpdateActionTitle()">
                         <div *ngIf="updateActionItemTitleErrorInfo != ''">
