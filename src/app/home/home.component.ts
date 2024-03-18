@@ -341,10 +341,13 @@ export class HomeComponent implements OnInit {
       const currentDate = new Date();
       const startDate = new Date(currentDate);
       startDate.setDate(currentDate.getDate() - currentDate.getDay())
+      startDate.setHours(0, 0, 0, 0);
       const endDate = new Date();
       endDate.setDate(startDate.getDate() + 6);//end of the week
       endDate.setHours(23, 59, 59, 999);//end of the day
-      this.homeService.fetchStatusforWeek(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      console.log(startDate.toISOString().split('T')[0]);
+      console.log(endDate.toISOString().split('T')[0])
+      this.homeService.fetchStatusforWeek(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasks = response.body;
           this.createChart();
@@ -360,7 +363,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasksForYear = response.body;
           this.createChart();
@@ -377,7 +380,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
        startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);          
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasksForMonth = response.body;
           this.createChart();
@@ -985,9 +988,10 @@ export class HomeComponent implements OnInit {
       const currentDate = new Date();
       const startDate = new Date(currentDate);
       startDate.setDate(currentDate.getDate() - currentDate.getDay())
+      startDate.setHours(0, 0, 0, 0);
       const endDate = new Date();
       endDate.setDate(startDate.getDate() + 6);//end of the week
-      this.homeService.fetchStatusforWeek(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchStatusforWeek(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasks = response.body;
           this.createChartForTotalTask();
@@ -1003,7 +1007,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasksForYear = response.body;
           this.createChartForTotalTask();
@@ -1020,7 +1024,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasksForMonth = response.body;
           this.createChartForTotalTask();
@@ -1233,9 +1237,10 @@ export class HomeComponent implements OnInit {
       const currentDate = new Date();
       const startDate = new Date(currentDate);
       startDate.setDate(currentDate.getDate() - currentDate.getDay())
+      startDate.setHours(0, 0, 0, 0);
       const endDate = new Date();
       endDate.setDate(startDate.getDate() + 6);//end of the week
-      this.homeService.fetchStatusforWeek(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchStatusforWeek(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasks = response.body;
           this.createChartForYetToStartTask();
@@ -1251,7 +1256,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasksForYear = response.body;
           this.createChartForYetToStartTask();
@@ -1268,7 +1273,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.yetToStartTaskStatus = response.body;
           this.createChartForYetToStartTask();
@@ -1483,9 +1488,10 @@ export class HomeComponent implements OnInit {
       const currentDate = new Date();
       const startDate = new Date(currentDate);
       startDate.setDate(currentDate.getDate() - currentDate.getDay())
+      startDate.setHours(0, 0, 0, 0);
       const endDate = new Date();
       endDate.setDate(startDate.getDate() + 6);//end of the week
-      this.homeService.fetchStatusforWeek(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchStatusforWeek(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasks = response.body;
           this.createChartForInprogressTask();
@@ -1501,7 +1507,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasksForYear = response.body;
           this.createChartForInprogressTask();
@@ -1518,7 +1524,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.inprogressTaskForMonth = response.body;
           this.createChartForInprogressTask();
@@ -1731,9 +1737,10 @@ export class HomeComponent implements OnInit {
       const currentDate = new Date();
       const startDate = new Date(currentDate);
       startDate.setDate(currentDate.getDate() - currentDate.getDay())
+      startDate.setHours(0, 0, 0, 0);
       const endDate = new Date();
       endDate.setDate(startDate.getDate() + 6);//end of the week
-      this.homeService.fetchStatusforWeek(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchStatusforWeek(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasks = response.body;
           this.createChartForCompletedTask();
@@ -1749,7 +1756,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.TotalTasksForYear = response.body;
           this.createChartForCompletedTask();
@@ -1766,7 +1773,7 @@ export class HomeComponent implements OnInit {
       //add dynamic year
       startDate.setFullYear(new Date().getFullYear(), 0, 1);
       endDate.setFullYear(new Date().getFullYear(), 11, 31);
-      this.homeService.fetchTaskStatusForYear(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]).subscribe({
+      this.homeService.fetchTaskStatusForYear(startDate.toISOString(), endDate.toISOString()).subscribe({
         next: response => {
           this.completedTaskForMonth = response.body;
           this.createChartForCompletedTask();
