@@ -81,7 +81,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     createdBy:'',
     createdByEmailId:'',
     modifiedBy: '',
-    modifiedByEmailId: ''
+    modifiedByEmailId: '',
+    plannedDuration : '',
+    actualDuration : ''
   }
 
   //filter organized task properties
@@ -404,6 +406,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("OrganizedTask").style.borderBottom = 'none';
               //extract the meetings from response object
               this.assignedTasks = response.body;
+              console.log(this.assignedTasks)
               this.assignedTasksCount = response.body.length
               if (this.assignedTasksCount === 0) {
                 this.isComponentLoading = false;
@@ -454,6 +457,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("OrganizedTask").style.paddingBottom = '2px';
               document.getElementById("AssignedTask").style.borderBottom = 'none';
               this.task = res.body;
+              console.log(this.task)
               this.taskCount = res.body.length;
               if (this.taskCount === 0) {
                 this.isComponentLoading = false;
