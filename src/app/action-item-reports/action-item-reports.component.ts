@@ -69,6 +69,46 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
         console.log("called choose dep on ng after")
         this.chooseDepartment();
     }
+    //this.InitailizeJqueryDataTable();
+     
+  }
+  Table:any;
+  InitailizeJqueryDataTable() {
+    console.log("enteedjquery")
+    setTimeout(() => {
+      if(this.Table!=null){
+        this.Table.destroy();
+      }
+      $(document).ready(() => {
+        this.Table = $('.table').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+          // Add other options here as needed
+          columnDefs:[{
+            // Configure date sorting for column 5 (index 4)
+            "targets": [3,4],
+            "type": "date", // Set internal data type for sorting
+            "render": function (data, type, row) {
+              // Create a new JavaScript Date object directly from the provided format
+              const dateObj = new Date(data);
+
+              // Format the date object for display using the desired format string
+              const formattedDate = dateObj.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              });
+      
+              return formattedDate;
+            }
+          }]
+        });
+      });
+    }, 900);
   }
 
   selectedUserFullName: string;

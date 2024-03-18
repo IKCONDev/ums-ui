@@ -65,6 +65,12 @@ export class ActionItemComponent implements OnInit {
     actionStatus: '',
     startDate: '',
     endDate: '',
+    createdBy: '',
+    createdByEmailId:'',
+    createdDateTime: '',
+    modifiedBy: '',
+    modifiedByEmailId: '',
+    modifiedDateTime: ''
   }
 
   //add action item object
@@ -79,7 +85,13 @@ export class ActionItemComponent implements OnInit {
     actionPriority: '',
     actionStatus: 'Not Converted',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    createdBy: '',
+    createdByEmailId:'',
+    createdDateTime: '',
+    modifiedBy: '',
+    modifiedByEmailId: '',
+    modifiedDateTime: ''
   }
 
   actionItemNameFilter = localStorage.getItem('actionItemNameFilter');
@@ -918,6 +930,10 @@ export class ActionItemComponent implements OnInit {
       taskCategoryDescription: '',
       taskCategoryStatus: ''
     },
+    createdBy: '',
+    modifiedBy: '',
+    createdByEmailId: '',
+    modifiedByEmailId:''
   }
 
   isTaskTitleValid = false;
@@ -1134,6 +1150,8 @@ export class ActionItemComponent implements OnInit {
       this.add_Task.actionItemId = this.currentActionItemId;
       this.add_Task.departmentId = this.selectedUserdepartmentId;
       this.add_Task.taskCategory.taskCategoryId = this.add_Task.taskCategoryId
+      this.add_Task.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+      this.add_Task.createdByEmailId = this.loggedInUser
       this.disableSaveButton=true;
       this.taskService.createTask(this.add_Task).subscribe({
         next: (response) => {

@@ -14,5 +14,12 @@ export class ActionItems{
     startDate: string
     endDate: string;
     departmentId: number;
+    createdBy: string;
+    createdByEmailId: string;
+    createdDateTime: string;
+    modifiedBy: string;
+    modifiedByEmailId: string;
+    modifiedDateTime: string;
+    
 
  }

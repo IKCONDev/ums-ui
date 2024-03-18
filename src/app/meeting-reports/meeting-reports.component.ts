@@ -75,6 +75,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
   }
   clearable:boolean=true;
   searchable:boolean=true;
+  Table:any;
   ngAfterViewInit(): void {
     this.getEmployeeAsUserList();      
       this.getAllDepartments();
@@ -91,6 +92,45 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
 
         
       }
+     // this.InitailizeJqueryDataTable();
+     
+  }
+  InitailizeJqueryDataTable() {
+    console.log("enteedjquery")
+    setTimeout(() => {
+      if(this.Table!=null){
+        this.Table.destroy();
+      }
+      $(document).ready(() => {
+        this.Table = $('.table').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+          // Add other options here as needed
+          columnDefs:[{
+            // Configure date sorting for column 5 (index 4)
+            "targets": [4,5],
+            "type": "date", // Set internal data type for sorting
+            "render": function (data, type, row) {
+              // Create a new JavaScript Date object directly from the provided format
+              const dateObj = new Date(data);
+
+              // Format the date object for display using the desired format string
+              const formattedDate = dateObj.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              });
+      
+              return formattedDate;
+            }
+          }]
+        });
+      });
+    }, 900);
   }
 
  async  ngOnInit(): Promise<void> {
