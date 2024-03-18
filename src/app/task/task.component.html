@@ -151,7 +151,7 @@
                         <th>UID</th>
                         <th>Title</th>
                         <th>ActionItem</th>
-                        <th>Owner</th>
+                        <th>Assignee</th>
                         <th>Task Category</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -298,7 +298,7 @@
 <!---Organized modal-->
 <div class="modal fade" id="xlModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
     aria-labelledby="xlModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl" style="height: auto;">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header" style="background-color: #134E69D9; color: #ecf7fc;">
@@ -337,7 +337,7 @@
             </div>
             <form #form="ngForm" method="POST">
                 <!-- Modal body -->
-                <div class="modal-body" style="height: 550px;">
+                <div class="modal-body" style="height: 650px;">
                     <div class="row">
                         <div class="col-md-6" style="width: 560px;">
                             <div class="col-md-12"
@@ -429,7 +429,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:430px; height: 480px; background-color: #ecf7fc;margin-top:-115px;margin-left: 11px;">
+                            style=" width:430px; height: 580px; background-color: #ecf7fc;margin-top:-115px;margin-left: 11px;">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="padding-top: 5px;">Details</label>
                             </div>
@@ -513,7 +513,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned Start Date</b><span id="required">*</span></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         id="addTaskStartDate" name="taskStartDate"
                                                         [(ngModel)]="update_Task.plannedStartDate"
                                                         disabled="true"></span>
@@ -524,7 +524,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b><span id="required">*</span></td>
-                                            <td><span> <input type="date" class="form-control" name="taskDueDate"
+                                            <td><span> <input type="datetime-local" class="form-control" name="taskDueDate"
                                                        id="addtaskDueDate" [(ngModel)]="update_Task.plannedEndDate" disabled="true"></span>
                                                 <!-- <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
@@ -532,8 +532,18 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td><b>Planned Duration</b></td>
+                                            <td><span><input type="text"  class="form-control"  [(ngModel)]= "update_Task.plannedDuration"
+                                                        required="true" (change)="validateTaskStartDate()"
+                                                        name="taskDueDate" id="addtaskDueDate" 
+                                                        disabled="true"></span>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        <tr>
                                             <td><b>Actual Start Date</b></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskActualStartDate" id="addTaskActualStartDate" [(ngModel)]="update_Task.startDate"
                                                         required="true" (change)="validateTaskStartDate()"
                                                         disabled="true"></span>
@@ -543,12 +553,20 @@
                                         </tr>
                                         <tr>
                                             <td><b>Actual End Date</b></td>
-                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                            <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskActualEndDate" id="addTaskActualEndDate" [(ngModel)]="update_Task.dueDate"
                                                         required="true" (change)="validateTaskDueDate()"
                                                         disabled="true"></span>
                                                 <span *ngIf="taskDueDateErrorInfo!=''"
                                                     id="error_msg">{{taskDueDateErrorInfo}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Actual Duration</b></td>
+                                            <td><span><input type="text"  class="form-control" [(ngModel)]="update_Task.actualDuration"
+                                                        name="taskDueDuartion" id="addtaskDuration" 
+                                                        disabled="true"></span>
+                                                
                                             </td>
                                         </tr>
                                         <!-- <tr>
@@ -623,7 +641,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6" style="width: 560px;">
+                        <div class="col-md-6" style="width: 650px;">
                             <div class="col-md-12"
                                 style="background-color: #134E69D9; height: 40px;margin-left:30px;margin-top:20px;width: 530px;">
                                 <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
@@ -714,7 +732,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:430px; height: 490px; background-color: #ecf7fc;margin-top:-115px;margin-left: 11px;">
+                            style=" width:430px; height: 580px; background-color: #ecf7fc;margin-top:-115px;margin-left: 11px;">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="padding-top: 5px;">Details</label>
                             </div>
@@ -781,7 +799,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned Start Date</b></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskPlannedStartDate" id="taskPlannedStartDate"
                                                         [(ngModel)]="update_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true" disabled></span>
@@ -789,15 +807,21 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b></td>
-                                            <td><span><input type="date" id="taskPlannedEndDate" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" id="taskPlannedEndDate" min="{{min}}" class="form-control"
                                                         name="taskPlannedEndDate"
                                                         [(ngModel)]="update_Task.plannedEndDate"
                                                         #taskPlannedEndDate="ngModel" required="true" disabled></span>
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td><b>Planned Duration</b></td>
+                                            <td><span><input type="text" id="taskPlannedDuration" class="form-control" [(ngModel)]="update_Task.plannedDuration"
+                                                name="taskPlannedDuration"  #taskDuration="ngModel"    required="true" disabled></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><b>Actual Start Date</b></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskStartDate" id="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
                                                         (change)="validateTaskStartDate()" disabled="true"></span>
@@ -807,13 +831,19 @@
                                         </tr>
                                         <tr>
                                             <td><b>Actual End Date</b></td>
-                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                            <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskDueDate" id="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
                                                         (change)="validateTaskDueDate()" disabled="true"></span>
                                                 <span *ngIf="taskDueDateErrorInfo!=''"
                                                     id="error_msg">{{taskDueDateErrorInfo}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Actual Duration</b></td>
+                                            <td><span><input type="text" id="taskDuration" class="form-control"[(ngModel)]="update_Task.actualDuration"
+                                                name="taskDuration"  #taskDuration="ngModel"    required="true" disabled></span>
                                             </td>
                                         </tr>
                                         <tr>

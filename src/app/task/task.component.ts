@@ -81,7 +81,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     createdBy:'',
     createdByEmailId:'',
     modifiedBy: '',
-    modifiedByEmailId: ''
+    modifiedByEmailId: '',
+    plannedDuration : '',
+    actualDuration : ''
   }
 
   //filter organized task properties
@@ -404,6 +406,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("OrganizedTask").style.borderBottom = 'none';
               //extract the meetings from response object
               this.assignedTasks = response.body;
+              console.log(this.assignedTasks)
               this.assignedTasksCount = response.body.length
               if (this.assignedTasksCount === 0) {
                 this.isComponentLoading = false;
@@ -454,6 +457,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
               document.getElementById("OrganizedTask").style.paddingBottom = '2px';
               document.getElementById("AssignedTask").style.borderBottom = 'none';
               this.task = res.body;
+              console.log(this.task)
               this.taskCount = res.body.length;
               if (this.taskCount === 0) {
                 this.isComponentLoading = false;
@@ -721,6 +725,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   data: Object;
   response: Object;
+  minutes1 : string
+  seconds1 : number
 
   /**
    * 
@@ -731,10 +737,15 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     var year = currentDate.getFullYear();
     var month = currentDate.getMonth() + 1;
     var day = currentDate.getDate();
-    var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+    var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day + 'T' + hours + ':' + (minutes < 10 ? '0' :'') + minutes + ':' + (seconds < 10 ? '0':'')+seconds;
+    //var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day 
     if (this.update_Task.status === 'Completed') {
       if (this.update_Task.startDate === null || this.update_Task.startDate === "") {
         this.update_Task.startDate = formattedStartDate;
+        
       }
       this.update_Task.dueDate = formattedStartDate;
     }
