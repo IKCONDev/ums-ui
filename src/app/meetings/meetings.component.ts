@@ -217,6 +217,12 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   noPermissions: boolean;
   updateButtonColor: string;
 
+// timeZoneMappings = {
+//     "Asia/Calcutta": "Indian Standard Time",
+//     // Add more mappings as needed
+// };
+
+
   /**
    * executes when the component is initialized or loaded first time
    */
@@ -1121,6 +1127,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
         }
       }//error
     })
+    //set time zone of meeting
+    this.setTimeZone();
   }
 
   /**
@@ -1495,9 +1503,11 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     //actionItems: 
     emailId: this.selectedReporteeOrganizedMeeting != '' ? this.selectedReporteeOrganizedMeeting : this.loggedInUser,
     location : '',
+    originalStartTimeZone:'',
+    originalEndTimeZone: '',
     attendeeCount: 0,
     createdBy: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
-    createByEmailId: localStorage.getItem('email'),
+    createdByEmailId: localStorage.getItem('email'),
     //meetingTranscripts: [],
     //transcriptData:[],
     //isTranscriptDisabled: boolean;
@@ -1513,6 +1523,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     var isStartDateValid = true;
     var isEndDateValid = true;
     var isAttendeesValid = true;
+    //var isTimezoneValid = true;
 
     if (this.isMeetingSubjectValid === false) {
       var valid = this.validateMeetingSubject();
@@ -1530,10 +1541,16 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
       var valid = this.validateMeetingAttendees();
       isAttendeesValid = valid;
     }
+    // if(this.isMeetingTimezoneValid === false){
+    //   var valid = this.validateMeetingTimezone();
+    //   isTimezoneValid = valid;
+    // }
 
     if (isSubjectvalid && isStartDateValid && isEndDateValid && isAttendeesValid) {
       //create meeting
       this.createButtonDisabled=true;
+      console.log(this.addMeeting.originalStartTimeZone)
+      this.addMeeting.originalEndTimeZone = this.addMeeting.originalStartTimeZone;
       this.meetingsService.createMeeting(this.addMeeting).subscribe({
         next: (response) => {
           if (response.status === HttpStatusCode.Created) {
@@ -1626,6 +1643,19 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.isMeetingAttendeesValid = true;
     }
     return this.isMeetingAttendeesValid;
+  }
+
+  meetingTimezoneErrorInfo = '';
+  isMeetingTimezoneValid = false;
+  validateMeetingTimezone() {
+    if (this.addMeeting.originalStartTimeZone === '') {
+      this.meetingTimezoneErrorInfo = 'Meetings timezone is required';
+      this.isMeetingTimezoneValid = false;
+    } else {
+      this.meetingTimezoneErrorInfo = '';
+      this.isMeetingTimezoneValid = true;
+    }
+    return this.isMeetingTimezoneValid;
   }
 
   /**
@@ -2003,10 +2033,19 @@ validateDiscussionPoints(){
    }
 }
 
+<<<<<<< HEAD
 
 getPOPUPMessage(){
   var popup = document.getElementById("myPopup");
   popup.classList.toggle("show");
+=======
+setTimeZone(){
+  console.log('exe')
+  //set time zone for create meeting
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  //const formattedTimeZone = this.timeZoneMappings[timeZone] || timeZone;
+  this.addMeeting.originalStartTimeZone = timeZone;
+>>>>>>> 939ab1263945a147fe286ed524ee5a82eaea9863
 }
 
 }

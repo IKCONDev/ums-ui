@@ -34,8 +34,10 @@
                     class="fa-solid fa-2x fa-plus-square" data-toggle="modal" data-target="#createModal"
                     (click)="getActiveUMSUsersEmailIdList()">
                 </i>
-                <i *ngIf="createPermission === false" class="fa-solid fa-2x fa-plus-square" style="color: lightgray;">
-                </i>
+                <div (click)="setTimeZone()">
+                    <i  *ngIf="createPermission === false" class="fa-solid fa-2x fa-plus-square" style="color: lightgray;">
+                    </i>
+                </div>
             </div>
             <div *ngIf="tabOpened === 'AttendedMeeting'" class="col-sm-2 d-flex" id="attendedFilter" data-toggle="modal"
                 data-target="#attendedFilterModal">
@@ -126,7 +128,6 @@
                         <td *ngIf="meeting.type =='singleInstance'">{{meetingType}}</td>
                         <td *ngIf="meeting.type =='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
                         <td *ngIf="meeting.location != null">{{meeting.location}}</td>
-                        <td *ngIf="meeting.location == null">Normal Meeting</td>
                         <td>{{meeting.originalStartTimeZone}}</td>
                         <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
                         <td>{{meeting.actualMeetingDuration}}</td>
@@ -210,7 +211,7 @@
                                 (click)="getActiveUMSUsersEmailIdList()" (click)="fetchActionItemsOfEvent(meeting.meetingId)" >sendMoM</button></td>-->
                     </tr>
                     <tr class="detail">
-                        <td colspan="12">
+                        <td colspan="18">
                             <div>
                                 <table id="myTable{{meeting.meetingId}}" class="table table-hover">
                                     <thead>
@@ -265,10 +266,8 @@
                                             </td>
                                             <td class="actionItemRows" id="meeting-subject" style="padding: 1.7em;">
                                                 {{actionItem.actionItemDescription}}</td>
-                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.startDate
-                                                |date:'MMM d, y'}}</td>
-                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.endDate
-                                                |date:'MMM d, y'}}</td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.startDate+''|date:'MMM d, y, h:mm a'}}</td>
+                                            <td class="actionItemRows" style="padding: 1.7em;">{{actionItem.endDate+''|date:'MMM d, y, h:mm a'}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">
                                                 {{actionItem.actionPriority}}</td>
                                             <td class="actionItemRows" style="padding: 1.7em;">
@@ -418,6 +417,7 @@
                         <th>Type</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
+                        <th>Timezone</th>
                     </tr>
                 </thead>
                 <tbody   *ngFor="let meeting of attendedMeetings; let i = index">
@@ -430,6 +430,7 @@
                         <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td id="cell">{{meeting.originalStartTimeZone}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -543,7 +544,7 @@
                     <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                     <!-- start date -->
                     <label><b>Planned Start Date</b><span id="required">*</span></label>
-                    <input type="date" class="form-control" style="width:400px;" [(ngModel)]="addDetails.startDate"
+                    <input type="datetime-local" class="form-control" style="width:400px;" [(ngModel)]="addDetails.startDate"
                         required="true" id="actionItemStartDate" name="startDate" #startDate="ngModel"
                         [class.invalid]="startDate.invalid && startDate.touched" (change)="validateActionStartDate()"
                         (change)="validateActionEndDate()">
@@ -552,7 +553,7 @@
                     </div>
                     <!-- end date -->
                     <label><b>Planned End Date</b><span id="required">*</span></label>
-                    <input type="date" class="form-control" style="width:400px;" [(ngModel)]="addDetails.endDate"
+                    <input type="datetime-local" class="form-control" style="width:400px;" [(ngModel)]="addDetails.endDate"
                         required="true" id="actionItemEndDate" name="endDate" #endDate="ngModel"
                         [class.invalid]="endDate.invalid && endDate.touched" (change)="validateActionEndDate()"
                         (change)="validateActionStartDate()">
@@ -655,7 +656,7 @@
                         <!--- <input type="text" style="width:400px;" [(ngModel)]="updatedetails.actionPriority">-->
                         <!-- start date -->
                         <label><b>Planned Start Date</b><span id="required">*</span></label>
-                        <input type="date" class="form-control" style="width:400px;"
+                        <input type="datetime-local" class="form-control" style="width:400px;"
                             [(ngModel)]="updatedetails.startDate" required="true" id="uAcItemStartDate"
                             name="uAcItemStartDate" #uAcItemStartDate="ngModel"
                             [class.invalid]="uAcItemStartDate.invalid && uAcItemStartDate.touched"
@@ -665,7 +666,7 @@
                         </div>
                         <!-- end date -->
                         <label><b>Planned End Date</b><span id="required">*</span></label>
-                        <input type="date" class="form-control" style="width:400px;" [(ngModel)]="updatedetails.endDate"
+                        <input type="datetime-local" class="form-control" style="width:400px;" [(ngModel)]="updatedetails.endDate"
                             required="true" id="uAcItemEndDate" name="uAcItemEndDate" #uAcItemEndDate="ngModel"
                             [class.invalid]="uAcItemEndDate.invalid && uAcItemEndDate.touched"
                             (change)="validateUpdateActionEndDate()" (change)="validateUpdateActionStartDate()">
@@ -858,16 +859,6 @@
                                     <p>{{meetingEndDateErrorInfo}}</p>
                                 </span>
                             </div>
-                            <label><b>Location</b></label>
-                            <select class="form-control form-select" style="width: 400px;"  placeholder ="Select"
-                            [(ngModel)]="addMeeting.location" name="meetingLocation"
-                            #meetingLocation="ngModel" id="meetingLocation">
-                              <option>Conference room</option>
-                              <option>Seminar Hall</option>
-                              <option>Client's office</option>
-                              <option>Virtual</option>
-                              <option>Outdoor</option>
-                            </select>
                             <!-- attendees -->
                             <label><b>Attendees</b><span id="required">*</span></label>
                             <ng-select [searchable]="true" [multiple]="true" [clearable]="true" id="meetingAttendees"
@@ -883,6 +874,40 @@
                             <div>
                                 <span id="errorSpan" *ngIf="meetingAttendeesErrorInfo != ''">
                                     <p>{{meetingAttendeesErrorInfo}}</p>
+                                </span>
+                            </div>
+                            <label><b>Location</b></label>
+                            <select class="form-control form-select" style="width: 400px;"  placeholder ="Choose Location"
+                            [(ngModel)]="addMeeting.location" name="meetingLocation"
+                            #meetingLocation="ngModel" id="meetingLocation">
+                              <option value="" default="true">Choose Location</option>
+                              <option>Conference room</option>
+                              <option>Seminar Hall</option>
+                              <option>Client's office</option>
+                              <option>Virtual</option>
+                              <option>Outdoor</option>
+                            </select>
+                            <!-- timezone -->
+                            <label><b>Timezone</b><span id="required">*</span></label>
+                            <!-- <div>
+                                <select [(ngModel)]="addMeeting.originalStartTimeZone" class="form-control form-select"
+                                     placeholder="Choose Time Zone" name="originalStartTimeZone" style="width: 400px;">
+                                    <option value="" default="true">Choose Timezone</option>
+                                    <option value="Indian Standard Time">Indian Standard Time (IST)</option>
+                                    <option value="Universal Coordinated Time">Universal Coordinated Time (UTC)</option>
+                                    <option value="Eastern Time">Eastern Time (ET)</option>
+                                    <option value="Pacific Time">Pacific Time (PC)</option>
+                                    <option value="Mountain Time">Mountain Time (MT)</option>
+                                    <option value="Central Time">Central Time (CT)</option>
+                                </select>
+                            </div> -->
+                            <div>
+                                <input type="text" [(ngModel)]="addMeeting.originalStartTimeZone" class="form-control"
+                                name="originalStartTimeZone" style="width: 400px;" readonly/>
+                            </div>
+                            <div>
+                                <span id="errorSpan" *ngIf="meetingTimezoneErrorInfo != ''">
+                                    <p>{{meetingTimezoneErrorInfo}}</p>
                                 </span>
                             </div>
                             <!-- organizer Name-->

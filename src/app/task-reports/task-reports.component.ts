@@ -72,6 +72,7 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
   deletePermission: boolean;
   noPermissions: boolean;
   userRoleMenuItemsPermissionMap: Map<string, string>
+  loggedInUserRole = localStorage.getItem('userRole');
 
   /**
    * 
@@ -88,16 +89,64 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
       this.reportType = param['reportType'];
     })
   }
+  clearable=true;
+  searchable=true;
   ngAfterViewInit(): void {
     this.getActiveUsersList();
     this.getEmployeeAsUserList();
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.getDepartments();
     this.getAllTasksByDepartment();
     setTimeout(() => {
       this.createTaskListAllDepartmentChart();
     }, 500);
-   
-  }
+  }else{
+        this.clearable=false;
+        this.searchable=false;
+        this.selectedDepartment=localStorage.getItem("deptID")
+        console.log("called choose dep on ng after")
+        this.chooseDepartment();
+  } this.InitailizeJqueryDataTable();
+     
+}
+Table:any;
+InitailizeJqueryDataTable() {
+  console.log("enteedjquery")
+  setTimeout(() => {
+    if(this.Table!=null){
+      this.Table.destroy();
+    }
+    $(document).ready(() => {
+      this.Table = $('.table').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        // Add other options here as needed
+        columnDefs:[{
+          // Configure date sorting for column 5 (index 4)
+          "targets": [4,5],
+          "type": "date", // Set internal data type for sorting
+          "render": function (data, type, row) {
+            // Create a new JavaScript Date object directly from the provided format
+            const dateObj = new Date(data);
+
+            // Format the date object for display using the desired format string
+            const formattedDate = dateObj.toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric'
+            });
+    
+            return formattedDate;
+          }
+        }]
+      });
+    });
+  }, 900);
+}
 
   /**
    * 
@@ -178,6 +227,7 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
   }
 
   getDepartments() {
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.departmentService.getDepartmentList().subscribe({
       next: response => {
         this.departmentList = response.body;
@@ -187,7 +237,18 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
         }
       }
     })
+  }else{
+    this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
+      next: response => {
+        this.departmentList = response.body;
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
+      }
+    })
   }
+}
 
   departmentName: string;
   department: Department;
@@ -212,6 +273,7 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
       next: response => {
         this.loggedInUserPrincipalObject = response.body;
         //this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
+        localStorage.setItem("deptID",this.loggedInUserPrincipalObject.employee.departmentId.toString())
         this.departmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -436,15 +498,27 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
 
   employeeListAsUser: Employee[];
   getEmployeeAsUserList(){
-    this.employeeService.getUserStatusEmployees(true).subscribe({
-      next: response => {
-        this.employeeListAsUser = response.body;
-      },error: error => {
-        if(error.status === HttpStatusCode.Unauthorized){
-          this.router.navigateByUrl('/session-timeout')
+    if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
+      this.employeeService.getUserStatusEmployees(true).subscribe({
+        next: response => {
+          this.employeeListAsUser = response.body;
+        },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout')
+          }
         }
-      }
+      })
+    }else{
+      this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+        next: response => {
+          this.employeeListAsUser = response.body;
+        },error: error => {
+          if(error.status === HttpStatusCode.Unauthorized){
+            this.router.navigateByUrl('/session-timeout')
+          }
+        }
     })
+    }
   }
 
   chooseUser() {

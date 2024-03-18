@@ -30,6 +30,8 @@ export class Meeting{
     actualMeetingDuration: string;
     originalStartTimeZone: string;
     originalEndTimeZone: string;
+    createdBy: string;
+    createdByEmailId: string;
 
 
     /**

@@ -120,12 +120,14 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             "render": function (data, type, row) {
               // Create a new JavaScript Date object directly from the provided format
               const dateObj = new Date(data);
-
+              //console.log(dateObj)
               // Format the date object for display using the desired format string
               const formattedDate = dateObj.toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
-                year: 'numeric'
+                year: 'numeric',
+                minute:'2-digit',
+                hour:'2-digit'
               });
       
               return formattedDate;
@@ -157,16 +159,18 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             "render": function (data, type, row) {
               // Create a new JavaScript Date object directly from the provided format
               if(data){
-              const dateObj = new Date(data);
-
-              // Format the date object for display using the desired format string
-              const formattedDate = dateObj.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-              });
-      
-              return formattedDate;
+                const dateObj = new Date(data);
+                //console.log(dateObj)
+                // Format the date object for display using the desired format string
+                const formattedDate = dateObj.toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
+                  minute:'2-digit',
+                  hour:'2-digit'
+                });
+        
+                return formattedDate;
             }else{
               return null
             }
