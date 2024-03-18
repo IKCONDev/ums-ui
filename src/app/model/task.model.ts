@@ -19,4 +19,8 @@ export interface Task{
     departmentId: number;
     taskCategoryId: number;
     taskCategory: TaskCategory;
+    createdBy: string;
+    createdByEmailId: string;
+    modifiedBy: string;
+    modifiedByEmailId: string;
  }
