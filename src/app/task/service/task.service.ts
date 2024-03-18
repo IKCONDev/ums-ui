@@ -109,6 +109,7 @@ export class TaskService {
    * @returns 
    */
   updateTask(task: any) {
+    console.log(task)
     return this.http.put(`${this.gatewayMicroservicePathUrl}/${this.taskMicroservicePathUrl}/update/${task.taskId}`, task, {
       observe: 'response', headers: new HttpHeaders({
         'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')

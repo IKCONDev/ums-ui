@@ -513,7 +513,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned Start Date</b><span id="required">*</span></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         id="addTaskStartDate" name="taskStartDate"
                                                         [(ngModel)]="update_Task.plannedStartDate"
                                                         disabled="true"></span>
@@ -524,7 +524,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b><span id="required">*</span></td>
-                                            <td><span> <input type="date" class="form-control" name="taskDueDate"
+                                            <td><span> <input type="datetime-local" class="form-control" name="taskDueDate"
                                                        id="addtaskDueDate" [(ngModel)]="update_Task.plannedEndDate" disabled="true"></span>
                                                 <!-- <div *ngIf="taskDueDateErrorInfo !=''">
                                                     <span id="error_msg">{{taskDueDateErrorInfo}}</span>
@@ -533,7 +533,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Actual Start Date</b></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskActualStartDate" id="addTaskActualStartDate" [(ngModel)]="update_Task.startDate"
                                                         required="true" (change)="validateTaskStartDate()"
                                                         disabled="true"></span>
@@ -543,7 +543,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Actual End Date</b></td>
-                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                            <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskActualEndDate" id="addTaskActualEndDate" [(ngModel)]="update_Task.dueDate"
                                                         required="true" (change)="validateTaskDueDate()"
                                                         disabled="true"></span>
@@ -781,7 +781,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned Start Date</b></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskPlannedStartDate" id="taskPlannedStartDate"
                                                         [(ngModel)]="update_Task.plannedStartDate"
                                                         #taskPlannedStartDate="ngModel" required="true" disabled></span>
@@ -789,7 +789,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Planned End Date</b></td>
-                                            <td><span><input type="date" id="taskPlannedEndDate" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" id="taskPlannedEndDate" min="{{min}}" class="form-control"
                                                         name="taskPlannedEndDate"
                                                         [(ngModel)]="update_Task.plannedEndDate"
                                                         #taskPlannedEndDate="ngModel" required="true" disabled></span>
@@ -797,7 +797,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Actual Start Date</b></td>
-                                            <td><span><input type="date" min="{{min}}" class="form-control"
+                                            <td><span><input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskStartDate" id="taskStartDate" [(ngModel)]="update_Task.startDate"
                                                         #taskStartDate="ngModel" required="true"
                                                         (change)="validateTaskStartDate()" disabled="true"></span>
@@ -807,7 +807,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Actual End Date</b></td>
-                                            <td><span> <input type="date" min="{{min}}" class="form-control"
+                                            <td><span> <input type="datetime-local" min="{{min}}" class="form-control"
                                                         name="taskDueDate" id="taskDueDate" [(ngModel)]="update_Task.dueDate"
                                                         #taskDueDate="ngModel" required="true"
                                                         [class.invalid]="taskDueDate.invalid && taskDueDate.touched"
