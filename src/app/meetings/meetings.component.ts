@@ -2033,19 +2033,13 @@ validateDiscussionPoints(){
    }
 }
 
-<<<<<<< HEAD
-
-getPOPUPMessage(){
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
-=======
 setTimeZone(){
   console.log('exe')
   //set time zone for create meeting
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   //const formattedTimeZone = this.timeZoneMappings[timeZone] || timeZone;
   this.addMeeting.originalStartTimeZone = timeZone;
->>>>>>> 939ab1263945a147fe286ed524ee5a82eaea9863
+  
 }
 
 }
