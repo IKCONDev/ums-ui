@@ -38,6 +38,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   loggedInUser = localStorage.getItem('email');
   loggedInUserRole = localStorage.getItem('userRole');
+  loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
   selectedReporteeOrganized: string = localStorage.getItem('selectedReporteeOrganized');
   selectedReporteeAssigned: string = localStorage.getItem('selectedReporteeAssigned');
   selectedUserDepartmentIdOrganized: number = 0;
@@ -77,6 +78,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       taskCategoryDescription: '',
       taskCategoryStatus: ''
     },
+    createdBy:'',
+    createdByEmailId:'',
+    modifiedBy: '',
+    modifiedByEmailId: ''
   }
 
   //filter organized task properties
@@ -771,6 +776,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.update_Task.dueDate < this.update_Task.plannedEndDate && this.update_Task.status === 'Completed' && this.update_Task.dueDate != null) {
         var isConfirmed = window.confirm('This task is being completed before the planned end date, Are you sure you want to proceed ?');
         if (isConfirmed) {
+          this.update_Task.modifiedBy = this.loggedInUserFullName;
+          this.update_Task.modifiedByEmailId = this.loggedInUser;
           //this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
           this.service.updateTask(this.update_Task).subscribe({
             next: (response) => {
@@ -792,6 +799,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         }
       } else {
+        this.update_Task.modifiedBy = this.loggedInUserFullName;
+        this.update_Task.modifiedByEmailId = this.loggedInUser;
         // this.update_Task.taskCategory.taskCategoryId = this.update_Task.taskCategoryId;
         this.service.updateTask(this.update_Task).subscribe({
           next: (response) => {
@@ -930,9 +939,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     //  this.toastr.warning("No tasks deleted.");
 
     }
-
-
   }
+  
   checkAllCheckBoxes(event: any) {
     var checkbox = event.target.value;
     if (checkbox === 'on') {

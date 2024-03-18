@@ -92,7 +92,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
 
         
       }
-      this.InitailizeJqueryDataTable();
+     // this.InitailizeJqueryDataTable();
      
   }
   InitailizeJqueryDataTable() {

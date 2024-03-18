@@ -106,7 +106,7 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
         this.selectedDepartment=localStorage.getItem("deptID")
         console.log("called choose dep on ng after")
         this.chooseDepartment();
-  } this.InitailizeJqueryDataTable();
+  } //this.InitailizeJqueryDataTable();
      
 }
 Table:any;

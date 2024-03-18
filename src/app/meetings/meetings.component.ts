@@ -95,7 +95,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     actionStatus: 'Not Submitted',
     startDate: '',
     endDate: '',
-    departmentId: 0
+    departmentId: 0,
+    createdBy: '',
+    createdByEmailId:'',
+    createdDateTime: '',
+    modifiedBy: '',
+    modifiedByEmailId: '',
+    modifiedDateTime: ''
 
   }
 
@@ -110,7 +116,13 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
     actionStatus: '',
     startDate: '',
     endDate: '',
-    departmentId: 0
+    departmentId: 0,
+    createdBy: '',
+    createdByEmailId:'',
+    createdDateTime: '',
+    modifiedBy: '',
+    modifiedByEmailId: '',
+    modifiedDateTime: ''
   }
 
   organizedMeetingTitleFilter: string = localStorage.getItem('organizedMeetingTitleFilter');
@@ -627,6 +639,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.addDetails.meetingId = this.currentMeetingId;
       this.addDetails.emailId = this.selectedReporteeOrganizedMeeting != null ? this.selectedReporteeOrganizedMeeting : this.loggedInUser;
       this.addDetails.departmentId = this.selectedReporteeDepartment;
+      this.addDetails.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+      this.addDetails.createdByEmailId = this.loggedInUser;
       this.actionItemService.saveActionItem(this.addDetails).subscribe({
         next: (response) => {
           this.response = response.body;
@@ -1343,6 +1357,8 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
       && isPriorityValid === true && isOwnervalid == true && isStartDateValid === true
       && isEndDateValid === true) {
       this.id = this.updatedetails.actionItemId;
+      this.updatedetails.modifiedBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
+      this.updatedetails.modifiedByEmailId = this.loggedInUser;
       //this.updatedetails.departmentId = this.selectedReporteeDepartment;
       this.actionItemService.updateActionItem(this.updatedetails).subscribe({
         next: (response) => {
