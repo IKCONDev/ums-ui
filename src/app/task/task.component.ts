@@ -721,6 +721,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
 
   data: Object;
   response: Object;
+  minutes1 : string
+  seconds1 : number
 
   /**
    * 
@@ -731,10 +733,15 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     var year = currentDate.getFullYear();
     var month = currentDate.getMonth() + 1;
     var day = currentDate.getDate();
-    var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+    var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day + 'T' + hours + ':' + (minutes < 10 ? '0' :'') + minutes + ':' + (seconds < 10 ? '0':'')+seconds;
+    //var formattedStartDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day 
     if (this.update_Task.status === 'Completed') {
       if (this.update_Task.startDate === null || this.update_Task.startDate === "") {
         this.update_Task.startDate = formattedStartDate;
+        
       }
       this.update_Task.dueDate = formattedStartDate;
     }
