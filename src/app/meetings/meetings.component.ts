@@ -1948,6 +1948,9 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
       const htmlElement = document.getElementById('email'+meetingId);
       if(htmlElement!=null){
       htmlElement.classList.add("disabled")
+      htmlElement.addEventListener('click', (event) => {
+        event.stopPropagation();
+      });
       }
     });
   }
