@@ -69,7 +69,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
         console.log("called choose dep on ng after")
         this.chooseDepartment();
     }
-    this.InitailizeJqueryDataTable();
+    //this.InitailizeJqueryDataTable();
      
   }
   Table:any;
