@@ -65,7 +65,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
     }else{
       this.clearable=false;
         this.searchable=false;
-        this.selectedDepartment=localStorage.getItem("deptID")
+      //  this.selectedDepartment=localStorage.getItem("deptID")
         console.log("called choose dep on ng after")
         this.chooseDepartment();
     }
@@ -260,7 +260,15 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   }else{
     this.departmentService.getDepartmentByDepartmentHead(this.loggedInUserId).subscribe({
       next: response => {
+        console.log(response)
         this.departmentList = response.body;
+        this.selectedDepartment=this.departmentList[0].departmentId.toString();
+        this.getDepartment();
+        if(this.actionItemsByDepartmentReportChart!=null){
+          this.actionItemsByDepartmentReportChart.destroy()
+        }
+        this.getActionItemsReportByDepartment(this.selectedDepartment);
+       console.log( this.departmentList)
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')

@@ -86,9 +86,9 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
       }else{
         this.clearable=false;
         this.searchable=false;
-        this.selectedDepartment=localStorage.getItem("deptID")
+        //this.selectedDepartment=localStorage.getItem("deptID")
         console.log("called choose dep on ng after")
-        this.chooseDepartment();
+       // this.chooseDepartment();
 
         
       }
@@ -226,6 +226,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
     })
   }
 
+  departmentListForTheUser:any
   getEmployeeAsUserList(){
     if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.employeeService.getUserStatusEmployees(true).subscribe({
@@ -236,13 +237,18 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
       }
     })
   }else{
-    this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+    this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
       next: response => {
-        this.employeeListAsUser = response.body;
+        this.departmentListForTheUser = response.body;
+        this.departmentListForTheUser.filter(deptId=>{
+          this.selectedDepartment=deptId.departmentId;          
+        })   
       },error: error => {
-        this.navigateToSessionTimeout(error);
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
-    })
+  })
   }
 }
 
@@ -264,9 +270,20 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
   }else{
     this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
       next: response => {
+        console.log(response)
         this.departmentList = response.body;
+        this.selectedDepartment=this.departmentList[0].departmentId.toString();
+        this.getDepartmentById(parseInt(this.selectedDepartment));
+        if(this.meetingsByDepartmentListChart!=null){
+          this.meetingsByDepartmentListChart.destroy()
+        }
+        this.getmeetingsByDepartmentReport(parseInt(this.selectedDepartment));
+       
+       console.log( this.departmentList)
       },error: error => {
-        this.navigateToSessionTimeout(error);
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout')
+        }
       }
     })
   }

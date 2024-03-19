@@ -102,10 +102,9 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
     }, 500);
   }else{
         this.clearable=false;
-        this.searchable=false;
-        this.selectedDepartment=localStorage.getItem("deptID")
+        this.searchable=false;     
         console.log("called choose dep on ng after")
-        this.chooseDepartment();
+        // this.chooseDepartment();
   } //this.InitailizeJqueryDataTable();
      
 }
@@ -200,6 +199,7 @@ InitailizeJqueryDataTable() {
         this.getAllDepartmentsCount();
         this.getAllDepartmentNames();
         this.createTaskListAllDepartmentChart()
+        this.getEmployeeAsUserList();
       }
     // }, 400)
         }else{
@@ -240,7 +240,15 @@ InitailizeJqueryDataTable() {
   }else{
     this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
       next: response => {
+        console.log(response)
         this.departmentList = response.body;
+        this.selectedDepartment=this.departmentList[0].departmentId.toString();
+        this.getDepartmentById(parseInt(this.selectedDepartment));
+        if(this.taskListByDepartmentChart!=null){
+          this.taskListByDepartmentChart.destroy()
+        }
+        this.getTasksByDepartment(parseInt(this.selectedDepartment));
+       console.log( this.departmentList)
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
@@ -273,7 +281,6 @@ InitailizeJqueryDataTable() {
       next: response => {
         this.loggedInUserPrincipalObject = response.body;
         //this.selectedDepartment = this.loggedInUserPrincipalObject.employee.department.departmentId.toString();
-        localStorage.setItem("deptID",this.loggedInUserPrincipalObject.employee.departmentId.toString())
         this.departmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
       }, error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -497,6 +504,7 @@ InitailizeJqueryDataTable() {
   }
 
   employeeListAsUser: Employee[];
+  departmentListForTheUser:any[]=[];
   getEmployeeAsUserList(){
     if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
       this.employeeService.getUserStatusEmployees(true).subscribe({
@@ -509,9 +517,15 @@ InitailizeJqueryDataTable() {
         }
       })
     }else{
-      this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+      this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
         next: response => {
-          this.employeeListAsUser = response.body;
+          this.departmentListForTheUser = response.body;
+          this.departmentListForTheUser.filter(deptId=>{
+            this.selectedDepartment=deptId.departmentId;
+            
+          })
+         
+         
         },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout')
