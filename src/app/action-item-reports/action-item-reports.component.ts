@@ -193,6 +193,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
 
   department: Department;
   getDepartment(){
+    console.log(this.selectedDepartment)
     this.departmentService.getDepartment(parseInt(this.selectedDepartment)).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){

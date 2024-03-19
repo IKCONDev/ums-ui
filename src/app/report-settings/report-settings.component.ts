@@ -8,6 +8,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 import { EmployeeService } from '../employee/service/employee.service';
 import { error } from 'jquery';
+import { DepartmentService } from '../department/service/department.service';
 
 @Component({
   selector: 'app-report-settings',
@@ -29,7 +30,7 @@ export class ReportSettingsComponent implements OnInit {
   loggedInUserFullName = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private tastCategory: TaskCategoryService,
-    private menuItemService: AppMenuItemService,private employeeService:EmployeeService){
+    private menuItemService: AppMenuItemService,private employeeService:EmployeeService,private departmentService:DepartmentService){
 
   }
 
@@ -134,10 +135,11 @@ export class ReportSettingsComponent implements OnInit {
   departmentList:any;
   hideAllDepartment:boolean=false
   hideAllDepartmentChartBasedOnDepHead(){
-    this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+    this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
       next: response => {
         this.departmentList = response.body;
-        if(this.departmentList.length>1){
+        console.log(this.departmentList)
+        if(this.departmentList.length>=1){
           this.hideAllDepartment=false
         }else{
           this.hideAllDepartment=true
