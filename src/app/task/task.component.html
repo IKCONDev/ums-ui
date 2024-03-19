@@ -219,8 +219,8 @@
                         <td>{{task.taskCategory.taskCategoryTitle}}</td>
                         <td>{{task.plannedStartDate+''|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{task.plannedEndDate+''|date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{task.startDate|date:'MMM d, y'}}</td>
-                        <td>{{task.dueDate|date:'MMM d, y'}}</td>
+                        <td>{{task.startDate+''|date:'MMM d, y, h:mm a'}}</td>
+                        <td>{{task.dueDate+''|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{task.taskPriority}}</td>
                         <td>{{task.status}}</td>
                         <td>
@@ -535,7 +535,7 @@
                                             <td><b>Planned Duration</b></td>
                                             <td><span><input type="text"  class="form-control"  [(ngModel)]= "update_Task.plannedDuration"
                                                         required="true" (change)="validateTaskStartDate()"
-                                                        name="taskDueDate" id="addtaskDueDate" 
+                                                        name="taskplannedDuration" id="addtaskDueDate" 
                                                         disabled="true"></span>
                                                 
                                             </td>
