@@ -420,14 +420,14 @@
                         <th>Timezone</th>
                     </tr>
                 </thead>
-                <tbody   *ngFor="let meeting of attendedMeetings; let i = index">
-                    <tr *ngIf="isAttendedMeetingDataText===false" >
+                <tbody *ngIf="isAttendedMeetingDataText===false">
+                    <tr *ngFor="let meeting of attendedMeetings; let i = index">
                         <td style=" padding-left: 30px;">{{meeting.meetingId}}</td>
                         <td id="cell">{{meeting.subject}}</td>
                         <td id="cell">{{meeting.organizerName}}</td>
-                        <td *ngIf="meeting.type ==='singleInstance'">{{meetingType}}</td>
-                        <td *ngIf="meeting.type ==='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
-                        <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
+                        <td id="cell">{{meetingType}}</td>
+                        <!-- <td *ngIf="meeting.type ==='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
+                        <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td> -->
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.originalStartTimeZone}}</td>

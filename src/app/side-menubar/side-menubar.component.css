@@ -32,7 +32,7 @@
   }
   
   .nav-pills li a:hover{
-   background-color: lightgray;
+   background-color: #ECF7FC;
    border-radius: 0;
    border-left: 2px solid black;
    cursor: pointer;
