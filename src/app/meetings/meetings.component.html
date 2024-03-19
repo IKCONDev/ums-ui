@@ -415,6 +415,7 @@
                         <th>Type</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
+                        <th>Duration</th>
                         <th>Timezone</th>
                     </tr>
                 </thead>
@@ -428,6 +429,7 @@
                         <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td> -->
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
+                        <td id="cell">{{meeting.actualMeetingDuration}}</td>
                         <td id="cell">{{meeting.originalStartTimeZone}}</td>
                     </tr>
                 </tbody>
