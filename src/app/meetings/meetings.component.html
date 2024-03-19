@@ -124,9 +124,7 @@
                         <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{meeting.endDateTime+'z'| date:'MMM d, y, h:mm a'}}</td>
-                        <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
-                        <td *ngIf="meeting.type =='singleInstance'">{{meetingType}}</td>
-                        <td *ngIf="meeting.type =='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
+                        <td>{{meeting.type}}</td>
                         <td *ngIf="meeting.location != null">{{meeting.location}}</td>
                         <td>{{meeting.originalStartTimeZone}}</td>
                         <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
