@@ -311,6 +311,9 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
           console.log(this.actionItemsCountOfDepartment)
           this.getDepartment();
           setTimeout(() => {
+            if(this.actionItemsByDepartmentReportChart!=null){
+              this.actionItemsByDepartmentReportChart.destroy()
+            }
             this.createActionItemsByDepartmentReportChart();
           },400)
         }

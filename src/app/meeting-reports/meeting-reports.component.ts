@@ -87,7 +87,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
         this.clearable=false;
         this.searchable=false;
         //this.selectedDepartment=localStorage.getItem("deptID")
-        console.log("called choose dep on ng after")
+        // console.log("called choose dep on ng after")
        // this.chooseDepartment();
 
         
