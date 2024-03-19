@@ -238,9 +238,9 @@ select {
 }
 
 #errorSpan {
-  padding-left: 10px;
+  /* padding-left: 9px; */
   color: red;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 #searchMeetings {
@@ -991,5 +991,18 @@ input[type="datetime-local"] {
 }
 .disabled {
   opacity: 0.5; 
-  pointer-events: none; 
+}
+
+.disabled:hover::after {
+  content: "Create and submit Action Items to send the MOM Email"; 
+  position: absolute;
+  background-color: #000;
+  margin-left: -140px;
+  margin-top: -48px;
+  width: 190px;
+  color: white; 
+  padding: 5px; 
+  border-radius: 5px; 
+  z-index: 999; 
+  opacity: 15;
 }

@@ -420,14 +420,14 @@
                         <th>Timezone</th>
                     </tr>
                 </thead>
-                <tbody   *ngFor="let meeting of attendedMeetings; let i = index">
-                    <tr *ngIf="isAttendedMeetingDataText===false" >
+                <tbody *ngIf="isAttendedMeetingDataText===false">
+                    <tr *ngFor="let meeting of attendedMeetings; let i = index">
                         <td style=" padding-left: 30px;">{{meeting.meetingId}}</td>
                         <td id="cell">{{meeting.subject}}</td>
                         <td id="cell">{{meeting.organizerName}}</td>
-                        <td *ngIf="meeting.type ==='singleInstance'">{{meetingType}}</td>
-                        <td *ngIf="meeting.type ==='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
-                        <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td>
+                        <td id="cell">{{meetingType}}</td>
+                        <!-- <td *ngIf="meeting.type ==='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
+                        <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td> -->
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.endDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td id="cell">{{meeting.originalStartTimeZone}}</td>
@@ -482,7 +482,7 @@
                     <label><b>Action Item Title</b><span id="required">*</span></label>
                     <input type="text" class="form-control" style="width: 400px;padding-top: 10px;"
                         placeholder="Enter Title" [(ngModel)]="addDetails.actionItemTitle" required="true"
-                        name="actionItemTitle" id="actionItemTitle" minlength="5" maxlength="51"
+                        name="actionItemTitle" id="actionItemTitle" minlength="5" maxlength="101"
                         #actionItemTitle="ngModel" [class.invalid]="actionItemTitle.invalid && actionItemTitle.touched"
                         (keyup)="validateActionTitle()">
                     <div *ngIf="actionItemTitleErrorInfo != ''">
@@ -594,7 +594,7 @@
                         <label><b>Action Item Title</b><span id="required">*</span></label>
                         <input type="text" class="form-control" style="width: 400px;"
                             [(ngModel)]="updatedetails.actionItemTitle" required="true" name="uAcItemTitle"
-                            id="uAcItemTitle" minlength="5" maxlength="51" #uAcItemTitle="ngModel"
+                            id="uAcItemTitle" minlength="5" maxlength="101" #uAcItemTitle="ngModel"
                             [class.invalid]="uAcItemTitle.invalid && uAcItemTitle.touched"
                             (keyup)="validateUpdateActionTitle()">
                         <div *ngIf="updateActionItemTitleErrorInfo != ''">
@@ -774,6 +774,7 @@
                             <span id="errorSpan">{{discussionPointErrorInfo}}</span>
                         </div>
                     <hr>
+
                     <p><b>By default, all the attendees will receive MOM Email *</b></p>
                     <label for="attendees"><b>Attendees</b></label>
                     <div *ngIf="meetingData!= null">
