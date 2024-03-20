@@ -424,7 +424,7 @@
                         <td style=" padding-left: 30px;">{{meeting.meetingId}}</td>
                         <td id="cell">{{meeting.subject}}</td>
                         <td id="cell">{{meeting.organizerName}}</td>
-                        <td id="cell">{{meetingType}}</td>
+                        <td id="cell">{{meeting.type}}</td>
                         <!-- <td *ngIf="meeting.type ==='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
                         <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td> -->
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
@@ -1041,7 +1041,6 @@
                                         #boxAttendedStartdate [(ngModel)]="attendedMeetingStartDateFilter" />
                                 </div>
                             </div>
-
                             <div class="date-range">
                                 <div style="font-size: 14px;padding-left: 13px"><b>To</b></div>
                                 <div style="padding-left: 14px;">{{colon}}</div>
@@ -1050,9 +1049,6 @@
                                         #boxAttendedEndDate [(ngModel)]="attendedMeetingEndDateFilter" />
                                 </div>
                             </div>
-
-
-
                             <div class="date-range">
                                 <button type="button" style="margin: 9px;" class="submit-button"
                                     (click)="filterAttendedMeetingList(boxAttendedMeetingTitle.value, boxAttendedStartdate.value, boxAttendedEndDate.value)">Apply</button>
