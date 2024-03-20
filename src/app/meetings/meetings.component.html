@@ -500,7 +500,7 @@
                             (keyup)="validateActionDescription()"></textarea>
                     </div>
                     <div *ngIf="actionItemDescriptionErrorInfo != ''">
-                        <span id="errorSpan">{{actionItemDescriptionErrorInfo}}</span>
+                        <span id="errorSpan" style="padding-top: 16px;">{{actionItemDescriptionErrorInfo}}</span>
                     </div>
                     <!-- description end -->
                     <!--<textarea style="margin:10px; width: 400px; ">{{this.updatedetails.Description}}</textarea>-->
@@ -539,7 +539,7 @@
                         </ng-select>
                     </div>
                     <div *ngIf="actionItemOwnerErrorInfo != '' || actionItemOwnerErrorInfo==null">
-                        <span id="errorSpan">{{actionItemOwnerErrorInfo}}</span>
+                        <span id="errorSpan" style="padding-top: 16px;">{{actionItemOwnerErrorInfo}}</span>
                     </div>
                     <!--<input type="text" style="width:400px;" [(ngModel)]="addDetails.actionPriority">-->
                     <!-- start date -->
