@@ -298,7 +298,7 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.addUserObj.userRoles[0].roleName = role.roleName;
         }
       })
-       //check is role has any menuitems
+       //check whether role has any menuitems
        this.roles.filter(role => {
         if(this.addUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
           choosenRole = role.roleName;
@@ -606,6 +606,20 @@ export class UsersComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.existingUserObj.userRoles[0].roleName = role.roleName;
         }
       });
+      var isMenuItemsAssigned =false;
+      var choosenRole = null;
+      //check whether role has any menuitems
+      this.roles.filter(role => {
+        if(this.existingUserObj.userRoles[0].roleId.toString() === role.roleId.toString()){
+          choosenRole = role.roleName;
+          isMenuItemsAssigned = role.menuItems.length > 0;
+        }
+      });
+      if(!isMenuItemsAssigned){
+        this.toastr.error('The role '+choosenRole+' is not assigned with any menu items. Please assign a different role to this user that is linked with menu items.')
+            // this.toastr.error('The role '+choosenRole+' is not assigned with menu items. Assign the required menu items for this role and try again or assign another role for this user.')
+            return;
+      }
       this.userService.update(this.existingUserObj).subscribe(
         response => {
           var userRecord = response.body;
