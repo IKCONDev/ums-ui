@@ -11,19 +11,26 @@
                 <h4><b>General</b></h4>
                 <a routerLink="/batch-report">Batch Processing Report</a><br/>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2" *ngIf="loggedInUserRole==='SUPER_ADMIN'||loggedInUserRole==='ADMIN'">
+                <h4><b>Meetings</b></h4>
+                <!-- <a routerLink="/meeting-reports" (click)="setMeetingReportType('department')">Department</a><br /> -->
+                <a routerLink="/meeting-reports" (click)="setMeetingReportType('employee')">Organized</a><br />
+                <a routerLink="/meeting-reports" (click)="setMeetingReportType('attended')">Attended</a><br />
+                <a routerLink="/meeting-reports"  (click)="setMeetingReportType('all')">Departments</a><br />
+            </div>
+            <div class="col-sm-2" *ngIf="loggedInUserRole !='SUPER_ADMIN'&& loggedInUserRole !='ADMIN'">
                 <h4><b>Meetings</b></h4>
                 <!-- <a routerLink="/meeting-reports" (click)="setMeetingReportType('department')">Department</a><br /> -->
                 <a routerLink="/meeting-reports" (click)="setMeetingReportType('employee')">Organized</a><br />
                 <a routerLink="/meeting-reports" (click)="setMeetingReportType('attended')">Attended</a><br />
                 <a routerLink="/meeting-reports" *ngIf="hideAllDepartment===false" (click)="setMeetingReportType('all')">Departments</a><br />
             </div>
-            <div class="col-sm-2" *ngIf="loggedInUserRole==='SUPER_ADMIN'||loggedInUserRole==='ADMIN'">
+            <div class="col-sm-2" *ngIf="loggedInUserRole==='SUPER_ADMIN'|| loggedInUserRole==='ADMIN'">
                 <h4><b>Action Items</b></h4>
                 <!-- <a routerLink="/actionitem-reports" (click)="setActionItemReportType('department')">Departments</a><br/> -->
                 <a routerLink="/actionitem-reports" (click)="setActionItemReportType('organized')" >Organized</a><br/>
                 <a routerLink="/actionitem-reports" (click)="setActionItemReportType('priority')"*ngIf="loggedInUserRole==='SUPER_ADMIN'||loggedInUserRole==='ADMIN'">Priority</a><br/>
-                <a routerLink="/actionitem-reports"*ngIf="hideAllDepartment===false" (click)="setActionItemReportType('all')">Departments</a><br />
+                <a routerLink="/actionitem-reports" (click)="setActionItemReportType('all')">Departments</a><br />
             </div>
             <div class="col-sm-2" *ngIf="loggedInUserRole!='SUPER_ADMIN'&&loggedInUserRole!='ADMIN'">
                 <h4><b>Action Items</b></h4>
@@ -38,7 +45,7 @@
                 <a routerLink="/task-reports"  (click)="setTaskReportType('severity')" >Priority</a><br/>
                 <a routerLink="/task-reports"  (click)="setTaskReportType('status')" >Status</a><br/>
                 <a routerLink="/task-reports"  (click)="setTaskReportType('aged')" >Aged</a><br/>
-                <a routerLink="/task-reports"*ngIf="hideAllDepartment===false"  (click)="setTaskReportType('all')">Departments</a>
+                <a routerLink="/task-reports"  (click)="setTaskReportType('all')">Departments</a>
             </div>
             <div class="col-sm-2" *ngIf="loggedInUserRole!='SUPER_ADMIN'&&loggedInUserRole!='ADMIN'">
                 <h4><b>Tasks</b></h4>
