@@ -241,6 +241,7 @@ select {
   /* padding-left: 9px; */
   color: red;
   font-size: 14px;
+  padding-left: 15px;
 }
 
 #searchMeetings {
