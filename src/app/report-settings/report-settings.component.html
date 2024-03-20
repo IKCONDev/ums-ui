@@ -56,7 +56,16 @@
         </div>
         <br /><br/>
         <div class="row">
-            <div id="automationDiv" class="col-sm-4">
+            <div id="automationDiv" class="col-sm-4" *ngIf="loggedInUserRole==='SUPER_ADMIN'||loggedInUserRole==='ADMIN'">
+                <h4><b>Task Category</b></h4>
+
+                <div *ngFor = "let taskCategory of taskCategoriesList">
+                    <a routerLink="/taskcategory-report" (click)="setTaskCategoryType(taskCategory.taskCategoryTitle,taskCategory.taskCategoryId)">{{taskCategory.taskCategoryTitle}}</a>
+                </div> 
+                <a routerLink="/taskcategory-report" (click)="setTaskCategoryType('all',0)">Task Category Summary</a>
+               
+            </div>
+            <div id="automationDiv" class="col-sm-4" *ngIf="loggedInUserRole!='SUPER_ADMIN'&&loggedInUserRole!='ADMIN'">
                 <h4><b>Task Category</b></h4>
 
                 <div *ngFor = "let taskCategory of taskCategoriesList">
