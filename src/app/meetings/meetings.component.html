@@ -95,7 +95,7 @@
             <table class="table table-hover">
                 <thead id="thead">
                     <tr>
-                        <th id="thead">Meeting ID</th>
+                        <th id="thead" style="width: 80px;">Meeting ID</th>
                         <th id="thead" style="width: 200px;">Title</th>
                         <th id="thead">Organizer</th>
                         <th id="thead">Start Date & Time</th>
@@ -180,7 +180,7 @@
                         <td><a class="showmore" id="showActionItems{{meeting.meetingId}}"
                                 (click)="fetchActionItemsOfEvent(meeting.meetingId)" style="color:#007bff">Show Action
                                 Items</a></td>
-                        <td style="padding-left: 25px;">
+                        <td style="padding-left: 13px;">
                             <!--<button type="submit"  data-toggle="modal" data-target="#mommodal">send
 
                             </button>-->
@@ -749,7 +749,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 100px;"><b>Organizer :</b></td>
+                                        <td style="width: 180px;"><b>Organizer :</b></td>
                                         <td style="width: 150px;">{{meetingData.organizerName}}</td>
                                     </tr>
                                     <tr>
@@ -775,7 +775,7 @@
                         </div>
                     <hr>
 
-                    <p><b>By default, all the attendees will receive MOM Email *</b></p>
+                    <p><b>By default, all the attendees will receive MOM Email</b> <span id="errorSpan"><b style="padding-left: 5px;"> *</b></span></p>
                     <label for="attendees"><b>Attendees</b></label>
                     <div *ngIf="meetingData!= null">
                         <div *ngFor="let attendees of attendeeEmployeeName">
