@@ -239,6 +239,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       // taskCategory.taskCategoryTitle=this.transformToTitleCase(this.taskCategory.taskCategoryTitle);
       
       taskCategory.modifiedByEmailId = this.loggedInUser;
+      taskCategory.modifiedBy = this.loggedInUserFullName;
       // taskCategory.modifiedBy = this.transformToTitleCase(this.loggedInUserFullName);
       this.taskCategoryService.updateTaskCategory(taskCategory).subscribe({
         next: response => {
@@ -282,6 +283,7 @@ export class TaskCategoryComponent implements OnInit,AfterViewChecked{
       // taskCategory.taskCategoryTitle=this.transformToTitleCase(this.taskCategory.taskCategoryTitle);
 
       taskCategory.createdByEmailId = this.loggedInUser;
+      taskCategory. createdBy  = this.loggedInUserFullName;     
       // taskCategory.createdBy = this.transformToTitleCase(this.loggedInUserFullName);
       this.taskCategoryService.createTaskCategory(taskCategory).subscribe({
         next: response => {
