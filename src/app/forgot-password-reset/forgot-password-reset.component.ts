@@ -166,7 +166,7 @@ export class ForgotPasswordResetComponent {
       (response) => {
         this.passwordUpdateStatus = response.body;
         if(this.passwordUpdateStatus === 1){
-          this.toastr.success("Success","Reset Password");
+          this.toastr.success("Password reset successfully ");
           this.router.navigateByUrl("/");
          }else if(this.passwordUpdateStatus===0){
           this.toastr.warning("New password must not match previous 3 passwords");

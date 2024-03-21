@@ -388,7 +388,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   removeEmployee(employeeOrgId:string,employeeId : number, user : boolean,email:string ) {
    if(user === true){
-      this.toastr.warning("Please delete user with '"+ email+"' to delete employee")
+      this.toastr.warning("Disable '"+ email+"' in user list before deleting from the employee list.")
    }else{
     var isconfirmed = window.confirm('Are you sure, you really want to delete the employee ?');
 
@@ -925,7 +925,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
    
         await Promise.all(promises);
         if(this.countedData >0){
-          this.toastr.warning("Please delete user profile of the employees before you delete employee");
+          this.toastr.warning("Please inactive user profile of the employees before you delete employee");
         }
         else{
           this.employeeservice.deleteAllEmployee(ids).subscribe(

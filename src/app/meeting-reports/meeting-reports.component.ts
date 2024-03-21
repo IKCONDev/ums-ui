@@ -237,12 +237,9 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
       }
     })
   }else{
-    this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
+    this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
       next: response => {
-        this.departmentListForTheUser = response.body;
-        this.departmentListForTheUser.filter(deptId=>{
-          this.selectedDepartment=deptId.departmentId;          
-        })   
+        this.employeeListAsUser = response.body;
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
