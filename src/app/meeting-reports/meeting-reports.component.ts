@@ -103,11 +103,11 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
   table4:any;
   table5:any;
   initializeDataTable2() {
-    console.log("enteedjquery")
+    console.log("enteedjquery2")
     setTimeout(() => {
-      if(this.table2!=null){
-        this.table2.destroy();
-      }
+      // if(this.table2!=null){
+      //     this.table2.destroy();
+      //   }
       $(document).ready(() => {
         this.table2 = $('#table2').DataTable({
           paging: true,
@@ -351,6 +351,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
 }
 
   chooseEmployee(){
+   console.log("called coose employee")
     if(this.organizedmeetingListChart != null){
       this.organizedmeetingListChart.destroy();
     }
@@ -438,12 +439,20 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
           this.organizedMeetingList = response.body;
           this.organizedMeetingListCount = response.body.length;
           setTimeout(() => {
-            this.createMeetingsByOrganizerReportChart();
-            this.initializeDataTable2();
+            this.createMeetingsByOrganizerReportChart();     
           },400)
+          if(this.table2!=null){
+            this.table2.destroy()
+          }
+          this.initializeDataTable2()
         }
       }
     })
+    // if(this.table2!=null){
+    // this.table2.destroy()
+    // }else{
+    //   this.initializeDataTable2()
+    // }
   }
   meetingsByOrg:any[]
   meetingsByOrgxlabels:any[]
