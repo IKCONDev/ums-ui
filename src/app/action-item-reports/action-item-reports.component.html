@@ -687,7 +687,7 @@
             <p *ngIf="selectedDepartment == null" style="text-align: center;"><b>There are no Action Items for any department</b></p>
         </ng-template>
         <ng-template #actionItems>
-            <table class="table table-hover" *ngIf="selectedDepartment != null && actionItemsCountOfDepartment > 0; else noDeptMeetings">
+            <table class="table table-hover" id="table5" *ngIf="selectedDepartment != null && actionItemsCountOfDepartment > 0; else noDeptMeetings">
                 <thead>
                     <tr>
                         <th>ID</th>

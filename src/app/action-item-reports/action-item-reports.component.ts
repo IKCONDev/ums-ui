@@ -62,29 +62,89 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
     this.getAllDepartments();
     this.getEmployeeAsUserList();
     this.getAllActionItemsCount();
+    this.InitailizeJqueryDataTable();
     }else{
       this.clearable=false;
         this.searchable=false;
       //  this.selectedDepartment=localStorage.getItem("deptID")
         console.log("called choose dep on ng after")
         this.chooseDepartment();
-    }
-    this.InitailizeJqueryDataTable();
-     
+        this.InitailizeJqueryDataTable();
+    } 
   }
-  Table:any;
+  
+  Table4:any;
+  Table5: any;
+  Table3: any;
+  Table2 : any;
   InitailizeJqueryDataTable() {
     console.log("enteedjquery")
     setTimeout(() => {
+      if(this.Table4!=null){
+        this.Table4.destroy();
+      }
       $(document).ready(() => {
-        this.Table = $('#table4').DataTable({
+        this.Table4 = $('#table4').DataTable({
           paging: true,
           searching: true,
           pageLength: 10,
           stateSave:true,
           order: [[1, 'desc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
-          // Add other options here as needed
+        });
+      });
+    }, 900);
+  }
+
+  InitializeDataTable5(){
+    setTimeout(() => {
+      if(this.Table5!=null){
+        this.Table5.destroy();
+      }
+      $(document).ready(() => {
+        this.Table5 = $('#table5').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        });
+      });
+    }, 900);
+  }
+
+  InitializeDataTable3(){
+    setTimeout(() => {
+      if(this.Table3!=null){
+        this.Table3.destroy();
+      }
+      $(document).ready(() => {
+        this.Table3 = $('#table3').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        });
+      });
+    }, 900);
+  }
+
+  InitializeDataTable2(){
+    setTimeout(() => {
+      if(this.Table2!=null){
+        this.Table3.destroy();
+      }
+      $(document).ready(() => {
+        this.Table3 = $('#table2').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
         });
       });
     }, 900);
@@ -133,7 +193,6 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
             // this.getAllDepartmentNames();
             if(this.reportType === 'department'){
               this.chooseDepartment();
-              //this.InitailizeJqueryDataTable();
             }
             if(this.reportType === 'organized'){
               this.chooseUser();
@@ -288,6 +347,11 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
         if(response.status === HttpStatusCode.Ok){
           this.actionItemListByDepartment = response.body;
           this.actionItemsCountOfDepartment = response.body.length;
+          if(this.actionItemsCountOfDepartment > 0){
+            this.InitializeDataTable5();
+          }else{
+            this.Table5.destroy();
+          }
           console.log(this.actionItemsCountOfDepartment)
           this.getDepartment();
           setTimeout(() => {
@@ -336,10 +400,10 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
     }
     else{
        this.getAllActionItemsCount();
+       this.Table5.destroy();
+       this.InitailizeJqueryDataTable();
     }
-    this.Table.destroy();
-    this.Table = null;
-    this.InitailizeJqueryDataTable();
+    this.Table4.destroy();
 }
 
   actionItemsByPriorityReportChart = null;
@@ -349,6 +413,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
       this.actionItemsByPriorityReportChart.destroy();
     }
     this.getActionItemsReportByPriority(this.selectedPriority);
+    this.InitializeDataTable3();
   }
 
 
@@ -512,6 +577,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
       this.actionItemsByOrganizerReportChart.destroy();
     }
     this.getActionItemsReportOfUser(this.selectedUser);
+    this.InitializeDataTable2();
   }
 
   actionItemsByOrganizerReportChart = null;
@@ -611,14 +677,15 @@ deptValueCount : DepartmentCount[] = [];
            this.deptValueCount.push(deptObject);
          })
          if(this.actionItemsByDepartmentReportChart ! = null){
-           this.actionItemsByDepartmentReportChart.destroy()
+           this.actionItemsByDepartmentReportChart.destroy();
           // this.createActionItemsAllDepartmentReportChart()
          }
         
          this.getAllDepartmentNames()
-         
        }
     })
+    this.Table5.destroy();
+    this.InitailizeJqueryDataTable();
   }
   deptValueCount1 : DepartmentCount[] = [];
   getAllDepartmentNames(){
