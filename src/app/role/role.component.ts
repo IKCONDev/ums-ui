@@ -423,7 +423,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error('Role already in usage by an user, cannot be deleted');
+            this.toastr.error('The role currently in use by a user cannot be deleted');
           } else {
             this.toastr.error('Error while deleting role '+id+ '... Please try again !');
           }
@@ -469,7 +469,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
           if(response.status === HttpStatusCode.Ok){
             var isAllDeleted = response.body    
             if(this.roleIdsToBeDeleted.length > 1){
-              this.toastr.success('Roles deleted sucessfully.')  
+              this.toastr.success('Roles deleted sucessfully')  
             }else{
               this.toastr.success('Role '+this.roleIdsToBeDeleted+' is deleted')
             }
@@ -483,7 +483,7 @@ export class RoleComponent implements OnInit,AfterViewChecked,OnDestroy {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout');
           }else if(error.status === HttpStatusCode.ImUsed){
-            this.toastr.error('Role already in usage by an user, cannot be deleted');
+            this.toastr.error('The role currently in use by a user cannot be deleted');
           }
         }
       })
