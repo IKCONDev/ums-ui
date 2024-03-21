@@ -141,11 +141,11 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
   initializeDataTable3() {
     console.log("enteedjquery")
     setTimeout(() => {
-      if(this.table4!=null){
-        this.table4.destroy();
-      }
+      // if(this.table3!=null){
+      //   this.table3.destroy();
+      // }
       $(document).ready(() => {
-        this.table4 = $('#table4').DataTable({
+        this.table3 = $('#table3').DataTable({
           paging: true,
           searching: true,
           pageLength: 10,
@@ -413,6 +413,10 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
           setTimeout(() => {
             this.createMeetingsByAttendeeReportChart();
           },400)
+          if(this.table3!=null){
+            this.table3.destroy()
+          }
+          this.initializeDataTable3()
         }
       },error: error => {
         this.navigateToSessionTimeout(error);
