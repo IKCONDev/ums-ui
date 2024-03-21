@@ -83,55 +83,119 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
       this.getAllMeetings();
       this.getAllDepartmentsCount();
       this.getAllDepartmentNames();
+      this.initializeDataTable4();
       }else{
         this.clearable=false;
         this.searchable=false;
+        
         //this.selectedDepartment=localStorage.getItem("deptID")
         // console.log("called choose dep on ng after")
        // this.chooseDepartment();
 
         
       }
-     // this.InitailizeJqueryDataTable();
+     
      
   }
-  InitailizeJqueryDataTable() {
-    console.log("enteedjquery")
+  table1:any;
+  table2:any;
+  table3:any;
+  table4:any;
+  table5:any;
+  initializeDataTable2() {
+    console.log("enteedjquery2")
     setTimeout(() => {
-      if(this.Table!=null){
-        this.Table.destroy();
-      }
+      // if(this.table2!=null){
+      //     this.table2.destroy();
+      //   }
       $(document).ready(() => {
-        this.Table = $('.table').DataTable({
+        this.table2 = $('#table2').DataTable({
           paging: true,
           searching: true,
           pageLength: 10,
           stateSave:true,
           order: [[1, 'desc']],
           lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
-          // Add other options here as needed
-          columnDefs:[{
-            // Configure date sorting for column 5 (index 4)
-            "targets": [4,5],
-            "type": "date", // Set internal data type for sorting
-            "render": function (data, type, row) {
-              // Create a new JavaScript Date object directly from the provided format
-              const dateObj = new Date(data);
-
-              // Format the date object for display using the desired format string
-              const formattedDate = dateObj.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-              });
-      
-              return formattedDate;
-            }
-          }]
         });
       });
     }, 900);
   }
+  initializeDataTable5() {
+    console.log("enteedjquery5")
+    setTimeout(() => {
+      // if(this.table5!=null){
+      //   this.table5.destroy();
+      // }
+      $(document).ready(() => {
+        this.table5 = $('#table5').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        });
+      });
+    }, 900); 
+  }
+  initializeDataTable3() {
+    console.log("enteedjquery")
+    setTimeout(() => {
+      // if(this.table3!=null){
+      //   this.table3.destroy();
+      // }
+      $(document).ready(() => {
+        this.table3 = $('#table3').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        });
+      });
+    }, 900);
+   
+  }
+  initializeDataTable4() {
+    console.log("enteedjquery4")
+    setTimeout(() => {
+      if(this.table4!=null){
+        this.table4.destroy();
+      }
+      $(document).ready(() => {
+        this.table4 = $('#table4').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        });
+      });
+    }, 900);
+   
+  }
+  initializeDataTable1() {
+    console.log("enteedjquery")
+    setTimeout(() => {
+      if(this.table4!=null){
+        this.table4.destroy();
+      }
+      $(document).ready(() => {
+        this.table4 = $('#table4').DataTable({
+          paging: true,
+          searching: true,
+          pageLength: 10,
+          stateSave:true,
+          order: [[1, 'desc']],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        });
+      });
+    }, 900);
+   
+  }
+  
 
  async  ngOnInit(): Promise<void> {
     if(localStorage.getItem('jwtToken') === null){
@@ -159,8 +223,8 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
         localStorage.setItem("deptID",this.loggedInUserObject.employee.departmentId.toString())
         this.selectedEmployee = this.loggedInUserObject.email;
         //this.selectedDepartment = this.loggedInUserObject.employee.department.departmentId.toString();
-        this.selectedDepartmentName = this.loggedInUserObject.employee.department.departmentName;
-        this.selectedAttendeeUser = this.loggedInUserObject.email;
+       // this.selectedDepartmentName = this.loggedInUserObject.employee.department.departmentName;
+       // this.selectedAttendeeUser = this.loggedInUserObject.email;
         
         if(this.reportType === 'employee'){
           this.chooseEmployee();
@@ -287,6 +351,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
 }
 
   chooseEmployee(){
+   console.log("called coose employee")
     if(this.organizedmeetingListChart != null){
       this.organizedmeetingListChart.destroy();
     }
@@ -294,7 +359,9 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
   }
 
   chooseDepartment(){
+    console.log("enter choosedepartment")
     if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
+      console.log("entered c")
     if(this.selectedDepartment!=null){
     console.log(this.selectedDepartment)
     if(this.meetingsByDepartmentListChart != null){
@@ -302,17 +369,32 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
       //get department details
       this.getDepartmentById(parseInt(this.selectedDepartment))
     }
+    this.table4.destroy();
+    if(this.table5!=null){
+      this.table5.destroy();
+    }
+
+    this.initializeDataTable5();
     this.getmeetingsByDepartmentReport(parseInt(this.selectedDepartment));
   }else{
+    console.log("called where selected dep is not null")
     this.setChartType('line')
-  }
+    this.table5.destroy();
+    this.initializeDataTable4()
+    }
   }else{
     if(this.meetingsByDepartmentListChart != null){
       this.meetingsByDepartmentListChart.destroy();
       //get department details
       this.getDepartmentById(parseInt(this.selectedDepartment))
     }
-    this.getmeetingsByDepartmentReport(parseInt(this.selectedDepartment));  }
+    this.table4.destroy();
+    if(this.table5!=null){
+      this.table5.destroy();
+    }
+    this.initializeDataTable5();
+    this.getmeetingsByDepartmentReport(parseInt(this.selectedDepartment)); 
+   }
   }
 
   chooseAttendedMeetingUser(){
@@ -331,6 +413,10 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
           setTimeout(() => {
             this.createMeetingsByAttendeeReportChart();
           },400)
+          if(this.table3!=null){
+            this.table3.destroy()
+          }
+          this.initializeDataTable3()
         }
       },error: error => {
         this.navigateToSessionTimeout(error);
@@ -357,11 +443,20 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
           this.organizedMeetingList = response.body;
           this.organizedMeetingListCount = response.body.length;
           setTimeout(() => {
-            this.createMeetingsByOrganizerReportChart();
+            this.createMeetingsByOrganizerReportChart();     
           },400)
+          if(this.table2!=null){
+            this.table2.destroy()
+          }
+          this.initializeDataTable2()
         }
       }
     })
+    // if(this.table2!=null){
+    // this.table2.destroy()
+    // }else{
+    //   this.initializeDataTable2()
+    // }
   }
   meetingsByOrg:any[]
   meetingsByOrgxlabels:any[]
@@ -673,6 +768,8 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
         setTimeout(() => {
           //this.createMeetingsByDepartmentReportChart();
           this.createMeetingsByAllDepartmentReportChart();
+          console.log("jell0")
+          this.initializeDataTable4();
         },400)
       }
     })

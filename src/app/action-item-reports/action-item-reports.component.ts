@@ -116,9 +116,9 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
 
   InitializeDataTable3(){
     setTimeout(() => {
-      if(this.Table3!=null){
-        this.Table3.destroy();
-      }
+      // if(this.Table3!=null){
+      //   this.Table3.destroy();
+      // }
       $(document).ready(() => {
         this.Table3 = $('#table3').DataTable({
           paging: true,
@@ -134,11 +134,11 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
 
   InitializeDataTable2(){
     setTimeout(() => {
-      if(this.Table2!=null){
-        this.Table3.destroy();
-      }
+      // if(this.Table2!=null){
+      //   this.Table2.destroy();
+      // }
       $(document).ready(() => {
-        this.Table3 = $('#table2').DataTable({
+        this.Table2 = $('#table2').DataTable({
           paging: true,
           searching: true,
           pageLength: 10,
@@ -413,6 +413,9 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
       this.actionItemsByPriorityReportChart.destroy();
     }
     this.getActionItemsReportByPriority(this.selectedPriority);
+    if(this.Table3!=null){
+      this.Table3.destroy();
+    }
     this.InitializeDataTable3();
   }
 
@@ -577,6 +580,9 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
       this.actionItemsByOrganizerReportChart.destroy();
     }
     this.getActionItemsReportOfUser(this.selectedUser);
+    if(this.Table2!=null){
+      this.Table2.destroy();
+    }
     this.InitializeDataTable2();
   }
 

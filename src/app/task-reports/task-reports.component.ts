@@ -74,6 +74,14 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
   userRoleMenuItemsPermissionMap: Map<string, string>
   loggedInUserRole = localStorage.getItem('userRole');
 
+  table1: any;
+  table2: any;
+  table3: any;
+  table4: any;
+  table5: any;
+  table6: any;
+  table7: any;
+
   /**
    * 
    * @param reportservice 
@@ -108,40 +116,135 @@ export class TaskReportsComponent implements OnInit,AfterViewInit {
   } //this.InitailizeJqueryDataTable();
      
 }
-Table:any;
-InitailizeJqueryDataTable() {
+
+initailizeDataTable1() {
   console.log("enteedjquery")
   setTimeout(() => {
-    if(this.Table!=null){
-      this.Table.destroy();
+    if(this.table1!=null){
+      this.table1.destroy();
     }
     $(document).ready(() => {
-      this.Table = $('.table').DataTable({
+      this.table1 = $('#table1').DataTable({
         paging: true,
         searching: true,
         pageLength: 10,
         stateSave:true,
         order: [[1, 'desc']],
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
-        // Add other options here as needed
-        columnDefs:[{
-          // Configure date sorting for column 5 (index 4)
-          "targets": [4,5],
-          "type": "date", // Set internal data type for sorting
-          "render": function (data, type, row) {
-            // Create a new JavaScript Date object directly from the provided format
-            const dateObj = new Date(data);
+      });
+    });
+  }, 900);
+}
 
-            // Format the date object for display using the desired format string
-            const formattedDate = dateObj.toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric'
-            });
-    
-            return formattedDate;
-          }
-        }]
+initailizeDataTable2() {
+  console.log("enteedjquery")
+  setTimeout(() => {
+    // if(this.table2!=null){
+    //   this.table2.destroy();
+    // }
+    $(document).ready(() => {
+      this.table2 = $('#table2').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+      });
+    });
+  }, 900);
+}
+
+initailizeDataTable3() {
+  console.log("enteedjquery")
+  setTimeout(() => {
+    // if(this.table3!=null){
+    //   this.table3.destroy();
+    // }
+    $(document).ready(() => {
+      this.table3 = $('#table3').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+      });
+    });
+  }, 900);
+}
+
+initailizeDataTable4() {
+  console.log("enteedjquery")
+  setTimeout(() => {
+    // if(this.table4!=null){
+    //   this.table4.destroy();
+    // }
+    $(document).ready(() => {
+      this.table4 = $('#table4').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+      });
+    });
+  }, 900);
+}
+
+initailizeDataTable5() {
+  console.log("enteedjquery")
+  setTimeout(() => {
+    // if(this.table5!=null){
+    //   this.table5.destroy();
+    // }
+    $(document).ready(() => {
+      this.table5 = $('#table5').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+      });
+    });
+  }, 900);
+}
+
+initailizeDataTable6() {
+  console.log("enteedjquery")
+  setTimeout(() => {
+    if(this.table6!=null){
+      this.table6.destroy();
+    }
+    $(document).ready(() => {
+      this.table6 = $('#table6').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+      });
+    });
+  }, 900);
+}
+
+initailizeDataTable7() {
+  console.log("enteedjquery")
+  setTimeout(() => {
+    if(this.table7!=null){
+      this.table7.destroy();
+    }
+    $(document).ready(() => {
+      this.table7 = $('#table7').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
       });
     });
   }, 900);
@@ -399,7 +502,9 @@ InitailizeJqueryDataTable() {
       this.taskListByDepartmentChart.destroy();
       setTimeout(() => {
         this.createTaskListAllDepartmentChart();
-      }, 100);    
+      }, 100);   
+      this.table7.destroy();
+      this.initailizeDataTable6(); 
     }
     else{
     if (this.taskListByDepartmentChart != null) {
@@ -407,6 +512,12 @@ InitailizeJqueryDataTable() {
       this.getDepartmentById(parseInt(this.selectedDepartment));
     }
     this.getTasksByDepartment(parseInt(this.selectedDepartment));
+    if(this.table7 != null){
+      this.table7.destroy();
+    }else{
+      this.initailizeDataTable7();
+    }
+    this.table6.destroy();
   }
 }
   taskListByDepartmentData:any[]
@@ -491,6 +602,14 @@ InitailizeJqueryDataTable() {
       next: response => {
         this.taskListByTaskOwner = response.body;
         this.taskListByTaskOwnerCount = response.body.length;
+        if(this.taskListByTaskOwnerCount > 0){
+          if(this.table2!= null){
+            this.table2.destroy();
+          }
+          this.initailizeDataTable2();
+        }else{
+          this.table2.destroy();
+        }
       }
     });
   }
@@ -517,9 +636,15 @@ InitailizeJqueryDataTable() {
         }
       })
     }else{
-      this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+      this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
         next: response => {
-          this.employeeListAsUser = response.body;
+          this.departmentListForTheUser = response.body;
+          this.departmentListForTheUser.filter(deptId=>{
+            this.selectedDepartment=deptId.departmentId;
+            
+          })
+         
+         
         },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout')
@@ -621,6 +746,14 @@ InitailizeJqueryDataTable() {
       next: response => {
         this.taskListByTaskSeverity = response.body;
         this.taskListByTaskSeverityCount = response.body.length;
+        if(this.taskListByTaskSeverityCount > 0){
+          if(this.table3!= null){
+            this.table3.destroy();
+          }
+          this.initailizeDataTable3();
+        }else{
+          this.table3.destroy();
+        }
       }
     })
   }
@@ -717,6 +850,14 @@ InitailizeJqueryDataTable() {
       next: response => {
         this.taskListByTaskStatus = response.body;
         this.taskListByTaskStatusCount = response.body.length;
+        if(this.taskListByTaskStatusCount > 0){
+          if(this.table4 != null){
+            this.table4.destroy();
+          }
+          this.initailizeDataTable4();
+        }else{
+          this.table4.destroy();
+        }
       }
     })
   }
@@ -821,6 +962,14 @@ InitailizeJqueryDataTable() {
       next: response => {
         this.agedTaskList = response.body;
         this.agedTaskListCount = response.body.length;
+        if(this.agedTaskListCount > 0){
+          if(this.table5 != null){
+            this.table5.destroy();
+          }
+          this.initailizeDataTable5();
+        }else{
+          this.table5.destroy();
+        }
         setTimeout(() => {
           this.createAgedTaskListChart();
         }, 300)
@@ -952,6 +1101,11 @@ InitailizeJqueryDataTable() {
       next: response => {
         this.taskList = response.body;
         this.alltasksCount = response.body.length;
+        if(this.alltasksCount > 0){
+          this.initailizeDataTable6();
+        }else{
+          this.table6.destroy();
+        }
       }
     })
   }

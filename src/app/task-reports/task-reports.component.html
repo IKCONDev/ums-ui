@@ -129,7 +129,7 @@
             </div>
         </div>
     <br/>
-    <table class="table table-hover" *ngIf="taskListByDepartmentCount > 0; else noPriMeetings">
+    <table class="table table-hover" id="table1" *ngIf="taskListByDepartmentCount > 0; else noPriMeetings">
         <thead>
             <tr >
                 <th>ID</th>
@@ -279,7 +279,7 @@
             </div>
         </div>
     <br/>
-    <table class="table table-hover" *ngIf="taskListByTaskOwnerCount > 0; else noOrgMeetings">
+    <table class="table table-hover" id="table2" *ngIf="taskListByTaskOwnerCount > 0; else noOrgMeetings">
         <thead>
             <tr >
                 <th>ID</th>
@@ -430,7 +430,7 @@
             </div>
         </div>
     <br/>
-    <table class="table table-hover" *ngIf="taskListByTaskSeverityCount > 0; else noSeverityMeetings">
+    <table class="table table-hover" id="table3" *ngIf="taskListByTaskSeverityCount > 0; else noSeverityMeetings">
         <thead>
             <tr >
                 <th>ID</th>
@@ -599,7 +599,7 @@
                 </div>
             </div>
         <br/>
-        <table class="table table-hover" *ngIf="taskListByTaskStatusCount > 0; else noStatusMeetings">
+        <table class="table table-hover" id="table4" *ngIf="taskListByTaskStatusCount > 0; else noStatusMeetings">
             <thead>
                 <tr >
                     <th>ID</th>
@@ -737,7 +737,7 @@
             </div>
         </div>
     <br/>
-    <table class="table table-hover" *ngIf="agedTaskListCount > 0; else noAgedMeetings">
+    <table class="table table-hover" id="table5" *ngIf="agedTaskListCount > 0; else noAgedMeetings">
         <thead>
             <tr >
                 <th>ID</th>
@@ -900,7 +900,7 @@
             </div>
         </div>
     <br/>
-    <table class="table table-hover" *ngIf="selectedDepartment == null && deptValueCount.length > 0; else noDepTasks">
+    <table class="table table-hover" id="table6" *ngIf="selectedDepartment == null && deptValueCount.length > 0; else noDepTasks">
         <thead>
            <tr>
                <th>ID</th>
@@ -940,7 +940,7 @@
    </ng-template>
 
    <ng-template #noPriMeetings>
-    <table class="table table-hover" *ngIf="selectedDepartment != null && taskListByDepartmentCount > 0; else noTasks">
+    <table class="table table-hover" id="table7" *ngIf="selectedDepartment != null && taskListByDepartmentCount > 0; else noTasks">
         <thead>
             <tr >
                 <th>ID</th>
