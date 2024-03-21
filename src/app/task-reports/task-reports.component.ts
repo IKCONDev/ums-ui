@@ -139,9 +139,9 @@ initailizeDataTable1() {
 initailizeDataTable2() {
   console.log("enteedjquery")
   setTimeout(() => {
-    if(this.table2!=null){
-      this.table2.destroy();
-    }
+    // if(this.table2!=null){
+    //   this.table2.destroy();
+    // }
     $(document).ready(() => {
       this.table2 = $('#table2').DataTable({
         paging: true,
@@ -158,9 +158,9 @@ initailizeDataTable2() {
 initailizeDataTable3() {
   console.log("enteedjquery")
   setTimeout(() => {
-    if(this.table3!=null){
-      this.table3.destroy();
-    }
+    // if(this.table3!=null){
+    //   this.table3.destroy();
+    // }
     $(document).ready(() => {
       this.table3 = $('#table3').DataTable({
         paging: true,
@@ -177,9 +177,9 @@ initailizeDataTable3() {
 initailizeDataTable4() {
   console.log("enteedjquery")
   setTimeout(() => {
-    if(this.table4!=null){
-      this.table4.destroy();
-    }
+    // if(this.table4!=null){
+    //   this.table4.destroy();
+    // }
     $(document).ready(() => {
       this.table4 = $('#table4').DataTable({
         paging: true,
@@ -196,9 +196,9 @@ initailizeDataTable4() {
 initailizeDataTable5() {
   console.log("enteedjquery")
   setTimeout(() => {
-    if(this.table5!=null){
-      this.table5.destroy();
-    }
+    // if(this.table5!=null){
+    //   this.table5.destroy();
+    // }
     $(document).ready(() => {
       this.table5 = $('#table5').DataTable({
         paging: true,
@@ -603,6 +603,9 @@ initailizeDataTable7() {
         this.taskListByTaskOwner = response.body;
         this.taskListByTaskOwnerCount = response.body.length;
         if(this.taskListByTaskOwnerCount > 0){
+          if(this.table2!= null){
+            this.table2.destroy();
+          }
           this.initailizeDataTable2();
         }else{
           this.table2.destroy();
@@ -633,9 +636,15 @@ initailizeDataTable7() {
         }
       })
     }else{
-      this.employeeService.getUserStatusBasedOnDepartmentHead(this.loggedInUser).subscribe({
+      this.departmentService.getDepartmentByDepartmentHead(this.loggedInUser).subscribe({
         next: response => {
-          this.employeeListAsUser = response.body;
+          this.departmentListForTheUser = response.body;
+          this.departmentListForTheUser.filter(deptId=>{
+            this.selectedDepartment=deptId.departmentId;
+            
+          })
+         
+         
         },error: error => {
           if(error.status === HttpStatusCode.Unauthorized){
             this.router.navigateByUrl('/session-timeout')
@@ -738,6 +747,9 @@ initailizeDataTable7() {
         this.taskListByTaskSeverity = response.body;
         this.taskListByTaskSeverityCount = response.body.length;
         if(this.taskListByTaskSeverityCount > 0){
+          if(this.table3!= null){
+            this.table3.destroy();
+          }
           this.initailizeDataTable3();
         }else{
           this.table3.destroy();
@@ -839,6 +851,9 @@ initailizeDataTable7() {
         this.taskListByTaskStatus = response.body;
         this.taskListByTaskStatusCount = response.body.length;
         if(this.taskListByTaskStatusCount > 0){
+          if(this.table4 != null){
+            this.table4.destroy();
+          }
           this.initailizeDataTable4();
         }else{
           this.table4.destroy();
@@ -948,6 +963,9 @@ initailizeDataTable7() {
         this.agedTaskList = response.body;
         this.agedTaskListCount = response.body.length;
         if(this.agedTaskListCount > 0){
+          if(this.table5 != null){
+            this.table5.destroy();
+          }
           this.initailizeDataTable5();
         }else{
           this.table5.destroy();
