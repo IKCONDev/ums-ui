@@ -153,7 +153,7 @@
                         #userEmail="ngModel" style="width: 400px; height: 50px;"[(ngModel)]="addUserObj.email"
                         (change)=" validateUserEmailId()">
                         <option value="">Select User</option>
-                        <option [value]="employee.email" *ngFor="let employee of employeeWithStatus">
+                        <option [value]="employee.email" *ngFor="let employee of employeeWithStatus|orderBy:'email'">
                             {{employee.email}}
                         </option>
                     </select>
