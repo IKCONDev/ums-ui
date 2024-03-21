@@ -106,9 +106,10 @@ export class TaskcategoryReportComponent implements OnInit,AfterViewInit {
     })
   }
   ngAfterViewInit(): void {
-    //this.InitailizeJqueryDataTable();     
+    this.InitailizeJqueryDataTable();     
 }
 Table:any;
+Table2:any;
 InitailizeJqueryDataTable() {
   console.log("enteedjquery")
   setTimeout(() => {
@@ -116,7 +117,7 @@ InitailizeJqueryDataTable() {
       this.Table.destroy();
     }
     $(document).ready(() => {
-      this.Table = $('.table').DataTable({
+      this.Table = $('#table').DataTable({
         paging: true,
         searching: true,
         pageLength: 10,
@@ -142,6 +143,45 @@ InitailizeJqueryDataTable() {
             return formattedDate;
           }
         }]
+      });
+    });
+  }, 900);
+}
+initializeDataTable2() {
+  console.log("enteedjquery2")
+  setTimeout(() => {
+    if(this.Table2!=null){
+      this.Table2.destroy();
+    }
+    $(document).ready(() => {
+      this.Table2 = $('#table2').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        // Add other options here as needed
+      });
+    });
+  }, 900);
+}
+Table3:any
+initializeDataTable3(){
+  console.log("enteedjquery3")
+  setTimeout(() => {
+    if(this.Table3!=null){
+      this.Table3.destroy();
+    }
+    $(document).ready(() => {
+      this.Table3 = $('#table3').DataTable({
+        paging: true,
+        searching: true,
+        pageLength: 10,
+        stateSave:true,
+        order: [[1, 'desc']],
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], // Set the options for the "Show entries" dropdown
+        // Add other options here as needed
       });
     });
   }, 900);
@@ -181,7 +221,9 @@ InitailizeJqueryDataTable() {
       this.taskListByCategoryChart.destroy();
 
     }
-    
+    if(this.Table2!=null){
+      this.Table2.destroy();
+    }
     this.getTaskCategoryId(parseInt(this.selectedTaskCategory))
     this.taskCategoryReportservice.getAllTasksByTaskCategoryId(parseInt(this.selectedTaskCategory)).subscribe({
       next: response => {
@@ -190,7 +232,9 @@ InitailizeJqueryDataTable() {
         setTimeout(() => {
           this.createTaskListByDepartmentChart();
         }, 400)
+        this.initializeDataTable3();
       }
+
     })
   }else{
     this.categoryOfTaskCount = this.alltasksCount;
@@ -233,8 +277,10 @@ InitailizeJqueryDataTable() {
           this.finaltaskCategoryObject.push(taskCategoryObject);
 
         })
-       this.createTaskListAllDepartmentChart();
         this.getAllTaskCategoryNames();
+       this.createTaskListAllDepartmentChart();
+       this.initializeDataTable2();
+        
       }
     })
   }

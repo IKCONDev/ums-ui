@@ -147,7 +147,7 @@
         </div>
         <br />
         <!-- <table class="table table-hover" *ngIf="meetingsByDepartmentListCount > 0; else noDeptMeetings"> -->
-        <table class="table table-hover" *ngIf="selectedTaskCategory == null && finaltaskCategoryObject.length > 0; else noTaskData">
+        <table class="table table-hover" id="table2" *ngIf="selectedTaskCategory == null && finaltaskCategoryObject.length > 0; else noTaskData">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -178,7 +178,7 @@
             <p *ngIf="selectedTaskCategory == null" style="text-align: center;"><b>There are no task for any task Category</b></p>
         </ng-template>
         <ng-template #selectedDropdownData>
-            <table class="table table-hover" *ngIf="selectedTaskCategory != null && categoryOfTaskCount >0; else noData">
+            <table class="table table-hover" id="table3" *ngIf="selectedTaskCategory != null && categoryOfTaskCount >0; else noData">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -350,7 +350,7 @@
             </div>
         </div>
         <br />
-        <table class="table table-hover" *ngIf="categoryOfTaskCount >0; else noData">
+        <table class="table table-hover"id="table" *ngIf="categoryOfTaskCount >0; else noData">
             <thead>
                 <tr>
                     <th>ID</th>
