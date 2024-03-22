@@ -224,7 +224,7 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
         this.selectedEmployee = this.loggedInUserObject.email;
         //this.selectedDepartment = this.loggedInUserObject.employee.department.departmentId.toString();
        // this.selectedDepartmentName = this.loggedInUserObject.employee.department.departmentName;
-       // this.selectedAttendeeUser = this.loggedInUserObject.email;
+        this.selectedAttendeeUser = this.loggedInUserObject.email;
         
         if(this.reportType === 'employee'){
           this.chooseEmployee();
