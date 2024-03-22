@@ -461,7 +461,7 @@
                                                 <div>
                                                     <ng-select [searchable]="true" [clearable]="true" id="addTaskOwner"
                                                         name="taskOwner" (change)="validateTaskOwner()"
-                                                        style="margin-top: 4px;font-size: 15px;" [(ngModel)]="update_Task.taskOwner">
+                                                        style="margin-top: 4px;font-size: 13px;" [(ngModel)]="update_Task.taskOwner">
                                                         <ng-option disabled selected value>Choose</ng-option>
                                                         <ng-option [value]="emailId"
                                                             *ngFor="let emailId of userEmailIdList"> {{emailId}}
@@ -480,7 +480,7 @@
                                             <td style="padding-left: 18px;">
                                                 <span>
                                                     <select id="addTaskCategory" class="form-control form-select"
-                                                        style="width: 314px;font-size: 15px;"
+                                                        style="width: 314px;font-size: 13px;"
                                                         [(ngModel)]="update_Task.taskCategory.taskCategoryId"
                                                         name="taskCategory" #taskCategory="ngModel"
                                                         (change)="validateTaskCategory()">
@@ -496,7 +496,7 @@
                                         <tr>
                                             <td><label for="prority"><b>Priority</b><span id="required">*</span></label>
                                             </td>
-                                            <td><span><select id="addTaskPriority" class="form-control form-select"
+                                            <td><span><select id="addTaskPriority" style="font-size: 13px;" class="form-control form-select"
                                                         [(ngModel)]="update_Task.taskPriority" name="taskPriority"
                                                         #taskPriority="ngModel"
                                                         [class.invalid]="taskPriority.invalid && taskPriority.touched"
@@ -585,7 +585,7 @@
                                         </tr> -->
                                         <tr>
                                             <td><b>Status</b><span id="required">*</span></td>
-                                            <td> <span><select value="Yet To Start" class="form-control form-select"
+                                            <td> <span><select value="Yet To Start" style="font-size: 13px;" class="form-control form-select"
                                                         name="taskStatus" id="addtaskStatus" placeholder="Select" #taskStatus="ngModel"
                                                         [(ngModel)]="update_Task.status" required="true"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
@@ -783,7 +783,7 @@
                                         <tr>
                                             <td><label for="prority"><b>Priority</b></label></td>
                                             <td><span><select id="priority" class="form-control"
-                                                        style="font-size: 15px;" [(ngModel)]="update_Task.taskPriority"
+                                                        style="font-size: 13px;" [(ngModel)]="update_Task.taskPriority"
                                                         name="taskPriority" #taskPriority="ngModel"
                                                         [class.invalid]="taskPriority.invalid && taskPriority.touched"
                                                         (click)="validateTaskPriority()" disabled>
@@ -848,7 +848,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Status</b> <span id="required">*</span></td>
-                                            <td> <span><select value="Yet To Start" class="form-control form-select"
+                                            <td> <span><select value="Yet To Start"style="font-size:13px" class="form-control form-select"
                                                         name="taskStatus" id="taskStatus" [(ngModel)]="update_Task.status"
                                                         required="true" #taskStatus="ngModel"
                                                         [class.invalid]="taskStatus.invalid && taskStatus.touched"
