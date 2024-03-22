@@ -726,31 +726,31 @@
                     </div>
                     <hr>
                     <div class="row" *ngIf="meetingData!=null">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <table class="sendMOMEmail">
                                 <thead>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 150px;"><b>Meeting Title :</b></td>
+                                        <td style="width: 120px;"><b>Meeting Title :</b></td>
                                         <td styel="padding-left: 0px; width :250px;">{{meetingData.subject}}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 150px;"><b>Date & Time :</b></td>
+                                        <td style="width: 120px;"><b>Date & Time :</b></td>
                                         <td style="width: 150px;">{{meetingData. startDateTime+'z'|date:'MMM d, y ; h:mm'}}</td>
                                     </tr>
 
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <table class="sendMOMEmail2">
                                 <thead>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="width: 180px;"><b>Organizer :</b></td>
-                                        <td style="width: 150px;">{{meetingData.organizerName}}</td>
+                                        <td style="width: 100px;"><b>Organizer :</b></td>
+                                        <td style="width: 500px;">{{meetingData.organizerName}}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 100px;"><b>Duration : </b></td>
