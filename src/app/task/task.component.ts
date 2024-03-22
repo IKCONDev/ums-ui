@@ -193,7 +193,10 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.InitailizeJqueryDataTable();
+    setTimeout(() => {
+      this.InitailizeJqueryDataTable();
+    }, 1000);
+    
     // setTimeout(() => {
     //   $(document).ready(() => {
     //     this.table = $('#table').DataTable({
