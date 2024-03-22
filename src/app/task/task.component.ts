@@ -83,7 +83,8 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     modifiedBy: '',
     modifiedByEmailId: '',
     plannedDuration : '',
-    actualDuration : ''
+    actualDuration : '',
+    taskUpdatedFrom: ''
   }
 
   //filter organized task properties
@@ -733,6 +734,9 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param form 
    */
   updateTaskDetails(form: NgForm) {
+    var tabOpened = localStorage.getItem('taskTabOpened');
+    console.log(tabOpened)
+    this.update_Task.taskUpdatedFrom = tabOpened;
     var currentDate = new Date();
     var year = currentDate.getFullYear();
     var month = currentDate.getMonth() + 1;

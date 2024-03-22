@@ -25,4 +25,5 @@ export interface Task{
     modifiedByEmailId: string;
     actualDuration : string;
     plannedDuration : string;
+    taskUpdatedFrom: string;
  }
