@@ -50,6 +50,7 @@
                             <th>Department</th>
                             <th>Designation</th>
                             <th>Status</th>
+                            <th>Batch Process Disabled</th>
                             <!-- <th>Created Date</th>
                             <th>Modified By</th>
                             <th>Created By</th>
@@ -78,6 +79,7 @@
                             <td>{{employee.createdBy | titlecase}}</td>
                             <td>{{employee.modifiedDateTime |date:'MMM d, y, h:mm a'}}</td> -->
                             <!-- <td>{{employee.createdByEmailId}}</td> -->
+                            <td style="padding-left: 60px;">{{employee.batchProcessStatus}}</td>
                             <td>
                                 <button [disabled]="!updatePermission" id="editIcon" data-toggle="modal"
                                     data-target="#updateEmployeeModal"
@@ -178,7 +180,7 @@
                 <label><b>Email</b><span id="required">*</span></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Email"
                     [(ngModel)]="addEmployee.email" id="employeeEmail" name="employeeEmail" #employeeEmail="ngModel"
-                    (keyup)="validateEmployeeEmailId()" />
+                    (keyup)="validateEmployeeEmailId()" (keyup)="validateUserInAzureTeamsDB()"/>
                 <span *ngIf=" employeeEmailIdErrorInfo != ''">
                     <p id="errorMessage">{{ employeeEmailIdErrorInfo}}</p>
                 </span>
@@ -242,14 +244,17 @@
                 <label><b>Microsoft Teams ID</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Teams ID"
                     [(ngModel)]="addEmployee.teamsUserId" id="employeeTeamsId" name="employeeTeamsId"
-                    #employeeTeamsId="ngModel">
+                    #employeeTeamsId="ngModel" readonly>
+                <br/>
                 <!-- <input type="text" class="addEmployeeInput form-control" placeholder="Designation" [(ngModel)]="addEmployee.designation"
                  id="employeeDesgn" name="employeeDesgn" #employeeDesgn="ngModel" (keyup)="validateEmployeeDesignation()"/>
                  <span *ngIf=" employeeDesignationErrorInfo != ''">
                     <p id="errorMessage">{{ employeeDesignationErrorInfo}}</p>
                  </span>
                  <br/>-->
-
+                 <label><b>Enable/Disable Batch Process</b></label> &nbsp;&nbsp;
+                <input (change)="checkTeamsUserIdInAddEmployee()" type="checkbox" id="batchProcessStatus" [(ngModel)]="addEmployee.enableBatchProcessing" style="margin-bottom: 20px;"/>
+                <br/>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -310,7 +315,6 @@
                 <br /><br />
                 <label><b>Email</b>
                 </label>
-
                 <div style="position: relative;">
                     <input type="text" class="addEmployeeInput form-control" placeholder="Email"
                         [(ngModel)]="existingEmployee.email" id="updateEmail" name="updateEmail" required="true"
@@ -398,11 +402,14 @@
                 <option>Inactive</option>
             </select>
                 <br/>
-
                 <label><b>Microsoft Teams ID</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Teams ID"
                     [(ngModel)]="existingEmployee.teamsUserId" id="updateTeamsId" name="updateTeamsId"
                     #updateTeamsId="ngModel">
+                <br/>
+                <label><b>Enable/Disable Batch Process</b></label> &nbsp;&nbsp;
+                <input (change)="checkTeamsUserId()" type="checkbox" id="batchProcessStatusUpdate" [(ngModel)]="existingEmployee.enableBatchProcessing"/>
+                <br/>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">

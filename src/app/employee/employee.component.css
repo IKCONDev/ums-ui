@@ -289,3 +289,8 @@ table.dataTable tbody th, table.dataTable tbody td {
 :host ::ng-deep .ng-select .ng-select-container {
   height: 48.5px !important;
 }
+
+/* scroll bar horizontal */
+.row.d-flex{
+  overflow: overlay;
+}

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Employee } from "src/app/model/Employee.model";
+import { TeamsUserProfile } from "src/app/model/TeamsUserProfile";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -156,8 +157,19 @@ export class EmployeeService {
         });
         
     }
+
     getUserStatusBasedOnDepartmentHead(emailId:string){
         return this.http.get<Employee[]>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/employee-head/${emailId}`, {
+            observe: 'response', headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+            )
+        });
+        
+    }
+
+    getTeamsUserProfile(emailId:string){
+        return this.http.get<TeamsUserProfile>(`${this.gatewayMicroservicePathUrl}/${this.employeeMicroservicepathUrl}/teamsProfile/${emailId}`, {
             observe: 'response', headers: new HttpHeaders({
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             }
