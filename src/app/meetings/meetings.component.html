@@ -127,7 +127,8 @@
                         <td>{{meeting.type}}</td>
                         <td *ngIf="meeting.location != null">{{meeting.location}}</td>
                         <td>{{meeting.originalStartTimeZone}}</td>
-                        <td style="padding-left: 28px;">{{meeting.attendees.length}}</td>
+                        <td style="padding-left: 28px;   text-decoration: underline; color: rgb(74, 74, 167); cursor: pointer;" data-toggle="modal"
+                        data-target="#attendeeModal" id="currenttd{{meeting.meetingId}}" (click)="myFunction(meeting)"><a>{{meeting.attendees.length}}</a></td>
                         <td>{{meeting.actualMeetingDuration}}</td>
                         <td style="padding-left: 22px;">
 
@@ -1101,5 +1102,57 @@
             <animate attributeName="opacity" attributeType="XML" values="0.4;1.4;0.4" dur="1.5s"
                 repeatCount="indefinite" />
         </svg>
+    </div>
+</div>
+
+ <!-- Meeting Attendee modal-->
+ <div>
+    <div class="modal" id="attendeeModal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="margin: 10px;">
+                <!--Modal Header-->
+                <div class="modal-header" style="background-color: #134E69D9; padding-left: 11px; color: #ffffff">
+                    <h4 class="modal-title" style="text-align: center;">Meeting Attendees</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="clearData()">
+                        <!-- <span aria-hidden="true" style="color:white; text-decoration: none; padding: 5px; padding-top: 0px;"
+                            (click)="clearErrorMessages(form)">&times;</span> -->
+                        &times;
+                    </button>
+                </div>
+                <br>
+                <!-- modal body/form -->
+                <form #form="ngForm" id="formId" method="POST">
+                    <div class="modal-body"
+                        style="height: 400px ;overflow-y: scroll;padding-left: 0px;padding-top: 0px;">
+                        <table class="table table-hover">
+                            <thead>
+                             <th id="thead">Email ID</th>
+                             <th id="thead">Name</th>
+                             <th id="thead">Attendee Type</th>
+                             <th id="thead">Response</th>
+                            
+                            </thead>
+                                
+                            <tbody>
+                                <tr *ngFor = "let data of attendeeListCopy">
+                                    <td style="padding-left: 10px;">{{data.email}}</td>
+                                    <td style="padding-left: 10;">{{data.employeeName}}</td>
+                                    <td style="padding-left: 20px;">{{data.type}}</td>
+                                    <td style="padding-left: 20px;">{{data.status}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                        <br/>
+                        <div class="modal-footer">
+                        <button type="button" id="closeCreateMeetingModal"
+                            class="btn btn-outline-danger cancelButton" data-dismiss="modal"
+                            (click)="clearData()">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 </div>

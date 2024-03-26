@@ -19,6 +19,7 @@ import { Employee } from '../model/Employee.model';
 import { HeaderService } from '../header/service/header.service';
 import { MenuItem } from '../model/MenuItem.model';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
+import { AttendeeList } from '../model/Attendeelist.model';
 
 
 @Component({
@@ -1877,7 +1878,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
   attendeeEmailList: string[];
   attendeeEmployeeName: Employee[];
   // Define a function to retrieve attendee names by email IDs
-  getAllAttendeeNamesByEmailId(meetingAttendees: any[]) {
+  async getAllAttendeeNamesByEmailId(meetingAttendees: any[]) {
     const attendeeEmailList: string[] = [];
 
     // Extract email addresses from meetingAttendees
@@ -1897,6 +1898,7 @@ export class MeetingsComponent implements OnInit, OnDestroy, AfterViewChecked {
         // Handle error as per your application's requirements
       }
     });
+    return this.attendeeEmployeeName;
   }
 
   isDisabled = false;
@@ -2059,6 +2061,70 @@ setTimeZone(){
   //const formattedTimeZone = this.timeZoneMappings[timeZone] || timeZone;
   this.addMeeting.originalStartTimeZone = timeZone;
   
+}
+attendeeEmployee: Employee[];
+attendedString : string[] =[];
+attendeeList : AttendeeList[]
+attendeeListCopy : AttendeeList[]
+attendeeListCount : number;
+async myFunction(meeting : Meeting) {
+
+  this.attendedString = []
+  this.attendeeList =[]
+  this.attendeeEmployee =[]
+   this.attendeeEmployee = await this.getAllAttendeeNamesByEmailId(meeting.attendees);
+   console.log(this.attendeeEmployee.length)
+   
+  //  this.attendeeEmployee.forEach(employee =>{
+  //   console.log(employee)
+  //     this.attendedString.push(employee.firstName);
+     
+  //  })
+  if(meeting.attendees && Array.isArray(meeting.attendees)){
+   meeting.attendees.forEach((attendee : any)=>{
+      const newAttendee : AttendeeList ={
+          id :attendee.id,
+          type: attendee.type,
+          status: attendee.status,
+          email: attendee.email,
+          employeeName : null
+
+      }
+      this.attendeeList.push(newAttendee);
+
+   });
+  }
+   await this.mapEmployeeNameToAttendee();
+   //console.log("employee object is:"+this.attendeeEmployee.length)
+   this.attendeeListCopy = JSON.parse(JSON.stringify(this.attendeeList));
+   console.log(this.attendeeList)
+   console.log(this.attendeeListCopy)
+
+  
+}
+async mapEmployeeNameToAttendee() : Promise<void>{
+  this.attendeeListCopy = []
+
+  if (this.attendeeEmployee && Array.isArray(this.attendeeEmployee)){
+  this.attendeeList.forEach(attendee =>{
+    this.attendeeEmployee.forEach(employee =>{
+         if(attendee.email === employee.email){
+           attendee.employeeName = employee.firstName+" "+employee.lastName;
+         }
+    })
+    //this.attendeeListCopy.push({ ...attendee });
+  })
+ }
+  
+  // this.attendeeListCount = this.attendeeListCopy.length;
+
+}
+clearData(){
+   this.attendeeListCopy =[]
+   this.attendeeEmployee = [];
+   this.attendeeList = []
+   this.attendeeEmployeeName = []
+
 }
 
 }
