@@ -27,5 +27,7 @@ export class Employee{
     dateOfJoining:Date;
     reportingManagerName: string;
     employeeStatus : string;
+    batchProcessStatus: string;
+    enableBatchProcessing: boolean;
 
 }

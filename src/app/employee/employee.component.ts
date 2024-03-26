@@ -14,6 +14,7 @@ import { count, lastValueFrom } from 'rxjs';
 import { AppMenuItemService } from '../app-menu-item/service/app-menu-item.service';
 import { EmployeeVO } from '../model/EmployeeVO.model';
 import { ChangeDetectorRef } from '@angular/core';
+import { TeamsUserProfile } from '../model/TeamsUserProfile';
 
 @Component({
   selector: 'app-employee',
@@ -49,7 +50,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     createdByEmailId: '',
     modifiedByEmailId: '',
     dateOfJoining: '',
-    employeeStatus : ''
+    employeeStatus : '',
+    batchProcessStatus: '',
+    enableBatchProcessing: false
 
   }
 
@@ -320,7 +323,9 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     createdByEmailId: '',
     modifiedByEmailId: '',
     dateOfJoining: '',
-    employeeStatus : ''
+    employeeStatus : '',
+    batchProcessStatus: '',
+    enableBatchProcessing: true,
   }
 
   /**
@@ -331,6 +336,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.employeeservice.getEmployeeWithDepartment(employeeid).subscribe({
       next: response => {
         this.existingEmployee = response.body;
+        console.log(this.existingEmployee);
       },
       error: error => {
         if (error.status === HttpStatusCode.Unauthorized) {
@@ -1123,15 +1129,62 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
     )
     return this.currentMenuItem;
   }
+
   getPOPUPMessage(){
     console.log("hello")
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
   }
+
   getEmployeeWithUserStatus(){
     this.employeeservice.getAllEmployeeWithUserStatus().subscribe({
       next : response =>{
        this. employeeDataForReporting = response.body;
+      }
+    })
+  }
+
+  checkTeamsUserId(){
+      var checkBox = document.getElementById('batchProcessStatusUpdate') as HTMLInputElement;
+      console.log(checkBox.checked)
+      if(checkBox.checked === true){
+        if(this.existingEmployee.teamsUserId === '' || this.existingEmployee.teamsUserId === null){
+          this.toastr.error("Please provide 'Microsoft Teams ID' to enable batch processing");
+          checkBox.checked = false;
+      }
+    }
+  }
+
+  checkTeamsUserIdInAddEmployee(){
+      var checkBox = document.getElementById('batchProcessStatus') as HTMLInputElement;
+      if(checkBox.checked === true){
+        if(this.addEmployee.email === '' || this.addEmployee.email === null){
+          this.toastr.error('Please enter emailId to enable batch processing')
+          checkBox.checked = false;
+          return;
+        }
+        if(this.addEmployee.teamsUserId === '' || this.addEmployee.teamsUserId === null){
+          this.toastr.error("The provided user doesn't have 'Microsoft Teams ID' to enable batch processing");
+          checkBox.checked = false;
+          return;
+      }
+    }
+  }
+
+  teamsUserProfile = new TeamsUserProfile();
+  validateUserInAzureTeamsDB(){
+    this.employeeservice.getTeamsUserProfile(this.addEmployee.email).subscribe({
+      next: response => {
+        if(response.status === HttpStatusCode.Ok){
+          this.teamsUserProfile = response.body;
+          this.addEmployee.teamsUserId = this.teamsUserProfile.id;
+        }else{
+          this.toastr.error('Error while fetching Microsoft teams ID')
+        }
+      },error: error => {
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.router.navigateByUrl('/session-timeout');
+        }
       }
     })
   }
