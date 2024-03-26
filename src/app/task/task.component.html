@@ -82,6 +82,7 @@
                         <th>Task ID</th>
                         <th style="width: 150px;">Title</th>
                         <th>Assignee</th>
+                        <th>Reviewer</th>
                         <th>Task Category</th>
                         <th>Planned Start Date</th>
                         <th>Planned End Date</th>
@@ -100,6 +101,7 @@
                         <td>{{item.taskId}}</td>
                         <td id="task-subject">{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
+                        <td>{{item.taskReviewer}}</td>
                         <td>{{item.taskCategory.taskCategoryTitle}}</td>
                         <td>{{item.plannedStartDate+''|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{item.plannedEndDate+''|date:'MMM d, y, h:mm a'}}</td>
@@ -152,6 +154,7 @@
                         <th>Title</th>
                         <th>ActionItem</th>
                         <th>Assignee</th>
+                        <th>Reviewer</th>
                         <th>Task Category</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -201,6 +204,7 @@
                         <th>Task ID</th>
                         <th style="width: 150px;">Title</th>
                         <th>Owner</th>
+                        <th>Reviewer</th>
                         <th>Task Category</th>
                         <th>Planned Start Date</th>
                         <th>Planned End Date</th>
@@ -216,6 +220,7 @@
                         <td>{{task.taskId}}</td>
                         <td id="task-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
+                        <td>{{taskReviewer}</td>
                         <td>{{task.taskCategory.taskCategoryTitle}}</td>
                         <td>{{task.plannedStartDate+''|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{task.plannedEndDate+''|date:'MMM d, y, h:mm a'}}</td>
@@ -247,6 +252,7 @@
                         <th>Id</th>
                         <th>Title</th>
                         <th>Owner</th>
+                        <th>Reviewer</th>
                         <th>Task Category</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
@@ -337,7 +343,7 @@
             </div>
             <form #form="ngForm" method="POST">
                 <!-- Modal body -->
-                <div class="modal-body" style="height: 650px;">
+                <div class="modal-body" style="height: 700px;">
                     <div class="row">
                         <div class="col-md-6" style="width: 560px;">
                             <div class="col-md-12"
@@ -429,7 +435,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:430px; height: 580px; background-color: #ecf7fc;margin-top:-115px;margin-left: 11px;">
+                            style=" width:430px; height: 630px; background-color: #ecf7fc;margin-top:-115px;margin-left: 11px;">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="padding-top: 5px;">Details</label>
                             </div>
@@ -473,6 +479,28 @@
                                                             id="error_msg">{{taskOwnerErrorInfo}}</span>
                                                     </div>
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Reviewer</b><span id="required">*</span> </td>
+                                            <!--<td><span><input type="text"
+                                            [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
+                                        </td>-->
+                                            <td style="padding-left: 0px;">
+                                                <span>
+                                                    <ng-select [searchable]="true" [clearable]="true" id="taskReviewer"
+                                                        name="taskReviewer"
+                                                        style="margin-top: 4px;padding-left: 17px;width: 335px;font-size: 14px;"
+                                                        [(ngModel)]="update_Task.taskReviewer">
+                                                        <ng-option disabled selected value>Choose</ng-option>
+                                                        <ng-option [value]="emailId"
+                                                            *ngFor="let emailId of userEmailIdList"> {{emailId}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                    <!-- <span *ngIf="taskReviewerErrorInfo != ''" style="padding-top: 1px;"
+                                                        id="error_msg">{{taskReviewerErrorInfo}}
+                                                    </span> -->
+                                                </span>
                                             </td>
                                         </tr>
                                         <tr>

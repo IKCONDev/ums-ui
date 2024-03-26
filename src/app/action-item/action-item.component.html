@@ -164,6 +164,7 @@
                                         <th id="tablehead" style="width: 170px;">Title</th>
                                         <th id="tablehead" style="width: 170px;">Description</th>
                                         <th id="tablehead">Assignee</th>
+                                        <th id="tablehead">Reviewer</th>
                                         <th id="tablehead">Task Category</th>
                                         <th id="tablehead">Planned Start Date</th>
                                         <th id="tablehead">Planned End Date</th>
@@ -177,6 +178,7 @@
                                             <td class="taskRows" id="actionItem-subject">{{element.taskDescription}}
                                             </td>
                                             <td class="taskRows">{{element.taskOwner}}</td>
+                                            <td class="taskRows">{{element.taskReviewer}}</td>
                                             <td class="taskRows">{{element.taskCategory.taskCategoryTitle}}</td>
                                             <td class="taskRows">{{element.plannedStartDate+''|date:'MMM d, y, h:mm a'}}</td>
                                             <td class="taskRows">{{element.plannedEndDate+''|date:'MMM d, y, h:mm a'}}</td>
@@ -500,7 +502,7 @@
 
                     <div class="row" style="margin: 20px;">
                         <div class="col-md-6">
-                            <div style=" width:530px; height: 250px;margin-top: 18px; background-color: #ecf7fc;">
+                            <div style=" width:530px; height: 320px;margin-top: 18px; background-color: #ecf7fc;">
                                 <div class="col-md-12" style="background-color: #134E69D9; height: 40px;">
                                     <!--<label id="details-label" style="padding: left 5px;padding-top: 5px;">Normal
                                         Text</label>-->
@@ -540,7 +542,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4"
-                            style=" width:430px; height: 420px; background-color: #ecf7fc; margin-top: -115px; margin-left: 11px;">
+                            style=" width:430px; height: 460px; background-color: #ecf7fc; margin-top: -115px; margin-left: 11px;">
                             <div class="row" style="background-color: #134E69D9;height: 40px;">
                                 <label id="details-label" style="margin: 5px;">Details</label>
                             </div>
@@ -566,6 +568,28 @@
                                                     </ng-select>
                                                     <span *ngIf="taskOwnerErrorInfo != ''" style="padding-top: 1px;"
                                                         id="error_msg">{{taskOwnerErrorInfo}}
+                                                    </span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Reviewer</b><span id="required">*</span> </td>
+                                            <!--<td><span><input type="text"
+                                            [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
+                                        </td>-->
+                                            <td style="padding-left: 0px;">
+                                                <span>
+                                                    <ng-select [searchable]="true" [clearable]="true" id="taskReviewer"
+                                                        name="taskReviewer" (change)="validateTaskReviewer()"
+                                                        style="margin-top: 4px;padding-left: 10px;width: 348px;font-size: 14px;"
+                                                        [(ngModel)]="add_Task.taskReviewer">
+                                                        <ng-option disabled selected value>Choose</ng-option>
+                                                        <ng-option [value]="emailId"
+                                                            *ngFor="let emailId of userEmailIdList"> {{emailId}}
+                                                        </ng-option>
+                                                    </ng-select>
+                                                    <span *ngIf="taskReviewerErrorInfo != ''" style="padding-top: 1px;"
+                                                        id="error_msg">{{taskReviewerErrorInfo}}
                                                     </span>
                                                 </span>
                                             </td>

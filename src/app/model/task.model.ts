@@ -11,6 +11,7 @@ export interface Task{
     plannedStartDate: string;
     plannedEndDate: string;
     taskOwner:string;
+    taskReviewer: string;
     organizer:string;
     status:string;
     actionItemId:number;

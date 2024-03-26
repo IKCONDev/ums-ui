@@ -917,6 +917,7 @@ export class ActionItemComponent implements OnInit {
     plannedEndDate: localStorage.getItem('currentActionItemPlannedEndDate'),
     dueDate: '',
     taskOwner: '',
+    taskReviewer: '',
     organizer: '',
     status: 'Yet to start',
     actionItemId: 0,
@@ -933,7 +934,7 @@ export class ActionItemComponent implements OnInit {
     createdBy: '',
     modifiedBy: '',
     createdByEmailId: '',
-    modifiedByEmailId:''
+    modifiedByEmailId:'',
   }
 
   isTaskTitleValid = false;
@@ -1084,6 +1085,22 @@ export class ActionItemComponent implements OnInit {
     return this.isTaskOwnerValid;
 
   }
+
+  taskReviewerErrorInfo = '';
+  isTaskReviewerValid = false;
+  validateTaskReviewer() {
+    // var taskOwner = event.target.value;
+    if (this.add_Task.taskReviewer == '' || this.add_Task.taskReviewer === null) {
+      this.taskReviewerErrorInfo = 'Task Reviewer is required.';
+      this.isTaskReviewerValid = false;
+    }
+    else {
+      this.taskReviewerErrorInfo = '';
+      this.isTaskReviewerValid = true;
+    }
+    return this.isTaskReviewerValid;
+  }
+
   taskDueDateErrorInfo = '';
   isTaskDueDateValid = false;
   validateTaskDueDate() {
@@ -1112,6 +1129,7 @@ export class ActionItemComponent implements OnInit {
     let isDueDateValid = true;
     let isPriorityValid = true;
     let isCategoryValid = true;
+    let isReviewerValid = true;
 
     if (!this.isTaskTitleValid) {
       var valid = this.validateTaskTitle();
@@ -1128,6 +1146,10 @@ export class ActionItemComponent implements OnInit {
     if (!this.isTaskOwnerValid) {
       var valid = this.validateTaskOwner();
       isOwnerValid = valid;
+    }
+    if (!this.isTaskReviewerValid) {
+      var valid = this.validateTaskReviewer();
+      isReviewerValid = valid;
     }
     if (!this.isTaskCategoryValid) {
       var valid = this.validateTaskCategory();
