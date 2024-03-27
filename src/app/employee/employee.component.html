@@ -405,7 +405,7 @@
                 <label><b>Microsoft Teams ID</b></label>
                 <input type="text" class="addEmployeeInput form-control" placeholder="Teams ID"
                     [(ngModel)]="existingEmployee.teamsUserId" id="updateTeamsId" name="updateTeamsId"
-                    #updateTeamsId="ngModel">
+                    #updateTeamsId="ngModel" readonly>
                 <br/>
                 <label><b>Enable/Disable Batch Process</b></label> &nbsp;&nbsp;
                 <input (change)="checkTeamsUserId()" type="checkbox" id="batchProcessStatusUpdate" [(ngModel)]="existingEmployee.enableBatchProcessing"/>

@@ -28,7 +28,8 @@ export class LoginService {
      * @returns 
      */
     logUserIfValid(user: Object){
-         return this.http.post<HttpHeaders>(`${this.finalHttpUrl}/login`,user,{observe: 'response'});
+       var headers = new HttpHeaders();
+    return this.http.post<HttpHeaders>(`${this.finalHttpUrl}/login`,user,{observe: 'response',headers:headers});
     }
-
+    
 }

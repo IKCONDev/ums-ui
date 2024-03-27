@@ -211,7 +211,10 @@ export class LoginComponent {
    */
   user = {
     email: '',
-    password: ''
+    password: '',
+    loginCity:'',
+    loginState:'',
+    loginCountry:''
   }
 
   loginInfo = {
@@ -255,6 +258,8 @@ export class LoginComponent {
     //if enter button is clicked submit the form
     if (event.key === 'Enter') {
       this.login();
+      //get location
+      
     }
   }
 
@@ -266,6 +271,32 @@ export class LoginComponent {
     setTimeout(()=>{
       this.disableLoginButton=false;
     },2000)
+    //get location
+    var country= '';
+    var city = '';
+    var state = '';
+    await $.ajax({
+      url: "https://geolocation-db.com/jsonp",
+      jsonpCallback: "callback",
+      dataType: "jsonp",
+      success: function(location) {
+        country = location.country_name;
+        state = location.state;
+        city = location.city;
+      }
+    });
+    this.user.loginCity = city;
+    this.user.loginState = state;
+    this.user.loginCountry = country;
+    // if(navigator.geolocation){
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     console.log("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+    //     return;
+    //   });
+    //  } else {
+    //    this.toastr.warning('Please allow location access')
+    //    return;
+    //  }
     if(this.user.email===null||this.user.email===""||this.user.password===null||this.user.password===""){
        if(this.user.email===null&&this.user.password===null || this.user.email===""&&this.user.password===""){
       this.toastr.error("Enter email ID and password");
