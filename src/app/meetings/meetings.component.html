@@ -105,7 +105,7 @@
                         <th id="thead">Timezone</th>
                         <th id="thead">Attendees</th>
                         <th id="thead">Duration</th>
-                        <th id="thead">Preview of meeting</th>
+                        <th id="thead" style="width:100px;">Meeting Details</th>
                         <th id="thead">Transcript</th>
                         <th id="thead">Action Items</th>
                         <th id="thead" style="padding-right: 30px;">MOM</th>
@@ -131,7 +131,7 @@
                         <td style="padding-left: 28px;   text-decoration: underline; color: rgb(74, 74, 167); cursor: pointer;" data-toggle="modal"
                         data-target="#attendeeModal" id="currenttd{{meeting.meetingId}}" (click)="myFunction(meeting)"><a>{{meeting.attendees.length}}</a></td>
                         <td>{{meeting.actualMeetingDuration}}</td>
-                        <td style="text-align: center;">
+                        <td style="padding-left: 30px;">
                             <svg  data-toggle="modal" data-target="#exampleModalLong" (click)="previewMeeting(meeting)" width="18" height="18" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12.819 12.8262H25.385V13.9042H12.819V12.8262ZM12.819 16.6962H25.385V17.7742H12.819V16.6962ZM12.819 20.5662H25.385V21.6442H12.819V20.5662ZM12.819 24.4372H20.464V25.5152H12.819V24.4372Z" fill="#66CCFF"/>
                                 <path d="M26.22 8.89047V5.68047H23.02V2.48047H2.38V23.1205H5.58V26.3205H8.98V29.5205H23.83L29.62 23.7305V8.89047H26.22ZM5.58 5.68047V22.0405H3.46V3.56047H21.94V5.68047H5.58ZM24.15 27.6805V24.0505H27.78L24.15 27.6805ZM28.54 22.9705H23.07V28.4405H10.06V9.96047H28.54V22.9705Z" fill="#66CCFF"/>
