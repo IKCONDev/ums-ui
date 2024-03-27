@@ -1166,15 +1166,18 @@
                              <th id="thead">Email ID</th>
                              <th id="thead">Attendee Type</th>
                              <th id="thead">Response</th>
+                             <th id="thead">Internal/External</th>
                             
                             </thead>
                                 
                             <tbody>
                                 <tr *ngFor = "let data of attendeeListCopy">
-                                    <td style="padding-left: 10;">{{data.employeeName}}</td>
+                                    <td style="padding-left: 10px;" *ngIf ="data.employeeName != null">{{data.employeeName}}</td>
+                                    <td style="padding-left: 10px;" *ngIf ="data.employeeName == null">{{'NA'}}</td>
                                     <td style="padding-left: 10px;">{{data.email}}</td>
                                     <td style="padding-left: 20px; text-transform:capitalize;">{{data.type}}</td>
                                     <td style="padding-left: 20px; text-transform:capitalize;">{{data.status}}</td>
+                                    <td style="padding-left: 20px;">{{data.employeeName == null ?'External':'Internal'}}</td>
                                 </tr>
                             </tbody>
                         </table>
