@@ -32,7 +32,7 @@ export class Meeting{
     originalEndTimeZone: string;
     createdBy: string;
     createdByEmailId: string;
-
+    bodyPreview:string;
 
     /**
      *

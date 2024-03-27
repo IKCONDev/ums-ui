@@ -2074,12 +2074,6 @@ async myFunction(meeting : Meeting) {
   this.attendeeEmployee =[]
    this.attendeeEmployee = await this.getAllAttendeeNamesByEmailId(meeting.attendees);
    console.log(this.attendeeEmployee.length)
-   
-  //  this.attendeeEmployee.forEach(employee =>{
-  //   console.log(employee)
-  //     this.attendedString.push(employee.firstName);
-     
-  //  })
   if(meeting.attendees && Array.isArray(meeting.attendees)){
    meeting.attendees.forEach((attendee : any)=>{
       const newAttendee : AttendeeList ={
@@ -2123,9 +2117,11 @@ clearData(){
    this.attendeeListCopy =[]
    this.attendeeEmployee = [];
    this.attendeeList = []
-   this.attendeeEmployeeName = []
 
 }
-
+preViewOfMeeting:string
+previewMeeting(meeting:Meeting){
+this.preViewOfMeeting=meeting.bodyPreview;
+}
 }
 
