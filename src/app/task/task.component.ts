@@ -68,6 +68,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     organizer: '',
     status: '',
     actionItemId: 0,
+    meetingId:0,
     actionTitle: '',
     emailId: '',
     departmentId: 0,
