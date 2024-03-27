@@ -125,7 +125,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             "orderable":false
            } , {
             // Configure date sorting for column 5 (index 4)
-            "targets": [7,8],
+            "targets": [8,9],
             "type": "date", // Set internal data type for sorting
             "render": function (data, type, row) {
               // Create a new JavaScript Date object directly from the provided format
