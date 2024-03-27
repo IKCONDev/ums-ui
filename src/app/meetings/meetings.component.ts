@@ -2126,6 +2126,9 @@ clearData(){
    this.attendeeEmployeeName = []
 
 }
-
+preViewOfMeeting:string
+previewMeeting(meeting:Meeting){
+this.preViewOfMeeting=meeting.bodyPreview;
+}
 }
 
