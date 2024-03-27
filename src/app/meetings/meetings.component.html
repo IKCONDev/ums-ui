@@ -100,7 +100,7 @@
                         <th id="thead">Organizer</th>
                         <th id="thead">Start Date & Time</th>
                         <th id="thead">End Date & Time</th>
-                        <th id="thead">Type</th>
+                        <th id="thead" style="width: 100px;">Meeting Type</th>
                         <th id="thead">Location</th>
                         <th id="thead">Timezone</th>
                         <th id="thead">Attendees</th>
@@ -125,7 +125,7 @@
                         <td>{{meeting.organizerName}}</td>
                         <td>{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{meeting.endDateTime+'z'| date:'MMM d, y, h:mm a'}}</td>
-                        <td>{{meeting.type}}</td>
+                        <td>{{meeting.type== 'occurrence'?'Recurrence':'Regular'}}</td>
                         <td *ngIf="meeting.location != null">{{meeting.location}}</td>
                         <td>{{meeting.originalStartTimeZone}}</td>
                         <td style="padding-left: 28px;   text-decoration: underline; color: rgb(74, 74, 167); cursor: pointer;" data-toggle="modal"
@@ -448,7 +448,7 @@
                         <th>Meeting ID</th>
                         <th style="width: 200px;">Title</th>
                         <th>Organizer</th>
-                        <th>Type</th>
+                        <th>Meeting Type</th>
                         <th>Start Date & Time</th>
                         <th>End Date & Time</th>
                         <th>Duration</th>
@@ -460,7 +460,7 @@
                         <td style=" padding-left: 30px;">{{meeting.meetingId}}</td>
                         <td id="cell">{{meeting.subject}}</td>
                         <td id="cell">{{meeting.organizerName}}</td>
-                        <td id="cell">{{meeting.type}}</td>
+                        <td id="cell">{{meeting.type == 'occurrence'?'Recurrence':'Regular' }}</td>
                         <!-- <td *ngIf="meeting.type ==='occurrence' || meeting.type =='exception'">{{meetingTypeOccurence}}</td>
                         <td *ngIf="meeting.type == null">{{meetingTypeNormal}}</td> -->
                         <td id="cell">{{meeting.startDateTime+'z'|date:'MMM d, y, h:mm a'}}</td>
@@ -1162,8 +1162,8 @@
                         style="height: 400px ;overflow-y: scroll;padding-left: 0px;padding-top: 0px;">
                         <table class="table table-hover">
                             <thead>
-                             <th id="thead">Email ID</th>
                              <th id="thead">Name</th>
+                             <th id="thead">Email ID</th>
                              <th id="thead">Attendee Type</th>
                              <th id="thead">Response</th>
                             
@@ -1171,10 +1171,10 @@
                                 
                             <tbody>
                                 <tr *ngFor = "let data of attendeeListCopy">
-                                    <td style="padding-left: 10px;">{{data.email}}</td>
                                     <td style="padding-left: 10;">{{data.employeeName}}</td>
-                                    <td style="padding-left: 20px;">{{data.type}}</td>
-                                    <td style="padding-left: 20px;">{{data.status}}</td>
+                                    <td style="padding-left: 10px;">{{data.email}}</td>
+                                    <td style="padding-left: 20px; text-transform:capitalize;">{{data.type}}</td>
+                                    <td style="padding-left: 20px; text-transform:capitalize;">{{data.status}}</td>
                                 </tr>
                             </tbody>
                         </table>
