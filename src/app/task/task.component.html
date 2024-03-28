@@ -812,6 +812,32 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td><b>Reviewer</b></td>
+                                            <!--<td><span><input type="text"
+                                            [(ngModel)]="update_Task.taskOwner" name="taskOwner"></span>
+                                        </td>-->
+                                            <td style="padding-left: 10pxpx;">
+                                                <span>
+                                                    <!-- <ng-select [searchable]="true" [clearable]="true" id="taskReviewer"
+                                                        name="taskReviewer"
+                                                        style="margin-top: 4px;padding-left: 17px;width: 335px;font-size: 14px;"
+                                                        [(ngModel)]="update_Task.taskReviewer">
+                                                        <ng-option disabled selected value>Choose</ng-option>
+                                                        <ng-option [value]="emailId"
+                                                            *ngFor="let emailId of userEmailIdList"> {{emailId}}
+                                                        </ng-option>
+                                                    </ng-select> -->
+                                                    <input type="text" disabled="true" id="taskReviewer"
+                                                    class="form-control" style="width: 312px;"
+                                                    [(ngModel)]="update_Task.taskReviewer"
+                                                    name="taskReviewer" #taskReviewer="ngModel" />
+                                                    <!-- <span *ngIf="taskReviewerErrorInfo != ''" style="padding-top: 1px;"
+                                                        id="error_msg">{{taskReviewerErrorInfo}}
+                                                    </span> -->
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td><b>Category</b></td>
                                             <td style="padding-left: 19px;">
                                                 <span>
