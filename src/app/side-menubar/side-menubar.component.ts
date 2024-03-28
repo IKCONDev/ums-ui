@@ -75,7 +75,7 @@ export class SideMenubarComponent {
         }
       }else{
        // this.noPermissions = true;
-       this.router.navigateByUrl('/unauthorized');
+       //this.router.navigateByUrl('/unauthorized');
       }
   }
 
