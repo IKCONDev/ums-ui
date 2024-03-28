@@ -13,7 +13,7 @@
     </div>
    
 </div>
-<div style="margin-left: 137px;margin-right: 390px;" >
+<div style="margin-left: 137px;margin-right: 390px;" *ngIf="viewPermission === true">
     <div class="accordion" >
         <div *ngFor="let item of items; let i = index" class="accordion-item">
           <div class="accordion-header" style="display: flex;justify-content: space-between;" (click)="toggleAccordion(i)">
