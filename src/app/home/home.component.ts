@@ -190,7 +190,7 @@ export class HomeComponent implements OnInit {
   
   async ngOnInit(): Promise<void> {
     this.isComponentLoading = true;
-    console.log(localStorage.getItem('jwtToken') );
+    //console.log(localStorage.getItem('jwtToken') );
     if (localStorage.getItem('jwtToken') === null) {
       this.router.navigateByUrl('/session-timeout');
     }
@@ -249,7 +249,7 @@ export class HomeComponent implements OnInit {
       } else {
         this.router.navigateByUrl('/unauthorized');
       }
-      console.log(localStorage.getItem('jwtToken'));
+      //console.log(localStorage.getItem('jwtToken'));
     }
 
     
