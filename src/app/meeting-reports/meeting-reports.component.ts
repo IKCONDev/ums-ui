@@ -103,7 +103,6 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
   table4:any;
   table5:any;
   initializeDataTable2() {
-    console.log("enteedjquery2")
     setTimeout(() => {
       // if(this.table2!=null){
       //     this.table2.destroy();
@@ -121,7 +120,6 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
     }, 900);
   }
   initializeDataTable5() {
-    console.log("enteedjquery5")
     setTimeout(() => {
       // if(this.table5!=null){
       //   this.table5.destroy();
@@ -139,7 +137,6 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
     }, 900); 
   }
   initializeDataTable3() {
-    console.log("enteedjquery")
     setTimeout(() => {
       // if(this.table3!=null){
       //   this.table3.destroy();
@@ -158,7 +155,6 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
    
   }
   initializeDataTable4() {
-    console.log("enteedjquery4")
     setTimeout(() => {
       if(this.table4!=null){
         this.table4.destroy();
@@ -177,7 +173,6 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
    
   }
   initializeDataTable1() {
-    console.log("enteedjquery")
     setTimeout(() => {
       if(this.table4!=null){
         this.table4.destroy();
@@ -219,7 +214,6 @@ export class MeetingReportsComponent implements OnInit, AfterViewInit {
     this.headerService.fetchUserProfile(this.loggedInUser).subscribe({
       next: response => {
         this.loggedInUserObject = response.body;
-        console.log(this.loggedInUserObject)
         localStorage.setItem("deptID",this.loggedInUserObject.employee.departmentId.toString())
         this.selectedEmployee = this.loggedInUserObject.email;
         //this.selectedDepartment = this.loggedInUserObject.employee.department.departmentId.toString();

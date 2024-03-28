@@ -1,0 +1,28 @@
+/* accordion.component.css */
+.accordion {
+    width: 100%;
+  
+    
+  }
+  
+  .accordion-item {
+    border-bottom: 1px solid #000;
+    margin-bottom: 10px;
+  }
+  
+  .accordion-header {
+    background-color: #f4f9fd;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .accordion-content {
+    padding: 20px;
+
+  }
+  .accordion-item:first-of-type {
+   border-radius: 0 !important;
+}
+.accordion-item:last-of-type {
+  border-radius: 0 !important;
+}
