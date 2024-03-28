@@ -115,7 +115,7 @@ export class HelpcenterComponent implements OnInit {
     Enter the meeting title, from date, and to date, then click 'Apply' to filter the data accordingly.` },
 
     { question: '7. How to view reports on a weekly or monthly basis?', 
-    answer: `: In the Reports module, users can select weekly or monthly options for all available reports. 
+    answer: `In the Reports module, users can select weekly or monthly options for all available reports. 
     The charts available for visualization in each report will display counts and views accordingly when the weekly/monthly option is selected.` },
 
     { question: '8. How to add designation in UMS application?', 
