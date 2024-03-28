@@ -19,10 +19,10 @@ export class SideMenubarComponent {
   activate='';
   isMenuActive:boolean = false;
   overviewActive:string;
-  settingsViewPermission: string;
+  settingsViewPermission = localStorage.getItem('settingsViewPermission');
 
   constructor(private router: Router, private menuItemService: AppMenuItemService){
-    this.settingsViewPermission = localStorage.getItem('settingsViewPermission');
+   console.log(this.settingsViewPermission) 
   }
 
   userRoleMenuItemsPermissionMap: Map<string, string>;
@@ -53,6 +53,7 @@ export class SideMenubarComponent {
         //get permissions of this component for the user
         var menuItemPermissions = this.userRoleMenuItemsPermissionMap.get(this.currentMenuItem.menuItemId.toString().trim());
         if (menuItemPermissions.includes('View')) {
+          localStorage.setItem('settingsViewPermission','true');
           this.viewPermission = true;
         }else{
           this.viewPermission = false;
