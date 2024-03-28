@@ -4,10 +4,42 @@
 <div>
     <app-header [title]="title"></app-header>
 </div>
-<div style="text-align: center;" *ngIf="viewPermission === true">
-    <p style="padding-top: 250px; font-size: 50px; padding-left: 40px;" >This page is under implementation</p>
+<div style="padding-left: 137px;padding-top: 20px;display: flex;flex-direction: column;" *ngIf="viewPermission === true">
+    <div>
+    <b style="font-size: 48px;font-weight: 550;">FAQ</b>
+    </div>
+    <div style="padding-top: 25px;">
+    
+    </div>
+   
 </div>
-<div class="container-fluid" *ngIf="viewPermission === false">
+<div style="margin-left: 137px;margin-right: 390px;" >
+    <div class="accordion" >
+        <div *ngFor="let item of items; let i = index" class="accordion-item">
+          <div class="accordion-header" style="display: flex;justify-content: space-between;" (click)="toggleAccordion(i)">
+            <div>
+            {{ item.question }}
+             </div>
+            <div>
+           
+             <!-- <div >
+                <svg xmlns="http://www.w3.org/2000/svg"
+                 width="32" height="32" viewBox="0 0 512 512" id="up-arrow"><path d="M128 320l128-128 128 128z"></path></svg>
+              </div> -->
+               <svg xmlns="http://www.w3.org/2000/svg" width="38"
+             height="38" id="dropdown">
+             <path d="m14 20 10 10 10-10z"></path><path fill="none" d="M0 0h48v48H0z"></path></svg>
+             </div>
+          </div>
+          
+          <div class="accordion-content" [hidden]="activeIndex !== i">
+            {{ item.answer }}
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 30px;">&nbsp;&nbsp;</div>
+  </div>
+  <div class="container-fluid" *ngIf="viewPermission === false">
     <app-no-permission></app-no-permission>
 </div>
 <!-- <div class="container-fluid" *ngIf="noPermissions===true">
