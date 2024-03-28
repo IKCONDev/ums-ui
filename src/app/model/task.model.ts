@@ -15,6 +15,7 @@ export interface Task{
     organizer:string;
     status:string;
     actionItemId:number;
+    meetingId: number;
     actionTitle:string;
     emailId:string;
     departmentId: number;

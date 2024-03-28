@@ -80,6 +80,8 @@
                                 (change)="checkSubCheckBoxes()">
                         </th>
                         <th>Task ID</th>
+                        <th>Action Item ID</th>
+                        <th>Meeting ID</th>
                         <th style="width: 150px;">Title</th>
                         <th>Assignee</th>
                         <th>Reviewer</th>
@@ -99,6 +101,8 @@
                         </td>
                         <!--- <td>{{item.taskId}}</td>-->
                         <td>{{item.taskId}}</td>
+                        <td style="padding-left: 40px;">{{item.actionItemId}}</td>
+                        <td style="padding-left: 30px;">{{item.meetingId}}</td>
                         <td id="task-subject">{{item.taskTitle}}</td>
                         <td>{{item.taskOwner}}</td>
                         <td>{{item.taskReviewer}}</td>
@@ -150,7 +154,8 @@
                 <table class="table table-hover">
                     <thead style="background-color: #ecf7fc; padding-top:0px;">
                         <th style="padding-left: 22px;"><input type="checkbox" class="box" style="margin: 0px;"></th>
-                        <th>UID</th>
+                        <th>Task ID</th>
+                        <th>Action Item ID</th>
                         <th>Title</th>
                         <th>ActionItem</th>
                         <th>Assignee</th>
@@ -202,8 +207,10 @@
                 <thead id="thead" style="background-color: #ecf7fc; padding-top: 0px;">
                     <tr>
                         <th>Task ID</th>
+                        <th>Action Item ID</th>
+                        <th>Meeting ID</th>
                         <th style="width: 150px;">Title</th>
-                        <th>Owner</th>
+                        <th>Assignee</th>
                         <th>Reviewer</th>
                         <th>Task Category</th>
                         <th>Planned Start Date</th>
@@ -218,9 +225,11 @@
                 <tbody *ngIf="isAssignedDataText===false">
                     <tr *ngFor="let task of assignedTasks; let i = index">
                         <td>{{task.taskId}}</td>
+                        <td style="padding-left: 40px;">{{task.actionItemId}}</td>
+                        <td style="padding-left: 30px;">{{task.meetingId}}</td>
                         <td id="task-subject">{{task.taskTitle}}</td>
                         <td>{{task.taskOwner}}</td>
-                        <td>{{taskReviewer}</td>
+                        <td>{{task.taskReviewer}}</td>
                         <td>{{task.taskCategory.taskCategoryTitle}}</td>
                         <td>{{task.plannedStartDate+''|date:'MMM d, y, h:mm a'}}</td>
                         <td>{{task.plannedEndDate+''|date:'MMM d, y, h:mm a'}}</td>
@@ -249,13 +258,19 @@
             <ng-template #noAssignedTasks>
                 <table class="table table-hover">
                     <thead id="thead">
-                        <th>Id</th>
+                        <th>Task ID</th>
+                        <th>Action Item ID</th>
+                        <th>Meeting ID</th>
                         <th>Title</th>
-                        <th>Owner</th>
+                        <th>Assignee</th>
                         <th>Reviewer</th>
                         <th>Task Category</th>
-                        <th>Start Date & Time</th>
-                        <th>End Date & Time</th>
+                        <th>Planned Start Date</th>
+                        <th>Planned End Date</th>
+                        <th>Actual Start Date</th>
+                        <th>Actual End Date</th>
+                        <th>Priority</th>
+                        <th>Status</th>
                     </thead>
                 </table>
                 <p id="no-meetings" *ngIf="displayText===false">No Tasks Assigned Yet!</p>

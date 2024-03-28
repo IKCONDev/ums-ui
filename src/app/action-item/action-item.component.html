@@ -152,7 +152,7 @@
                                 </svg>
                             </span>
                         </td>-->
-                        <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId)"
+                        <td><a class="showmore" (click)="ViewTaskDetails(actionItem.actionItemId,actionItem.meetingId)"
                                 (click)="getCurrentActionItemDetails(actionItem)">Show Tasks</a></td>
                     </tr>
                     <tr class="detail">
@@ -161,6 +161,8 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <th id="tablehead">Task ID</th>
+                                        <th id="tablehead">Action Item ID</th>
+                                        <th id="tablehead">Meeting ID</th>
                                         <th id="tablehead" style="width: 170px;">Title</th>
                                         <th id="tablehead" style="width: 170px;">Description</th>
                                         <th id="tablehead">Assignee</th>
@@ -174,6 +176,8 @@
                                     <tbody *ngFor="let element of task_array">
                                         <tr *ngIf="actionItem.actionItemId == element.actionItemId">
                                             <td class="taskRows">{{element.taskId}}</td>
+                                            <td class="taskRows">{{element.actionItemId}}</td>
+                                            <td class="taskRows">{{element.meetingId}}</td>
                                             <td class="taskRows" id="actionItem-subject">{{element.taskTitle}}</td>
                                             <td class="taskRows" id="actionItem-subject">{{element.taskDescription}}
                                             </td>
@@ -190,12 +194,15 @@
 
                                         <tr style="background-color: white;">
                                             <td></td>
+                                            <td></td>
                                             <td style="text-align: center;" colspan="7">
                                                 <button id="addTask" [style.color]="buttoncolor"
                                                     [disabled]="createPermission === false" data-toggle="modal"
                                                     data-target="#xlModal" style="cursor: pointer;padding-left: 50px;"
                                                     (click)="getActiveUMSUsersEmailIdList()">Add Task</button>
                                             </td>
+                                            <td></td>
+                                            <td></td>
                                             <td></td>
                                         </tr>
                                     </tbody>
@@ -221,11 +228,14 @@
             <ng-template #noMeetings>
                 <table class="table table-hover">
                     <thead id="thead">
-                        <th>Id</th>
+                        <th>Action Item ID</th>
+                        <th>Meeting ID</th>
                         <th>Title</th>
-                        <th>Organizer</th>
-                        <th>StartDate</th>
-                        <th>EndDate</th>
+                        <th>Owner</th>
+                        <th>Planned Start Date</th>
+                        <th>Planned End Date</th>
+                        <th>Priority</th>
+                        <th>Status</th>
                     </thead>
                 </table>
 

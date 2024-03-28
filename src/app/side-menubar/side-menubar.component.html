@@ -85,7 +85,7 @@
       </li>
     </ul>
     <ul class="nav nav-pills flex-column mt-7" style="margin-top: 50px;">
-      <li class="nav-item" id="Settings">
+      <li *ngIf="settingsViewPermission === 'true'" class="nav-item" id="Settings">
         <a class="nav-link" [ngClass]="{'active-link':isActive('/settings')}" routerLink="/settings">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

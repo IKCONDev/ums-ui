@@ -68,6 +68,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
     organizer: '',
     status: '',
     actionItemId: 0,
+    meetingId:0,
     actionTitle: '',
     emailId: '',
     departmentId: 0,
@@ -124,7 +125,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             "orderable":false
            } , {
             // Configure date sorting for column 5 (index 4)
-            "targets": [6,7],
+            "targets": [8,9],
             "type": "date", // Set internal data type for sorting
             "render": function (data, type, row) {
               // Create a new JavaScript Date object directly from the provided format
@@ -163,7 +164,7 @@ export class TaskComponent implements OnInit, OnDestroy, AfterViewInit {
             "orderable":false
           }, {
             // Configure date sorting for column 5 (index 4)
-            "targets": [5,6],
+            "targets": [7,8,9,10],
             "type": "date", // Set internal data type for sorting
             "render": function (data, type, row) {
               // Create a new JavaScript Date object directly from the provided format

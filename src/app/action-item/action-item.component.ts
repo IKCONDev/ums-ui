@@ -43,6 +43,7 @@ export class ActionItemComponent implements OnInit {
   actionItems: ActionItems[];
   userEmailIdList: string[];
   currentActionItemId: number;
+  currentActionMeetingId: number;
   reporteeList: Employee[];
   reporteeCount: number = 0;
   selectedReporteeOrganizedActionItem: string = localStorage.getItem('selectedReporteeOrganizedActionItem');
@@ -413,8 +414,9 @@ export class ActionItemComponent implements OnInit {
   /**
    * 
    */
-  ViewTaskDetails(actionItemId: number) {
+  ViewTaskDetails(actionItemId: number, meetingId: number) {
     this.currentActionItemId = actionItemId;
+    this.currentActionMeetingId =  meetingId;
     this.service.getAlltasks().subscribe({
       next: (response) => {
         this.task_array = response.body;
@@ -921,6 +923,7 @@ export class ActionItemComponent implements OnInit {
     organizer: '',
     status: 'Yet to start',
     actionItemId: 0,
+    meetingId: 0,
     actionTitle: '',
     emailId: '',
     departmentId: 0,
@@ -1170,6 +1173,7 @@ export class ActionItemComponent implements OnInit {
     ) {
       this.add_Task.emailId = this.selectedReporteeOrganizedActionItem != null ? this.selectedReporteeOrganizedActionItem : this.loggedInUser;
       this.add_Task.actionItemId = this.currentActionItemId;
+      this.add_Task.meetingId = this.currentActionMeetingId;
       this.add_Task.departmentId = this.selectedUserdepartmentId;
       this.add_Task.taskCategory.taskCategoryId = this.add_Task.taskCategoryId
       this.add_Task.createdBy = localStorage.getItem('firstName')+' '+localStorage.getItem('lastName');
