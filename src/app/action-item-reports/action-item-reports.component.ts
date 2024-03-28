@@ -59,15 +59,15 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   searchable:boolean=true;
   ngAfterViewInit(): void {
     if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
-    this.getAllDepartments();
-    this.getEmployeeAsUserList();
+    // this.getAllDepartments();
+    // this.getEmployeeAsUserList();
     this.getAllActionItemsCount();
     this.InitailizeJqueryDataTable();
     }else{
       this.clearable=false;
         this.searchable=false;
       //  this.selectedDepartment=localStorage.getItem("deptID")
-        console.log("called choose dep on ng after")
+        // console.log("called choose dep on ng after")
         this.chooseDepartment();
         this.InitailizeJqueryDataTable();
     } 
@@ -78,7 +78,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   Table3: any;
   Table2 : any;
   InitailizeJqueryDataTable() {
-    console.log("enteedjquery")
+    // console.log("enteedjquery")
     setTimeout(() => {
       if(this.Table4!=null){
         this.Table4.destroy();
@@ -181,6 +181,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
                 localStorage.setItem("deptID",this.loggedInUserPrincipalObject.employee.departmentId.toString())
                 this.selectedDepartmentName = this.loggedInUserPrincipalObject.employee.department.departmentName;
                 this.selectedPriority = 'High';
+                // console.log("response is coming from ngonint")
               }
             }
           })
@@ -201,6 +202,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
               this.choosePriority();
             }
             if(this.reportType === 'all'){
+              // console.log("thiss all is called")
                this.getAllDepartmentsCount();
                this.getAllDepartmentNames();
             }
@@ -232,7 +234,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
 
   department: Department;
   getDepartment(){
-    console.log(this.selectedDepartment)
+    // console.log(this.selectedDepartment)
     this.departmentService.getDepartment(parseInt(this.selectedDepartment)).subscribe({
       next: response => {
         if(response.status === HttpStatusCode.Ok){
@@ -260,6 +262,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
 
   employeeListAsUser: Employee[];
   getEmployeeAsUserList(){
+    // console.log("next the get employeeAsUser List is called")
     if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.employeeService.getUserStatusEmployees(true).subscribe({
       next: response => {
@@ -284,6 +287,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
 }
 
   async getAllDepartments(): Promise<void>{
+    // console.log("getAllDepartments"+"is called")
     if(this.loggedInUserRole==="SUPER_ADMIN"||this.loggedInUserRole==="ADMIN"){
     this.deprtmentService.getDepartmentList().subscribe({
       next: response => {
@@ -299,7 +303,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   }else{
     this.departmentService.getDepartmentByDepartmentHead(this.loggedInUserId).subscribe({
       next: response => {
-        console.log(response)
+        // console.log(response)
         this.departmentList = response.body;
         this.selectedDepartment=this.departmentList[0].departmentId.toString();
         this.getDepartment();
@@ -307,7 +311,7 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
           this.actionItemsByDepartmentReportChart.destroy()
         }
         this.getActionItemsReportByDepartment(this.selectedDepartment);
-       console.log( this.departmentList)
+      //  console.log( this.departmentList)
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
           this.router.navigateByUrl('/session-timeout')
@@ -346,20 +350,22 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
       next: response => {
         if(response.status === HttpStatusCode.Ok){
           this.actionItemListByDepartment = response.body;
+          // console.log(response)
           this.actionItemsCountOfDepartment = response.body.length;
+          this.getDepartment();
+          if(this.actionItemsByDepartmentReportChart!=null){
+            this.actionItemsByDepartmentReportChart.destroy()
+          }
+          this.createActionItemsByDepartmentReportChart();
           if(this.actionItemsCountOfDepartment > 0){
             this.InitializeDataTable5();
           }else{
             this.Table5.destroy();
           }
-          console.log(this.actionItemsCountOfDepartment)
-          this.getDepartment();
-          setTimeout(() => {
-            if(this.actionItemsByDepartmentReportChart!=null){
-              this.actionItemsByDepartmentReportChart.destroy()
-            }
-            this.createActionItemsByDepartmentReportChart();
-          },400)
+          // console.log(this.actionItemsCountOfDepartment)
+          
+           
+      
         }
       },error: error => {
         if(error.status === HttpStatusCode.Unauthorized){
@@ -391,11 +397,12 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   }
 
   chooseDepartment(){
+    // console.log("this.chooseDepartment is called "+this.selectedDepartment)
     if(this.actionItemsByDepartmentReportChart != null){
       this.actionItemsByDepartmentReportChart.destroy();
     }
     if(this.selectedDepartment!=null){
-      console.log(this.selectedDepartment)
+      // console.log(this.selectedDepartment+"entere in to te !null")
     this.getActionItemsReportByDepartment(this.selectedDepartment)
     }
     else{
@@ -500,13 +507,14 @@ export class ActionItemsReportsComponent implements OnInit,AfterViewInit {
   actionItemsByDepartmentData:any[];
   actionItemsByDepartmentXLabels:any[];
   createActionItemsByDepartmentReportChart(){
+    // console.log("called ythis for dep chart")
     if(this.type==='line'){
         this.actionItemsByDepartmentData=[0,this.actionItemsCountOfDepartment];
         this.actionItemsByDepartmentXLabels=['','Total Action Items of a department','']
     }else{
-      console.log(this.actionItemsCountOfDepartment)
+      // console.log(this.actionItemsCountOfDepartment)
       this.actionItemsByDepartmentData=[this.actionItemsCountOfDepartment];
-      console.log(this.actionItemsByDepartmentData+" "+"actionitemdepartmentdata")
+      // console.log(this.actionItemsByDepartmentData+" "+"actionitemdepartmentdata")
         this.actionItemsByDepartmentXLabels=['Total Action Items of a department'];
     }
     this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
@@ -722,7 +730,11 @@ deptValueCount : DepartmentCount[] = [];
   
   actionItemsAllDepartmentData:any[];
   actionItemsAllDepartmentXLabels:any[];
+  actionItemsByAllDepartmentReportChart:any;
   createActionItemsAllDepartmentReportChart(){
+    if(this.actionItemsByDepartmentReportChart !=null){
+      this.actionItemsByDepartmentReportChart.destroy()
+    }
     if(this.type==='line'){
       this.actionItemsAllDepartmentData=[0,this.allActionItemsCount,];
       this.actionItemsAllDepartmentXLabels=['','Total Action Items of all departments','']
@@ -730,7 +742,7 @@ deptValueCount : DepartmentCount[] = [];
       this.actionItemsAllDepartmentData=[this.allActionItemsCount];
       this.actionItemsAllDepartmentXLabels=['Total Action Items of all departments']
     }
-    this.actionItemsByDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
+    this.actionItemsByAllDepartmentReportChart = new Chart("actionItemsByDepartmentReportChart", {
       type: this.type,
       data: {// values on X-Axis
         xLabels: this.actionItemsAllDepartmentXLabels,
@@ -800,6 +812,7 @@ deptValueCount : DepartmentCount[] = [];
   type : any = 'line'
   colorOfChartType : any = 'line'
   setChartType(value : any){
+    // console.log("this.setChartType is called")
     this.type = value;
     if(this.reportType == 'department'){
       this.colorOfChartType = value
@@ -807,16 +820,27 @@ deptValueCount : DepartmentCount[] = [];
          this.createActionItemsByDepartmentReportChart()
     }
     else if(this.reportType == 'all' && this.selectedDepartment != null){
-      console.log(this.selectedDepartment)
+      
       this.colorOfChartType = value
          this.actionItemsByDepartmentReportChart.destroy()
          this.createActionItemsByDepartmentReportChart()
     }
     
     else if(this.reportType == 'all' ){
+      // console.log("all is called"+value)
        this.colorOfChartType = value
-       this.actionItemsByDepartmentReportChart.destroy()
-       this.createActionItemsAllDepartmentReportChart() 
+       if(this.actionItemsByAllDepartmentReportChart==null){
+      //   console.log("enter the null part")
+      //  console.log( document.getElementsByTagName("canvas"))
+        this.createActionItemsAllDepartmentReportChart() 
+       }
+       else{
+        // console.log("enter the else part")
+        this.actionItemsByAllDepartmentReportChart.destroy()
+          this.createActionItemsAllDepartmentReportChart()        
+       }
+       
+       
     }
     
     else if(this.reportType == 'priority'){
