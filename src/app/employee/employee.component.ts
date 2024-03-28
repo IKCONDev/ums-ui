@@ -1149,7 +1149,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
       console.log(checkBox.checked)
       if(checkBox.checked === true){
         if(this.existingEmployee.teamsUserId === '' || this.existingEmployee.teamsUserId === null){
-          this.toastr.error("Please provide 'Microsoft Teams ID' to enable batch processing");
+          this.toastr.error("The provided user is not part of organization to enable batch processing");
           checkBox.checked = false;
       }
     }
@@ -1164,7 +1164,7 @@ export class EmployeeComponent implements OnInit, OnDestroy, AfterViewChecked {
           return;
         }
         if(this.addEmployee.teamsUserId === '' || this.addEmployee.teamsUserId === null){
-          this.toastr.error("The provided user doesn't have 'Microsoft Teams ID' to enable batch processing");
+          this.toastr.error("The provided user is not part of organization to enable batch processing");
           checkBox.checked = false;
           return;
       }

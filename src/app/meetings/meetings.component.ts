@@ -1879,25 +1879,21 @@ attendeeEmailList: string[];
 attendeeEmployeeName: Employee[] =[];
   // Define a function to retrieve attendee names by email IDs
 getAllAttendeeNamesByEmailId(meetingAttendees: any[]){
-    console.log("method called")
-    const attendeeEmailList: string[] = [];
+       const attendeeEmailList: string[] = [];
 
     // Extract email addresses from meetingAttendees
     meetingAttendees.forEach(attendee => {
-      console.log("fetched email list")
       attendeeEmailList.push(attendee.email);
     });
-    console.log("Call the service to get employee names based on email IDs") 
+    //Call the service to get employee names based on email IDs
     this.employeeService.getAllEmployeesByAttendeeEmailId(attendeeEmailList).subscribe({
       
       next: (response) => {
         if(response.status == HttpStatusCode.Ok){
           this.attendeeEmployeeName = response.body;
-          console.log(this.attendeeEmployeeName)
         }
   
         // Perform further actions with retrieved attendee names if needed
-        console.log("fetched employee  Object")
       },
       error: (err) => {
         console.error('Error occurred while fetching attendee names:', err);
@@ -2075,7 +2071,6 @@ async getAllEmployeeDetailsWithAttendeeEmailId(meetingAttendees: any[]){
 
     // Extract email addresses from meetingAttendees
     meetingAttendees.forEach(attendee => {
-      console.log("fetched email list")
       attendeeEmailList.push(attendee.email);
     });
    
@@ -2083,7 +2078,6 @@ async getAllEmployeeDetailsWithAttendeeEmailId(meetingAttendees: any[]){
       const response = await   lastValueFrom(this.employeeService.getAllEmployeesByAttendeeEmailId(attendeeEmailList)).then(response =>{
         if (response.status === HttpStatusCode.Ok) {
           this.attendeeEmployeeObject = response.body;
-          console.log(this.attendeeEmployeeObject);
         }
     })
         
@@ -2111,20 +2105,14 @@ async myFunction(meeting : Meeting) {
   
   }
   this.mapEmployeeNameToAttendee();
-   console.log(this.attendeeList)
-   console.log(this.attendeeListCopy)
-
   
 }
  mapEmployeeNameToAttendee(){
-  console.log("the method started")
   console.log(this.attendeeList.length)
   this.attendeeList.forEach(attendee =>{
     this.attendeeEmployeeObject.forEach(employee =>{
          if(attendee.email === employee.email){
-          console.log("current value:")
            attendee.employeeName = employee.firstName+" "+employee.lastName;
-           console.log(attendee.employeeName)
          }
     })
     
